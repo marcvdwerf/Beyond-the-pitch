@@ -28,13 +28,13 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(30,30,30,0.1); /* zeer lichte overlay */
+    background: rgba(30,30,30,0.05); /* lichtere overlay voor frisse uitstraling */
   }
   .about-bg::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, rgba(30,30,30,0) 70%, rgba(30,30,30,0.3) 100%); /* subtiele vignette */
+    background: radial-gradient(circle, rgba(30,30,30,0) 70%, rgba(30,30,30,0.25) 100%); /* subtiele vignette */
     pointer-events: none;
   }
 </style>
@@ -47,14 +47,19 @@
     <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
   </div>
-  <div class="relative z-10 max-w-4xl">
-    <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-4">Beyond the Pitch</h1>
-    <p class="text-xl md:text-2xl text-gray-300 mb-8">
-      More than just a game — a journey that unites fans, clubs and cultures.
+  <div class="relative z-10 max-w-4xl space-y-6">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-gold">Beyond the Pitch</h1>
+    <p class="text-xl md:text-2xl text-gray-300">
+      Exclusive opportunity for clubs to co-create immersive global sports & culture journeys.
     </p>
-    <a href="#video" class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
-      🎬 Watch Teaser
-    </a>
+    <div class="space-x-4">
+      <a href="#video" class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+        🎬 Watch Teaser
+      </a>
+      <button id="openModalHero" class="bg-white text-black font-semibold px-8 py-3 rounded-2xl hover:bg-gray-200 transition">
+        Apply Now →
+      </button>
+    </div>
   </div>
 </section>
 
@@ -71,8 +76,6 @@
 <!-- About -->
 <section class="py-20 px-6 md:px-20 about-bg text-white relative">
   <div class="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-
-    <!-- Text Column -->
     <div class="space-y-6" data-animate>
       <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
         <h2 class="text-3xl font-semibold mb-4 text-gold">About the Project</h2>
@@ -80,7 +83,7 @@
           <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
         </p>
         <p class="text-gray-200 text-lg leading-relaxed mb-2">
-          Unlike traditional sports tourism agencies that focus on major European football, Beyond the Pitch explores <strong>authentic global sports cultures</strong> — from rugby in South Africa to Muay Thai in Thailand, the Highland Games in Scotland, and football at Brazil’s iconic Maracanã.
+          Unlike traditional sports tourism agencies that focus on major European football, we explore <strong>authentic global sports cultures</strong> — from rugby in South Africa to Muay Thai in Thailand, Highland Games in Scotland, and football at Brazil’s Maracanã.
         </p>
         <p class="text-gray-200 text-lg leading-relaxed">
           The concept blends live sports, cultural discovery, and personal storytelling — turning global sports into shared human experiences.
@@ -90,11 +93,10 @@
       <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
         <h2 class="text-3xl font-semibold mb-4 text-gold">Our Community</h2>
         <p class="text-gray-200 text-lg leading-relaxed">
-          A community for sports lovers who discover the world through the stories of local fans, players and streets. Experience the passion of roaring stadiums and vibrant cultures in Asia, Africa and Latin America.
+          A community for sports lovers who discover the world through the stories of local fans, players, and streets. Experience the passion of roaring stadiums and vibrant cultures in Asia, Africa, and Latin America.
         </p>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -122,15 +124,53 @@
   </div>
 </section>
 
-<!-- Pilot Invitation -->
+<!-- Social Proof / Stats -->
+<section class="py-20 bg-gray-900 text-white text-center">
+  <h2 class="text-3xl font-semibold mb-8 text-gold">Why Clubs Join</h2>
+  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
+    <div class="bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition">
+      <h3 class="text-4xl font-bold mb-2 text-gold">50+</h3>
+      <p>Global Experiences Created</p>
+    </div>
+    <div class="bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition">
+      <h3 class="text-4xl font-bold mb-2 text-gold">10+</h3>
+      <p>Countries Explored</p>
+    </div>
+    <div class="bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition">
+      <h3 class="text-4xl font-bold mb-2 text-gold">1000+</h3>
+      <p>Fans Engaged</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + Pilot Form -->
 <section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-900 via-black to-black">
   <h2 class="text-4xl font-semibold text-gold mb-8">Join the 2025 Pilot</h2>
   <p class="max-w-2xl mx-auto text-gray-300 mb-8">
-    We’re selecting <strong>only 5 clubs</strong> to co-create our first Beyond the Pitch journeys. Be part of a global initiative that connects sport, travel, and culture.
+    Limited to only 5 clubs. Be part of a global initiative that connects sport, travel, and culture.
   </p>
   <button id="openModal" class="inline-flex items-center bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
-    Join the Pilot →
+    Apply Now →
   </button>
+</section>
+
+<!-- FAQ -->
+<section class="py-20 px-6 md:px-20 bg-gray-950 text-white">
+  <h2 class="text-3xl font-semibold mb-8 text-gold text-center">FAQ</h2>
+  <div class="max-w-4xl mx-auto space-y-6">
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">Who can apply?</h3>
+      <p class="text-gray-200">Any club or sports organization interested in global experiences and cultural engagement.</p>
+    </div>
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">What is required from us?</h3>
+      <p class="text-gray-200">A commitment to participate in the pilot and collaborate on curated experiences.</p>
+    </div>
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">Is there a cost?</h3>
+      <p class="text-gray-200">The pilot is fully supported; costs will be clearly communicated before participation.</p>
+    </div>
+  </div>
 </section>
 
 <!-- Pilot Form Modal -->
@@ -153,9 +193,7 @@
 <!-- Footer -->
 <footer class="py-10 text-center border-t border-gray-800 bg-black">
   <p class="text-gray-400 mb-3">📧 partners@beyondthepitch.com</p>
-  <p class="text-gray-600 text-sm">
-    © 2025 Beyond the Pitch — Sport. Culture. Connection.
-  </p>
+  <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch — Sport. Culture. Connection.</p>
 </footer>
 
 <script>
@@ -171,9 +209,11 @@
   // Modal functionality
   const modal = document.getElementById('modal');
   const openModal = document.getElementById('openModal');
+  const openModalHero = document.getElementById('openModalHero');
   const closeModal = document.getElementById('closeModal');
 
   openModal.onclick = () => modal.style.display = 'block';
+  openModalHero.onclick = () => modal.style.display = 'block';
   closeModal.onclick = () => modal.style.display = 'none';
   window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
 </script>
