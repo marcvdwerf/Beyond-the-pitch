@@ -17,7 +17,7 @@
   .modal-content { background-color: #1f2937; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 600px; position: relative; }
   .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; font-weight: bold; color: #ffd700; cursor: pointer; }
 
-  /* About-section background */
+  /* About-section background with vignette */
   .about-bg {
     background-image: url('https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
@@ -28,7 +28,16 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(30,30,30,0.7);
+    background: rgba(30,30,30,0.2); /* lichtere overlay */
+    border-radius: 0;
+  }
+  /* Vignette effect using radial gradient overlay */
+  .about-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(30,30,30,0) 60%, rgba(30,30,30,0.6) 100%);
+    pointer-events: none;
   }
 </style>
 </head>
@@ -67,7 +76,7 @@
 
     <!-- Text Column -->
     <div class="space-y-6" data-animate>
-      <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
+      <div class="bg-gray-900 bg-opacity-70 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
         <h2 class="text-3xl font-semibold mb-4 text-gold">About the Project</h2>
         <p class="text-gray-200 text-lg leading-relaxed mb-2">
           <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
@@ -80,18 +89,13 @@
         </p>
       </div>
 
-      <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
+      <div class="bg-gray-900 bg-opacity-70 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
         <h2 class="text-3xl font-semibold mb-4 text-gold">Our Community</h2>
         <p class="text-gray-200 text-lg leading-relaxed">
           A community for sports lovers who discover the world through the stories of local fans, players and streets. Experience the passion of roaring stadiums and vibrant cultures in Asia, Africa and Latin America.
         </p>
       </div>
     </div>
-
-    <!-- Optional image card (bovenop de achtergrond, kan ook verwijderd) -->
-    <!-- <div class="flex justify-center" data-animate>
-      <img src="https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="rounded-3xl shadow-lg object-cover h-96 w-full">
-    </div> -->
 
   </div>
 </section>
