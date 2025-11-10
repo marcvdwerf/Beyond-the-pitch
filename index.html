@@ -48,10 +48,12 @@
 </section>
 
 <!-- About -->
-<section class="py-20 px-6 md:px-20 bg-gray-950 flex justify-center">
-  <div class="bg-gray-800 rounded-3xl p-12 shadow-2xl max-w-6xl flex flex-col md:flex-row items-center hover:shadow-3xl transition duration-500" data-animate>
-    <div class="md:w-1/2 md:pr-10 text-center md:text-left mb-8 md:mb-0">
-      <h2 class="text-3xl font-semibold mb-6 text-gold">About the Project</h2>
+<section class="py-20 px-6 md:px-20 bg-gray-950">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+
+    <!-- Project Text Card -->
+    <div class="bg-gray-800 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition duration-500" data-animate>
+      <h2 class="text-3xl font-semibold mb-4 text-gold">About the Project</h2>
       <p class="text-gray-300 text-lg leading-relaxed mb-4">
         <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
       </p>
@@ -62,9 +64,22 @@
         The concept blends live sports, cultural discovery, and personal storytelling — turning global sports into shared human experiences.
       </p>
     </div>
-    <div class="md:w-1/2">
-      <img src="https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-lg">
+
+    <!-- Community Text Card -->
+    <div class="bg-gray-800 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition duration-500 flex flex-col justify-center" data-animate>
+      <h2 class="text-3xl font-semibold mb-4 text-gold">Our Community</h2>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        A community for sports lovers who discover the world through the stories of local fans, players and streets. Experience the passion of roaring stadiums and vibrant cultures in Asia, Africa and Latin America.
+      </p>
     </div>
+
+    <!-- Image Card (spanning full width under text on mobile) -->
+    <div class="md:col-span-2 mt-8 md:mt-0">
+      <div class="bg-gray-800 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition duration-500" data-animate>
+        <img src="https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full object-cover h-80 md:h-96">
+      </div>
+    </div>
+
   </div>
 </section>
 
