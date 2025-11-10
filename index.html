@@ -1,149 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beyond the Pitch — Sport. Culture. Connection.</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        color: #fff;
-      }
-      .text-gold {
-        color: #ffd700;
-      }
-      .bg-gold {
-        background-color: #ffd700;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond the Pitch — Sport. Culture. Connection.</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .text-gold { color: #ffd700; }
+    .bg-gold { background-color: #ffd700; }
+    /* Subtiele fade-in scroll animatie */
+    [data-animate] { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    [data-animate].animate { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="antialiased scroll-smooth bg-black">
 
-  <body class="antialiased scroll-smooth">
-    <!-- Hero -->
-    <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6 text-white">
-      <!-- Overlay -->
-      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+<!-- Hero -->
+<section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+  </div>
+  <div class="relative z-10 max-w-4xl">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-4">Beyond the Pitch</h1>
+    <p class="text-xl md:text-2xl text-gray-300 mb-8">
+      More than just a game — a journey that unites fans, clubs and cultures.
+    </p>
+    <a href="#video" class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+      🎬 Watch Teaser
+    </a>
+  </div>
+</section>
 
-      <!-- Achtergrondafbeelding: Voetbalstadion gevuld met fans -->
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+<!-- Video -->
+<section id="video" class="py-16 px-4 text-center relative">
+  <div class="max-w-4xl mx-auto" data-animate>
+    <h2 class="text-3xl font-semibold mb-6 text-gold">A Glimpse Beyond the Stadium</h2>
+    <div class="aspect-w-16 aspect-h-9">
+      <iframe class="w-full h-96 rounded-xl shadow-lg" src="https://www.youtube.com/embed/x0mCI1ks_cc" title="Beyond the Pitch Teaser" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
 
-      <!-- Content -->
-      <div class="relative z-10 max-w-4xl">
-        <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-4">
-          Beyond the Pitch
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-300 mb-8">
-          More than just a game — a journey that unites fans, clubs and cultures.
-        </p>
-        <a
-          href="#video"
-          class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition"
-        >
-          🎬 Watch Teaser
-        </a>
-      </div>
-    </section>
-
-    <!-- Video Section -->
-    <section id="video" class="py-16 px-4 bg-black text-center">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-semibold mb-6 text-gold">
-          A Glimpse Beyond the Stadium
-        </h2>
-        <div class="aspect-w-16 aspect-h-9">
-          <iframe
-            class="w-full h-96 rounded-xl shadow-lg"
-            src="https://www.youtube.com/embed/x0mCI1ks_cc"
-            title="Beyond the Pitch Teaser"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="py-20 px-6 md:px-20 flex justify-center bg-gray-950">
-      <div class="bg-gray-800 rounded-3xl p-12 shadow-2xl max-w-4xl text-center hover:shadow-3xl transition duration-500">
-        <h2 class="text-3xl font-semibold mb-6 text-gold">About the Project</h2>
-        <p class="text-gray-300 text-lg leading-relaxed mb-6">
-          <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
-        </p>
-        <p class="text-gray-300 text-lg leading-relaxed mb-6">
-          Unlike traditional sports tourism agencies that focus on major European football, Beyond the Pitch explores <strong>authentic global sports cultures</strong> — from rugby in South Africa to Muay Thai in Thailand, the Highland Games in Scotland, and football at Brazil’s iconic Maracanã.
-        </p>
-        <p class="text-gray-300 text-lg leading-relaxed">
-          The concept blends live sports, cultural discovery, and personal storytelling — turning global sports into shared human experiences.
-        </p>
-      </div>
-    </section>
-
-    <!-- Experiences -->
-    <section
-      class="py-24 px-6 md:px-16 bg-black text-center"
-    >
-      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-
-        <!-- Card 1 -->
-        <div class="bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-          <h3 class="text-2xl font-bold text-gold mb-4">⚽ Local Match Access</h3>
-          <p class="text-gray-300">
-            Exclusive access to football, rugby, and more — guided by locals for an authentic
-            matchday experience.
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-          <h3 class="text-2xl font-bold text-gold mb-4">🎭 Sport x Culture Adventures</h3>
-          <p class="text-gray-300">
-            Blend food, music, and training into one unforgettable journey that celebrates
-            local passion.
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
-          <h3 class="text-2xl font-bold text-gold mb-4">🌍 The Full Journey</h3>
-          <p class="text-gray-300">
-            Complete travel packages for small groups — flights, stays, and curated experiences
-            included.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Pilot Invitation -->
-    <section
-      class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-900 via-black to-black"
-    >
-      <h2 class="text-4xl font-semibold text-gold mb-8">Join the 2025 Pilot</h2>
-      <p class="max-w-2xl mx-auto text-gray-300 mb-8">
-        We’re selecting 5 clubs and organizations to co‑create our first Beyond the Pitch
-        journeys. Be part of a global initiative that connects sport, travel and culture.
+<!-- About -->
+<section class="py-20 px-6 md:px-20 bg-gray-950 flex justify-center">
+  <div class="bg-gray-800 rounded-3xl p-12 shadow-2xl max-w-6xl flex flex-col md:flex-row items-center hover:shadow-3xl transition duration-500" data-animate>
+    <!-- Text -->
+    <div class="md:w-1/2 md:pr-10 text-center md:text-left mb-8 md:mb-0">
+      <h2 class="text-3xl font-semibold mb-6 text-gold">About the Project</h2>
+      <p class="text-gray-300 text-lg leading-relaxed mb-4">
+        <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
       </p>
-      <a
-        href="https://forms.gle/your-form-link"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition"
-      >
-        Join the Pilot →
-      </a>
-    </section>
-
-    <!-- Contact -->
-    <footer class="py-10 text-center border-t border-gray-800 bg-black">
-      <p class="text-gray-400 mb-3">📧 partners@beyondthepitch.com</p>
-      <p class="text-gray-600 text-sm">
-        © 2025 Beyond the Pitch — Sport. Culture. Connection.
+      <p class="text-gray-300 text-lg leading-relaxed mb-4">
+        Unlike traditional sports tourism agencies that focus on major European football, Beyond the Pitch explores <strong>authentic global sports cultures</strong> — from rugby in South Africa to Muay Thai in Thailand, the Highland Games in Scotland, and football at Brazil’s iconic Maracanã.
       </p>
-    </footer>
-  </body>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        The concept blends live sports, cultural discovery, and personal storytelling — turning global sports into shared human experiences.
+      </p>
+    </div>
+    <!-- Image / illustration -->
+    <div class="md:w-1/2">
+      <img src="https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-lg">
+    </div>
+  </div>
+</section>
+
+<!-- Experiences -->
+<section class="py-24 px-6 md:px-16 text-center">
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div class="bg-gradient-to-br from-yellow-500 to-yellow-400 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+      <h3 class="text-2xl font-bold text-black mb-4">⚽ Local Match Access</h3>
+      <p class="text-black">
+        Exclusive access to football, rugby, and more — guided by locals for an authentic matchday experience.
+      </p>
+    </div>
+    <div class="bg-gradient-to-br from-blue-600 to-indigo-500 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+      <h3 class="text-2xl font-bold text-gold mb-4">🎭 Sport x Culture Adventures</h3>
+      <p class="text-gray-200">
+        Blend food, music, and training into one unforgettable journey that celebrates local passion.
+      </p>
+    </div>
+    <div class="bg-gradient-to-br from-green-500 to-teal-400 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+      <h3 class="text-2xl font-bold text-black mb-4">🌍 The Full Journey</h3>
+      <p class="text-black">
+        Complete travel packages for small groups — flights, stays, and curated experiences included.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Pilot Invitation -->
+<section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-900 via-black to-black">
+  <h2 class="text-4xl font-semibold text-gold mb-8">Join the 2025 Pilot</h2>
+  <p class="max-w-2xl mx-auto text-gray-300 mb-8">
+    We’re selecting <strong>only 5 clubs</strong> to co-create our first Beyond the Pitch journeys. Be part of a global initiative that connects sport, travel, and culture.
+  </p>
+  <a href="https://forms.gle/your-form-link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+    Join the Pilot →
+  </a>
+</section>
+
+<!-- Footer -->
+<footer class="py-10 text-center border-t border-gray-800 bg-black">
+  <p class="text-gray-400 mb-3">📧 partners@beyondthepitch.com</p>
+  <p class="text-gray-600 text-sm">
+    © 2025 Beyond the Pitch — Sport. Culture. Connection.
+  </p>
+</footer>
+
+<script>
+  // Simple scroll animation
+  const animateElements = document.querySelectorAll('[data-animate]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('animate');
+    });
+  }, { threshold: 0.2 });
+  animateElements.forEach(el => observer.observe(el));
+</script>
+
+</body>
 </html>
