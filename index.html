@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beyond the Pitch — Sport. Culture. Connection.</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .text-gold { color: #ffd700; }
-    .bg-gold { background-color: #ffd700; }
-    [data-animate] { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-    [data-animate].animate { opacity: 1; transform: translateY(0); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond the Pitch — Sport. Culture. Connection.</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .text-gold { color: #ffd700; }
+  .bg-gold { background-color: #ffd700; }
+  [data-animate] { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+  [data-animate].animate { opacity: 1; transform: translateY(0); }
 
-    /* Modal styling */
-    .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
-    .modal-content { background-color: #1f2937; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 600px; position: relative; }
-    .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; font-weight: bold; color: #ffd700; cursor: pointer; }
-  </style>
+  /* Modal styling */
+  .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
+  .modal-content { background-color: #1f2937; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 600px; position: relative; }
+  .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; font-weight: bold; color: #ffd700; cursor: pointer; }
+</style>
 </head>
 <body class="antialiased scroll-smooth bg-black">
 
@@ -49,35 +49,34 @@
 
 <!-- About -->
 <section class="py-20 px-6 md:px-20 bg-gray-950">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
 
-    <!-- Project Text Card -->
-    <div class="bg-gray-800 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition duration-500" data-animate>
-      <h2 class="text-3xl font-semibold mb-4 text-gold">About the Project</h2>
-      <p class="text-gray-300 text-lg leading-relaxed mb-4">
-        <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
-      </p>
-      <p class="text-gray-300 text-lg leading-relaxed mb-4">
-        Unlike traditional sports tourism agencies that focus on major European football, Beyond the Pitch explores <strong>authentic global sports cultures</strong> — from rugby in South Africa to Muay Thai in Thailand, the Highland Games in Scotland, and football at Brazil’s iconic Maracanã.
-      </p>
-      <p class="text-gray-300 text-lg leading-relaxed">
-        The concept blends live sports, cultural discovery, and personal storytelling — turning global sports into shared human experiences.
-      </p>
-    </div>
-
-    <!-- Community Text Card -->
-    <div class="bg-gray-800 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition duration-500 flex flex-col justify-center" data-animate>
-      <h2 class="text-3xl font-semibold mb-4 text-gold">Our Community</h2>
-      <p class="text-gray-300 text-lg leading-relaxed">
-        A community for sports lovers who discover the world through the stories of local fans, players and streets. Experience the passion of roaring stadiums and vibrant cultures in Asia, Africa and Latin America.
-      </p>
-    </div>
-
-    <!-- Image Card (spanning full width under text on mobile) -->
-    <div class="md:col-span-2 mt-8 md:mt-0">
-      <div class="bg-gray-800 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition duration-500" data-animate>
-        <img src="https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full object-cover h-80 md:h-96">
+    <!-- Text Column -->
+    <div class="space-y-6" data-animate>
+      <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
+        <h2 class="text-3xl font-semibold mb-4 text-gold">About the Project</h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-2">
+          <strong>Beyond the Pitch</strong> offers immersive, affordable sports and culture travel experiences to unique destinations worldwide.
+        </p>
+        <p class="text-gray-300 text-lg leading-relaxed mb-2">
+          Unlike traditional sports tourism agencies that focus on major European football, Beyond the Pitch explores <strong>authentic global sports cultures</strong> — from rugby in South Africa to Muay Thai in Thailand, the Highland Games in Scotland, and football at Brazil’s iconic Maracanã.
+        </p>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          The concept blends live sports, cultural discovery, and personal storytelling — turning global sports into shared human experiences.
+        </p>
       </div>
+
+      <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition duration-500">
+        <h2 class="text-3xl font-semibold mb-4 text-gold">Our Community</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          A community for sports lovers who discover the world through the stories of local fans, players and streets. Experience the passion of roaring stadiums and vibrant cultures in Asia, Africa and Latin America.
+        </p>
+      </div>
+    </div>
+
+    <!-- Image Column -->
+    <div class="flex justify-center" data-animate>
+      <img src="https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="rounded-3xl shadow-lg object-cover h-96 w-full">
     </div>
 
   </div>
@@ -85,22 +84,25 @@
 
 <!-- Experiences -->
 <section class="py-24 px-6 md:px-16 text-center">
-  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-    <div class="bg-gradient-to-br from-yellow-500 to-yellow-400 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+    <!-- Card 1 -->
+    <div class="bg-gradient-to-br from-yellow-500 to-yellow-400 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500 h-full flex flex-col justify-between" data-animate>
       <h3 class="text-2xl font-bold text-black mb-4">⚽ Local Match Access</h3>
-      <p class="text-black">
+      <p class="text-black flex-grow">
         Exclusive access to football, rugby, and more — guided by locals for an authentic matchday experience.
       </p>
     </div>
-    <div class="bg-gradient-to-br from-blue-600 to-indigo-500 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+    <!-- Card 2 -->
+    <div class="bg-gradient-to-br from-blue-600 to-indigo-500 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500 h-full flex flex-col justify-between" data-animate>
       <h3 class="text-2xl font-bold text-gold mb-4">🎭 Sport x Culture Adventures</h3>
-      <p class="text-gray-200">
+      <p class="text-gray-200 flex-grow">
         Blend food, music, and training into one unforgettable journey that celebrates local passion.
       </p>
     </div>
-    <div class="bg-gradient-to-br from-green-600 to-green-400 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+    <!-- Card 3 -->
+    <div class="bg-gradient-to-br from-green-600 to-green-400 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500 h-full flex flex-col justify-between" data-animate>
       <h3 class="text-2xl font-bold text-white drop-shadow mb-4">🌍 The Full Journey</h3>
-      <p class="text-white">
+      <p class="text-white flex-grow">
         Complete travel packages for small groups — flights, stays, and curated experiences included.
       </p>
     </div>
