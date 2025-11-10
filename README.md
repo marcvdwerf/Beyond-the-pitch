@@ -1,1 +1,131 @@
 # Beyond-the-pitch
+[doc.indexhtml..txt](https://github.com/user-attachments/files/23452056/doc.indexhtml.txt)
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beyond the Pitch — Sport. Culture. Connection.</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+      }
+      .text-gold {
+        color: #ffd700;
+      }
+      .bg-gold {
+        background-color: #ffd700;
+      }
+    </style>
+  </head>
+
+  <body class="antialiased scroll-smooth">
+    <!-- Hero -->
+    <section
+      class="flex flex-col items-center justify-center text-center min-h-screen px-6 bg-gradient-to-b from-black via-gray-900 to-black"
+    >
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-4">
+        Beyond the Pitch
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mb-8">
+        More than just a game — a journey that unites fans, clubs and cultures.
+      </p>
+      <a
+        href="#video"
+        class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition"
+      >
+        🎬 Watch Teaser
+      </a>
+    </section>
+
+    <!-- Video -->
+    <section id="video" class="py-16 px-4 bg-black text-center">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-6 text-gold">
+          A Glimpse Beyond the Stadium
+        </h2>
+        <!-- Replace with your own YouTube video -->
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe
+            class="w-full h-96 rounded-xl shadow-lg"
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            title="Beyond the Pitch Teaser"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="py-20 px-6 md:px-20 text-center bg-gray-950">
+      <h2 class="text-3xl font-semibold mb-6 text-gold">About the Project</h2>
+      <p class="max-w-3xl mx-auto text-gray-400 text-lg leading-relaxed">
+        Beyond the Pitch creates immersive sport & culture experiences — from the streets of
+        Buenos Aires to the beaches of Cape Town. We connect fans and clubs through authentic
+        travel, storytelling and community.
+      </p>
+    </section>
+
+    <!-- Experiences -->
+    <section
+      class="py-24 px-6 md:px-16 bg-black grid md:grid-cols-3 gap-10 text-center"
+    >
+      <div>
+        <h3 class="text-2xl font-bold text-gold mb-4">⚽ Local Match Access</h3>
+        <p class="text-gray-400">
+          Exclusive access to football, rugby, and more — guided by locals for an authentic
+          matchday experience.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-gold mb-4">🎭 Sport x Culture Adventures</h3>
+        <p class="text-gray-400">
+          Blend food, music, and training into one unforgettable journey that celebrates
+          local passion.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-gold mb-4">🌍 The Full Journey</h3>
+        <p class="text-gray-400">
+          Complete travel packages for small groups — flights, stays, and curated experiences
+          included.
+        </p>
+      </div>
+    </section>
+
+    <!-- Pilot Invitation -->
+    <section
+      class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-900 via-black to-black"
+    >
+      <h2 class="text-4xl font-semibold text-gold mb-8">Join the 2025 Pilot</h2>
+      <p class="max-w-2xl mx-auto text-gray-300 mb-8">
+        We’re selecting 5 clubs and organizations to co-create our first Beyond the Pitch
+        journeys. Be part of a global initiative that connects sport, travel and culture.
+      </p>
+      <a
+        href="https://forms.gle/your-form-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition"
+      >
+        Join the Pilot →
+      </a>
+    </section>
+
+    <!-- Contact -->
+    <footer class="py-10 text-center border-t border-gray-800 bg-black">
+      <p class="text-gray-400 mb-3">📧 partners@beyondthepitch.com</p>
+      <p class="text-gray-600 text-sm">
+        © 2025 Beyond the Pitch — Sport. Culture. Connection.
+      </p>
+    </footer>
+  </body>
+</html>
