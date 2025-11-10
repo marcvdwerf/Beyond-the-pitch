@@ -1,5 +1,3 @@
-# Beyond-the-pitch
-[doc.indexhtml..txt](https://github.com/user-attachments/files/23452056/doc.indexhtml.txt)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,9 +10,8 @@
     />
     <style>
       body {
-        background-color: #000;
-        color: #fff;
         font-family: 'Inter', sans-serif;
+        color: #fff;
       }
       .text-gold {
         color: #ffd700;
@@ -27,34 +24,40 @@
 
   <body class="antialiased scroll-smooth">
     <!-- Hero -->
-    <section
-      class="flex flex-col items-center justify-center text-center min-h-screen px-6 bg-gradient-to-b from-black via-gray-900 to-black"
-    >
-      <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-4">
-        Beyond the Pitch
-      </h1>
-      <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mb-8">
-        More than just a game — a journey that unites fans, clubs and cultures.
-      </p>
-      <a
-        href="#video"
-        class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition"
-      >
-        🎬 Watch Teaser
-      </a>
+    <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6 text-white">
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      <!-- Achtergrondafbeelding: Voetbalstadion -->
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('path/naar/voetbalstadion.jpg');"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 max-w-4xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-4">
+          Beyond the Pitch
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-8">
+          More than just a game — a journey that unites fans, clubs and cultures.
+        </p>
+        <a
+          href="#video"
+          class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition"
+        >
+          🎬 Watch Teaser
+        </a>
+      </div>
     </section>
 
-    <!-- Video -->
+    <!-- Video Section -->
     <section id="video" class="py-16 px-4 bg-black text-center">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6 text-gold">
           A Glimpse Beyond the Stadium
         </h2>
-        <!-- Replace with your own YouTube video -->
         <div class="aspect-w-16 aspect-h-9">
           <iframe
             class="w-full h-96 rounded-xl shadow-lg"
-            src="https://www.youtube.com/embed/VIDEO_ID"
+            src="https://www.youtube.com/embed/x0mCI1ks_cc"
             title="Beyond the Pitch Teaser"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
