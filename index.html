@@ -143,11 +143,9 @@ body { font-family: 'Inter', sans-serif; }
 
 <!-- CTA Section -->
 <section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-100 via-gray-200 to-gray-100 text-gray-900">
-  <h2 class="text-4xl font-semibold text-yellow-700 mb-8">Join the 2025 pilot</h2>
-  <p class="max-w-2xl mx-auto mb-8">
-    Limited to 5 organizations. Be part of a global initiative connecting sport, travel, and culture.
-  </p>
-  <button id="openModal" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+  <h2 class="text-4xl font-semibold text-yellow-700 mb-8">Naadam Festival 2026</h2>
+  <p class="max-w-2xl mx-auto mb-8 text-xl">Once in a lifetime experience.</p>
+  <button id="openModalNaadamBtn" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
     Apply now →
   </button>
 </section>
@@ -256,9 +254,11 @@ body { font-family: 'Inter', sans-serif; }
   // Naadam Modal
   const modalNaadam = document.getElementById('modalNaadam');
   const openModalNaadamBtnTop = document.getElementById('openModalNaadamBtnTop');
+  const openModalNaadamBtn = document.getElementById('openModalNaadamBtn');
   const closeModalNaadam = document.getElementById('closeModalNaadam');
 
   openModalNaadamBtnTop.onclick = () => modalNaadam.style.display = 'flex';
+  openModalNaadamBtn.onclick = () => modalNaadam.style.display = 'flex';
   closeModalNaadam.onclick = () => modalNaadam.style.display = 'none';
 
   window.onclick = function(e){
