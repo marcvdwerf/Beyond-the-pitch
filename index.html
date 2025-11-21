@@ -86,9 +86,7 @@
 
 <div class="pt-28"></div> <!-- Padding to prevent header overlap -->
 
-<!-- 🔔 Original Hero + All Content Remains -->
-
-<!-- Hero -->
+<!-- 🔔 Hero -->
 <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
   <div class="absolute inset-0">
     <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
@@ -144,7 +142,76 @@
   </div>
 </section>
 
-<!-- Experiences, Clubs, CTA, FAQ, Modal, Footer all remain unchanged -->
+<!-- Experiences -->
+<section class="py-24 px-6 md:px-16 text-center bg-gray-100">
+  <h2 class="text-4xl font-semibold mb-12 text-yellow-700">Experiences</h2>
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+    <div class="bg-gradient-to-br from-yellow-500 to-yellow-300 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+      <h3 class="text-2xl font-bold text-black mb-4">Local match access</h3>
+      <p class="text-black">Exclusive access to football, rugby, and more, guided by locals for a true matchday experience.</p>
+    </div>
+    <div class="bg-gradient-to-br from-blue-600 to-indigo-500 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+      <h3 class="text-2xl font-bold text-white mb-4">Sport x culture</h3>
+      <p class="text-gray-200">Blend food, music, and sport into one unforgettable journey celebrating local passion.</p>
+    </div>
+    <div class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
+      <div class="absolute inset-0 bg-gradient-to-br from-green-700 via-emerald-600 to-green-500 opacity-95"></div>
+      <div class="relative p-8 text-white text-shadow">
+        <h3 class="text-2xl font-bold mb-4">The full journey</h3>
+        <p>All-inclusive travel packages for small groups: accommodations, and curated experiences tailored for maximum impact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Clubs Join -->
+<section class="py-20 bg-gray-900 text-white text-center">
+  <h2 class="text-3xl font-semibold mb-8 text-gold">Why clubs join</h2>
+  <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+    <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition" data-animate>
+      <h3 class="text-2xl font-bold mb-2 text-gold">Build a global fanbase</h3>
+      <p>Engage fans worldwide through unique travel and storytelling experiences.</p>
+    </div>
+    <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition" data-animate>
+      <h3 class="text-2xl font-bold mb-2 text-gold">Generate revenue</h3>
+      <p>Create new income through curated journeys mixing sport, travel, and culture.</p>
+    </div>
+    <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition" data-animate>
+      <h3 class="text-2xl font-bold mb-2 text-gold">Celebrate diversity</h3>
+      <p>Highlight local culture, heritage, and inclusion in every experience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-100 via-gray-200 to-gray-100 text-gray-900">
+  <h2 class="text-4xl font-semibold text-yellow-700 mb-8">Join the 2025 pilot</h2>
+  <p class="max-w-2xl mx-auto mb-8">
+    Limited to 5 organizations. Be part of a global initiative connecting sport, travel, and culture.
+  </p>
+  <button id="openModal" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+    Apply now →
+  </button>
+</section>
+
+<!-- FAQ -->
+<section class="py-20 px-6 md:px-20 bg-gray-950 text-white">
+  <h2 class="text-3xl font-semibold mb-8 text-gold text-center">FAQ</h2>
+  <div class="max-w-4xl mx-auto space-y-6">
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">Who can apply?</h3>
+      <p class="text-gray-200">Any club or sports organization seeking global experiences and cultural engagement.</p>
+    </div>
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">What is required?</h3>
+      <p class="text-gray-200">Commitment to storytelling and co-creating fan-centered experiences.</p>
+    </div>
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">Is there a cost?</h3>
+      <p class="text-gray-200">The pilot is fully supported; costs are transparently discussed before participation.</p>
+    </div>
+  </div>
+</section>
 
 <!-- Pilot Form Modal -->
 <div id="modal" class="modal">
@@ -172,7 +239,7 @@
 </footer>
 
 <script>
-  // Animation
+  // Animate elements
   const animateElements = document.querySelectorAll('[data-animate]');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('animate'); });
