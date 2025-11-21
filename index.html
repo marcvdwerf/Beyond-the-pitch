@@ -42,7 +42,6 @@
 
 <!-- ⭐ Header + Pilot Banner -->
 <header class="fixed top-0 left-0 w-full z-50">
-  <!-- Pilot Banner -->
   <div class="w-full bg-black border-b border-yellow-500/40 text-gray-200 text-center py-2 px-4 text-sm md:text-base">
     <span class="font-medium tracking-wide">First pilot partner:</span>
     <span class="text-gold font-semibold">The Naadam Festival — Mongolia</span>
@@ -52,9 +51,9 @@
   </div>
 </header>
 
-<div class="pt-16"></div> <!-- Padding to prevent header overlap -->
+<div class="pt-16"></div>
 
-<!-- 🔔 Hero -->
+<!-- Hero -->
 <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
   <div class="absolute inset-0">
     <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
@@ -66,7 +65,7 @@
       Co-create immersive global sports and culture journeys.
     </p>
     <div>
-      <button id="openModalHero" class="bg-white text-black font-semibold px-8 py-3 rounded-2xl hover:bg-gray-200 transition">
+      <button id="openModalNaadamHero" class="bg-white text-black font-semibold px-8 py-3 rounded-2xl hover:bg-gray-200 transition">
         Apply now →
       </button>
     </div>
@@ -136,7 +135,7 @@
 <section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-100 via-gray-200 to-gray-100 text-gray-900">
   <h2 class="text-4xl font-semibold text-yellow-700 mb-8">Naadam Festival 2026</h2>
   <p class="max-w-2xl mx-auto mb-8">Go on an adventure of a lifetime.</p>
-  <button id="openModalNaadam" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+  <button id="openModalNaadamCTA" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
     Apply now →
   </button>
 </section>
@@ -183,6 +182,25 @@
   </div>
 </div>
 
+<!-- FAQ -->
+<section class="py-20 px-6 md:px-20 bg-gray-950 text-white">
+  <h2 class="text-3xl font-semibold mb-8 text-gold text-center">FAQ</h2>
+  <div class="max-w-4xl mx-auto space-y-6">
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">Who can apply?</h3>
+      <p class="text-gray-200">Any club or sports organization seeking global experiences and cultural engagement.</p>
+    </div>
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">What is required?</h3>
+      <p class="text-gray-200">Commitment to storytelling and co-creating fan-centered experiences.</p>
+    </div>
+    <div class="bg-gray-900 bg-opacity-80 rounded-3xl p-6 shadow-lg">
+      <h3 class="font-semibold mb-2">Is there a cost?</h3>
+      <p class="text-gray-200">The pilot is fully supported; costs are transparently discussed before participation.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer class="py-10 text-center border-t border-gray-800 bg-black">
   <p class="text-gray-400 mb-3">📧 thebeyondthepitch@gmail.com</p>
@@ -197,20 +215,16 @@
   }, { threshold: 0.2 });
   animateElements.forEach(el => observer.observe(el));
 
-  // Hero modal (same as before)
-  const modalHero = document.getElementById('modal');
-  const openModalHero = document.getElementById('openModalHero');
-  const closeModalHero = document.getElementById('closeModal');
-  if(openModalHero) openModalHero.onclick = () => modalHero.style.display = 'block';
-  if(closeModalHero) closeModalHero.onclick = () => modalHero.style.display = 'none';
-  window.onclick = (e) => { if(e.target === modalHero) modalHero.style.display = 'none'; }
-
   // Naadam Festival Modal
   const modalNaadam = document.getElementById('modalNaadam');
-  const openModalNaadam = document.getElementById('openModalNaadam');
+  const openModalNaadamHero = document.getElementById('openModalNaadamHero');
+  const openModalNaadamCTA = document.getElementById('openModalNaadamCTA');
   const closeModalNaadam = document.getElementById('closeModalNaadam');
-  if(openModalNaadam) openModalNaadam.onclick = () => modalNaadam.style.display = 'block';
+  
+  if(openModalNaadamHero) openModalNaadamHero.onclick = () => modalNaadam.style.display = 'block';
+  if(openModalNaadamCTA) openModalNaadamCTA.onclick = () => modalNaadam.style.display = 'block';
   if(closeModalNaadam) closeModalNaadam.onclick = () => modalNaadam.style.display = 'none';
+  
   window.addEventListener('click', (e) => { 
     if(e.target === modalNaadam) modalNaadam.style.display = 'none'; 
   });
