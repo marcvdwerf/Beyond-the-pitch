@@ -40,7 +40,54 @@
 
 <body class="antialiased scroll-smooth bg-black">
 
-<!-- 🔔 Professional Announcement -->
+<!-- ⭐ NEW GOLD-MODERN HEADER -->
+<header class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-70 backdrop-blur border-b border-yellow-500/40">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+
+    <!-- Logo -->
+    <a href="/" class="text-gold font-extrabold text-2xl tracking-wide">
+      Beyond the Pitch
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center space-x-10 text-gray-200 font-medium">
+      <a href="#about" class="hover:text-gold transition">About us</a>
+
+      <!-- Dropdown -->
+      <div class="relative group">
+        <button class="hover:text-gold transition flex items-center">
+          Projects <span class="ml-1">▼</span>
+        </button>
+
+        <div class="absolute hidden group-hover:block bg-gray-900 border border-gray-700 rounded-xl mt-3 w-56 shadow-xl">
+          <a href="/naadam.html" class="block px-4 py-3 hover:bg-gray-800 rounded-xl">
+            Naadam Festival — Mongolia
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="md:hidden text-gold text-3xl">☰</button>
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-gray-800 py-4 px-6 space-y-4 text-gray-200 font-medium">
+    <a href="#about" class="block hover:text-gold">About us</a>
+
+    <details class="text-gray-200">
+      <summary class="cursor-pointer hover:text-gold">Projects</summary>
+      <div class="mt-2 ml-4 space-y-2">
+        <a href="/naadam.html" class="block hover:text-gold">Naadam Festival — Mongolia</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<!-- Prevent Hero Overlay -->
+<div class="pt-24"></div>
+
+<!-- 🔔 Announcement -->
 <div class="w-full bg-black border-b border-yellow-500/40 text-gray-200 text-center py-3 px-4">
   <span class="font-medium tracking-wide">First pilot partner:</span>
   <span class="text-gold font-semibold">The Naadam Festival — Mongolia</span>
@@ -49,12 +96,13 @@
   </span>
 </div>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
   <div class="absolute inset-0">
     <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
   </div>
+
   <div class="relative z-10 max-w-4xl space-y-6">
     <h1 class="text-5xl md:text-6xl font-extrabold text-gold">Beyond the pitch</h1>
     <p class="text-xl md:text-2xl text-gray-300">
@@ -68,7 +116,7 @@
   </div>
 </section>
 
-<!-- Video -->
+<!-- VIDEO -->
 <section id="video" class="py-16 px-4 text-center relative">
   <div class="max-w-4xl mx-auto" data-animate>
     <h2 class="text-3xl font-semibold mb-6 text-gold">A glimpse beyond the stadium</h2>
@@ -78,8 +126,8 @@
   </div>
 </section>
 
-<!-- About -->
-<section class="py-20 px-6 md:px-20 about-bg text-white relative">
+<!-- ABOUT -->
+<section id="about" class="py-20 px-6 md:px-20 about-bg text-white relative">
   <div class="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
     <div class="space-y-6" data-animate>
       <div class="bg-gray-900 bg-opacity-85 rounded-3xl p-8 shadow-lg">
@@ -105,18 +153,21 @@
   </div>
 </section>
 
-<!-- Experiences -->
+<!-- EXPERIENCES -->
 <section class="py-24 px-6 md:px-16 text-center bg-gray-100">
   <h2 class="text-4xl font-semibold mb-12 text-yellow-700">Experiences</h2>
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+
     <div class="bg-gradient-to-br from-yellow-500 to-yellow-300 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
       <h3 class="text-2xl font-bold text-black mb-4">Local match access</h3>
       <p class="text-black">Exclusive access to football, rugby, and more, guided by locals for a true matchday experience.</p>
     </div>
+
     <div class="bg-gradient-to-br from-blue-600 to-indigo-500 rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
       <h3 class="text-2xl font-bold text-white mb-4">Sport x culture</h3>
       <p class="text-gray-200">Blend food, music, and sport into one unforgettable journey celebrating local passion.</p>
     </div>
+
     <div class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:-translate-y-2 transition duration-500" data-animate>
       <div class="absolute inset-0 bg-gradient-to-br from-green-700 via-emerald-600 to-green-500 opacity-95"></div>
       <div class="relative p-8 text-white text-shadow">
@@ -124,25 +175,30 @@
         <p>All-inclusive travel packages for small groups: accommodations, and curated experiences tailored for maximum impact.</p>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- Why Clubs Join -->
+<!-- WHY CLUBS JOIN -->
 <section class="py-20 bg-gray-900 text-white text-center">
   <h2 class="text-3xl font-semibold mb-8 text-gold">Why clubs join</h2>
   <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+
     <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition" data-animate>
       <h3 class="text-2xl font-bold mb-2 text-gold">Build a global fanbase</h3>
       <p>Engage fans worldwide through unique travel and storytelling experiences.</p>
     </div>
+
     <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition" data-animate>
       <h3 class="text-2xl font-bold mb-2 text-gold">Generate revenue</h3>
       <p>Create new income through curated journeys mixing sport, travel, and culture.</p>
     </div>
+
     <div class="bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition" data-animate>
       <h3 class="text-2xl font-bold mb-2 text-gold">Celebrate diversity</h3>
       <p>Highlight local culture, heritage, and inclusion in every experience.</p>
     </div>
+
   </div>
 </section>
 
@@ -152,6 +208,7 @@
   <p class="max-w-2xl mx-auto mb-8">
     Limited to 5 organizations. Be part of a global initiative connecting sport, travel, and culture.
   </p>
+
   <button id="openModal" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
     Apply now →
   </button>
@@ -176,7 +233,7 @@
   </div>
 </section>
 
-<!-- Pilot Form Modal -->
+<!-- Modal -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close-modal" id="closeModal">&times;</span>
@@ -201,13 +258,16 @@
   <p class="text-gray-600 text-sm">© 2025 Beyond the pitch — sport. culture. connection.</p>
 </footer>
 
+<!-- JS -->
 <script>
+  // Animation
   const animateElements = document.querySelectorAll('[data-animate]');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('animate'); });
   }, { threshold: 0.2 });
   animateElements.forEach(el => observer.observe(el));
 
+  // Modal
   const modal = document.getElementById('modal');
   const openModal = document.getElementById('openModal');
   const openModalHero = document.getElementById('openModalHero');
@@ -216,9 +276,12 @@
   openModalHero.onclick = () => modal.style.display = 'block';
   closeModal.onclick = () => modal.style.display = 'none';
   window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
+
+  // Mobile Navigation
+  const btn = document.getElementById("mobileMenuBtn");
+  const menu = document.getElementById("mobileMenu");
+  btn.onclick = () => menu.classList.toggle("hidden");
 </script>
 
 </body>
 </html>
-
-
