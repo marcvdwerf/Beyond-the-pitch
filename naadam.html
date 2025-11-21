@@ -187,13 +187,13 @@
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CTA Hero for Naadam Festival -->
 <section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-100 via-gray-200 to-gray-100 text-gray-900">
-  <h2 class="text-4xl font-semibold text-yellow-700 mb-8">Join the 2025 pilot</h2>
+  <h2 class="text-4xl font-semibold text-yellow-700 mb-4">Naadam Festival 2026</h2>
   <p class="max-w-2xl mx-auto mb-8">
-    Limited to 5 organizations. Be part of a global initiative connecting sport, travel, and culture.
+    Go on an adventure of a lifetime — join us for an unforgettable journey into the heart of Mongolia’s most important celebration.
   </p>
-  <button id="openModal" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+  <button id="openModalNaadam" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
     Apply now →
   </button>
 </section>
@@ -217,22 +217,31 @@
   </div>
 </section>
 
-<!-- Pilot Form Modal -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close-modal" id="closeModal">&times;</span>
-    <h3 class="text-3xl font-semibold text-gold mb-6 text-center">Apply for the 2025 pilot</h3>
-    <p class="text-gray-300 mb-8 text-center">Fill in your details and we’ll get back to you with next steps.</p>
+<!-- Naadam Festival Modal -->
+<div id="modalNaadam" class="modal">
+  <div class="modal-content max-w-3xl">
+    <span class="close-modal" id="closeModalNaadam">&times;</span>
+    <h3 class="text-3xl font-semibold text-gold mb-4 text-center">Beyond the Pitch × Naadam Festival Mongolia</h3>
+    <p class="text-gray-300 mb-6 text-center">
+      Join us for an unforgettable three‑day journey into the heart of Mongolia’s most important celebration: the Naadam Festival.
+    </p>
 
-    <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-6">
-      <input type="text" name="name" placeholder="Full name" required class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
-      <input type="email" name="email" placeholder="Email address" required class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
-      <input type="text" name="club" placeholder="Club / organization" required class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
-      <textarea name="message" placeholder="Message / why do you want to join?" rows="4" class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
-      <input type="hidden" name="_subject" value="New application for Beyond the Pitch 2025 Pilot">
-      <input type="hidden" name="_replyto" value="thebeyondthepitch@gmail.com">
-      <button type="submit" class="w-full bg-gold text-black font-semibold px-8 py-4 rounded-2xl hover:bg-yellow-400 transition">Submit application</button>
-    </form>
+    <h4 class="text-xl font-semibold text-gold mb-2">Program</h4>
+    <ul class="list-disc list-inside text-gray-200 mb-4">
+      <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
+      <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
+      <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
+    </ul>
+
+    <h4 class="text-xl font-semibold text-gold mb-2">About Naadam</h4>
+    <p class="text-gray-200 mb-4">
+      Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It is a living tribute to the country’s nomadic heritage, filled with music, dance, food, and vibrant community spirit.
+    </p>
+
+    <h4 class="text-xl font-semibold text-gold mb-2">Why travel with us</h4>
+    <p class="text-gray-200">
+      Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration.
+    </p>
   </div>
 </div>
 
@@ -250,7 +259,7 @@
   }, { threshold: 0.2 });
   animateElements.forEach(el => observer.observe(el));
 
-  // Modal
+  // Original Modals (Hero Apply)
   const modal = document.getElementById('modal');
   const openModal = document.getElementById('openModal');
   const openModalHero = document.getElementById('openModalHero');
@@ -259,6 +268,14 @@
   if(openModalHero) openModalHero.onclick = () => modal.style.display = 'block';
   if(closeModal) closeModal.onclick = () => modal.style.display = 'none';
   window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
+
+  // Naadam Modal
+  const modalNaadam = document.getElementById('modalNaadam');
+  const openModalNaadam = document.getElementById('openModalNaadam');
+  const closeModalNaadam = document.getElementById('closeModalNaadam');
+  if(openModalNaadam) openModalNaadam.onclick = () => modalNaadam.style.display = 'block';
+  if(closeModalNaadam) closeModalNaadam.onclick = () => modalNaadam.style.display = 'none';
+  window.addEventListener('click', (e) => { if(e.target === modalNaadam) modalNaadam.style.display = 'none'; });
 
   // Mobile Menu
   const btn = document.getElementById("mobileMenuBtn");
