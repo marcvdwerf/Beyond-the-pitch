@@ -15,10 +15,10 @@
 
   /* Modal styling */
   .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
-  .modal-content { background-color: #1f2937; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 600px; position: relative; }
+  .modal-content { background-color: #1f2937; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 700px; position: relative; color: #e5e7eb; }
   .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; font-weight: bold; color: #ffd700; cursor: pointer; }
 
-  /* About-section background */
+  /* Section background */
   .about-bg {
     background-image: url('https://images.unsplash.com/photo-1599058917211-8fbe58d1d0df?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
@@ -172,28 +172,36 @@
   </div>
 </section>
 
-<!-- Naadam Festival Modal -->
+<!-- Naadam Festival Modal (Netjes opgemaakt) -->
 <div id="modalNaadam" class="modal">
   <div class="modal-content max-w-3xl">
     <span class="close-modal" id="closeModalNaadam">&times;</span>
-    <h3 class="text-3xl font-semibold text-gold mb-4 text-center">Beyond the Pitch × Naadam Festival Mongolia</h3>
-    <p class="text-gray-300 mb-6 text-center">
-      Join us for an unforgettable three‑day journey into the heart of Mongolia’s most important celebration: the Naadam Festival.
-    </p>
-    <h4 class="text-xl font-semibold text-gold mb-2">Program</h4>
-    <ul class="list-disc list-inside text-gray-200 mb-4">
-      <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
-      <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
-      <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
-    </ul>
-    <h4 class="text-xl font-semibold text-gold mb-2">About Naadam</h4>
-    <p class="text-gray-200 mb-4">
-      Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery.
-    </p>
-    <h4 class="text-xl font-semibold text-gold mb-2">Why travel with us</h4>
-    <p class="text-gray-200">
-      Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration.
-    </p>
+
+    <div class="space-y-6">
+      <h3 class="text-3xl font-semibold text-gold text-center">Beyond the Pitch × Naadam Festival Mongolia</h3>
+      <p class="text-gray-300 text-center">
+        Join us for an unforgettable three‑day journey into the heart of Mongolia’s most important celebration: the Naadam Festival.
+      </p>
+
+      <div class="bg-gray-800 rounded-2xl p-6">
+        <h4 class="text-xl font-semibold text-gold mb-3">Program</h4>
+        <ul class="list-disc list-inside text-gray-200 space-y-1">
+          <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
+          <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
+          <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
+        </ul>
+      </div>
+
+      <div class="bg-gray-800 rounded-2xl p-6">
+        <h4 class="text-xl font-semibold text-gold mb-2">About Naadam</h4>
+        <p class="text-gray-200">Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery.</p>
+      </div>
+
+      <div class="bg-gray-800 rounded-2xl p-6">
+        <h4 class="text-xl font-semibold text-gold mb-2">Why travel with us</h4>
+        <p class="text-gray-200">Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration.</p>
+      </div>
+    </div>
   </div>
 </div>
 
