@@ -40,9 +40,8 @@
 
 <body class="antialiased scroll-smooth bg-black">
 
-<!-- ⭐ Header + Pilot Banner -->
+<!-- ⭐ Pilot Banner -->
 <header class="fixed top-0 left-0 w-full z-50">
-  <!-- Pilot Banner -->
   <div class="w-full bg-black border-b border-yellow-500/40 text-gray-200 text-center py-2 px-4 text-sm md:text-base">
     <span class="font-medium tracking-wide">First pilot partner:</span>
     <span class="text-gold font-semibold">The Naadam Festival — Mongolia</span>
@@ -50,45 +49,9 @@
       For more information: thebeyondthepitch@gmail.com
     </span>
   </div>
-
-  <!-- Navigation -->
-  <div class="bg-black bg-opacity-70 backdrop-blur flex items-center justify-between py-4 px-6 border-b border-yellow-500/40">
-    <a href="/" class="text-gold font-extrabold text-2xl tracking-wide">Beyond the Pitch</a>
-
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center space-x-10 text-gray-200 font-medium">
-      <a href="#about" class="hover:text-gold transition">About us</a>
-
-      <!-- Projects Dropdown -->
-      <div class="relative group">
-        <button class="hover:text-gold transition flex items-center">Projects <span class="ml-1">▼</span></button>
-        <div class="absolute hidden group-hover:block z-50 bg-gray-900 border border-gray-700 rounded-xl mt-3 w-56 shadow-xl">
-          <a href="naadam.html" class="block px-4 py-3 hover:bg-gray-800 rounded-xl">Naadam Festival — Mongolia</a>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Mobile Menu Button -->
-    <button id="mobileMenuBtn" class="md:hidden text-gold text-3xl">☰</button>
-  </div>
-
-  <!-- Mobile Menu Drawer -->
-  <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-gray-800 py-4 px-6 space-y-4 text-gray-200 font-medium">
-    <a href="#about" class="block hover:text-gold">About us</a>
-
-    <!-- Mobile Projects Dropdown -->
-    <div class="relative">
-      <button id="mobileProjectsBtn" class="w-full text-left hover:text-gold flex justify-between items-center">
-        Projects <span>▼</span>
-      </button>
-      <div id="mobileProjectsDropdown" class="hidden mt-2 ml-2 space-y-2">
-        <a href="naadam.html" class="block hover:text-gold">Naadam Festival — Mongolia</a>
-      </div>
-    </div>
-  </div>
 </header>
 
-<div class="pt-28"></div> <!-- Padding to prevent header overlap -->
+<div class="pt-16"></div> <!-- Padding to prevent header overlap -->
 
 <!-- 🔔 Hero -->
 <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
@@ -101,9 +64,12 @@
     <p class="text-xl md:text-2xl text-gray-300">
       Co-create immersive global sports and culture journeys.
     </p>
-    <div>
-      <button id="openModalHero" class="bg-white text-black font-semibold px-8 py-3 rounded-2xl hover:bg-gray-200 transition">
-        Apply now →
+    <div class="space-y-4">
+      <button id="openModalNaadam" class="bg-white text-black font-semibold px-8 py-3 rounded-2xl hover:bg-gray-200 transition w-full md:w-auto">
+        Apply now → Naadam Festival
+      </button>
+      <button id="openModalForm" class="bg-gold text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition w-full md:w-auto">
+        Apply now → Pilot Form
       </button>
     </div>
   </div>
@@ -187,17 +153,6 @@
   </div>
 </section>
 
-<!-- CTA Hero for Naadam Festival -->
-<section class="py-28 px-6 md:px-24 text-center bg-gradient-to-t from-gray-100 via-gray-200 to-gray-100 text-gray-900">
-  <h2 class="text-4xl font-semibold text-yellow-700 mb-4">Naadam Festival 2026</h2>
-  <p class="max-w-2xl mx-auto mb-8">
-    Go on an adventure of a lifetime — join us for an unforgettable journey into the heart of Mongolia’s most important celebration.
-  </p>
-  <button id="openModalNaadam" class="inline-flex items-center bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
-    Apply now →
-  </button>
-</section>
-
 <!-- FAQ -->
 <section class="py-20 px-6 md:px-20 bg-gray-950 text-white">
   <h2 class="text-3xl font-semibold mb-8 text-gold text-center">FAQ</h2>
@@ -225,23 +180,39 @@
     <p class="text-gray-300 mb-6 text-center">
       Join us for an unforgettable three‑day journey into the heart of Mongolia’s most important celebration: the Naadam Festival.
     </p>
-
     <h4 class="text-xl font-semibold text-gold mb-2">Program</h4>
     <ul class="list-disc list-inside text-gray-200 mb-4">
       <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
       <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
       <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
     </ul>
-
     <h4 class="text-xl font-semibold text-gold mb-2">About Naadam</h4>
     <p class="text-gray-200 mb-4">
-      Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It is a living tribute to the country’s nomadic heritage, filled with music, dance, food, and vibrant community spirit.
+      Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery.
     </p>
-
     <h4 class="text-xl font-semibold text-gold mb-2">Why travel with us</h4>
     <p class="text-gray-200">
       Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration.
     </p>
+  </div>
+</div>
+
+<!-- Pilot Form Modal -->
+<div id="modalForm" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalForm">&times;</span>
+    <h3 class="text-3xl font-semibold text-gold mb-6 text-center">Apply for the 2025 pilot</h3>
+    <p class="text-gray-300 mb-8 text-center">Fill in your details and we’ll get back to you with next steps.</p>
+
+    <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-6">
+      <input type="text" name="name" placeholder="Full name" required class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
+      <input type="email" name="email" placeholder="Email address" required class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
+      <input type="text" name="club" placeholder="Club / organization" required class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold">
+      <textarea name="message" placeholder="Message / why do you want to join?" rows="4" class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
+      <input type="hidden" name="_subject" value="New application for Beyond the Pitch 2025 Pilot">
+      <input type="hidden" name="_replyto" value="thebeyondthepitch@gmail.com">
+      <button type="submit" class="w-full bg-gold text-black font-semibold px-8 py-4 rounded-2xl hover:bg-yellow-400 transition">Submit application</button>
+    </form>
   </div>
 </div>
 
@@ -259,40 +230,22 @@
   }, { threshold: 0.2 });
   animateElements.forEach(el => observer.observe(el));
 
-  // Original Modals (Hero Apply)
-  const modal = document.getElementById('modal');
-  const openModal = document.getElementById('openModal');
-  const openModalHero = document.getElementById('openModalHero');
-  const closeModal = document.getElementById('closeModal');
-  if(openModal) openModal.onclick = () => modal.style.display = 'block';
-  if(openModalHero) openModalHero.onclick = () => modal.style.display = 'block';
-  if(closeModal) closeModal.onclick = () => modal.style.display = 'none';
-  window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
-
-  // Naadam Modal
+  // Modals
   const modalNaadam = document.getElementById('modalNaadam');
   const openModalNaadam = document.getElementById('openModalNaadam');
   const closeModalNaadam = document.getElementById('closeModalNaadam');
   if(openModalNaadam) openModalNaadam.onclick = () => modalNaadam.style.display = 'block';
   if(closeModalNaadam) closeModalNaadam.onclick = () => modalNaadam.style.display = 'none';
-  window.addEventListener('click', (e) => { if(e.target === modalNaadam) modalNaadam.style.display = 'none'; });
 
-  // Mobile Menu
-  const btn = document.getElementById("mobileMenuBtn");
-  const menu = document.getElementById("mobileMenu");
-  btn.onclick = () => menu.classList.toggle("hidden");
+  const modalForm = document.getElementById('modalForm');
+  const openModalForm = document.getElementById('openModalForm');
+  const closeModalForm = document.getElementById('closeModalForm');
+  if(openModalForm) openModalForm.onclick = () => modalForm.style.display = 'block';
+  if(closeModalForm) closeModalForm.onclick = () => modalForm.style.display = 'none';
 
-  // Mobile Projects Dropdown
-  const mobileProjectsBtn = document.getElementById('mobileProjectsBtn');
-  const mobileProjectsDropdown = document.getElementById('mobileProjectsDropdown');
-  mobileProjectsBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    mobileProjectsDropdown.classList.toggle('hidden');
-  });
   window.addEventListener('click', (e) => {
-    if(!mobileProjectsBtn.contains(e.target) && !mobileProjectsDropdown.contains(e.target)) {
-      mobileProjectsDropdown.classList.add('hidden');
-    }
+    if(e.target === modalNaadam) modalNaadam.style.display = 'none';
+    if(e.target === modalForm) modalForm.style.display = 'none';
   });
 </script>
 
