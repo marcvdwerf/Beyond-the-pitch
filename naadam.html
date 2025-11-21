@@ -60,11 +60,9 @@
       <a href="#about" class="hover:text-gold transition">About us</a>
 
       <!-- Projects Dropdown -->
-      <div class="relative">
-        <button id="projectsBtn" class="hover:text-gold transition flex items-center">
-          Projects <span class="ml-1">▼</span>
-        </button>
-        <div id="projectsDropdown" class="hidden absolute z-50 bg-gray-900 border border-gray-700 rounded-xl mt-3 w-56 shadow-xl">
+      <div class="relative group">
+        <button class="hover:text-gold transition flex items-center">Projects <span class="ml-1">▼</span></button>
+        <div class="absolute hidden group-hover:block z-50 bg-gray-900 border border-gray-700 rounded-xl mt-3 w-56 shadow-xl">
           <a href="naadam.html" class="block px-4 py-3 hover:bg-gray-800 rounded-xl">Naadam Festival — Mongolia</a>
         </div>
       </div>
@@ -77,12 +75,16 @@
   <!-- Mobile Menu Drawer -->
   <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-gray-800 py-4 px-6 space-y-4 text-gray-200 font-medium">
     <a href="#about" class="block hover:text-gold">About us</a>
-    <details class="text-gray-200">
-      <summary class="cursor-pointer hover:text-gold">Projects</summary>
-      <div class="mt-2 ml-4 space-y-2">
+
+    <!-- Mobile Projects Dropdown -->
+    <div class="relative">
+      <button id="mobileProjectsBtn" class="w-full text-left hover:text-gold flex justify-between items-center">
+        Projects <span>▼</span>
+      </button>
+      <div id="mobileProjectsDropdown" class="hidden mt-2 ml-2 space-y-2">
         <a href="naadam.html" class="block hover:text-gold">Naadam Festival — Mongolia</a>
       </div>
-    </details>
+    </div>
   </div>
 </header>
 
@@ -263,16 +265,16 @@
   const menu = document.getElementById("mobileMenu");
   btn.onclick = () => menu.classList.toggle("hidden");
 
-  // Projects Dropdown Desktop
-  const projectsBtn = document.getElementById('projectsBtn');
-  const projectsDropdown = document.getElementById('projectsDropdown');
-  projectsBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // voorkomt dat window-click meteen sluit
-    projectsDropdown.classList.toggle('hidden');
+  // Mobile Projects Dropdown
+  const mobileProjectsBtn = document.getElementById('mobileProjectsBtn');
+  const mobileProjectsDropdown = document.getElementById('mobileProjectsDropdown');
+  mobileProjectsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mobileProjectsDropdown.classList.toggle('hidden');
   });
   window.addEventListener('click', (e) => {
-    if(!projectsBtn.contains(e.target) && !projectsDropdown.contains(e.target)) {
-      projectsDropdown.classList.add('hidden');
+    if(!mobileProjectsBtn.contains(e.target) && !mobileProjectsDropdown.contains(e.target)) {
+      mobileProjectsDropdown.classList.add('hidden');
     }
   });
 </script>
