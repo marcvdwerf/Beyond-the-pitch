@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beyond the Pitch — Sport. Culture. Travel.</title>
+<title>Beyond the pitch — sport. culture. travel.</title>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <style>
@@ -13,7 +13,7 @@
   [data-animate] { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
   [data-animate].animate { opacity: 1; transform: translateY(0); }
 
-  /* Modal */
+  /* Modal styling */
   .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
   .modal-content { background-color: #1f2937; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 600px; position: relative; }
   .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; font-weight: bold; color: #ffd700; cursor: pointer; }
@@ -40,9 +40,9 @@
 
 <body class="antialiased scroll-smooth bg-black">
 
-<!-- Header + Banner -->
+<!-- ⭐ Header + Pilot Banner -->
 <header class="fixed top-0 left-0 w-full z-50">
-  <!-- Banner -->
+  <!-- Pilot Banner -->
   <div class="w-full bg-black border-b border-yellow-500/40 text-gray-200 text-center py-2 px-4 text-sm md:text-base">
     <span class="font-medium tracking-wide">First pilot partner:</span>
     <span class="text-gold font-semibold">The Naadam Festival — Mongolia</span>
@@ -60,19 +60,21 @@
       <a href="#about" class="hover:text-gold transition">About us</a>
 
       <!-- Projects Dropdown -->
-      <div class="relative group">
-        <button class="hover:text-gold transition flex items-center">Projects <span class="ml-1">▼</span></button>
-        <div class="absolute hidden group-hover:block z-50 bg-gray-900 border border-gray-700 rounded-xl mt-3 w-56 shadow-xl">
+      <div class="relative">
+        <button id="projectsBtn" class="hover:text-gold transition flex items-center">
+          Projects <span class="ml-1">▼</span>
+        </button>
+        <div id="projectsDropdown" class="hidden absolute z-50 bg-gray-900 border border-gray-700 rounded-xl mt-3 w-56 shadow-xl">
           <a href="naadam.html" class="block px-4 py-3 hover:bg-gray-800 rounded-xl">Naadam Festival — Mongolia</a>
         </div>
       </div>
     </nav>
 
-    <!-- Mobile menu button -->
+    <!-- Mobile Menu Button -->
     <button id="mobileMenuBtn" class="md:hidden text-gold text-3xl">☰</button>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Menu Drawer -->
   <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-gray-800 py-4 px-6 space-y-4 text-gray-200 font-medium">
     <a href="#about" class="block hover:text-gold">About us</a>
     <details class="text-gray-200">
@@ -84,9 +86,9 @@
   </div>
 </header>
 
-<div class="pt-28"></div> <!-- prevent overlap -->
+<div class="pt-28"></div> <!-- Padding to prevent header overlap -->
 
-<!-- Hero -->
+<!-- 🔔 Hero -->
 <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
   <div class="absolute inset-0">
     <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
@@ -213,7 +215,7 @@
   </div>
 </section>
 
-<!-- Modal -->
+<!-- Pilot Form Modal -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close-modal" id="closeModal">&times;</span>
@@ -235,7 +237,7 @@
 <!-- Footer -->
 <footer class="py-10 text-center border-t border-gray-800 bg-black">
   <p class="text-gray-400 mb-3">📧 thebeyondthepitch@gmail.com</p>
-  <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch — sport. culture. connection.</p>
+  <p class="text-gray-600 text-sm">© 2025 Beyond the pitch — sport. culture. connection.</p>
 </footer>
 
 <script>
@@ -256,10 +258,23 @@
   if(closeModal) closeModal.onclick = () => modal.style.display = 'none';
   window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
 
-  // Mobile Menu toggle
+  // Mobile Menu
   const btn = document.getElementById("mobileMenuBtn");
   const menu = document.getElementById("mobileMenu");
   btn.onclick = () => menu.classList.toggle("hidden");
+
+  // Projects Dropdown Desktop
+  const projectsBtn = document.getElementById('projectsBtn');
+  const projectsDropdown = document.getElementById('projectsDropdown');
+  projectsBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // voorkomt dat window-click meteen sluit
+    projectsDropdown.classList.toggle('hidden');
+  });
+  window.addEventListener('click', (e) => {
+    if(!projectsBtn.contains(e.target) && !projectsDropdown.contains(e.target)) {
+      projectsDropdown.classList.add('hidden');
+    }
+  });
 </script>
 
 </body>
