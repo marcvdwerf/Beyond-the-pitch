@@ -53,6 +53,14 @@
     .cta-naadam-bg img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
     .cta-naadam-bg .overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.6) 100%); }
 
+    /* Projects grid (Voja-style) */
+    .projects-grid { display:grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap:1.25rem; }
+    @media(min-width:768px){ .projects-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    .project-card { border-radius: 1rem; overflow:hidden; background:#0b1220; box-shadow: 0 8px 30px rgba(2,6,23,0.6); transition: transform .25s ease, box-shadow .25s ease; }
+    .project-card:hover{ transform: translateY(-6px); box-shadow: 0 18px 44px rgba(2,6,23,0.75); }
+    .project-card img{ width:100%; height:220px; object-fit:cover; display:block; }
+    @media(min-width:1024px){ .project-card img{ height:240px; } }
+
     /* Modals */
     .modal { display:none; position:fixed; inset:0; z-index:80; background: rgba(0,0,0,0.6); align-items:center; justify-content:center; padding:1.2rem; }
     .modal.show { display:flex; }
@@ -68,6 +76,7 @@
     @media (max-width:640px){
       .modal-body{ padding:1rem; }
       .hero-title { font-size:1.6rem; }
+      .project-card img{ height:180px; }
     }
 
     /* Utility tweaks */
@@ -111,8 +120,9 @@
           </button>
 
           <div class="dropdown mt-2" role="menu" aria-label="Projects menu">
+            <!-- Desktop dropdown links still point to detail pages -->
             <a href="naadam.html" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition" role="menuitem">Naadam Festival — Mongolia</a>
-            <!-- future projects here -->
+            <!-- Add future projects here as links to their pages -->
           </div>
         </div>
 
@@ -128,7 +138,7 @@
     </div>
 
     <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-soft" aria-hidden="true">
+    <div id="mobileMenu" class="md:hidden bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-soft" aria-hidden="true" style="display:none;">
       <a href="#about" class="block py-2 text-gray-200 hover:text-gold">About us</a>
 
       <details class="mt-2">
@@ -157,6 +167,63 @@
         <div class="mt-8 flex justify-center space-x-4">
           <button id="openModalHero" class="bg-white text-black font-semibold px-6 py-3 rounded-2xl hover:bg-gray-200">Become a local partner →</button>
           <a href="#video" class="inline-flex items-center text-gray-200 hover:text-gold">Watch teaser</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Project Grid (Optie B) ================= -->
+    <section id="projects" class="py-12 px-6 md:px-20 bg-black">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl md:text-4xl font-bold">Projects & Experiences</h2>
+          <p class="text-gray-400 hidden md:block">A curated selection of sport × culture journeys — more coming soon.</p>
+        </div>
+
+        <div class="projects-grid" data-animate>
+          <!-- Naadam Festival card -->
+          <article class="project-card">
+            <a href="naadam.html" class="block">
+              <img src="/mnt/data/29342ddb-b4c8-4581-84e2-70e173f907b0.png" alt="Naadam Wrestling action" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Naadam Festival — Mongolia</h3>
+                <p class="text-gray-300 mb-4">Three-day cultural and sports immersion — wrestling, archery, horse racing.</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-400">July 10–12 · 2026</span>
+                  <span class="text-gold font-semibold">Learn more →</span>
+                </div>
+              </div>
+            </a>
+          </article>
+
+          <!-- Example card: Gaelic Football -->
+          <article class="project-card">
+            <a href="#" class="block">
+              <img src="https://images.unsplash.com/photo-1508766206392-8bd5cf550d1b?auto=format&fit=crop&w=1400&q=80" alt="Gaelic Football" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Gaelic Football — Ireland</h3>
+                <p class="text-gray-300 mb-4">Experience local rivalry and grassroots passion in Ireland.</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-400">Coming soon</span>
+                  <span class="text-gold font-semibold">Details →</span>
+                </div>
+              </div>
+            </a>
+          </article>
+
+          <!-- Example card: Muay Thai -->
+          <article class="project-card">
+            <a href="#" class="block">
+              <img src="https://images.unsplash.com/photo-1605274764058-81202cf3e95d?auto=format&fit=crop&w=1400&q=80" alt="Muay Thai" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Muay Thai — Thailand</h3>
+                <p class="text-gray-300 mb-4">Train, watch and live Muay Thai in local gyms and stadiums.</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-400">Coming soon</span>
+                  <span class="text-gold font-semibold">Details →</span>
+                </div>
+              </div>
+            </a>
+          </article>
         </div>
       </div>
     </section>
@@ -241,7 +308,8 @@
     <section class="py-28 px-6 md:px-24 text-center relative">
       <div class="max-w-6xl mx-auto">
         <div class="cta-naadam-bg rounded-3xl overflow-hidden shadow-lg">
-          <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600" alt="Naadam Wrestling festival action image" />
+          <!-- using uploaded local image path for action card — replace with repo path when you add to repo -->
+          <img src="/mnt/data/29342ddb-b4c8-4581-84e2-70e173f907b0.png" alt="Naadam Wrestling festival action image" />
           <div class="overlay"></div>
           <div class="relative z-10 p-12">
             <h2 class="text-4xl md:text-5xl font-semibold text-yellow-400 mb-4">Naadam Festival 2026</h2>
@@ -307,7 +375,7 @@
     </div>
   </div>
 
-  <!-- ================= Naadam Modal ================= -->
+  <!-- ================= Naadam Modal (kept as convenience) ================= -->
   <div id="modalNaadam" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNaadamTitle">
     <div class="modal-inner max-w-3xl rounded-3xl overflow-hidden">
       <!-- video bg for visual continuity -->
