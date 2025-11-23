@@ -3,198 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beyond the Pitch — Sport. Culture. Travel.</title>
-  <meta name="description" content="Beyond the Pitch - immersive sports & culture journeys.">
-  <meta name="keywords" content="sports travel, culture, immersive journeys, Naadam, Muay Thai, Gaelic Football">
+  <title>Beyond the Pitch x Naadam Festival — Mongolia</title>
+  <meta name="description" content="Deep dive into the Naadam Festival — wrestling, archery & horse racing in Mongolia." />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --gold: #ffd700; }
-    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#000; color:#fff; }
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: #000; color: #fff; }
     .text-gold { color: var(--gold); }
     .bg-gold { background: var(--gold); }
-    [data-animate]{ opacity:0; transform: translateY(20px); transition: all 0.6s ease-out; }
-    [data-animate].animate{ opacity:1; transform: translateY(0); }
-    .modal { transition: opacity 0.25s ease, transform 0.25s ease; }
-    .modal-hidden { opacity:0; pointer-events:none; transform:scale(0.95); }
-    .modal-show { opacity:1; pointer-events:auto; transform:scale(1); }
-    .nav-projects:focus-within .dropdown,
-    .nav-projects:hover .dropdown { display:block; }
+    [data-animate] { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    [data-animate].animate { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body class="bg-black">
 
   <!-- Header -->
-  <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 flex items-center justify-between py-4">
-    <a href="#" class="text-gold font-extrabold text-2xl tracking-tight">Beyond the Pitch</a>
-    <nav class="hidden md:flex items-center space-x-8">
-      <a href="#about" class="text-gray-200 hover:text-gold transition">About us</a>
-      <div class="nav-projects relative" tabindex="0">
-        <button class="flex items-center space-x-2 text-gray-200 hover:text-gold focus:outline-none">
-          <span>Projects</span>
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#e5e7eb" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="dropdown hidden absolute left-0 mt-2 min-w-[220px] bg-gray-900 rounded-xl shadow-lg p-2">
-          <a href="#projects" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition">All Projects</a>
-        </div>
-      </div>
-      <a href="#faq" class="text-gray-200 hover:text-gold transition">FAQ</a>
-    </nav>
-    <div class="md:hidden">
-      <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#ffd700" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
-    </div>
+  <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <a href="index.html" class="text-gold font-extrabold text-2xl">Beyond the Pitch</a>
   </header>
 
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="md:hidden bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-lg hidden">
-    <a href="#about" class="block py-2 text-gray-200 hover:text-gold">About us</a>
-    <details class="mt-2">
-      <summary class="cursor-pointer text-gray-200">Projects</summary>
-      <div class="pl-4 mt-2">
-        <a href="#projects" class="block py-1 text-gray-200 hover:text-gold">All Projects</a>
-      </div>
-    </details>
-    <a href="#faq" class="block py-2 mt-2 text-gray-200 hover:text-gold">FAQ</a>
+  <!-- Hero / Intro -->
+  <section class="relative text-center min-h-[60vh] px-6 flex items-center justify-center">
+    <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Naadam Festival Mongolia" loading="lazy"
+         class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div class="relative z-10 max-w-3xl">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gold mb-4">Naadam Festival 2026</h1>
+      <p class="text-gray-300 text-lg">An immersive three‑day cultural and sports experience in Mongolia.</p>
+    </div>
+  </section>
+
+  <!-- Program / Details -->
+  <section class="py-16 px-6 md:px-20 max-w-4xl mx-auto" data-animate>
+    <h2 class="text-3xl text-yellow-400 font-semibold mb-6">Program Highlights</h2>
+    <ul class="list-disc list-inside text-gray-300 space-y-4 mb-12">
+      <li><strong>July 10 — Zuunmod</strong>: Experience the local Naadam Festival just outside Ulaanbaatar, in a more intimate setting.</li>
+      <li><strong>July 11 — Ulaanbaatar</strong>: Attend the official opening ceremony, watch wrestling and archery, meet local judges and athletes.</li>
+      <li><strong>July 12 — The Steppe</strong>: Venture into the steppe to watch horse races, meet nomadic trainers, and learn about Mongolian traditions.</li>
+    </ul>
+
+    <h2 class="text-3xl text-yellow-400 font-semibold mb-4">About Naadam</h2>
+    <p class="text-gray-300 mb-12">Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It’s not just a competition — it's a living tribute to the country’s nomadic heritage, adorned with music, dance, communal feasts, and vibrant cultural celebrations.</p>
+
+    <h2 class="text-3xl text-yellow-400 font-semibold mb-4">Why travel with us</h2>
+    <p class="text-gray-300 mb-8">Our curated experience gives you access to events that are typically hard for visitors to reach — from the opening ceremony to private nomadic interactions. With a local guide deeply embedded in Mongolian traditions, you won’t just observe, you’ll belong.</p>
+
+    <div class="text-center">
+      <button id="openForm" class="bg-gold text-black px-8 py-3 rounded-2xl hover:bg-yellow-400 transition font-semibold">Apply / Request Info</button>
+    </div>
+  </section>
+
+  <!-- Application Modal -->
+  <div id="modalForm" class="modal modal-hidden fixed inset-0 flex items-center justify-center bg-black/70 p-6">
+    <div class="bg-gray-800 max-w-md w-full rounded-3xl p-8 relative">
+      <button id="closeForm" class="absolute top-4 right-4 text-gold text-2xl">&times;</button>
+      <h3 class="text-2xl font-semibold text-gold mb-4 text-center">Apply for Naadam 2026</h3>
+      <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
+        <input type="text" name="name" placeholder="Full name" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
+        <input type="email" name="_replyto" placeholder="Email address" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
+        <textarea name="message" rows="4" placeholder="Tell us why you want to join / ask a question" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
+        <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold">Submit</button>
+      </form>
+    </div>
   </div>
 
-  <!-- Hero -->
-  <section class="relative flex items-center justify-center text-center min-h-screen px-6">
-    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    <div class="relative z-10 max-w-4xl">
-      <h1 class="text-5xl md:text-6xl font-extrabold text-gold leading-tight">Beyond the pitch</h1>
-      <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Co-create immersive global sports and culture journeys.</p>
-      <div class="mt-8 flex flex-col md:flex-row justify-center gap-4">
-        <button id="openModalHero" class="bg-white text-black font-semibold px-6 py-3 rounded-2xl hover:bg-gray-200">Become a local partner →</button>
-        <a href="#projects" class="inline-flex items-center justify-center text-gray-200 hover:text-gold">Explore projects ↓</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Grid -->
-  <section id="projects" class="py-24 px-6 md:px-20">
-    <h2 class="text-4xl font-bold text-center mb-16 text-gold">Projects</h2>
-    <div id="projectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-      <!-- Cards will be inserted by JS -->
-    </div>
-  </section>
-
-  <!-- Template Modals Container -->
-  <div id="modalsContainer"></div>
+  <footer class="py-10 text-center border-t border-gray-800 bg-black">
+    <p class="text-gray-400 mb-2">📧 thebeyondthepitch@gmail.com</p>
+    <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch — Sport. Culture. Travel.</p>
+  </footer>
 
   <script>
-    // Project data array
-    const projects = [
-      {
-        id: "naadam",
-        title: "Beyond the Pitch x Naadam Festival — Mongolia",
-        img: "https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        description: "Join us for an unforgettable three-day journey into Mongolia’s most important celebration.",
-        program: [
-          { date: "July 10: Zuunmod", desc: "Experience the local Naadam Festival just outside Ulaanbaatar." },
-          { date: "July 11: Ulaanbaatar", desc: "Be part of the official opening ceremony and watch wrestling and archery at the stadium." },
-          { date: "July 12: The Steppe", desc: "See the famous horse races and meet trainers to learn about nomadic traditions." }
-        ],
-        about: "Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It is a living tribute to the country’s nomadic heritage, filled with music, dance, food, and vibrant community spirit.",
-        whyTravel: "Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration."
-      },
-      {
-        id: "ireland",
-        title: "Gaelic Football & Hurling — Ireland",
-        img: "https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg",
-        description: "Discover community passion on local pitches across Ireland.",
-        program: [],
-        about: "",
-        whyTravel: ""
-      },
-      {
-        id: "muaythai",
-        title: "Muay Thai — Thailand",
-        img: "https://images.unsplash.com/photo-1605274764058-81202cf3e95d?auto=format&fit=crop&w=1400&q=80",
-        description: "Train, watch, and live Muay Thai in authentic gyms and stadiums.",
-        program: [],
-        about: "",
-        whyTravel: ""
-      }
-    ];
-
-    const projectsGrid = document.getElementById("projectsGrid");
-    const modalsContainer = document.getElementById("modalsContainer");
-
-    projects.forEach(p => {
-      // Create card
-      const card = document.createElement("div");
-      card.className = "bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1";
-      card.innerHTML = `
-        <img class="w-full h-64 object-cover" src="${p.img}" alt="${p.title}" loading="lazy"/>
-        <div class="p-6">
-          <h3 class="text-2xl font-semibold mb-2">${p.title}</h3>
-          <p class="text-gray-300 mb-4">${p.description}</p>
-          ${p.program.length || p.about || p.whyTravel ? `<button class="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-400 transition font-semibold" data-modal="${p.id}">Learn more →</button>` : ''}
-        </div>`;
-      projectsGrid.appendChild(card);
-
-      // Create modal if project has detailed info
-      if (p.program.length || p.about || p.whyTravel) {
-        const modal = document.createElement("div");
-        modal.id = `modal-${p.id}`;
-        modal.className = "modal modal-hidden fixed inset-0 flex items-center justify-center bg-black/70 p-6";
-        modal.innerHTML = `
-          <div class="bg-gray-800 max-w-3xl w-full rounded-3xl p-8 relative overflow-y-auto max-h-[90vh]">
-            <button class="absolute top-4 right-4 text-gold text-2xl" data-close>&times;</button>
-            <h3 class="text-3xl md:text-4xl font-semibold text-gold mb-4 text-center">${p.title}</h3>
-            <p class="text-gray-300 mb-6 text-center">${p.description}</p>
-
-            ${p.program.length ? `
-              <h4 class="text-2xl text-yellow-400 font-semibold mb-2">Program</h4>
-              <ul class="list-disc list-inside mb-4 text-gray-300 space-y-2">
-                ${p.program.map(day => `<li><strong>${day.date}</strong> — ${day.desc}</li>`).join("")}
-              </ul>` : ''}
-
-            ${p.about ? `<h4 class="text-2xl text-yellow-400 font-semibold mb-2">About</h4>
-              <p class="text-gray-300 mb-4">${p.about}</p>` : ''}
-
-            ${p.whyTravel ? `<h4 class="text-2xl text-yellow-400 font-semibold mb-2">Why travel with us</h4>
-              <p class="text-gray-300 mb-6">${p.whyTravel}</p>` : ''}
-
-            <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
-              <input type="text" name="name" placeholder="Full name" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required/>
-              <input type="email" name="_replyto" placeholder="Email address" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required/>
-              <textarea name="message" rows="4" placeholder="Message / why do you want to join?" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
-              <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold">Submit application</button>
-            </form>
-          </div>`;
-        modalsContainer.appendChild(modal);
-      }
+    // Modal open/close Naadam form
+    const modalForm = document.getElementById('modalForm');
+    document.getElementById('openForm').addEventListener('click', () => {
+      modalForm.classList.replace('modal-hidden', 'modal-show');
     });
-
-    // Modal open/close
-    document.querySelectorAll('[data-modal]').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const modalId = e.currentTarget.getAttribute('data-modal');
-        document.getElementById(`modal-${modalId}`).classList.replace('modal-hidden','modal-show');
-      });
-    });
-    document.querySelectorAll('[data-close]').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.currentTarget.closest('.modal').classList.replace('modal-show','modal-hidden');
-      });
+    document.getElementById('closeForm').addEventListener('click', () => {
+      modalForm.classList.replace('modal-show', 'modal-hidden');
     });
     window.addEventListener('click', e => {
-      document.querySelectorAll('.modal-show').forEach(modal => {
-        if(e.target === modal) modal.classList.replace('modal-show','modal-hidden');
-      });
+      if (e.target === modalForm) modalForm.classList.replace('modal-show', 'modal-hidden');
     });
 
-    // Mobile toggle
-    const mobileToggle = document.getElementById('mobileToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileToggle?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-      mobileToggle.setAttribute('aria-expanded', !expanded);
-    });
+    // Animate scroll
+    const els = document.querySelectorAll('[data-animate]');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('animate'); });
+    }, { threshold: 0.2 });
+    els.forEach(e => obs.observe(e));
   </script>
 </body>
 </html>
