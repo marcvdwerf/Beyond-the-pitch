@@ -1,28 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Beyond the Pitch — sport. culture. travel.</title>
   <meta name="description" content="Beyond the Pitch - immersive sports & culture journeys. Join the Naadam Festival Mongolia experience.">
   <meta name="keywords" content="sports travel, Naadam, Mongolia, culture, immersive journeys, capoeira, muay thai">
+
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    :root {
-      --gold: #ffd700;
-    }
+    :root { --gold: #ffd700; }
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#000; color:#fff; }
+    .text-gold { color: var(--gold); } .bg-gold { background: var(--gold); }
 
-    body { 
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
-      background:#000; 
-      color:#fff; 
-    }
-
-    .text-gold { color: var(--gold); }
-    .bg-gold { background: var(--gold); }
-
-    /* Fade-in animations */
+    /* Animate on scroll */
     [data-animate]{ opacity:0; transform: translateY(20px); transition: all 0.6s ease-out; }
     [data-animate].animate{ opacity:1; transform: translateY(0); }
 
@@ -34,6 +25,9 @@
     /* Dropdown hover/focus */
     .nav-projects:focus-within .dropdown,
     .nav-projects:hover .dropdown { display:block; }
+
+    /* Hero background overlay */
+    .hero-bg::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,0.6); }
 
   </style>
 </head>
@@ -57,7 +51,6 @@
     <a href="#" class="text-gold font-extrabold text-2xl tracking-tight" aria-label="Beyond the Pitch home">Beyond the Pitch</a>
     <nav class="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
       <a href="#about" class="text-gray-200 hover:text-gold transition">About us</a>
-
       <div class="nav-projects relative" tabindex="0" aria-haspopup="true" aria-expanded="false">
         <button class="flex items-center space-x-2 text-gray-200 hover:text-gold focus:outline-none">
           <span>Projects</span>
@@ -67,11 +60,8 @@
           <a href="naadam.html" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition">Naadam Festival — Mongolia</a>
         </div>
       </div>
-
       <a href="#faq" class="text-gray-200 hover:text-gold transition">FAQ</a>
     </nav>
-
-    <!-- Mobile toggle -->
     <div class="md:hidden">
       <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#ffd700" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -94,9 +84,8 @@
   <!-- Hero -->
   <main id="maincontent">
     <section class="relative flex items-center justify-center text-center min-h-screen px-6">
-      <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" loading="lazy" alt="" class="absolute inset-0 w-full h-full object-cover"/>
+      <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" loading="lazy" alt="Hero background" class="absolute inset-0 w-full h-full object-cover"/>
       <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-
       <div class="relative z-10 max-w-4xl">
         <h1 class="text-5xl md:text-6xl font-extrabold text-gold leading-tight">Beyond the pitch</h1>
         <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Co-create immersive global sports and culture journeys.</p>
@@ -112,6 +101,7 @@
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Projects & Experiences</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate>
+
           <!-- Naadam -->
           <article class="project-card bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition">
             <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" loading="lazy" alt="Naadam Wrestling action" class="w-full h-60 object-cover"/>
@@ -144,6 +134,7 @@
               <span class="text-gray-400">Coming soon</span>
             </div>
           </article>
+
         </div>
       </div>
     </section>
@@ -177,74 +168,6 @@
       </div>
     </section>
 
- <!-- Naadam Festival CTA with Program Info - Enhanced -->
-<section class="py-24 px-6 md:px-20 bg-gray-900 text-white rounded-3xl max-w-6xl mx-auto my-12 shadow-lg">
-  <h2 class="text-4xl font-bold text-gold mb-6 text-center">Naadam Festival 2026</h2>
-  <p class="text-gray-300 text-center mb-12 text-lg md:text-xl">Join us for a three-day immersive journey into Mongolia’s most iconic celebration.</p>
-
-  <div class="grid md:grid-cols-2 gap-12 items-start">
-    <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-         loading="lazy" alt="Naadam Festival" 
-         class="rounded-2xl object-cover w-full h-64 md:h-full shadow-lg"/>
-
-    <div class="space-y-8">
-      <!-- Program Highlights -->
-      <div>
-        <h3 class="text-2xl font-semibold text-yellow-400 mb-4">Program Highlights</h3>
-        <div class="space-y-4">
-          <div class="flex items-start gap-4">
-            <div class="text-yellow-500 text-3xl"></div>
-            <div>
-              <p class="font-semibold text-gray-100">July 10: Zuunmod</p>
-              <p class="text-gray-300">Experience the local Naadam Festival just outside Ulaanbaatar, surrounded by authentic Mongolian traditions.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="text-yellow-500 text-3xl"></div>
-            <div>
-              <p class="font-semibold text-gray-100">July 11: Ulaanbaatar</p>
-              <p class="text-gray-300">Attend the official opening ceremony and watch wrestling and archery in the stadium with local fans.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="text-yellow-500 text-3xl"></div>
-            <div>
-              <p class="font-semibold text-gray-100">July 12: The Steppe</p>
-              <p class="text-gray-300">Witness the famous horse races and meet trainers to learn about Mongolia’s nomadic heritage.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- About Naadam -->
-      <div>
-        <h3 class="text-2xl font-semibold text-yellow-400 mb-2">About Naadam</h3>
-        <p class="text-gray-300">
-          Mongolia’s national holiday celebrates three traditional sports: wrestling, horse racing, and archery. 
-          It honors the nomadic heritage and comes alive with music, dance, food, and vibrant community spirit.
-        </p>
-      </div>
-
-      <!-- Why Travel With Us -->
-      <div>
-        <h3 class="text-2xl font-semibold text-yellow-400 mb-2">Why Travel With Us</h3>
-        <p class="text-gray-300">
-          Gain exclusive access to events that are normally hard for visitors to attend, including the opening ceremony. 
-          Guided by a local expert, you’ll experience Naadam not as a tourist, but as a part of the celebration.
-        </p>
-      </div>
-
-      <!-- CTA Button -->
-      <div class="flex justify-center mt-4">
-        <button id="openModalNaadamBtn2" class="bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
-          Apply / Learn more →
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
     <!-- FAQ -->
     <section id="faq" class="py-20 px-6 md:px-20 bg-gray-950 text-white">
       <div class="max-w-4xl mx-auto">
@@ -265,6 +188,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- Footer -->
@@ -290,11 +214,11 @@
     </div>
   </div>
 
-  <div id="modalNaadam" class="modal modal-hidden fixed inset-0 flex items-center justify-center bg-black/70 p-6">
+  <div id="modalNaadam" class="modal modal-hidden fixed inset-0 flex items-center justify-center bg-black/70 p-6 overflow-y-auto">
     <div class="bg-gray-800 max-w-3xl w-full rounded-3xl p-8 relative">
       <button id="closeModalNaadam" class="absolute top-4 right-4 text-gold text-2xl">&times;</button>
       <h3 class="text-2xl md:text-3xl font-semibold text-gold mb-4 text-center">Naadam Festival 2026</h3>
-      <p class="text-gray-300 mb-4 text-center">Join the festival experience in the heart of Mongolia.</p>
+      <p class="text-gray-300 mb-4 text-center">Three-day cultural & sports immersion in Mongolia.</p>
       <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
         <input type="text" name="name" placeholder="Full name" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required/>
         <input type="email" name="_replyto" placeholder="Email address" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required/>
@@ -308,9 +232,7 @@
     // Animate on scroll
     const animElements = document.querySelectorAll('[data-animate]');
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add('animate');
-      });
+      entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('animate'); });
     }, { threshold: 0.15 });
     animElements.forEach(el => observer.observe(el));
 
@@ -321,7 +243,10 @@
     const openHeroBtns = [document.getElementById('openModalHero')];
     const closeHeroBtn = document.getElementById('closeModalHero');
 
-    const openNaadamBtns = [document.getElementById('openModalNaadamBtn'), document.getElementById('openModalNaadamBtn2'), document.getElementById('openModalNaadamBtnTop')];
+    const openNaadamBtns = [
+      document.getElementById('openModalNaadamBtn'),
+      document.getElementById('openModalNaadamBtnTop')
+    ];
     const closeNaadamBtn = document.getElementById('closeModalNaadam');
 
     openHeroBtns.forEach(btn => btn?.addEventListener('click', () => modalHero.classList.replace('modal-hidden','modal-show')));
@@ -341,5 +266,6 @@
       mobileToggle.setAttribute('aria-expanded', !expanded);
     });
   </script>
+
 </body>
 </html>
