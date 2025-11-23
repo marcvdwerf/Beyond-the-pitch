@@ -3,184 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beyond the Pitch</title>
+  <title>Beyond the Pitch — Sport. Culture. Travel.</title>
+  <meta name="description" content="Beyond the Pitch - immersive sports & culture journeys. Join the Naadam Festival Mongolia experience.">
+  <meta name="keywords" content="sports travel, Naadam, Mongolia, culture, immersive journeys, capoeira, muay thai">
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    /* Hero background */
-    .hero-bg {
-      background-image: url(https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200);
-      background-size: cover;
-      background-position: center;
-    }
-
-    /* Projects grid image styles */
-    .project-img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-    }
-
-    /* Mobile-friendly modal */
-    .modal-overlay {
-      backdrop-filter: blur(6px);
-    }
+    :root { --gold: #ffd700; }
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#000; color:#fff; }
+    .text-gold { color: var(--gold); }
+    .bg-gold { background: var(--gold); }
+    [data-animate]{ opacity:0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    [data-animate].animate{ opacity:1; transform: translateY(0); }
+    .modal { transition: opacity 0.25s ease, transform 0.25s ease; }
+    .modal-hidden { opacity:0; pointer-events:none; transform:scale(0.95); }
+    .modal-show { opacity:1; pointer-events:auto; transform:scale(1); }
+    .nav-projects:focus-within .dropdown,
+    .nav-projects:hover .dropdown { display:block; }
   </style>
 </head>
+<body class="bg-black">
 
-<body class="bg-gray-900 text-white">
-
-  <!-- HERO SECTION -->
-  <header class="hero-bg h-[90vh] flex flex-col justify-center items-center text-center px-6">
-    <h1 class="text-5xl md:text-7xl font-bold drop-shadow-lg">Beyond the Pitch</h1>
-    <p class="mt-6 text-xl md:text-2xl max-w-2xl drop-shadow-lg">
-      Exploring global sports, culture, and human stories.
-    </p>
-
-    <a href="#projects"
-       class="mt-10 inline-block bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition">
-      Explore Projects ↓
-    </a>
+  <!-- Header / Navigation -->
+  <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 flex items-center justify-between py-4">
+    <a href="#" class="text-gold font-extrabold text-2xl tracking-tight" aria-label="Beyond the Pitch home">Beyond the Pitch</a>
+    <nav class="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
+      <a href="#about" class="text-gray-200 hover:text-gold transition">About us</a>
+      <div class="nav-projects relative" tabindex="0" aria-haspopup="true" aria-expanded="false">
+        <button class="flex items-center space-x-2 text-gray-200 hover:text-gold focus:outline-none">
+          <span>Projects</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#e5e7eb" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown hidden absolute left-0 mt-2 min-w-[220px] bg-gray-900 rounded-xl shadow-lg p-2">
+          <a href="#projects" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition">All Projects</a>
+        </div>
+      </div>
+      <a href="#faq" class="text-gray-200 hover:text-gold transition">FAQ</a>
+    </nav>
+    <div class="md:hidden">
+      <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#ffd700" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </header>
 
-  <!-- PROJECTS GRID -->
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-lg hidden">
+    <a href="#about" class="block py-2 text-gray-200 hover:text-gold">About us</a>
+    <details class="mt-2">
+      <summary class="cursor-pointer text-gray-200">Projects</summary>
+      <div class="pl-4 mt-2">
+        <a href="#projects" class="block py-1 text-gray-200 hover:text-gold">All Projects</a>
+      </div>
+    </details>
+    <a href="#faq" class="block py-2 mt-2 text-gray-200 hover:text-gold">FAQ</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="relative flex items-center justify-center text-center min-h-screen px-6">
+    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" loading="lazy" alt="" class="absolute inset-0 w-full h-full object-cover"/>
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div class="relative z-10 max-w-4xl">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gold leading-tight">Beyond the pitch</h1>
+      <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Co-create immersive global sports and culture journeys.</p>
+      <div class="mt-8 flex flex-col md:flex-row justify-center gap-4">
+        <button id="openModalHero" class="bg-white text-black font-semibold px-6 py-3 rounded-2xl hover:bg-gray-200">Become a local partner →</button>
+        <a href="#video" class="inline-flex items-center justify-center text-gray-200 hover:text-gold">Watch teaser</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
   <section id="projects" class="py-24 px-6 md:px-20">
-    <h2 class="text-4xl font-bold text-center mb-16">Projects</h2>
+    <h2 class="text-4xl font-bold text-center mb-16 text-gold">Projects</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
 
-    <div class="grid md:grid-cols-2 gap-12">
-
-      <!-- 1. Naadam Festival – Updated to Mongolian Wrestling image -->
-      <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
-        <img class="project-img"
-             src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200"
-             alt="Mongolian Wrestling Naadam Festival">
+      <!-- Naadam Festival -->
+      <div class="bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1">
+        <img class="w-full h-64 object-cover" src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Naadam Festival" loading="lazy"/>
         <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">Mongolian wrestling, horse racing, and archery – The Naadam festival</h3>
-          <p class="text-gray-300 mb-4">Ancient strength and culture at Mongolia’s biggest festival.</p>
-          <button id="openModalNaadamBtn"
-            class="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-400 transition">
-            Apply now →
-          </button>
+          <h3 class="text-2xl font-semibold mb-2">Beyond the Pitch x Naadam Festival — Mongolia</h3>
+          <p class="text-gray-300 mb-4">Join us for an unforgettable three-day journey into Mongolia’s most important celebration.</p>
+          <button id="openModalNaadamBtn" class="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-400 transition font-semibold">Learn more →</button>
         </div>
       </div>
 
-      <!-- 2. Experience Irish culture: Gaelic Football & Hurling – Ireland -->
-      <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
-        <img class="project-img"
-             src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg"
-             alt="Gaelic Football Ireland">
+      <!-- Gaelic Football & Hurling – Ireland -->
+      <div class="bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1">
+        <img class="w-full h-64 object-cover" src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" alt="Gaelic Football Ireland" loading="lazy"/>
         <div class="p-6">
-          <h3 class="text-2xl font-bold mb-2">Experience Irish culture: Gaelic Football & Hurling – Ireland</h3>
-          <p class="text-gray-300 mb-4">Community passion on small local pitches across Ireland.</p>
-          <button class="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-400 transition">
-            Learn more →
-          </button>
+          <h3 class="text-2xl font-semibold mb-2">Gaelic Football & Hurling — Ireland</h3>
+          <p class="text-gray-300 mb-4">Discover community passion on local pitches across Ireland.</p>
+          <button class="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-400 transition font-semibold">Learn more →</button>
+        </div>
+      </div>
+
+      <!-- Muay Thai – Thailand -->
+      <div class="bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1">
+        <img class="w-full h-64 object-cover" src="https://images.unsplash.com/photo-1605274764058-81202cf3e95d?auto=format&fit=crop&w=1400&q=80" alt="Muay Thai Thailand" loading="lazy"/>
+        <div class="p-6">
+          <h3 class="text-2xl font-semibold mb-2">Muay Thai — Thailand</h3>
+          <p class="text-gray-300 mb-4">Train, watch, and live Muay Thai in authentic gyms and stadiums.</p>
+          <button class="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-400 transition font-semibold">Learn more →</button>
         </div>
       </div>
 
     </div>
   </section>
 
+  <!-- Naadam Modal -->
+  <div id="modalNaadam" class="modal modal-hidden fixed inset-0 flex items-center justify-center bg-black/70 p-6">
+    <div class="bg-gray-800 max-w-3xl w-full rounded-3xl p-8 relative overflow-y-auto max-h-[90vh]">
+      <button id="closeModalNaadam" class="absolute top-4 right-4 text-gold text-2xl">&times;</button>
+      <h3 class="text-3xl md:text-4xl font-semibold text-gold mb-4 text-center">Beyond the Pitch x Naadam Festival — Mongolia</h3>
+      <p class="text-gray-300 mb-6 text-center">Join us for an unforgettable three‑day journey into the heart of Mongolia’s most important celebration.</p>
 
-  <!-- CTA SECTION WITH NAADAM BACKGROUND -->
-  <section class="py-28 px-6 md:px-24 text-center relative">
-    <div class="max-w-6xl mx-auto">
+      <h4 class="text-2xl text-yellow-400 font-semibold mb-2">Program</h4>
+      <ul class="list-disc list-inside mb-4 text-gray-300 space-y-2">
+        <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
+        <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
+        <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
+      </ul>
 
-      <div class="rounded-3xl overflow-hidden shadow-lg relative" 
-           style="min-height: 420px; position:relative;">
+      <h4 class="text-2xl text-yellow-400 font-semibold mb-2">About Naadam</h4>
+      <p class="text-gray-300 mb-4">Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It is a living tribute to the country’s nomadic heritage, filled with music, dance, food, and vibrant community spirit.</p>
 
-        <!-- Background -->
-        <img 
-          src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1920" 
-          alt="Mongolian Wrestling - Naadam Festival" 
-          style="
-            position:absolute;
-            inset:0;
-            width:100%;
-            height:100%;
-            object-fit:cover;
-          "
-        />
-
-        <!-- Overlay -->
-        <div 
-          style="
-            position:absolute;
-            inset:0;
-            background:linear-gradient(
-              180deg,
-              rgba(0,0,0,0.25) 0%,
-              rgba(0,0,0,0.75) 100%
-            );
-          ">
-        </div>
-
-        <div class="relative z-10 p-12">
-          <h2 class="text-4xl md:text-5xl font-semibold text-yellow-400 mb-4">
-            Naadam Festival 2026
-          </h2>
-
-          <p class="max-w-2xl mx-auto mb-6 text-xl text-gray-100">
-            Once in a lifetime experience.
-          </p>
-
-          <button id="openModalNaadamBtn2"
-            class="bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
-            Apply now →
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- NAADAM MODAL -->
-  <div id="naadamModal"
-       class="hidden fixed inset-0 bg-black/70 modal-overlay flex items-center justify-center p-6">
-
-    <div class="bg-gray-800 max-w-lg w-full rounded-2xl p-8 relative">
-      <button id="closeModalNaadamBtn"
-              class="absolute top-4 right-4 text-white text-2xl">&times;</button>
-
-      <h3 class="text-3xl font-bold mb-4">Naadam Festival 2026</h3>
-      <p class="text-gray-300 mb-6">Once in a lifetime experience in the heart of Mongolia.</p>
+      <h4 class="text-2xl text-yellow-400 font-semibold mb-2">Why travel with us</h4>
+      <p class="text-gray-300 mb-6">Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration.</p>
 
       <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
-        <input type="text" name="name" placeholder="Your name"
-               class="w-full px-4 py-3 rounded-xl bg-gray-700 border border-gray-600">
-        <input type="email" name="_replyto" placeholder="Your email"
-               class="w-full px-4 py-3 rounded-xl bg-gray-700 border border-gray-600">
-        <textarea name="message" placeholder="Tell us why you're interested"
-                  class="w-full px-4 py-3 rounded-xl bg-gray-700 border border-gray-600 h-32"></textarea>
-
-        <button class="bg-yellow-500 text-black px-6 py-3 rounded-xl font-semibold hover:bg-yellow-400 w-full">
-          Submit
-        </button>
+        <input type="text" name="name" placeholder="Full name" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required/>
+        <input type="email" name="_replyto" placeholder="Email address" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required/>
+        <textarea name="message" rows="4" placeholder="Message / why do you want to join?" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
+        <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold">Submit application</button>
       </form>
     </div>
   </div>
 
   <script>
-    const openButtons = [
-      document.getElementById("openModalNaadamBtn"),
-      document.getElementById("openModalNaadamBtn2")
-    ];
-    const closeModalNaadamBtn = document.getElementById("closeModalNaadamBtn");
-    const naadamModal = document.getElementById("naadamModal");
+    const modalNaadam = document.getElementById('modalNaadam');
+    const openNaadamBtns = [document.getElementById('openModalNaadamBtn')];
+    const closeNaadamBtn = document.getElementById('closeModalNaadam');
 
-    openButtons.forEach(btn => {
-      if (btn) btn.addEventListener("click", () => {
-        naadamModal.classList.remove("hidden");
-      });
-    });
+    openNaadamBtns.forEach(btn => btn?.addEventListener('click', () => modalNaadam.classList.replace('modal-hidden','modal-show')));
+    closeNaadamBtn?.addEventListener('click', () => modalNaadam.classList.replace('modal-show','modal-hidden'));
+    window.addEventListener('click', e => { if(e.target===modalNaadam) modalNaadam.classList.replace('modal-show','modal-hidden'); });
 
-    closeModalNaadamBtn.addEventListener("click", () => {
-      naadamModal.classList.add("hidden");
-    });
-
-    window.addEventListener("click", (e) => {
-      if (e.target === naadamModal) naadamModal.classList.add("hidden");
+    // Mobile toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', !expanded);
     });
   </script>
 
