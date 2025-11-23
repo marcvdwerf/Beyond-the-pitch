@@ -63,10 +63,10 @@
         </div>
       </div>
 
-      <!-- 2. The Naadam festival july 10/11/12 -->
+      <!-- 2. Naadam Festival – Updated to Mongolian Wrestling image -->
       <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
         <img class="project-img"
-             src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg"
+             src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200"
              alt="Mongolian Wrestling Naadam Festival">
         <div class="p-6">
           <h3 class="text-2xl font-bold mb-2">Mongolian Wrestling – Naadam</h3>
@@ -109,6 +109,60 @@
     </div>
   </section>
 
+
+  <!-- CTA SECTION WITH NAADAM BACKGROUND -->
+  <section class="py-28 px-6 md:px-24 text-center relative">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="rounded-3xl overflow-hidden shadow-lg relative" 
+           style="min-height: 420px; position:relative;">
+
+        <!-- Background -->
+        <img 
+          src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+          alt="Mongolian Wrestling - Naadam Festival" 
+          style="
+            position:absolute;
+            inset:0;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+          "
+        />
+
+        <!-- Overlay -->
+        <div 
+          style="
+            position:absolute;
+            inset:0;
+            background:linear-gradient(
+              180deg,
+              rgba(0,0,0,0.25) 0%,
+              rgba(0,0,0,0.75) 100%
+            );
+          ">
+        </div>
+
+        <div class="relative z-10 p-12">
+          <h2 class="text-4xl md:text-5xl font-semibold text-yellow-400 mb-4">
+            Naadam Festival 2026
+          </h2>
+
+          <p class="max-w-2xl mx-auto mb-6 text-xl text-gray-100">
+            Once in a lifetime experience.
+          </p>
+
+          <button id="openModalNaadamBtn2"
+            class="bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+            Apply now →
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <!-- NAADAM MODAL -->
   <div id="naadamModal"
        class="hidden fixed inset-0 bg-black/70 modal-overlay flex items-center justify-center p-6">
@@ -136,12 +190,17 @@
   </div>
 
   <script>
-    const openModalNaadamBtn = document.getElementById("openModalNaadamBtn");
+    const openButtons = [
+      document.getElementById("openModalNaadamBtn"),
+      document.getElementById("openModalNaadamBtn2")
+    ];
     const closeModalNaadamBtn = document.getElementById("closeModalNaadamBtn");
     const naadamModal = document.getElementById("naadamModal");
 
-    openModalNaadamBtn.addEventListener("click", () => {
-      naadamModal.classList.remove("hidden");
+    openButtons.forEach(btn => {
+      if (btn) btn.addEventListener("click", () => {
+        naadamModal.classList.remove("hidden");
+      });
     });
 
     closeModalNaadamBtn.addEventListener("click", () => {
