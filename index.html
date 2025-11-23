@@ -505,14 +505,20 @@
     openModalHeroBtn && openModalHeroBtn.addEventListener('click', () => openModal('modalHero'));
     closeModalHeroBtn && closeModalHeroBtn.addEventListener('click', () => closeModal('modalHero'));
 
-    // Naadam modal - top banner + CTA
-    const openNaadamTop = document.getElementById('openModalNaadamBtnTop');
-    const openNaadamCTA = document.getElementById('openModalNaadamBtn');
-    const modalNaadam = document.getElementById('modalNaadam');
-    const closeNaadamBtn = document.getElementById('closeModalNaadam');
-    openNaadamTop && openNaadamTop.addEventListener('click', () => openModal('modalNaadam'));
-    openNaadamCTA && openNaadamCTA.addEventListener('click', () => openModal('modalNaadam'));
-    closeNaadamBtn && closeNaadamBtn.addEventListener('click', () => closeModal('modalNaadam'));
+  // Naadam modal – alle openers + X button werken nu
+const openNaadamTop = document.getElementById('openModalNaadamBtnTop');
+const openNaadamCTA = document.getElementById('openModalNaadamBtn');
+const openNaadamCTA2 = document.getElementById('openModalNaadamBtn2'); // extra button
+const modalNaadam = document.getElementById('modalNaadam');
+const closeNaadamBtn = document.getElementById('closeModalNaadam');
+
+// Open modal from any button
+openNaadamTop && openNaadamTop.addEventListener('click', () => openModal('modalNaadam'));
+openNaadamCTA && openNaadamCTA.addEventListener('click', () => openModal('modalNaadam'));
+openNaadamCTA2 && openNaadamCTA2.addEventListener('click', () => openModal('modalNaadam'));
+
+// Close modal via X button
+closeNaadamBtn && closeNaadamBtn.addEventListener('click', () => closeModal('modalNaadam'));
 
     // Close modals on outside click
     window.addEventListener('click', (e) => {
