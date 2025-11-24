@@ -111,7 +111,45 @@
   </svg>
   Watch
 </button>
+<script>
+// Header video modal — lazy-load and stop playback on close
+(function(){
+  const openBtn = document.getElementById('openHeaderVideoBtn');
+  const modalId = 'modalHeaderVideo';
+  const modalEl = document.getElementById(modalId);
+  const closeBtn = document.getElementById('closeHeaderVideoBtn');
+  const iframe = document.getElementById('headerVideoIframe');
 
+  function openHeaderVideo(){
+    if(!iframe) return;
+    // set src from data-src only when opening
+    const dataSrc = iframe.getAttribute('data-src');
+    if(dataSrc && iframe.src !== dataSrc) iframe.src = dataSrc;
+    modalEl && modalEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeHeaderVideo(){
+    modalEl && modalEl.classList.remove('show');
+    document.body.style.overflow = '';
+    // remove src to stop playback
+    if(iframe) iframe.src = '';
+  }
+
+  openBtn && openBtn.addEventListener('click', openHeaderVideo);
+  closeBtn && closeBtn.addEventListener('click', closeHeaderVideo);
+
+  // click outside to close (consistent with other modal behavior)
+  window.addEventListener('click', (e) => {
+    if(e.target === modalEl) closeHeaderVideo();
+  });
+
+  // Esc to close
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeHeaderVideo();
+  });
+})();
+</script>
 <!-- Add this modal near your other modals (e.g. next to modalHero/modalNaadam) -->
 <div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle">
   <div class="modal-inner max-w-4xl rounded-3xl overflow-hidden">
