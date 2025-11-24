@@ -103,6 +103,30 @@
   </div>
 
   <div class="pt-20"></div> <!-- spacing for fixed banner -->
+  <!-- Add this button next to your Naadam button in the pilot-banner -->
+<button id="openHeaderVideoBtn" aria-label="Watch teaser" class="bg-transparent border border-gray-600 text-gray-200 px-3 py-1 rounded-2xl hover:bg-gray-900/60">
+  <!-- small play icon -->
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="inline-block mr-2" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 3v18l15-9L5 3z" fill="#ffd700"/>
+  </svg>
+  Watch
+</button>
+
+<!-- Add this modal near your other modals (e.g. next to modalHero/modalNaadam) -->
+<div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle">
+  <div class="modal-inner max-w-4xl rounded-3xl overflow-hidden">
+    <button class="close-btn" id="closeHeaderVideoBtn" aria-label="Close video">&times;</button>
+
+    <div class="modal-body relative z-10 text-white">
+      <h3 id="modalHeaderVideoTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Teaser — Beyond the pitch</h3>
+
+      <div class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+        <!-- NOTE: data-src will be set on open to lazy-load -->
+        <iframe id="headerVideoIframe" data-src="https://www.youtube.com/embed/x0mCI1ks_cc?autoplay=1&amp;rel=0" title="Beyond the pitch teaser" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- ================= Header / Navigation ================= -->
   <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" role="banner">
