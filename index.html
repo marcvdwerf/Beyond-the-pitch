@@ -98,73 +98,18 @@
 
       <div class="flex items-center space-x-3">
         <button id="openModalNaadamBtnTop" class="bg-yellow-500 text-black px-3 py-1 rounded-2xl font-medium hover:bg-yellow-400">Naadam Festival 2026 →</button>
+        <!-- Header video play button (next to Naadam CTA) -->
+        <button id="openHeaderVideoBtn" aria-label="Watch teaser" class="bg-transparent border border-gray-600 text-gray-200 px-3 py-1 rounded-2xl hover:bg-gray-900">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="inline-block mr-2" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 3v18l15-9L5 3z" fill="#ffd700"/>
+          </svg>
+          Watch
+        </button>
       </div>
     </div>
   </div>
 
   <div class="pt-20"></div> <!-- spacing for fixed banner -->
-  <!-- Add this button next to your Naadam button in the pilot-banner -->
-<button id="openHeaderVideoBtn" aria-label="Watch teaser" class="bg-transparent border border-gray-600 text-gray-200 px-3 py-1 rounded-2xl hover:bg-gray-900/60">
-  <!-- small play icon -->
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="inline-block mr-2" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 3v18l15-9L5 3z" fill="#ffd700"/>
-  </svg>
-  Watch
-</button>
-<script>
-// Header video modal — lazy-load and stop playback on close
-(function(){
-  const openBtn = document.getElementById('openHeaderVideoBtn');
-  const modalId = 'modalHeaderVideo';
-  const modalEl = document.getElementById(modalId);
-  const closeBtn = document.getElementById('closeHeaderVideoBtn');
-  const iframe = document.getElementById('headerVideoIframe');
-
-  function openHeaderVideo(){
-    if(!iframe) return;
-    // set src from data-src only when opening
-    const dataSrc = iframe.getAttribute('data-src');
-    if(dataSrc && iframe.src !== dataSrc) iframe.src = dataSrc;
-    modalEl && modalEl.classList.add('show');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeHeaderVideo(){
-    modalEl && modalEl.classList.remove('show');
-    document.body.style.overflow = '';
-    // remove src to stop playback
-    if(iframe) iframe.src = '';
-  }
-
-  openBtn && openBtn.addEventListener('click', openHeaderVideo);
-  closeBtn && closeBtn.addEventListener('click', closeHeaderVideo);
-
-  // click outside to close (consistent with other modal behavior)
-  window.addEventListener('click', (e) => {
-    if(e.target === modalEl) closeHeaderVideo();
-  });
-
-  // Esc to close
-  window.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') closeHeaderVideo();
-  });
-})();
-</script>
-<!-- Add this modal near your other modals (e.g. next to modalHero/modalNaadam) -->
-<div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle">
-  <div class="modal-inner max-w-4xl rounded-3xl overflow-hidden">
-    <button class="close-btn" id="closeHeaderVideoBtn" aria-label="Close video">&times;</button>
-
-    <div class="modal-body relative z-10 text-white">
-      <h3 id="modalHeaderVideoTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Teaser — Beyond the pitch</h3>
-
-      <div class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
-        <!-- NOTE: data-src will be set on open to lazy-load -->
-        <iframe id="headerVideoIframe" data-src="https://www.youtube.com/embed/x0mCI1ks_cc?autoplay=1&amp;rel=0" title="Beyond the pitch teaser" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
-      </div>
-    </div>
-  </div>
-</div>
 
   <!-- ================= Header / Navigation ================= -->
   <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" role="banner">
@@ -519,6 +464,22 @@
     </div>
   </div>
 
+  <!-- ================= Header Video Modal (Teaser) -->
+  <div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle">
+    <div class="modal-inner max-w-4xl rounded-3xl overflow-hidden">
+      <button class="close-btn" id="closeHeaderVideoBtn" aria-label="Close video">&times;</button>
+
+      <div class="modal-body relative z-10 text-white">
+        <h3 id="modalHeaderVideoTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Teaser — Beyond the pitch</h3>
+
+        <div class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+          <!-- data-src lazy-loads the video when the modal opens -->
+          <iframe id="headerVideoIframe" data-src="https://www.youtube.com/embed/x0mCI1ks_cc?autoplay=1&amp;rel=0" title="Beyond the pitch teaser" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= Scripts ================= -->
   <script>
     // Simple scroll-into-view animation observer
@@ -559,6 +520,41 @@
     openNaadamTop && openNaadamTop.addEventListener('click', () => openModal('modalNaadam'));
     openNaadamCTA && openNaadamCTA.addEventListener('click', () => openModal('modalNaadam'));
     closeNaadamBtn && closeNaadamBtn.addEventListener('click', () => closeModal('modalNaadam'));
+
+    // Header video modal — lazy-load en stop playback op close
+    (function(){
+      const openBtn = document.getElementById('openHeaderVideoBtn');
+      const modalEl = document.getElementById('modalHeaderVideo');
+      const closeBtn = document.getElementById('closeHeaderVideoBtn');
+      const iframe = document.getElementById('headerVideoIframe');
+
+      function openHeaderVideo(){
+        if(!iframe) return;
+        const dataSrc = iframe.getAttribute('data-src');
+        if(dataSrc && iframe.src !== dataSrc) iframe.src = dataSrc;
+        modalEl && modalEl.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeHeaderVideo(){
+        modalEl && modalEl.classList.remove('show');
+        document.body.style.overflow = '';
+        if(iframe) iframe.src = ''; // remove src to stop playback
+      }
+
+      openBtn && openBtn.addEventListener('click', openHeaderVideo);
+      closeBtn && closeBtn.addEventListener('click', closeHeaderVideo);
+
+      // sluit bij klik buiten (consistent met bestaande behavior)
+      window.addEventListener('click', (e) => {
+        if(e.target === modalEl) closeHeaderVideo();
+      });
+
+      // Esc sluit ook
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeHeaderVideo();
+      });
+    })();
 
     // Close modals on outside click
     window.addEventListener('click', (e) => {
