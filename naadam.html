@@ -17,265 +17,9 @@
 
   <style>
     :root{
-      --bg: #10151E;
-      --panel: #1a2230;
-      --muted: #9ca3af;
-      --gold: #d4af37;
-      --focus: 3px solid rgba(212,175,55,0.15);
-    }
-
-    html,body{
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: #f5f6fa;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      min-height: 100%;
-    }
-
-    .content {
-      font-size: 1.125rem;
-      line-height: 1.75;
-      color: #f1f3f7;
-    }
-
-    .text-gold { color: var(--gold); }
-    a:focus, button:focus { outline: none; box-shadow: var(--focus); border-radius: 6px; }
-    .card {
-      background: var(--panel);
-      border: 1px solid #232E42;
-      box-shadow: 0 4px 32px 0 rgba(22,28,50,0.16);
-    }
-    h1,h2,h3 { letter-spacing: -0.01em; }
-    h1 { font-weight: 800; }
-    h2 { font-weight: 700; }
-    h3 { font-weight: 600; }
-    .link { color: var(--muted); transition: color 0.15s; }
-    .link:focus, .link:hover { color: var(--gold); text-decoration: underline; }
-    .hero-title { text-shadow: 0 2px 9px rgba(12,18,38,0.9); }
-
-    .bg-panel   { background: var(--panel); }
-    .bg-tint    { background: #151c28; }
-    .shadow-light { box-shadow: 0 4px 24px 0 rgba(13,24,44,0.12);}
-    .rounded-lg { border-radius: 1.25rem; }
-    ::selection { background: #f6e7b2; }
-    .skip-link {
-      background: #fff;
-      color: #202428;
-      border: 2px solid var(--gold);
-    }
-    .gallery-img {
-      background: #0e1522;
-      object-fit: cover;
-      width: 100%;
-      height: 8rem;
-      border-radius: 0.75rem;
-      border: 1px solid #232e42;
-      display: block;
-    }
-    /* Make hero image always fill and fit, crop top & bottom if needed */
-    .hero-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 45%;
-      display: block;
-    }
-    /* Improve hero overlay darkness for better contrast */
-    .hero-overlay {
-      background: linear-gradient(to top, rgba(16,21,30,0.95) 70%, rgba(16,21,30,0.3) 100%);
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-    .hero-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .hero-text-block {
-      max-width: 42rem;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 2.5rem 1.5rem;
-    }
-    @media (min-width:768px){
-      .hero-text-block { padding: 2.5rem 2.5rem 3.5rem 2.5rem;}
-    }
-  </style>
-</head>
-<body class="antialiased">
-
-  <a class="sr-only focus:not-sr-only block p-2 bg-white text-black fixed left-4 top-4 rounded skip-link" href="#main">Skip to content</a>
-
-  <header class="fixed w-full z-40 bg-[#151c28f2] shadow-light backdrop-blur" role="banner">
-    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-      <a href="index.html" class="text-2xl font-extrabold text-gold" aria-label="Beyond the Pitch — home">Beyond the Pitch</a>
-      <nav class="hidden md:flex items-center space-x-6" aria-label="Primary">
-        <a href="index.html" class="hover:text-gold link">Home</a>
-        <a href="projects.html" class="hover:text-gold link">Projects</a>
-        <a href="naadam.html" class="text-gold font-semibold" aria-current="page">Naadam</a>
-      </nav>
-      <div class="md:hidden">
-        <button id="nav-toggle" aria-controls="mobile-nav" aria-expanded="false" class="p-2 rounded-md hover:bg-panel focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <span class="sr-only">Open navigation</span>
-        </button>
-      </div>
-    </div>
-    <nav id="mobile-nav" class="hidden md:hidden bg-[#192236eb] border-t border-[#222c3d]" aria-label="Mobile menu">
-      <div class="max-w-6xl mx-auto px-4 py-3">
-        <ul class="space-y-2">
-          <li><a href="index.html" class="block link">Home</a></li>
-          <li><a href="projects.html" class="block link">Projects</a></li>
-          <li><a href="naadam.html" class="block font-semibold text-gold" aria-current="page">Naadam</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <main id="main" class="pt-24 bg-[#10151E] min-h-screen">
-    <!-- HERO -->
-    <section class="relative mb-10" style="min-height:16rem;">
-      <div class="h-72 md:h-96 lg:h-[420px] rounded-b-3xl overflow-hidden relative">
-        <picture>
-          <source media="(min-width:1024px)" srcset="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1920">
-          <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Crowd and performers at Naadam festival - wrestlers and horses in traditional dress" class="hero-img">
-        </picture>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="hero-text-block">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gold hero-title">Beyond the Pitch × Naadam Festival, Mongolia</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTENT -->
-    <section class="max-w-3xl mx-auto px-6 mt-0">
-      <div class="card rounded-3xl px-6 py-10 shadow-light relative z-10">
-        <div class="content">
-          <p class="text-lg font-semibold text-gray-200 mb-2">Experience three days of wrestling, horse racing, archery and traditions in the heart of Mongolia.</p>
-          <h2 class="text-2xl font-bold text-gold mt-2">Join us at Naadam!</h2>
-          <p class="mt-3">Join Beyond the Pitch for an unforgettable three-day journey to Naadam, Mongolia's most famous festival. Enjoy traditional wrestling matches, breathtaking horse racing, archery, and authentic culture in small travel groups.</p>
-          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-tint rounded-lg p-4 border border-[#232e42]">
-              <h3 class="font-semibold text-gray-100">When</h3>
-              <p class="text-gray-300">Mid-July — 3 days (dates vary annually)</p>
-            </div>
-            <div class="bg-tint rounded-lg p-4 border border-[#232e42]">
-              <h3 class="font-semibold text-gray-100">Where</h3>
-              <p class="text-gray-300">Ulaanbaatar & nearby Naadam fields</p>
-            </div>
-            <div class="bg-tint rounded-lg p-4 border border-[#232e42]">
-              <h3 class="font-semibold text-gray-100">Included</h3>
-              <p class="text-gray-300">Guided festival visits, local guides, selected meals, cultural activities</p>
-            </div>
-            <div class="bg-tint rounded-lg p-4 border border-[#232e42]">
-              <h3 class="font-semibold text-gray-100">Group size</h3>
-              <p class="text-gray-300">Small groups for optimal cultural experience</p>
-            </div>
-          </div>
-          <div class="mt-7 flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-            <a href="mailto:info@beyondthepitch.example?subject=Naadam%20interest" class="inline-block bg-gold text-black font-semibold px-6 py-3 rounded-lg hover:opacity-90">Register your interest</a>
-            <a href="projects.html" class="mt-3 sm:mt-0 text-sm text-gray-300 link">See other projects</a>
-          </div>
-          <!-- Itinerary -->
-          <section aria-labelledby="itinerary" class="mt-10">
-            <h3 id="itinerary" class="text-xl font-semibold text-gold">Sample itinerary: 3 days</h3>
-            <div class="mt-4 space-y-4">
-              <article class="p-4 rounded-lg bg-tint border border-[#232e42]">
-                <h4 class="font-semibold text-gray-100">Day 1 — Arrival & Opening</h4>
-                <p class="text-gray-300">Arrival in Ulaanbaatar, transfer to hotel, introduction and attending the Naadam opening ceremony.</p>
-              </article>
-              <article class="p-4 rounded-lg bg-tint border border-[#232e42]">
-                <h4 class="font-semibold text-gray-100">Day 2 — Wrestling & Local encounter</h4>
-                <p class="text-gray-300">In the morning the wrestling matches, in the afternoon visit to a nomadic family, in the evening traditional music and dance.</p>
-              </article>
-              <article class="p-4 rounded-lg bg-tint border border-[#232e42]">
-                <h4 class="font-semibold text-gray-100">Day 3 — Horse racing & Farewell dinner</h4>
-                <p class="text-gray-300">Experience legendary horse races, enjoy performances and a joint farewell dinner.</p>
-              </article>
-            </div>
-          </section>
-          <!-- Gallery -->
-          <section aria-labelledby="gallery" class="mt-10">
-            <h3 id="gallery" class="text-xl font-semibold text-gold">Gallery</h3>
-            <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <img src="https://images.pexels.com/photos/1580244/pexels-photo-1580244.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mongolian rider during Naadam" class="gallery-img">
-              <img src="https://images.pexels.com/photos/2468759/pexels-photo-2468759.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Traditional Mongolian wrestlers" class="gallery-img">
-              <img src="https://images.pexels.com/photos/3920258/pexels-photo-3920258.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Archery at cultural festival" class="gallery-img">
-            </div>
-          </section>
-          <!-- Practical info -->
-          <section aria-labelledby="info" class="mt-10">
-            <h3 id="info" class="text-xl font-semibold text-gold">Practical info</h3>
-            <ul class="mt-3 list-disc list-inside text-gray-300">
-              <li>Bring layers — it can cool off considerably at night.</li>
-              <li>Respect local customs and follow your guide's advice for photos.</li>
-              <li>Travel insurance and required visas are your own responsibility.</li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="mt-12 pb-12">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="border-t border-[#232e42] pt-6 text-sm text-gray-400 flex flex-col md:flex-row md:justify-between md:items-center">
-          <div class="mb-4 md:mb-0">
-            <a href="index.html" class="text-gold font-semibold">Beyond the Pitch</a>
-            <p class="mt-1">Curated cultural sports experiences.</p>
-          </div>
-          <div class="flex items-center space-x-6">
-            <a href="mailto:info@beyondthepitch.example" class="hover:text-gold link">Contact</a>
-            <a href="projects.html" class="hover:text-gold link">Projects</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </main>
-  <!-- Mobile nav script -->
-  <script>
-    (function () {
-      const btn = document.getElementById('nav-toggle');
-      const mobileNav = document.getElementById('mobile-nav');
-      if (!btn || !mobileNav) return;
-      btn.addEventListener('click', function () {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        mobileNav.classList.toggle('hidden');
-      });
-    })();
-  </script>
-</body>
-</html><!doctype html>
-<html lang="nl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Naadam Festival — Beyond the Pitch</title>
-  <meta name="description" content="Join Beyond the Pitch for a curated three-day experience at Mongolia's Naadam Festival — wrestling, horse racing, archery, traditional music and local culture.">
-
-  <!-- Google Font voor betere leesbaarheid -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-
-  <link rel="icon" href="assets/favicon.ico" />
-
-  <style>
-    :root{
-      --bg: #f7fafc;               /* lichtgrijze achtergrond */
-      --panel: #fff;               /* witte panelen */
-      --muted: #64748b;            /* koel grijs voor tekst */
+      --bg: #f7fafc;               /* light gray background */
+      --panel: #fff;               /* white panels */
+      --muted: #64748b;            /* cool gray for text */
       --gold: #d4af37;
       --focus: 3px solid rgba(212,175,55,0.15);
     }
@@ -333,7 +77,7 @@
 </head>
 <body class="antialiased">
 
-  <a class="sr-only focus:not-sr-only block p-2 bg-white text-black fixed left-4 top-4 rounded skip-link" href="#main">Spring direct naar inhoud</a>
+  <a class="sr-only focus:not-sr-only block p-2 bg-white text-black fixed left-4 top-4 rounded skip-link" href="#main">Skip to content</a>
 
   <header class="fixed w-full z-40 bg-white/90 shadow-light backdrop-blur" role="banner">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
@@ -341,7 +85,7 @@
 
       <nav class="hidden md:flex items-center space-x-6" aria-label="Primary">
         <a href="index.html" class="hover:text-gold link">Home</a>
-        <a href="projects.html" class="hover:text-gold link">Projecten</a>
+        <a href="projects.html" class="hover:text-gold link">Projects</a>
         <a href="naadam.html" class="text-gold font-semibold" aria-current="page">Naadam</a>
       </nav>
 
@@ -350,16 +94,16 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
-          <span class="sr-only">Open navigatie</span>
+          <span class="sr-only">Open navigation</span>
         </button>
       </div>
     </div>
 
-    <nav id="mobile-nav" class="hidden md:hidden bg-white/95 border-t border-gray-100" aria-label="Mobiel menu">
+    <nav id="mobile-nav" class="hidden md:hidden bg-white/95 border-t border-gray-100" aria-label="Mobile menu">
       <div class="max-w-6xl mx-auto px-4 py-3">
         <ul class="space-y-2">
           <li><a href="index.html" class="block link">Home</a></li>
-          <li><a href="projects.html" class="block link">Projecten</a></li>
+          <li><a href="projects.html" class="block link">Projects</a></li>
           <li><a href="naadam.html" class="block font-semibold text-gold" aria-current="page">Naadam</a></li>
         </ul>
       </div>
@@ -377,7 +121,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-white/90 to-transparent"></div>
         <div class="absolute inset-0 flex items-end">
           <div class="max-w-4xl mx-auto p-6 md:p-10">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gold hero-title">Beyond the Pitch × Naadam Festival, Mongolië</h1>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gold hero-title">Beyond the Pitch × Naadam Festival, Mongolia</h1>
           </div>
         </div>
       </div>
@@ -387,70 +131,70 @@
     <section class="max-w-3xl mx-auto px-6 mt-0">
       <div class="card rounded-3xl px-6 py-10 shadow-light relative z-10">
         <div class="content">
-          <p class="text-lg font-semibold text-gray-700 mb-2">Beleef drie dagen vol worstelen, paardenrennen, boogschieten en tradities in het hart van Mongolië.</p>
-          <h2 class="text-2xl font-bold text-gold mt-2">Doe mee aan Naadam!</h2>
-          <p class="mt-3">Ga met Beyond the Pitch mee op een onvergetelijke driedaagse reis naar Naadam, het bekendste festival van Mongolië. Geniet van traditionele worstelwedstrijden, adembenemende paardenrennen, boogschieten en authentieke cultuur in kleine reisgezelschappen.</p>
+          <p class="text-lg font-semibold text-gray-700 mb-2">Experience three days of wrestling, horse racing, archery and traditions in the heart of Mongolia.</p>
+          <h2 class="text-2xl font-bold text-gold mt-2">Join us at Naadam!</h2>
+          <p class="mt-3">Join Beyond the Pitch for an unforgettable three-day journey to Naadam, Mongolia's most famous festival. Enjoy traditional wrestling matches, breathtaking horse racing, archery, and authentic culture in small travel groups.</p>
 
           <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Wanneer</h3>
-              <p class="text-gray-600">Midden juli — 3 dagen (jaarlijks wisselende data)</p>
+              <h3 class="font-semibold text-gray-800">When</h3>
+              <p class="text-gray-600">Mid-July — 3 days (dates vary annually)</p>
             </div>
             <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Waar</h3>
-              <p class="text-gray-600">Ulaanbaatar & nabijgelegen Naadam-velden</p>
+              <h3 class="font-semibold text-gray-800">Where</h3>
+              <p class="text-gray-600">Ulaanbaatar & nearby Naadam fields</p>
             </div>
             <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Inbegrepen</h3>
-              <p class="text-gray-600">Geleide festivalbezoeken, lokale gidsen, geselecteerde maaltijden, culturele activiteiten</p>
+              <h3 class="font-semibold text-gray-800">Included</h3>
+              <p class="text-gray-600">Guided festival visits, local guides, selected meals, cultural activities</p>
             </div>
             <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Groepsgrootte</h3>
-              <p class="text-gray-600">Kleine groepjes voor optimale cultuurervaring</p>
+              <h3 class="font-semibold text-gray-800">Group size</h3>
+              <p class="text-gray-600">Small groups for optimal cultural experience</p>
             </div>
           </div>
 
           <div class="mt-7 flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-            <a href="mailto:info@beyondthepitch.example?subject=Naadam%20interest" class="inline-block bg-gold text-black font-semibold px-6 py-3 rounded-lg hover:opacity-90">Meld interesse aan</a>
-            <a href="projects.html" class="mt-3 sm:mt-0 text-sm text-gray-700 link">Bekijk andere projecten</a>
+            <a href="mailto:info@beyondthepitch.example?subject=Naadam%20interest" class="inline-block bg-gold text-black font-semibold px-6 py-3 rounded-lg hover:opacity-90">Register your interest</a>
+            <a href="projects.html" class="mt-3 sm:mt-0 text-sm text-gray-700 link">See other projects</a>
           </div>
 
           <!-- Itinerary -->
           <section aria-labelledby="itinerary" class="mt-10">
-            <h3 id="itinerary" class="text-xl font-semibold text-gold">Voorbeeldprogramma: 3 dagen</h3>
+            <h3 id="itinerary" class="text-xl font-semibold text-gold">Sample itinerary: 3 days</h3>
             <div class="mt-4 space-y-4">
               <article class="p-4 rounded-lg bg-tint border border-gray-200">
-                <h4 class="font-semibold">Dag 1 — Aankomst & Opening</h4>
-                <p class="text-gray-700">Aankomst in Ulaanbaatar, transfer naar hotel, kennismaking en bijwonen van de openingsceremonie van Naadam.</p>
+                <h4 class="font-semibold">Day 1 — Arrival & Opening</h4>
+                <p class="text-gray-700">Arrival in Ulaanbaatar, transfer to hotel, introduction and attending the Naadam opening ceremony.</p>
               </article>
               <article class="p-4 rounded-lg bg-tint border border-gray-200">
-                <h4 class="font-semibold">Dag 2 — Worstelen & Lokale ontmoeting</h4>
-                <p class="text-gray-700">In de ochtend de worstelwedstrijden, ’s middags op bezoek bij een nomadenfamilie, ‘s avonds traditionele muziek en dans.</p>
+                <h4 class="font-semibold">Day 2 — Wrestling & Local encounter</h4>
+                <p class="text-gray-700">In the morning the wrestling matches, in the afternoon visit to a nomadic family, in the evening traditional music and dance.</p>
               </article>
               <article class="p-4 rounded-lg bg-tint border border-gray-200">
-                <h4 class="font-semibold">Dag 3 — Paardenrennen & Slotdiner</h4>
-                <p class="text-gray-700">Ervaar legendarische paardenrennen, geniet van optredens en een gezamenlijk slotdiner.</p>
+                <h4 class="font-semibold">Day 3 — Horse racing & Farewell dinner</h4>
+                <p class="text-gray-700">Experience legendary horse races, enjoy performances and a joint farewell dinner.</p>
               </article>
             </div>
           </section>
 
           <!-- Gallery -->
           <section aria-labelledby="gallery" class="mt-10">
-            <h3 id="gallery" class="text-xl font-semibold text-gold">Galerij</h3>
+            <h3 id="gallery" class="text-xl font-semibold text-gold">Gallery</h3>
             <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <img src="https://images.pexels.com/photos/1580244/pexels-photo-1580244.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mongoolse ruiter tijdens Naadam" class="w-full h-32 object-cover rounded-lg border border-gray-200">
-              <img src="https://images.pexels.com/photos/2468759/pexels-photo-2468759.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Traditionele Mongoolse worstelaars" class="w-full h-32 object-cover rounded-lg border border-gray-200">
-              <img src="https://images.pexels.com/photos/3920258/pexels-photo-3920258.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Boogschieten op cultureel festival" class="w-full h-32 object-cover rounded-lg border border-gray-200">
+              <img src="https://images.pexels.com/photos/1580244/pexels-photo-1580244.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mongolian rider during Naadam" class="w-full h-32 object-cover rounded-lg border border-gray-200">
+              <img src="https://images.pexels.com/photos/2468759/pexels-photo-2468759.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Traditional Mongolian wrestlers" class="w-full h-32 object-cover rounded-lg border border-gray-200">
+              <img src="https://images.pexels.com/photos/3920258/pexels-photo-3920258.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Archery at cultural festival" class="w-full h-32 object-cover rounded-lg border border-gray-200">
             </div>
           </section>
 
           <!-- Practical info -->
           <section aria-labelledby="info" class="mt-10">
-            <h3 id="info" class="text-xl font-semibold text-gold">Praktische info</h3>
+            <h3 id="info" class="text-xl font-semibold text-gold">Practical info</h3>
             <ul class="mt-3 list-disc list-inside text-gray-700">
-              <li>Neem laagjes kleding mee — het kan flink afkoelen ’s nachts.</li>
-              <li>Respecteer lokale gebruiken en volg het advies van de gids voor foto’s.</li>
-              <li>Reisverzekering en benodigde visa zijn je eigen verantwoordelijkheid.</li>
+              <li>Bring layers — it can cool off considerably at night.</li>
+              <li>Respect local customs and follow your guide's advice for photos.</li>
+              <li>Travel insurance and required visas are your own responsibility.</li>
             </ul>
           </section>
         </div>
@@ -463,11 +207,11 @@
         <div class="border-t border-gray-200 pt-6 text-sm text-gray-500 flex flex-col md:flex-row md:justify-between md:items-center">
           <div class="mb-4 md:mb-0">
             <a href="index.html" class="text-gold font-semibold">Beyond the Pitch</a>
-            <p class="mt-1">Curated culturele sports-ervaringen.</p>
+            <p class="mt-1">Curated cultural sports experiences.</p>
           </div>
           <div class="flex items-center space-x-6">
             <a href="mailto:info@beyondthepitch.example" class="hover:text-gold link">Contact</a>
-            <a href="projects.html" class="hover:text-gold link">Projecten</a>
+            <a href="projects.html" class="hover:text-gold link">Projects</a>
           </div>
         </div>
       </div>
