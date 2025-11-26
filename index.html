@@ -9,6 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
+    /* Base */
     :root{
       --gold: #ffd700;
       --dark-900: #0f1720;
@@ -60,11 +61,11 @@
     .project-card img{ width:100%; height:220px; object-fit:cover; display:block; }
     @media(min-width:1024px){ .project-card img{ height:240px; } }
 
-    /* Modals - use BEM-ish classes but minimal */
+    /* Modals */
     .modal { display:none; position:fixed; inset:0; z-index:80; background: rgba(0,0,0,0.6); align-items:center; justify-content:center; padding:1.2rem; }
     .modal.show { display:flex; }
     .modal-inner { background: rgba(17,24,39,0.98); border-radius:14px; max-width:960px; width:100%; box-shadow: 0 10px 40px rgba(0,0,0,0.6); position:relative; overflow:hidden; }
-    .modal-body { padding:1.6rem; position:relative; z-index:2; }
+    .modal-body { padding:1.6rem; }
     .modal-video-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
     .modal-video-bg video{ width:100%; height:100%; object-fit:cover; filter:brightness(.45) saturate(.9); }
     .modal-overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.6)); z-index:1; }
@@ -82,8 +83,6 @@
     .rounded-3xl{ border-radius:1rem; }
     .shadow-soft{ box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
 
-    /* CTA hero helper */
-    .cta-hero { min-height: 420px; background-size: cover; background-position: center; position:relative; }
   </style>
 </head>
 <body>
@@ -98,9 +97,9 @@
       </div>
 
       <div class="flex items-center space-x-3">
-        <button data-open="modalNaadam" class="bg-yellow-500 text-black px-3 py-1 rounded-2xl font-medium hover:bg-yellow-400">Naadam Festival 2026 →</button>
+        <button id="openModalNaadamBtnTop" class="bg-yellow-500 text-black px-3 py-1 rounded-2xl font-medium hover:bg-yellow-400">Naadam Festival 2026 →</button>
         <!-- Header video play button (next to Naadam CTA) -->
-        <button data-open="modalHeaderVideo" aria-label="Watch teaser" class="bg-transparent border border-gray-600 text-gray-200 px-3 py-1 rounded-2xl hover:bg-gray-900" id="openHeaderVideoBtn">
+        <button id="openHeaderVideoBtn" aria-label="Watch teaser" class="bg-transparent border border-gray-600 text-gray-200 px-3 py-1 rounded-2xl hover:bg-gray-900">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="inline-block mr-2" xmlns="http://www.w3.org/2000/svg">
             <path d="M5 3v18l15-9L5 3z" fill="#ffd700"/>
           </svg>
@@ -128,7 +127,9 @@
           </button>
 
           <div class="dropdown mt-2" role="menu" aria-label="Projects menu">
+            <!-- Desktop dropdown links still point to detail pages -->
             <a href="naadam.html" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition" role="menuitem">Naadam Festival — Mongolia</a>
+            <!-- Add future projects here as links to their pages -->
           </div>
         </div>
 
@@ -162,7 +163,7 @@
   <main id="maincontent">
     <section class="relative flex items-center justify-center text-center h-screen px-6">
       <div class="absolute inset-0">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover" />
+        <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
       </div>
 
@@ -171,7 +172,7 @@
         <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Co-create immersive global sports and culture journeys.</p>
 
         <div class="mt-8 flex justify-center space-x-4">
-          <button data-open="modalHero" class="bg-white text-black font-semibold px-6 py-3 rounded-2xl hover:bg-gray-200">Become a local partner →</button>
+          <button id="openModalHero" class="bg-white text-black font-semibold px-6 py-3 rounded-2xl hover:bg-gray-200">Become a local partner →</button>
           <a href="#video" class="inline-flex items-center text-gray-200 hover:text-gold">Watch teaser</a>
         </div>
       </div>
@@ -189,7 +190,7 @@
           <!-- Naadam Festival card -->
           <article class="project-card">
             <a href="naadam.html" class="block">
-              <img loading="lazy" src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Naadam Wrestling action" />
+              <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Naadam Wrestling action" />
               <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">Naadam Festival — Mongolia</h3>
                 <p class="text-gray-300 mb-4">Three-day cultural and sports immersion — wrestling, archery, horse racing.</p>
@@ -201,35 +202,19 @@
             </a>
           </article>
 
-          <!-- Experience the pride of Ireland — Ireland -->
-          <article class="project-card bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
-            <a href="#" class="block">
-              <img loading="lazy" src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" alt="Gaelic Football — Damien Comer" class="project-img" />
-              <div class="p-6">
-                <h3 class="text-xl font-semibold mb-2">Gaelic Football & hurling — Ireland</h3>
-                <p class="text-gray-300 mb-4">
-                  Experience local rivalry and grassroots passion in Ireland.
-                </p>
-                <div class="flex items-center justify-between">
-                  <span class="text-sm text-gray-400">Coming soon</span>
-                  <span class="text-gold font-semibold">Details →</span>
-                </div>
-              </div>
-            </a>
-          </article>
-
-          <!-- Example card: Muay Thai -->
-<article class="project-card">
+<!-- Experience the pride of Ireland — Ireland -->
+<article class="project-card bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
   <a href="#" class="block">
     <img 
-      loading="lazy" 
-      src="https://images.unsplash.com/photo-1525680996651-0222228be6f0?fm=jpg&auto=format&fit=crop&w=1600&q=80" 
-      alt="Muay Thai" 
-      class="w-full h-64 object-cover"
+      src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" 
+      alt="Gaelic Football — Damien Comer" 
+      class="project-img"
     />
     <div class="p-6">
-      <h3 class="text-xl font-semibold mb-2">Muay Thai — Thailand</h3>
-      <p class="text-gray-300 mb-4">Train, watch and live Muay Thai in local gyms and stadiums.</p>
+      <h3 class="text-xl font-semibold mb-2">Gaelic Football & hurling — Ireland</h3>
+      <p class="text-gray-300 mb-4">
+        Experience local rivalry and grassroots passion in Ireland.
+      </p>
       <div class="flex items-center justify-between">
         <span class="text-sm text-gray-400">Coming soon</span>
         <span class="text-gold font-semibold">Details →</span>
@@ -238,13 +223,30 @@
   </a>
 </article>
 
+          <!-- Example card: Muay Thai -->
+          <article class="project-card">
+            <a href="#" class="block">
+              <img src="https://images.unsplash.com/photo-1605274764058-81202cf3e95d?auto=format&fit=crop&w=1400&q=80" alt="Muay Thai" />
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">Muay Thai — Thailand</h3>
+                <p class="text-gray-300 mb-4">Train, watch and live Muay Thai in local gyms and stadiums.</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-400">Coming soon</span>
+                  <span class="text-gold font-semibold">Details →</span>
+                </div>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <!-- ================= Video ================= -->
     <section id="video" class="py-16 px-4 text-center">
       <div class="max-w-4xl mx-auto" data-animate>
         <h2 class="text-3xl font-semibold mb-6 text-gold">A glimpse beyond the stadium</h2>
         <div class="aspect-w-16 aspect-h-9">
-          <iframe class="w-full h-96 rounded-xl shadow-lg" src="https://www.youtube.com/embed/x0mCI1ks_cc" title="Beyond the pitch teaser" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          <iframe class="w-full h-96 rounded-xl shadow-lg" src="https://www.youtube.com/embed/x0mCI1ks_cc" title="Beyond the pitch teaser" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </section>
@@ -315,22 +317,47 @@
       </div>
     </section>
 
-    <!-- ================= CTA Section with Naadam Action Image ================= -->
-    <section class="py-28 px-6 md:px-24 text-center relative">
-      <div class="max-w-6xl mx-auto">
-        <div class="rounded-3xl overflow-hidden shadow-lg relative cta-hero"
-             style="background-image: url('https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1920');">
-          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);"></div>
+<!-- ================= CTA Section with Naadam Action Image ================= -->
+<section class="py-28 px-6 md:px-24 text-center relative">
+  <div class="max-w-6xl mx-auto">
 
-          <div class="relative z-10 p-12">
-            <h2 class="text-4xl md:text-5xl font-semibold text-yellow-400 mb-4">Naadam Festival 2026</h2>
-            <p class="max-w-2xl mx-auto mb-6 text-xl text-gray-100">Once in a lifetime experience.</p>
+    <div class="rounded-3xl overflow-hidden shadow-lg relative"
+         style="
+           min-height: 420px;
+           background-image: url('https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1920');
+           background-size: cover;
+           background-position: center;
+         ">
 
-            <button data-open="modalNaadam" class="bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">Apply now →</button>
-          </div>
-        </div>
+      <!-- Donkere overlay voor leesbaarheid -->
+      <div style="
+        position:absolute;
+        inset:0;
+        background:linear-gradient(
+          180deg,
+          rgba(0,0,0,0.3) 0%,
+          rgba(0,0,0,0.7) 100%
+        );
+      "></div>
+
+      <div class="relative z-10 p-12">
+        <h2 class="text-4xl md:text-5xl font-semibold text-yellow-400 mb-4">
+          Naadam Festival 2026
+        </h2>
+
+        <p class="max-w-2xl mx-auto mb-6 text-xl text-gray-100">
+          Once in a lifetime experience.
+        </p>
+
+        <button id="openModalNaadamBtn"
+          class="bg-yellow-500 text-black font-semibold px-8 py-3 rounded-2xl hover:bg-yellow-400 transition">
+          Apply now →
+        </button>
       </div>
-    </section>
+
+    </div>
+  </div>
+</section>
 
     <!-- ================= FAQ ================= -->
     <section id="faq" class="py-20 px-6 md:px-20 bg-gray-950 text-white">
@@ -364,9 +391,9 @@
   </footer>
 
   <!-- ================= Hero Modal (Become a local partner) ================= -->
-  <div id="modalHero" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeroTitle" aria-hidden="true">
-    <div class="modal-inner modal-body rounded-3xl shadow-soft max-w-2xl" role="document">
-      <button class="close-btn" data-close aria-label="Close">&times;</button>
+  <div id="modalHero" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeroTitle">
+    <div class="modal-inner modal-body rounded-3xl shadow-soft max-w-2xl">
+      <button class="close-btn" id="closeModalHero" aria-label="Close">&times;</button>
       <div class="modal-body z-10 relative">
         <h3 id="modalHeroTitle" class="text-2xl font-semibold text-gold mb-4 text-center">Apply for the 2025 pilot</h3>
         <p class="text-gray-300 text-center mb-6">Fill in your details and we’ll get back to you with next steps.</p>
@@ -377,6 +404,7 @@
           <input name="club" type="text" placeholder="Club / organization" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
           <textarea name="message" placeholder="Message / why do you want to join?" rows="4" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
 
+          <!-- Formspree hidden fields -->
           <input type="hidden" name="_subject" value="New application for Beyond the Pitch 2025 Pilot" />
           <input type="hidden" name="_replyto" value="thebeyondthepitch@gmail.com" />
 
@@ -387,17 +415,17 @@
   </div>
 
   <!-- ================= Naadam Modal (kept as convenience) ================= -->
-  <div id="modalNaadam" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNaadamTitle" aria-hidden="true">
-    <div class="modal-inner max-w-3xl rounded-3xl overflow-hidden" role="document">
+  <div id="modalNaadam" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNaadamTitle">
+    <div class="modal-inner max-w-3xl rounded-3xl overflow-hidden">
       <!-- video bg for visual continuity -->
       <div class="modal-video-bg" aria-hidden="true">
-        <video id="naadamVideoBg" autoplay muted loop playsinline>
+        <video autoplay muted loop playsinline>
           <source src="https://www.videvo.net/videvo_files/converted/2017_09/preview/170901_Horse_Riding_Mongolia.mp412960.mp4" type="video/mp4">
         </video>
         <div class="modal-overlay"></div>
       </div>
 
-      <button class="close-btn" data-close aria-label="Close Naadam modal">&times;</button>
+      <button class="close-btn" id="closeModalNaadam" aria-label="Close Naadam modal">&times;</button>
 
       <div class="modal-body relative z-10 text-white">
         <h3 id="modalNaadamTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Beyond the Pitch × Naadam Festival Mongolia</h3>
@@ -427,6 +455,7 @@
           <input type="email" name="email" placeholder="Email address" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
           <textarea name="message" placeholder="More information / questions" rows="4" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
 
+          <!-- Formspree hidden -->
           <input type="hidden" name="_subject" value="Naadam inquiry — Beyond the Pitch" />
           <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold">Apply / Request info</button>
         </form>
@@ -436,16 +465,16 @@
   </div>
 
   <!-- ================= Header Video Modal (Teaser) -->
-  <div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle" aria-hidden="true">
-    <div class="modal-inner max-w-4xl rounded-3xl overflow-hidden" role="document">
-      <button class="close-btn" data-close id="closeHeaderVideoBtn" aria-label="Close video">&times;</button>
+  <div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle">
+    <div class="modal-inner max-w-4xl rounded-3xl overflow-hidden">
+      <button class="close-btn" id="closeHeaderVideoBtn" aria-label="Close video">&times;</button>
 
       <div class="modal-body relative z-10 text-white">
         <h3 id="modalHeaderVideoTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Teaser — Beyond the pitch</h3>
 
         <div class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
           <!-- data-src lazy-loads the video when the modal opens -->
-          <iframe id="headerVideoIframe" data-src="https://www.youtube.com/embed/x0mCI1ks_cc?autoplay=1&amp;rel=0" title="Beyond the pitch teaser" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full" loading="lazy"></iframe>
+          <iframe id="headerVideoIframe" data-src="https://www.youtube.com/embed/x0mCI1ks_cc?autoplay=1&amp;rel=0" title="Beyond the pitch teaser" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
         </div>
       </div>
     </div>
@@ -453,188 +482,100 @@
 
   <!-- ================= Scripts ================= -->
   <script>
-    // ---------- Simple scroll-into-view animation observer ----------
-    (function() {
-      const els = document.querySelectorAll('[data-animate]');
-      if(!els.length) return;
+    // Simple scroll-into-view animation observer
+    const els = document.querySelectorAll('[data-animate]');
+    if(els.length){
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('animate'); });
       }, { threshold: 0.2 });
       els.forEach(e => obs.observe(e));
-    })();
+    }
 
-    // ---------- Mobile menu toggle ----------
-    (function(){
-      const mobileToggle = document.getElementById('mobileToggle');
-      const mobileMenu = document.getElementById('mobileMenu');
-      mobileToggle && mobileToggle.addEventListener('click', () => {
-        const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-        mobileToggle.setAttribute('aria-expanded', String(!expanded));
-        if(mobileMenu.style.display === 'block'){ mobileMenu.style.display = 'none'; mobileMenu.setAttribute('aria-hidden','true'); }
-        else { mobileMenu.style.display = 'block'; mobileMenu.setAttribute('aria-hidden','false'); }
-      });
-    })();
-
-    // ---------- Modal system (open/close, focus trap, restore focus, lazy loads) ----------
-    (function() {
-      let lastFocusedElement = null;
-
-      // helpers
-      const focusableSelectors = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
-
-      function getFocusable(el) {
-        return Array.from(el.querySelectorAll(focusableSelectors)).filter(node => node.offsetParent !== null);
-      }
-
-      function openModalById(id, trigger = null) {
-        const modal = document.getElementById(id);
-        if(!modal) return;
-        lastFocusedElement = trigger || document.activeElement;
-        modal.classList.add('show');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-
-        // lazy-load header video iframe (only for header video modal)
-        if(id === 'modalHeaderVideo') {
-          const iframe = document.getElementById('headerVideoIframe');
-          if(iframe) {
-            const dataSrc = iframe.getAttribute('data-src');
-            if(dataSrc && iframe.src !== dataSrc) iframe.src = dataSrc;
-          }
-        }
-
-        // set focus to first focusable inside modal
-        const focusables = getFocusable(modal);
-        if(focusables.length) focusables[0].focus();
-
-        // add keydown listener for focus-trap on modal
-        modal.addEventListener('keydown', handleTrap);
-      }
-
-      function closeModalElement(modal) {
-        if(!modal) return;
-        // stop header iframe if present
-        if(modal.id === 'modalHeaderVideo') {
-          const iframe = document.getElementById('headerVideoIframe');
-          if(iframe) iframe.src = '';
-        }
-        // pause naadam video bg
-        if(modal.id === 'modalNaadam') {
-          const v = document.getElementById('naadamVideoBg');
-          if(v && !v.paused) {
-            try { v.pause(); v.currentTime = 0; } catch(e){}
-          }
-        }
-
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        modal.removeEventListener('keydown', handleTrap);
-
-        // restore focus
-        try {
-          if(lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus();
-        } catch (e) {}
-      }
-
-      function handleTrap(e) {
-        if(e.key !== 'Tab') return;
-        const modal = e.currentTarget;
-        const focusables = getFocusable(modal);
-        if(!focusables.length) {
-          e.preventDefault();
-          return;
-        }
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-
-        if(e.shiftKey) {
-          if(document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if(document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-
-      // Global click listener (delegation for open & close & overlay click)
-      document.addEventListener('click', function(e) {
-        // Open
-        const opener = e.target.closest('[data-open]');
-        if(opener) {
-          const id = opener.getAttribute('data-open');
-          openModalById(id, opener);
-          return;
-        }
-
-        // Close buttons (any element with data-close)
-        const closer = e.target.closest('[data-close]');
-        if(closer) {
-          const modal = closer.closest('.modal');
-          if(modal) closeModalElement(modal);
-          return;
-        }
-
-        // Clicking the overlay (modal background) closes modal
-        if(e.target.classList.contains('modal')) {
-          closeModalElement(e.target);
-          return;
-        }
-      });
-
-      // Close on Escape (closes any open modal)
-      document.addEventListener('keydown', function(e) {
-        if(e.key === 'Escape') {
-          document.querySelectorAll('.modal.show').forEach(modal => closeModalElement(modal));
-        }
-      });
-
-      // Expose utility functions for specific usage if needed
-      window.SiteModal = {
-        open: openModalById,
-        closeById: function(id) { const modal = document.getElementById(id); if(modal) closeModalElement(modal); }
-      };
-    })();
-
-    // ---------- Small enhancements for dropdown keyboard accessibility ----------
-    document.querySelectorAll('.nav-projects').forEach(el=>{
-      el.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const dd = el.querySelector('.dropdown');
-          if(dd) dd.style.display = (dd.style.display === 'block' ? '' : 'block');
-        }
-      });
-      el.addEventListener('focusout', ()=> {
-        const dd = el.querySelector('.dropdown');
-        if(dd) dd.style.display = '';
-      });
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle && mobileToggle.addEventListener('click', () => {
+      const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', String(!expanded));
+      if(mobileMenu.style.display === 'block'){ mobileMenu.style.display = 'none'; mobileMenu.setAttribute('aria-hidden','true'); }
+      else { mobileMenu.style.display = 'block'; mobileMenu.setAttribute('aria-hidden','false'); }
     });
 
-    // ---------- Ensure naadam bg video starts/stops sensibly ----------
-    (function(){
-      const naadamModal = document.getElementById('modalNaadam');
-      const naadamVideo = document.getElementById('naadamVideoBg');
-      if(!naadamModal || !naadamVideo) return;
+    // Modal helpers
+    function openModal(id){ document.getElementById(id).classList.add('show'); document.body.style.overflow = 'hidden'; }
+    function closeModal(id){ document.getElementById(id).classList.remove('show'); document.body.style.overflow = ''; }
 
-      // When modal opens, try to play (autoplay policies might block; video is muted so should play)
-      const obs = new MutationObserver(muts => {
-        muts.forEach(m => {
-          if(m.attributeName === 'class') {
-            if(naadamModal.classList.contains('show')) {
-              try { naadamVideo.play(); } catch(e){}
-            } else {
-              try { naadamVideo.pause(); naadamVideo.currentTime = 0; } catch(e){}
-            }
-          }
-        });
+    // Hero modal
+    const openModalHeroBtn = document.getElementById('openModalHero');
+    const modalHero = document.getElementById('modalHero');
+    const closeModalHeroBtn = document.getElementById('closeModalHero');
+    openModalHeroBtn && openModalHeroBtn.addEventListener('click', () => openModal('modalHero'));
+    closeModalHeroBtn && closeModalHeroBtn.addEventListener('click', () => closeModal('modalHero'));
+
+    // Naadam modal - top banner + CTA
+    const openNaadamTop = document.getElementById('openModalNaadamBtnTop');
+    const openNaadamCTA = document.getElementById('openModalNaadamBtn');
+    const modalNaadam = document.getElementById('modalNaadam');
+    const closeNaadamBtn = document.getElementById('closeModalNaadam');
+    openNaadamTop && openNaadamTop.addEventListener('click', () => openModal('modalNaadam'));
+    openNaadamCTA && openNaadamCTA.addEventListener('click', () => openModal('modalNaadam'));
+    closeNaadamBtn && closeNaadamBtn.addEventListener('click', () => closeModal('modalNaadam'));
+
+    // Header video modal — lazy-load en stop playback op close
+    (function(){
+      const openBtn = document.getElementById('openHeaderVideoBtn');
+      const modalEl = document.getElementById('modalHeaderVideo');
+      const closeBtn = document.getElementById('closeHeaderVideoBtn');
+      const iframe = document.getElementById('headerVideoIframe');
+
+      function openHeaderVideo(){
+        if(!iframe) return;
+        const dataSrc = iframe.getAttribute('data-src');
+        if(dataSrc && iframe.src !== dataSrc) iframe.src = dataSrc;
+        modalEl && modalEl.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeHeaderVideo(){
+        modalEl && modalEl.classList.remove('show');
+        document.body.style.overflow = '';
+        if(iframe) iframe.src = ''; // remove src to stop playback
+      }
+
+      openBtn && openBtn.addEventListener('click', openHeaderVideo);
+      closeBtn && closeBtn.addEventListener('click', closeHeaderVideo);
+
+      // sluit bij klik buiten (consistent met bestaande behavior)
+      window.addEventListener('click', (e) => {
+        if(e.target === modalEl) closeHeaderVideo();
       });
-      obs.observe(naadamModal, { attributes: true });
+
+      // Esc sluit ook
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeHeaderVideo();
+      });
     })();
+
+    // Close modals on outside click
+    window.addEventListener('click', (e) => {
+      if(e.target === modalHero) closeModal('modalHero');
+      if(e.target === modalNaadam) closeModal('modalNaadam');
+    });
+
+    // Keyboard support (Esc to close)
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') {
+        closeModal('modalHero'); closeModal('modalNaadam');
+      }
+    });
+
+    // Ensure dropdown focuses show
+    document.querySelectorAll('.nav-projects').forEach(el=>{
+      el.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.querySelector('.dropdown').style.display = 'block'; }
+      });
+      el.addEventListener('focusout', ()=> { const dd = el.querySelector('.dropdown'); if(dd) dd.style.display = ''; });
+    });
   </script>
 </body>
 </html>
