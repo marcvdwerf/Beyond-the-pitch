@@ -410,54 +410,53 @@
     </div>
   </div>
 
-  <!-- ================= Naadam Modal (kept as convenience) ================= -->
-  <div id="modalNaadam" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNaadamTitle" aria-hidden="true">
-    <div class="modal-inner max-w-3xl rounded-3xl overflow-hidden" role="document">
-      <!-- video bg for visual continuity -->
-      <div class="modal-video-bg" aria-hidden="true">
-        <video id="naadamVideoBg" autoplay muted loop playsinline>
-          <source src="https://www.videvo.net/videvo_files/converted/2017_09/preview/170901_Horse_Riding_Mongolia.mp412960.mp4" type="video/mp4">
-        </video>
-        <div class="modal-overlay"></div>
+<!-- ================= Naadam Modal (kept as convenience) ================= -->
+<div id="modalNaadam" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNaadamTitle" aria-hidden="true">
+  <div class="modal-inner max-w-3xl rounded-3xl overflow-hidden" role="document" style="max-height: 90vh; overflow-y: auto;">
+    <!-- video bg for visual continuity -->
+    <div class="modal-video-bg" aria-hidden="true" style="position: fixed;">
+      <video id="naadamVideoBg" autoplay muted loop playsinline>
+        <source src="https://www.videvo.net/videvo_files/converted/2017_09/preview/170901_Horse_Riding_Mongolia.mp412960.mp4" type="video/mp4">
+      </video>
+      <div class="modal-overlay"></div>
+    </div>
+
+    <button class="close-btn" data-close aria-label="Close Naadam modal">&times;</button>
+
+    <div class="relative z-10 text-white p-6">
+      <h3 id="modalNaadamTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Beyond the Pitch × Naadam Festival Mongolia</h3>
+      <p class="text-gray-200 text-center mb-6 max-w-2xl mx-auto">Join us for an unforgettable three-day journey into the heart of Mongolia's most important celebration: the Naadam Festival.</p>
+
+      <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-4">
+        <h4 class="text-xl font-semibold text-yellow-300 mb-2">Program</h4>
+        <ul class="list-disc list-inside text-gray-200 space-y-2">
+          <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
+          <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
+          <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
+        </ul>
       </div>
 
-      <button class="close-btn" data-close aria-label="Close Naadam modal">&times;</button>
-
-      <div class="modal-body relative z-10 text-white">
-        <h3 id="modalNaadamTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Beyond the Pitch × Naadam Festival Mongolia</h3>
-        <p class="text-gray-200 text-center mb-6 max-w-2xl mx-auto">Join us for an unforgettable three-day journey into the heart of Mongolia’s most important celebration: the Naadam Festival.</p>
-
-        <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-4">
-          <h4 class="text-xl font-semibold text-yellow-300 mb-2">Program</h4>
-          <ul class="list-disc list-inside text-gray-200 space-y-2">
-            <li><strong>July 10: Zuunmod</strong> - Experience the local Naadam Festival just outside Ulaanbaatar.</li>
-            <li><strong>July 11: Ulaanbaatar</strong> - Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
-            <li><strong>July 12: The Steppe</strong> - See the famous horse races and meet trainers to learn about nomadic traditions.</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-4">
-          <h4 class="text-xl font-semibold text-yellow-300 mb-2">About Naadam</h4>
-          <p class="text-gray-200">Naadam is Mongolia’s national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It is a living tribute to the country’s nomadic heritage, filled with music, dance, food, and vibrant community spirit.</p>
-        </div>
-
-        <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-6">
-          <h4 class="text-xl font-semibold text-yellow-300 mb-2">Why travel with us</h4>
-          <p class="text-gray-200">Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you’ll experience Naadam not as a tourist, but as part of the celebration.</p>
-        </div>
-
-        <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
-          <input type="text" name="name" placeholder="Full name" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
-          <input type="email" name="email" placeholder="Email address" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
-          <textarea name="message" placeholder="More information / questions" rows="4" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
-
-          <input type="hidden" name="_subject" value="Naadam inquiry — Beyond the Pitch" />
-          <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold">Apply / Request info</button>
-        </form>
-
+      <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-4">
+        <h4 class="text-xl font-semibold text-yellow-300 mb-2">About Naadam</h4>
+        <p class="text-gray-200">Naadam is Mongolia's national holiday, centered on three traditional sports: wrestling, horse racing, and archery. It is a living tribute to the country's nomadic heritage, filled with music, dance, food, and vibrant community spirit.</p>
       </div>
+
+      <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-6">
+        <h4 class="text-xl font-semibold text-yellow-300 mb-2">Why travel with us</h4>
+        <p class="text-gray-200">Our program gives you access to events that are normally hard for visitors to attend, including the opening ceremony. With guidance from a local expert, you'll experience Naadam not as a tourist, but as part of the celebration.</p>
+      </div>
+
+      <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
+        <input type="text" name="name" placeholder="Full name" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white" />
+        <input type="email" name="email" placeholder="Email address" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white" />
+        <textarea name="message" placeholder="More information / questions" rows="4" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white"></textarea>
+
+        <input type="hidden" name="_subject" value="Naadam inquiry — Beyond the Pitch" />
+        <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold hover:bg-yellow-600">Apply / Request info</button>
+      </form>
     </div>
   </div>
+</div>
 
   <!-- ================= Header Video Modal (Teaser) -->
   <div id="modalHeaderVideo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeaderVideoTitle" aria-hidden="true">
