@@ -634,23 +634,6 @@
       });
       obs.observe(naadamModal, { attributes: true });
     })();
-    
-    // Fix Naadam modal sluiten
-setTimeout(function() {
-  var naadamCloseBtn = document.querySelector('#modalNaadam .close-btn');
-  if(naadamCloseBtn) {
-    naadamCloseBtn.onclick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var modal = document.getElementById('modalNaadam');
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-      var video = document.getElementById('naadamVideoBg');
-      if(video) video.pause();
-    };
-  }
-}, 500);
   </script>
 </body>
 </html>
