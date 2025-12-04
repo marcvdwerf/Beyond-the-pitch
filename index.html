@@ -640,6 +640,39 @@
       });
       obs.observe(naadamModal, { attributes: true });
     })();
+    })();
+
+    // ---------- Extra fix voor Naadam modal close button ----------
+    document.addEventListener('DOMContentLoaded', function() {
+      const naadamModal = document.getElementById('modalNaadam');
+      const naadamCloseBtn = naadamModal ? naadamModal.querySelector('.close-btn') : null;
+      
+      if(naadamCloseBtn) {
+        naadamCloseBtn.addEventListener('click', function(e) {
+          console.log('Naadam close button clicked!');
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if(naadamModal) {
+            naadamModal.classList.remove('show');
+            naadamModal.style.display = 'none';
+            naadamModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            
+            // Pauzeer video
+            const video = document.getElementById('naadamVideoBg');
+            if(video) {
+              video.pause();
+              video.currentTime = 0;
+            }
+          }
+        });
+      }
+    });
+
+  </script>
+</body>
+</html>
   </script>
    <script>
     document.addEventListener('DOMContentLoaded', function() {
