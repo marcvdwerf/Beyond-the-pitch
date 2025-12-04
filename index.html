@@ -397,7 +397,7 @@
       <div class="modal-overlay"></div>
     </div>
 
-    <button class="close-btn" onclick="this.closest('.modal').style.display='none'; this.closest('.modal').classList.remove('show'); document.body.style.overflow='';" aria-label="Close Naadam modal">&times;</button>
+    <button class="close-btn" data-close aria-label="Close Naadam modal">&times;</button>
 
     <div class="relative z-10 text-white p-6">
       <h3 id="modalNaadamTitle" class="text-2xl md:text-3xl text-gold font-semibold text-center mb-4">Beyond the Pitch × Naadam Festival Mongolia</h3>
@@ -634,6 +634,19 @@
       });
       obs.observe(naadamModal, { attributes: true });
     })();
+
+    document.addEventListener('click', function(e) {
+  if(e.target.classList.contains('close-btn')) {
+    var modal = document.getElementById('modalNaadam');
+    if(modal && modal.classList.contains('show')) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      var v = document.getElementById('naadamVideoBg');
+      if(v) v.pause();
+    }
+  }
+});
   </script>
 </body>
 </html>
