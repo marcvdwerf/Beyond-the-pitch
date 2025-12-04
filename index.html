@@ -635,5 +635,37 @@
       obs.observe(naadamModal, { attributes: true });
     })();
   </script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modalNaadam = document.getElementById('modalNaadam');
+      const closeBtn = modalNaadam.querySelector('.close-btn[data-close]');
+      
+      // Sluit modal bij klik op X
+      closeBtn.addEventListener('click', function() {
+        modalNaadam.style.display = 'none';
+        modalNaadam.setAttribute('aria-hidden', 'true');
+        
+        // Pauzeer de video wanneer modal sluit
+        const video = modalNaadam.querySelector('#naadamVideoBg');
+        if (video) {
+          video.pause();
+        }
+      });
+      
+      // Optioneel: sluit ook bij klik buiten de modal
+      modalNaadam.addEventListener('click', function(e) {
+        if (e.target === modalNaadam) {
+          modalNaadam.style.display = 'none';
+          modalNaadam.setAttribute('aria-hidden', 'true');
+          
+          const video = modalNaadam.querySelector('#naadamVideoBg');
+          if (video) {
+            video.pause();
+          }
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
