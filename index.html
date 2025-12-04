@@ -510,35 +510,38 @@
         modal.addEventListener('keydown', handleTrap);
       }
 
-      function closeModalElement(modal) {
-  if(!modal) return;
-  
-  // stop header iframe if present
-  if(modal.id === 'modalHeaderVideo') {
-    const iframe = document.getElementById('headerVideoIframe');
-    if(iframe) iframe.src = '';
-  }
-  
-  // pause naadam video bg
-  if(modal.id === 'modalNaadam') {
-    const v = document.getElementById('naadamVideoBg');
-    if(v && !v.paused) {
-      try { v.pause(); v.currentTime = 0; } catch(e){}
-    }
-  }
+    function closeModalElement(modal) {
+        if(!modal) return;
+        
+        console.log('Closing modal:', modal.id); // ← DEBUG REGEL
+        
+        // stop header iframe if present
+        if(modal.id === 'modalHeaderVideo') {
+          const iframe = document.getElementById('headerVideoIframe');
+          if(iframe) iframe.src = '';
+        }
+        
+        // pause naadam video bg
+        if(modal.id === 'modalNaadam') {
+          const v = document.getElementById('naadamVideoBg');
+          if(v && !v.paused) {
+            try { v.pause(); v.currentTime = 0; } catch(e){}
+          }
+        }
 
-  modal.classList.remove('show');
-  modal.style.display = 'none';  // ← DEZE REGEL TOEGEVOEGD
-  modal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-  modal.removeEventListener('keydown', handleTrap);
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        modal.removeEventListener('keydown', handleTrap);
 
-  // restore focus
-  try {
-    if(lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus();
-  } catch (e) {}
-}
+        console.log('Modal closed, classes:', modal.className); // ← DEBUG REGEL
 
+        // restore focus
+        try {
+          if(lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus();
+        } catch (e) {}
+      }
       function handleTrap(e) {
         if(e.key !== 'Tab') return;
         const modal = e.currentTarget;
