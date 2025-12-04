@@ -549,41 +549,7 @@
       el.addEventListener('focusout', ()=> {
         const dd = el.querySelector('.dropdown');
         if(dd) dd.style.display = '';
-      });
-    });
-
-    // ---------- Ensure naadam bg video starts/stops sensibly ----------
-    (function(){
-      const naadamModal = document.getElementById('modalNaadam');
-      const naadamVideo = document.getElementById('naadamVideoBg');
-      if(!naadamModal || !naadamVideo) return;
-
-      // When modal opens, try to play (autoplay policies might block; video is muted so should play)
-      const obs = new MutationObserver(muts => {
-        muts.forEach(m => {
-          if(m.attributeName === 'class') {
-            if(naadamModal.classList.contains('show')) {
-              try { naadamVideo.play(); } catch(e){}
-            } else {
-              try { naadamVideo.pause(); naadamVideo.currentTime = 0; } catch(e){}
-            }
-          }
-        });
-      });
-      obs.observe(naadamModal, { attributes: true });
-    })();
-
-    document.addEventListener('click', function(e) {
-  if(e.target.classList.contains('close-btn')) {
-    var modal = document.getElementById('modalNaadam');
-    if(modal && modal.classList.contains('show')) {
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-      var v = document.getElementById('naadamVideoBg');
-      if(v) v.pause();
-    }
-  }
+    
 });
   </script>
 </body>
