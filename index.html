@@ -406,9 +406,9 @@
       <div class="bg-gray-800 bg-opacity-85 rounded-2xl p-4 mb-4">
         <h4 class="text-xl font-semibold text-yellow-300 mb-2">Program</h4>
         <ul class="list-disc list-inside text-gray-200 space-y-2">
-          <li><strong>July 10: Zuunmod</strong> - Experience the local Naadam Festival just outside Ulaanbaatar.</li>
-          <li><strong>July 11: Ulaanbaatar</strong> - Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
-          <li><strong>July 12: The Steppe</strong> - See the famous horse races and meet trainers to learn about nomadic traditions.</li>
+          <li><strong>July 10: Zuunmod</strong> — Experience the local Naadam Festival just outside Ulaanbaatar.</li>
+          <li><strong>July 11: Ulaanbaatar</strong> — Be part of the official opening ceremony and watch wrestling and archery at the stadium.</li>
+          <li><strong>July 12: The Steppe</strong> — See the famous horse races and meet trainers to learn about nomadic traditions.</li>
         </ul>
       </div>
 
@@ -510,17 +510,13 @@
         modal.addEventListener('keydown', handleTrap);
       }
 
-    function closeModalElement(modal) {
+      function closeModalElement(modal) {
         if(!modal) return;
-        
-        console.log('Closing modal:', modal.id); // ← DEBUG REGEL
-        
         // stop header iframe if present
         if(modal.id === 'modalHeaderVideo') {
           const iframe = document.getElementById('headerVideoIframe');
           if(iframe) iframe.src = '';
         }
-        
         // pause naadam video bg
         if(modal.id === 'modalNaadam') {
           const v = document.getElementById('naadamVideoBg');
@@ -530,18 +526,16 @@
         }
 
         modal.classList.remove('show');
-        modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
         modal.removeEventListener('keydown', handleTrap);
-
-        console.log('Modal closed, classes:', modal.className); // ← DEBUG REGEL
 
         // restore focus
         try {
           if(lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus();
         } catch (e) {}
       }
+
       function handleTrap(e) {
         if(e.key !== 'Tab') return;
         const modal = e.currentTarget;
@@ -640,71 +634,6 @@
       });
       obs.observe(naadamModal, { attributes: true });
     })();
-    })();
-
-    // ---------- Extra fix voor Naadam modal close button ----------
-    document.addEventListener('DOMContentLoaded', function() {
-      const naadamModal = document.getElementById('modalNaadam');
-      const naadamCloseBtn = naadamModal ? naadamModal.querySelector('.close-btn') : null;
-      
-      if(naadamCloseBtn) {
-        naadamCloseBtn.addEventListener('click', function(e) {
-          console.log('Naadam close button clicked!');
-          e.preventDefault();
-          e.stopPropagation();
-          
-          if(naadamModal) {
-            naadamModal.classList.remove('show');
-            naadamModal.style.display = 'none';
-            naadamModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-            
-            // Pauzeer video
-            const video = document.getElementById('naadamVideoBg');
-            if(video) {
-              video.pause();
-              video.currentTime = 0;
-            }
-          }
-        });
-      }
-    });
-
   </script>
-</body>
-</html>
-  </script>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const modalNaadam = document.getElementById('modalNaadam');
-      const closeBtn = modalNaadam.querySelector('.close-btn[data-close]');
-      
-      // Sluit modal bij klik op X
-      closeBtn.addEventListener('click', function() {
-        modalNaadam.style.display = 'none';
-        modalNaadam.setAttribute('aria-hidden', 'true');
-        
-        // Pauzeer de video wanneer modal sluit
-        const video = modalNaadam.querySelector('#naadamVideoBg');
-        if (video) {
-          video.pause();
-        }
-      });
-      
-      // Optioneel: sluit ook bij klik buiten de modal
-      modalNaadam.addEventListener('click', function(e) {
-        if (e.target === modalNaadam) {
-          modalNaadam.style.display = 'none';
-          modalNaadam.setAttribute('aria-hidden', 'true');
-          
-          const video = modalNaadam.querySelector('#naadamVideoBg');
-          if (video) {
-            video.pause();
-          }
-        }
-      });
-    });
-  </script>
-
 </body>
 </html>
