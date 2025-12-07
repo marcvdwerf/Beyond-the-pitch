@@ -641,16 +641,25 @@ Meet the Founders
       obs.observe(naadamModal, { attributes: true });
     })();
   </script>
-  <script>
+ <script>
+  // Hamburger menu toggle
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileMenu = document.getElementById('mobileMenu');
 
-  mobileToggle.addEventListener('click', () => {
-    const isOpen = mobileMenu.style.display === 'block';
-    mobileMenu.style.display = isOpen ? 'none' : 'block';
-    mobileToggle.setAttribute('aria-expanded', !isOpen);
-    mobileMenu.setAttribute('aria-hidden', isOpen);
-  });
+  if (mobileToggle && mobileMenu) {
+    // Verwijder oude listeners (voor de zekerheid)
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Voeg nieuwe listener toe
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      const isOpen = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = isOpen ? 'none' : 'block';
+      newToggle.setAttribute('aria-expanded', !isOpen);
+      mobileMenu.setAttribute('aria-hidden', isOpen);
+    });
+  }
 </script>
 </body>
 </html>
