@@ -107,59 +107,36 @@
 </head>
 <body>
 
-  <!-- ================= Header / Navigation ================= -->
-  <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" role="banner">
-    <div class="flex items-center justify-between py-6">
-      <a href="#" class="text-gold font-extrabold text-2xl tracking-tight" aria-label="Beyond the Pitch home">Beyond the Pitch</a>
+ <!-- Vervang DIT gedeelte (van <header> tot </header>) -->
+<header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" role="banner">
+  <div class="flex items-center justify-between py-6">
+    <a href="#" class="text-gold font-extrabold text-2xl tracking-tight" aria-label="Beyond the Pitch home">Beyond the Pitch</a>
 
-      <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
-       <a href="about.html" class="text-gray-200 hover:text-gold transition">About us</a>
-
-        <div class="nav-projects" tabindex="0" aria-haspopup="true" aria-expanded="false">
-  <button class="flex items-center space-x-2 text-gray-200 hover:text-gold focus:outline-none">
-    <span>Projects</span>
-    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="#e5e7eb" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-
-  <div class="dropdown mt-2" role="menu" aria-label="Projects menu">
-    <a href="naadam.html" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition" role="menuitem">Naadam Festival - Mongolia</a>
-    <a href="gaelic-games.html" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition" role="menuitem">Gaelic Football & Hurling - Ireland</a>
-    <a href="lima.html" class="block px-4 py-3 rounded-xl hover:bg-gray-800 transition" role="menuitem">Football - Peru</a>
-  </div>
-</div>
-
-      <!-- Mobile toggle -->
-      <div class="md:hidden">
-        <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#ffd700" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </button>
-      </div>
+    <!-- Hamburger toggle (voor desktop én mobiel) -->
+    <div>
+      <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none hover:text-gold transition">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
     </div>
-
-    <!-- Mobile menu -->
-<div id="mobileMenu" class="md:hidden bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-soft" aria-hidden="true" style="display:none;">
-  <a href="about.html" class="block py-2 text-gray-200 hover:text-gold">About us</a>
-
- <details class="mt-2">
-  <summary class="cursor-pointer text-gray-200">Projects</summary>
-  <div class="pl-4 mt-2">
-    <a href="naadam.html" class="block py-1 text-gray-200 hover:text-gold">Naadam Festival - Mongolia</a>
-    <a href="gaelic-games.html" class="block py-1 text-gray-200 hover:text-gold">Gaelic Football & Hurling - Ireland</a>
-    <a href="lima.html" class="block py-1 text-gray-200 hover:text-gold">Football - Peru</a>
   </div>
-</details>
 
-  <a href="#faq" class="block py-2 mt-2 text-gray-200 hover:text-gold">FAQ</a>
-  
-  <!-- Mobile CTA buttons -->
-  <div class="mt-4 pt-4 border-t border-gray-700 space-y-2">
-    <button data-open="modalNaadam" class="w-full bg-yellow-500 text-black px-4 py-2 rounded-2xl font-medium hover:bg-yellow-400">Naadam Festival 2026 →</button>
-    <button data-open="modalHeaderVideo" class="w-full bg-transparent border border-gray-600 text-gray-200 px-4 py-2 rounded-2xl hover:bg-gray-900">Watch Video</button>
+  <!-- Hamburger menu (desktop + mobiel) -->
+  <div id="mobileMenu" class="bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-soft" aria-hidden="true" style="display:none;">
+    
+    <details class="mt-2">
+      <summary class="cursor-pointer text-gray-200 hover:text-gold py-2">Projects</summary>
+      <div class="pl-4 mt-2">
+        <a href="naadam.html" class="block py-1 text-gray-200 hover:text-gold">Naadam Festival - Mongolia</a>
+        <a href="gaelic-games.html" class="block py-1 text-gray-200 hover:text-gold">Gaelic Football & Hurling - Ireland</a>
+        <a href="lima.html" class="block py-1 text-gray-200 hover:text-gold">Football - Peru</a>
+      </div>
+    </details>
+
+    <a href="about.html" class="block py-2 text-gray-200 hover:text-gold">About us</a>
+    <a href="#faq" class="block py-2 text-gray-200 hover:text-gold">FAQ</a>
+
   </div>
-</div>
-
-  </header>
+</header>
 
   <!-- ================= Hero ================= -->
   <main id="maincontent">
@@ -664,5 +641,16 @@ Meet the Founders
       obs.observe(naadamModal, { attributes: true });
     })();
   </script>
+  <script>
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.style.display === 'block';
+    mobileMenu.style.display = isOpen ? 'none' : 'block';
+    mobileToggle.setAttribute('aria-expanded', !isOpen);
+    mobileMenu.setAttribute('aria-hidden', isOpen);
+  });
+</script>
 </body>
 </html>
