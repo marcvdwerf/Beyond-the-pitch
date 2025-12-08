@@ -139,23 +139,68 @@
 </header>
 
   <!-- ================= Hero ================= -->
-  <main id="maincontent">
-    <section class="relative flex items-center justify-center text-center h-screen px-6">
-      <div class="absolute inset-0">
-        <img loading="lazy" src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+<main id="maincontent">
+  <section class="relative flex items-center justify-center text-center h-screen px-6">
+    <div class="absolute inset-0">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl">
+      <h1 class="text-5xl md:text-7xl font-extrabold text-gold leading-tight mb-6">This is something deeper</h1>
+      <p class="mt-6 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+        Beyond the Pitch connects sport, culture and travel. Experience authentic sporting traditions in remarkable destinations - with people who understand that the best moments happen beyond the final whistle.
+      </p>
+      <p class="mt-4 text-sm md:text-base text-gold font-medium tracking-wider">Sport · Culture · Travel</p>
+      <div class="mt-10">
+        <a href="#audience" class="bg-gold text-black font-semibold px-8 py-4 rounded-2xl hover:bg-opacity-90 transition-all inline-block">Discover How</a>
       </div>
+    </div>
+  </section>
 
-      <div class="relative z-10 max-w-4xl">
-        <h1 class="text-5xl md:text-6xl font-extrabold text-gold leading-tight">Beyond the Pitch</h1>
-        <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Experience the game, discover the Culture.</p>
-
-        <div class="mt-8 flex justify-center space-x-4">
-          <button data-open="modalHero" class="bg-white text-black font-semibold px-6 py-3 rounded-2xl hover:bg-gray-200">Join the community →</button>
-          <a href="#video" class="inline-flex items-center text-gray-200 hover:text-gold">Watch teaser</a>
+  <!-- NIEUWE SECTIE: Doelgroep-kaarten -->
+  <section id="audience" class="py-20 px-6 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Kaart 1: Travelers -->
+        <div class="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2">
+          <div class="text-5xl mb-4">🎫</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Join a Journey</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Discover authentic sporting traditions from Mongolian wrestling to Gaelic football - curated for those who seek more than tourism.
+          </p>
+          <a href="#projects" class="inline-block bg-gray-900 text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+            Explore Journeys
+          </a>
         </div>
+
+        <!-- Kaart 2: Community -->
+        <div class="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2">
+          <div class="text-5xl mb-4">👥</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Become Part of It</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Connect with sports enthusiasts who share your passion for adventure, culture and authentic experiences beyond the mainstream.
+          </p>
+          <button data-open="modalHero" class="inline-block bg-gray-900 text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+            Join Community
+          </button>
+        </div>
+
+        <!-- Kaart 3: Partners -->
+        <div class="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2">
+          <div class="text-5xl mb-4">🤝</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Host With Us</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Offer your unique sporting tradition or destination experience to our community of engaged, curious travelers.
+          </p>
+          <a href="mailto:thebeyondthepitch@gmail.com?subject=Partnership%20Inquiry" class="inline-block bg-gray-900 text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+            Partner With Us
+          </a>
+        </div>
+
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- ================= Project Grid (Optie B) ================= -->
     <section id="projects" class="py-12 px-6 md:px-20 bg-black">
