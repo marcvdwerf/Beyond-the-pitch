@@ -83,7 +83,7 @@
     .modal { display:none; position:fixed; inset:0; z-index:80; background: rgba(0,0,0,0.6); align-items:center; justify-content:center; padding:1.2rem; }
     .modal.show { display:flex; }
     .modal-inner { background: rgba(17,24,39,0.98); border-radius:14px; max-width:960px; width:100%; box-shadow: 0 10px 40px rgba(0,0,0,0.6); position:relative; overflow:hidden; }
-    .modal-body { padding:1.6rem; position:relative; z-index:2; }
+    .modal- { padding:1.6rem; position:relative; z-index:2; }
     .modal-video-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
     .modal-video-bg video{ width:100%; height:100%; object-fit:cover; filter:brightness(.45) saturate(.9); }
     .modal-overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.6)); z-index:1; }
@@ -92,13 +92,46 @@
 
     /* Small-screen readability improvements for Naadam modal */
     @media (max-width:640px){
-      .modal-body{ padding:1rem; }
+      .modal-{ padding:1rem; }
       .hero-title { font-size:1.6rem; }
       .project-card img{ height:180px; }
     }
 
     /* Utility tweaks */
     .rounded-3xl{ border-radius:1rem; }
+    /* Sticky Navigation */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.85);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.sticky-nav a {
+  position: relative;
+}
+
+.sticky-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.sticky-nav a:hover::after {
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
     .shadow-soft{ box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
 
     /* CTA hero helper */
@@ -106,7 +139,20 @@
   </style>
 </head>
 <body>
-
+<nav class="sticky-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <a href="#" class="text-gold font-bold text-xl">Beyond the Pitch</a>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+          <a href="#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
+          <a href="#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
+          <a href="#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+          <a href="#about" class="text-gray-300 hover:text-gold transition-colors">About</a>
+          <a href="#faq" class="text-gray-300 hover:text-gold transition-colors">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </nav>
  <!-- Vervang DIT gedeelte (van <header> tot </header>) -->
 <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" role="banner">
   <div class="flex items-center justify-between py-6">
