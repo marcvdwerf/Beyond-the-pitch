@@ -10,12 +10,10 @@
   <style>
     :root {
       --gold: #ffd700;
-      --dark-blue: #0A1A2F;
-      --card-blue: #0F253F;
     }
     
     body { 
-      font-family: 'Helvetica Neue', Arial, sans-serif; 
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background: #000; 
       color: #fff; 
       line-height: 1.7;
@@ -23,38 +21,64 @@
       -moz-osx-font-smoothing: grayscale; 
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     .text-gold { color: var(--gold); }
+    .bg-gold { background: var(--gold); }
+    
+    /* Sticky Navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.85);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile menu animation */
+    #mobileNavMenu {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+    }
+
+    #mobileNavMenu.show {
+      max-height: 500px;
+      opacity: 1;
+    }
     
     /* Hero Section */
     .hero-about {
-      background: linear-gradient(180deg, #000000 0%, #0A1A2F 100%);
+      background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
       position: relative;
       overflow: hidden;
     }
-
-    /* Section styling */
-    .section-dark { background: #000000; }
-    .section-blue { background: #0A1A2F; }
     
     /* Value cards */
     .value-card {
-      background: rgba(15, 37, 63, 0.4);
+      background: rgba(31, 31, 31, 0.6);
       border: 1px solid rgba(255,215,0,0.1);
-      border-radius: 0;
-      padding: 2.5rem;
+      border-radius: 1rem;
+      padding: 2rem;
       transition: all 0.4s ease;
       height: 100%;
     }
     
     .value-card:hover {
-      background: rgba(15, 37, 63, 0.6);
+      background: rgba(31, 31, 31, 0.8);
       border-color: rgba(255,215,0,0.3);
+      transform: translateY(-4px);
     }
 
     /* Founder cards */
     .founder-card {
-      background: #0F253F;
-      border-radius: 0;
+      background: #1a1a1a;
+      border-radius: 1rem;
       overflow: hidden;
       border: 1px solid rgba(255,215,0,0.15);
       transition: all 0.4s ease;
@@ -62,10 +86,11 @@
     
     .founder-card:hover {
       border-color: rgba(255,215,0,0.4);
+      box-shadow: 0 8px 30px rgba(255,215,0,0.1);
     }
 
     .founder-card img {
-      filter: grayscale(20%);
+      filter: grayscale(10%);
       transition: all 0.5s ease;
     }
     
@@ -77,7 +102,7 @@
     /* Typography */
     h1, h2, h3 { 
       font-weight: 600; 
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
     
     .lead-text {
@@ -89,14 +114,26 @@
     /* Divider */
     .divider {
       width: 60px;
-      height: 2px;
+      height: 3px;
       background: var(--gold);
       margin: 0 auto;
     }
 
-    /* Mobile menu */
-    #mobileMenu { display: none; }
-    .shadow-soft { box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
+    .shadow-soft { 
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6); 
+    }
+
+    /* Scroll animations */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    [data-animate].animate {
+      opacity: 1;
+      transform: none;
+    }
 
     /* Grid layout improvements */
     .grid-balanced > * {
@@ -107,35 +144,62 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="banner">
-    <div class="flex items-center justify-between py-6">
-      <a href="index.html" class="text-gold font-bold text-2xl tracking-tight">Beyond the Pitch</a>
-
-      <div>
-        <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none hover:text-gold transition">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobileMenu" class="bg-black border-t border-gray-800 mt-2 p-4 shadow-soft" aria-hidden="true" style="display:none;">
-      <details class="mt-2">
-        <summary class="cursor-pointer text-gray-200 hover:text-gold py-2">Projects</summary>
-        <div class="pl-4 mt-2">
-          <a href="naadam.html" class="block py-1 text-gray-200 hover:text-gold">Naadam Festival - Mongolia</a>
-          <a href="gaelic-games.html" class="block py-1 text-gray-200 hover:text-gold">Gaelic Football & Hurling - Ireland</a>
-          <a href="lima.html" class="block py-1 text-gray-200 hover:text-gold">Football - Peru</a>
+  <!-- Sticky Navigation -->
+  <nav class="sticky-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        
+        <!-- Logo -->
+        <a href="index.html" class="text-gold font-bold text-xl tracking-wide hover:opacity-80 transition-opacity">
+          Beyond the Pitch
+        </a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+          <a href="index.html#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
+          <a href="index.html#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
+          <a href="index.html#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+          <a href="index.html#partners" class="text-gray-300 hover:text-gold transition-colors">Partners</a>
+          <a href="about.html" class="text-gold transition-colors">About</a>
+          <a href="index.html#faq" class="text-gray-300 hover:text-gold transition-colors">FAQ</a>
         </div>
-      </details>
-      <a href="about.html" class="block py-2 text-gray-200 hover:text-gold">About us</a>
-      <a href="index.html#faq" class="block py-2 text-gray-200 hover:text-gold">FAQ</a>
+        
+        <!-- Mobile Hamburger Button -->
+        <button id="mobileNavToggle" class="md:hidden text-gray-300 hover:text-gold transition-colors focus:outline-none" aria-label="Toggle menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobileNavMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
+        <a href="index.html#audience" class="block py-2 text-gray-300 hover:text-gold transition-colors">Start</a>
+        <a href="index.html#journeys" class="block py-2 text-gray-300 hover:text-gold transition-colors">Journeys</a>
+        
+        <!-- Projects Dropdown -->
+        <details class="mt-2">
+          <summary class="cursor-pointer text-gray-300 hover:text-gold py-2">Projects</summary>
+          <div class="pl-4 mt-2">
+            <a href="naadam.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Naadam Festival - Mongolia</a>
+            <a href="gaelic-games.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Gaelic Football & Hurling - Ireland</a>
+            <a href="lima.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Football - Peru</a>
+          </div>
+        </details>
+        
+        <a href="index.html#community" class="block py-2 text-gray-300 hover:text-gold transition-colors">Community</a>
+        <a href="index.html#partners" class="block py-2 text-gray-300 hover:text-gold transition-colors">Partners</a>
+        <a href="about.html" class="block py-2 text-gold transition-colors">About Us</a>
+        <a href="index.html#faq" class="block py-2 text-gray-300 hover:text-gold transition-colors">FAQ</a>
+      </div>
+      
     </div>
-  </header>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero-about py-32 px-6 relative">
-    <div class="max-w-4xl mx-auto text-center relative z-10">
+    <div class="max-w-4xl mx-auto text-center relative z-10" data-animate>
       <div class="divider mb-8"></div>
       <h1 class="text-5xl md:text-6xl font-bold text-gold mb-8 leading-tight">
         About Us
@@ -150,8 +214,8 @@
   </section>
 
   <!-- What We Do -->
-  <section class="section-dark py-24 px-6 md:px-20">
-    <div class="max-w-4xl mx-auto">
+  <section class="py-24 px-6 md:px-20 bg-black">
+    <div class="max-w-4xl mx-auto" data-animate>
       <p class="lead-text mb-6">
         We create small-scale, authentic travel experiences that go far beyond stadiums and tourist hotspots. Our journeys are designed for people who want to see the world differently - travellers who want to meet the locals, feel the culture, and discover the stories behind the sports that unite communities worldwide.
       </p>
@@ -160,15 +224,15 @@
       </p>
       
       <div class="grid md:grid-cols-3 gap-8 mt-16 text-center">
-        <div class="py-6 border-t border-gray-800">
+        <div class="py-6 border-t border-gray-800" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold">Our Approach</p>
           <p class="text-gray-400 text-sm">No mass travel</p>
         </div>
-        <div class="py-6 border-t border-gray-800">
+        <div class="py-6 border-t border-gray-800" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold">Our Path</p>
           <p class="text-gray-400 text-sm">No usual routes</p>
         </div>
-        <div class="py-6 border-t border-gray-800">
+        <div class="py-6 border-t border-gray-800" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold">Our Promise</p>
           <p class="text-gray-400 text-sm">Personal, meaningful experiences</p>
         </div>
@@ -177,16 +241,16 @@
   </section>
 
   <!-- Mission & Vision -->
-  <section class="section-blue py-24 px-6 md:px-20">
+  <section class="py-24 px-6 md:px-20 bg-gray-900 bg-opacity-30">
     <div class="max-w-5xl mx-auto">
       <div class="grid md:grid-cols-2 gap-16">
-        <div>
+        <div data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Mission</p>
           <p class="text-xl text-gray-200 leading-relaxed">
             To connect travellers with the true spirit of a destination through sport, culture and community - creating authentic, respectful and memorable experiences led by local partners.
           </p>
         </div>
-        <div>
+        <div data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Vision</p>
           <p class="text-xl text-gray-200 leading-relaxed">
             To become a global platform for cultural sports travel, setting a new standard for meaningful exploration by combining local tradition, athletic passion and human connection.
@@ -197,51 +261,51 @@
   </section>
 
   <!-- Our Values -->
-  <section class="section-dark py-24 px-6 md:px-20">
+  <section class="py-24 px-6 md:px-20 bg-black">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16" data-animate>
         <div class="divider mb-6"></div>
         <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4">Our Values</h2>
         <p class="text-gray-400 text-lg">The principles that guide everything we do</p>
       </div>
       
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-1 grid-balanced">
-        <div class="value-card">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-balanced">
+        <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Authenticity</p>
           <p class="text-gray-300 leading-relaxed text-sm">
             We work with local communities, athletes, guides and storytellers who represent the real culture of their home - ensuring every experience feels genuine.
           </p>
         </div>
         
-        <div class="value-card">
+        <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Community First</p>
           <p class="text-gray-300 leading-relaxed text-sm">
             Every destination is built in collaboration with locals. They lead, we support. Their stories shape the journey.
           </p>
         </div>
         
-        <div class="value-card">
+        <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Respect</p>
           <p class="text-gray-300 leading-relaxed text-sm">
             We approach every culture, tradition and community with integrity and care. Our role is to listen first, then share.
           </p>
         </div>
         
-        <div class="value-card">
+        <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Connection</p>
           <p class="text-gray-300 leading-relaxed text-sm">
             Sport is our gateway, but people are at the centre of everything we do - travellers, fans, families and local hosts.
           </p>
         </div>
         
-        <div class="value-card">
+        <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Curated Quality</p>
           <p class="text-gray-300 leading-relaxed text-sm">
             Small groups, well-crafted itineraries, safe execution and professional guidance ensure that every traveller feels supported and inspired.
           </p>
         </div>
         
-        <div class="value-card">
+        <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Beyond the Game</p>
           <p class="text-gray-300 leading-relaxed text-sm">
             The match is only the starting point. We take travellers deeper - into rituals, food, stories, music and daily life.
@@ -252,62 +316,66 @@
   </section>
 
   <!-- Meet the Founders -->
-<section class="section-blue py-24 px-6 md:px-20">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <div class="divider mb-6"></div>
-      <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4">Meet the Founders</h2>
+  <section class="py-24 px-6 md:px-20 bg-gray-900 bg-opacity-30">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16" data-animate>
+        <div class="divider mb-6"></div>
+        <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4">Meet the Founders</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        
+        <!-- Marc -->
+        <article class="founder-card" data-animate>
+          <div class="w-full h-80 bg-gray-800 flex items-center justify-center overflow-hidden">
+            <img 
+              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Marcie%20marc%202.jpg" 
+              alt="Marc van der Werf" 
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-8">
+            <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold">Founder</p>
+            <h3 class="text-2xl font-bold mb-6 text-white">Marc van der Werf</h3>
+            <p class="text-gray-300 leading-relaxed mb-5 text-sm">
+              Born and based in the Netherlands, I've built my career in tourism, working on global projects for some of the world's largest airlines and leading international ground-transportation initiatives. Along the way, I discovered something meaningful: sport is far more than entertainment - it's a universal language that connects people, cultures, and communities.
+            </p>
+            <p class="text-gray-300 leading-relaxed text-sm">
+              With a degree in Sports Marketing and a lifelong passion for exploring new cultures through Sports, food, language, and local experiences, I felt inspired to create a platform that brings all these elements together. That idea grew into Beyond the Pitch.
+            </p>
+          </div>
+        </article>
+        
+        <!-- Martijn -->
+        <article class="founder-card" data-animate>
+          <div class="w-full h-80 bg-gray-800 overflow-hidden">
+            <img 
+              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Matta%202.jpg" 
+              alt="Martijn Berden"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-8">
+            <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold">Co-Founder</p>
+            <h3 class="text-2xl font-bold mb-6 text-white">Martijn Berden</h3>
+            <p class="text-gray-300 leading-relaxed mb-5 text-sm">
+              Football has been at the center of my life for as long as I can remember. I played professionally for around ten years, starting in the academy of PSV Eindhoven and later continuing my career across several first- and second-division clubs in the Netherlands. Today, I'm still active at the third level of Dutch football.
+            </p>
+            <p class="text-gray-300 leading-relaxed text-sm">
+              After stepping away from the highest professional level, I felt a strong desire to share what football has given me: the energy of performing for a crowd, the joy of entertaining people, and the unique connection that sport creates between players and fans. Combined with my passion for discovering new cultures, Beyond the Pitch gives me the perfect opportunity to bring these worlds together.
+            </p>
+          </div>
+        </article>
+        
+      </div>
     </div>
-    
-    <div class="grid md:grid-cols-2 gap-16">
-      
-      <!-- Marc -->
-      <article class="founder-card">
-        <div class="w-full h-80 bg-gray-100 flex items-center justify-center overflow-hidden">
-          <img 
-            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Marcie%20marc%202.jpg" 
-            alt="Marc van der Werf" 
-            class="w-full h-full object-contain"
-          />
-        </div>
-        <div class="p-8">
-          <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold">Founder</p>
-          <h3 class="text-2xl font-bold mb-6 text-white">Marc van der Werf</h3>
-          <p class="text-gray-300 leading-relaxed mb-5 text-sm">
-            Born and based in the Netherlands, I've built my career in tourism, working on global projects for some of the world's largest airlines and leading international ground-transportation initiatives. Along the way, I discovered something meaningful: sport is far more than entertainment - it's a universal language that connects people, cultures, and communities.
-          </p>
-          <p class="text-gray-300 leading-relaxed text-sm">
-            With a degree in Sports Marketing and a lifelong passion for exploring new cultures through Sports, food, language, and local experiences, I felt inspired to create a platform that brings all these elements together. That idea grew into Beyond the Pitch.
-          </p>
-        </div>
-      </article>
-      
-      <!-- Martijn -->
-      <article class="founder-card">
-        <img 
-          src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Matta%202.jpg" 
-          alt="Martijn Berden"
-          class="w-full h-80 object-cover"
-        />
-        <div class="p-8">
-          <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold">Co-Founder</p>
-          <h3 class="text-2xl font-bold mb-6 text-white">Martijn Berden</h3>
-          <p class="text-gray-300 leading-relaxed mb-5 text-sm">
-            Football has been at the center of my life for as long as I can remember. I played professionally for around ten years, starting in the academy of PSV Eindhoven and later continuing my career across several first- and second-division clubs in the Netherlands. Today, I'm still active at the third level of Dutch football.
-          </p>
-          <p class="text-gray-300 leading-relaxed text-sm">
-            After stepping away from the highest professional level, I felt a strong desire to share what football has given me: the energy of performing for a crowd, the joy of entertaining people, and the unique connection that sport creates between players and fans. Combined with my passion for discovering new cultures, Beyond the Pitch gives me the perfect opportunity to bring these worlds together.
-          </p>
-        </div>
-      </article>
-      
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- Why We Exist -->
-  <section class="section-dark py-24 px-6 text-center">
-    <div class="max-w-3xl mx-auto">
+  <section class="py-24 px-6 bg-black text-center">
+    <div class="max-w-3xl mx-auto" data-animate>
       <div class="divider mb-8"></div>
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Why We Exist</h2>
       <p class="text-xl text-gray-300 leading-relaxed mb-6">
@@ -326,23 +394,67 @@
   </section>
 
   <!-- Footer -->
-  <footer class="py-12 px-6 bg-black border-t border-gray-900 text-center">
-    <p class="text-gray-500 text-sm">© 2024 Beyond the Pitch. All rights reserved.</p>
+  <footer class="py-12 px-6 bg-black border-t border-gray-900">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="mb-6">
+        <a href="index.html" class="text-gold text-2xl font-bold hover:opacity-80 transition-opacity">Beyond the Pitch</a>
+        <p class="text-sm text-gray-500 mt-2">Sport · Culture · Travel</p>
+      </div>
+      <div class="mb-6">
+        <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors">
+          📧 thebeyondthepitch@gmail.com
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch. All rights reserved.</p>
+    </div>
   </footer>
 
   <!-- JavaScript -->
   <script>
-    const mobileToggle = document.getElementById('mobileToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
+    // Mobile Navigation Toggle
+    const mobileNavToggle = document.getElementById('mobileNavToggle');
+    const mobileNavMenu = document.getElementById('mobileNavMenu');
 
-    if (mobileToggle && mobileMenu) {
-      mobileToggle.addEventListener('click', function() {
-        const isOpen = mobileMenu.style.display === 'block';
-        mobileMenu.style.display = isOpen ? 'none' : 'block';
-        mobileToggle.setAttribute('aria-expanded', !isOpen);
-        mobileMenu.setAttribute('aria-hidden', isOpen);
+    if (mobileNavToggle && mobileNavMenu) {
+      mobileNavToggle.addEventListener('click', function() {
+        const isHidden = mobileNavMenu.classList.contains('hidden');
+        
+        if (isHidden) {
+          mobileNavMenu.classList.remove('hidden');
+          setTimeout(() => mobileNavMenu.classList.add('show'), 10);
+        } else {
+          mobileNavMenu.classList.remove('show');
+          setTimeout(() => mobileNavMenu.classList.add('hidden'), 300);
+        }
+      });
+
+      // Close mobile menu when clicking on a link
+      const mobileLinks = mobileNavMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileNavMenu.classList.remove('show');
+          setTimeout(() => mobileNavMenu.classList.add('hidden'), 300);
+        });
       });
     }
+
+    // Scroll Animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      observer.observe(el);
+    });
   </script>
 
 </body>
