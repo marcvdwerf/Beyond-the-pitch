@@ -132,6 +132,18 @@
 html {
   scroll-behavior: smooth;
 }
+    /* Mobile menu animation */
+#mobileNavMenu {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+#mobileNavMenu.show {
+  max-height: 500px;
+  opacity: 1;
+}
     .shadow-soft{ box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
 
     /* CTA hero helper */
