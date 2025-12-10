@@ -151,51 +151,60 @@ html {
   </style>
 </head>
 <body>
+   <!-- ================= Sticky Navigation ================= -->
 <nav class="sticky-nav">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <a href="#" class="text-gold font-bold text-xl">Beyond the Pitch</a>
-        <div class="hidden md:flex space-x-8 text-sm font-medium">
-          <a href="#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
-          <a href="#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
-          <a href="#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
-          <a href="#about" class="text-gray-300 hover:text-gold transition-colors">About</a>
-          <a href="#faq" class="text-gray-300 hover:text-gold transition-colors">FAQ</a>
-        </div>
+  <div class="max-w-7xl mx-auto px-6 py-4">
+    <div class="flex justify-between items-center">
+      
+      <!-- Logo -->
+      <a href="#" class="text-gold font-bold text-xl tracking-wide hover:opacity-80 transition-opacity">
+        Beyond the Pitch
+      </a>
+      
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
+        <a href="#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
+        <a href="#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+        <a href="#partners" class="text-gray-300 hover:text-gold transition-colors">Partners</a>
+        <a href="#about" class="text-gray-300 hover:text-gold transition-colors">About</a>
+        <a href="#faq" class="text-gray-300 hover:text-gold transition-colors">FAQ</a>
       </div>
-    </div>
-  </nav>
- <!-- Vervang DIT gedeelte (van <header> tot </header>) -->
-<header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" role="banner">
-  <div class="flex items-center justify-between py-6">
-    <a href="#" class="text-gold font-extrabold text-2xl tracking-tight" aria-label="Beyond the Pitch home">Beyond the Pitch</a>
-
-    <!-- Hamburger toggle (voor desktop én mobiel) -->
-    <div>
-      <button id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu" class="text-gray-200 focus:outline-none hover:text-gold transition">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      
+      <!-- Mobile Hamburger Button -->
+      <button id="mobileNavToggle" class="md:hidden text-gray-300 hover:text-gold transition-colors focus:outline-none" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
+      
     </div>
-  </div>
-
-  <!-- Hamburger menu (desktop + mobiel) -->
-  <div id="mobileMenu" class="bg-black border-t border-gray-800 rounded-b-2xl mt-2 p-4 shadow-soft" aria-hidden="true" style="display:none;">
     
-    <details class="mt-2">
-      <summary class="cursor-pointer text-gray-200 hover:text-gold py-2">Projects</summary>
-      <div class="pl-4 mt-2">
-        <a href="naadam.html" class="block py-1 text-gray-200 hover:text-gold">Naadam Festival - Mongolia</a>
-        <a href="gaelic-games.html" class="block py-1 text-gray-200 hover:text-gold">Gaelic Football & Hurling - Ireland</a>
-        <a href="lima.html" class="block py-1 text-gray-200 hover:text-gold">Football - Peru</a>
-      </div>
-    </details>
-
-    <a href="about.html" class="block py-2 text-gray-200 hover:text-gold">About us</a>
-    <a href="#faq" class="block py-2 text-gray-200 hover:text-gold">FAQ</a>
-
+    <!-- Mobile Menu (verborgen standaard) -->
+    <div id="mobileNavMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
+      <a href="#audience" class="block py-2 text-gray-300 hover:text-gold transition-colors">Start</a>
+      <a href="#journeys" class="block py-2 text-gray-300 hover:text-gold transition-colors">Journeys</a>
+      
+      <!-- Projects Dropdown -->
+      <details class="mt-2">
+        <summary class="cursor-pointer text-gray-300 hover:text-gold py-2">Projects</summary>
+        <div class="pl-4 mt-2">
+          <a href="naadam.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Naadam Festival - Mongolia</a>
+          <a href="gaelic-games.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Gaelic Football & Hurling - Ireland</a>
+          <a href="lima.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Football - Peru</a>
+        </div>
+      </details>
+      
+      <a href="#community" class="block py-2 text-gray-300 hover:text-gold transition-colors">Community</a>
+      <a href="#partners" class="block py-2 text-gray-300 hover:text-gold transition-colors">Partners</a>
+      <a href="#about" class="block py-2 text-gray-300 hover:text-gold transition-colors">About</a>
+      <a href="about.html" class="block py-2 text-gray-300 hover:text-gold transition-colors">About Us (Page)</a>
+      <a href="#faq" class="block py-2 text-gray-300 hover:text-gold transition-colors">FAQ</a>
+    </div>
+    
   </div>
-</header>
-
+</nav> 
+   
   <!-- ================= Hero ================= -->
 <main id="maincontent">
   <section class="relative flex items-center justify-center text-center h-screen px-6">
