@@ -847,5 +847,81 @@ html {
     });
   }
 </script>
+  <script>
+  // ========== Mobile Navigation Toggle ==========
+  const mobileNavToggle = document.getElementById('mobileNavToggle');
+  const mobileNavMenu = document.getElementById('mobileNavMenu');
+
+  if (mobileNavToggle && mobileNavMenu) {
+    mobileNavToggle.addEventListener('click', function() {
+      const isHidden = mobileNavMenu.classList.contains('hidden');
+      
+      if (isHidden) {
+        mobileNavMenu.classList.remove('hidden');
+        setTimeout(() => mobileNavMenu.classList.add('show'), 10);
+      } else {
+        mobileNavMenu.classList.remove('show');
+        setTimeout(() => mobileNavMenu.classList.add('hidden'), 300);
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileNavMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileNavMenu.classList.remove('show');
+        setTimeout(() => mobileNavMenu.classList.add('hidden'), 300);
+      });
+    });
+  }
+
+  // ========== Scroll Animations ==========
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('[data-animate]').forEach(el => {
+    observer.observe(el);
+  });
+
+  // ========== Modal Functionality ==========
+  const modalTriggers = document.querySelectorAll('[data-open]');
+  modalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modalId = this.getAttribute('data-open');
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('show');
+    });
+  });
+
+  const closeButtons = document.querySelectorAll('.close-btn, [data-close]');
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const modal = this.closest('.modal');
+      if (modal) modal.classList.remove('show');
+    });
+  });
+
+  // Close modals when clicking outside
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('show');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
+
