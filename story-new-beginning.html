@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A New Beginning Beyond the Pitch - Our Story</title>
+  <meta name="description" content="From solo backpacking through South America to building a global platform for authentic sports and culture travel." />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gold: #ffd700;
+    }
+    
+    body { 
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #000; 
+      color: #fff; 
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .text-gold { color: var(--gold); }
+    .bg-gold { background: var(--gold); }
+    
+    /* Sticky Navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.9);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    /* Article Content Styling */
+    .article-content {
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 1.125rem;
+      color: #d1d5db;
+    }
+
+    .article-content h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-content strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .article-hero {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #000 0%, transparent 60%);
+    }
+
+    .article-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Pull Quote */
+    .pull-quote {
+      border-left: 4px solid var(--gold);
+      padding-left: 2rem;
+      margin: 3rem 0;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.6;
+    }
+
+    /* Scroll animations */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    [data-animate].animate {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navigation -->
+  <nav class="sticky-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img 
+            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/logo.png" 
+            alt="Beyond the Pitch" 
+            class="h-12 w-auto"
+          />
+        </a>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+          <a href="index.html#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
+          <a href="index.html#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
+          <a href="blog.html" class="text-gold">Stories</a>
+          <a href="index.html#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+          <a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Image -->
+  <div class="article-hero">
+    <img 
+      src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80" 
+      alt="Solo Travel South America"
+    />
+  </div>
+
+  <!-- Article Header -->
+  <article class="py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- Meta -->
+      <div class="flex items-center justify-center gap-4 mb-8 text-sm" data-animate>
+        <span class="text-gold uppercase tracking-wider font-semibold">Origin Story</span>
+        <span class="text-gray-600">•</span>
+        <span class="text-gray-400">December 2024</span>
+        <span class="text-gray-600">•</span>
+        <span class="text-gray-400">8 min read</span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-white mb-8 leading-tight" data-animate>
+        A New Beginning Beyond the Pitch
+      </h1>
+
+      <!-- Author -->
+      <div class="flex items-center justify-center gap-4 mb-12" data-animate>
+        <div class="w-14 h-14 bg-gold rounded-full flex items-center justify-center text-black font-bold text-xl">
+          M
+        </div>
+        <div>
+          <p class="text-white font-semibold">Marc van der Werf</p>
+          <p class="text-gray-400 text-sm">Founder, Beyond the Pitch</p>
+        </div>
+      </div>
+
+      <!-- Article Content -->
+      <div class="article-content" data-animate>
+        
+        <p>
+          What once started as a personal journey to find my craft has grown into something much bigger - and today marks a brand‐new beginning.
+        </p>
+
+        <p>
+          In 2022 I packed my backpack and set off alone for four months through Brazil and Colombia. That trip changed everything. Traveling solo, meeting people far from the tourist paths, learning from local communities, and discovering new cultures through sport, food, and language - it opened my eyes to what real connection feels like.
+        </p>
+
+        <div class="pull-quote">
+          "It showed me how powerful it is to dive deep into the unknown."
+        </div>
+
+        <p>
+          For as long as I can remember, I've dreamed of bringing together two of my greatest passions: <strong>sports and exploring new cultures</strong>. With Beyond the Pitch, that dream finally becomes reality.
+        </p>
+
+        <h3>More Than Just My Journey</h3>
+
+        <p>
+          My goal isn't just to chase my own adventures. I want to build a platform for everyone who feels the same pull — for those who want to go beyond the familiar and into the heart of authentic experiences.
+        </p>
+
+        <p>
+          Because the best way to understand a culture is to live it. To meet its people. To share a game, a meal, a story. <strong>To step beyond the pitch.</strong>
+        </p>
+
+        <h3>The Experiences That Shaped This Vision</h3>
+
+        <p>
+          During those four months in South America, I didn't just see places - I lived them. I played football with kids on dusty Brazilian streets. I shared caipirinhas with locals who became friends. I learned that language barriers disappear when you're laughing together over a shared passion for sport.
+        </p>
+
+        <p>
+          These weren't planned tourist activities. They were spontaneous, authentic moments that showed me what travel could be when you strip away the filters and dive into the real culture.
+        </p>
+
+        <h3>From Personal Journey to Shared Platform</h3>
+
+        <p>
+          Beyond the Pitch isn't about recreating my exact journey - it's about creating the framework for yours. Whether it's experiencing Naadam wrestling in Mongolia, diving into Gaelic football culture in Ireland, or exploring Lima's passionate football scene, every journey we offer is built around the same principle:
+        </p>
+
+        <p>
+          <strong>Sport is the gateway. Culture is the destination. Connection is the journey.</strong>
+        </p>
+
+        <div class="pull-quote">
+          "The best way to understand a culture is to live it. To meet its people. To share a game, a meal, a story."
+        </div>
+
+        <h3>Why Now?</h3>
+
+        <p>
+          Because the world is opening up in new ways. Because people are craving authentic experiences over Instagram moments. Because sport has always been - and will always be - a universal language that connects us across cultures, languages, and borders.
+        </p>
+
+        <p>
+          And because if that solo trip through South America taught me anything, it's that the most meaningful experiences happen when you step outside your comfort zone and into someone else's world.
+        </p>
+
+        <h3>So the Question Is...</h3>
+
+        <p class="text-2xl font-semibold text-gold mt-12 mb-8">
+          Are you ready for a new adventure?
+        </p>
+
+        <p>
+          Join us. Whether you're looking to experience Mongolian traditions, Irish sporting heritage, or South American football passion - Beyond the Pitch is your gateway to authentic cultural experiences through the universal language of sport.
+        </p>
+
+        <p class="text-center mt-12">
+          <strong>This is where it begins.</strong><br/>
+          <strong>This is Beyond the Pitch.</strong>
+        </p>
+
+      </div>
+
+      <!-- Share & CTA Section -->
+      <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold text-white mb-4">Ready to Start Your Journey?</h3>
+          <p class="text-gray-400 mb-6">Explore our upcoming experiences and join our community</p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="index.html#journeys" class="bg-gold text-black font-semibold px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-lg">
+              View Our Journeys
+            </a>
+            <a href="index.html#community" class="bg-gray-900 text-white font-semibold px-8 py-4 rounded-full hover:bg-gray-800 transition-all border border-gray-800">
+              Join Community
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Stories -->
+      <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        <h3 class="text-2xl font-bold text-white mb-8">More Stories</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="#" class="bg-gray-900 bg-opacity-50 rounded-2xl p-6 hover:bg-opacity-70 transition-all border border-gray-800">
+            <span class="text-gold text-xs uppercase tracking-wider font-semibold">Travel Story</span>
+            <h4 class="text-lg font-bold text-white mt-2 mb-2">Inside the Naadam Festival</h4>
+            <p class="text-gray-400 text-sm">Experience Mongolia's greatest celebration</p>
+          </a>
+          <a href="#" class="bg-gray-900 bg-opacity-50 rounded-2xl p-6 hover:bg-opacity-70 transition-all border border-gray-800">
+            <span class="text-gold text-xs uppercase tracking-wider font-semibold">About Us</span>
+            <h4 class="text-lg font-bold text-white mt-2 mb-2">Meet the Founders</h4>
+            <p class="text-gray-400 text-sm">The people behind Beyond the Pitch</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Back to Stories -->
+      <div class="text-center mt-12" data-animate>
+        <a href="blog.html" class="text-gold font-semibold hover:underline">
+          ← Back to All Stories
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Newsletter CTA -->
+  <section class="py-20 px-6 bg-gray-900 bg-opacity-30">
+    <div class="max-w-2xl mx-auto text-center" data-animate>
+      <h2 class="text-3xl font-bold text-gold mb-4">Stay Connected</h2>
+      <p class="text-gray-400 mb-8">
+        Get exclusive travel stories and early access to new journeys
+      </p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input 
+          type="email" 
+          placeholder="Your email address" 
+          class="flex-1 px-6 py-4 rounded-full bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors"
+          required
+        />
+        <button 
+          type="submit" 
+          class="bg-gold text-black font-semibold px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-lg whitespace-nowrap">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-6 bg-black border-t border-gray-900">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="mb-6">
+        <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+          <img 
+            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/logo.png" 
+            alt="Beyond the Pitch" 
+            class="h-20 w-auto mx-auto"
+          />
+        </a>
+        <p class="text-sm text-gray-500 mt-4">Sport · Culture · Travel</p>
+      </div>
+      <div class="mb-6">
+        <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors">
+          📧 thebeyondthepitch@gmail.com
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Scroll Animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
