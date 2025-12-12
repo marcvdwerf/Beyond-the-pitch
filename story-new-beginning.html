@@ -129,13 +129,24 @@
     </div>
   </nav>
 
-  <!-- Hero Image -->
-<div 
-  class="article-hero bg-center bg-cover bg-no-repeat" 
-  style="
-    background-image: url('https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/football%20blog%20foto.jpg');
-  "
-></div>
+ <div class="relative article-hero">
+
+  <!-- Video Background -->
+  <video 
+    class="absolute inset-0 w-full h-full object-cover"
+    autoplay 
+    loop 
+    muted 
+    playsinline
+  >
+    <source src="VIDEOS/your-video.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Dark overlay (jouw gradient blijft werken!) -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
+
+</div>
+
 
 
 
