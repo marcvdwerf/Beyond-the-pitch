@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>A New Beginning Beyond the Pitch - Our Story</title>
+  <title>A New Beginning Beyond the Pitch - Our story</title>
   <meta name="description" content="From solo backpacking through South America to building a global platform for authentic sports and culture travel." />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   
@@ -103,6 +103,10 @@
       opacity: 1;
       transform: none;
     }
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -113,7 +117,7 @@
       <div class="flex justify-between items-center">
         <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <img 
-            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/rio%20de%20janeiro.jpg" 
+            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/logo.png" 
             alt="Beyond the Pitch" 
             class="h-12 w-auto"
           />
@@ -129,26 +133,13 @@
     </div>
   </nav>
 
- <div class="relative article-hero">
-
-  <!-- Video Background -->
-  <video 
-    class="absolute inset-0 w-full h-full object-cover"
-    autoplay 
-    loop 
-    muted 
-    playsinline
-  >
-    <source src="VIDEOS/your-video.mp4" type="video/mp4" />
-  </video>
-
-  <!-- Dark overlay (jouw gradient blijft werken!) -->
-  <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
-
-</div>
-
-
-
+  <!-- Hero Image -->
+  <div class="article-hero">
+    <img 
+      src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80" 
+      alt="Solo Travel South America"
+    />
+  </div>
 
   <!-- Article Header -->
   <article class="py-16 px-6">
@@ -158,14 +149,14 @@
       <div class="flex items-center justify-center gap-4 mb-8 text-sm" data-animate>
         <span class="text-gold uppercase tracking-wider font-semibold">Origin Story</span>
         <span class="text-gray-600">•</span>
-        <span class="text-gray-400">December 2025</span>
+        <span class="text-gray-400">December 2024</span>
         <span class="text-gray-600">•</span>
         <span class="text-gray-400">8 min read</span>
       </div>
 
       <!-- Title -->
       <h1 class="text-4xl md:text-5xl font-bold text-center text-white mb-8 leading-tight" data-animate>
-        A New Beginning Beyond the Pitch
+        A new beginning Beyond the Pitch
       </h1>
 
       <!-- Author -->
@@ -261,6 +252,38 @@
 
       <!-- Share & CTA Section -->
       <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        
+        <!-- Social Sharing -->
+        <div class="mb-8">
+          <p class="text-gray-400 text-sm mb-4 text-center">Share this story</p>
+          <div class="flex gap-3 justify-center flex-wrap">
+            <button onclick="shareOnTwitter()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Twitter
+            </button>
+            <button onclick="shareOnFacebook()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Facebook
+            </button>
+            <button onclick="shareOnLinkedIn()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </button>
+            <button onclick="copyLink()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              Copy Link
+            </button>
+          </div>
+        </div>
+        
         <div class="text-center mb-8">
           <h3 class="text-2xl font-bold text-white mb-4">Ready to Start Your Journey?</h3>
           <p class="text-gray-400 mb-6">Explore our upcoming experiences and join our community</p>
@@ -272,6 +295,51 @@
               Join Community
             </a>
           </div>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        <h3 class="text-2xl font-bold text-white mb-8">Comments</h3>
+        
+        <!-- Comment Form -->
+        <div class="bg-gray-900 bg-opacity-50 rounded-2xl p-6 mb-8 border border-gray-800">
+          <h4 class="text-white font-semibold mb-4">Leave a Comment</h4>
+          <form id="commentForm" class="space-y-4">
+            <div>
+              <input 
+                type="text" 
+                id="commentName" 
+                placeholder="Your Name" 
+                class="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors"
+                required
+              />
+            </div>
+            <div>
+              <textarea 
+                id="commentText" 
+                rows="4" 
+                placeholder="Share your thoughts..." 
+                class="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors resize-none"
+                required
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="bg-gold text-black font-semibold px-6 py-3 rounded-full hover:bg-opacity-90 transition-all">
+              Post Comment
+            </button>
+          </form>
+        </div>
+        
+        <!-- Comments List -->
+        <div id="commentsList" class="space-y-4">
+          <!-- Comments will be inserted here -->
+        </div>
+        
+        <!-- No Comments Message -->
+        <div id="noComments" class="text-center py-8">
+          <p class="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
         </div>
       </div>
 
@@ -366,6 +434,114 @@
     document.querySelectorAll('[data-animate]').forEach(el => {
       observer.observe(el);
     });
+
+    // Social Sharing Functions
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent('A New Beginning Beyond the Pitch');
+    const pageDescription = encodeURIComponent('From solo backpacking through South America to building a global platform for authentic sports and culture travel.');
+
+    function shareOnTwitter() {
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+      window.open(twitterUrl, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnFacebook() {
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      window.open(facebookUrl, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnLinkedIn() {
+      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+      window.open(linkedInUrl, '_blank', 'width=550,height=420');
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(function() {
+        // Show success message
+        const btn = event.target.closest('button');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!';
+        btn.classList.add('bg-gold', 'text-black');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('bg-gold', 'text-black');
+        }, 2000);
+      });
+    }
+
+    // Comments System (Demo - uses memory storage)
+    let comments = [];
+
+    function loadComments() {
+      const commentsList = document.getElementById('commentsList');
+      const noComments = document.getElementById('noComments');
+      
+      if (comments.length === 0) {
+        noComments.style.display = 'block';
+        commentsList.innerHTML = '';
+        return;
+      }
+      
+      noComments.style.display = 'none';
+      commentsList.innerHTML = comments.map((comment, index) => `
+        <div class="bg-gray-900 bg-opacity-30 rounded-xl p-6 border border-gray-800">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center text-black font-bold flex-shrink-0">
+              ${comment.name.charAt(0).toUpperCase()}
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <p class="text-white font-semibold">${escapeHtml(comment.name)}</p>
+                <span class="text-gray-600">•</span>
+                <p class="text-gray-500 text-xs">${comment.date}</p>
+              </div>
+              <p class="text-gray-300 leading-relaxed">${escapeHtml(comment.text)}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('commentName').value;
+      const text = document.getElementById('commentText').value;
+      
+      if (!name || !text) return;
+      
+      const now = new Date();
+      const comment = {
+        name: name,
+        text: text,
+        date: now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+      
+      comments.unshift(comment);
+      loadComments();
+      
+      // Reset form
+      this.reset();
+      
+      // Show success message
+      const btn = this.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Comment Posted!';
+      btn.classList.add('bg-green-600');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('bg-green-600');
+      }, 2000);
+    });
+
+    // Load comments on page load
+    loadComments();
   </script>
 
 </body>
