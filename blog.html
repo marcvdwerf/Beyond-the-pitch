@@ -7,6 +7,10 @@
   <meta name="description" content="Travel stories, cultural discoveries and sporting adventures from around the world." />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
   <style>
     :root {
       --gold: #ffd700;
@@ -38,59 +42,49 @@
 
     /* Map Container */
     .map-container {
-      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      background: #1a1a1a;
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
     }
 
-    .map-pin {
-      position: relative;
-      width: 16px;
-      height: 16px;
+    /* Leaflet popup styling */
+    .leaflet-popup-content-wrapper {
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 0.75rem;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .leaflet-popup-content {
+      margin: 0;
+      width: 250px !important;
+    }
+
+    .leaflet-popup-tip {
+      background: #1a1a1a;
+    }
+
+    .journey-popup img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .journey-popup-content {
+      padding: 1rem;
+    }
+
+    /* Custom marker styling */
+    .custom-marker {
       background: var(--gold);
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       border: 3px solid #000;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      box-shadow: 0 0 20px var(--gold);
       animation: pulse 2s infinite;
-      z-index: 10;
-    }
-
-    .map-pin:hover {
-      transform: scale(1.8);
-      box-shadow: 0 0 30px var(--gold);
-      animation: none;
-    }
-
-    .map-pin-wrapper {
-      position: absolute;
-    }
-
-    .map-card {
-      position: absolute;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      background: #1a1a1a;
-      border-radius: 0.75rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      z-index: 20;
-      transition: all 0.3s ease;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .map-card.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .map-pin-wrapper:hover .map-card {
-      opacity: 1;
-      pointer-events: auto;
     }
 
     @keyframes pulse {
@@ -207,58 +201,7 @@
   <!-- Interactive Map Section -->
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto" data-animate>
-      <div class="map-container relative" style="height: 500px; background: #1a1a1a;">
-        <!-- World Map Image -->
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg" 
-          alt="World Map" 
-          class="w-full h-full object-cover"
-          style="filter: grayscale(100%) brightness(1.2) contrast(1.3); opacity: 0.8;"
-        />
-        
-        <!-- Interactive Pins with Info Cards -->
-        <!-- Mongolia Pin (Centraal Azië) -->
-        <div class="map-pin-wrapper" style="position: absolute; top: 37%; left: 67%;">
-          <div class="map-pin" data-location="mongolia"></div>
-          <div class="map-card hidden" id="card-mongolia">
-            <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Mongolia" class="w-full h-32 object-cover rounded-t-lg">
-            <div class="p-4">
-              <p class="text-xs text-gold mb-1">🇲🇳 Mongolia</p>
-              <h4 class="font-bold text-white mb-2">Naadam Festival</h4>
-              <p class="text-gray-400 text-xs mb-3">Experience wrestling, archery & horse racing</p>
-              <a href="naadam.html" class="text-gold text-xs font-semibold hover:underline">Explore →</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Ireland Pin (West-Europa) -->
-        <div class="map-pin-wrapper" style="position: absolute; top: 30%; left: 46%;">
-          <div class="map-pin" data-location="ireland"></div>
-          <div class="map-card hidden" id="card-ireland">
-            <img src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" alt="Ireland" class="w-full h-32 object-cover rounded-t-lg">
-            <div class="p-4">
-              <p class="text-xs text-gold mb-1">🇮🇪 Ireland</p>
-              <h4 class="font-bold text-white mb-2">Gaelic Games</h4>
-              <p class="text-gray-400 text-xs mb-3">Dive into Ireland's national sports</p>
-              <a href="gaelic-games.html" class="text-gold text-xs font-semibold hover:underline">Explore →</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Peru Pin (Zuid-Amerika, west kust) -->
-        <div class="map-pin-wrapper" style="position: absolute; top: 65%; left: 23%;">
-          <div class="map-pin" data-location="peru"></div>
-          <div class="map-card hidden" id="card-peru">
-            <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/peru.jpg" alt="Peru" class="w-full h-32 object-cover rounded-t-lg">
-            <div class="p-4">
-              <p class="text-xs text-gold mb-1">🇵🇪 Peru</p>
-              <h4 class="font-bold text-white mb-2">Lima Football</h4>
-              <p class="text-gray-400 text-xs mb-3">Experience Peru's football passion</p>
-              <a href="lima.html" class="text-gold text-xs font-semibold hover:underline">Explore →</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="worldMap" class="map-container" style="height: 500px; border-radius: 1rem; overflow: hidden; border: 1px solid rgba(255, 215, 0, 0.2);"></div>
     </div>
   </section>
 
@@ -532,6 +475,88 @@
 
   <!-- JavaScript -->
   <script>
+    // Initialize Leaflet Map
+    const map = L.map('worldMap', {
+      center: [30, 20],
+      zoom: 2,
+      minZoom: 2,
+      maxZoom: 6,
+      scrollWheelZoom: true
+    });
+
+    // Dark theme tile layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '©OpenStreetMap, ©CartoDB',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Journey locations with exact coordinates
+    const journeys = [
+      {
+        name: 'Mongolia',
+        coords: [47.9197, 106.9057], // Ulaanbaatar
+        flag: '🇲🇳',
+        title: 'Naadam Festival',
+        description: 'Experience wrestling, archery & horse racing',
+        image: 'https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=300',
+        link: 'naadam.html'
+      },
+      {
+        name: 'Ireland',
+        coords: [53.3498, -6.2603], // Dublin
+        flag: '🇮🇪',
+        title: 'Gaelic Games',
+        description: 'Dive into Ireland\'s national sports',
+        image: 'https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg',
+        link: 'gaelic-games.html'
+      },
+      {
+        name: 'Peru',
+        coords: [-12.0464, -77.0428], // Lima
+        flag: '🇵🇪',
+        title: 'Lima Football',
+        description: 'Experience Peru\'s football passion',
+        image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/peru.jpg',
+        link: 'lima.html'
+      }
+    ];
+
+    // Add markers with custom popups
+    journeys.forEach(journey => {
+      // Custom icon
+      const goldIcon = L.divIcon({
+        className: 'custom-marker',
+        iconSize: [20, 20]
+      });
+
+      // Create marker
+      const marker = L.marker(journey.coords, { icon: goldIcon }).addTo(map);
+
+      // Create popup content
+      const popupContent = `
+        <div class="journey-popup">
+          <img src="${journey.image}" alt="${journey.name}">
+          <div class="journey-popup-content">
+            <p style="color: #ffd700; font-size: 0.75rem; margin-bottom: 0.25rem;">${journey.flag} ${journey.name}</p>
+            <h4 style="color: white; font-weight: bold; margin-bottom: 0.5rem;">${journey.title}</h4>
+            <p style="color: #9ca3af; font-size: 0.75rem; margin-bottom: 0.75rem;">${journey.description}</p>
+            <a href="${journey.link}" style="color: #ffd700; font-size: 0.75rem; font-weight: 600;">Explore →</a>
+          </div>
+        </div>
+      `;
+
+      marker.bindPopup(popupContent, {
+        maxWidth: 250,
+        closeButton: false
+      });
+
+      // Open popup on hover
+      marker.on('mouseover', function() {
+        this.openPopup();
+      });
+    });
+
     // Scroll Animations
     const observerOptions = {
       threshold: 0.1,
@@ -557,29 +582,6 @@
         filterTags.forEach(t => t.classList.remove('active'));
         this.classList.add('active');
       });
-    });
-
-    // Map Pins Interaction with Info Cards
-    const mapPins = document.querySelectorAll('.map-pin');
-    mapPins.forEach(pin => {
-      pin.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const location = this.getAttribute('data-location');
-        const card = document.getElementById(`card-${location}`);
-        
-        // Hide all other cards
-        document.querySelectorAll('.map-card').forEach(c => c.classList.remove('show'));
-        
-        // Toggle this card
-        card.classList.toggle('show');
-      });
-    });
-
-    // Close cards when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.map-pin-wrapper')) {
-        document.querySelectorAll('.map-card').forEach(c => c.classList.remove('show'));
-      }
     });
   </script>
 
