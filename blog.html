@@ -45,20 +45,52 @@
     }
 
     .map-pin {
-      position: absolute;
-      width: 12px;
-      height: 12px;
+      position: relative;
+      width: 16px;
+      height: 16px;
       background: var(--gold);
       border-radius: 50%;
-      border: 2px solid #000;
+      border: 3px solid #000;
       cursor: pointer;
       transition: all 0.3s ease;
       animation: pulse 2s infinite;
+      z-index: 10;
     }
 
     .map-pin:hover {
-      transform: scale(1.5);
-      box-shadow: 0 0 20px var(--gold);
+      transform: scale(1.8);
+      box-shadow: 0 0 30px var(--gold);
+      animation: none;
+    }
+
+    .map-pin-wrapper {
+      position: absolute;
+    }
+
+    .map-card {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      background: #1a1a1a;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      z-index: 20;
+      transition: all 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .map-card.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .map-pin-wrapper:hover .map-card {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     @keyframes pulse {
@@ -175,20 +207,57 @@
   <!-- Interactive Map Section -->
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto" data-animate>
-      <div class="map-container relative h-96">
-        <!-- World Map SVG/Image would go here -->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div class="text-center">
-            <div class="text-6xl mb-4">🗺️</div>
-            <p class="text-gray-400 text-sm">Interactive world map</p>
-            <p class="text-gray-500 text-xs mt-2">Click pins to explore our journeys</p>
+      <div class="map-container relative" style="height: 500px;">
+        <!-- World Map Image -->
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg" 
+          alt="World Map" 
+          class="w-full h-full object-cover opacity-30"
+          style="filter: grayscale(100%) brightness(0.3);"
+        />
+        
+        <!-- Interactive Pins with Info Cards -->
+        <!-- Mongolia Pin -->
+        <div class="map-pin-wrapper" style="position: absolute; top: 35%; left: 60%;">
+          <div class="map-pin" data-location="mongolia"></div>
+          <div class="map-card hidden" id="card-mongolia">
+            <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Mongolia" class="w-full h-32 object-cover rounded-t-lg">
+            <div class="p-4">
+              <p class="text-xs text-gold mb-1">🇲🇳 Mongolia</p>
+              <h4 class="font-bold text-white mb-2">Naadam Festival</h4>
+              <p class="text-gray-400 text-xs mb-3">Experience wrestling, archery & horse racing</p>
+              <a href="naadam.html" class="text-gold text-xs font-semibold hover:underline">Explore →</a>
+            </div>
           </div>
         </div>
         
-        <!-- Example Pins (positioned approximately) -->
-        <div class="map-pin" style="top: 35%; left: 52%;" title="Mongolia - Naadam Festival"></div>
-        <div class="map-pin" style="top: 32%; left: 28%;" title="Ireland - Gaelic Games"></div>
-        <div class="map-pin" style="top: 65%; left: 22%;" title="Peru - Lima Football"></div>
+        <!-- Ireland Pin -->
+        <div class="map-pin-wrapper" style="position: absolute; top: 28%; left: 43%;">
+          <div class="map-pin" data-location="ireland"></div>
+          <div class="map-card hidden" id="card-ireland">
+            <img src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" alt="Ireland" class="w-full h-32 object-cover rounded-t-lg">
+            <div class="p-4">
+              <p class="text-xs text-gold mb-1">🇮🇪 Ireland</p>
+              <h4 class="font-bold text-white mb-2">Gaelic Games</h4>
+              <p class="text-gray-400 text-xs mb-3">Dive into Ireland's national sports</p>
+              <a href="gaelic-games.html" class="text-gold text-xs font-semibold hover:underline">Explore →</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Peru Pin -->
+        <div class="map-pin-wrapper" style="position: absolute; top: 62%; left: 24%;">
+          <div class="map-pin" data-location="peru"></div>
+          <div class="map-card hidden" id="card-peru">
+            <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/peru.jpg" alt="Peru" class="w-full h-32 object-cover rounded-t-lg">
+            <div class="p-4">
+              <p class="text-xs text-gold mb-1">🇵🇪 Peru</p>
+              <h4 class="font-bold text-white mb-2">Lima Football</h4>
+              <p class="text-gray-400 text-xs mb-3">Experience Peru's football passion</p>
+              <a href="lima.html" class="text-gold text-xs font-semibold hover:underline">Explore →</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -216,7 +285,7 @@
         <div class="grid md:grid-cols-2 gap-0">
           <div class="h-96 overflow-hidden">
             <img 
-              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/rio%20de%20janeiro.jpg" 
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" 
               alt="Travel Journey South America" 
               class="w-full h-full object-cover"
             />
@@ -240,7 +309,7 @@
                 </div>
                 <div>
                   <p class="text-white text-sm font-semibold">Marc van der Werf</p>
-                  <p class="text-gray-500 text-xs">December 2025</p>
+                  <p class="text-gray-500 text-xs">December 2024</p>
                 </div>
               </div>
               <a href="story-new-beginning.html" class="text-gold font-semibold hover:underline">
@@ -490,13 +559,27 @@
       });
     });
 
-    // Map Pins Interaction
+    // Map Pins Interaction with Info Cards
     const mapPins = document.querySelectorAll('.map-pin');
     mapPins.forEach(pin => {
-      pin.addEventListener('click', function() {
-        const location = this.getAttribute('title');
-        alert(`Exploring stories from: ${location}`);
+      pin.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const location = this.getAttribute('data-location');
+        const card = document.getElementById(`card-${location}`);
+        
+        // Hide all other cards
+        document.querySelectorAll('.map-card').forEach(c => c.classList.remove('show'));
+        
+        // Toggle this card
+        card.classList.toggle('show');
       });
+    });
+
+    // Close cards when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.map-pin-wrapper')) {
+        document.querySelectorAll('.map-card').forEach(c => c.classList.remove('show'));
+      }
     });
   </script>
 
