@@ -579,28 +579,31 @@ html {
   <p class="text-gray-600 text-sm">© 2025 Beyond the pitch — sport. culture. connection.</p>
 </footer>
 
-  <!-- ================= Hero Modal (Become par of the community) ================= -->
-  <div id="modalHero" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeroTitle" aria-hidden="true">
-    <div class="modal-inner modal-body rounded-3xl shadow-soft max-w-2xl" role="document">
-      <button class="close-btn" data-close aria-label="Close">&times;</button>
-      <div class="modal-body z-10 relative">
-        <h3 id="modalHeroTitle" class="text-2xl font-semibold text-gold mb-4 text-center">Become part of the community</h3>
-        <p class="text-gray-300 text-center mb-6">Fill in your details and we’ll get back to you with next steps.</p>
-
-        <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
-          <input name="name" type="text" placeholder="Full name" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
-          <input name="email" type="email" placeholder="Email address" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
-          <input name="club" type="text" placeholder="Country" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" />
-          <textarea name="message" placeholder="Questions?" rows="4" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700"></textarea>
-
-          <input type="hidden" name="_subject" value="Become part of the community" />
-          <input type="hidden" name="_replyto" value="thebeyondthepitch@gmail.com" />
-
-          <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold">Submit application</button>
-        </form>
-      </div>
+ <!-- ================= Hero Modal (Become part of the community) ================= -->
+<div id="modalHero" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeroTitle" aria-hidden="true">
+  <div class="modal-inner rounded-3xl shadow-soft max-w-2xl" role="document">
+    
+    <!-- X button BINNEN modal-inner -->
+    <button class="close-btn" data-close aria-label="Close">&times;</button>
+    
+    <div class="modal-body z-10 relative">
+      <h3 id="modalHeroTitle" class="text-2xl font-semibold text-gold mb-4 text-center">Become part of the community</h3>
+      <p class="text-gray-300 text-center mb-6">Fill in your details and we'll get back to you with next steps.</p>
+      <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
+        <input name="name" type="text" placeholder="Full name" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white" />
+        <input name="email" type="email" placeholder="Email address" required class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white" />
+        <input name="club" type="text" placeholder="Country" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white" />
+        <textarea name="message" placeholder="Questions?" rows="4" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700 text-white"></textarea>
+        <input type="hidden" name="_subject" value="Become part of the community" />
+        <input type="hidden" name="_replyto" value="thebeyondthepitch@gmail.com" />
+        <button type="submit" class="w-full bg-gold text-black py-3 rounded-2xl font-semibold hover:bg-opacity-90 transition-all">
+          Submit application
+        </button>
+      </form>
     </div>
+    
   </div>
+</div>
 
 <!-- ================= Naadam Modal (kept as convenience) ================= -->
 <div id="modalNaadam" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNaadamTitle" aria-hidden="true">
@@ -946,12 +949,12 @@ html {
   });
 </script>
 <script>
-  // Modal Functionality
+  // Modal Open/Close Functionality
   const modalTriggers = document.querySelectorAll('[data-open]');
   const closeButtons = document.querySelectorAll('.close-btn, [data-close]');
   const modals = document.querySelectorAll('.modal');
 
-  // Open modal
+  // Open modal when clicking trigger
   modalTriggers.forEach(trigger => {
     trigger.addEventListener('click', function(e) {
       e.preventDefault();
@@ -960,27 +963,31 @@ html {
       if (modal) {
         modal.classList.add('show');
         modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
       }
     });
   });
 
-  // Close modal via X button or [data-close]
+  // Close modal when clicking X button
   closeButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
       const modal = this.closest('.modal');
       if (modal) {
         modal.classList.remove('show');
         modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = ''; // Restore scroll
       }
     });
   });
 
-  // Close modal when clicking outside (on backdrop)
+  // Close modal when clicking outside (backdrop)
   modals.forEach(modal => {
     modal.addEventListener('click', function(e) {
       if (e.target === this) {
         this.classList.remove('show');
         this.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
       }
     });
   });
@@ -992,6 +999,7 @@ html {
         if (modal.classList.contains('show')) {
           modal.classList.remove('show');
           modal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
         }
       });
     }
