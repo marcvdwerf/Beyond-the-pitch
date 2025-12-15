@@ -945,7 +945,58 @@ html {
     });
   });
 </script>
+<script>
+  // Modal Functionality
+  const modalTriggers = document.querySelectorAll('[data-open]');
+  const closeButtons = document.querySelectorAll('.close-btn, [data-close]');
+  const modals = document.querySelectorAll('.modal');
 
+  // Open modal
+  modalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modalId = this.getAttribute('data-open');
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+
+  // Close modal via X button or [data-close]
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const modal = this.closest('.modal');
+      if (modal) {
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+  });
+
+  // Close modal when clicking outside (on backdrop)
+  modals.forEach(modal => {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('show');
+        this.setAttribute('aria-hidden', 'true');
+      }
+    });
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      modals.forEach(modal => {
+        if (modal.classList.contains('show')) {
+          modal.classList.remove('show');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
 
