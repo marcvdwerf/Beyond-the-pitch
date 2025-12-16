@@ -3,105 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact - Beyond the Pitch</title>
-  <meta name="description" content="Get in contact with Beyond the Pitch. Join our community or partner with us for unique sports and culture experiences." />
+  <title>Contact – Beyond the Pitch</title>
+  <meta name="description" content="Join the Beyond the Pitch community or partner with us for unique sport & culture experiences." />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
-    :root{
-      --gold:#ffd700;
-    }
-    html,body{height:100%}
+    :root { --gold:#ffd700; }
     body{
       font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
       background:#000;color:#fff;
-      -webkit-font-smoothing:antialiased;
     }
     html{scroll-behavior:smooth}
     .text-gold{color:var(--gold)}
     .bg-gold{background:var(--gold)}
-
-    .sticky-nav{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter:blur(12px);
-      background:rgba(0,0,0,.85);
-      border-bottom:1px solid rgba(255,215,0,.2)
-    }
-
-    #mobileNavMenu{
-      max-height:0;opacity:0;overflow:hidden;
-      transition:max-height .3s ease,opacity .3s ease
-    }
-    #mobileNavMenu.show{max-height:500px;opacity:1}
-
     .tab-button.active{
       border-bottom:4px solid var(--gold);
       color:var(--gold)
     }
-
     input,select,textarea{
-      transition:all .3s ease
+      background:#000;border:1px solid #374151;color:#fff;
     }
     input:focus,select:focus,textarea:focus{
       outline:none;border-color:var(--gold);
       box-shadow:0 0 0 3px rgba(255,215,0,.15)
-    }
-
-    .suggest-btn{
-      background:linear-gradient(135deg,#ffd700,#ffed4e);
-      box-shadow:0 4px 15px rgba(255,215,0,.3)
-    }
-    .suggest-btn:hover{transform:translateY(-2px)}
-
-    [data-animate]{opacity:0;transform:translateY(18px);transition:.6s}
-    [data-animate].animate{opacity:1;transform:none}
-
-    .info-card{
-      background:rgba(17,24,39,.8);
-      border:1px solid rgba(255,215,0,.1);
-      transition:.3s
-    }
-    .info-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 8px 25px rgba(255,215,0,.15)
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav class="sticky-nav">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="index.html" class="text-gold font-bold text-xl">Beyond the Pitch</a>
-
-    <div class="hidden md:flex space-x-8 text-sm">
-      <a href="index.html#audience" class="text-gray-300 hover:text-gold">Start</a>
-      <a href="index.html#journeys" class="text-gray-300 hover:text-gold">Journeys</a>
-      <a href="blog.html" class="text-gray-300 hover:text-gold">Stories</a>
-      <a href="about.html" class="text-gray-300 hover:text-gold">About</a>
-    </div>
-
-    <button id="mobileNavToggle" class="md:hidden text-gray-300">
-      ☰
-    </button>
-  </div>
-
-  <div id="mobileNavMenu" class="md:hidden px-6 pb-4">
-    <a href="index.html#audience" class="block py-2">Start</a>
-    <a href="index.html#journeys" class="block py-2">Journeys</a>
-    <a href="blog.html" class="block py-2">Stories</a>
-    <a href="about.html" class="block py-2">About</a>
-  </div>
-</nav>
-
 <!-- HERO -->
-<section class="py-20 px-6 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-center">
-  <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-6" data-animate>
-    Get in contact<br/>with us
+<section class="py-24 px-6 text-center bg-gradient-to-br from-gray-900 via-black to-gray-900">
+  <h1 class="text-5xl md:text-6xl font-extrabold text-gold mb-6">
+    Join the Beyond the Pitch community
   </h1>
-  <p class="text-xl text-gray-300" data-animate>
-    Sport · Culture · Connection
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+    A global network of people who believe sport is the gateway to culture, connection and deeper travel experiences.
   </p>
 </section>
 
@@ -109,27 +46,105 @@
 <section class="py-12 px-6">
   <div class="max-w-4xl mx-auto">
 
-    <div class="grid grid-cols-2 bg-gray-900 rounded-t-3xl overflow-hidden" data-animate>
-      <button id="tabCommunity" class="tab-button active py-6 text-lg font-semibold">Community</button>
-      <button id="tabPartner" class="tab-button py-6 text-lg font-semibold">Partner</button>
-    </div>
-
-    <!-- COMMUNITY -->
-    <div id="communityForm" class="bg-gray-900 p-10 rounded-b-3xl" data-animate>
-      <h2 class="text-2xl font-bold text-gold mb-4">Join our community</h2>
-      <input class="w-full mb-4 px-4 py-3 rounded-xl bg-black border border-gray-700" placeholder="Email">
-      <button class="w-full bg-gold text-black py-4 rounded-2xl font-semibold">
-        Join the community
+    <div class="grid grid-cols-2 bg-gray-900 rounded-t-3xl overflow-hidden">
+      <button id="tabCommunity" class="tab-button active py-6 text-lg font-semibold">
+        Community
+      </button>
+      <button id="tabPartner" class="tab-button py-6 text-lg font-semibold">
+        Partner / Host
       </button>
     </div>
 
-    <!-- PARTNER -->
-    <div id="partnerForm" class="bg-gray-900 p-10 rounded-b-3xl hidden" data-animate>
-      <h2 class="text-2xl font-bold text-gold mb-4">Partner with us</h2>
-      <input class="w-full mb-4 px-4 py-3 rounded-xl bg-black border border-gray-700" placeholder="Business Email">
-      <button class="w-full bg-gold text-black py-4 rounded-2xl font-semibold">
-        Submit partnership inquiry
-      </button>
+    <!-- COMMUNITY FORM -->
+    <div id="communityForm" class="bg-gray-900 p-10 rounded-b-3xl">
+
+      <h2 class="text-2xl font-bold text-gold mb-4">Become part of the community</h2>
+
+      <p class="text-gray-300 mb-6">
+        Beyond the Pitch connects curious travellers, local insiders and sports lovers.
+        By joining, you’ll be the first to hear about:
+      </p>
+
+      <ul class="list-disc list-inside text-gray-400 mb-8 space-y-2">
+        <li>New journeys & match experiences</li>
+        <li>Small-group trips beyond mainstream tourism</li>
+        <li>Stories from locals and hosts worldwide</li>
+        <li>Early access & limited spots</li>
+      </ul>
+
+      <!-- FORM: FORMSPREE -->
+      <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-5">
+
+        <input type="text" name="name" required
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="Your name" />
+
+        <input type="email" name="email" required
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="Your email address" />
+
+        <select name="interest" class="w-full px-4 py-3 rounded-xl">
+          <option value="">What are you interested in?</option>
+          <option>Upcoming journeys</option>
+          <option>Football & local match culture</option>
+          <option>Traditional sports</option>
+          <option>Community & storytelling</option>
+        </select>
+
+        <textarea name="message" rows="4"
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="Anything you’d like to share? (optional)"></textarea>
+
+        <input type="hidden" name="_subject" value="New community member — Beyond the Pitch">
+
+        <button type="submit"
+          class="w-full bg-gold text-black py-4 rounded-2xl font-semibold hover:bg-opacity-90 transition">
+          Join the community
+        </button>
+
+        <p class="text-xs text-gray-500 text-center">
+          No spam. Just meaningful journeys & stories.
+        </p>
+
+      </form>
+    </div>
+
+    <!-- PARTNER FORM -->
+    <div id="partnerForm" class="bg-gray-900 p-10 rounded-b-3xl hidden">
+
+      <h2 class="text-2xl font-bold text-gold mb-4">Partner with Beyond the Pitch</h2>
+
+      <p class="text-gray-300 mb-6">
+        Do you offer a unique sporting tradition, local event or destination experience?
+        We work with a small number of trusted partners who value authenticity.
+      </p>
+
+      <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-5">
+
+        <input type="text" name="name" required
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="Your name" />
+
+        <input type="email" name="email" required
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="Business email" />
+
+        <input type="text" name="location"
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="City / Country" />
+
+        <textarea name="message" rows="5" required
+          class="w-full px-4 py-3 rounded-xl"
+          placeholder="Tell us about your experience or offering"></textarea>
+
+        <input type="hidden" name="_subject" value="New partnership inquiry — Beyond the Pitch">
+
+        <button type="submit"
+          class="w-full bg-gold text-black py-4 rounded-2xl font-semibold hover:bg-opacity-90 transition">
+          Submit partnership inquiry
+        </button>
+
+      </form>
     </div>
 
   </div>
@@ -140,43 +155,25 @@
   <p class="text-gray-500 text-sm">© 2025 Beyond the Pitch</p>
 </footer>
 
-<!-- FIXED JAVASCRIPT -->
 <script>
-  // Scroll animations
-  const animatedEls = document.querySelectorAll('[data-animate]');
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting) e.target.classList.add('animate');
-    });
-  },{threshold:.2});
-  animatedEls.forEach(el=>observer.observe(el));
-
-  // Mobile menu
-  const mobileToggle = document.getElementById('mobileNavToggle');
-  const mobileMenu = document.getElementById('mobileNavMenu');
-  mobileToggle.addEventListener('click',()=>{
-    mobileMenu.classList.toggle('show');
-  });
-
-  // Tabs
   const tabCommunity = document.getElementById('tabCommunity');
   const tabPartner = document.getElementById('tabPartner');
   const communityForm = document.getElementById('communityForm');
   const partnerForm = document.getElementById('partnerForm');
 
-  tabCommunity.addEventListener('click',()=>{
+  tabCommunity.onclick = () => {
     tabCommunity.classList.add('active');
     tabPartner.classList.remove('active');
     communityForm.classList.remove('hidden');
     partnerForm.classList.add('hidden');
-  });
+  };
 
-  tabPartner.addEventListener('click',()=>{
+  tabPartner.onclick = () => {
     tabPartner.classList.add('active');
     tabCommunity.classList.remove('active');
     partnerForm.classList.remove('hidden');
     communityForm.classList.add('hidden');
-  });
+  };
 </script>
 
 </body>
