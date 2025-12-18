@@ -97,27 +97,49 @@
       .project-card img{ height:180px; }
     }
 
-    /* Utility tweaks */
-    .rounded-3xl{ border-radius:1rem; }
-    /* Sticky Navigation */
+   <!-- ================= VERVANG JOUW HUIDIGE NAV MET DEZE CODE ================= -->
+
+<!-- STAP 1: Voeg deze CSS toe aan je <style> sectie (VOOR de bestaande CSS) -->
+<style>
+/* ================= NIEUWE NAVIGATIE STYLING ================= */
 .sticky-nav {
   position: sticky;
   top: 0;
   z-index: 50;
   backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   border-bottom: 1px solid rgba(255, 215, 0, 0.2);
   transition: all 0.3s ease;
 }
 
-.sticky-nav a {
-  position: relative;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
-.sticky-nav a::after {
+.nav-link {
+  position: relative;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--gold);
+}
+
+.nav-link.active {
+  color: var(--gold);
+}
+
+.nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
@@ -125,33 +147,244 @@
   transition: width 0.3s ease;
 }
 
-.sticky-nav a:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
   width: 100%;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Dropdown styling */
+.nav-dropdown {
+  position: relative;
 }
-    /* Mobile menu animation */
-#mobileNavMenu {
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  overflow: hidden;
-  max-height: 0;
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.dropdown-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-toggle svg {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 260px;
+  background: rgba(17, 24, 39, 0.98);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 12px;
+  padding: 0.5rem;
   opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.nav-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--gold);
+  transform: translateX(4px);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+.dropdown-header {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-cta {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+  display: none;
+  color: #e5e7eb;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+  color: var(--gold);
+}
+
+#mobileNavMenu {
+  display: none;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #mobileNavMenu.show {
-  max-height: 500px;
-  opacity: 1;
+  display: block;
 }
-    .shadow-soft{ box-shadow: 0 10px 30px rgba(2,6,23,0.6); }
 
-    /* CTA hero helper */
-    .cta-hero { min-height: 420px; background-size: cover; background-position: center; position:relative; }
-  </style>
-</head>
-<body>
-   <!-- ================= Sticky Navigation ================= -->
+.mobile-nav-link {
+  display: block;
+  padding: 0.75rem 0;
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--gold);
+}
+
+.mobile-dropdown {
+  margin-top: 0.5rem;
+}
+
+.mobile-dropdown summary {
+  cursor: pointer;
+  padding: 0.75rem 0;
+  color: #e5e7eb;
+  list-style: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-dropdown summary:hover {
+  color: var(--gold);
+}
+
+.mobile-dropdown summary::after {
+  content: '▼';
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.mobile-dropdown[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.mobile-dropdown-content {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.mobile-dropdown-item {
+  display: block;
+  padding: 0.5rem 0;
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.813rem;
+  transition: color 0.3s ease;
+}
+
+.mobile-dropdown-item:hover {
+  color: var(--gold);
+}
+
+/* Floating CTA Button */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 40;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000;
+  padding: 1rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: pulse-float 2s ease-in-out infinite;
+}
+
+.floating-cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+}
+
+@keyframes pulse-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav-cta.desktop-only {
+    display: none;
+  }
+
+  .floating-cta {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+/* ================= EINDE NIEUWE NAVIGATIE STYLING ================= */
+</style>
+
+<!-- STAP 2: VERVANG je huidige <nav> met deze code -->
 <nav class="sticky-nav">
   <div class="max-w-7xl mx-auto px-6 py-4">
     <div class="flex justify-between items-center">
@@ -162,52 +395,162 @@ html {
       </a>
       
       <!-- Desktop Menu -->
-     <div class="hidden md:flex space-x-8 text-sm font-medium">
-  <a href="#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
-  <a href="#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
-  <a href="blog.html" class="text-gray-300 hover:text-gold transition-colors">Stories</a>  <!-- NIEUW -->
-  <a href="#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
-  <a href="#partners" class="text-gray-300 hover:text-gold transition-colors">Partners</a>
-  <a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About</a>
-  <a href="contact.html" class="text-gray-300 hover:text-gold transition-colors"> Contact</a>
-</div>
+      <div class="nav-links">
+        
+        <!-- Journeys Dropdown -->
+        <div class="nav-dropdown">
+          <div class="dropdown-toggle nav-link">
+            <span>Journeys</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M6 9L1 4h10L6 9z"/>
+            </svg>
+          </div>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">Upcoming Journeys</div>
+            <a href="naadam.html" class="dropdown-item">
+              <span>🏇</span>
+              <div>
+                <div style="font-weight: 600;">Naadam Festival</div>
+                <div style="font-size: 0.75rem; color: #9ca3af;">Mongolia · July 2026</div>
+              </div>
+            </a>
+            <a href="gaelic-games.html" class="dropdown-item">
+              <span>🏉</span>
+              <div>
+                <div style="font-weight: 600;">Gaelic Football</div>
+                <div style="font-size: 0.75rem; color: #9ca3af;">Ireland · Coming Soon</div>
+              </div>
+            </a>
+            <a href="lima.html" class="dropdown-item">
+              <span>⚽</span>
+              <div>
+                <div style="font-weight: 600;">Football in Lima</div>
+                <div style="font-size: 0.75rem; color: #9ca3af;">Peru · Coming Soon</div>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#journeys" class="dropdown-item">
+              <span>🗺️</span>
+              <div style="font-weight: 600;">View All Journeys</div>
+            </a>
+          </div>
+        </div>
+
+        <a href="blog.html" class="nav-link">Stories</a>
+        <a href="#community" class="nav-link">Community</a>
+        <a href="#partners" class="nav-link">Partners</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-cta desktop-only">Contact Us</a>
+      </div>
       
       <!-- Mobile Hamburger Button -->
-      <button id="mobileNavToggle" class="md:hidden text-gray-300 hover:text-gold transition-colors focus:outline-none" aria-label="Toggle menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="mobileNavToggle" class="mobile-menu-btn" aria-label="Toggle menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
       
     </div>
     
-    <!-- Mobile Menu (verborgen standaard) -->
-  <div id="mobileNavMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
-  <a href="#audience" class="block py-2 text-gray-300 hover:text-gold transition-colors">Start</a>
-  <a href="#journeys" class="block py-2 text-gray-300 hover:text-gold transition-colors">Journeys</a>
-  <a href="blog.html" class="block py-2 text-gray-300 hover:text-gold transition-colors">Stories</a>  
-    <a href="contact.html" class="block py-2 text-gray-300 hover:text-gold transition-colors"> Contact</a>
-
-  
-  <!-- Projects Dropdown -->
-  <details class="mt-2">
-    <summary class="cursor-pointer text-gray-300 hover:text-gold py-2">Projects</summary>
-    <div class="pl-4 mt-2">
-      <a href="naadam.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Naadam Festival - Mongolia</a>
-      <a href="gaelic-games.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Gaelic Football & Hurling - Ireland</a>
-      <a href="lima.html" class="block py-1 text-gray-300 hover:text-gold text-sm">Football - Peru</a>
+    <!-- Mobile Menu -->
+    <div id="mobileNavMenu">
+      <a href="#audience" class="mobile-nav-link">Start</a>
+      
+      <!-- Mobile Journeys Dropdown -->
+      <details class="mobile-dropdown">
+        <summary>Journeys</summary>
+        <div class="mobile-dropdown-content">
+          <a href="naadam.html" class="mobile-dropdown-item">🏇 Naadam Festival - Mongolia</a>
+          <a href="gaelic-games.html" class="mobile-dropdown-item">🏉 Gaelic Football - Ireland</a>
+          <a href="lima.html" class="mobile-dropdown-item">⚽ Football - Peru</a>
+          <a href="#journeys" class="mobile-dropdown-item">🗺️ View All Journeys</a>
+        </div>
+      </details>
+      
+      <a href="blog.html" class="mobile-nav-link">Stories</a>
+      <a href="#community" class="mobile-nav-link">Community</a>
+      <a href="#partners" class="mobile-nav-link">Partners</a>
+      <a href="about.html" class="mobile-nav-link">About</a>
+      <a href="#faq" class="mobile-nav-link">FAQ</a>
+      <a href="contact.html" class="mobile-nav-link" style="color: var(--gold); font-weight: 600;">Contact</a>
     </div>
-  </details>
-  
-  <a href="#community" class="block py-2 text-gray-300 hover:text-gold transition-colors">Community</a>
-  <a href="#partners" class="block py-2 text-gray-300 hover:text-gold transition-colors">Partners</a>
-  <a href="about.html" class="block py-2 text-gray-300 hover:text-gold transition-colors">About Us</a>
-  <a href="#faq" class="block py-2 text-gray-300 hover:text-gold transition-colors">FAQ</a>
-</div>
     
   </div>
-</nav> 
-   
+</nav>
+
+<!-- STAP 3: Voeg Floating CTA toe (VOOR je <main> of NA je nav) -->
+<a href="contact.html" class="floating-cta">
+  <span>🎫</span>
+  <span>Join a Journey</span>
+</a>
+
+<!-- STAP 4: Voeg deze JavaScript toe aan het EINDE van je <body>, VOOR de sluitende </body> tag -->
+<script>
+// Mobile menu toggle
+const mobileNavToggle = document.getElementById('mobileNavToggle');
+const mobileNavMenu = document.getElementById('mobileNavMenu');
+
+if (mobileNavToggle && mobileNavMenu) {
+  mobileNavToggle.addEventListener('click', function() {
+    mobileNavMenu.classList.toggle('show');
+  });
+
+  // Close mobile menu when clicking on a link
+  const mobileLinks = mobileNavMenu.querySelectorAll('a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      mobileNavMenu.classList.remove('show');
+    });
+  });
+}
+
+// Active state detection
+function updateActiveStates() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link[href^="#"], .mobile-nav-link[href^="#"]');
+  
+  let currentSection = '';
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    if (window.scrollY >= (sectionTop - 100)) {
+      currentSection = section.getAttribute('id');
+    }
+  });
+  
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    const href = link.getAttribute('href');
+    if (href === `#${currentSection}`) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveStates);
+window.addEventListener('load', updateActiveStates);
+
+// Hide floating CTA when scrolling near contact section
+const floatingCta = document.querySelector('.floating-cta');
+const contactSection = document.getElementById('contact');
+
+if (floatingCta && contactSection) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        floatingCta.style.opacity = '0';
+        floatingCta.style.pointerEvents = 'none';
+      } else {
+        floatingCta.style.opacity = '1';
+        floatingCta.style.pointerEvents = 'auto';
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  observer.observe(contactSection);
+}
+</script>
 <!-- ================= Hero ================= -->
 <main id="maincontent">
   <section class="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-black">
