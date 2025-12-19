@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Where the Journey Began - and Continues</title>
+  <meta name="description" content="From PSV youth academy to Go Ahead Eagles, and the experiences that shaped Beyond the Pitch." />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gold: #ffd700;
+    }
+    
+    body { 
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #000; 
+      color: #fff; 
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .text-gold { color: var(--gold); }
+    .bg-gold { background: var(--gold); }
+    
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.9);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .article-content {
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 1.125rem;
+      color: #d1d5db;
+    }
+
+    .article-content h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-content strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .article-hero {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .article-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #000 0%, transparent 60%);
+    }
+
+    .article-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pull-quote {
+      border-left: 4px solid var(--gold);
+      padding-left: 2rem;
+      margin: 3rem 0;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.6;
+    }
+
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    [data-animate].animate {
+      opacity: 1;
+      transform: none;
+    }
+
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="sticky-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img 
+            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" 
+            alt="Beyond the Pitch" 
+            class="h-12 w-auto"
+          />
+        </a>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+          <a href="index.html#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
+          <a href="index.html#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
+          <a href="blog.html" class="text-gold">Stories</a>
+          <a href="index.html#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+          <a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-hero">
+    <img 
+      src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80" 
+      alt="Football Stadium"
+    />
+  </div>
+
+  <article class="py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="flex items-center justify-center gap-4 mb-8 text-sm" data-animate>
+        <span class="text-gold uppercase tracking-wider font-semibold">Personal Journey</span>
+        <span class="text-gray-600">•</span>
+        <span class="text-gray-400">December 2025</span>
+        <span class="text-gray-600">•</span>
+        <span class="text-gray-400">7 min read</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-white mb-8 leading-tight" data-animate>
+        Where the Journey Began - and Continues
+      </h1>
+
+      <div class="flex items-center justify-center gap-4 mb-12" data-animate>
+        <div class="w-14 h-14 bg-gold rounded-full flex items-center justify-center text-black font-bold text-xl">
+          M
+        </div>
+        <div>
+          <p class="text-white font-semibold">Martijn Berden</p>
+          <p class="text-gray-400 text-sm">CO-Founder, Beyond the Pitch</p>
+        </div>
+      </div>
+
+      <div class="article-content" data-animate>
+        
+        <p>
+          Football has never been just something I did. From a young age, it became a way for me to understand the world around me.
+        </p>
+
+        <h3>The First Lesson: South Africa</h3>
+
+        <p>
+          The first time I truly felt the power of sport was not during a match, but on a journey to South Africa with the PSV academy. Football itself was not the focus of that trip; serving and connecting with the local community was. We arrived thinking we might inspire others, but it quickly became clear that the roles were reversed.
+        </p>
+
+        <p>
+          As a group of fifteen-year-old boys, we were welcomed with an openness and warmth that was almost overwhelming. We were invited into everyday life - into traditions, stories, and conversations that extended far beyond the game. It was there that I first understood sport's unique ability to connect people across cultures, backgrounds, and borders.
+        </p>
+
+        <div class="pull-quote">
+          "We arrived thinking we might inspire others, but it quickly became clear that the roles were reversed."
+        </div>
+
+        <h3>Finding Soul in Deventer</h3>
+
+        <p>
+          Years later, the game brought me to Go Ahead Eagles in Deventer. A true working-class club, deeply rooted in its city and driven entirely by its community. In Deventer, Go Ahead Eagles is not simply a football club; it is something people live and breathe.
+        </p>
+
+        <p>
+          From my very first matchday, I felt a connection unlike anything I had experienced before. The exchange of energy between the stands and the pitch was constant and intense, as if players and supporters shared the same heartbeat. Over four seasons, I met countless people who embodied the soul of the club - supporters, volunteers, staff, and families who dedicate their time and passion to something bigger than themselves.
+        </p>
+
+        <p>
+          Once again, football placed me right at the centre of its unifying power.
+        </p>
+
+        <h3>Beyond the Lines</h3>
+
+        <p>
+          These experiences shaped the way I see the game. I learned that <strong>sport is never only about what happens between the lines</strong>. It connects in a way few other things can. It lives in the streets around the stadium, in cafés before kick-off, and in relationships built over time.
+        </p>
+
+        <p>
+          Moving through environments so different from one another sparked a growing curiosity in me - about the cultures that surround sport, and the stories that exist beyond the pitch.
+        </p>
+
+        <div class="pull-quote">
+          "Sport lives in the streets around the stadium, in cafés before kick-off, and in relationships built over time."
+        </div>
+
+        <h3>A New Chapter</h3>
+
+        <p>
+          As my career gradually moved away from the highest professional level, my relationship with the game evolved along with it. I didn't want to step away from football; I wanted to pass on what it had given me. The shared moments, the sense of belonging, and the connections created through sport can be found all over the world.
+        </p>
+
+        <p>
+          With Beyond the Pitch, I found the perfect outlet. A platform built on movement, curiosity, and the belief that sport is a universal language - told through the people, traditions, and cultures that give it its soul.
+        </p>
+
+        <h3>Full Circle</h3>
+
+        <p>
+          This week, all of that came together in a deeply symbolic way. With my new club, competing in the third tier of Dutch football, I played an away cup match against PSV - the club where my journey began.
+        </p>
+
+        <p>
+          Walking into the Philips Stadion more than ten years later, and after an entire career, felt like a quiet full circle. Not as the same player I once was, but as someone standing at the beginning of a new chapter.
+        </p>
+
+        <p>
+          That match marked the start of a new phase. A phase defined by playing at a different level, driven purely by love for the game, and by embracing a new journey with Beyond the Pitch. To kick off this chapter against the club where I first experienced the unifying power of sport felt exactly right.
+        </p>
+
+        <p class="text-center mt-12">
+          <strong>The journey continues.</strong><br/>
+          <strong>This is Beyond the Pitch.</strong>
+        </p>
+
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        
+        <div class="mb-8">
+          <p class="text-gray-400 text-sm mb-4 text-center">Share this story</p>
+          <div class="flex gap-3 justify-center flex-wrap">
+            <button onclick="shareOnTwitter()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Twitter
+            </button>
+            <button onclick="shareOnFacebook()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Facebook
+            </button>
+            <button onclick="shareOnLinkedIn()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </button>
+            <button onclick="copyLink()" class="share-btn bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full transition-all border border-gray-800 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              Copy Link
+            </button>
+          </div>
+        </div>
+        
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold text-white mb-4">Ready to start your journey?</h3>
+          <p class="text-gray-400 mb-6">Explore our upcoming experiences and join our community</p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="index.html#journeys" class="bg-gold text-black font-semibold px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-lg">
+              View our journeys
+            </a>
+            <a href="index.html#community" class="bg-gray-900 text-white font-semibold px-8 py-4 rounded-full hover:bg-gray-800 transition-all border border-gray-800">
+              Join community
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        <h3 class="text-2xl font-bold text-white mb-8">Comments</h3>
+        
+        <div class="bg-gray-900 bg-opacity-50 rounded-2xl p-6 mb-8 border border-gray-800">
+          <h4 class="text-white font-semibold mb-4">Leave a Comment</h4>
+          <form id="commentForm" class="space-y-4">
+            <div>
+              <input 
+                type="text" 
+                id="commentName" 
+                placeholder="Your Name" 
+                class="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors"
+                required
+              />
+            </div>
+            <div>
+              <textarea 
+                id="commentText" 
+                rows="4" 
+                placeholder="Share your thoughts..." 
+                class="w-full px-4 py-3 rounded-lg bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors resize-none"
+                required
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="bg-gold text-black font-semibold px-6 py-3 rounded-full hover:bg-opacity-90 transition-all">
+              Post Comment
+            </button>
+          </form>
+        </div>
+        
+        <div id="commentsList" class="space-y-4"></div>
+        
+        <div id="noComments" class="text-center py-8">
+          <p class="text-gray-500">No comments yet. Be the first to share your thoughts!</p>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-gray-800" data-animate>
+        <h3 class="text-2xl font-bold text-white mb-8">More stories</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="our-story.html" class="bg-gray-900 bg-opacity-50 rounded-2xl p-6 hover:bg-opacity-70 transition-all border border-gray-800">
+            <span class="text-gold text-xs uppercase tracking-wider font-semibold">Origin Story</span>
+            <h4 class="text-lg font-bold text-white mt-2 mb-2">A New Beginning Beyond the Pitch</h4>
+            <p class="text-gray-400 text-sm">From solo backpacking to building a global platform</p>
+          </a>
+          <a href="#" class="bg-gray-900 bg-opacity-50 rounded-2xl p-6 hover:bg-opacity-70 transition-all border border-gray-800">
+            <span class="text-gold text-xs uppercase tracking-wider font-semibold">Travel Story</span>
+            <h4 class="text-lg font-bold text-white mt-2 mb-2">Inside the Naadam Festival</h4>
+            <p class="text-gray-400 text-sm">Experience Mongolia's greatest celebration</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center mt-12" data-animate>
+        <a href="blog.html" class="text-gold font-semibold hover:underline">
+          ← Back to All Stories
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+  <section class="py-20 px-6 bg-gray-900 bg-opacity-30">
+    <div class="max-w-2xl mx-auto text-center" data-animate>
+      <h2 class="text-3xl font-bold text-gold mb-4">Stay Connected</h2>
+      <p class="text-gray-400 mb-8">
+        Get exclusive travel stories and early access to new journeys
+      </p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input 
+          type="email" 
+          placeholder="Your email address" 
+          class="flex-1 px-6 py-4 rounded-full bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors"
+          required
+        />
+        <button 
+          type="submit" 
+          class="bg-gold text-black font-semibold px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-lg whitespace-nowrap">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="py-12 px-6 bg-black border-t border-gray-900">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="mb-6">
+        <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+          <img 
+            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" 
+            alt="Beyond the Pitch" 
+            class="h-20 w-auto mx-auto"
+          />
+        </a>
+        <p class="text-sm text-gray-500 mt-4">Sport · Culture · Travel</p>
+      </div>
+      <div class="mb-6">
+        <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors">
+          📧 thebeyondthepitch@gmail.com
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      observer.observe(el);
+    });
+
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent('Where the Journey Began - and Continues');
+
+    function shareOnTwitter() {
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+      window.open(twitterUrl, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnFacebook() {
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      window.open(facebookUrl, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnLinkedIn() {
+      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+      window.open(linkedInUrl, '_blank', 'width=550,height=420');
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(function() {
+        const btn = event.target.closest('button');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!';
+        btn.classList.add('bg-gold', 'text-black');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('bg-gold', 'text-black');
+        }, 2000);
+      });
+    }
+
+    let comments = [];
+
+    function loadComments() {
+      const commentsList = document.getElementById('commentsList');
+      const noComments = document.getElementById('noComments');
+      
+      if (comments.length === 0) {
+        noComments.style.display = 'block';
+        commentsList.innerHTML = '';
+        return;
+      }
+      
+      noComments.style.display = 'none';
+      commentsList.innerHTML = comments.map((comment, index) => `
+        <div class="bg-gray-900 bg-opacity-30 rounded-xl p-6 border border-gray-800">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center text-black font-bold flex-shrink-0">
+              ${comment.name.charAt(0).toUpperCase()}
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <p class="text-white font-semibold">${escapeHtml(comment.name)}</p>
+                <span class="text-gray-600">•</span>
+                <p class="text-gray-500 text-xs">${comment.date}</p>
+              </div>
+              <p class="text-gray-300 leading-relaxed">${escapeHtml(comment.text)}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('commentName').value;
+      const text = document.getElementById('commentText').value;
+      
+      if (!name || !text) return;
+      
+      const now = new Date();
+      const comment = {
+        name: name,
+        text: text,
+        date: now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+      
+      comments.unshift(comment);
+      loadComments();
+      
+      this.reset();
+      
+      const btn = this.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Comment Posted!';
+      btn.classList.add('bg-green-600');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('bg-green-600');
+      }, 2000);
+    });
+
+    loadComments();
+  </script>
+
+</body>
+</html>
