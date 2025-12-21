@@ -3,237 +3,1029 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Naadam Festival - Beyond the Pitch</title>
-  <meta name="description" content="Join Beyond the Pitch for a curated three-day experience at Mongolia's Naadam Festival - wrestling, horse racing, archery, traditional music and local culture.">
+  <title>Naadam Festival Mongolia - Beyond the Pitch | Sport. Culture. Travel.</title>
+  <meta name="description" content="Join Beyond the Pitch for an unforgettable three-day journey to Mongolia's Naadam Festival. July 10-13, 2026 - Wrestling, horse racing, archery and authentic nomadic culture.">
+  
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Naadam Festival Mongolia - Beyond the Pitch" />
+  <meta property="og:description" content="Experience Mongolia's most important celebration: wrestling, horse racing, archery. July 10-13, 2026." />
+  <meta property="og:image" content="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" />
+  <meta property="og:type" content="website" />
 
-  <!-- Google Font for better readability -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-
-  <link rel="icon" href="assets/favicon.ico" />
 
   <style>
-    :root{
-      --bg: #f7fafc;               /* light gray background */
-      --panel: #fff;               /* white panels */
-      --muted: #64748b;            /* cool gray for text */
-      --gold: #d4af37;
-      --focus: 3px solid rgba(212,175,55,0.15);
+    :root {
+      --gold: #ffd700;
+      --primary: #000000;
+      --accent: #ffd700;
+      --bg: #000000;
+      --panel: #0a0a0a;
+      --muted: #a0a0a0;
+      --border: #1a1a1a;
     }
 
-    html,body{
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
       background: var(--bg);
-      color: #212529;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
     }
 
-    .content {
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+    h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .header-scrolled {
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+      background: rgba(0, 0, 0, 0.98);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .logo:hover {
+      color: var(--gold);
+    }
+
+    .nav-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 80vh;
+      min-height: 500px;
+      max-height: 700px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .hero-video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-video-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-video-container iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
+    }
+
+    /* Video controls */
+    .video-controls {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 3;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .video-control-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-control-btn:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+
+    .video-control-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--primary);
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 3rem 1.5rem 2rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    }
+
+    .hero-title {
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      color: rgba(255, 255, 255, 0.95);
       font-size: 1.125rem;
-      line-height: 1.75;
-      color: #283046;
+      font-weight: 400;
+      max-width: 600px;
     }
 
-    .text-gold { color: var(--gold); }
-    a:focus, button:focus { outline: none; box-shadow: var(--focus); border-radius: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      background: var(--gold);
+      color: #000000;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
 
+    /* Cards */
     .card {
       background: var(--panel);
-      border: 1px solid #f1f5f9;
-      box-shadow: 0 4px 24px 0 rgba(51,54,85,0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
 
-    h1,h2,h3 { letter-spacing: -0.01em; }
-    h1 { font-weight: 800; }
-    h2 { font-weight: 700; }
-    h3 { font-weight: 600; }
+    .card:hover {
+      box-shadow: 0 8px 30px rgba(255, 215, 0, 0.15);
+      transform: translateY(-2px);
+      border-color: rgba(255, 215, 0, 0.3);
+    }
 
-    .link { color: var(--muted); transition: color 0.15s; }
-    .link:focus, .link:hover { color: var(--gold); text-decoration: underline; }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
 
-    .hero-title { text-shadow: 0 2px 6px rgba(255,255,255,0.6); }
-
-    .bg-panel {
+    .info-card {
       background: var(--panel);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
-    .bg-tint {
-      background: #f1f5f9;
+
+    .info-card:hover {
+      border-color: rgba(255, 215, 0, 0.3);
     }
-    .shadow-light {
-      box-shadow: 0 4px 24px 0 rgba(51,54,85,0.07);
+
+    .info-card h3 {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
-    .rounded-lg { border-radius: 1.25rem; }
-    ::selection { background: #f6e7b2; }
+
+    .info-card p {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* CTA Button */
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--gold);
+      color: #000000;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: #ffed4e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 3rem;
+      padding-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0.75rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      width: 2rem;
+      height: 2rem;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.875rem;
+      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+    }
+
+    .timeline-content {
+      background: var(--panel);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--gold);
+      margin-top: 1rem;
+      border-radius: 2px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--panel);
+      color: white;
+      padding: 3rem 1.5rem 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--gold);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--panel);
+      box-shadow: -4px 0 20px rgba(255, 215, 0, 0.1);
+      transition: right 0.3s ease;
+      z-index: 101;
+      padding: 2rem;
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #ffffff;
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        height: 60vh;
+        min-height: 400px;
+      }
+
+      .hero-content {
+        padding: 2rem 1rem 1.5rem;
+      }
+
+      .section {
+        padding: 2.5rem 1rem;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Accessibility */
     .skip-link {
-      background: #fff;
-      color: #222;
-      border: 2px solid var(--gold);
+      position: fixed;
+      top: -100px;
+      left: 1rem;
+      background: var(--gold);
+      color: #000000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      z-index: 200;
+      transition: top 0.3s;
+      font-weight: 600;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    ::selection {
+      background: var(--gold);
+      color: #000000;
+    }
+
+    /* Pilot Badge */
+    .pilot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: #000000;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
-<body class="antialiased">
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
 
-  <a class="sr-only focus:not-sr-only block p-2 bg-white text-black fixed left-4 top-4 rounded skip-link" href="#main">Skip to content</a>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="logo">Beyond the Pitch</a>
 
-  <header class="fixed w-full z-40 bg-white/90 shadow-light backdrop-blur" role="banner">
-    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-      <a href="index.html" class="text-2xl font-extrabold text-gold" aria-label="Beyond the Pitch - home">Beyond the Pitch</a>
-
-      <nav class="hidden md:flex items-center space-x-6" aria-label="Primary">
-        <a href="index.html" class="hover:text-gold link">Home</a>
-        <a href="projects.html" class="hover:text-gold link">Projects</a>
-        <a href="naadam.html" class="text-gold font-semibold" aria-current="page">Naadam</a>
+      <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="projects.html" class="nav-link">Journeys</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </nav>
 
-      <div class="md:hidden">
-        <button id="nav-toggle" aria-controls="mobile-nav" aria-expanded="false" class="p-2 rounded-md hover:bg-tint focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <span class="sr-only">Open navigation</span>
-        </button>
-      </div>
+      <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-
-    <nav id="mobile-nav" class="hidden md:hidden bg-white/95 border-t border-gray-100" aria-label="Mobile menu">
-      <div class="max-w-6xl mx-auto px-4 py-3">
-        <ul class="space-y-2">
-          <li><a href="index.html" class="block link">Home</a></li>
-          <li><a href="projects.html" class="block link">Projects</a></li>
-          <li><a href="naadam.html" class="block font-semibold text-gold" aria-current="page">Naadam</a></li>
-        </ul>
-      </div>
-    </nav>
   </header>
 
-  <main id="main" class="pt-24 bg-tint min-h-screen">
-    <!-- HERO -->
-    <section class="relative mb-10">
-      <div class="h-72 md:h-96 lg:h-[420px] rounded-b-3xl overflow-hidden bg-gray-900">
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <div class="flex justify-end mb-4">
+      <button class="hamburger" id="menuClose" aria-label="Close menu">
+        <span style="transform: rotate(45deg) translateY(7px);"></span>
+        <span style="opacity: 0;"></span>
+        <span style="transform: rotate(-45deg) translateY(-7px);"></span>
+      </button>
+    </div>
+    <div class="flex flex-col gap-4">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link">Journeys</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-video-container">
         <iframe 
-          class="w-full h-full" 
-          src="https://www.youtube.com/embed/gv2Q5I5Wbtg?autoplay=1&mute=0&loop=1&playlist=gv2Q5I5Wbtg&controls=1&showinfo=0&rel=0&modestbranding=1" 
-          title="Naadam Festival Mongolia" 
+          id="heroVideo"
+          src="https://www.youtube.com/embed/gv2Q5I5Wbtg?enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=gv2Q5I5Wbtg&mute=1" 
+          title="Naadam Festival Mongolia - Traditional celebration" 
           frameborder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowfullscreen>
         </iframe>
-        <div class="absolute inset-0 bg-gradient-to-t from-white/95 via-transparent to-transparent pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 right-0 pointer-events-none pb-4 md:pb-6">
-          <div class="max-w-4xl mx-auto px-6 md:px-10">
-            <h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gold hero-title">Beyond the Pitch × Naadam Festival, Mongolia</h1>
+        <!-- Video Controls -->
+        <div class="video-controls">
+          <button id="muteBtn" class="video-control-btn" aria-label="Unmute video" title="Unmute video">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+          </button>
+          <button id="playPauseBtn" class="video-control-btn" aria-label="Pause video" title="Pause video">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="hero-content">
+        <div class="max-w-6xl mx-auto">
+          <span class="pilot-badge">
+            <span>⭐</span>
+            <span>Pilot Journey - Limited Spots</span>
+          </span>
+          <h1 class="hero-title">Naadam Festival, Mongolia</h1>
+          <p class="hero-subtitle">Experience three days of wrestling, horse racing, archery and nomadic traditions in the heart of Mongolia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="section" style="padding-top: 3rem;">
+      <div class="max-w-4xl mx-auto">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>📅 When</h3>
+            <p>July 10-13, 2026</p>
+          </div>
+          <div class="info-card">
+            <h3>📍 Where</h3>
+            <p>Ulaanbaatar & Mongolian Steppe</p>
+          </div>
+          <div class="info-card">
+            <h3>👥 Group Size</h3>
+            <p>Small intimate groups</p>
+          </div>
+          <div class="info-card">
+            <h3>💰 Investment</h3>
+            <p>Details shared upon request</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CONTENT -->
-    <section class="max-w-3xl mx-auto px-6 mt-0">
-      <div class="card rounded-3xl px-6 py-10 shadow-light relative z-10">
-        <div class="content">
-          <p class="text-lg font-semibold text-gray-700 mb-2">Experience three days of wrestling, horse racing, archery and traditions in the heart of Mongolia.</p>
-          <h2 class="text-2xl font-bold text-gold mt-2">Join us at Naadam!</h2>
-          <p class="mt-3">Join Beyond the Pitch for an unforgettable three-day journey to Naadam, Mongolia's most famous festival. Enjoy traditional wrestling matches, breathtaking horse racing, archery, and authentic culture in small travel groups.</p>
-
-          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">When</h3>
-              <p class="text-gray-600">Mid-July - 3 days (dates vary annually)</p>
-            </div>
-            <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Where</h3>
-              <p class="text-gray-600">Ulaanbaatar & nearby Naadam fields</p>
-            </div>
-            <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Included</h3>
-              <p class="text-gray-600">Guided festival visits, local guides, selected meals, cultural activities</p>
-            </div>
-            <div class="bg-tint rounded-lg p-4 border border-gray-200">
-              <h3 class="font-semibold text-gray-800">Group size</h3>
-              <p class="text-gray-600">Small groups for optimal cultural experience</p>
-            </div>
+    <!-- Introduction -->
+    <section class="section">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title">This is something deeper</h2>
+        <div class="card" style="padding: 2.5rem;">
+          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
+            Join Beyond the Pitch for an unforgettable three-day journey to <strong style="color: var(--gold);">Naadam</strong>, Mongolia's most important celebration. This isn't just watching sports - it's experiencing a living tradition that has connected Mongolian people for centuries.
+          </p>
+          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
+            You'll witness breathtaking horse races across the endless steppe, traditional wrestling matches steeped in ritual, and precision archery competitions. More importantly, you'll share meals with nomadic families, learn about their way of life, and understand why Naadam is the heartbeat of Mongolian culture.
+          </p>
+          <div style="background: rgba(255, 215, 0, 0.1); border-left: 4px solid var(--gold); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--gold);">🚀 This is a pilot journey</p>
+            <p style="color: var(--muted);">As our first Naadam experience, we're offering this at a special introduction rate for pioneering travelers who want to help us shape future journeys.</p>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="mt-7 flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-            <a href="mailto:thebeyondthepitch@gmail.com?subject=Naadam%20interest" class="inline-block bg-gold text-black font-semibold px-6 py-3 rounded-lg hover:opacity-90">Register your interest</a>
-            <a href="projects.html" class="mt-3 sm:mt-0 text-sm text-gray-700 link">See other projects</a>
-          </div>
-
-          <!-- Itinerary -->
-          <section aria-labelledby="itinerary" class="mt-10">
-            <h3 id="itinerary" class="text-xl font-semibold text-gold">Sample itinerary: 3 days</h3>
-            <div class="mt-4 space-y-4">
-              <article class="p-4 rounded-lg bg-tint border border-gray-200">
-                <h4 class="font-semibold">Day 1 - Arrival & Opening</h4>
-                <p class="text-gray-700">Arrival in Ulaanbaatar, transfer to hotel, introduction and attending the Naadam opening ceremony.</p>
-              </article>
-              <article class="p-4 rounded-lg bg-tint border border-gray-200">
-                <h4 class="font-semibold">Day 2 - Wrestling & Local encounter</h4>
-                <p class="text-gray-700">In the morning the wrestling matches, in the afternoon visit to a nomadic family, in the evening traditional music and dance.</p>
-              </article>
-              <article class="p-4 rounded-lg bg-tint border border-gray-200">
-                <h4 class="font-semibold">Day 3 - Horse racing & Farewell dinner</h4>
-                <p class="text-gray-700">Experience legendary horse races, enjoy performances and a joint farewell dinner.</p>
-              </article>
-            </div>
-          </section>
-
-          <!-- Gallery -->
-          <section aria-labelledby="gallery" class="mt-10">
-            <h3 id="gallery" class="text-xl font-semibold text-gold">Gallery</h3>
-            <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
-             <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Mongolian rider during Naadam" class="w-full h-64 object-cover rounded-lg border border-gray-200">
-             <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" alt="Traditional Mongolian wrestlers" class="w-full h-64 object-cover rounded-lg border border-gray-200">
-              <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Picture%20025.jpg" alt="Archery at cultural festival" class="w-full h-64 object-cover rounded-lg border border-gray-200">
-            </div>
-          </section>
-
-          <!-- Practical info -->
-          <section aria-labelledby="info" class="mt-10">
-            <h3 id="info" class="text-xl font-semibold text-gold">Practical info</h3>
-            <ul class="mt-3 list-disc list-inside text-gray-700">
-              <li>Bring layers - it can cool off considerably at night.</li>
-              <li>Respect local customs and follow your guide's advice for photos.</li>
-              <li>Travel insurance and required visas are your own responsibility.</li>
+    <!-- Itinerary -->
+    <section class="section" style="background: #fafafa;">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title">Your 3-Day Journey</h2>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-content">
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Day 1 - July 10: Zuunmod Local Festival</h3>
+            <p style="color: var(--muted); margin-bottom: 1rem;">Experience Naadam like a local</p>
+            <ul style="color: var(--muted); line-height: 1.8; padding-left: 1.25rem;">
+              <li>Arrival in Ulaanbaatar, meet your group and local guide</li>
+              <li>Travel to Zuunmod (just outside the capital) for a smaller, more intimate Naadam celebration</li>
+              <li>Watch wrestling matches up close, feel the energy of the crowd</li>
+              <li>Evening welcome dinner with traditional Mongolian cuisine</li>
             </ul>
-          </section>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-content">
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Day 2 - July 11: Official National Celebration</h3>
+            <p style="color: var(--muted); margin-bottom: 1rem;">The grand spectacle</p>
+            <ul style="color: var(--muted); line-height: 1.8; padding-left: 1.25rem;">
+              <li>Attend the spectacular opening ceremony at the National Stadium</li>
+              <li>Watch championship wrestling and archery competitions</li>
+              <li>Afternoon visit to a nomadic family in the countryside</li>
+              <li>Learn about their traditions, try airag (fermented mare's milk)</li>
+              <li>Evening: traditional throat singing and cultural performances</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-content">
+            <h3 style="color: var(--gold); margin-bottom: 0.5rem;">Day 3 - July 12: The Legendary Horse Races</h3>
+            <p style="color: var(--muted); margin-bottom: 1rem;">Into the steppe</p>
+            <ul style="color: var(--muted); line-height: 1.8; padding-left: 1.25rem;">
+              <li>Travel to the steppe to witness the famous long-distance horse races</li>
+              <li>Watch young jockeys race across 15-30 kilometers of open land</li>
+              <li>Meet trainers and learn about Mongolia's deep connection with horses</li>
+              <li>Farewell lunch celebrating your journey together</li>
+              <li>Return to Ulaanbaatar (departure or extend your stay)</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="mt-12 pb-12">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="border-t border-gray-200 pt-6 text-sm text-gray-500 flex flex-col md:flex-row md:justify-between md:items-center">
-          <div class="mb-4 md:mb-0">
-            <a href="index.html" class="text-gold font-semibold">Beyond the Pitch</a>
-            <p class="mt-1">Curated cultural sports experiences.</p>
+    <!-- What's Included -->
+    <section class="section">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title">What's Included</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🎫</div>
+            <h3 style="margin-bottom: 0.5rem;">Festival Access</h3>
+            <p style="color: var(--muted);">Entry to all Naadam events including the opening ceremony, wrestling, archery, and horse racing</p>
           </div>
-          <div class="flex items-center space-x-6">
-            <a href="mailto:thebeyondthepitch@gmail.com" class="hover:text-gold link">Contact</a>
-            <a href="projects.html" class="hover:text-gold link">Projects</a>
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🗺️</div>
+            <h3 style="margin-bottom: 0.5rem;">Expert Local Guide</h3>
+            <p style="color: var(--muted);">English-speaking guide who brings Mongolia's culture and history to life</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🚐</div>
+            <h3 style="margin-bottom: 0.5rem;">All Transportation</h3>
+            <p style="color: var(--muted);">Comfortable transport between Ulaanbaatar, Zuunmod, and the steppe</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🍜</div>
+            <h3 style="margin-bottom: 0.5rem;">Selected Meals</h3>
+            <p style="color: var(--muted);">Welcome dinner, nomadic family meal, farewell lunch, and more</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🏕️</div>
+            <h3 style="margin-bottom: 0.5rem;">Cultural Experiences</h3>
+            <p style="color: var(--muted);">Visit to nomadic family, traditional music performances, cultural insights</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">👥</div>
+            <h3 style="margin-bottom: 0.5rem;">Small Group</h3>
+            <p style="color: var(--muted);">Intimate group size for authentic connections and flexibility</p>
           </div>
         </div>
       </div>
-    </footer>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section" style="background: #fafafa;">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="section-title">Experience Naadam</h2>
+        <div class="gallery">
+          <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Young jockey racing across the Mongolian steppe during Naadam Festival">
+          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" alt="Mongolian wrestler in traditional costume performing ritual dance">
+          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Picture%20025.jpg" alt="Archer competing in traditional Mongolian archery at cultural festival">
+        </div>
+      </div>
+    </section>
+
+    <!-- Why This Journey -->
+    <section class="section">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title">Why Travel With Beyond the Pitch</h2>
+        <div class="card" style="padding: 2.5rem;">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div>
+              <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+              <h3 style="margin-bottom: 0.75rem;">Beyond Tourism</h3>
+              <p style="color: var(--muted); line-height: 1.7;">We don't just show you Naadam - we help you understand its meaning. You'll experience the festival the way Mongolians do, not as a spectator but as a guest.</p>
+            </div>
+            <div>
+              <div style="font-size: 2rem; margin-bottom: 1rem;">🤝</div>
+              <h3 style="margin-bottom: 0.75rem;">Authentic Access</h3>
+              <p style="color: var(--muted); line-height: 1.7;">Our local connections give you access to experiences most visitors miss - from the opening ceremony to intimate time with nomadic families.</p>
+            </div>
+            <div>
+              <div style="font-size: 2rem; margin-bottom: 1rem;">💫</div>
+              <h3 style="margin-bottom: 0.75rem;">Sport Meets Culture</h3>
+              <p style="color: var(--muted); line-height: 1.7;">This is what we do best - using sport as a gateway to deeper cultural understanding and human connection.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practical Info -->
+    <section class="section" style="background: #fafafa;">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title">Practical Information</h2>
+        <div class="card" style="padding: 2rem;">
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer; color: #ffffff;">What's Not Included</summary>
+            <ul style="color: var(--muted); margin-top: 1rem; line-height: 2; padding-left: 1.25rem;">
+              <li>International flights to/from Ulaanbaatar</li>
+              <li>Accommodation in Ulaanbaatar (we provide recommendations)</li>
+              <li>Travel insurance (mandatory - we can recommend providers)</li>
+              <li>Visa fees (if required for your nationality)</li>
+              <li>Meals not specified in the itinerary</li>
+              <li>Personal expenses and souvenirs</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="badge">Limited Spots Available</span>
+        <h2 style="color: var(--gold); margin-bottom: 1rem;">Ready to Experience Naadam?</h2>
+        <p style="font-size: 1.125rem; margin-bottom: 2rem; color: var(--muted); max-width: 600px; margin-left: auto; margin-right: auto;">
+          This pilot journey is limited to a small group. Express your interest and we'll send you complete details including pricing, what to pack, and next steps.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="mailto:thebeyondthepitch@gmail.com?subject=Naadam%20Festival%20-%20July%202026&body=Hi%20Beyond%20the%20Pitch%20team%2C%0A%0AI'm%20interested%20in%20joining%20the%20Naadam%20Festival%20journey%20(July%2010-13%2C%202026).%20Please%20send%20me%20more%20information%20about%3A%0A%0A-%20Pricing%20and%20what's%20included%0A-%20Accommodation%20recommendations%0A-%20Next%20steps%20to%20secure%20my%20spot%0A%0AThank%20you!" 
+             class="btn-primary">
+            Express Interest
+          </a>
+          <a href="projects.html" class="btn-secondary">
+            View Other Journeys
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Is this trip suitable for solo travelers?</summary>
+            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">Absolutely! Many of our travelers join solo and find it's a great way to connect with like-minded people. You'll be part of a small group throughout the journey.</p>
+          </details>
+
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Do I need a visa for Mongolia?</summary>
+            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">It depends on your nationality. Many countries (including US, Canada, EU, UK) can visit Mongolia visa-free for up to 30 days. We'll provide specific guidance based on your passport once you register.</p>
+          </details>
+
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">What's the accommodation like?</summary>
+            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">We recommend comfortable 3-4 star hotels in Ulaanbaatar. Accommodation is not included in the package price, giving you flexibility to choose your preferred comfort level. We'll provide specific recommendations.</p>
+          </details>
+
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Can I extend my trip?</summary>
+            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">Definitely! Mongolia has so much to offer. We can recommend tour operators for extensions to the Gobi Desert, Khuvsgul Lake, or other regions. Many travelers add 3-7 days before or after Naadam.</p>
+          </details>
+
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">What if I have dietary restrictions?</summary>
+            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">Let us know about any dietary requirements when you register. Mongolian cuisine is traditionally meat-heavy, but vegetarian and other options are available, especially in Ulaanbaatar.</p>
+          </details>
+
+          <details class="card" style="cursor: pointer;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">How much does it cost?</summary>
+            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">As this is a pilot journey, we're offering special introductory pricing. Express your interest and we'll send you complete pricing details, payment plans, and what's included.</p>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Mobile nav script -->
+  <!-- Footer -->
+  <footer>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">Beyond the Pitch</h3>
+          <p style="color: rgba(255,255,255,0.7); line-height: 1.7;">Sport. Culture. Travel.<br>Curated journeys where sport becomes the gateway to authentic cultural experiences.</p>
+        </div>
+        <div>
+          <h4 style="color: white; margin-bottom: 1rem;">Explore</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="index.html">Home</a>
+            <a href="projects.html">All Journeys</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="color: white; margin-bottom: 1rem;">Get in Touch</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="mailto:thebeyondthepitch@gmail.com">thebeyondthepitch@gmail.com</a>
+            <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">Follow our journeys and connect with fellow travelers.</p>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5);">
+        <p>© 2025 Beyond the Pitch. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
   <script>
-    (function () {
-      const btn = document.getElementById('nav-toggle');
-      const mobileNav = document.getElementById('mobile-nav');
-      if (!btn || !mobileNav) return;
-      btn.addEventListener('click', function () {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        mobileNav.classList.toggle('hidden');
+    // YouTube API
+    let player;
+    let isMuted = true;
+    let isPlaying = true;
+
+    // Load YouTube IFrame API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Initialize player when API is ready
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('heroVideo', {
+        events: {
+          'onReady': onPlayerReady
+        }
       });
-    })();
+    }
+
+    function onPlayerReady(event) {
+      // Start muted autoplay
+      event.target.mute();
+      event.target.playVideo();
+    }
+
+    // Mute/Unmute control
+    const muteBtn = document.getElementById('muteBtn');
+    muteBtn.addEventListener('click', () => {
+      if (player && player.isMuted) {
+        if (isMuted) {
+          player.unMute();
+          isMuted = false;
+          muteBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+          `;
+          muteBtn.setAttribute('aria-label', 'Mute video');
+          muteBtn.setAttribute('title', 'Mute video');
+        } else {
+          player.mute();
+          isMuted = true;
+          muteBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+          `;
+          muteBtn.setAttribute('aria-label', 'Unmute video');
+          muteBtn.setAttribute('title', 'Unmute video');
+        }
+      }
+    });
+
+    // Play/Pause control
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    playPauseBtn.addEventListener('click', () => {
+      if (player && player.getPlayerState) {
+        const state = player.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+          player.pauseVideo();
+          isPlaying = false;
+          playPauseBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          `;
+          playPauseBtn.setAttribute('aria-label', 'Play video');
+          playPauseBtn.setAttribute('title', 'Play video');
+        } else {
+          player.playVideo();
+          isPlaying = true;
+          playPauseBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+          `;
+          playPauseBtn.setAttribute('aria-label', 'Pause video');
+          playPauseBtn.setAttribute('title', 'Pause video');
+        }
+      }
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      mobileOverlay.classList.add('active');
+    });
+
+    menuClose.addEventListener('click', closeMenu);
+    mobileOverlay.addEventListener('click', closeMenu);
+
+    function closeMenu() {
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+    }
+
+    // Header scroll effect
+    let lastScroll = 0;
+    const header = document.getElementById('header');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 50) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
   </script>
 </body>
-</html>
+</html>Good to Know</h3>
+          <ul style="color: var(--muted); line-height: 2; padding-left: 1.25rem; margin-bottom: 2rem;">
+            <li><strong>Weather:</strong> July in Mongolia is summer, but nights can be cool (5-15°C). Bring layers and a warm jacket.</li>
+            <li><strong>Fitness level:</strong> Moderate walking required. The journey is accessible for most fitness levels.</li>
+            <li><strong>Accommodation:</strong> Comfortable hotels in Ulaanbaatar (not included in package, recommendations provided).</li>
+            <li><strong>Meals:</strong> Selected meals included. You'll have free time to explore local restaurants.</li>
+            <li><strong>Photography:</strong> Always ask permission before photographing people. Your guide will advise on cultural etiquette.</li>
+          </ul>
+
+          <h3 style="margin-bottom: 1rem; color: var(--accent);">
