@@ -188,9 +188,9 @@
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 2;
+      z-index: 10;
       padding: 3rem 1.5rem 2rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 70%, transparent 100%);
     }
 
     .hero-title {
@@ -470,6 +470,7 @@
 
       .hero-content {
         padding: 2rem 1rem 1.5rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 80%, transparent 100%);
       }
 
       .section {
@@ -482,6 +483,22 @@
 
       .gallery {
         grid-template-columns: 1fr;
+      }
+
+      .video-controls {
+        bottom: 1rem;
+        right: 1rem;
+        gap: 0.5rem;
+      }
+
+      .video-control-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .video-control-btn svg {
+        width: 18px;
+        height: 18px;
       }
     }
 
@@ -521,6 +538,18 @@
       font-size: 0.875rem;
       font-weight: 600;
       margin-bottom: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-subtitle {
+      position: relative;
+      z-index: 10;
     }
   </style>
 </head>
@@ -775,13 +804,39 @@
     </section>
 
     <!-- Practical Info -->
-    <section class="section" style="background: #fafafa;">
+    <section class="section" style="background: var(--bg);">
       <div class="max-w-4xl mx-auto">
         <h2 class="section-title">Practical Information</h2>
-        <div class="card" style="padding: 2rem;">
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer; color: #ffffff;">What's Not Included</summary>
-            <ul style="color: var(--muted); margin-top: 1rem; line-height: 2; padding-left: 1.25rem;">
+        <div class="space-y-4">
+          <div class="card" style="padding: 2rem;">
+            <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.25rem;">Good to Know</h3>
+            <ul style="color: var(--muted); line-height: 2; list-style: none; padding: 0;">
+              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--gold);">☀️</span>
+                <strong style="color: #ffffff;">Weather:</strong> July in Mongolia is summer, but nights can be cool (5-15°C). Bring layers and a warm jacket.
+              </li>
+              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--gold);">🚶</span>
+                <strong style="color: #ffffff;">Fitness level:</strong> Moderate walking required. The journey is accessible for most fitness levels.
+              </li>
+              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--gold);">🏨</span>
+                <strong style="color: #ffffff;">Accommodation:</strong> Comfortable hotels in Ulaanbaatar (not included in package, recommendations provided).
+              </li>
+              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--gold);">🍽️</span>
+                <strong style="color: #ffffff;">Meals:</strong> Selected meals included. You'll have free time to explore local restaurants.
+              </li>
+              <li style="padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--gold);">📸</span>
+                <strong style="color: #ffffff;">Photography:</strong> Always ask permission before photographing people. Your guide will advise on cultural etiquette.
+              </li>
+            </ul>
+          </div>
+
+          <details class="card" style="cursor: pointer; padding: 2rem;">
+            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer; color: #ffffff; font-size: 1.1rem;">What's Not Included</summary>
+            <ul style="color: var(--muted); margin-top: 1.5rem; line-height: 2; padding-left: 1.25rem;">
               <li>International flights to/from Ulaanbaatar</li>
               <li>Accommodation in Ulaanbaatar (we provide recommendations)</li>
               <li>Travel insurance (mandatory - we can recommend providers)</li>
@@ -853,15 +908,6 @@
     </section>
   </main>
 
-  </html>Good to Know</h3>
-          <ul style="color: var(--muted); line-height: 2; padding-left: 1.25rem; margin-bottom: 2rem;">
-            <li><strong>Weather:</strong> July in Mongolia is summer, but nights can be cool (5-15°C). Bring layers and a warm jacket.</li>
-            <li><strong>Fitness level:</strong> Moderate walking required. The journey is accessible for most fitness levels.</li>
-            <li><strong>Accommodation:</strong> Comfortable hotels in Ulaanbaatar (not included in package, recommendations provided).</li>
-            <li><strong>Meals:</strong> Selected meals included. You'll have free time to explore local restaurants.</li>
-            <li><strong>Photography:</strong> Always ask permission before photographing people. Your guide will advise on cultural etiquette.</li>
-          </ul>
-  
   <!-- Footer -->
   <footer>
     <div class="max-w-6xl mx-auto">
@@ -1028,5 +1074,13 @@
     });
   </script>
 </body>
+</html>Good to Know</h3>
+          <ul style="color: var(--muted); line-height: 2; padding-left: 1.25rem; margin-bottom: 2rem;">
+            <li><strong>Weather:</strong> July in Mongolia is summer, but nights can be cool (5-15°C). Bring layers and a warm jacket.</li>
+            <li><strong>Fitness level:</strong> Moderate walking required. The journey is accessible for most fitness levels.</li>
+            <li><strong>Accommodation:</strong> Comfortable hotels in Ulaanbaatar (not included in package, recommendations provided).</li>
+            <li><strong>Meals:</strong> Selected meals included. You'll have free time to explore local restaurants.</li>
+            <li><strong>Photography:</strong> Always ask permission before photographing people. Your guide will advise on cultural etiquette.</li>
+          </ul>
 
           <h3 style="margin-bottom: 1rem; color: var(--accent);">
