@@ -60,19 +60,23 @@
     .nav-link:hover,.nav-link.active{color:var(--gold)}
 
     /* Hero */
-    .hero-video-container{
-      position:relative;height:80vh;min-height:500px;overflow:hidden
-    }
-    .hero-video-container iframe{
-      position:absolute;top:50%;left:50%;
-      transform:translate(-50%,-50%);
-      width:100%;height:100%;
-      border:0;
-    }
-    .hero-video-container::before{
-      content:"";position:absolute;inset:0;
-      background:linear-gradient(to bottom,rgba(0,0,0,.2),rgba(0,0,0,.75));
-      z-index:1
+   .hero-video-container{
+  position: relative;
+  height: 80vh;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.hero-video-container iframe{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
     }
     .hero-content{
       position:relative;z-index:2;
@@ -310,12 +314,12 @@
   <!-- HERO -->
   <section>
     <div class="hero-video-container">
-      <iframe
-        id="heroVideo"
-        src="https://www.youtube.com/embed/vOSIg3YTgxs?enablejsapi=1&controls=0&mute=1&loop=1&playlist=vOSIg3YTgxs&rel=0"
-        allow="autoplay; encrypted-media"
-        title="Football in Lima - Beyond the Pitch">
-      </iframe>
+     <iframe
+  src="https://www.youtube.com/embed/vOSIg3YTgxs?autoplay=1&mute=1&loop=1&playlist=vOSIg3YTgxs&controls=0&modestbranding=1&rel=0&playsinline=1"
+  frameborder="0"
+  allow="autoplay; encrypted-media"
+  allowfullscreen
+></iframe>
     </div>
 
     <div class="hero-content">
