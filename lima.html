@@ -1,16 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Football in Lima, Peru – Beyond the Pitch</title>
-  <meta name="description" content="Experience Peruvian football culture with Beyond the Pitch. Watch Alianza Lima live and explore Lima like a local through sport, neighborhoods and food.">
+  <meta name="description" content="Experience Peruvian football culture with Beyond the Pitch. From Alianza Lima matchday to local neighborhoods, food and stories beyond the stadium.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://travelbeyondthepitch.com/lima.html" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Football in Lima – Beyond the Pitch" />
+  <meta property="og:title" content="Football in Lima, Peru – Beyond the Pitch" />
   <meta property="og:description" content="From Alianza Lima matchday to deep local culture. Football as a gateway to Lima." />
-  <meta property="og:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/peru.jpg" />
+  <meta property="og:image" content="https://travelbeyondthepitch.com/images/peru.jpg" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://travelbeyondthepitch.com/lima.html" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Football in Lima, Peru – Beyond the Pitch" />
+  <meta name="twitter:description" content="Live Peruvian football, local neighborhoods, food and culture – curated by Beyond the Pitch." />
+  <meta name="twitter:image" content="https://travelbeyondthepitch.com/images/peru.jpg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +31,7 @@
   <!-- Tailwind -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-  <!-- SAME STYLE AS NAADAM -->
+  <!-- NAADAM STYLE BASE -->
   <style>
     :root{
       --gold:#ffd700;
@@ -29,31 +40,255 @@
       --muted:#a0a0a0;
       --border:#1a1a1a;
     }
+    *{box-sizing:border-box;}
     body{
       font-family:Inter,system-ui,-apple-system,sans-serif;
       background:var(--bg);
       color:#fff;
+      margin:0;
     }
     h1,h2,h3{font-weight:700;letter-spacing:-0.02em}
-    .header{position:fixed;top:0;width:100%;z-index:100;background:rgba(0,0,0,.95);border-bottom:1px solid var(--border)}
+    .text-gold{color:var(--gold)}
+
+    /* Header */
+    .header{
+      position:fixed;top:0;width:100%;z-index:100;
+      background:rgba(0,0,0,.95);
+      border-bottom:1px solid var(--border)
+    }
     .nav-link{color:#fff;text-decoration:none;font-weight:500}
     .nav-link:hover,.nav-link.active{color:var(--gold)}
-    .hero-video-container{position:relative;height:80vh;min-height:500px;overflow:hidden}
-    .hero-video-container iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%}
+
+    /* Hero */
+    .hero-video-container{
+      position:relative;height:80vh;min-height:500px;overflow:hidden
+    }
+    .hero-video-container iframe{
+      position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      width:100%;height:100%;
+      border:0;
+    }
     .hero-video-container::before{
       content:"";position:absolute;inset:0;
-      background:linear-gradient(to bottom,rgba(0,0,0,.3),rgba(0,0,0,.6));
+      background:linear-gradient(to bottom,rgba(0,0,0,.2),rgba(0,0,0,.75));
       z-index:1
     }
-    .hero-content{position:relative;z-index:2;padding:3rem 1.5rem;border-top:1px solid var(--border)}
-    .badge{background:var(--gold);color:#000;padding:.4rem .9rem;border-radius:20px;font-weight:600;font-size:.85rem}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
-    .section{padding:4rem 1.5rem}
-    .section-title::after{
-      content:"";display:block;width:60px;height:4px;background:var(--gold);margin-top:1rem
+    .hero-content{
+      position:relative;z-index:2;
+      padding:4rem 1.5rem;
+      border-top:1px solid var(--border)
     }
-    footer{background:var(--panel);border-top:1px solid var(--border);padding:3rem 1.5rem}
+
+    /* Components */
+    .badge{
+      background:var(--gold);color:#000;
+      padding:.4rem .9rem;border-radius:20px;
+      font-weight:600;font-size:.85rem
+    }
+    .card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:2rem
+    }
+    .section{
+      padding:5rem 1.5rem
+    }
+    .section-title{
+      font-size:1.8rem;font-weight:700
+    }
+    .section-title::after{
+      content:"";display:block;width:60px;height:4px;
+      background:var(--gold);margin-top:1rem
+    }
+
+    /* FAQ */
+    details{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:1.5rem;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:600;
+      outline:none;
+      list-style:none;
+    }
+    details[open] summary{
+      color:var(--gold);
+    }
+
+    /* Gallery */
+    .gallery-grid{
+      display:grid;
+      gap:1rem;
+    }
+    @media(min-width:768px){
+      .gallery-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+      }
+    }
+    .gallery-item{
+      position:relative;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:#111;
+      aspect-ratio:4/5;
+    }
+    .gallery-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .6s ease,opacity .3s ease;
+      display:block;
+    }
+    .gallery-item:hover img{
+      transform:scale(1.05);
+      opacity:.95;
+    }
+
+    /* CTA buttons */
+    .btn-primary{
+      display:inline-block;
+      padding:0.9rem 2.5rem;
+      border-radius:999px;
+      border:1px solid var(--gold);
+      color:var(--gold);
+      font-weight:600;
+      text-decoration:none;
+      transition:background .2s ease,color .2s ease,transform .1s ease;
+      background:transparent;
+    }
+    .btn-primary:hover{
+      background:var(--gold);
+      color:#000;
+      transform:translateY(-1px);
+    }
+    .btn-secondary{
+      display:inline-block;
+      padding:0.9rem 2.2rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:#fff;
+      font-weight:500;
+      text-decoration:none;
+      background:rgba(255,255,255,0.03);
+      transition:background .2s ease,border-color .2s ease,transform .1s ease;
+    }
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.07);
+      border-color:var(--gold);
+      transform:translateY(-1px);
+    }
+
+    footer{
+      background:var(--panel);
+      border-top:1px solid var(--border);
+      padding:3rem 1.5rem
+    }
+
+    /* Sticky CTA bar */
+    .sticky-cta{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      z-index:90;
+      background:rgba(0,0,0,0.96);
+      border-top:1px solid var(--border);
+      backdrop-filter:blur(10px);
+    }
+    .sticky-cta-inner{
+      max-width:960px;
+      margin:0 auto;
+      padding:0.75rem 1.25rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:0.75rem;
+      font-size:0.9rem;
+    }
+    @media(max-width:640px){
+      .sticky-cta-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+    .sticky-cta-text{
+      color:var(--muted);
+    }
+    .sticky-cta-text strong{
+      color:#fff;
+      font-weight:600;
+    }
+    .sticky-cta .btn-primary{
+      padding:0.6rem 1.6rem;
+      font-size:0.9rem;
+      border-radius:999px;
+    }
   </style>
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Trip",
+    "name": "Football in Lima, Peru",
+    "description": "A curated football and culture journey in Lima, Peru, built around Alianza Lima matchday, local neighborhoods, food and stories beyond the stadium.",
+    "url": "https://travelbeyondthepitch.com/lima.html",
+    "image": "https://travelbeyondthepitch.com/images/peru.jpg",
+    "touristType": "Cultural traveler, football fan",
+    "itinerary": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Alianza Lima matchday experience"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Neighborhood walks and local food"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Multi-day Lima immersion"
+        }
+      ]
+    },
+    "subjectOf": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — experiences are guided by trusted locals who know the neighborhoods, stadium and matchday dynamics."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need Spanish?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, your local hosts and guides will help translate and support you throughout the experience."
+          }
+        }
+      ]
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "Beyond the Pitch",
+      "url": "https://travelbeyondthepitch.com"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -72,124 +307,320 @@
 
 <main class="pt-24">
 
-<!-- HERO -->
-<section>
-  <div class="hero-video-container">
-    <iframe
-      id="heroVideo"
-      src="https://www.youtube.com/embed/vOSIg3YTgxs?enablejsapi=1&controls=0&mute=1&loop=1&playlist=vOSIg3YTgxs&rel=0"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
-  </div>
-  <div class="hero-content">
-    <div class="max-w-6xl mx-auto">
-      <span class="badge">🇵🇪 Peru</span>
-      <h1 class="mt-4 text-4xl">Football in Lima</h1>
-      <p class="text-gray-400 mt-2 max-w-xl">
-        Experience Alianza Lima and discover Peruvian football culture far beyond the stadium.
+  <!-- HERO -->
+  <section>
+    <div class="hero-video-container">
+      <iframe
+        id="heroVideo"
+        src="https://www.youtube.com/embed/vOSIg3YTgxs?enablejsapi=1&controls=0&mute=1&loop=1&playlist=vOSIg3YTgxs&rel=0"
+        allow="autoplay; encrypted-media"
+        title="Football in Lima - Beyond the Pitch">
+      </iframe>
+    </div>
+
+    <div class="hero-content">
+      <div class="max-w-6xl mx-auto">
+        <span class="badge">🇵🇪 Peru</span>
+        <h1 class="mt-4 text-4xl md:text-5xl">Football in Lima</h1>
+        <p class="text-gray-400 mt-3 max-w-xl leading-relaxed">
+          Experience Alianza Lima and discover Peruvian football culture through neighborhoods, food and people who live the game every day.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK INFO -->
+  <section class="section">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-4 gap-6">
+      <div class="card">
+        <h3>When</h3>
+        <p class="text-gray-400 mt-2">March – December (league season)</p>
+      </div>
+      <div class="card">
+        <h3>Where</h3>
+        <p class="text-gray-400 mt-2">Lima, Peru</p>
+      </div>
+      <div class="card">
+        <h3>Group size</h3>
+        <p class="text-gray-400 mt-2">Small groups</p>
+      </div>
+      <div class="card">
+        <h3>Status</h3>
+        <p class="text-gray-400 mt-2">Coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="max-w-4xl mx-auto card">
+      <h2 class="section-title">Football as a way of life</h2>
+      <p class="text-gray-400 mt-6 leading-relaxed">
+        In Lima, football is not just weekend entertainment — it is identity.  
+        Alianza Lima represents history, working-class pride and deep neighborhood loyalty.
+        This journey brings you into that world, guided by locals who live the club, the city and its stories.
       </p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- QUICK INFO -->
-<section class="section">
-  <div class="max-w-4xl mx-auto grid md:grid-cols-4 gap-4">
-    <div class="card"><h3>When</h3><p>March – December</p></div>
-    <div class="card"><h3>Where</h3><p>Lima, Peru</p></div>
-    <div class="card"><h3>Group size</h3><p>Small groups</p></div>
-    <div class="card"><h3>Status</h3><p>Coming soon</p></div>
-  </div>
-</section>
+  <!-- GALLERY (images: placeholders, vervang zelf later) -->
+  <section class="section">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-title">Moments in Lima</h2>
+      <p class="text-gray-400 mt-4 max-w-xl leading-relaxed">
+        From La Victoria’s streets to stadium floodlights and late-night ceviche, this journey is built around real matchday energy and everyday Lima life.
+      </p>
 
-<!-- INTRO -->
-<section class="section">
-  <div class="max-w-4xl mx-auto card">
-    <h2 class="section-title">Football as a way of life</h2>
-    <p class="text-gray-400 mt-6 leading-relaxed">
-      In Lima, football is not entertainment — it is identity.  
-      Alianza Lima represents history, working-class pride and neighborhood loyalty.
-      This journey brings you into that world, guided by locals who live it every day.
-    </p>
-  </div>
-</section>
-
-<!-- PROGRAM OPTIONS -->
-<section class="section bg-black">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="section-title">Two Ways to Experience Lima</h2>
-
-    <!-- OPTION 1 -->
-    <div class="card mt-8">
-      <h3 class="text-gold text-xl mb-2">Option 1 – Matchday Experience</h3>
-      <ul class="text-gray-400 list-disc list-inside leading-relaxed">
-        <li>Neighborhood walk around La Victoria</li>
-        <li>Street food & pre-match rituals with locals</li>
-        <li>Live match visit: Alianza Lima</li>
-        <li>Post-match local bar experience</li>
-      </ul>
+      <div class="gallery-grid mt-8">
+        <!-- Vervang src met jouw eigen Lima-foto’s -->
+        <div class="gallery-item">
+          <img src="images/lima-1.jpg" alt="Alianza Lima matchday atmosphere" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/lima-2.jpg" alt="Street scenes in Lima neighborhoods" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/lima-3.jpg" alt="Local food and pre-match rituals" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/lima-4.jpg" alt="Fans arriving at the stadium in Lima" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/lima-5.jpg" alt="Views over Lima and coastal areas" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/lima-6.jpg" alt="Everyday life in Lima's neighborhoods" loading="lazy">
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- OPTION 2 -->
-    <div class="card mt-6">
-      <h3 class="text-gold text-xl mb-2">Option 2 – Multi-Day Local Immersion</h3>
-      <ul class="text-gray-400 list-disc list-inside leading-relaxed">
-        <li>Full matchday experience</li>
-        <li>Historic center & barrios tour</li>
-        <li>Local markets & Peruvian cuisine workshop</li>
-        <li>Stories on football, politics and identity</li>
-        <li>Optional day trip outside Lima</li>
-      </ul>
+  <!-- PROGRAM OPTIONS -->
+  <section class="section">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-title">Two ways to experience Lima</h2>
+
+      <!-- OPTION 1 -->
+      <div class="card mt-10">
+        <h3 class="text-gold text-xl mb-4">Option 1 – Matchday Experience</h3>
+        <ul class="text-gray-400 list-disc list-inside leading-relaxed space-y-1">
+          <li>Neighborhood walk around La Victoria and surrounding barrios</li>
+          <li>Street food and pre-match rituals with local fans</li>
+          <li>Live match visit: Alianza Lima home game</li>
+          <li>Post-match local bar experience and reflection</li>
+        </ul>
+      </div>
+
+      <!-- OPTION 2 -->
+      <div class="card mt-8">
+        <h3 class="text-gold text-xl mb-4">Option 2 – Multi-day local immersion</h3>
+        <ul class="text-gray-400 list-disc list-inside leading-relaxed space-y-1">
+          <li>Everything from the full matchday experience</li>
+          <li>Historic center & coastal districts exploration</li>
+          <li>Local markets and Peruvian food tasting or workshop</li>
+          <li>Stories on football, politics and identity in Peru</li>
+          <li>Optional day trip outside Lima for a change of pace</li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WHY -->
-<section class="section">
-  <div class="max-w-4xl mx-auto card">
-    <h2 class="section-title">Why Beyond the Pitch</h2>
-    <p class="text-gray-400 mt-6">
-      We don’t sell tickets.  
-      We create access — to people, places and stories you would never find alone.
-    </p>
-  </div>
-</section>
+  <!-- WHY THIS JOURNEY (Lima-versie) -->
+  <section class="section">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-title">Why travel with Beyond the Pitch</h2>
+      <div class="card" style="padding: 2.5rem;">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div>
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+            <h3 style="margin-bottom: 0.75rem;">Beyond the stadium</h3>
+            <p style="color: var(--muted); line-height: 1.7;">
+              We don’t just take you to a game — we help you understand what football means in Lima.
+              You experience matchday the way locals do, not as a spectator but as a guest in their city.
+            </p>
+          </div>
+          <div>
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🤝</div>
+            <h3 style="margin-bottom: 0.75rem;">Authentic access</h3>
+            <p style="color: var(--muted); line-height: 1.7;">
+              Our local connections open doors: from small neighborhood bars and pre‑match rituals to everyday spaces most travelers never see.
+            </p>
+          </div>
+          <div>
+            <div style="font-size: 2rem; margin-bottom: 1rem;">💫</div>
+            <h3 style="margin-bottom: 0.75rem;">Sport meets culture</h3>
+            <p style="color: var(--muted); line-height: 1.7;">
+              This is what we do best: using football as a gateway to deeper cultural understanding, human connection and a more honest picture of Lima.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- CTA -->
-<section class="section text-center">
-  <span class="badge">Limited availability</span>
-  <h2 class="text-gold text-3xl mt-4">Interested in Lima?</h2>
-  <p class="text-gray-400 mt-3 max-w-xl mx-auto">
-    Leave your interest and receive full details when this journey opens.
-  </p>
-  <a
-    href="mailto:thebeyondthepitch@gmail.com?subject=Football%20in%20Lima"
-    class="inline-block mt-6 px-8 py-4 bg-yellow-400 text-black font-semibold rounded-lg">
-    Express interest
-  </a>
-</section>
+  <!-- PRACTICAL INFO (Lima-versie) -->
+  <section class="section" style="background: var(--bg);">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-title">Practical information</h2>
+      <div class="space-y-4">
+        <div class="card" style="padding: 2rem;">
+          <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.25rem;">Good to know</h3>
+          <ul style="color: var(--muted); line-height: 2; list-style: none; padding: 0;">
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--gold);">☀️</span>
+              <strong style="color: #ffffff;">Weather:</strong> Lima has a mild coastal climate. Evenings can be cool and humid — bring layers and a light jacket.
+            </li>
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--gold);">🚶</span>
+              <strong style="color: #ffffff;">Fitness level:</strong> Moderate walking required in city streets and around the stadium. The journey is accessible for most fitness levels.
+            </li>
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--gold);">🏨</span>
+              <strong style="color: #ffffff;">Accommodation:</strong> Comfortable hotels or guesthouses in central Lima (not included in the package; recommendations provided).
+            </li>
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--gold);">🍽️</span>
+              <strong style="color: #ffffff;">Meals:</strong> Selected meals included during key experiences. You’ll also have free time to explore Lima’s food scene.
+            </li>
+            <li style="padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: var(--gold);">📸</span>
+              <strong style="color: #ffffff;">Photography:</strong> Always ask before photographing people. Your local host will advise on matchday and neighborhood etiquette.
+            </li>
+          </ul>
+        </div>
 
-<!-- FAQ -->
-<section class="section">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="section-title">Frequently Asked Questions</h2>
-    <details class="card mt-4">
-      <summary>Is this safe?</summary>
-      <p class="text-gray-400 mt-3">Yes — experiences are guided by trusted locals.</p>
-    </details>
-    <details class="card mt-3">
-      <summary>Do I need Spanish?</summary>
-      <p class="text-gray-400 mt-3">No, guides translate and help throughout.</p>
-    </details>
-  </div>
-</section>
+        <details class="card" style="cursor: pointer; padding: 2rem;">
+          <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer; color: #ffffff; font-size: 1.1rem;">What’s not included</summary>
+          <ul style="color: var(--muted); margin-top: 1.5rem; line-height: 2; padding-left: 1.25rem;">
+            <li>International flights to/from Lima</li>
+            <li>Accommodation in Lima (we provide suggestions)</li>
+            <li>Travel insurance (mandatory — we can recommend providers)</li>
+            <li>Visa fees (if required for your nationality)</li>
+            <li>Meals not specified in the program</li>
+            <li>Personal expenses and souvenirs</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION (Lima-versie) -->
+  <section class="section" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="badge">Limited spots available</span>
+      <h2 style="color: var(--gold); margin: 1.5rem 0 1rem;">Interested in Lima?</h2>
+      <p style="font-size: 1.125rem; margin-bottom: 2rem; color: var(--muted); max-width: 600px; margin-left: auto; margin-right: auto;">
+        This journey will launch with a small pilot group. Express your interest and we’ll send full details including pricing, dates and how to secure your spot.
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a
+          href="mailto:thebeyondthepitch@gmail.com?subject=Football%20in%20Lima%20-%20Interest&body=Hi%20Beyond%20the%20Pitch%20team%2C%0A%0AI%27m%20interested%20in%20your%20Football%20in%20Lima%20journey.%20Please%20send%20me%20more%20information%20about%3A%0A%0A-%20Dates%20and%20availability%0A-%20Pricing%20and%20what%27s%20included%0A-%20Group%20size%20and%20next%20steps%20to%20secure%20a%20spot%0A%0AThank%20you!"
+          class="btn-primary">
+          Express interest
+        </a>
+        <a href="projects.html" class="btn-secondary">
+          View other journeys
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-title">Frequently asked questions</h2>
+      <div class="space-y-4 mt-4">
+        <details class="card" style="cursor: pointer;">
+          <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Is this safe?</summary>
+          <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
+            Yes. Experiences are guided by trusted locals who know the neighborhoods, stadium and matchday dynamics.
+            We avoid unnecessary risks, move as a group and choose routes and venues that feel comfortable for visitors.
+          </p>
+        </details>
+
+        <details class="card" style="cursor: pointer;">
+          <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Do I need Spanish?</summary>
+          <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
+            No. Your host will support with translation, ordering food and navigating conversations with locals.
+            Basic phrases are always appreciated, but not required.
+          </p>
+        </details>
+
+        <details class="card" style="cursor: pointer;">
+          <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Is the match ticket included?</summary>
+          <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
+            In most cases, yes — match tickets are included in the curated experience.
+            Exact details will be shared in the journey overview and may vary per fixture and availability.
+          </p>
+        </details>
+
+        <details class="card" style="cursor: pointer;">
+          <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">Can I join as a solo traveler?</summary>
+          <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
+            Absolutely. Many of our travelers join solo and appreciate the small-group setting and shared matchday experience.
+          </p>
+        </details>
+
+        <details class="card" style="cursor: pointer;">
+          <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">How much does it cost?</summary>
+          <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
+            This will launch as a pilot journey with limited spots and introductory pricing.
+            Express your interest and we’ll send you the pricing, what’s included and payment options.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
 
 </main>
 
+<!-- STICKY CTA BAR -->
+<div class="sticky-cta">
+  <div class="sticky-cta-inner">
+    <div class="sticky-cta-text">
+      <strong>Football in Lima</strong> — small pilot group, limited spots. Join the list for details.
+    </div>
+    <a
+      href="mailto:thebeyondthepitch@gmail.com?subject=Football%20in%20Lima%20-%20Interest&body=Hi%20Beyond%20the%20Pitch%20team%2C%0A%0AI%27m%20interested%20in%20your%20Football%20in%20Lima%20journey.%20Please%20send%20me%20more%20information.%0A%0AThank%20you!"
+      class="btn-primary">
+      Express interest
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  <div class="max-w-6xl mx-auto text-sm text-gray-400 text-center">
-    © 2025 Beyond the Pitch — Sport. Culture. Travel.
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">Beyond the Pitch</h3>
+        <p style="color: rgba(255,255,255,0.7); line-height: 1.7;">
+          Sport. Culture. Travel.<br>
+          Curated journeys where football becomes the gateway to authentic local experiences.
+        </p>
+      </div>
+      <div>
+        <h4 style="color: white; margin-bottom: 1rem;">Explore</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="index.html">Home</a>
+          <a href="projects.html">All journeys</a>
+          <a href="about.html">About us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="color: white; margin-bottom: 1rem;">Get in touch</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="mailto:thebeyondthepitch@gmail.com">thebeyondthepitch@gmail.com</a>
+          <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">
+            Follow our journeys and connect with fellow travelers.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5);">
+      <p>© 2025 Beyond the Pitch. All rights reserved.</p>
+    </div>
   </div>
 </footer>
 
