@@ -503,6 +503,67 @@
       background: var(--gold);
       color: #000000;
     }
+    <script>
+  // Modal functionality
+  const modal = document.getElementById('bookingModal');
+  const closeModal = document.getElementById('closeModal');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const bookingForm = document.getElementById('bookingForm');
+  const modalPackageTitle = document.getElementById('modalPackageTitle');
+  const selectedPackageInput = document.getElementById('selectedPackage');
+
+  // Get all package buttons
+  const packageButtons = document.querySelectorAll('.btn-package');
+
+  // Open modal when package button is clicked
+  packageButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Determine which package was clicked
+      const packageCard = this.closest('.package-card');
+      const packageTitle = packageCard.querySelector('.package-title').textContent;
+      
+      // Update modal content
+      modalPackageTitle.textContent = packageTitle;
+      selectedPackageInput.value = packageTitle;
+      
+      // Show modal
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Close modal functions
+  function closeModalFunc() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    bookingForm.reset();
+  }
+
+  closeModal.addEventListener('click', closeModalFunc);
+  cancelBtn.addEventListener('click', closeModalFunc);
+
+  // Close modal when clicking outside
+  window.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeModalFunc();
+    }
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      closeModalFunc();
+    }
+  });
+
+  // Handle form submission success
+  bookingForm.addEventListener('submit', function(e) {
+    // Formspree will handle the submission
+    // After submission, you can add a thank you message if needed
+  });
+</script>
   </style>
 </head>
 <body>
@@ -687,7 +748,7 @@
           <li>Post-match drink and reflection with locals</li>
         </ul>
         <a href="mailto:thebeyondthepitch@gmail.com?subject=Lima%20Matchday%20Package%20-%20Interest" class="btn-package">
-          Request Availability
+       <a href="#" class="btn-package">Request Availability</a>
         </a>
         <p style="text-align: center; color: var(--muted); margin-top: 1rem; font-size: 0.875rem;">
           Pilot pricing – subject to match availability
@@ -710,7 +771,7 @@
           <li>Selected meals included</li>
         </ul>
         <a href="mailto:thebeyondthepitch@gmail.com?subject=Lima%20Local%20Experience%20-%20Interest" class="btn-package">
-          Request Quote
+      <a href="#" class="btn-package">Request Quote</a>
         </a>
       </div>
     </div>
@@ -1153,6 +1214,57 @@
       });
     });
   </script>
+    <!-- Popup Modal -->
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+    
+    <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; text-align: center;">
+      <span id="modalPackageTitle">Matchday Package</span>
+    </h2>
+    
+    <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
+      Fill in your details and we'll contact you as soon as possible.
+    </p>
+    
+    <form id="bookingForm" action="https://formspree.io/f/xjkjkeag" method="POST">
+      <input type="hidden" name="package" id="selectedPackage" value="">
+      <input type="hidden" name="_subject" value="New Lima Package Request">
+      
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="your@email.com" 
+          required
+          class="form-input"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Questions or suggestions (optional)</label>
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="5" 
+          placeholder="Tell us more about your wishes..."
+          class="form-input"
+        ></textarea>
+      </div>
+      
+      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <button type="button" class="btn-secondary" id="cancelBtn" style="flex: 1;">
+          Cancel
+        </button>
+        <button type="submit" class="btn-primary" style="flex: 1;">
+          Submit request
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 
           </ul>
