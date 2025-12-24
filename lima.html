@@ -503,67 +503,74 @@
       background: var(--gold);
       color: #000000;
     }
-    <script>
-  // Modal functionality
-  const modal = document.getElementById('bookingModal');
-  const closeModal = document.getElementById('closeModal');
-  const cancelBtn = document.getElementById('cancelBtn');
-  const bookingForm = document.getElementById('bookingForm');
-  const modalPackageTitle = document.getElementById('modalPackageTitle');
-  const selectedPackageInput = document.getElementById('selectedPackage');
 
-  // Get all package buttons
-  const packageButtons = document.querySelectorAll('.btn-package');
-
-  // Open modal when package button is clicked
-  packageButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Determine which package was clicked
-      const packageCard = this.closest('.package-card');
-      const packageTitle = packageCard.querySelector('.package-title').textContent;
-      
-      // Update modal content
-      modalPackageTitle.textContent = packageTitle;
-      selectedPackageInput.value = packageTitle;
-      
-      // Show modal
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  // Close modal functions
-  function closeModalFunc() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    bookingForm.reset();
-  }
-
-  closeModal.addEventListener('click', closeModalFunc);
-  cancelBtn.addEventListener('click', closeModalFunc);
-
-  // Close modal when clicking outside
-  window.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      closeModalFunc();
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
     }
-  });
-
-  // Close modal on Escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-      closeModalFunc();
+    .modal.active {
+      display: flex;
     }
-  });
-
-  // Handle form submission success
-  bookingForm.addEventListener('submit', function(e) {
-    // Formspree will handle the submission
-    // After submission, you can add a thank you message if needed
-  });
-</script>
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+      position: relative;
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 720px;
+      z-index: 2;
+      border: 1px solid var(--border);
+      color: #fff;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+    .modal h3 {
+      margin-bottom: 0.5rem;
+    }
+    .modal .form-row {
+      margin-bottom: 1rem;
+    }
+    .modal input[type="text"],
+    .modal input[type="email"],
+    .modal textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: #fff;
+    }
+    .modal .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 0.9rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -609,7 +616,6 @@
 
   <main id="main">
     <!-- Hero Section -->
-    <!-- Hero Section -->
 <section class="hero">
   <div class="hero-video-container">
     <iframe 
@@ -624,7 +630,7 @@
     <div class="video-controls">
       <button id="muteBtn" class="video-control-btn" aria-label="Unmute video" title="Unmute video">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63z"/>
         </svg>
       </button>
       <button id="playPauseBtn" class="video-control-btn" aria-label="Pause video" title="Pause video">
@@ -652,10 +658,10 @@
         <h2 class="section-title">This is something deeper</h2>
         <div class="card" style="padding: 2.5rem;">
           <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
-            Football in Peru isn't just a sport - it's a way of life. In Lima, passion runs deep for clubs like <strong style="color: var(--gold);"></strong>  <strong style="color: var(--gold);">Alianza Lima</strong>, where every match is a celebration of identity, pride, and community.
+            Football in Peru isn't just a sport - it's a way of life. In Lima, passion runs deep for clubs like <strong style="color: var(--gold);">Alianza Lima</strong>.
           </p>
           <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
-            With Beyond the Pitch, you'll experience matchday like a true hincha (fan), explore neighborhoods where football defines daily life, and discover Lima's incredible food scene and culture - all guided by locals who live and breathe the game.
+            With Beyond the Pitch, you'll experience matchday like a true hincha (fan), explore neighborhoods where football defines daily life, and discover Lima's incredible food scene and culture.
           </p>
           <div style="background: rgba(220, 38, 38, 0.1); border-left: 4px solid var(--red); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
             <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--red);">⚽ Why Lima?</p>
@@ -747,7 +753,7 @@
           <li>Match ticket (Oriente / OCC when available)</li>
           <li>Post-match drink and reflection with locals</li>
         </ul>
-       <a href="#" class="btn-package">Request Availability</a>
+        <a href="#" class="btn-package" data-package="Matchday Package">Request Availability</a>
         <p style="text-align: center; color: var(--muted); margin-top: 1rem; font-size: 0.875rem;">
           Pilot pricing – subject to match availability
         </p>
@@ -768,7 +774,7 @@
           <li>All transport & local guide</li>
           <li>Selected meals included</li>
         </ul>
-      <a href="#" class="btn-package">Request Quote</a>
+        <a href="#" class="btn-package" data-package="Local Experience">Request Quote</a>
       </div>
     </div>
 
@@ -779,14 +785,14 @@
 </section>
 
 <!-- Testimonial Quote -->
-<section class="section" style="background: var(--card); padding: 4rem 1.5rem;">
+<section class="section" style="background: var(--panel); padding: 4rem 1.5rem;">
   <div class="max-w-4xl mx-auto">
     <div style="border-left: 4px solid var(--gold); padding-left: 2rem; padding-right: 1rem;">
-      <p style="font-size: 1.25rem; line-height: 1.8; color: var(--text); font-style: italic; margin-bottom: 1.5rem;">
-        "In South America, the drums are the heart of the whole team. They keep the vibe going and motivate everyone. I take the people to the heart of the stadium, to the fanatic supporters of Alianza Lima."
+      <p style="font-size: 1.25rem; line-height: 1.8; color: #d1d5db; font-style: italic; margin-bottom: 1.5rem;">
+        "In South America, the drums are the heart of the whole team. They keep the vibe going and motivate everyone. I take the people to the heart of the stadium, to the fanatic supporters of Alianza."
       </p>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <div style="width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: var(--bg);">
+        <div style="width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: #000;">
           J
         </div>
         <div>
@@ -1000,269 +1006,121 @@
         </p>
       </details>
 
-      <details class="card" style="cursor: pointer;">
-        <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-          What’s the accommodation like?
-        </summary>
-        <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-          Accommodation is not included in the journey price. We recommend comfortable hotels or guesthouses
-          in central Lima and will share specific suggestions based on your preferences and budget.
-        </p>
-      </details>
-
-      <details class="card" style="cursor: pointer;">
-        <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-          Can I extend my trip in Peru?
-        </summary>
-        <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-          Definitely. Many travelers combine Lima with destinations like Cusco, the Sacred Valley or the coast.
-          We’re happy to share ideas and recommendations for extending your journey before or after the experience.
-        </p>
-      </details>
-
-      <details class="card" style="cursor: pointer;">
-        <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-          What if I have dietary restrictions?
-        </summary>
-        <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-          Let us know in advance. Peruvian cuisine is diverse, and vegetarian or other dietary options
-          are widely available, especially in Lima.
-        </p>
-      </details>
-
-      <details class="card" style="cursor: pointer;">
-        <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-          How much does it cost?
-        </summary>
-        <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-          This journey will launch as a small pilot with limited spots and introductory pricing.
-          Express your interest and we’ll send you full details, including what’s included and payment options.
-        </p>
-      </details>
-
     </div>
   </div>
 </section>
 
+  </main>
 
-  <!-- Footer -->
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalPackageTitle" aria-hidden="true">
+    <div class="modal-backdrop" tabindex="-1"></div>
+    <div class="modal-content" role="document">
+      <button id="closeModal" class="modal-close" aria-label="Close modal">&times;</button>
+      <h3 id="modalPackageTitle">Selected package</h3>
+      <form id="bookingForm" action="https://formspree.io/f/replace-me" method="POST" novalidate>
+        <input type="hidden" id="selectedPackage" name="selectedPackage" value="">
+        <div class="form-row">
+          <label for="name" style="display:block; margin-bottom:0.5rem; color:#fff;">Name</label>
+          <input id="name" name="name" type="text" required placeholder="Your name">
+        </div>
+        <div class="form-row">
+          <label for="email" style="display:block; margin-bottom:0.5rem; color:#fff;">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-row">
+          <label for="message" style="display:block; margin-bottom:0.5rem; color:#fff;">Message (optional)</label>
+          <textarea id="message" name="message" rows="4" placeholder="Any questions or preferences"></textarea>
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="btn-package">Send request</button>
+          <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <footer>
-    <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-3 gap-8 mb-8">
-        <div>
-          <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">Beyond the Pitch</h3>
-          <p style="color: rgba(255,255,255,0.7); line-height: 1.7;">Sport. Culture. Travel.<br>Curated journeys where sport becomes the gateway to authentic cultural experiences.</p>
-        </div>
-        <div>
-          <h4 style="color: white; margin-bottom: 1rem;">Explore</h4>
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <a href="index.html">Home</a>
-            <a href="projects.html">All Journeys</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact</a>
-          </div>
-        </div>
-        <div>
-          <h4 style="color: white; margin-bottom: 1rem;">Get in Touch</h4>
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <a href="mailto:thebeyondthepitch@gmail.com">thebeyondthepitch@gmail.com</a>
-            <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">Follow our journeys and connect with fellow travelers.</p>
-          </div>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5);">
-        <p>© 2025 Beyond the Pitch. All rights reserved.</p>
-      </div>
+    <div class="max-w-6xl mx-auto px-4">
+      <p style="color:var(--muted);">© Beyond the Pitch</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scripts (modal + menu) moved to bottom of body -->
   <script>
-    // YouTube API
-    let player;
-    let isMuted = true;
-    let isPlaying = true;
+    document.addEventListener('DOMContentLoaded', function () {
+      // Modal elements
+      const modal = document.getElementById('bookingModal');
+      const modalBackdrop = modal.querySelector('.modal-backdrop');
+      const closeModalBtn = document.getElementById('closeModal');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const bookingForm = document.getElementById('bookingForm');
+      const modalPackageTitle = document.getElementById('modalPackageTitle');
+      const selectedPackageInput = document.getElementById('selectedPackage');
 
-    // Load YouTube IFrame API
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      // Open modal when any package button is clicked
+      const packageButtons = document.querySelectorAll('.btn-package');
+      packageButtons.forEach(button => {
+        button.addEventListener('click', function (e) {
+          // If the button is a form submit inside modal, let it submit
+          if (this.closest('#bookingModal')) return;
 
-    // Initialize player when API is ready
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('heroVideo', {
-        events: {
-          'onReady': onPlayerReady
+          e.preventDefault();
+          const packageCard = this.closest('.package-card');
+          const packageTitleEl = packageCard ? packageCard.querySelector('.package-title') : null;
+          const packageTitle = packageTitleEl ? packageTitleEl.textContent.trim() : (this.dataset.package || 'Selected package');
+          modalPackageTitle.textContent = packageTitle;
+          selectedPackageInput.value = packageTitle;
+          modal.classList.add('active');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (bookingForm) bookingForm.reset();
+      }
+
+      // Close handlers
+      closeModalBtn && closeModalBtn.addEventListener('click', closeModal);
+      cancelBtn && cancelBtn.addEventListener('click', closeModal);
+      modalBackdrop && modalBackdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
         }
       });
-    }
 
-    function onPlayerReady(event) {
-      // Start muted autoplay
-      event.target.mute();
-      event.target.playVideo();
-    }
-
-    // Mute/Unmute control
-    const muteBtn = document.getElementById('muteBtn');
-    muteBtn.addEventListener('click', () => {
-      if (player && player.isMuted) {
-        if (isMuted) {
-          player.unMute();
-          isMuted = false;
-          muteBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-            </svg>
-          `;
-          muteBtn.setAttribute('aria-label', 'Mute video');
-          muteBtn.setAttribute('title', 'Mute video');
-        } else {
-          player.mute();
-          isMuted = true;
-          muteBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-            </svg>
-          `;
-          muteBtn.setAttribute('aria-label', 'Unmute video');
-          muteBtn.setAttribute('title', 'Unmute video');
-        }
-      }
-    });
-
-    // Play/Pause control
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    playPauseBtn.addEventListener('click', () => {
-      if (player && player.getPlayerState) {
-        const state = player.getPlayerState();
-        if (state === YT.PlayerState.PLAYING) {
-          player.pauseVideo();
-          isPlaying = false;
-          playPauseBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          `;
-          playPauseBtn.setAttribute('aria-label', 'Play video');
-          playPauseBtn.setAttribute('title', 'Play video');
-        } else {
-          player.playVideo();
-          isPlaying = true;
-          playPauseBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-            </svg>
-          `;
-          playPauseBtn.setAttribute('aria-label', 'Pause video');
-          playPauseBtn.setAttribute('title', 'Pause video');
-        }
-      }
-    });
-
-    // Mobile menu toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const menuClose = document.getElementById('menuClose');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileOverlay = document.getElementById('mobileOverlay');
-
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.add('active');
-      mobileOverlay.classList.add('active');
-    });
-
-    menuClose.addEventListener('click', closeMenu);
-    mobileOverlay.addEventListener('click', closeMenu);
-
-    function closeMenu() {
-      mobileMenu.classList.remove('active');
-      mobileOverlay.classList.remove('active');
-    }
-
-    // Header scroll effect
-    let lastScroll = 0;
-    const header = document.getElementById('header');
-
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-      
-      if (currentScroll > 50) {
-        header.classList.add('header-scrolled');
-      } else {
-        header.classList.remove('header-scrolled');
-      }
-      
-      lastScroll = currentScroll;
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+      // Optional: handle form submission (let Formspree manage actual submission)
+      bookingForm && bookingForm.addEventListener('submit', function (e) {
+        // Default: allow form to submit to the action URL.
+        // If you want to handle via AJAX, implement fetch here.
       });
+
+      // Mobile menu toggles
+      const menuToggle = document.getElementById('menuToggle');
+      const menuClose = document.getElementById('menuClose');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+
+      function openMenu() {
+        mobileMenu && mobileMenu.classList.add('active');
+        mobileOverlay && mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        mobileMenu && mobileMenu.classList.remove('active');
+        mobileOverlay && mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      menuToggle && menuToggle.addEventListener('click', openMenu);
+      menuClose && menuClose.addEventListener('click', closeMenu);
+      mobileOverlay && mobileOverlay.addEventListener('click', closeMenu);
     });
   </script>
-    <!-- Popup Modal -->
-<div id="bookingModal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
-    
-    <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; text-align: center;">
-      <span id="modalPackageTitle">Matchday Package</span>
-    </h2>
-    
-    <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
-      Fill in your details and we'll contact you as soon as possible.
-    </p>
-    
-    <form id="bookingForm" action="https://formspree.io/f/xjkjkeag" method="POST">
-      <input type="hidden" name="package" id="selectedPackage" value="">
-      <input type="hidden" name="_subject" value="New Lima Package Request">
-      
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          placeholder="your@email.com" 
-          required
-          class="form-input"
-        >
-      </div>
-      
-      <div class="form-group">
-        <label for="message">Questions or suggestions (optional)</label>
-        <textarea 
-          id="message" 
-          name="message" 
-          rows="5" 
-          placeholder="Tell us more about your wishes..."
-          class="form-input"
-        ></textarea>
-      </div>
-      
-      <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-        <button type="button" class="btn-secondary" id="cancelBtn" style="flex: 1;">
-          Cancel
-        </button>
-        <button type="submit" class="btn-primary" style="flex: 1;">
-          Submit request
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
 </body>
-
-          </ul>
-
-          <h3 style="margin-bottom: 1rem; color: var(--accent);">
+</html>
