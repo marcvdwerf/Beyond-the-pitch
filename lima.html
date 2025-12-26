@@ -615,43 +615,113 @@
   </nav>
 
   <main id="main">
- <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-video-container">
-    <iframe 
-      id="heroVideo"
-      src="https://www.youtube.com/embed/WDmYIOZFoJU?enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=WDmYIOZFoJU&mute=1" 
-      title="Lima Peru Football Culture" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-    <!-- Video Controls -->
-    <div class="video-controls">
-      <button id="muteBtn" class="video-control-btn" aria-label="Unmute video" title="Unmute video">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-        </svg>
-      </button>
-      <button id="playPauseBtn" class="video-control-btn" aria-label="Pause video" title="Pause video">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <div class="hero-content">
-    <div class="max-w-6xl mx-auto">
-      <span class="badge">
-        <span>🇵🇪</span>
-        <span>Coming Soon</span>
-      </span>
-      <h1 class="hero-title">Lima, Peru</h1>
-      <p class="hero-subtitle">Watch Peru's most passionate clubs and experience Lima the way locals do - far beyond the tourist trails.</p>
+<!-- ================= Video ================= -->
+<section id="video" class="py-16 px-4 text-center relative">
+  <div class="max-w-4xl mx-auto" data-animate>
+    <h2 class="text-3xl font-semibold mb-6 text-gold">Sport. Culture. Travel.</h2>
+    <div class="relative">
+      <div class="aspect-w-16 aspect-h-9 relative">
+        <iframe 
+          id="mainVideo"
+          class="w-full h-96 rounded-xl shadow-lg" 
+          src="https://www.youtube.com/embed/wesVc9ete0k?enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&mute=1&autoplay=1" 
+          title="Beyond the pitch teaser" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen 
+          loading="lazy">
+        </iframe>
+        
+        <!-- Video Controls -->
+        <div class="absolute bottom-4 right-4 flex gap-2 z-10">
+          <button id="mainMuteBtn" class="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300" aria-label="Unmute video" title="Unmute video">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+          </button>
+          <button id="mainPlayPauseBtn" class="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300" aria-label="Pause video" title="Pause video">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<script>
+  // Video controls for main video
+  (function() {
+    let mainPlayer;
+    let isMuted = true;
+    let isPlaying = true;
+
+    // Load YouTube IFrame API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Initialize player when API is ready
+    window.onYouTubeIframeAPIReady = function() {
+      mainPlayer = new YT.Player('mainVideo', {
+        events: {
+          'onReady': onMainPlayerReady
+        }
+      });
+    };
+
+    function onMainPlayerReady(event) {
+      event.target.playVideo();
+      event.target.mute();
+    }
+
+    // Mute/Unmute button
+    document.getElementById('mainMuteBtn').addEventListener('click', function() {
+      if (!mainPlayer) return;
+      
+      if (isMuted) {
+        mainPlayer.unMute();
+        this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>`;
+        this.setAttribute('aria-label', 'Mute video');
+        this.setAttribute('title', 'Mute video');
+      } else {
+        mainPlayer.mute();
+        this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>`;
+        this.setAttribute('aria-label', 'Unmute video');
+        this.setAttribute('title', 'Unmute video');
+      }
+      isMuted = !isMuted;
+    });
+
+    // Play/Pause button
+    document.getElementById('mainPlayPauseBtn').addEventListener('click', function() {
+      if (!mainPlayer) return;
+      
+      if (isPlaying) {
+        mainPlayer.pauseVideo();
+        this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>`;
+        this.setAttribute('aria-label', 'Play video');
+        this.setAttribute('title', 'Play video');
+      } else {
+        mainPlayer.playVideo();
+        this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>`;
+        this.setAttribute('aria-label', 'Pause video');
+        this.setAttribute('title', 'Pause video');
+      }
+      isPlaying = !isPlaying;
+    });
+  })();
+</script>
     <!-- Introduction -->
     <section class="section">
       <div class="max-w-4xl mx-auto">
