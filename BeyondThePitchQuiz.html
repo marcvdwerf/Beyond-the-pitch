@@ -152,7 +152,6 @@
         type: 'email',
         title: 'Get Your Personalized Journey',
         subtitle: 'Receive your match + exclusive early-bird access',
-        benefit: '€50 off your first booking',
         fields: [
           { id: 'email', label: 'Email', type: 'email', required: true, placeholder: 'you@example.com' },
           { id: 'age', label: 'Age Range', type: 'select', required: true, options: ['18-24', '25-34', '35-44', '45-54', '55+'] },
@@ -419,7 +418,7 @@
         // fields
         content.innerHTML = `
           <div class="bg-orange-50 border-l-4 border-[#e85d35] p-4 rounded mb-4 text-[#e85d35]">
-            <div class="font-semibold">${esc(step.benefit || '€50 off your first booking')}</div>
+            <div class="font-semibold">${esc(step.benefit || 'Receive early bird acces to our trips with limited places')}</div>
             <div class="text-sm text-gray-600">Plus your personalized journey guide</div>
           </div>
 
