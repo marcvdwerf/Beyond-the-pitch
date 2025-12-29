@@ -66,9 +66,10 @@
     {
       id: 'intro',
       type: 'intro',
-      title: 'Find your perfect sport & culture experience',
-      subtitle: 'Travel beyond stadiums. Into communities, rituals and stories.',
-      stat: 'Built with local clubs, fans and communities'
+      title: 'Discover Your Perfect Sport & Culture Journey',
+      subtitle: 'Travel beyond the stadium. Dive into communities, traditions and untold stories.',
+      description: 'Experience sport the way locals do—from ancient Gaelic games in Irish villages to the electric passion of Lima\'s football culture.',
+      stat: 'Co-created with local clubs, fans and communities'
     },
     {
       id: 'pilot',
@@ -414,17 +415,25 @@
   function renderStepContent(step, content) {
     if (step.type === 'intro') {
       content.innerHTML = `
-        <div class="text-center space-y-4">
-          <p class="text-lg text-gray-600">${esc(step.subtitle)}</p>
-          <div class="flex items-center justify-center gap-2 text-gray-400">
-            <div class="text-2xl">🏆</div>
-            <span class="text-sm">${esc(step.stat)}</span>
+        <div class="text-center space-y-6">
+          <p class="text-xl md:text-2xl text-gray-700 font-light leading-relaxed">
+            ${esc(step.subtitle)}
+          </p>
+          
+          <p class="text-base text-gray-600 max-w-2xl mx-auto">
+            ${esc(step.description)}
+          </p>
+
+          <div class="flex items-center justify-center gap-3 text-gray-500 py-4">
+            <div class="text-3xl">🏆</div>
+            <span class="text-sm font-medium">${esc(step.stat)}</span>
           </div>
-          <div class="mt-6">
-            <button id="begin-btn" class="px-8 py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white transition-all transform hover:scale-105">
-              Begin Your Journey →
+
+          <div class="pt-4">
+            <button id="begin-btn" class="px-10 py-4 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+              Start Your Journey →
             </button>
-            <p class="text-xs text-gray-500 mt-3">Duurt 2-3 minuten</p>
+            <p class="text-sm text-gray-400 mt-4">Duurt 2-3 minuten • 9 simpele vragen</p>
           </div>
         </div>
       `;
@@ -753,7 +762,7 @@
                 Aanmelden voor deze ervaring
               </a>
               <p class="text-center text-sm text-gray-600">
-                <span class="font-semibold text-[#e85d35]">Early-bird korting: €50</span> • Beperkte plaatsen beschikbaar
+                Early access to new pilots with limited places
               </p>
             </div>
           </div>
