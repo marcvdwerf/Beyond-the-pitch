@@ -4,14 +4,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Beyond The Pitch — Quiz</title>
-
-  <!-- Tailwind (Play CDN) for quick styling on static sites -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    /* small polish */
-    body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-    .card-selected { border-color: #e85d35; background: #FFF7F1; } /* subtle selected look */
+    body { 
+      -webkit-font-smoothing: antialiased; 
+      -moz-osx-font-smoothing: grayscale; 
+    }
+    .card-selected { 
+      border-color: #e85d35; 
+      background: #FFF7F1; 
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="bg-[#1a1a2e] text-white min-h-screen">
@@ -25,542 +39,769 @@
   </a>
 </header>
 
-  <div id="quiz-root" class="min-h-screen"></div>
+<div id="quiz-root" class="min-h-screen"></div>
 
-  <script>
-  (function () {
-    // Standalone vanilla JS implementation of the quiz.
-    // Save this file to your site and open the page — no build step required.
+<script>
+(function () {
+  const STORAGE_KEY = 'btp_quiz_state';
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse';
+  
+  // BELANGRIJK: Vervang deze entry IDs met jouw eigen Google Form field IDs
+  const FORM_FIELDS = {
+    email: 'entry.123456789',
+    age: 'entry.987654321',
+    location: 'entry.456789123',
+    pilot: 'entry.111222333',
+    interests: 'entry.444555666',
+    sport: 'entry.777888999',
+    travelStyle: 'entry.101112131',
+    group: 'entry.141516171',
+    timing: 'entry.181920212',
+    future: 'entry.232425262'
+  };
 
-    const root = document.getElementById('quiz-root');
+  const root = document.getElementById('quiz-root');
 
-    const steps = [
-      {
-        id: 'intro',
-        type: 'intro',
-        title: 'Find Your Perfect Sport & Culture Experience',
-        subtitle: 'Travel beyond stadiums. Into communities, rituals and stories.',
-        stat: 'Built with local clubs, fans and communities'
-      },
-      {
-        id: 'pilot',
-        type: 'projects',
-        title: 'Which destination speaks to you?',
-        subtitle: 'Our current experiences',
-        options: [
-          {
-            value: 'ireland',
-            country: 'Ireland',
-            title: 'Gaelic Games',
-            image: '🇮🇪',
-            description: 'Ancient Irish sports, traditional pub culture, and rolling countryside',
-            vibe: ['Authentic', 'Cultural', 'Community'],
-            highlight: 'Experience hurling & Gaelic football with locals'
-          },
-          {
-            value: 'lima',
-            country: 'Peru',
-            title: 'Alianza Lima',
-            image: '🇵🇪',
-            description: 'South American football passion, world-class cuisine, and Pacific vibes',
-            vibe: ['Vibrant', 'Passionate', 'Culinary'],
-            highlight: 'Feel the intensity of Lima football culture'
-          },
-          {
-            value: 'mongolia',
-            country: 'Mongolia',
-            title: 'Naadam Festival',
-            image: '🇲🇳',
-            description: 'Wrestling, archery, horse racing in vast steppes with nomadic traditions',
-            vibe: ['Epic', 'Adventurous', 'Unique'],
-            highlight: 'Witness centuries-old warrior sports'
-          }
-        ]
-      },
-      {
-        id: 'interests',
-        type: 'multi-select',
-        title: 'What makes travel meaningful to you?',
-        subtitle: 'Select all that resonate',
-        options: [
-          { value: 'sport', label: 'Live Sport', icon: '⚽' },
-          { value: 'food', label: 'Local Cuisine', icon: '🍜' },
-          { value: 'culture', label: 'Deep Culture', icon: '🏛️' },
-          { value: 'nightlife', label: 'Nightlife', icon: '🌙' },
-          { value: 'locals', label: 'Meet Locals', icon: '🤝' },
-          { value: 'language', label: 'Language', icon: '💬' },
-          { value: 'nature', label: 'Nature', icon: '🏔️' },
-          { value: 'photography', label: 'Photography', icon: '📸' }
-        ]
-      },
-      {
-        id: 'sport',
-        type: 'single-select',
-        title: 'Your sport preference?',
-        options: [
-          { value: 'football-major', label: 'Football (Major Leagues)', desc: 'Top-tier clubs & stadiums' },
-          { value: 'football-local', label: 'Football (Local Culture)', desc: 'Community clubs & authenticity' },
-          { value: 'traditional', label: 'Traditional Sports', desc: 'Indigenous & cultural sports' },
-          { value: 'basketball', label: 'Basketball', desc: 'NBA, EuroLeague, street culture' },
-          { value: 'rugby', label: 'Rugby', desc: 'Six Nations, local clubs' },
-          { value: 'combat', label: 'Combat Sports', desc: 'Boxing, MMA, traditional martial arts' },
-          { value: 'open', label: 'Open to Anything', desc: 'Surprise me with unique experiences' }
-        ]
-      },
-      {
-        id: 'travelStyle',
-        type: 'cards',
-        title: 'Your travel style?',
-        options: [
-          { value: 'immersive', label: 'Immersive Explorer', icon: '🎒', desc: 'Deep local experiences, authentic connections, budget-conscious', budget: '€400-700' },
-          { value: 'balanced', label: 'Balanced Adventurer', icon: '🧳', desc: 'Mix of comfort and local culture, curated experiences', budget: '€700-1200' },
-          { value: 'premium', label: 'Premium Traveler', icon: '✨', desc: 'Comfort-first with exclusive access and personalized touches', budget: '€1200+' }
-        ]
-      },
-      {
-        id: 'group',
-        type: 'single-select',
-        title: 'Who are you traveling with?',
-        options: [
-          { value: 'solo', label: 'Solo', desc: 'Flying solo, open to meeting others' },
-          { value: 'couple', label: 'Partner', desc: 'Traveling as a couple' },
-          { value: 'friends', label: 'Friends Group', desc: '2-6 friends' },
-          { value: 'family', label: 'Family', desc: 'Family adventure' },
-          { value: 'corporate', label: 'Corporate/Team', desc: 'Team building or corporate trip' }
-        ]
-      },
-      {
-        id: 'timing',
-        type: 'quick-select',
-        title: 'When are you looking to travel?',
-        options: [
-          'Next 3 months',
-          'Next 6 months',
-          'This year',
-          'Just exploring'
-        ]
-      },
-      {
-        id: 'future',
-        type: 'multi-select',
-        title: 'What would you love to see next?',
-        subtitle: 'Help shape our next journeys',
-        options: [
-          { value: 'derbies', label: 'Football Derbies', icon: '⚽' },
-          { value: 'basketball', label: 'Basketball', icon: '🏀' },
-          { value: 'rugby', label: 'Rugby', icon: '🏉' },
-          { value: 'balkans', label: 'Balkans', icon: '🇷🇸' },
-          { value: 'latam', label: 'Latin America', icon: '🌎' },
-          { value: 'africa', label: 'Africa', icon: '🌍' },
-          { value: 'asia', label: 'Central Asia', icon: '🏔️' },
-          { value: 'traditional', label: 'Indigenous Sports', icon: '🎪' }
-        ]
-      },
-      {
-        id: 'contact',
-        type: 'email',
-        title: 'Get Your Personalized Journey',
-        subtitle: 'Receive your match + exclusive early-bird access',
-        fields: [
-          { id: 'email', label: 'Email', type: 'email', required: true, placeholder: 'you@example.com' },
-          { id: 'age', label: 'Age Range', type: 'select', required: true, options: ['18-24', '25-34', '35-44', '45-54', '55+'] },
-          { id: 'location', label: 'Where are you from?', type: 'text', required: false, placeholder: 'City, Country' }
-        ]
+  const steps = [
+    {
+      id: 'intro',
+      type: 'intro',
+      title: 'Find your perfect sport & culture experience',
+      subtitle: 'Travel beyond stadiums. Into communities, rituals and stories.',
+      stat: 'Built with local clubs, fans and communities'
+    },
+    {
+      id: 'pilot',
+      type: 'projects',
+      title: 'Which destination speaks to you?',
+      subtitle: 'Our current experiences',
+      options: [
+        {
+          value: 'ireland',
+          country: 'Ireland',
+          title: 'Gaelic games',
+          image: '🇮🇪',
+          description: 'Ancient Irish sports, traditional pub culture, and rolling countryside',
+          vibe: ['Authentic', 'Cultural', 'Community'],
+          highlight: 'Experience hurling & Gaelic football with locals'
+        },
+        {
+          value: 'lima',
+          country: 'Peru',
+          title: 'Alianza Lima',
+          image: '🇵🇪',
+          description: 'South American football passion, world-class cuisine, and Pacific vibes',
+          vibe: ['Vibrant', 'Passionate', 'Culinary'],
+          highlight: 'Feel the intensity of Lima football culture'
+        },
+        {
+          value: 'mongolia',
+          country: 'Mongolia',
+          title: 'Naadam Festival',
+          image: '🇲🇳',
+          description: 'Wrestling, archery, horse racing in vast steppes with nomadic traditions',
+          vibe: ['Epic', 'Adventurous', 'Unique'],
+          highlight: 'Witness centuries-old warrior sports'
+        }
+      ]
+    },
+    {
+      id: 'interests',
+      type: 'multi-select',
+      title: 'What makes travel meaningful to you?',
+      subtitle: 'Select all that resonate',
+      options: [
+        { value: 'sport', label: 'Live Sport', icon: '⚽' },
+        { value: 'food', label: 'Local Cuisine', icon: '🍜' },
+        { value: 'culture', label: 'Deep Culture', icon: '🏛️' },
+        { value: 'nightlife', label: 'Nightlife', icon: '🌙' },
+        { value: 'locals', label: 'Meet Locals', icon: '🤝' },
+        { value: 'language', label: 'Language', icon: '💬' },
+        { value: 'nature', label: 'Nature', icon: '🏔️' },
+        { value: 'photography', label: 'Photography', icon: '📸' }
+      ]
+    },
+    {
+      id: 'sport',
+      type: 'single-select',
+      title: 'Your sport preference?',
+      options: [
+        { value: 'football-major', label: 'Football (Major Leagues)', desc: 'Top-tier clubs & stadiums' },
+        { value: 'football-local', label: 'Football (Local Culture)', desc: 'Community clubs & authenticity' },
+        { value: 'traditional', label: 'Traditional Sports', desc: 'Indigenous & cultural sports' },
+        { value: 'basketball', label: 'Basketball', desc: 'NBA, EuroLeague, street culture' },
+        { value: 'rugby', label: 'Rugby', desc: 'Six Nations, local clubs' },
+        { value: 'combat', label: 'Combat Sports', desc: 'Boxing, MMA, traditional martial arts' },
+        { value: 'open', label: 'Open to Anything', desc: 'Surprise me with unique experiences' }
+      ]
+    },
+    {
+      id: 'travelStyle',
+      type: 'cards',
+      title: 'Your travel style?',
+      options: [
+        { value: 'immersive', label: 'Immersive Explorer', icon: '🎒', desc: 'Deep local experiences, authentic connections, budget-conscious', budget: '€400-700' },
+        { value: 'balanced', label: 'Balanced Adventurer', icon: '🧳', desc: 'Mix of comfort and local culture, curated experiences', budget: '€700-1200' },
+        { value: 'premium', label: 'Premium Traveler', icon: '✨', desc: 'Comfort-first with exclusive access and personalized touches', budget: '€1200+' }
+      ]
+    },
+    {
+      id: 'group',
+      type: 'single-select',
+      title: 'Who are you traveling with?',
+      options: [
+        { value: 'solo', label: 'Solo', desc: 'Flying solo, open to meeting others' },
+        { value: 'couple', label: 'Partner', desc: 'Traveling as a couple' },
+        { value: 'friends', label: 'Friends Group', desc: '2-6 friends' },
+        { value: 'family', label: 'Family', desc: 'Family adventure' },
+        { value: 'corporate', label: 'Corporate/Team', desc: 'Team building or corporate trip' }
+      ]
+    },
+    {
+      id: 'timing',
+      type: 'quick-select',
+      title: 'When are you looking to travel?',
+      options: [
+        'Next 3 months',
+        'Next 6 months',
+        'This year',
+        'Just exploring'
+      ]
+    },
+    {
+      id: 'future',
+      type: 'multi-select',
+      title: 'What would you love to see next?',
+      subtitle: 'Help shape our next journeys',
+      options: [
+        { value: 'derbies', label: 'Football Derbies', icon: '⚽' },
+        { value: 'basketball', label: 'Basketball', icon: '🏀' },
+        { value: 'europe', label: 'Europe', icon: '🏉' },
+        { value: 'balkans', label: 'Balkans', icon: '🇷🇸' },
+        { value: 'latam', label: 'Latin America', icon: '🌎' },
+        { value: 'africa', label: 'Africa', icon: '🌍' },
+        { value: 'asia', label: 'Central Asia', icon: '🏔️' },
+        { value: 'traditional', label: 'Indigenous Sports', icon: '🎪' }
+      ]
+    },
+    {
+      id: 'contact',
+      type: 'email',
+      title: 'Get Your Personalized Journey',
+      subtitle: 'Receive your match + exclusive early-bird access',
+      fields: [
+        { id: 'email', label: 'Email', type: 'email', required: true, placeholder: 'you@example.com' },
+        { id: 'age', label: 'Age Range', type: 'select', required: true, options: ['18-24', '25-34', '35-44', '45-54', '55+'] },
+        { id: 'location', label: 'Where are you from?', type: 'text', required: false, placeholder: 'City, Country' }
+      ]
+    }
+  ];
+
+  const recommendations = {
+    ireland: {
+      title: 'Ireland - Gaelic Games Experience',
+      flag: '🇮🇪',
+      tagline: 'Where Ancient Sport Meets Warm Hospitality',
+      description: 'Based on your preferences, Ireland offers the perfect blend of authentic sport culture, community connection, and immersive local experiences.',
+      highlights: [
+        'Experience hurling and Gaelic football with local clubs',
+        'Traditional pub sessions with players and locals',
+        'Explore Irish countryside and coastal beauty',
+        'Learn basic Irish phrases and sport terminology'
+      ],
+      whatsIncluded: ['Match tickets', 'Local guide', 'Traditional meals', 'Pub experiences', 'Cultural workshops'],
+      testimonial: 'An unforgettable experience. The locals welcomed us like family. - Marc, Netherlands'
+    },
+    lima: {
+      title: 'Lima - Alianza Lima Football',
+      flag: '🇵🇪',
+      tagline: 'Where Football Passion Fuels a City',
+      description: 'Your answers point to Lima - a destination where intense football culture meets world-renowned cuisine and vibrant nightlife.',
+      highlights: [
+        "Feel the electricity of South American football",
+        "Culinary tour through Lima's food scene",
+        "Experience Peruvian nightlife with locals",
+        "Visit historic neighborhoods and markets"
+      ],
+      whatsIncluded: ['Stadium experience', 'Food tours', 'Local host', 'City exploration', 'Nightlife access'],
+      testimonial: 'The passion at the stadium gave me goosebumps everytime. Lima exceeded all expectations. - José, Local guide and lifelong Alianza fan'
+    },
+    mongolia: {
+      title: 'Mongolia - Naadam Festival',
+      flag: '🇲🇳',
+      tagline: 'An Epic Journey Into Warrior Traditions',
+      description: "You are drawn to the extraordinary. Mongolia's Naadam Festival offers an adventure unlike anything else - ancient sports in vast landscapes.",
+      highlights: [
+        'Witness traditional wrestling, archery, and horse racing',
+        'Stay with nomadic families in the steppe',
+        'Experience centuries-old warrior culture',
+        'Explore Ulaanbaatar and endless grasslands'
+      ],
+      whatsIncluded: ['Festival access', 'Nomadic homestay', 'Cultural guide', 'Traditional meals', 'Nature experiences'],
+      testimonial: 'Life-changing. The festival and landscapes are beyond words. - Thomas, Germany'
+    }
+  };
+
+  let currentStep = 0;
+  const answers = {};
+  let isSubmitting = false;
+  let showResult = false;
+  let submitError = null;
+
+  // Load saved state
+  function loadState() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const state = JSON.parse(saved);
+        Object.assign(answers, state.answers || {});
+        currentStep = state.currentStep || 0;
       }
-    ];
+    } catch (e) {
+      console.error('Failed to load state:', e);
+    }
+  }
 
-    const recommendations = {
-      ireland: {
-        title: 'Ireland - Gaelic Games Experience',
-        flag: '🇮🇪',
-        tagline: 'Where Ancient Sport Meets Warm Hospitality',
-        description: 'Based on your preferences, Ireland offers the perfect blend of authentic sport culture, community connection, and immersive local experiences.',
-        highlights: [
-          'Experience hurling and Gaelic football with local clubs',
-          'Traditional pub sessions with players and locals',
-          'Explore Irish countryside and coastal beauty',
-          'Learn basic Irish phrases and sport terminology'
-        ],
-        whatsIncluded: ['Match tickets', 'Local guide', 'Traditional meals', 'Pub experiences', 'Cultural workshops'],
-        testimonial: 'An unforgettable experience. The locals welcomed us like family. - Marco, Netherlands'
-      },
-      lima: {
-        title: 'Lima - Alianza Lima Football',
-        flag: '🇵🇪',
-        tagline: 'Where Football Passion Fuels a City',
-        description: 'Your answers point to Lima - a destination where intense football culture meets world-renowned cuisine and vibrant nightlife.',
-        highlights: [
-          "Feel the electricity of South American football",
-          "Culinary tour through Lima's food scene",
-          "Experience Peruvian nightlife with locals",
-          "Visit historic neighborhoods and markets"
-        ],
-        whatsIncluded: ['Stadium experience', 'Food tours', 'Local host', 'City exploration', 'Nightlife access'],
-        testimonial: 'The passion at the stadium gave me goosebumps. Lima exceeded all expectations. - Sarah, UK'
-      },
-      mongolia: {
-        title: 'Mongolia - Naadam Festival',
-        flag: '🇲🇳',
-        tagline: 'An Epic Journey Into Warrior Traditions',
-        description: "You are drawn to the extraordinary. Mongolia's Naadam Festival offers an adventure unlike anything else - ancient sports in vast landscapes.",
-        highlights: [
-          'Witness traditional wrestling, archery, and horse racing',
-          'Stay with nomadic families in the steppe',
-          'Experience centuries-old warrior culture',
-          'Explore Ulaanbaatar and endless grasslands'
-        ],
-        whatsIncluded: ['Festival access', 'Nomadic homestay', 'Cultural guide', 'Traditional meals', 'Nature experiences'],
-        testimonial: 'Life-changing. The festival and landscapes are beyond words. - Thomas, Germany'
+  // Save state
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        answers,
+        currentStep,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      console.error('Failed to save state:', e);
+    }
+  }
+
+  // Clear state
+  function clearState() {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (e) {
+      console.error('Failed to clear state:', e);
+    }
+  }
+
+  function progressPercent() {
+    const totalSteps = steps.length - 2; // Exclude intro and contact
+    const current = Math.max(0, currentStep - 1);
+    return Math.round((current / totalSteps) * 100);
+  }
+
+  function canProceedForStep(step) {
+    if (!step) return false;
+    if (step.type === 'intro') return true;
+    if (step.type === 'email') {
+      return answers.email && isValidEmail(answers.email) && answers.age;
+    }
+    if (step.type === 'multi-select') {
+      return Array.isArray(answers[step.id]) && answers[step.id].length > 0;
+    }
+    return answers[step.id] !== undefined && answers[step.id] !== null && answers[step.id] !== '';
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function esc(s) { 
+    return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); 
+  }
+
+  async function submitToGoogleForms() {
+    const formData = new FormData();
+    
+    // Map answers to Google Form fields
+    Object.keys(FORM_FIELDS).forEach(key => {
+      const value = answers[key];
+      if (value !== undefined && value !== null) {
+        if (Array.isArray(value)) {
+          formData.append(FORM_FIELDS[key], value.join(', '));
+        } else {
+          formData.append(FORM_FIELDS[key], value);
+        }
       }
-    };
+    });
 
-    let currentStep = 0;
-    const answers = {}; // keyed by step id or field id
-    let isSubmitting = false;
-    let showResult = false;
+    try {
+      // Submit to Google Forms
+      await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Submission error:', error);
+      return { success: false, error: error.message };
+    }
+  }
 
-    function progressPercent() {
-      return Math.round((currentStep / (steps.length - 1)) * 100);
+  function goToStep(stepIndex) {
+    if (stepIndex < 0 || stepIndex >= steps.length) return;
+    currentStep = stepIndex;
+    saveState();
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStep() {
+    goToStep(currentStep + 1);
+  }
+
+  function prevStep() {
+    goToStep(currentStep - 1);
+  }
+
+  function render() {
+    if (showResult) {
+      renderResult();
+      return;
     }
 
-    function canProceedForStep(step) {
-      if (!step) return false;
-      if (step.type === 'intro') return true;
-      if (step.type === 'email') {
-        return answers.email && answers.age;
-      }
-      if (step.type === 'multi-select') {
-        return Array.isArray(answers[step.id]) && answers[step.id].length > 0;
-      }
-      return answers[step.id] !== undefined && answers[step.id] !== null && answers[step.id] !== '';
-    }
+    const step = steps[currentStep];
+    if (!step) return;
 
-    // helper to escape text
-    function esc(s) { return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+    const showProgress = step.type !== 'intro';
+    const canGoBack = currentStep > 1;
 
-    function render() {
-      if (showResult) {
-        renderResult();
-        return;
-      }
-
-      const step = steps[currentStep];
-      if (!step) return;
-
-      // container
-      root.innerHTML = `
-        <div class="max-w-4xl mx-auto px-4 py-8">
+    root.innerHTML = `
+      <div class="max-w-4xl mx-auto px-4 py-8 fade-in">
+        ${showProgress ? `
           <div class="mb-6">
             <div class="flex justify-between items-center mb-3">
-              <span class="text-xs text-gray-400">Step ${currentStep} of ${steps.length - 1}</span>
+              <span class="text-xs text-gray-400">Stap ${currentStep} van ${steps.length - 1}</span>
               <span class="text-xs text-gray-400">${progressPercent()}%</span>
             </div>
             <div class="w-full bg-gray-700 rounded-full h-2">
-              <div class="bg-[#e85d35] h-2 rounded-full" style="width:${progressPercent()}%"></div>
+              <div class="bg-[#e85d35] h-2 rounded-full transition-all duration-300" style="width:${progressPercent()}%"></div>
             </div>
           </div>
+        ` : ''}
 
-          <div class="bg-white text-gray-900 rounded-2xl p-6 mb-6">
-            <div class="mb-4">
-              <h2 class="text-2xl font-bold mb-2">${esc(step.title)}</h2>
-              ${step.subtitle ? `<p class="text-sm text-gray-600">${esc(step.subtitle)}</p>` : ''}
-            </div>
-
-            <div id="step-content"></div>
+        <div class="bg-white text-gray-900 rounded-2xl p-6 mb-6 shadow-xl">
+          <div class="mb-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2">${esc(step.title)}</h2>
+            ${step.subtitle ? `<p class="text-sm text-gray-600">${esc(step.subtitle)}</p>` : ''}
           </div>
 
-          <div id="step-controls" class="flex items-center gap-4"></div>
+          <div id="step-content"></div>
+        </div>
+
+        <div id="step-controls" class="flex items-center gap-4">
+          ${canGoBack ? `
+            <button id="back-btn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition">
+              ← Terug
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+
+    const content = document.getElementById('step-content');
+    const controls = document.getElementById('step-controls');
+
+    if (canGoBack) {
+      document.getElementById('back-btn')?.addEventListener('click', prevStep);
+    }
+
+    renderStepContent(step, content);
+  }
+
+  function renderStepContent(step, content) {
+    if (step.type === 'intro') {
+      content.innerHTML = `
+        <div class="text-center space-y-4">
+          <p class="text-lg text-gray-600">${esc(step.subtitle)}</p>
+          <div class="flex items-center justify-center gap-2 text-gray-400">
+            <div class="text-2xl">🏆</div>
+            <span class="text-sm">${esc(step.stat)}</span>
+          </div>
+          <div class="mt-6">
+            <button id="begin-btn" class="px-8 py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white transition-all transform hover:scale-105">
+              Begin Your Journey →
+            </button>
+            <p class="text-xs text-gray-500 mt-3">Duurt 2-3 minuten</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('begin-btn').addEventListener('click', nextStep);
+      return;
+    }
+
+    if (step.type === 'projects') {
+      content.innerHTML = step.options.map(opt => {
+        const selected = answers[step.id] === opt.value;
+        return `
+          <button type="button" data-value="${esc(opt.value)}" 
+            class="w-full text-left p-4 rounded-xl mb-3 transition-all border-2 ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+            <div class="flex items-start gap-4">
+              <div class="text-4xl">${opt.image}</div>
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <h3 class="font-bold">${esc(opt.country)}</h3>
+                  <span class="text-sm text-[#e85d35]">${esc(opt.title)}</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">${esc(opt.description)}</p>
+                <div class="flex gap-2 flex-wrap mb-2">
+                  ${opt.vibe.map(t => `<span class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-800">${esc(t)}</span>`).join('')}
+                </div>
+                <p class="text-xs text-gray-500 italic">${esc(opt.highlight)}</p>
+              </div>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      content.querySelectorAll('button[data-value]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[step.id] = btn.getAttribute('data-value');
+          saveState();
+          render();
+          setTimeout(nextStep, 300);
+        });
+      });
+      return;
+    }
+
+    if (step.type === 'multi-select') {
+      content.innerHTML = `
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4" id="multi-grid">
+          ${step.options.map(opt => {
+            const selected = Array.isArray(answers[step.id]) && answers[step.id].includes(opt.value);
+            return `
+              <button type="button" data-value="${esc(opt.value)}" 
+                class="p-3 border-2 rounded-xl text-center transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+                <div class="text-2xl mb-1">${opt.icon}</div>
+                <div class="text-sm font-medium">${esc(opt.label)}</div>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <button id="multi-continue" 
+          class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) ? '' : 'btn-disabled'}">
+          Volgende →
+        </button>
+      `;
+
+      content.querySelectorAll('#multi-grid button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const v = btn.getAttribute('data-value');
+          const arr = Array.isArray(answers[step.id]) ? [...answers[step.id]] : [];
+          const idx = arr.indexOf(v);
+          if (idx >= 0) arr.splice(idx, 1);
+          else arr.push(v);
+          answers[step.id] = arr;
+          saveState();
+          render();
+        });
+      });
+
+      document.getElementById('multi-continue')?.addEventListener('click', () => {
+        if (canProceedForStep(step)) nextStep();
+      });
+      return;
+    }
+
+    if (step.type === 'single-select') {
+      content.innerHTML = step.options.map(opt => {
+        const selected = answers[step.id] === opt.value;
+        return `
+          <button type="button" data-value="${esc(opt.value)}" 
+            class="w-full p-4 rounded-xl mb-3 text-left border-2 transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+            <div class="font-semibold">${esc(opt.label)}</div>
+            <div class="text-sm text-gray-600">${esc(opt.desc)}</div>
+          </button>
+        `;
+      }).join('');
+
+      content.querySelectorAll('button[data-value]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[step.id] = btn.getAttribute('data-value');
+          saveState();
+          render();
+          setTimeout(nextStep, 300);
+        });
+      });
+      return;
+    }
+
+    if (step.type === 'cards') {
+      content.innerHTML = `
+        <div class="grid md:grid-cols-3 gap-3">
+          ${step.options.map(opt => {
+            const selected = answers[step.id] === opt.value;
+            return `
+              <button type="button" data-value="${esc(opt.value)}" 
+                class="p-4 rounded-xl text-center border-2 transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+                <div class="text-3xl mb-2">${opt.icon}</div>
+                <div class="font-bold mb-1">${esc(opt.label)}</div>
+                <div class="text-sm text-gray-600 mb-2">${esc(opt.desc)}</div>
+                <div class="text-xs text-gray-500">${esc(opt.budget)}</div>
+              </button>
+            `;
+          }).join('')}
         </div>
       `;
 
-      const content = document.getElementById('step-content');
-      const controls = document.getElementById('step-controls');
-
-      // render step types
-      if (step.type === 'intro') {
-        content.innerHTML = `
-          <div class="text-center space-y-4">
-            <p class="text-lg text-gray-600">${esc(step.subtitle)}</p>
-            <div class="flex items-center justify-center gap-2 text-gray-400">
-              <div class="text-2xl">🏆</div>
-              <span class="text-sm">${esc(step.stat)}</span>
-            </div>
-            <div class="mt-6">
-              <button id="begin-btn" class="px-8 py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold">Begin Your Journey →</button>
-              <p class="text-xs text-gray-500 mt-3">Takes 2-3 minutes</p>
-            </div>
-          </div>
-        `;
-        document.getElementById('begin-btn').addEventListener('click', () => { currentStep = 1; render(); window.scrollTo({top:0,behavior:'smooth'}); });
-        return;
-      }
-
-      if (step.type === 'projects') {
-        content.innerHTML = step.options.map(opt => {
-          const selected = answers[step.id] === opt.value ? 'card-selected border-2' : 'border-2';
-          return `
-            <button type="button" data-value="${esc(opt.value)}" class="${selected} w-full text-left p-4 rounded-xl mb-3 transition">
-              <div class="flex items-start gap-4">
-                <div class="text-4xl">${opt.image}</div>
-                <div class="flex-1">
-                  <div class="flex items-center gap-2 mb-1">
-                    <h3 class="font-bold">${esc(opt.country)}</h3>
-                    <span class="text-sm text-[#e85d35]">${esc(opt.title)}</span>
-                  </div>
-                  <p class="text-sm text-gray-600 mb-2">${esc(opt.description)}</p>
-                  <div class="flex gap-2 flex-wrap mb-2">
-                    ${opt.vibe.map(t => `<span class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-800">${esc(t)}</span>`).join('')}
-                  </div>
-                  <p class="text-xs text-gray-500 italic">${esc(opt.highlight)}</p>
-                </div>
-              </div>
-            </button>
-          `;
-        }).join('');
-        // auto-next on selection with slight delay
-        content.querySelectorAll('button[data-value]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            answers[step.id] = btn.getAttribute('data-value');
-            render();
-            setTimeout(() => { currentStep++; render(); }, 250);
-          });
+      content.querySelectorAll('button[data-value]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[step.id] = btn.getAttribute('data-value');
+          saveState();
+          render();
+          setTimeout(nextStep, 300);
         });
-        return;
-      }
+      });
+      return;
+    }
 
-      if (step.type === 'multi-select') {
-        content.innerHTML = `
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="multi-grid">
-            ${step.options.map(opt => {
-              const selected = Array.isArray(answers[step.id]) && answers[step.id].includes(opt.value);
+    if (step.type === 'quick-select') {
+      content.innerHTML = `
+        <div class="grid grid-cols-2 gap-3">
+          ${step.options.map(opt => {
+            const selected = answers[step.id] === opt;
+            return `
+              <button type="button" data-value="${esc(opt)}" 
+                class="p-4 border-2 rounded-xl font-semibold transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+                ${esc(opt)}
+              </button>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      content.querySelectorAll('button[data-value]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          answers[step.id] = btn.getAttribute('data-value');
+          saveState();
+          render();
+          setTimeout(nextStep, 300);
+        });
+      });
+      return;
+    }
+
+    if (step.type === 'email') {
+      content.innerHTML = `
+        <div class="bg-orange-50 border-l-4 border-[#e85d35] p-4 rounded mb-4">
+          <div class="font-semibold text-[#e85d35]">Ontvang early bird toegang tot onze reizen met beperkte plaatsen</div>
+          <div class="text-sm text-gray-600">Plus je persoonlijke reisgids</div>
+        </div>
+
+        ${submitError ? `
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-4">
+            <div class="font-semibold text-red-800">Er is iets misgegaan</div>
+            <div class="text-sm text-red-600">${esc(submitError)}</div>
+          </div>
+        ` : ''}
+
+        <form id="contact-form" class="space-y-4">
+          ${step.fields.map(f => {
+            const value = answers[f.id] || '';
+            const hasError = f.required && f.id === 'email' && value && !isValidEmail(value);
+            
+            if (f.type === 'select') {
               return `
-                <button type="button" data-value="${esc(opt.value)}" class="p-3 border-2 rounded-xl text-center ${selected? 'card-selected':''}">
-                  <div class="text-2xl mb-1">${opt.icon}</div>
-                  <div class="text-sm font-medium">${esc(opt.label)}</div>
-                </button>
+                <div>
+                  <label class="block text-sm font-medium mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                  <select name="${esc(f.id)}" 
+                    class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition">
+                    <option value="">Selecteer...</option>
+                    ${f.options.map(opt => `
+                      <option value="${esc(opt)}" ${value === opt ? 'selected' : ''}>${esc(opt)}</option>
+                    `).join('')}
+                  </select>
+                </div>
               `;
-            }).join('')}
-          </div>
+            } else {
+              return `
+                <div>
+                  <label class="block text-sm font-medium mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                  <input name="${esc(f.id)}" type="${esc(f.type)}" 
+                    value="${esc(value)}"
+                    placeholder="${esc(f.placeholder || '')}" 
+                    class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition ${hasError ? 'border-red-500' : ''}" />
+                  ${hasError ? '<p class="text-xs text-red-500 mt-1">Voer een geldig e-mailadres in</p>' : ''}
+                </div>
+              `;
+            }
+          }).join('')}
 
-          <div class="mt-4">
-            <button id="multi-continue" class="w-full py-3 bg-[#e85d35] rounded-xl text-white font-bold ${canProceedForStep(step) ? '' : 'opacity-50 cursor-not-allowed'}">Continue →</button>
-          </div>
-        `;
-        // listeners
-        content.querySelectorAll('#multi-grid button').forEach(b => {
-          b.addEventListener('click', () => {
-            const v = b.getAttribute('data-value');
-            const arr = Array.isArray(answers[step.id]) ? answers[step.id] : [];
-            const idx = arr.indexOf(v);
-            if (idx >= 0) arr.splice(idx, 1); else arr.push(v);
-            answers[step.id] = arr;
+          <button type="submit" id="submit-btn" 
+            class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) && !isSubmitting ? '' : 'btn-disabled'}">
+            ${isSubmitting ? 'Verzenden...' : 'Bekijk mijn reis →'}
+          </button>
+          
+          <p class="text-xs text-gray-500 text-center mt-3">We respecteren je privacy. Altijd uitschrijven mogelijk.</p>
+        </form>
+      `;
+
+      const form = document.getElementById('contact-form');
+      
+      // Real-time validation
+      form.querySelectorAll('input, select').forEach(field => {
+        field.addEventListener('input', (e) => {
+          const fieldId = e.target.name;
+          answers[fieldId] = e.target.value.trim();
+          saveState();
+          
+          // Re-render to update button state and validation
+          if (fieldId === 'email' || fieldId === 'age') {
             render();
-          });
+          }
         });
-        document.getElementById('multi-continue').addEventListener('click', () => {
-          if (!canProceedForStep(step)) return;
-          currentStep++; render(); window.scrollTo({top:0,behavior:'smooth'});
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const fd = new FormData(form);
+        let missing = false;
+        
+        step.fields.forEach(f => {
+          const v = fd.get(f.id);
+          if (f.required && (!v || v.trim() === '')) {
+            missing = true;
+          }
+          if (f.id === 'email' && v && !isValidEmail(v)) {
+            missing = true;
+          }
+          answers[f.id] = v ? v.trim() : '';
         });
-        return;
-      }
 
-      if (step.type === 'single-select') {
-        content.innerHTML = step.options.map(opt => {
-          const sel = answers[step.id] === opt.value ? 'card-selected border-2' : 'border-2';
-          return `
-            <button type="button" data-value="${esc(opt.value)}" class="${sel} w-full p-4 rounded-xl mb-3 text-left">
-              <div class="font-semibold">${esc(opt.label)}</div>
-              <div class="text-sm text-gray-600">${esc(opt.desc)}</div>
-            </button>
-          `;
-        }).join('');
-        content.querySelectorAll('button[data-value]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            answers[step.id] = btn.getAttribute('data-value');
-            render();
-            setTimeout(() => { currentStep++; render(); }, 250);
-          });
-        });
-        return;
-      }
+        if (missing) {
+          submitError = 'Vul alle verplichte velden correct in.';
+          render();
+          return;
+        }
 
-      if (step.type === 'cards') {
-        content.innerHTML = `<div class="grid md:grid-cols-3 gap-3">${step.options.map(opt => {
-          const sel = answers[step.id] === opt.value ? 'card-selected border-2' : 'border-2';
-          return `
-            <button type="button" data-value="${esc(opt.value)}" class="${sel} p-4 rounded-xl text-center">
-              <div class="text-3xl mb-2">${opt.icon}</div>
-              <div class="font-bold mb-1">${esc(opt.label)}</div>
-              <div class="text-sm text-gray-600 mb-2">${esc(opt.desc)}</div>
-              <div class="text-xs text-gray-500">${esc(opt.budget)}</div>
-            </button>
-          `;
-        }).join('')}</div>`;
-        content.querySelectorAll('button[data-value]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            answers[step.id] = btn.getAttribute('data-value');
-            render();
-            setTimeout(() => { currentStep++; render(); }, 250);
-          });
-        });
-        return;
-      }
+        isSubmitting = true;
+        submitError = null;
+        render();
 
-      if (step.type === 'quick-select') {
-        content.innerHTML = `
-          <div class="grid grid-cols-2 gap-3">
-            ${step.options.map(opt => `<button type="button" data-value="${esc(opt)}" class="p-4 border-2 rounded-xl font-semibold ${answers[step.id]===opt ? 'card-selected':''}">${esc(opt)}</button>`).join('')}
-          </div>
-        `;
-        content.querySelectorAll('button[data-value]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            answers[step.id] = btn.getAttribute('data-value');
-            render();
-            setTimeout(() => { currentStep++; render(); }, 250);
-          });
-        });
-        return;
-      }
+        const result = await submitToGoogleForms();
+        
+        isSubmitting = false;
+        
+        if (result.success) {
+          clearState();
+          showResult = true;
+          render();
+        } else {
+          submitError = 'Verbinding mislukt. Probeer het opnieuw.';
+          render();
+        }
+      });
+      return;
+    }
+  }
 
-      if (step.type === 'email' || step.type === 'contact') {
-        // fields
-        content.innerHTML = `
-          <div class="bg-orange-50 border-l-4 border-[#e85d35] p-4 rounded mb-4 text-[#e85d35]">
-            <div class="font-semibold">${esc(step.benefit || 'Receive early bird acces to our trips with limited places')}</div>
-            <div class="text-sm text-gray-600">Plus your personalized journey guide</div>
-          </div>
+  function getRec() {
+    const pilot = answers.pilot;
+    return recommendations[pilot] || recommendations.ireland;
+  }
 
-          <form id="contact-form" class="space-y-4">
-            ${step.fields.map(f => {
-              if (f.type === 'select') {
-                return `
-                  <div>
-                    <label class="block text-sm font-medium mb-2">${esc(f.label)}</label>
-                    <select name="${esc(f.id)}" class="w-full px-4 py-3 border-2 rounded-xl text-sm">
-                      <option value="">Select...</option>
-                      ${f.options.map(opt => `<option value="${esc(opt)}">${esc(opt)}</option>`).join('')}
-                    </select>
-                  </div>
-                `;
-              } else {
-                return `
-                  <div>
-                    <label class="block text-sm font-medium mb-2">${esc(f.label)}</label>
-                    <input name="${esc(f.id)}" type="${esc(f.type)}" placeholder="${esc(f.placeholder||'')}" class="w-full px-4 py-3 border-2 rounded-xl text-sm" />
-                  </div>
-                `;
-              }
-            }).join('')}
+  function renderResult() {
+    const rec = getRec();
+    const [testimonialText, testimonialAuthor = ''] = (rec.testimonial || '').split(' - ');
+    
+    root.innerHTML = `
+      <div class="max-w-4xl mx-auto px-4 py-10 text-center fade-in">
+        <div class="mb-8">
+          <div class="text-6xl mb-4">${rec.flag}</div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">${esc(rec.title)}</h1>
+          <p class="text-lg text-gray-300 italic">${esc(rec.tagline)}</p>
+        </div>
+
+        <div class="bg-white text-gray-900 rounded-2xl overflow-hidden mb-8 shadow-xl">
+          <div class="p-6 space-y-6">
+            <p class="text-lg">${esc(rec.description)}</p>
 
             <div>
-              <button type="submit" id="submit-btn" class="w-full py-3 bg-[#e85d35] rounded-xl text-white font-bold ${canProceedForStep(step) ? '' : 'opacity-50 cursor-not-allowed'}">
-                ${isSubmitting ? 'Submitting...' : 'See My Journey →'}
-              </button>
+              <h3 class="text-lg font-bold mb-3">Experience Highlights</h3>
+              <ul class="space-y-2 text-left">
+                ${rec.highlights.map(h => `
+                  <li class="flex items-start gap-3">
+                    <span class="text-[#e85d35] mt-0.5">✔️</span>
+                    <span>${esc(h)}</span>
+                  </li>
+                `).join('')}
+              </ul>
             </div>
-            <p class="text-xs text-gray-500 text-center mt-3">We respect your privacy. Unsubscribe anytime.</p>
-          </form>
-        `;
 
-        const form = document.getElementById('contact-form');
-        // prefill if answers exist
-        step.fields.forEach(f => {
-          const el = form.elements[f.id];
-          if (el && answers[f.id]) el.value = answers[f.id];
-        });
-
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          // collect values and validate
-          const fd = new FormData(form);
-          let missing = false;
-          step.fields.forEach(f => {
-            const v = fd.get(f.id);
-            if (f.required && (!v || v.trim() === '')) missing = true;
-            answers[f.id] = v ? v.trim() : '';
-          });
-          if (missing) {
-            alert('Vul alle verplichte velden in.');
-            return;
-          }
-          // fake submit
-          isSubmitting = true;
-          render(); // to update button state
-          setTimeout(() => {
-            isSubmitting = false;
-            showResult = true;
-            render();
-          }, 900);
-        });
-
-        return;
-      }
-    }
-
-    function getRec() {
-      const pilot = answers.pilot || answers['pilot']; // both same
-      return recommendations[pilot] || recommendations.ireland;
-    }
-
-    function renderResult() {
-      const rec = getRec();
-      const [testimonialText, testimonialAuthor = ''] = (rec.testimonial || '').split(' - ');
-      root.innerHTML = `
-        <div class="max-w-4xl mx-auto px-4 py-10 text-center">
-          <div class="mb-8">
-            <div class="text-6xl mb-4">${rec.flag}</div>
-            <h1 class="text-3xl md:text-4xl font-bold mb-2">${esc(rec.title)}</h1>
-            <p class="text-lg text-gray-300 italic">${esc(rec.tagline)}</p>
-          </div>
-
-          <div class="bg-white text-gray-900 rounded-2xl overflow-hidden mb-8">
-            <div class="p-6 space-y-6">
-              <p>${esc(rec.description)}</p>
-
-              <div>
-                <h3 class="text-lg font-bold mb-3">Experience Highlights</h3>
-                <ul class="space-y-2 text-left">
-                  ${rec.highlights.map(h => `<li class="flex items-start gap-3"><span class="text-[#e85d35] mt-0.5">✔️</span><span>${esc(h)}</span></li>`).join('')}
-                </ul>
-              </div>
-
-              <div>
-                <h3 class="text-lg font-bold mb-3">What's Included</h3>
-                <div class="flex flex-wrap gap-2">
-                  ${rec.whatsIncluded.map(w => `<span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">${esc(w)}</span>`).join('')}
-                </div>
-              </div>
-
-              <div class="bg-[#1a1a2e] text-white p-4 rounded-xl">
-                <p class="italic">"${esc(testimonialText)}"</p>
-                <p class="text-sm text-gray-300 mt-1">- ${esc(testimonialAuthor)}</p>
-              </div>
-
-              <div>
-                <a href="https://travelbeyondthepitch.com" class="block w-full text-center py-3 bg-[#e85d35] rounded-xl font-bold text-white">Apply for this experience</a>
-                <p class="text-center text-sm text-gray-400 mt-2">Early-bird discount: €50 off • Limited spots available</p>
+            <div>
+              <h3 class="text-lg font-bold mb-3">What's Included</h3>
+              <div class="flex flex-wrap gap-2 justify-center">
+                ${rec.whatsIncluded.map(w => `
+                  <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">${esc(w)}</span>
+                `).join('')}
               </div>
             </div>
-          </div>
 
-          <div class="text-gray-400">
-            <p>Check your email for your complete personalized itinerary</p>
-            <div class="flex justify-center gap-4 mt-4">
-              <a href="https://travelbeyondthepitch.com" class="text-[#e85d35] hover:underline">Explore All Experiences</a>
-              <button id="retake-btn" class="text-gray-400 hover:text-white">Retake Quiz</button>
+            <div class="bg-[#1a1a2e] text-white p-4 rounded-xl">
+              <p class="italic">"${esc(testimonialText)}"</p>
+              <p class="text-sm text-gray-300 mt-1">- ${esc(testimonialAuthor)}</p>
+            </div>
+
+            <div class="space-y-3">
+              <a href="https://travelbeyondthepitch.com" 
+                class="block w-full text-center py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white transition-all transform hover:scale-105">
+                Aanmelden voor deze ervaring
+              </a>
+              <p class="text-center text-sm text-gray-600">
+                <span class="font-semibold text-[#e85d35]">Early-bird korting: €50</span> • Beperkte plaatsen beschikbaar
+              </p>
             </div>
           </div>
         </div>
-      `;
-      const retake = document.getElementById('retake-btn');
-      if (retake) retake.addEventListener('click', () => { currentStep = 0; Object.keys(answers).forEach(k=>delete answers[k]); showResult = false; render(); });
+
+        <div class="text-gray-400 space-y-4">
+          <p>Controleer je e-mail voor je complete persoonlijke reisschema</p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="https://travelbeyondthepitch.com" 
+              class="text-[#e85d35] hover:underline">
+              Bekijk alle ervaringen
+            </a>
+            <button id="retake-btn" 
+              class="text-gray-400 hover:text-white transition">
+              Quiz opnieuw doen
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    document.getElementById('retake-btn')?.addEventListener('click', () => {
+      currentStep = 0;
+      Object.keys(answers).forEach(k => delete answers[k]);
+      showResult = false;
+      clearState();
+      render();
+    });
+  }
+
+  // Initialize
+  loadState();
+  render();
+
+  // Debug helper
+  window._BTP = { 
+    steps, 
+    answers, 
+    goTo: goToStep,
+    reset: () => {
+      currentStep = 0;
+      Object.keys(answers).forEach(k => delete answers[k]);
+      showResult = false;
+      clearState();
+      render();
     }
-
-    // initial render
-    render();
-
-    // Expose for quick debugging in console (optional)
-    window._BTP = { steps, answers, goTo: (n) => { currentStep = n; render(); } };
-  })();
-  </script>
+  };
+})();
+</script>
 </body>
 </html>
