@@ -357,7 +357,54 @@
     goToStep(currentStep - 1);
   }
 
+  // --- Nieuwe render-architectuur: één shell en updates naar sub-elementen ---
+  let shellBuilt = false;
+  let el = {}; // references to frequently used elements
+
+  function buildShell() {
+    // Bouw één keer de statische layout en bewaar referenties naar sub-elementen
+    root.innerHTML = `
+      <div class="max-w-4xl mx-auto px-4 py-8 fade-in" id="btp-container">
+        <div id="btp-progress" class="mb-6" style="display:none;">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-xs text-gray-400" id="btp-progress-text">Stap 0 van 0</span>
+            <span class="text-xs text-gray-400" id="btp-progress-percent">0%</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2">
+            <div id="btp-progress-bar" class="bg-[#e85d35] h-2 rounded-full transition-all duration-300" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div id="btp-card" class="bg-white text-gray-900 rounded-2xl p-6 mb-6 shadow-xl">
+          <div class="mb-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2" id="btp-title"></h2>
+            <p class="text-sm text-gray-600" id="btp-subtitle"></p>
+          </div>
+
+          <div id="step-content"></div>
+        </div>
+
+        <div id="step-controls" class="flex items-center gap-4"></div>
+      </div>
+    `;
+
+    el.container = document.getElementById('btp-container');
+    el.progress = document.getElementById('btp-progress');
+    el.progressText = document.getElementById('btp-progress-text');
+    el.progressPercent = document.getElementById('btp-progress-percent');
+    el.progressBar = document.getElementById('btp-progress-bar');
+    el.card = document.getElementById('btp-card');
+    el.title = document.getElementById('btp-title');
+    el.subtitle = document.getElementById('btp-subtitle');
+    el.content = document.getElementById('step-content');
+    el.controls = document.getElementById('step-controls');
+
+    shellBuilt = true;
+  }
+
   function render() {
+    if (!shellBuilt) buildShell();
+
     if (showResult) {
       renderResult();
       return;
@@ -367,52 +414,34 @@
     if (!step) return;
 
     const showProgress = step.type !== 'intro';
+    el.progress.style.display = showProgress ? 'block' : 'none';
+    el.progressText.textContent = `Stap ${currentStep} van ${steps.length - 1}`;
+    el.progressPercent.textContent = `${progressPercent()}%`;
+    el.progressBar.style.width = `${progressPercent()}%`;
+
     const canGoBack = currentStep > 1;
 
-    root.innerHTML = `
-      <div class="max-w-4xl mx-auto px-4 py-8 fade-in">
-        ${showProgress ? `
-          <div class="mb-6">
-            <div class="flex justify-between items-center mb-3">
-              <span class="text-xs text-gray-400">Stap ${currentStep} van ${steps.length - 1}</span>
-              <span class="text-xs text-gray-400">${progressPercent()}%</span>
-            </div>
-            <div class="w-full bg-gray-700 rounded-full h-2">
-              <div class="bg-[#e85d35] h-2 rounded-full transition-all duration-300" style="width:${progressPercent()}%"></div>
-            </div>
-          </div>
-        ` : ''}
+    // Update title/subtitle
+    el.title.innerHTML = esc(step.title);
+    el.subtitle.innerHTML = step.subtitle ? esc(step.subtitle) : '';
 
-        <div class="bg-white text-gray-900 rounded-2xl p-6 mb-6 shadow-xl">
-          <div class="mb-4">
-            <h2 class="text-2xl md:text-3xl font-bold mb-2">${esc(step.title)}</h2>
-            ${step.subtitle ? `<p class="text-sm text-gray-600">${esc(step.subtitle)}</p>` : ''}
-          </div>
-
-          <div id="step-content"></div>
-        </div>
-
-        <div id="step-controls" class="flex items-center gap-4">
-          ${canGoBack ? `
-            <button id="back-btn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition">
-              ← Terug
-            </button>
-          ` : ''}
-        </div>
-      </div>
-    `;
-
-    const content = document.getElementById('step-content');
-    const controls = document.getElementById('step-controls');
+    // Update controls (only the back button here)
+    el.controls.innerHTML = canGoBack ? `
+      <button id="back-btn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition">
+        ← Terug
+      </button>
+    ` : '';
 
     if (canGoBack) {
-      document.getElementById('back-btn')?.addEventListener('click', prevStep);
+      el.controls.querySelector('#back-btn').addEventListener('click', prevStep);
     }
 
-    renderStepContent(step, content);
+    // Render step content into el.content (only inner area changes)
+    renderStepContent(step, el.content);
   }
 
   function renderStepContent(step, content) {
+    // Each branch zorgt dat alleen de benodigde innerHTML van content verandert.
     if (step.type === 'intro') {
       content.innerHTML = `
         <div class="text-center space-y-6">
@@ -437,7 +466,7 @@
           </div>
         </div>
       `;
-      document.getElementById('begin-btn').addEventListener('click', nextStep);
+      content.querySelector('#begin-btn').addEventListener('click', nextStep);
       return;
     }
 
@@ -465,11 +494,13 @@
         `;
       }).join('');
 
+      // Voeg listeners toe
       content.querySelectorAll('button[data-value]').forEach(btn => {
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
+          // Update only the project buttons to reflect selected state without rebuilding whole shell
+          renderStepContent(step, content);
           setTimeout(nextStep, 300);
         });
       });
@@ -506,11 +537,12 @@
           else arr.push(v);
           answers[step.id] = arr;
           saveState();
-          render();
+          // Her-render alleen deze stap content om selected states te tonen
+          renderStepContent(step, content);
         });
       });
 
-      document.getElementById('multi-continue')?.addEventListener('click', () => {
+      content.querySelector('#multi-continue')?.addEventListener('click', () => {
         if (canProceedForStep(step)) nextStep();
       });
       return;
@@ -532,7 +564,7 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
+          renderStepContent(step, content);
           setTimeout(nextStep, 300);
         });
       });
@@ -561,7 +593,7 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
+          renderStepContent(step, content);
           setTimeout(nextStep, 300);
         });
       });
@@ -587,7 +619,7 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
+          renderStepContent(step, content);
           setTimeout(nextStep, 300);
         });
       });
@@ -649,7 +681,7 @@
         </form>
       `;
 
-      const form = document.getElementById('contact-form');
+      const form = content.querySelector('#contact-form');
       
       // Real-time validation
       form.querySelectorAll('input, select').forEach(field => {
@@ -661,6 +693,13 @@
           // Re-render to update button state and validation
           if (fieldId === 'email' || fieldId === 'age') {
             render();
+          } else {
+            // alleen update button enabled/disabled state
+            const submitBtn = content.querySelector('#submit-btn');
+            if (submitBtn) {
+              if (canProceedForStep(step) && !isSubmitting) submitBtn.classList.remove('btn-disabled');
+              else submitBtn.classList.add('btn-disabled');
+            }
           }
         });
       });
@@ -718,7 +757,14 @@
     const rec = getRec();
     const [testimonialText, testimonialAuthor = ''] = (rec.testimonial || '').split(' - ');
     
-    root.innerHTML = `
+    // We updaten dezelfde content container en verbergen controls/progress
+    el.progress.style.display = 'none';
+    el.controls.innerHTML = '';
+
+    el.title.innerHTML = esc(rec.title);
+    el.subtitle.innerHTML = `<span class="text-sm text-gray-600">${esc(rec.tagline)}</span>`;
+
+    el.content.innerHTML = `
       <div class="max-w-4xl mx-auto px-4 py-10 text-center fade-in">
         <div class="mb-8">
           <div class="text-6xl mb-4">${rec.flag}</div>
@@ -784,7 +830,7 @@
       </div>
     `;
     
-    document.getElementById('retake-btn')?.addEventListener('click', () => {
+    el.content.querySelector('#retake-btn')?.addEventListener('click', () => {
       currentStep = 0;
       Object.keys(answers).forEach(k => delete answers[k]);
       showResult = false;
@@ -795,6 +841,7 @@
 
   // Initialize
   loadState();
+  buildShell();
   render();
 
   // Debug helper
