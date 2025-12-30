@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Beyond The Pitch - Find your next adventure</title>
+  <title>Beyond The Pitch - Discover Your Perfect Sport & Culture Journey</title>
+  <meta name="description" content="Find your perfect authentic sport and culture experience. From Gaelic games in Ireland to football passion in Lima. Take our 3-minute quiz." />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { 
@@ -13,12 +14,13 @@
     .card-selected { 
       border-color: #e85d35; 
       background: #FFF7F1; 
+      box-shadow: 0 4px 12px rgba(232, 93, 53, 0.2);
     }
     .fade-in {
-      animation: fadeIn 0.3s ease-in;
+      animation: fadeIn 0.4s ease-out;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .btn-disabled {
@@ -26,11 +28,23 @@
       cursor: not-allowed;
       pointer-events: none;
     }
+    .pulse-subtle {
+      animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    /* Improved focus states for accessibility */
+    button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid #e85d35;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body class="bg-[#1a1a2e] text-white min-h-screen">
 <header class="max-w-4xl mx-auto px-4 py-4">
-  <a href="https://travelbeyondthepitch.com" class="inline-flex items-center gap-3">
+  <a href="https://travelbeyondthepitch.com" class="inline-flex items-center gap-3" aria-label="Travel Beyond The Pitch Home">
     <img 
       src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" 
       alt="Travel Beyond The Pitch"
@@ -46,7 +60,7 @@
   const STORAGE_KEY = 'btp_quiz_state';
   const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse';
   
-  // BELANGRIJK: Vervang deze entry IDs met jouw eigen Google Form field IDs
+  // IMPORTANT: Replace these entry IDs with your own Google Form field IDs
   const FORM_FIELDS = {
     email: 'entry.123456789',
     age: 'entry.987654321',
@@ -68,19 +82,25 @@
       type: 'intro',
       title: 'Discover Your Perfect Sport & Culture Journey',
       subtitle: 'Travel beyond the stadium. Dive into communities, traditions and untold stories.',
-      description: 'Experience sport the way locals do-from ancient Gaelic games in Irish villages to the electric passion of Lima\'s football culture.',
-      stat: 'Co-created with local clubs, fans and communities'
+      description: 'Experience sport the way locals do—from ancient Gaelic games in Irish villages to the electric passion of Lima\'s football culture.',
+      stat: 'Co-created with local clubs, fans and communities',
+      benefits: [
+        { icon: '🎯', text: 'Personalized destination matches' },
+        { icon: '🌍', text: 'Authentic local experiences' },
+        { icon: '🤝', text: 'Connect with real fans & communities' },
+        { icon: '✨', text: 'Exclusive early-bird access' }
+      ]
     },
     {
       id: 'pilot',
       type: 'projects',
       title: 'Which destination speaks to you?',
-      subtitle: 'Our current experiences',
+      subtitle: 'Choose your adventure - each carefully crafted with local partners',
       options: [
         {
           value: 'ireland',
           country: 'Ireland',
-          title: 'Gaelic games',
+          title: 'Gaelic Games',
           image: '🇮🇪',
           description: 'Ancient Irish sports, traditional pub culture, and rolling countryside',
           vibe: ['Authentic', 'Cultural', 'Community'],
@@ -110,7 +130,7 @@
       id: 'interests',
       type: 'multi-select',
       title: 'What makes travel meaningful to you?',
-      subtitle: 'Select all that resonate',
+      subtitle: 'Select all that resonate (minimum 1)',
       options: [
         { value: 'sport', label: 'Live Sport', icon: '⚽' },
         { value: 'food', label: 'Local Cuisine', icon: '🍜' },
@@ -126,6 +146,7 @@
       id: 'sport',
       type: 'single-select',
       title: 'Your sport preference?',
+      subtitle: 'What kind of sporting experience excites you most?',
       options: [
         { value: 'football-major', label: 'Football (Major Leagues)', desc: 'Top-tier clubs & stadiums' },
         { value: 'football-local', label: 'Football (Local Culture)', desc: 'Community clubs & authenticity' },
@@ -140,16 +161,18 @@
       id: 'travelStyle',
       type: 'cards',
       title: 'Your travel style?',
+      subtitle: 'Choose the experience level that fits you best',
       options: [
-        { value: 'immersive', label: 'Immersive Explorer', icon: '🎒', desc: 'Deep local experiences, authentic connections, budget-conscious', budget: '€400-700' },
-        { value: 'balanced', label: 'Balanced Adventurer', icon: '🧳', desc: 'Mix of comfort and local culture, curated experiences', budget: '€700-1200' },
-        { value: 'premium', label: 'Premium Traveler', icon: '✨', desc: 'Comfort-first with exclusive access and personalized touches', budget: '€1200+' }
+        { value: 'immersive', label: 'Immersive Explorer', icon: '🎒', desc: 'Deep local experiences, authentic connections, budget-conscious', budget: '€400-700 per person' },
+        { value: 'balanced', label: 'Balanced Adventurer', icon: '🧳', desc: 'Mix of comfort and local culture, curated experiences', budget: '€700-1200 per person' },
+        { value: 'premium', label: 'Premium Traveler', icon: '✨', desc: 'Comfort-first with exclusive access and personalized touches', budget: '€1200+ per person' }
       ]
     },
     {
       id: 'group',
       type: 'single-select',
       title: 'Who are you traveling with?',
+      subtitle: 'Help us tailor the perfect group experience',
       options: [
         { value: 'solo', label: 'Solo', desc: 'Flying solo, open to meeting others' },
         { value: 'couple', label: 'Partner', desc: 'Traveling as a couple' },
@@ -162,6 +185,7 @@
       id: 'timing',
       type: 'quick-select',
       title: 'When are you looking to travel?',
+      subtitle: 'This helps us prioritize your match',
       options: [
         'Next 3 months',
         'Next 6 months',
@@ -173,25 +197,26 @@
       id: 'future',
       type: 'multi-select',
       title: 'What would you love to see next?',
-      subtitle: 'Help shape our next journeys',
+      subtitle: 'Help shape our future journeys (optional)',
       options: [
         { value: 'derbies', label: 'Football Derbies', icon: '⚽' },
         { value: 'basketball', label: 'Basketball', icon: '🏀' },
-        { value: 'europe', label: 'Europe', icon: '🏉' },
+        { value: 'europe', label: 'Europe Rugby', icon: '🏉' },
         { value: 'balkans', label: 'Balkans', icon: '🇷🇸' },
         { value: 'latam', label: 'Latin America', icon: '🌎' },
         { value: 'africa', label: 'Africa', icon: '🌍' },
         { value: 'asia', label: 'Central Asia', icon: '🏔️' },
         { value: 'traditional', label: 'Indigenous Sports', icon: '🎪' }
-      ]
+      ],
+      optional: true
     },
     {
       id: 'contact',
       type: 'email',
       title: 'Get Your Personalized Journey',
-      subtitle: 'Receive your match + exclusive early-bird access',
+      subtitle: 'Receive your custom match + exclusive pilot access',
       fields: [
-        { id: 'email', label: 'Email', type: 'email', required: true, placeholder: 'you@example.com' },
+        { id: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'you@example.com' },
         { id: 'age', label: 'Age Range', type: 'select', required: true, options: ['18-24', '25-34', '35-44', '45-54', '55+'] },
         { id: 'location', label: 'Where are you from?', type: 'text', required: false, placeholder: 'City, Country' }
       ]
@@ -298,6 +323,8 @@
       return answers.email && isValidEmail(answers.email) && answers.age;
     }
     if (step.type === 'multi-select') {
+      // Optional multi-select steps can be skipped
+      if (step.optional) return true;
       return Array.isArray(answers[step.id]) && answers[step.id].length > 0;
     }
     return answers[step.id] !== undefined && answers[step.id] !== null && answers[step.id] !== '';
@@ -357,17 +384,16 @@
     goToStep(currentStep - 1);
   }
 
-  // --- Nieuwe render-architectuur: één shell en updates naar sub-elementen ---
+  // Render architecture: one shell with dynamic updates
   let shellBuilt = false;
   let el = {}; // references to frequently used elements
 
   function buildShell() {
-    // Bouw één keer de statische layout en bewaar referenties naar sub-elementen
     root.innerHTML = `
       <div class="max-w-4xl mx-auto px-4 py-8 fade-in" id="btp-container">
         <div id="btp-progress" class="mb-6" style="display:none;">
           <div class="flex justify-between items-center mb-3">
-            <span class="text-xs text-gray-400" id="btp-progress-text">Stap 0 van 0</span>
+            <span class="text-xs text-gray-400" id="btp-progress-text">Step 0 of 0</span>
             <span class="text-xs text-gray-400" id="btp-progress-percent">0%</span>
           </div>
           <div class="w-full bg-gray-700 rounded-full h-2">
@@ -375,10 +401,10 @@
           </div>
         </div>
 
-        <div id="btp-card" class="bg-white text-gray-900 rounded-2xl p-6 mb-6 shadow-xl">
-          <div class="mb-4">
+        <div id="btp-card" class="bg-white text-gray-900 rounded-2xl p-6 md:p-8 mb-6 shadow-xl">
+          <div class="mb-6">
             <h2 class="text-2xl md:text-3xl font-bold mb-2" id="btp-title"></h2>
-            <p class="text-sm text-gray-600" id="btp-subtitle"></p>
+            <p class="text-sm md:text-base text-gray-600" id="btp-subtitle"></p>
           </div>
 
           <div id="step-content"></div>
@@ -415,7 +441,7 @@
 
     const showProgress = step.type !== 'intro';
     el.progress.style.display = showProgress ? 'block' : 'none';
-    el.progressText.textContent = `Stap ${currentStep} van ${steps.length - 1}`;
+    el.progressText.textContent = `Step ${currentStep} of ${steps.length - 1}`;
     el.progressPercent.textContent = `${progressPercent()}%`;
     el.progressBar.style.width = `${progressPercent()}%`;
 
@@ -425,10 +451,10 @@
     el.title.innerHTML = esc(step.title);
     el.subtitle.innerHTML = step.subtitle ? esc(step.subtitle) : '';
 
-    // Update controls (only the back button here)
+    // Update controls (back button)
     el.controls.innerHTML = canGoBack ? `
       <button id="back-btn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition">
-        ← Terug
+        ← Back
       </button>
     ` : '';
 
@@ -436,12 +462,11 @@
       el.controls.querySelector('#back-btn').addEventListener('click', prevStep);
     }
 
-    // Render step content into el.content (only inner area changes)
+    // Render step content
     renderStepContent(step, el.content);
   }
 
   function renderStepContent(step, content) {
-    // Each branch zorgt dat alleen de benodigde innerHTML van content verandert.
     if (step.type === 'intro') {
       content.innerHTML = `
         <div class="text-center space-y-6">
@@ -458,11 +483,29 @@
             <span class="text-sm font-medium">${esc(step.stat)}</span>
           </div>
 
+          <!-- NEW: Value proposition boxes -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 max-w-3xl mx-auto">
+            ${step.benefits.map(b => `
+              <div class="text-center">
+                <div class="text-3xl mb-2">${b.icon}</div>
+                <div class="text-xs text-gray-600 font-medium">${esc(b.text)}</div>
+              </div>
+            `).join('')}
+          </div>
+
           <div class="pt-4">
             <button id="begin-btn" class="px-10 py-4 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
               Start Your Journey →
             </button>
-            <p class="text-sm text-gray-400 mt-4">Duurt 2-3 minuten • 9 simpele vragen</p>
+            <p class="text-sm text-gray-400 mt-4">Takes 2-3 minutes • 9 simple questions</p>
+          </div>
+
+          <!-- NEW: Pilot badge -->
+          <div class="pt-6 border-t border-gray-200 mt-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full">
+              <span class="text-xs font-semibold text-[#e85d35]">🚀 PILOT PROGRAM</span>
+              <span class="text-xs text-gray-600">Limited spots available</span>
+            </div>
           </div>
         </div>
       `;
@@ -475,31 +518,29 @@
         const selected = answers[step.id] === opt.value;
         return `
           <button type="button" data-value="${esc(opt.value)}" 
-            class="w-full text-left p-4 rounded-xl mb-3 transition-all border-2 ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+            class="w-full text-left p-5 rounded-xl mb-4 transition-all border-2 hover:shadow-lg ${selected ? 'card-selected' : 'border-gray-200 hover:border-gray-300'}">
             <div class="flex items-start gap-4">
-              <div class="text-4xl">${opt.image}</div>
+              <div class="text-5xl flex-shrink-0">${opt.image}</div>
               <div class="flex-1">
-                <div class="flex items-center gap-2 mb-1">
-                  <h3 class="font-bold">${esc(opt.country)}</h3>
-                  <span class="text-sm text-[#e85d35]">${esc(opt.title)}</span>
+                <div class="flex items-center gap-2 mb-2">
+                  <h3 class="font-bold text-lg">${esc(opt.country)}</h3>
+                  <span class="text-sm text-[#e85d35] font-semibold">${esc(opt.title)}</span>
                 </div>
-                <p class="text-sm text-gray-600 mb-2">${esc(opt.description)}</p>
+                <p class="text-sm text-gray-600 mb-3">${esc(opt.description)}</p>
                 <div class="flex gap-2 flex-wrap mb-2">
-                  ${opt.vibe.map(t => `<span class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-800">${esc(t)}</span>`).join('')}
+                  ${opt.vibe.map(t => `<span class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-800 font-medium">${esc(t)}</span>`).join('')}
                 </div>
-                <p class="text-xs text-gray-500 italic">${esc(opt.highlight)}</p>
+                <p class="text-xs text-gray-500 italic mt-2">✨ ${esc(opt.highlight)}</p>
               </div>
             </div>
           </button>
         `;
       }).join('');
 
-      // Voeg listeners toe
       content.querySelectorAll('button[data-value]').forEach(btn => {
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          // Update only the project buttons to reflect selected state without rebuilding whole shell
           renderStepContent(step, content);
           setTimeout(nextStep, 300);
         });
@@ -508,14 +549,15 @@
     }
 
     if (step.type === 'multi-select') {
+      const canProceed = canProceedForStep(step);
       content.innerHTML = `
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4" id="multi-grid">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6" id="multi-grid">
           ${step.options.map(opt => {
             const selected = Array.isArray(answers[step.id]) && answers[step.id].includes(opt.value);
             return `
               <button type="button" data-value="${esc(opt.value)}" 
-                class="p-3 border-2 rounded-xl text-center transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
-                <div class="text-2xl mb-1">${opt.icon}</div>
+                class="p-4 border-2 rounded-xl text-center transition-all hover:shadow-md ${selected ? 'card-selected' : 'border-gray-200 hover:border-gray-300'}">
+                <div class="text-3xl mb-2">${opt.icon}</div>
                 <div class="text-sm font-medium">${esc(opt.label)}</div>
               </button>
             `;
@@ -523,9 +565,10 @@
         </div>
 
         <button id="multi-continue" 
-          class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) ? '' : 'btn-disabled'}">
-          Volgende →
+          class="w-full py-4 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition-all shadow-md hover:shadow-lg ${canProceed ? '' : 'btn-disabled'}">
+          Continue →
         </button>
+        ${step.optional ? '<p class="text-xs text-gray-500 text-center mt-3">Optional - you can skip this</p>' : ''}
       `;
 
       content.querySelectorAll('#multi-grid button').forEach(btn => {
@@ -537,7 +580,6 @@
           else arr.push(v);
           answers[step.id] = arr;
           saveState();
-          // Her-render alleen deze stap content om selected states te tonen
           renderStepContent(step, content);
         });
       });
@@ -553,8 +595,8 @@
         const selected = answers[step.id] === opt.value;
         return `
           <button type="button" data-value="${esc(opt.value)}" 
-            class="w-full p-4 rounded-xl mb-3 text-left border-2 transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
-            <div class="font-semibold">${esc(opt.label)}</div>
+            class="w-full p-5 rounded-xl mb-3 text-left border-2 transition-all hover:shadow-md ${selected ? 'card-selected' : 'border-gray-200 hover:border-gray-300'}">
+            <div class="font-semibold text-base mb-1">${esc(opt.label)}</div>
             <div class="text-sm text-gray-600">${esc(opt.desc)}</div>
           </button>
         `;
@@ -573,16 +615,16 @@
 
     if (step.type === 'cards') {
       content.innerHTML = `
-        <div class="grid md:grid-cols-3 gap-3">
+        <div class="grid md:grid-cols-3 gap-4">
           ${step.options.map(opt => {
             const selected = answers[step.id] === opt.value;
             return `
               <button type="button" data-value="${esc(opt.value)}" 
-                class="p-4 rounded-xl text-center border-2 transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
-                <div class="text-3xl mb-2">${opt.icon}</div>
-                <div class="font-bold mb-1">${esc(opt.label)}</div>
-                <div class="text-sm text-gray-600 mb-2">${esc(opt.desc)}</div>
-                <div class="text-xs text-gray-500">${esc(opt.budget)}</div>
+                class="p-5 rounded-xl text-center border-2 transition-all hover:shadow-lg ${selected ? 'card-selected' : 'border-gray-200 hover:border-gray-300'}">
+                <div class="text-4xl mb-3">${opt.icon}</div>
+                <div class="font-bold text-base mb-2">${esc(opt.label)}</div>
+                <div class="text-sm text-gray-600 mb-3 min-h-[60px]">${esc(opt.desc)}</div>
+                <div class="text-xs font-semibold text-[#e85d35] bg-orange-50 py-2 px-3 rounded-lg">${esc(opt.budget)}</div>
               </button>
             `;
           }).join('')}
@@ -602,12 +644,12 @@
 
     if (step.type === 'quick-select') {
       content.innerHTML = `
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           ${step.options.map(opt => {
             const selected = answers[step.id] === opt;
             return `
               <button type="button" data-value="${esc(opt)}" 
-                class="p-4 border-2 rounded-xl font-semibold transition-all ${selected ? 'card-selected' : 'hover:border-gray-300'}">
+                class="p-5 border-2 rounded-xl font-semibold text-base transition-all hover:shadow-md ${selected ? 'card-selected' : 'border-gray-200 hover:border-gray-300'}">
                 ${esc(opt)}
               </button>
             `;
@@ -628,19 +670,29 @@
 
     if (step.type === 'email') {
       content.innerHTML = `
-        <div class="bg-orange-50 border-l-4 border-[#e85d35] p-4 rounded mb-4">
-          <div class="font-semibold text-[#e85d35]">Ontvang early bird toegang tot onze reizen met beperkte plaatsen</div>
-          <div class="text-sm text-gray-600">Plus je persoonlijke reisgids</div>
+        <div class="bg-orange-50 border-l-4 border-[#e85d35] p-5 rounded-lg mb-6">
+          <div class="flex items-start gap-3">
+            <div class="text-2xl">✨</div>
+            <div>
+              <div class="font-bold text-[#e85d35] mb-1">What you'll receive:</div>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <li>✓ Your personalized destination match</li>
+                <li>✓ Detailed itinerary preview</li>
+                <li>✓ Exclusive pilot pricing & early-bird access</li>
+                <li>✓ Direct contact with your travel specialist</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         ${submitError ? `
-          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-4">
-            <div class="font-semibold text-red-800">Er is iets misgegaan</div>
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg mb-4">
+            <div class="font-semibold text-red-800">Something went wrong</div>
             <div class="text-sm text-red-600">${esc(submitError)}</div>
           </div>
         ` : ''}
 
-        <form id="contact-form" class="space-y-4">
+        <form id="contact-form" class="space-y-5">
           ${step.fields.map(f => {
             const value = answers[f.id] || '';
             const hasError = f.required && f.id === 'email' && value && !isValidEmail(value);
@@ -648,10 +700,10 @@
             if (f.type === 'select') {
               return `
                 <div>
-                  <label class="block text-sm font-medium mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                  <label class="block text-sm font-semibold mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
                   <select name="${esc(f.id)}" 
-                    class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition">
-                    <option value="">Selecteer...</option>
+                    class="w-full px-4 py-3 border-2 rounded-xl text-base focus:border-[#e85d35] focus:outline-none transition border-gray-300">
+                    <option value="">Select...</option>
                     ${f.options.map(opt => `
                       <option value="${esc(opt)}" ${value === opt ? 'selected' : ''}>${esc(opt)}</option>
                     `).join('')}
@@ -661,23 +713,25 @@
             } else {
               return `
                 <div>
-                  <label class="block text-sm font-medium mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                  <label class="block text-sm font-semibold mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
                   <input name="${esc(f.id)}" type="${esc(f.type)}" 
                     value="${esc(value)}"
                     placeholder="${esc(f.placeholder || '')}" 
-                    class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition ${hasError ? 'border-red-500' : ''}" />
-                  ${hasError ? '<p class="text-xs text-red-500 mt-1">Voer een geldig e-mailadres in</p>' : ''}
+                    class="w-full px-4 py-3 border-2 rounded-xl text-base focus:border-[#e85d35] focus:outline-none transition ${hasError ? 'border-red-500' : 'border-gray-300'}" />
+                  ${hasError ? '<p class="text-xs text-red-500 mt-2">Please enter a valid email address</p>' : ''}
                 </div>
               `;
             }
           }).join('')}
 
           <button type="submit" id="submit-btn" 
-            class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) && !isSubmitting ? '' : 'btn-disabled'}">
-            ${isSubmitting ? 'Verzenden...' : 'Bekijk mijn reis →'}
+            class="w-full py-4 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold text-lg transition-all shadow-lg hover:shadow-xl ${canProceedForStep(step) && !isSubmitting ? '' : 'btn-disabled'}">
+            ${isSubmitting ? 'Sending...' : 'Show Me My Journey →'}
           </button>
           
-          <p class="text-xs text-gray-500 text-center mt-3">We respecteren je privacy. Altijd uitschrijven mogelijk.</p>
+          <p class="text-xs text-gray-500 text-center mt-4">
+            🔒 We respect your privacy. Only personalized travel recommendations. No spam. Unsubscribe anytime.
+          </p>
         </form>
       `;
 
@@ -694,7 +748,6 @@
           if (fieldId === 'email' || fieldId === 'age') {
             render();
           } else {
-            // alleen update button enabled/disabled state
             const submitBtn = content.querySelector('#submit-btn');
             if (submitBtn) {
               if (canProceedForStep(step) && !isSubmitting) submitBtn.classList.remove('btn-disabled');
@@ -722,7 +775,7 @@
         });
 
         if (missing) {
-          submitError = 'Vul alle verplichte velden correct in.';
+          submitError = 'Please fill in all required fields correctly.';
           render();
           return;
         }
@@ -740,7 +793,7 @@
           showResult = true;
           render();
         } else {
-          submitError = 'Verbinding mislukt. Probeer het opnieuw.';
+          submitError = 'Connection failed. Please try again.';
           render();
         }
       });
@@ -757,73 +810,80 @@
     const rec = getRec();
     const [testimonialText, testimonialAuthor = ''] = (rec.testimonial || '').split(' - ');
     
-    // We updaten dezelfde content container en verbergen controls/progress
     el.progress.style.display = 'none';
     el.controls.innerHTML = '';
 
-    el.title.innerHTML = esc(rec.title);
-    el.subtitle.innerHTML = `<span class="text-sm text-gray-600">${esc(rec.tagline)}</span>`;
+    el.title.innerHTML = `<span class="text-2xl">${rec.flag}</span> ${esc(rec.title)}`;
+    el.subtitle.innerHTML = `<span class="text-base text-gray-600 italic">${esc(rec.tagline)}</span>`;
 
     el.content.innerHTML = `
-      <div class="max-w-4xl mx-auto px-4 py-10 text-center fade-in">
-        <div class="mb-8">
-          <div class="text-6xl mb-4">${rec.flag}</div>
-          <h1 class="text-3xl md:text-4xl font-bold mb-2">${esc(rec.title)}</h1>
-          <p class="text-lg text-gray-300 italic">${esc(rec.tagline)}</p>
-        </div>
-
-        <div class="bg-white text-gray-900 rounded-2xl overflow-hidden mb-8 shadow-xl">
-          <div class="p-6 space-y-6">
-            <p class="text-lg">${esc(rec.description)}</p>
-
+      <div class="space-y-6 fade-in">
+        <div class="bg-gradient-to-r from-orange-50 to-yellow-50 p-6 rounded-xl border-2 border-orange-200">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="text-3xl">🎯</div>
             <div>
-              <h3 class="text-lg font-bold mb-3">Experience Highlights</h3>
-              <ul class="space-y-2 text-left">
-                ${rec.highlights.map(h => `
-                  <li class="flex items-start gap-3">
-                    <span class="text-[#e85d35] mt-0.5">✔️</span>
-                    <span>${esc(h)}</span>
-                  </li>
-                `).join('')}
-              </ul>
-            </div>
-
-            <div>
-              <h3 class="text-lg font-bold mb-3">What's Included</h3>
-              <div class="flex flex-wrap gap-2 justify-center">
-                ${rec.whatsIncluded.map(w => `
-                  <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">${esc(w)}</span>
-                `).join('')}
-              </div>
-            </div>
-
-            <div class="bg-[#1a1a2e] text-white p-4 rounded-xl">
-              <p class="italic">"${esc(testimonialText)}"</p>
-              <p class="text-sm text-gray-300 mt-1">- ${esc(testimonialAuthor)}</p>
-            </div>
-
-            <div class="space-y-3">
-              <a href="https://travelbeyondthepitch.com" 
-                class="block w-full text-center py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white transition-all transform hover:scale-105">
-                Aanmelden voor deze ervaring
-              </a>
-              <p class="text-center text-sm text-gray-600">
-                Early access to new pilots with limited places
-              </p>
+              <div class="font-bold text-lg text-gray-900 mb-1">Your Perfect Match</div>
+              <p class="text-gray-700">${esc(rec.description)}</p>
             </div>
           </div>
         </div>
 
-        <div class="text-gray-400 space-y-4">
-          <p>Controleer je e-mail voor je complete persoonlijke reisschema</p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <div>
+          <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span>✨</span> Experience Highlights
+          </h3>
+          <ul class="space-y-3">
+            ${rec.highlights.map(h => `
+              <li class="flex items-start gap-3 bg-gray-50 p-3 rounded-lg">
+                <span class="text-[#e85d35] mt-0.5 text-xl flex-shrink-0">✔️</span>
+                <span class="text-gray-800">${esc(h)}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+            <span>📦</span> What's Included
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            ${rec.whatsIncluded.map(w => `
+              <span class="px-4 py-2 bg-[#e85d35] text-white rounded-full text-sm font-medium">${esc(w)}</span>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="bg-[#1a1a2e] text-white p-6 rounded-xl">
+          <div class="text-4xl mb-3 text-center">💬</div>
+          <p class="italic text-lg text-center mb-2">"${esc(testimonialText)}"</p>
+          <p class="text-sm text-gray-300 text-center">— ${esc(testimonialAuthor)}</p>
+        </div>
+
+        <div class="space-y-4 pt-4">
+          <a href="https://travelbeyondthepitch.com/contact" 
+            class="block w-full text-center py-4 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+            Book This Experience
+          </a>
+          
+          <div class="bg-green-50 border-2 border-green-200 p-4 rounded-xl text-center">
+            <div class="font-bold text-green-800 mb-1">✅ Check Your Email</div>
+            <div class="text-sm text-green-700">Your complete personalized itinerary has been sent</div>
+          </div>
+
+          <p class="text-center text-sm text-gray-600 px-4">
+            🚀 Early pilot access • Limited spots • Exclusive pricing
+          </p>
+        </div>
+
+        <div class="border-t pt-6 mt-6 text-center space-y-4">
+          <div class="flex flex-col sm:flex-row justify-center gap-4 text-sm">
             <a href="https://travelbeyondthepitch.com" 
-              class="text-[#e85d35] hover:underline">
-              Bekijk alle ervaringen
+              class="text-[#e85d35] hover:underline font-semibold">
+              Explore All Experiences
             </a>
             <button id="retake-btn" 
-              class="text-gray-400 hover:text-white transition">
-              Quiz opnieuw doen
+              class="text-gray-600 hover:text-gray-900 transition font-semibold">
+              Retake Quiz
             </button>
           </div>
         </div>
