@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Beyond The Pitch — Quiz</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { 
       -webkit-font-smoothing: antialiased; 
@@ -306,6 +307,44 @@
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
+/***********************
+ * SUPABASE CONFIG
+ ***********************/
+const SUPABASE_URL = 'https://gdcybinerowhffccmlws.supabase.co;
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkY3liaW5lcm93aGZmY2NtbHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcxNzI5MDAsImV4cCI6MjA4Mjc0ODkwMH0.5IkIcup-QpAuZgpeq0Upl7HakYepaizhV4BcPZmtE0E;
+
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+/***********************
+ * OPSLAAN VAN QUIZ
+ ***********************/
+async function saveQuizToSupabase() {
+  const payload = {
+    email: answers.email || null,
+    age: answers.age || null,
+    location: answers.location || null,
+    pilot: answers.pilot || null,
+    interests: answers.interests || [],
+    sport: answers.sport || null,
+    travel_style: answers.travelStyle || null,
+    group_type: answers.group || null,
+    timing: answers.timing || null,
+    future: answers.future || [],
+    raw_answers: answers
+  };
+
+  const { error } = await supabase
+    .from('quiz_results')
+    .insert([payload]);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Supabase insert failed');
+  }
+}
 
   function esc(s) { 
     return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); 
@@ -692,7 +731,7 @@
         submitError = null;
         render();
 
-        const result = await submitToGoogleForms();
+       await saveQuizToSupabase();
         
         isSubmitting = false;
         
