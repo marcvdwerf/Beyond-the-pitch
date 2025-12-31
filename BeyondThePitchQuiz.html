@@ -57,6 +57,15 @@
 
 <script>
 (function () {
+    // 🔐 Supabase config
+  const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+  const SUPABASE_ANON_KEY = 'YOUR_PUBLIC_ANON_KEY';
+
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
   const STORAGE_KEY = 'btp_quiz_state';
   const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse';
   
@@ -786,7 +795,8 @@ async function submitToGoogleForms() {
         submitError = null;
         render();
 
-        const result = await submitToGoogleForms();
+        await saveQuizResult(answers);
+
         
         isSubmitting = false;
         
