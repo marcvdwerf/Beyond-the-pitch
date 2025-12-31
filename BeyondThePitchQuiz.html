@@ -338,9 +338,11 @@
     return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); 
   }
 
-  async function submitToGoogleForms() {
-    const formData = new FormData();
-    
+async function submitToGoogleForms() {
+  // Google Forms disabled — handled via Supabase later
+  return { success: true };
+}
+
     // Map answers to Google Form fields
     Object.keys(FORM_FIELDS).forEach(key => {
       const value = answers[key];
