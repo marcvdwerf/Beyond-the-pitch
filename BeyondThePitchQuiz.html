@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -250,7 +250,7 @@
   );
 
   /***********************
-   * OPSLAAN VAN QUIZ
+   * SAVE QUIZ TO SUPABASE
    ***********************/
   async function saveQuizToSupabase() {
     const payload = {
@@ -273,7 +273,7 @@
 
     if (error) {
       console.error('Supabase error:', error);
-      throw new Error('Kon gegevens niet opslaan. Probeer het opnieuw.');
+      throw new Error('Unable to save data. Please try again.');
     }
   }
 
@@ -364,7 +364,7 @@
     const step = steps[currentStep];
     if (!step) return;
 
-    // 🎯 SLIMME FADE-IN: Track huidige step ID
+    // 🎯 SMART FADE-IN: Track current step ID
     const previousStepId = root.dataset.currentStepId;
     const isActualStepChange = previousStepId !== step.id;
     root.dataset.currentStepId = step.id;
@@ -377,7 +377,7 @@
         ${showProgress ? `
           <div class="mb-6">
             <div class="flex justify-between items-center mb-3">
-              <span class="text-xs text-gray-400">Stap ${currentStep} van ${steps.length - 1}</span>
+              <span class="text-xs text-gray-400">Step ${currentStep} of ${steps.length - 1}</span>
               <span class="text-xs text-gray-400">${progressPercent()}%</span>
             </div>
             <div class="w-full bg-gray-700 rounded-full h-2">
@@ -398,7 +398,7 @@
         <div id="step-controls" class="flex items-center gap-4">
           ${canGoBack ? `
             <button id="back-btn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-xl font-semibold transition">
-              ← Terug
+              ← Back
             </button>
           ` : ''}
         </div>
@@ -436,7 +436,7 @@
             <button id="begin-btn" class="px-10 py-4 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
               Start Your Journey →
             </button>
-            <p class="text-sm text-gray-400 mt-4">Duurt 2-3 minuten • 9 simpele vragen</p>
+            <p class="text-sm text-gray-400 mt-4">Takes 2-3 minutes • 9 simple questions</p>
           </div>
         </div>
       `;
@@ -478,7 +478,7 @@
       return;
     }
 
-    // 🎯 MULTI-SELECT ZONDER RE-RENDER
+    // 🎯 MULTI-SELECT WITHOUT RE-RENDER
     if (step.type === 'multi-select') {
       content.innerHTML = `
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4" id="multi-grid">
@@ -496,11 +496,11 @@
 
         <button id="multi-continue" 
           class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) ? '' : 'btn-disabled'}">
-          Volgende →
+          Continue →
         </button>
       `;
 
-      // ✅ Direct DOM manipulatie - GEEN re-render
+      // ✅ Direct DOM manipulation - NO re-render
       content.querySelectorAll('#multi-grid button').forEach(btn => {
         btn.addEventListener('click', () => {
           const v = btn.getAttribute('data-value');
@@ -524,7 +524,7 @@
           
           saveState();
           
-          // ✅ Update button state DIRECT
+          // ✅ Update button state DIRECTLY
           const continueBtn = document.getElementById('multi-continue');
           if (arr.length > 0) {
             continueBtn.classList.remove('btn-disabled');
@@ -615,16 +615,16 @@
       return;
     }
 
-    // 🎯 EMAIL VALIDATIE ZONDER RE-RENDER
+    // 🎯 EMAIL VALIDATION WITHOUT RE-RENDER
     if (step.type === 'email') {
       content.innerHTML = `
         <div class="bg-orange-50 border-l-4 border-[#e85d35] p-4 rounded mb-4">
-          <div class="font-semibold text-[#e85d35]">Ontvang early bird toegang tot onze reizen met beperkte plaatsen</div>
-          <div class="text-sm text-gray-600">Plus je persoonlijke reisgids</div>
+          <div class="font-semibold text-[#e85d35]">Get early bird access to our limited-capacity journeys</div>
+          <div class="text-sm text-gray-600">Plus your personalized travel guide</div>
         </div>
 
         <div id="error-container" class="hidden bg-red-50 border-l-4 border-red-500 p-4 rounded mb-4">
-          <div class="font-semibold text-red-800">Er is iets misgegaan</div>
+          <div class="font-semibold text-red-800">Something went wrong</div>
           <div id="error-message" class="text-sm text-red-600"></div>
         </div>
 
@@ -638,7 +638,7 @@
                   <label class="block text-sm font-medium mb-2">${esc(f.label)} ${f.required ? '<span class="text-red-500">*</span>' : ''}</label>
                   <select name="${esc(f.id)}" 
                     class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition">
-                    <option value="">Selecteer...</option>
+                    <option value="">Select...</option>
                     ${f.options.map(opt => `
                       <option value="${esc(opt)}" ${value === opt ? 'selected' : ''}>${esc(opt)}</option>
                     `).join('')}
@@ -661,17 +661,17 @@
 
           <button type="submit" id="submit-btn" 
             class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) ? '' : 'btn-disabled'}">
-            Bekijk mijn reis →
+            See My Journey →
           </button>
           
-          <p class="text-xs text-gray-500 text-center mt-3">We respecteren je privacy. Altijd uitschrijven mogelijk.</p>
+          <p class="text-xs text-gray-500 text-center mt-3">We respect your privacy. Unsubscribe anytime.</p>
         </form>
       `;
 
       const form = document.getElementById('contact-form');
       const submitBtn = document.getElementById('submit-btn');
       
-      // ✅ Real-time validatie ZONDER re-render
+      // ✅ Real-time validation WITHOUT re-render
       function validateForm() {
         let isValid = true;
         
@@ -691,7 +691,7 @@
           if (f.required && !value) {
             isValid = false;
             if (errorText) {
-              errorText.textContent = `${f.label} is verplicht`;
+              errorText.textContent = `${f.label} is required`;
               errorText.classList.remove('hidden');
             }
             field.classList.add('error-border');
@@ -701,14 +701,14 @@
           if (f.id === 'email' && value && !isValidEmail(value)) {
             isValid = false;
             if (errorText) {
-              errorText.textContent = 'Voer een geldig e-mailadres in';
+              errorText.textContent = 'Please enter a valid email address';
               errorText.classList.remove('hidden');
             }
             field.classList.add('error-border');
           }
         });
         
-        // ✅ Update button state DIRECT
+        // ✅ Update button state DIRECTLY
         if (isValid) {
           submitBtn.classList.remove('btn-disabled');
         } else {
@@ -725,7 +725,7 @@
           answers[fieldId] = e.target.value.trim();
           saveState();
           
-          // ✅ Validate ZONDER re-render
+          // ✅ Validate WITHOUT re-render
           validateForm();
         });
         
@@ -746,7 +746,7 @@
         errorContainer.classList.add('hidden');
         
         // Update button state
-        submitBtn.textContent = 'Verzenden...';
+        submitBtn.textContent = 'Submitting...';
         submitBtn.classList.add('btn-disabled');
         isSubmitting = true;
 
@@ -759,12 +759,12 @@
         } catch (error) {
           isSubmitting = false;
           
-          // ✅ Show error ZONDER volledige re-render
+          // ✅ Show error WITHOUT full re-render
           const errorMessage = document.getElementById('error-message');
-          errorMessage.textContent = error.message || 'Verbinding mislukt. Probeer het opnieuw.';
+          errorMessage.textContent = error.message || 'Connection failed. Please try again.';
           errorContainer.classList.remove('hidden');
           
-          submitBtn.textContent = 'Bekijk mijn reis →';
+          submitBtn.textContent = 'See My Journey →';
           submitBtn.classList.remove('btn-disabled');
           
           // Scroll to error
@@ -828,7 +828,7 @@
             <div class="space-y-3">
               <a href="https://travelbeyondthepitch.com" 
                 class="block w-full text-center py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl font-bold text-white transition-all transform hover:scale-105">
-                Aanmelden voor deze ervaring
+                Book This Experience
               </a>
               <p class="text-center text-sm text-gray-600">
                 Early access to new pilots with limited places
@@ -838,15 +838,15 @@
         </div>
 
         <div class="text-gray-400 space-y-4">
-          <p>Controleer je e-mail voor je complete persoonlijke reisschema</p>
+          <p>Check your email for your complete personalized itinerary</p>
           <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="https://travelbeyondthepitch.com" 
               class="text-[#e85d35] hover:underline">
-              Bekijk alle ervaringen
+              View All Experiences
             </a>
             <button id="retake-btn" 
               class="text-gray-400 hover:text-white transition">
-              Quiz opnieuw doen
+              Retake Quiz
             </button>
           </div>
         </div>
