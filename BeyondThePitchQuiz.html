@@ -27,6 +27,9 @@
       cursor: not-allowed;
       pointer-events: none;
     }
+    .error-border {
+      border-color: #ef4444 !important;
+    }
   </style>
 </head>
 <body class="bg-[#1a1a2e] text-white min-h-screen">
@@ -361,11 +364,16 @@
     const step = steps[currentStep];
     if (!step) return;
 
+    // 🎯 SLIMME FADE-IN: Track huidige step ID
+    const previousStepId = root.dataset.currentStepId;
+    const isActualStepChange = previousStepId !== step.id;
+    root.dataset.currentStepId = step.id;
+
     const showProgress = step.type !== 'intro';
     const canGoBack = currentStep > 1;
 
     root.innerHTML = `
-      <div class="max-w-4xl mx-auto px-4 py-8 fade-in">
+      <div class="max-w-4xl mx-auto px-4 py-8 ${isActualStepChange ? 'fade-in' : ''}">
         ${showProgress ? `
           <div class="mb-6">
             <div class="flex justify-between items-center mb-3">
@@ -464,13 +472,13 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
           setTimeout(nextStep, 300);
         });
       });
       return;
     }
 
+    // 🎯 MULTI-SELECT ZONDER RE-RENDER
     if (step.type === 'multi-select') {
       content.innerHTML = `
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4" id="multi-grid">
@@ -492,16 +500,37 @@
         </button>
       `;
 
+      // ✅ Direct DOM manipulatie - GEEN re-render
       content.querySelectorAll('#multi-grid button').forEach(btn => {
         btn.addEventListener('click', () => {
           const v = btn.getAttribute('data-value');
-          const arr = Array.isArray(answers[step.id]) ? [...answers[step.id]] : [];
+          
+          // Initialize array if needed
+          if (!Array.isArray(answers[step.id])) {
+            answers[step.id] = [];
+          }
+          
+          const arr = answers[step.id];
           const idx = arr.indexOf(v);
-          if (idx >= 0) arr.splice(idx, 1);
-          else arr.push(v);
-          answers[step.id] = arr;
+          
+          // Toggle selection
+          if (idx >= 0) {
+            arr.splice(idx, 1);
+            btn.classList.remove('card-selected');
+          } else {
+            arr.push(v);
+            btn.classList.add('card-selected');
+          }
+          
           saveState();
-          render();
+          
+          // ✅ Update button state DIRECT
+          const continueBtn = document.getElementById('multi-continue');
+          if (arr.length > 0) {
+            continueBtn.classList.remove('btn-disabled');
+          } else {
+            continueBtn.classList.add('btn-disabled');
+          }
         });
       });
 
@@ -527,7 +556,6 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
           setTimeout(nextStep, 300);
         });
       });
@@ -556,7 +584,6 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
           setTimeout(nextStep, 300);
         });
       });
@@ -582,13 +609,13 @@
         btn.addEventListener('click', () => {
           answers[step.id] = btn.getAttribute('data-value');
           saveState();
-          render();
           setTimeout(nextStep, 300);
         });
       });
       return;
     }
 
+    // 🎯 EMAIL VALIDATIE ZONDER RE-RENDER
     if (step.type === 'email') {
       content.innerHTML = `
         <div class="bg-orange-50 border-l-4 border-[#e85d35] p-4 rounded mb-4">
@@ -596,17 +623,14 @@
           <div class="text-sm text-gray-600">Plus je persoonlijke reisgids</div>
         </div>
 
-        ${submitError ? `
-          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-4">
-            <div class="font-semibold text-red-800">Er is iets misgegaan</div>
-            <div class="text-sm text-red-600">${esc(submitError)}</div>
-          </div>
-        ` : ''}
+        <div id="error-container" class="hidden bg-red-50 border-l-4 border-red-500 p-4 rounded mb-4">
+          <div class="font-semibold text-red-800">Er is iets misgegaan</div>
+          <div id="error-message" class="text-sm text-red-600"></div>
+        </div>
 
         <form id="contact-form" class="space-y-4">
           ${step.fields.map(f => {
             const value = answers[f.id] || '';
-            const hasError = f.required && f.id === 'email' && value && !isValidEmail(value);
             
             if (f.type === 'select') {
               return `
@@ -628,16 +652,16 @@
                   <input name="${esc(f.id)}" type="${esc(f.type)}" 
                     value="${esc(value)}"
                     placeholder="${esc(f.placeholder || '')}" 
-                    class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition ${hasError ? 'border-red-500' : ''}" />
-                  ${hasError ? '<p class="text-xs text-red-500 mt-1">Voer een geldig e-mailadres in</p>' : ''}
+                    class="w-full px-4 py-3 border-2 rounded-xl text-sm focus:border-[#e85d35] focus:outline-none transition" />
+                  <p class="error-text text-xs text-red-500 mt-1 hidden"></p>
                 </div>
               `;
             }
           }).join('')}
 
           <button type="submit" id="submit-btn" 
-            class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) && !isSubmitting ? '' : 'btn-disabled'}">
-            ${isSubmitting ? 'Verzenden...' : 'Bekijk mijn reis →'}
+            class="w-full py-3 bg-[#e85d35] hover:bg-[#d14d25] rounded-xl text-white font-bold transition ${canProceedForStep(step) ? '' : 'btn-disabled'}">
+            Bekijk mijn reis →
           </button>
           
           <p class="text-xs text-gray-500 text-center mt-3">We respecteren je privacy. Altijd uitschrijven mogelijk.</p>
@@ -645,47 +669,86 @@
       `;
 
       const form = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('submit-btn');
       
-      // Real-time validation
+      // ✅ Real-time validatie ZONDER re-render
+      function validateForm() {
+        let isValid = true;
+        
+        step.fields.forEach(f => {
+          const field = form.querySelector(`[name="${f.id}"]`);
+          const value = field.value.trim();
+          const errorText = field.parentElement.querySelector('.error-text');
+          
+          // Clear previous errors
+          if (errorText) {
+            errorText.classList.add('hidden');
+            errorText.textContent = '';
+          }
+          field.classList.remove('error-border');
+          
+          // Validate required fields
+          if (f.required && !value) {
+            isValid = false;
+            if (errorText) {
+              errorText.textContent = `${f.label} is verplicht`;
+              errorText.classList.remove('hidden');
+            }
+            field.classList.add('error-border');
+          }
+          
+          // Email validation
+          if (f.id === 'email' && value && !isValidEmail(value)) {
+            isValid = false;
+            if (errorText) {
+              errorText.textContent = 'Voer een geldig e-mailadres in';
+              errorText.classList.remove('hidden');
+            }
+            field.classList.add('error-border');
+          }
+        });
+        
+        // ✅ Update button state DIRECT
+        if (isValid) {
+          submitBtn.classList.remove('btn-disabled');
+        } else {
+          submitBtn.classList.add('btn-disabled');
+        }
+        
+        return isValid;
+      }
+      
+      // Real-time field validation
       form.querySelectorAll('input, select').forEach(field => {
         field.addEventListener('input', (e) => {
           const fieldId = e.target.name;
           answers[fieldId] = e.target.value.trim();
           saveState();
           
-          // Re-render to update button state and validation
-          if (fieldId === 'email' || fieldId === 'age') {
-            render();
-          }
+          // ✅ Validate ZONDER re-render
+          validateForm();
+        });
+        
+        field.addEventListener('blur', () => {
+          validateForm();
         });
       });
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const fd = new FormData(form);
-        let missing = false;
-        
-        step.fields.forEach(f => {
-          const v = fd.get(f.id);
-          if (f.required && (!v || v.trim() === '')) {
-            missing = true;
-          }
-          if (f.id === 'email' && v && !isValidEmail(v)) {
-            missing = true;
-          }
-          answers[f.id] = v ? v.trim() : '';
-        });
-
-        if (missing) {
-          submitError = 'Vul alle verplichte velden correct in.';
-          render();
+        if (!validateForm()) {
           return;
         }
 
+        // Hide previous errors
+        const errorContainer = document.getElementById('error-container');
+        errorContainer.classList.add('hidden');
+        
+        // Update button state
+        submitBtn.textContent = 'Verzenden...';
+        submitBtn.classList.add('btn-disabled');
         isSubmitting = true;
-        submitError = null;
-        render();
 
         try {
           await saveQuizToSupabase();
@@ -695,10 +758,22 @@
           render();
         } catch (error) {
           isSubmitting = false;
-          submitError = error.message || 'Verbinding mislukt. Probeer het opnieuw.';
-          render();
+          
+          // ✅ Show error ZONDER volledige re-render
+          const errorMessage = document.getElementById('error-message');
+          errorMessage.textContent = error.message || 'Verbinding mislukt. Probeer het opnieuw.';
+          errorContainer.classList.remove('hidden');
+          
+          submitBtn.textContent = 'Bekijk mijn reis →';
+          submitBtn.classList.remove('btn-disabled');
+          
+          // Scroll to error
+          errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
+      
+      // Initial validation
+      validateForm();
       return;
     }
   }
@@ -783,6 +858,7 @@
       Object.keys(answers).forEach(k => delete answers[k]);
       showResult = false;
       clearState();
+      delete root.dataset.currentStepId; // Reset step tracking
       render();
     });
   }
@@ -801,6 +877,7 @@
       Object.keys(answers).forEach(k => delete answers[k]);
       showResult = false;
       clearState();
+      delete root.dataset.currentStepId;
       render();
     }
   };
