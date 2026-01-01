@@ -45,7 +45,7 @@
 <script>
 (function () {
   const STORAGE_KEY = 'btp_quiz_state';
-
+  
   const root = document.getElementById('quiz-root');
 
   const steps = [
@@ -235,6 +235,45 @@
   let showResult = false;
   let submitError = null;
 
+  /***********************
+   * SUPABASE CONFIG
+   ***********************/
+  const SUPABASE_URL = 'https://gdcybinerowhffccmlws.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkY3liaW5lcm93aGZmY2NtbHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcxNzI5MDAsImV4cCI6MjA4Mjc0ODkwMH0.5IkIcup-QpAuZgpeq0Upl7HakYepaizhV4BcPZmtE0E';
+
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  /***********************
+   * OPSLAAN VAN QUIZ
+   ***********************/
+  async function saveQuizToSupabase() {
+    const payload = {
+      email: answers.email || null,
+      age: answers.age || null,
+      location: answers.location || null,
+      pilot: answers.pilot || null,
+      interests: answers.interests || [],
+      sport: answers.sport || null,
+      travel_style: answers.travelStyle || null,
+      group_type: answers.group || null,
+      timing: answers.timing || null,
+      future: answers.future || [],
+      raw_answers: answers
+    };
+
+    const { error } = await supabase
+      .from('quiz_results')
+      .insert([payload]);
+
+    if (error) {
+      console.error('Supabase error:', error);
+      throw new Error('Kon gegevens niet opslaan. Probeer het opnieuw.');
+    }
+  }
+
   // Load saved state
   function loadState() {
     try {
@@ -292,77 +331,9 @@
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
-/***********************
- * SUPABASE CONFIG
- ***********************/
-const SUPABASE_URL = 'https://gdcybinerowhffccmlws.supabase.co';  // ✅ Fix: ' in plaats van ;
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkY3liaW5lcm93aGZmY2NtbHdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcxNzI5MDAsImV4cCI6MjA4Mjc0ODkwMH0.5IkIcup-QpAuZgpeq0Upl7HakYepaizhV4BcPZmtE0E';  // ✅ Fix: ' in plaats van ;
-
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-/***********************
- * OPSLAAN VAN QUIZ
- ***********************/
-async function saveQuizToSupabase() {
-  const payload = {
-    email: answers.email || null,
-    age: answers.age || null,
-    location: answers.location || null,
-    pilot: answers.pilot || null,
-    interests: answers.interests || [],
-    sport: answers.sport || null,
-    travel_style: answers.travelStyle || null,
-    group_type: answers.group || null,
-    timing: answers.timing || null,
-    future: answers.future || [],
-    raw_answers: answers
-  };
-
-  const { error } = await supabase
-    .from('quiz_results')
-    .insert([payload]);
-
-  if (error) {
-    console.error('Supabase error:', error);
-    throw new Error('Kon gegevens niet opslaan. Probeer het opnieuw.');
-  }
-}
 
   function esc(s) { 
     return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); 
-  }
-
-  async function submitToGoogleForms() {
-    const formData = new FormData();
-    
-    // Map answers to Google Form fields
-    Object.keys(FORM_FIELDS).forEach(key => {
-      const value = answers[key];
-      if (value !== undefined && value !== null) {
-        if (Array.isArray(value)) {
-          formData.append(FORM_FIELDS[key], value.join(', '));
-        } else {
-          formData.append(FORM_FIELDS[key], value);
-        }
-      }
-    });
-
-    try {
-      // Submit to Google Forms
-      await fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-      });
-      
-      return { success: true };
-    } catch (error) {
-      console.error('Submission error:', error);
-      return { success: false, error: error.message };
-    }
   }
 
   function goToStep(stepIndex) {
@@ -689,47 +660,43 @@ async function saveQuizToSupabase() {
         });
       });
 
-     form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const fd = new FormData(form);
-  let missing = false;
-  
-  step.fields.forEach(f => {
-    const v = fd.get(f.id);
-    if (f.required && (!v || v.trim() === '')) {
-      missing = true;
-    }
-    if (f.id === 'email' && v && !isValidEmail(v)) {
-      missing = true;
-    }
-    answers[f.id] = v ? v.trim() : '';
-  });
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const fd = new FormData(form);
+        let missing = false;
+        
+        step.fields.forEach(f => {
+          const v = fd.get(f.id);
+          if (f.required && (!v || v.trim() === '')) {
+            missing = true;
+          }
+          if (f.id === 'email' && v && !isValidEmail(v)) {
+            missing = true;
+          }
+          answers[f.id] = v ? v.trim() : '';
+        });
 
-  if (missing) {
-    submitError = 'Vul alle verplichte velden correct in.';
-    render();
-    return;
-  }
+        if (missing) {
+          submitError = 'Vul alle verplichte velden correct in.';
+          render();
+          return;
+        }
 
-  isSubmitting = true;
-  submitError = null;
-  render();
+        isSubmitting = true;
+        submitError = null;
+        render();
 
-  // ✅ Alleen Supabase
-  try {
-    await saveQuizToSupabase();
-    isSubmitting = false;
-    clearState();
-    showResult = true;
-    render();
-  } catch (error) {
-    isSubmitting = false;
-    submitError = error.message || 'Verbinding mislukt. Probeer het opnieuw.';
-    render();
-  }
-});
-
+        try {
+          await saveQuizToSupabase();
+          isSubmitting = false;
+          clearState();
+          showResult = true;
+          render();
+        } catch (error) {
+          isSubmitting = false;
+          submitError = error.message || 'Verbinding mislukt. Probeer het opnieuw.';
+          render();
         }
       });
       return;
