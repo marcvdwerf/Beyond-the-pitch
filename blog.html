@@ -569,6 +569,67 @@
       });
     });
   </script>
+<script>
+  // Track CTA button clicks
+  document.addEventListener('click', function(e) {
+    const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta, .floating-cta');
+    if (cta) {
+      gtag('event', 'cta_click', {
+        'event_category': 'engagement',
+        'event_label': cta.textContent.trim(),
+        'value': 1
+      });
+    }
+  });
 
+  // Track scroll depth (75% = engaged user)
+  let scrollTracked = false;
+  window.addEventListener('scroll', function() {
+    if (scrollTracked) return;
+    const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+    if (scrollPercent > 75) {
+      scrollTracked = true;
+      gtag('event', 'scroll_depth', {
+        'event_category': 'engagement',
+        'event_label': '75_percent',
+        'value': 75
+      });
+    }
+  });
+
+  // Track form submissions
+  document.addEventListener('submit', function(e) {
+    const form = e.target;
+    const formName = form.querySelector('input[name="_subject"]')?.value || 'unknown_form';
+    gtag('event', 'form_submit', {
+      'event_category': 'conversion',
+      'event_label': formName,
+      'value': 10
+    });
+  });
+
+  // Track video plays
+  document.addEventListener('play', function(e) {
+    if (e.target.tagName === 'VIDEO' || e.target.tagName === 'IFRAME') {
+      gtag('event', 'video_play', {
+        'event_category': 'engagement',
+        'event_label': 'hero_video',
+        'value': 5
+      });
+    }
+  }, true);
+
+  // Track outbound links (social media, partners)
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (link && link.hostname !== window.location.hostname) {
+      gtag('event', 'outbound_click', {
+        'event_category': 'engagement',
+        'event_label': link.href,
+        'value': 1
+      });
+    }
+  });
+</script>
 </body>
 </html>
