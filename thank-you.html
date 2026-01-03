@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-<script type="text/javascript">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank you — Beyond the Pitch</title>
+  
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6MT1EREBH1');
+  </script>
+  
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "uvqlcstnhp");
-</script>
-  gtag('config', 'G-6MT1EREBH1');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thank you — Beyond the Pitch</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </script>
+  
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-
 <body class="bg-black text-white flex flex-col items-center justify-center min-h-screen text-center px-6">
   <div class="max-w-lg space-y-6">
     <h1 class="text-4xl font-bold text-gold">Thank you!</h1>
@@ -35,5 +38,44 @@
       ← Back to home
     </a>
   </div>
+  <script>
+  // Track CTA button clicks
+  document.addEventListener('click', function(e) {
+    const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta, .floating-cta');
+    if (cta) {
+      gtag('event', 'cta_click', {
+        'event_category': 'engagement',
+        'event_label': cta.textContent.trim(),
+        'value': 1
+      });
+    }
+  });
+
+  // Track scroll depth (75% = engaged user)
+  let scrollTracked = false;
+  window.addEventListener('scroll', function() {
+    if (scrollTracked) return;
+    const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+    if (scrollPercent > 75) {
+      scrollTracked = true;
+      gtag('event', 'scroll_depth', {
+        'event_category': 'engagement',
+        'event_label': '75_percent',
+        'value': 75
+      });
+    }
+  });
+
+  // Track form submissions
+  document.addEventListener('submit', function(e) {
+    const form = e.target;
+    const formName = form.querySelector('input[name="_subject"]')?.value || 'unknown_form';
+    gtag('event', 'form_submit', {
+      'event_category': 'conversion',
+      'event_label': formName,
+      'value': 10
+    });
+  });
+</script>
 </body>
 </html>
