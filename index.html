@@ -1085,17 +1085,6 @@ if (floatingCta && contactSection) {
       els.forEach(e => obs.observe(e));
     })();
 
-    // ---------- Mobile menu toggle ----------
-    (function(){
-      const mobileToggle = document.getElementById('mobileToggle');
-      const mobileMenu = document.getElementById('mobileMenu');
-      mobileToggle && mobileToggle.addEventListener('click', () => {
-        const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-        mobileToggle.setAttribute('aria-expanded', String(!expanded));
-        if(mobileMenu.style.display === 'block'){ mobileMenu.style.display = 'none'; mobileMenu.setAttribute('aria-hidden','true'); }
-        else { mobileMenu.style.display = 'block'; mobileMenu.setAttribute('aria-hidden','false'); }
-      });
-    })();
 
     // ---------- Modal system (open/close, focus trap, restore focus, lazy loads) ----------
     (function() {
@@ -1259,14 +1248,6 @@ if (floatingCta && contactSection) {
     })();
   </script>
  <script>
-  // Hamburger menu toggle
-  const mobileToggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  if (mobileToggle && mobileMenu) {
-    // Verwijder oude listeners (voor de zekerheid)
-    const newToggle = mobileToggle.cloneNode(true);
-    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
     
     // Voeg nieuwe listener toe
     newToggle.addEventListener('click', function(e) {
@@ -1467,6 +1448,282 @@ if (floatingCta && contactSection) {
         'event_category': 'engagement',
         'event_label': link.href,
         'value': 1
+        <!-- ================= UNIFIED NAVIGATION & MODAL SYSTEM ================= -->
+<script>
+(function() {
+  'use strict';
+
+  // ============================================================
+  // 1. MOBILE MENU TOGGLE
+  // ============================================================
+  const mobileNavToggle = document.getElementById('mobileNavToggle');
+  const mobileNavMenu = document.getElementById('mobileNavMenu');
+
+  if (mobileNavToggle && mobileNavMenu) {
+    // Remove duplicate event listeners (clean slate)
+    const newToggle = mobileNavToggle.cloneNode(true);
+    mobileNavToggle.parentNode.replaceChild(newToggle, mobileNavToggle);
+
+    // Single click handler
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const isOpen = mobileNavMenu.classList.contains('show');
+      
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    // Auto-close when clicking mobile menu links
+    const mobileLinks = mobileNavMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        closeMobileMenu();
+      });
+    });
+
+    // Close when clicking outside menu
+    document.addEventListener('click', function(e) {
+      if (mobileNavMenu.classList.contains('show') && 
+          !mobileNavMenu.contains(e.target) && 
+          !newToggle.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileNavMenu.classList.contains('show')) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  function openMobileMenu() {
+    mobileNavMenu.classList.add('show');
+    mobileNavToggle.setAttribute('aria-expanded', 'true');
+    mobileNavMenu.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+  }
+
+  function closeMobileMenu() {
+    mobileNavMenu.classList.remove('show');
+    mobileNavToggle.setAttribute('aria-expanded', 'false');
+    mobileNavMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = ''; // Restore scroll
+  }
+
+  // ============================================================
+  // 2. ACTIVE NAV STATE (highlights current page/section)
+  // ============================================================
+  function updateActiveStates() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      
+      // Match exact page or section
+      if (href && (
+        href === currentPath || 
+        href.includes(currentPath.split('/').pop()) ||
+        (href.startsWith('#') && window.location.hash === href)
+      )) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // ============================================================
+  // 3. SCROLL-BASED ACTIVE SECTIONS
+  // ============================================================
+  function updateScrollActiveStates() {
+    const sections = document.querySelectorAll('section[id]');
+    let currentSection = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      
+      if (window.scrollY >= (sectionTop - 100)) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    
+    // Update nav links
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"], .mobile-nav-link[href^="#"]');
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href');
+      
+      if (href === `#${currentSection}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  // ============================================================
+  // 4. SMOOTH SCROLL FOR ANCHOR LINKS
+  // ============================================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      
+      // Skip empty anchors or just "#"
+      if (!href || href === '#') return;
+      
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Update URL without jumping
+        history.pushState(null, null, href);
+        
+        // Close mobile menu if open
+        if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
+          closeMobileMenu();
+        }
+      }
+    });
+  });
+
+  // ============================================================
+  // 5. FLOATING CTA HIDE ON CONTACT SECTION
+  // ============================================================
+  const floatingCta = document.querySelector('.floating-cta');
+  const contactSection = document.getElementById('contact');
+
+  if (floatingCta && contactSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          floatingCta.style.opacity = '0';
+          floatingCta.style.pointerEvents = 'none';
+        } else {
+          floatingCta.style.opacity = '1';
+          floatingCta.style.pointerEvents = 'auto';
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    observer.observe(contactSection);
+  }
+
+  // ============================================================
+  // 6. SCROLL ANIMATIONS (fade-in on scroll)
+  // ============================================================
+  const animatedElements = document.querySelectorAll('[data-animate]');
+  
+  if (animatedElements.length > 0) {
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, { 
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    animatedElements.forEach(el => animationObserver.observe(el));
+  }
+
+  // ============================================================
+  // 7. MODAL SYSTEM
+  // ============================================================
+  let lastFocusedElement = null;
+  const focusableSelectors = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
+
+  function getFocusable(el) {
+    return Array.from(el.querySelectorAll(focusableSelectors)).filter(node => node.offsetParent !== null);
+  }
+
+  function openModal(id, trigger = null) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    
+    lastFocusedElement = trigger || document.activeElement;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    const focusables = getFocusable(modal);
+    if (focusables.length) focusables[0].focus();
+  }
+
+  function closeModal(modal) {
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      try { lastFocusedElement.focus(); } catch(e) {}
+    }
+  }
+
+  // Global click listener for modals
+  document.addEventListener('click', function(e) {
+    // Open modal
+    const opener = e.target.closest('[data-open]');
+    if (opener) {
+      const id = opener.getAttribute('data-open');
+      openModal(id, opener);
+      return;
+    }
+
+    // Close modal
+    const closer = e.target.closest('[data-close]');
+    if (closer) {
+      const modal = closer.closest('.modal');
+      if (modal) closeModal(modal);
+      return;
+    }
+
+    // Click outside modal
+    if (e.target.classList.contains('modal')) {
+      closeModal(e.target);
+    }
+  });
+
+  // Close modals on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal.show').forEach(modal => closeModal(modal));
+    }
+  });
+
+  // ============================================================
+  // 8. INITIALIZE ON PAGE LOAD
+  // ============================================================
+  window.addEventListener('load', function() {
+    updateActiveStates();
+    updateScrollActiveStates();
+  });
+
+  // Update on scroll (debounced)
+  let scrollTimeout;
+  window.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateScrollActiveStates, 100);
+  });
+
+  // Update on hash change
+  window.addEventListener('hashchange', updateActiveStates);
       });
     }
   });
