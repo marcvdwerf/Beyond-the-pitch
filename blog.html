@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 1️⃣ EERST: Basis info -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Stories - Beyond the Pitch | Sport. Culture. Travel.</title>
   <meta name="description" content="Read stories from travelers who've experienced sport and culture beyond typical tourism. Travel guides, tips, and authentic experiences." />
   
-  <!-- 2️⃣ DAN: Analytics -->
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -25,7 +24,7 @@
     })(window, document, "clarity", "script", "uvqlcstnhp");
   </script>
   
-  <!-- 3️⃣ DAN: SEO & Social Media Tags -->
+  <!-- SEO & Social Media Tags -->
   <link rel="canonical" href="https://travelbeyondthepitch.com/blog.html" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   
@@ -35,18 +34,13 @@
   <meta property="og:description" content="Read stories from travelers who've experienced sport and culture beyond typical tourism. Travel guides, tips, and authentic experiences." />
   <meta property="og:url" content="https://travelbeyondthepitch.com/blog.html" />
   <meta property="og:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Beyond%20the%20pitch%20achtergrond.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
   
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Beyond the Pitch - Stories" />
   <meta name="twitter:description" content="Travel stories, guides and authentic sporting experiences." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Beyond%20the%20pitch%20achtergrond.jpg" />
   
-  <!-- 4️⃣ LAATSTE: CSS & External Libraries -->
+  <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
@@ -69,7 +63,6 @@
     .text-gold { color: var(--gold); }
     .bg-gold { background: var(--gold); }
     
-    /* Sticky Navigation */
     .sticky-nav {
       position: sticky;
       top: 0;
@@ -79,7 +72,6 @@
       border-bottom: 1px solid rgba(255, 215, 0, 0.2);
     }
 
-    /* Map Container */
     .map-container {
       background: #1a1a1a;
       border-radius: 1rem;
@@ -87,7 +79,6 @@
       position: relative;
     }
 
-    /* Leaflet popup styling */
     .leaflet-popup-content-wrapper {
       background: #1a1a1a;
       border: 1px solid rgba(255, 215, 0, 0.3);
@@ -115,7 +106,6 @@
       padding: 1rem;
     }
 
-    /* Custom marker styling */
     .custom-marker {
       background: var(--gold);
       width: 20px;
@@ -131,7 +121,6 @@
       50% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0); }
     }
 
-    /* Story Cards */
     .story-card {
       background: #1a1a1a;
       border-radius: 1rem;
@@ -154,7 +143,6 @@
       transform: scale(1.05);
     }
 
-    /* Filter Tags */
     .filter-tag {
       background: rgba(31, 31, 31, 0.8);
       border: 1px solid rgba(255, 215, 0, 0.2);
@@ -171,26 +159,6 @@
       border-color: var(--gold);
     }
 
-    /* Timeline */
-    .timeline-dot {
-      width: 12px;
-      height: 12px;
-      background: var(--gold);
-      border-radius: 50%;
-      position: absolute;
-      left: -6px;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: -1px;
-      top: 12px;
-      width: 2px;
-      height: calc(100% + 2rem);
-      background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
-    }
-
-    /* Scroll animations */
     [data-animate] {
       opacity: 0;
       transform: translateY(20px);
@@ -205,7 +173,7 @@
 </head>
 <body>
 
-  <!-- Sticky Navigation -->
+  <!-- Navigation -->
   <nav class="sticky-nav">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
@@ -240,7 +208,7 @@
   <!-- Interactive Map Section -->
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto" data-animate>
-      <div id="worldMap" class="map-container" style="height: 500px; border-radius: 1rem; overflow: hidden; border: 1px solid rgba(255, 215, 0, 0.2);"></div>
+      <div id="worldMap" class="map-container" style="height: 500px;"></div>
     </div>
   </section>
 
@@ -249,11 +217,11 @@
     <div class="max-w-7xl mx-auto" data-animate>
       <div class="flex flex-wrap gap-3 justify-center">
         <button class="filter-tag active">All Stories</button>
+        <button class="filter-tag">Newsletter</button>
         <button class="filter-tag">Mongolia</button>
         <button class="filter-tag">Ireland</button>
         <button class="filter-tag">Peru</button>
         <button class="filter-tag">Travel Tips</button>
-        <button class="filter-tag">Culture</button>
       </div>
     </div>
   </section>
@@ -262,8 +230,8 @@
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto">
       
-      <!-- Featured Story (Large) - A New Beginning -->
-      <article class="story-card mb-8" data-animate>
+      <!-- Featured Story -->
+      <article class="story-card mb-16" data-animate>
         <div class="grid md:grid-cols-2 gap-0">
           <div class="h-96 overflow-hidden">
             <img 
@@ -282,7 +250,7 @@
               A new beginning Beyond the Pitch
             </h2>
             <p class="text-gray-400 leading-relaxed mb-6">
-              What once started as a personal journey to find my craft has grown into something much bigger. From solo backpacking through Brazil and Colombia to building a platform for authentic cultural experiences through sport - this is where it all began.
+              What once started as a personal journey to find my craft has grown into something much bigger. From solo backpacking through Brazil and Colombia to building a platform for authentic cultural experiences through sport.
             </p>
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
@@ -302,10 +270,111 @@
         </div>
       </article>
 
+      <!-- NEWSLETTER SECTION -->
+      <div class="mb-16" data-animate>
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h2 class="text-3xl font-bold text-gold mb-2">Community Newsletter</h2>
+            <p class="text-gray-400 text-sm">Monthly insights, stories & journey updates</p>
+          </div>
+          <a 
+            href="https://substack.com/@travelbeyondthepitch" 
+            target="_blank"
+            rel="noopener"
+            class="hidden md:inline-flex items-center gap-2 text-gold hover:text-white transition-colors text-sm font-semibold">
+            View All Issues
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          
+          <!-- Latest Newsletter -->
+          <article class="story-card group">
+            <div class="relative h-56 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?auto=format&fit=crop&w=800&q=80" 
+                alt="Newsletter January" 
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute top-4 left-4">
+                <span class="bg-gold text-black text-xs font-bold px-3 py-1 rounded-full">
+                  ✨ Latest Issue
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-gold text-xs uppercase tracking-wider font-semibold">📧 Newsletter</span>
+                <span class="text-gray-600">•</span>
+                <span class="text-gray-400 text-xs">January 2025 #1</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors">
+                Beyond the Pitch - Community Newsletter
+              </h3>
+              <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                Welcome to our first community newsletter! Updates on upcoming journeys, traveler stories, and authentic cultural experiences through sport.
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-gray-500 text-xs">5 min read</span>
+                <a 
+                  href="https://substack.com/@travelbeyondthepitch" 
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1">
+                  Read on Substack 
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Subscribe Card -->
+          <article class="story-card bg-gradient-to-br from-gray-900 to-black border-2 border-gold border-opacity-20">
+            <div class="p-8 h-full flex flex-col justify-center">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-gold bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-4xl">📬</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">
+                  Never miss an issue
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                  Get exclusive travel stories, cultural insights, and early access to new journeys delivered monthly.
+                </p>
+                <a 
+                  href="https://substack.com/@travelbeyondthepitch" 
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-block bg-gold text-black font-semibold px-6 py-3 rounded-full hover:bg-opacity-90 transition-all text-sm">
+                  Subscribe Free
+                </a>
+                <p class="text-gray-600 text-xs mt-3">✓ No spam, unsubscribe anytime</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="mb-12" data-animate>
+        <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-20"></div>
+      </div>
+
+      <!-- Section Header -->
+      <div class="mb-8" data-animate>
+        <h2 class="text-3xl font-bold text-white mb-2">Travel Stories</h2>
+        <p class="text-gray-400 text-sm">Authentic experiences from around the world</p>
+      </div>
+
       <!-- Regular Stories Grid -->
       <div class="grid md:grid-cols-3 gap-8">
         
-        <!-- Story 1 -->
         <article class="story-card" data-animate>
           <div class="h-56 overflow-hidden">
             <img 
@@ -324,7 +393,7 @@
               Gaelic Games: The soul of Irish sport
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed mb-4">
-              Discover the passion, history and community spirit behind Ireland's national sports and why they matter.
+              Discover the passion, history and community spirit behind Ireland's national sports.
             </p>
             <a href="#" class="text-gold text-sm font-semibold hover:underline">
               Read More →
@@ -332,7 +401,6 @@
           </div>
         </article>
 
-        <!-- Story 2 -->
         <article class="story-card" data-animate>
           <div class="h-56 overflow-hidden">
             <img 
@@ -351,7 +419,7 @@
               How to travel authentically
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed mb-4">
-              Create deeper, more meaningful connections with the places you visit and local cultures.
+              Create deeper connections with places you visit and local cultures.
             </p>
             <a href="story-travel-authentically.html" class="text-gold text-sm font-semibold hover:underline">
               Read More →
@@ -359,7 +427,6 @@
           </div>
         </article>
 
-        <!-- Story 3 -->
         <article class="story-card" data-animate>
           <div class="h-56 overflow-hidden">
             <img 
@@ -378,7 +445,7 @@
               Lima's football heart
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed mb-4">
-              Experience Peru's most passionate football culture beyond the stadium - local style.
+              Experience Peru's most passionate football culture beyond the stadium.
             </p>
             <a href="#" class="text-gold text-sm font-semibold hover:underline">
               Read More →
@@ -386,40 +453,31 @@
           </div>
         </article>
 
-        <!-- Story: where the journey began -->
-<article class="story-card" data-animate>
-  <div class="h-56 overflow-hidden">
-    <img 
-      src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Juichende%20matta.jpg" 
-      alt="Football culture and journey beginnings" 
-      class="w-full h-full object-cover"
-    />
-  </div>
-
-  <div class="p-6">
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-gold text-xs uppercase tracking-wider font-semibold">
-        Founder story
-      </span>
-      <span class="text-gray-600">•</span>
-      <span class="text-gray-400 text-xs">Beyond the Pitch</span>
-    </div>
-
-    <h3 class="text-xl font-bold text-white mb-3">
-      Where the journey began - and continues
-    </h3>
-
-    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-      A personal story about football, community, and the moments that shaped Beyond the Pitch.
-    </p>
-
-    <a href="Matta-blog.html" class="text-gold text-sm font-semibold hover:underline">
-      Read more →
-    </a>
-  </div>
-</article>
-
-
+        <article class="story-card" data-animate>
+          <div class="h-56 overflow-hidden">
+            <img 
+              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Juichende%20matta.jpg" 
+              alt="Football culture" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-gold text-xs uppercase tracking-wider font-semibold">Founder Story</span>
+              <span class="text-gray-600">•</span>
+              <span class="text-gray-400 text-xs">Beyond the Pitch</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">
+              Where the journey began
+            </h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              A personal story about football, community, and the moments that shaped this platform.
+            </p>
+            <a href="Matta-blog.html" class="text-gold text-sm font-semibold hover:underline">
+              Read more →
+            </a>
+          </div>
+        </article>
 
       </div>
 
@@ -433,54 +491,27 @@
     </div>
   </section>
 
-  <!-- Newsletter Section -->
-  <section class="py-20 px-6 bg-gray-900 bg-opacity-30">
-    <div class="max-w-2xl mx-auto text-center" data-animate>
-      <h2 class="text-3xl font-bold text-gold mb-4">Never miss a story</h2>
-      <p class="text-gray-400 mb-8">
-        Get exclusive travel tales, cultural insights and early access to new journeys delivered to your inbox.
-      </p>
-      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-        <input 
-          type="email" 
-          placeholder="Your email address" 
-          class="flex-1 px-6 py-4 rounded-full bg-black border border-gray-800 text-white focus:outline-none focus:border-gold transition-colors"
-          required
-        />
-        <button 
-          type="submit" 
-          class="bg-gold text-black font-semibold px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-lg whitespace-nowrap">
-          Subscribe
-        </button>
-      </form>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="py-12 px-6 bg-black border-t border-gray-900">
     <div class="max-w-7xl mx-auto text-center">
-      <div class="mb-6">
-        <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
-          <img 
-            src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" 
-            alt="Beyond the Pitch" 
-            class="h-20 w-auto mx-auto"
-          />
-        </a>
-        <p class="text-sm text-gray-500 mt-4">Sport · Culture · Travel</p>
-      </div>
-      <div class="mb-6">
-        <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors">
-          📧 thebeyondthepitch@gmail.com
-        </a>
-      </div>
+      <a href="index.html" class="inline-block hover:opacity-80 transition-opacity mb-4">
+        <img 
+          src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" 
+          alt="Beyond the Pitch" 
+          class="h-20 w-auto mx-auto"
+        />
+      </a>
+      <p class="text-sm text-gray-500 mb-4">Sport · Culture · Travel</p>
+      <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors block mb-4">
+        📧 thebeyondthepitch@gmail.com
+      </a>
       <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- JavaScript -->
   <script>
-    // Initialize Leaflet Map
+    // Map initialization
     const map = L.map('worldMap', {
       center: [30, 20],
       zoom: 2,
@@ -489,18 +520,16 @@
       scrollWheelZoom: true
     });
 
-    // Dark theme tile layer
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '©OpenStreetMap, ©CartoDB',
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(map);
 
-    // Journey locations with exact coordinates
     const journeys = [
       {
         name: 'Mongolia',
-        coords: [47.9197, 106.9057], // Ulaanbaatar
+        coords: [47.9197, 106.9057],
         flag: '🇲🇳',
         title: 'Naadam Festival',
         description: 'Experience wrestling, archery & horse racing',
@@ -509,7 +538,7 @@
       },
       {
         name: 'Ireland',
-        coords: [53.3498, -6.2603], // Dublin
+        coords: [53.3498, -6.2603],
         flag: '🇮🇪',
         title: 'Gaelic Games',
         description: 'Dive into Ireland\'s national sports',
@@ -518,7 +547,7 @@
       },
       {
         name: 'Peru',
-        coords: [-12.0464, -77.0428], // Lima
+        coords: [-12.0464, -77.0428],
         flag: '🇵🇪',
         title: 'Lima Football',
         description: 'Experience Peru\'s football passion',
@@ -527,18 +556,14 @@
       }
     ];
 
-    // Add markers with custom popups
     journeys.forEach(journey => {
-      // Custom icon
       const goldIcon = L.divIcon({
         className: 'custom-marker',
         iconSize: [20, 20]
       });
 
-      // Create marker
       const marker = L.marker(journey.coords, { icon: goldIcon }).addTo(map);
 
-      // Create popup content
       const popupContent = `
         <div class="journey-popup">
           <img src="${journey.image}" alt="${journey.name}">
@@ -556,13 +581,12 @@
         closeButton: false
       });
 
-      // Open popup on hover
       marker.on('mouseover', function() {
         this.openPopup();
       });
     });
 
-    // Scroll Animations
+    // Scroll animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -580,7 +604,7 @@
       observer.observe(el);
     });
 
-    // Filter Tags
+    // Filter tags
     const filterTags = document.querySelectorAll('.filter-tag');
     filterTags.forEach(tag => {
       tag.addEventListener('click', function() {
@@ -588,68 +612,44 @@
         this.classList.add('active');
       });
     });
-  </script>
-<script>
-  // Track CTA button clicks
-  document.addEventListener('click', function(e) {
-    const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta, .floating-cta');
-    if (cta) {
-      gtag('event', 'cta_click', {
-        'event_category': 'engagement',
-        'event_label': cta.textContent.trim(),
-        'value': 1
-      });
-    }
-  });
 
-  // Track scroll depth (75% = engaged user)
-  let scrollTracked = false;
-  window.addEventListener('scroll', function() {
-    if (scrollTracked) return;
-    const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
-    if (scrollPercent > 75) {
-      scrollTracked = true;
-      gtag('event', 'scroll_depth', {
-        'event_category': 'engagement',
-        'event_label': '75_percent',
-        'value': 75
-      });
-    }
-  });
-
-  // Track form submissions
-  document.addEventListener('submit', function(e) {
-    const form = e.target;
-    const formName = form.querySelector('input[name="_subject"]')?.value || 'unknown_form';
-    gtag('event', 'form_submit', {
-      'event_category': 'conversion',
-      'event_label': formName,
-      'value': 10
+    // Analytics tracking
+    document.addEventListener('click', function(e) {
+      const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta');
+      if (cta) {
+        gtag('event', 'cta_click', {
+          'event_category': 'engagement',
+          'event_label': cta.textContent.trim(),
+          'value': 1
+        });
+      }
     });
-  });
 
-  // Track video plays
-  document.addEventListener('play', function(e) {
-    if (e.target.tagName === 'VIDEO' || e.target.tagName === 'IFRAME') {
-      gtag('event', 'video_play', {
-        'event_category': 'engagement',
-        'event_label': 'hero_video',
-        'value': 5
+    // Track newsletter clicks
+    document.querySelectorAll('a[href*="substack"]').forEach(link => {
+      link.addEventListener('click', function() {
+        gtag('event', 'newsletter_click', {
+          'event_category': 'engagement',
+          'event_label': 'Newsletter Click',
+          'value': 5
+        });
       });
-    }
-  }, true);
+    });
 
-  // Track outbound links (social media, partners)
-  document.addEventListener('click', function(e) {
-    const link = e.target.closest('a');
-    if (link && link.hostname !== window.location.hostname) {
-      gtag('event', 'outbound_click', {
-        'event_category': 'engagement',
-        'event_label': link.href,
-        'value': 1
-      });
-    }
-  });
-</script>
+    let scrollTracked = false;
+    window.addEventListener('scroll', function() {
+      if (scrollTracked) return;
+      const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+      if (scrollPercent > 75) {
+        scrollTracked = true;
+        gtag('event', 'scroll_depth', {
+          'event_category': 'engagement',
+          'event_label': '75_percent',
+          'value': 75
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
