@@ -1,3 +1,20 @@
+const authUser = JSON.parse(localStorage.getItem("authUser"));
+
+if (!authUser || authUser.role !== "partner") {
+    window.location.href = "index.html";
+}
+
+const userData = {
+    companyName: "Peru Adventure Co.",
+    country: "Peru",
+    contactName: "Juan Perez",
+    phone: "+51 123 456 789",
+    languages: ["English", "Spanish"],
+    bookings: [],
+    experiences: [],
+    messages: []
+};
+
 // ===============================
 // AUTH CHECK
 // ===============================
@@ -242,4 +259,8 @@ function toggleAvailability(day) {
 function logout() {
     localStorage.removeItem("authUser");
     window.location.href = "index.html";
+    document.addEventListener("DOMContentLoaded", () => {
+    loadPartnerData();
+});
+
 }
