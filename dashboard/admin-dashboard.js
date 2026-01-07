@@ -1,0 +1,386 @@
+// ===============================
+// DEBUG: Check if script loads
+// ===============================
+console.log("✅ admin-dashboard.js is loaded!");
+
+// ===============================
+// AUTH CHECK
+// ===============================
+const userData = sessionStorage.getItem("userData");
+const userType = sessionStorage.getItem("userType");
+
+console.log("UserType:", userType);
+console.log("UserData:", userData);
+
+// Comment this out temporarily for testing
+// if (!userData || userType !== "admin") {
+//     console.log("❌ Not authorized, redirecting...");
+//     window.location.href = "index.html";
+// }
+
+// ===============================
+// MOCK DATA
+// ===============================
+const partners = [
+    {
+        id: 1,
+        name: "Peru Adventure Co.",
+        email: "peru@demo.com",
+        country: "Peru",
+        type: "Tour operator",
+        contactName: "Juan Perez",
+        phone: "+51 123 456 789",
+        status: "active",
+        joinDate: "2025-08-15",
+        bookings: 45,
+        rating: 4.8
+    },
+    {
+        id: 2,
+        name: "Dublin Football Hostel",
+        email: "ireland@demo.com",
+        country: "Ireland",
+        type: "Sports club / academy",
+        contactName: "Sean O'Brien",
+        phone: "+353 87 123 4567",
+        status: "active",
+        joinDate: "2025-09-20",
+        bookings: 32,
+        rating: 4.9
+    },
+    {
+        id: 3,
+        name: "Nomadic Ger Experience",
+        email: "mongolia@demo.com",
+        country: "Mongolia",
+        type: "Cultural organization",
+        contactName: "Bataar Erdene",
+        phone: "+976 99 123 456",
+        status: "pending",
+        joinDate: "2026-01-05",
+        bookings: 0,
+        rating: null
+    }
+];
+
+const experiences = [
+    { id: 1, name: "Machu Picchu Hike", partnerId: 1, country: "Peru", type: "Trek", price: 1200, rating: 4.8, bookings: 18 },
+    { id: 2, name: "Cusco City Tour", partnerId: 1, country: "Peru", type: "City Tour", price: 120, rating: 4.5, bookings: 34 },
+    { id: 3, name: "GAA Training Session", partnerId: 2, country: "Ireland", type: "Sports", price: 150, rating: 4.9, bookings: 28 },
+    { id: 4, name: "Dublin Football Experience", partnerId: 2, country: "Ireland", type: "Sports", price: 200, rating: 4.7, bookings: 22 },
+    { id: 5, name: "Mongolian Wrestling", partnerId: 3, country: "Mongolia", type: "Cultural", price: 180, rating: null, bookings: 0 },
+    { id: 6, name: "Steppe Football", partnerId: 3, country: "Mongolia", type: "Sports", price: 220, rating: null, bookings: 0 }
+];
+
+const bookings = [
+    { id: "BTP-1001", experienceId: 1, partnerId: 1, customer: "John Smith", date: "2026-02-10", guests: 4, status: "confirmed", amount: 4800 },
+    { id: "BTP-1002", experienceId: 3, partnerId: 2, customer: "Emily Clark", date: "2026-02-14", guests: 2, status: "confirmed", amount: 300 },
+    { id: "BTP-1003", experienceId: 2, partnerId: 1, customer: "Michael Johnson", date: "2026-02-20", guests: 3, status: "pending", amount: 360 },
+    { id: "BTP-1004", experienceId: 4, partnerId: 2, customer: "Sarah Williams", date: "2026-02-25", guests: 5, status: "confirmed", amount: 1000 },
+    { id: "BTP-1005", experienceId: 1, partnerId: 1, customer: "David Brown", date: "2026-03-01", guests: 2, status: "confirmed", amount: 2400 }
+];
+
+// ===============================
+// HELPER FUNCTIONS
+// ===============================
+function getCountryFlag(country) {
+    const flags = { "Peru": "🇵🇪", "Ireland": "🇮🇪", "Mongolia": "🇲🇳" };
+    return flags[country] || "🌍";
+}
+
+// ===============================
+// NAVIGATION
+// ===============================
+window.showSection = function(sectionId) {
+    console.log("Switching to section:", sectionId);
+    
+    // Hide all sections
+    const sections = document.querySelectorAll(".content-section");
+    sections.forEach(section => {
+        section.classList.remove("active");
+    });
+    
+    // Remove active from nav items
+    const navItems = document.querySelectorAll(".nav-item");
+    navItems.forEach(item => {
+        item.classList.remove("active");
+    });
+    
+    // Show selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add("active");
+    } else {
+        console.error("Section not found:", sectionId);
+    }
+    
+    // Add active to nav item (if event exists)
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add("active");
+    }
+}
+
+// ===============================
+// OVERVIEW
+// ===============================
+function loadOverviewStats() {
+    console.log("Loading overview stats...");
+    
+    const totalPartnersEl = document.getElementById("totalPartners");
+    const totalExperiencesEl = document.getElementById("totalExperiences");
+    const totalBookingsEl = document.getElementById("totalBookings");
+    const pendingApprovalsEl = document.getElementById("pendingApprovals");
+    
+    if (totalPartnersEl) totalPartnersEl.textContent = partners.length;
+    if (totalExperiencesEl) totalExperiencesEl.textContent = experiences.length;
+    if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
+    if (pendingApprovalsEl) pendingApprovalsEl.textContent = partners.filter(p => p.status === "pending").length;
+    
+    console.log("✅ Overview stats loaded");
+}
+
+// ===============================
+// PARTNERS
+// ===============================
+window.filterPartners = function(country) {
+    console.log("Filtering partners by:", country);
+    
+    // Update active filter button
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    filterButtons.forEach(btn => btn.classList.remove("active"));
+    
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add("active");
+    }
+    
+    loadPartners(country);
+}
+
+function loadPartners(filter) {
+    console.log("Loading partners with filter:", filter || "all");
+    
+    const grid = document.getElementById("partnersGrid");
+    if (!grid) {
+        console.error("❌ partnersGrid element not found!");
+        return;
+    }
+    
+    const filtered = (filter === "all" || !filter) ? partners : partners.filter(p => p.country === filter);
+    console.log("Filtered partners:", filtered.length);
+
+    grid.innerHTML = filtered.map(p => `
+        <div class="partner-card">
+            <div class="partner-header">
+                <h3>${p.name}</h3>
+                <span class="partner-country">${getCountryFlag(p.country)} ${p.country}</span>
+            </div>
+            <div class="partner-info">
+                📧 ${p.email}<br>
+                👤 ${p.contactName}<br>
+                📞 ${p.phone}<br>
+                🏢 ${p.type}
+            </div>
+            <div class="partner-stats">
+                <div class="partner-stat">
+                    <div class="partner-stat-value">${p.bookings}</div>
+                    <div class="partner-stat-label">Boekingen</div>
+                </div>
+                <div class="partner-stat">
+                    <div class="partner-stat-value">${p.rating || 'N/A'}</div>
+                    <div class="partner-stat-label">Rating</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin: 10px 0;">
+                <span class="badge badge-${p.status}">${p.status === 'active' ? 'Actief' : 'In afwachting'}</span>
+            </div>
+            <div class="partner-actions">
+                <button class="btn btn-primary" onclick="viewPartner(${p.id})">Details</button>
+                <button class="btn btn-secondary" onclick="editPartner(${p.id})">Bewerk</button>
+                ${p.status === 'pending' ? `<button class="btn btn-success" onclick="approvePartner(${p.id})">Goedkeuren</button>` : ''}
+            </div>
+        </div>
+    `).join("");
+    
+    console.log("✅ Partners loaded");
+}
+
+// ===============================
+// EXPERIENCES
+// ===============================
+function loadExperiences() {
+    console.log("Loading experiences...");
+    
+    const tbody = document.getElementById("experiencesBody");
+    if (!tbody) {
+        console.error("❌ experiencesBody element not found!");
+        return;
+    }
+
+    tbody.innerHTML = experiences.map(exp => {
+        const partner = partners.find(p => p.id === exp.partnerId);
+        return `
+            <tr>
+                <td><strong>${exp.name}</strong></td>
+                <td>${partner ? partner.name : 'N/A'}</td>
+                <td>${getCountryFlag(exp.country)} ${exp.country}</td>
+                <td>${exp.type}</td>
+                <td><strong>€${exp.price}</strong></td>
+                <td>${exp.rating ? '⭐ ' + exp.rating : 'N/A'}</td>
+                <td>${exp.bookings}</td>
+                <td>
+                    <button class="btn btn-secondary" onclick="editExperience(${exp.id})">Bewerk</button>
+                </td>
+            </tr>
+        `;
+    }).join("");
+    
+    console.log("✅ Experiences loaded");
+}
+
+// ===============================
+// BOOKINGS
+// ===============================
+function loadBookings() {
+    console.log("Loading bookings...");
+    
+    const tbody = document.getElementById("bookingsBody");
+    if (!tbody) {
+        console.error("❌ bookingsBody element not found!");
+        return;
+    }
+
+    tbody.innerHTML = bookings.map(booking => {
+        const experience = experiences.find(e => e.id === booking.experienceId);
+        const partner = partners.find(p => p.id === booking.partnerId);
+        
+        return `
+            <tr>
+                <td><strong>${booking.id}</strong></td>
+                <td>${experience ? experience.name : 'N/A'}</td>
+                <td>${partner ? partner.name : 'N/A'}</td>
+                <td>${booking.customer}</td>
+                <td>${new Date(booking.date).toLocaleDateString("nl-NL")}</td>
+                <td>${booking.guests}</td>
+                <td><span class="badge badge-${booking.status}">
+                    ${booking.status === 'confirmed' ? 'Bevestigd' : 'In afwachting'}
+                </span></td>
+                <td><strong>€${booking.amount}</strong></td>
+            </tr>
+        `;
+    }).join("");
+    
+    console.log("✅ Bookings loaded");
+}
+
+// ===============================
+// MODALS
+// ===============================
+window.openAddPartnerModal = function() {
+    console.log("Opening add partner modal");
+    const modal = document.getElementById("addPartnerModal");
+    if (modal) {
+        modal.classList.add("active");
+    } else {
+        console.error("❌ addPartnerModal not found!");
+    }
+}
+
+window.closeModal = function(modalId) {
+    console.log("Closing modal:", modalId);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove("active");
+    }
+}
+
+window.addPartner = function(event) {
+    event.preventDefault();
+    console.log("Adding new partner...");
+    
+    const newPartner = {
+        id: partners.length + 1,
+        name: document.getElementById("newCompanyName").value,
+        email: document.getElementById("newEmail").value,
+        country: document.getElementById("newCountry").value,
+        type: document.getElementById("newType").value,
+        contactName: document.getElementById("newContactName").value,
+        phone: document.getElementById("newPhone").value,
+        status: "pending",
+        joinDate: new Date().toISOString().split('T')[0],
+        bookings: 0,
+        rating: null
+    };
+    
+    partners.push(newPartner);
+    
+    closeModal("addPartnerModal");
+    loadPartners();
+    loadOverviewStats();
+    
+    alert(`✅ Partner "${newPartner.name}" succesvol toegevoegd!`);
+    event.target.reset();
+}
+
+// ===============================
+// ACTIONS
+// ===============================
+window.viewPartner = function(id) {
+    const partner = partners.find(p => p.id === id);
+    if (partner) {
+        alert(`👤 Partner Details:\n\nNaam: ${partner.name}\nEmail: ${partner.email}\nLand: ${partner.country}\nContact: ${partner.contactName}\nTelefoon: ${partner.phone}\nStatus: ${partner.status}\nJoined: ${partner.joinDate}\nBoekingen: ${partner.bookings}\nRating: ${partner.rating || 'N/A'}`);
+    }
+}
+
+window.editPartner = function(id) {
+    const partner = partners.find(p => p.id === id);
+    if (partner) {
+        alert(`✏️ Bewerk Partner:\n\n${partner.name}\n\n(In volledige versie opent hier een formulier)`);
+    }
+}
+
+window.approvePartner = function(id) {
+    const partner = partners.find(p => p.id === id);
+    if (partner) {
+        partner.status = "active";
+        loadPartners();
+        loadOverviewStats();
+        alert(`✅ Partner "${partner.name}" is goedgekeurd!`);
+    }
+}
+
+window.editExperience = function(id) {
+    const experience = experiences.find(e => e.id === id);
+    if (experience) {
+        alert(`✏️ Bewerk Experience:\n\n${experience.name}\n\n(In volledige versie opent hier een formulier)`);
+    }
+}
+
+window.sendBroadcast = function(event) {
+    event.preventDefault();
+    alert("📤 Broadcast bericht verstuurd naar alle geselecteerde partners!");
+    event.target.reset();
+}
+
+window.logout = function() {
+    console.log("Logging out...");
+    sessionStorage.removeItem("userType");
+    sessionStorage.removeItem("userData");
+    window.location.href = "index.html";
+}
+
+// ===============================
+// INITIAL LOAD
+// ===============================
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("🚀 DOM Content Loaded - Initializing admin dashboard...");
+    
+    try {
+        loadOverviewStats();
+        loadPartners();
+        loadExperiences();
+        loadBookings();
+        console.log("✅ Admin dashboard initialized successfully!");
+    } catch (error) {
+        console.error("❌ Error initializing dashboard:", error);
+    }
+});
