@@ -87,3 +87,17 @@ function handleLogin(role) {
     // Redirect to dashboard
     window.location.href = user.redirect;
 }
+
+// ===============================
+// CHECK IF ALREADY LOGGED IN
+// ===============================
+window.addEventListener("DOMContentLoaded", () => {
+    const userType = sessionStorage.getItem("userType");
+    
+    // If already logged in, redirect to appropriate dashboard
+    if (userType === "partner") {
+        window.location.href = "partner-dashboard.html";
+    } else if (userType === "admin") {
+        window.location.href = "admin-dashboard.html";
+    }
+});
