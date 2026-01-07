@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beyond the Pitch - Partner Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beyond the Pitch – Partner Dashboard</title>
+
     <style>
         * {
             margin: 0;
@@ -12,30 +13,30 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
 
         .login-container {
-            background: white;
+            background: #fff;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
             max-width: 1000px;
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
+            overflow: hidden;
         }
 
         .login-left {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             padding: 60px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,27 +45,21 @@
         .login-left h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            font-weight: 700;
         }
 
         .login-left p {
-            font-size: 1.1rem;
             opacity: 0.9;
             line-height: 1.6;
         }
 
         .login-right {
             padding: 60px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         .login-tabs {
             display: flex;
-            gap: 10px;
+            border-bottom: 2px solid #eee;
             margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
         }
 
         .tab-btn {
@@ -73,10 +68,8 @@
             border: none;
             background: none;
             cursor: pointer;
-            font-size: 1rem;
             font-weight: 600;
             color: #999;
-            transition: all 0.3s;
             border-bottom: 3px solid transparent;
         }
 
@@ -85,148 +78,155 @@
             border-bottom-color: #667eea;
         }
 
-        .login-form h2 {
-            margin-bottom: 30px;
+        .login-form {
+            display: none;
+        }
+
+        .login-form.active {
+            display: block;
+        }
+
+        h2 {
+            margin-bottom: 25px;
             color: #333;
-            font-size: 1.8rem;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 8px;
             color: #555;
-            font-weight: 500;
         }
 
-        .form-group input,
-        .form-group select {
+        input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
+            padding: 14px;
             border-radius: 10px;
+            border: 2px solid #e0e0e0;
             font-size: 1rem;
-            transition: all 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
+        input:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .login-btn {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
             border-radius: 10px;
-            font-size: 1.1rem;
+            border: none;
             font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             cursor: pointer;
-            transition: transform 0.2s;
         }
 
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
-        .demo-credentials {
-            margin-top: 20px;
-            padding: 15px;
+        .error-message {
+            color: #d32f2f;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .demo-box {
+            margin-top: 25px;
             background: #f8f9fa;
+            padding: 15px;
             border-radius: 10px;
             font-size: 0.9rem;
-        }
-
-        .demo-credentials h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .demo-credentials p {
-            margin: 5px 0;
-            color: #555;
         }
 
         @media (max-width: 768px) {
             .login-container {
                 grid-template-columns: 1fr;
             }
-            
-            .login-left {
-                padding: 40px 30px;
-            }
-
-            .login-left h1 {
-                font-size: 2rem;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-left">
-            <h1> Beyond the Pitch</h1>
-            <p>Partner Dashboard - BManage your experiences, bookings, and schedule in one place.</p>
-        </div>
-        
-        <div class="login-right">
-            <div class="login-tabs">
-                <button class="tab-btn active" onclick="switchTab('partner')">Partner Login</button>
-                <button class="tab-btn" onclick="switchTab('admin')">Admin Login</button>
-            </div>
 
-            <div class="login-form" id="partnerLogin">
-                <h2>Partner login</h2>
-                <form onsubmit="loginPartner(event)">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="partnerEmail" required placeholder="partner@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Wachtwoord</label>
-                        <input type="password" id="partnerPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="login-btn">Inloggen als Partner</button>
-                </form>
-
-                <div class="demo-credentials">
-                    <h4>🔑 Demo Credentials:</h4>
-                    <p><strong>Peru Partner:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc8c998e89bc8c9d8e8892998ed29f9391">[email&#160;protected]</a> / peru123</p>
-                    <p><strong>Ireland Partner:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a53485f565b545e7a4a5b484e545f4814595557">[email&#160;protected]</a> / ireland123</p>
-                    <p><strong>Mongolia Partner:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="026f6d6c656d6e6b6342726370766c67702c616d6f">[email&#160;protected]</a> / mongolia123</p>
-                </div>
-            </div>
-
-            <div class="login-form" id="adminLogin" style="display: none;">
-                <h2>Admin Inloggen</h2>
-                <form onsubmit="loginAdmin(event)">
-                    <div class="form-group">
-                        <label>Admin Email</label>
-                        <input type="email" id="adminEmail" required placeholder="admin@travelbeyondthepitch.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Wachtwoord</label>
-                        <input type="password" id="adminPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="login-btn">Inloggen als Admin</button>
-                </form>
-
-                <div class="demo-credentials">
-                    <h4>🔑 Demo Credentials:</h4>
-                    <p><strong>Admin:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9efffaf3f7f0deeaecffe8fbf2fcfbe7f1f0faeaf6fbeef7eafdf6b0fdf1f3">[email&#160;protected]</a> / admin123</p>
-                </div>
-            </div>
-        </div>
+<div class="login-container">
+    <div class="login-left">
+        <h1>Beyond the Pitch</h1>
+        <p>
+            Partner Dashboard – Manage your experiences, bookings,
+            and schedules in one place.
+        </p>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="auth.js"></script>
+    <div class="login-right">
+        <div class="login-tabs" role="tablist">
+            <button class="tab-btn active" data-tab="partner" role="tab">
+                Partner Login
+            </button>
+            <button class="tab-btn" data-tab="admin" role="tab">
+                Admin Login
+            </button>
+        </div>
+
+        <!-- Partner Login -->
+        <form class="login-form active" id="partner-form">
+            <h2>Partner Login</h2>
+
+            <div class="form-group">
+                <label for="partner-email">Email</label>
+                <input id="partner-email" name="email" type="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="partner-password">Password</label>
+                <input id="partner-password" name="password" type="password" required />
+            </div>
+
+            <button class="login-btn" type="submit">
+                Login as Partner
+            </button>
+
+            <p class="error-message" id="partner-error"></p>
+
+            <div class="demo-box">
+                <strong>Demo credentials:</strong><br>
+                peru@demo.com / peru123
+            </div>
+        </form>
+
+        <!-- Admin Login -->
+        <form class="login-form" id="admin-form">
+            <h2>Admin Login</h2>
+
+            <div class="form-group">
+                <label for="admin-email">Email</label>
+                <input id="admin-email" name="email" type="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="admin-password">Password</label>
+                <input id="admin-password" name="password" type="password" required />
+            </div>
+
+            <button class="login-btn" type="submit">
+                Login as Admin
+            </button>
+
+            <p class="error-message" id="admin-error"></p>
+
+            <div class="demo-box">
+                <strong>Demo credentials:</strong><br>
+                admin@demo.com / admin123
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="auth.js"></script>
 </body>
 </html>
