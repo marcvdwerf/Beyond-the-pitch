@@ -1,4 +1,6 @@
-// Mock user database (DEMO ONLY)
+// ===============================
+// MOCK USER DATABASE (DEMO ONLY)
+// ===============================
 const users = [
     {
         role: "partner",
@@ -14,23 +16,28 @@ const users = [
     }
 ];
 
-// Tab switching
+// ===============================
+// TAB SWITCHING (PARTNER / ADMIN)
+// ===============================
 const tabButtons = document.querySelectorAll(".tab-btn");
-const forms = document.querySelectorAll(".login-form");
+const loginForms = document.querySelectorAll(".login-form");
 
 tabButtons.forEach(button => {
     button.addEventListener("click", () => {
-        tabButtons.forEach(b => b.classList.remove("active"));
-        forms.forEach(f => f.classList.remove("active"));
+        // Reset active states
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        loginForms.forEach(form => form.classList.remove("active"));
 
+        // Activate selected tab & form
         button.classList.add("active");
-        document
-            .getElementById(`${button.dataset.tab}-form`)
-            .classList.add("active");
+        const targetForm = document.getElementById(`${button.dataset.tab}-form`);
+        targetForm.classList.add("active");
     });
 });
 
-// Form submit handlers
+// ===============================
+// FORM SUBMISSION HANDLERS
+// ===============================
 document.getElementById("partner-form").addEventListener("submit", event => {
     event.preventDefault();
     handleLogin("partner");
@@ -41,13 +48,21 @@ document.getElementById("admin-form").addEventListener("submit", event => {
     handleLogin("admin");
 });
 
+// ===============================
+// LOGIN HANDLER
+// ===============================
 function handleLogin(role) {
-    const email = document.getElementById(`${role}-email`).value;
-    const password = document.getElementById(`${role}-password`).value;
+    const emailInput = document.getElementById(`${role}-email`);
+    const passwordInput = document.getElementById(`${role}-password`);
     const errorElement = document.getElementById(`${role}-error`);
 
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    // Reset error
     errorElement.textContent = "";
 
+    // Find user
     const user = users.find(
         u => u.role === role && u.email === email && u.password === password
     );
@@ -57,14 +72,18 @@ function handleLogin(role) {
         return;
     }
 
-    // Store demo session
-    localStorage.setItem(
-        "authUser",
+    // ===============================
+    // STORE DEMO SESSION
+    // ===============================
+    sessionStorage.setItem("userType", user.role);
+    sessionStorage.setItem(
+        "userData",
         JSON.stringify({
-            role: user.role,
-            email: user.email
+            email: user.email,
+            role: user.role
         })
     );
 
+    // Redirect to dashboard
     window.location.href = user.redirect;
 }
