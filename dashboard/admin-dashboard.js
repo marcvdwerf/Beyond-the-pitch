@@ -1,29 +1,21 @@
 // ===============================
-// SIMPLIFIED AUTH CHECK
+// TEMPORARILY DISABLED AUTH FOR TESTING
 // ===============================
 console.log("🚀 Admin Dashboard Script Loading...");
+console.log("⚠️ AUTH CHECK DISABLED FOR TESTING");
 
-// Get session data
+// COMMENTED OUT AUTH CHECK - ENABLE THIS LATER!
+/*
 const isAuthenticated = sessionStorage.getItem("isAuthenticated");
 const userType = sessionStorage.getItem("userType");
 
-console.log("=== AUTH CHECK ===");
-console.log("isAuthenticated:", isAuthenticated);
-console.log("userType:", userType);
-
-// Check authentication - MORE LENIENT
-if (!isAuthenticated || !userType) {
-    console.log("❌ No session data found");
-    alert("Please login first");
+if (!isAuthenticated || userType !== "admin") {
+    console.log("❌ Not authorized");
     window.location.replace("index.html");
-} else if (userType !== "admin") {
-    console.log("❌ Wrong user type:", userType);
-    alert("Access denied. Admin only.");
-    sessionStorage.clear();
-    window.location.replace("index.html");
-} else {
-    console.log("✅ Admin authenticated successfully!");
 }
+*/
+
+console.log("✅ Loading dashboard without auth check...");
 
 // ===============================
 // DEMO DATA
@@ -105,7 +97,6 @@ function getCountryFlag(country) {
 window.addEventListener('DOMContentLoaded', function() {
     console.log("📊 DOM Ready - Initializing Admin Dashboard...");
     
-    // Wait a bit to ensure DOM is fully ready
     setTimeout(function() {
         try {
             updateStats();
@@ -123,51 +114,24 @@ window.addEventListener('DOMContentLoaded', function() {
 // STATS
 // ===============================
 function updateStats() {
-    console.log("Updating stats...");
-    
     const totalPartnersEl = document.getElementById('totalPartners');
     const totalExperiencesEl = document.getElementById('totalExperiences');
     const totalBookingsEl = document.getElementById('totalBookings');
     const pendingApprovalsEl = document.getElementById('pendingApprovals');
 
-    if (totalPartnersEl) {
-        totalPartnersEl.textContent = partnersData.length;
-        console.log("✓ Total partners:", partnersData.length);
-    } else {
-        console.warn("⚠ totalPartners element not found");
-    }
-    
-    if (totalExperiencesEl) {
-        totalExperiencesEl.textContent = experiencesData.length;
-        console.log("✓ Total experiences:", experiencesData.length);
-    } else {
-        console.warn("⚠ totalExperiences element not found");
-    }
-    
-    if (totalBookingsEl) {
-        totalBookingsEl.textContent = bookingsData.length;
-        console.log("✓ Total bookings:", bookingsData.length);
-    } else {
-        console.warn("⚠ totalBookings element not found");
-    }
-    
+    if (totalPartnersEl) totalPartnersEl.textContent = partnersData.length;
+    if (totalExperiencesEl) totalExperiencesEl.textContent = experiencesData.length;
+    if (totalBookingsEl) totalBookingsEl.textContent = bookingsData.length;
     if (pendingApprovalsEl) {
         const pending = partnersData.filter(p => p.status === 'pending').length;
         pendingApprovalsEl.textContent = pending;
-        console.log("✓ Pending approvals:", pending);
-    } else {
-        console.warn("⚠ pendingApprovals element not found");
     }
-    
-    console.log("✅ Stats updated");
 }
 
 // ===============================
 // NAVIGATION
 // ===============================
 function showSection(sectionId) {
-    console.log("📑 Switching to section:", sectionId);
-    
     const sections = document.querySelectorAll('.content-section');
     sections.forEach(function(section) {
         section.classList.remove('active');
@@ -181,9 +145,6 @@ function showSection(sectionId) {
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
-        console.log("✓ Section shown:", sectionId);
-    } else {
-        console.error("❌ Section not found:", sectionId);
     }
     
     if (window.event && window.event.currentTarget) {
@@ -197,13 +158,8 @@ window.showSection = showSection;
 // PARTNERS
 // ===============================
 function renderPartners(filterCountry) {
-    console.log("👥 Rendering partners, filter:", filterCountry);
-    
     const grid = document.getElementById('partnersGrid');
-    if (!grid) {
-        console.error("❌ partnersGrid element not found!");
-        return;
-    }
+    if (!grid) return;
     
     let filtered = partnersData;
     if (filterCountry !== 'all') {
@@ -211,8 +167,6 @@ function renderPartners(filterCountry) {
             return p.country === filterCountry;
         });
     }
-    
-    console.log("Found", filtered.length, "partners");
     
     let html = '';
     
@@ -256,12 +210,9 @@ function renderPartners(filterCountry) {
     });
     
     grid.innerHTML = html;
-    console.log("✅ Partners rendered successfully");
 }
 
 function filterPartners(country) {
-    console.log("🔍 Filter clicked:", country);
-    
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(function(btn) {
         btn.classList.remove('active');
@@ -280,13 +231,8 @@ window.filterPartners = filterPartners;
 // EXPERIENCES
 // ===============================
 function renderExperiences() {
-    console.log("🌍 Rendering experiences...");
-    
     const tbody = document.getElementById('experiencesBody');
-    if (!tbody) {
-        console.error("❌ experiencesBody element not found!");
-        return;
-    }
+    if (!tbody) return;
     
     let html = '';
     
@@ -312,20 +258,14 @@ function renderExperiences() {
     });
     
     tbody.innerHTML = html;
-    console.log("✅ Experiences rendered successfully");
 }
 
 // ===============================
 // BOOKINGS
 // ===============================
 function renderBookings() {
-    console.log("📅 Rendering bookings...");
-    
     const tbody = document.getElementById('bookingsBody');
-    if (!tbody) {
-        console.error("❌ bookingsBody element not found!");
-        return;
-    }
+    if (!tbody) return;
     
     let html = '';
     
@@ -359,7 +299,6 @@ function renderBookings() {
     });
     
     tbody.innerHTML = html;
-    console.log("✅ Bookings rendered successfully");
 }
 
 // ===============================
@@ -371,33 +310,14 @@ function viewPartner(id) {
     });
     
     if (partner) {
-        const info = 
-            "👤 Partner Details:\n\n" +
-            "Naam: " + partner.name + "\n" +
-            "Email: " + partner.email + "\n" +
-            "Land: " + partner.country + "\n" +
-            "Contact: " + partner.contactName + "\n" +
-            "Telefoon: " + partner.phone + "\n" +
-            "Type: " + partner.type + "\n" +
-            "Status: " + partner.status + "\n" +
-            "Joined: " + partner.joinDate + "\n" +
-            "Boekingen: " + partner.bookings + "\n" +
-            "Rating: " + (partner.rating || 'N/A');
-        
-        alert(info);
+        alert("👤 Partner: " + partner.name + "\n📧 " + partner.email + "\n🌍 " + partner.country + "\n📊 " + partner.bookings + " boekingen");
     }
 }
 
 window.viewPartner = viewPartner;
 
 function editPartner(id) {
-    const partner = partnersData.find(function(p) {
-        return p.id === id;
-    });
-    
-    if (partner) {
-        alert("✏️ Bewerk Partner:\n\n" + partner.name + "\n\n(In volledige versie opent hier een formulier)");
-    }
+    alert("✏️ Partner bewerken (demo mode)");
 }
 
 window.editPartner = editPartner;
@@ -411,20 +331,14 @@ function approvePartner(id) {
         partner.status = 'active';
         renderPartners('all');
         updateStats();
-        alert("✅ Partner '" + partner.name + "' is goedgekeurd!");
+        alert("✅ Partner '" + partner.name + "' goedgekeurd!");
     }
 }
 
 window.approvePartner = approvePartner;
 
 function editExperience(id) {
-    const experience = experiencesData.find(function(e) {
-        return e.id === id;
-    });
-    
-    if (experience) {
-        alert("✏️ Bewerk Experience:\n\n" + experience.name + "\n\n(In volledige versie opent hier een formulier)");
-    }
+    alert("✏️ Experience bewerken (demo mode)");
 }
 
 window.editExperience = editExperience;
@@ -433,30 +347,21 @@ window.editExperience = editExperience;
 // MODALS
 // ===============================
 function openAddPartnerModal() {
-    console.log("➕ Opening add partner modal");
     const modal = document.getElementById('addPartnerModal');
-    if (modal) {
-        modal.classList.add('active');
-    } else {
-        console.error("❌ Modal not found");
-    }
+    if (modal) modal.classList.add('active');
 }
 
 window.openAddPartnerModal = openAddPartnerModal;
 
 function closeModal(modalId) {
-    console.log("✖ Closing modal:", modalId);
     const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('active');
-    }
+    if (modal) modal.classList.remove('active');
 }
 
 window.closeModal = closeModal;
 
 function addPartner(event) {
     event.preventDefault();
-    console.log("➕ Adding new partner...");
     
     const newPartner = {
         id: partnersData.length + 1,
@@ -478,7 +383,7 @@ function addPartner(event) {
     renderPartners('all');
     updateStats();
     
-    alert("✅ Partner '" + newPartner.name + "' succesvol toegevoegd!");
+    alert("✅ Partner '" + newPartner.name + "' toegevoegd!");
     event.target.reset();
 }
 
@@ -486,21 +391,17 @@ window.addPartner = addPartner;
 
 function sendBroadcast(event) {
     event.preventDefault();
-    alert("📤 Broadcast bericht verstuurd naar alle geselecteerde partners!");
+    alert("📤 Broadcast verstuurd!");
     event.target.reset();
 }
 
 window.sendBroadcast = sendBroadcast;
 
-// ===============================
-// LOGOUT
-// ===============================
 function logout() {
-    console.log("🚪 Logging out...");
     sessionStorage.clear();
-    window.location.replace("index.html");
+    window.location.href = "index.html";
 }
 
 window.logout = logout;
 
-console.log("✅ Admin Dashboard Script fully loaded!");
+console.log("✅ Admin Dashboard ready (NO AUTH MODE)");
