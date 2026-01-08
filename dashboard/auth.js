@@ -100,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // ===============================
         // STORE SESSION DATA
         // ===============================
-        sessionStorage.setItem("isAuthenticated", "true");
-        sessionStorage.setItem("userType", user.role);
-        sessionStorage.setItem(
+        localStorage.setItem("isAuthenticated", "true");
+       localStorage.setItem("userType", user.role);
+      localStorage.setItem(
             "userData",
             JSON.stringify({
                 email: user.email,
