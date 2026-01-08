@@ -1,5 +1,14 @@
-console.log("🚀 Admin Dashboard Script Loading...");
-console.log("⚠️ AUTH CHECK DISABLED FOR TESTING");
+console.log("🚀 Admin dashboard loading...");
+
+const isAuthenticated = sessionStorage.getItem("isAuthenticated");
+const userType = sessionStorage.getItem("userType");
+
+console.log("AUTH CHECK:", { isAuthenticated, userType });
+
+if (isAuthenticated !== "true" || userType !== "admin") {
+    console.warn("⛔ Unauthorized access to admin dashboard");
+    window.location.href = "index.html";
+}
 
 // COMMENTED OUT AUTH CHECK - ENABLE THIS LATER!
 /*
