@@ -1,21 +1,32 @@
 // ===============================
-// AUTH CHECK - MUST USE sessionStorage (not localStorage!)
+// AUTH CHECK - PREVENT REDIRECT LOOP
 // ===============================
-const userData = sessionStorage.getItem("userData");
+console.log("🚀 Partner Dashboard Loading...");
+
+const isAuthenticated = sessionStorage.getItem("isAuthenticated");
 const userType = sessionStorage.getItem("userType");
 
-// Redirect if not logged in or not a partner
-if (!userData || userType !== "partner") {
-    window.location.href = "index.html";
+console.log("Auth status:", isAuthenticated);
+console.log("User type:", userType);
+
+// Only redirect if not authenticated AND not already on index page
+if (isAuthenticated !== "true" || userType !== "partner") {
+    console.log("❌ Not authorized as partner, redirecting to login...");
+    // Clear session to prevent loops
+    sessionStorage.clear();
+    window.location.replace("index.html");
+    throw new Error("Redirecting to login"); // Stop script execution
 }
 
-const authUser = JSON.parse(userData);
+console.log("✅ Partner authenticated!");
+
+const userData = JSON.parse(sessionStorage.getItem("userData"));
 
 // ===============================
 // MOCK PARTNER DATA (DEMO ONLY)
 // ===============================
 const partnerData = {
-    email: authUser.email,
+    email: userData.email,
     companyName: "Peru Adventure Co.",
     country: "🇵🇪 Peru",
     contactName: "Juan Perez",
@@ -101,6 +112,7 @@ const partnerData = {
 // INITIAL LOAD
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("📊 Loading partner data...");
     loadPartnerData();
 });
 
@@ -122,8 +134,12 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.add("active");
 
     // Add active to clicked nav item
-    event.currentTarget.classList.add("active");
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add("active");
+    }
 }
+
+window.showSection = showSection;
 
 // ===============================
 // DATA LOADERS
@@ -155,6 +171,8 @@ function loadPartnerData() {
     loadCalendar();
     loadMessages();
     loadSettings();
+    
+    console.log("✅ Partner data loaded successfully!");
 }
 
 // ===============================
@@ -317,20 +335,21 @@ function loadSettings() {
 }
 
 // Handle settings form submission
-document.getElementById("settingsForm")?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    
-    // Update partner data (in real app, this would be sent to server)
-    partnerData.companyName = document.getElementById("companyName").value;
-    partnerData.contactName = document.getElementById("contactName").value;
-    partnerData.phone = document.getElementById("phone").value;
-    partnerData.languages = document.getElementById("languages").value.split(",").map(l => l.trim());
-    
-    // Update header
-    document.getElementById("partnerName").textContent = partnerData.companyName;
-    
-    alert("✅ Instellingen succesvol opgeslagen!");
-});
+const settingsForm = document.getElementById("settingsForm");
+if (settingsForm) {
+    settingsForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        partnerData.companyName = document.getElementById("companyName").value;
+        partnerData.contactName = document.getElementById("contactName").value;
+        partnerData.phone = document.getElementById("phone").value;
+        partnerData.languages = document.getElementById("languages").value.split(",").map(l => l.trim());
+        
+        document.getElementById("partnerName").textContent = partnerData.companyName;
+        
+        alert("✅ Instellingen succesvol opgeslagen!");
+    });
+}
 
 // ===============================
 // ACTIONS
@@ -342,12 +361,16 @@ function viewBooking(id) {
     }
 }
 
+window.viewBooking = viewBooking;
+
 function editExperience(id) {
     const experience = partnerData.experiences.find(e => e.id === id);
     if (experience) {
         alert(`✏️ Bewerk Experience:\n\n${experience.title}\n\n(In de volledige versie opent hier een formulier)`);
     }
 }
+
+window.editExperience = editExperience;
 
 function toggleAvailability(day) {
     const dateStr = `2026-02-${String(day).padStart(2, '0')}`;
@@ -357,16 +380,19 @@ function toggleAvailability(day) {
         alert(`Deze datum is al geboekt door ${booking.customer}`);
     } else {
         alert(`Beschikbaarheid voor ${day} februari gewijzigd!\n\n(In de volledige versie wordt dit opgeslagen in de database)`);
-        // Reload calendar to show changes
         loadCalendar();
     }
 }
 
+window.toggleAvailability = toggleAvailability;
+
 function logout() {
-    // Clear session
-    sessionStorage.removeItem("userType");
-    sessionStorage.removeItem("userData");
+    console.log("🚪 Logging out...");
+    // Clear ALL session data
+    sessionStorage.clear();
     
     // Redirect to login
-    window.location.href = "index.html";
+    window.location.replace("index.html");
 }
+
+window.logout = logout;
