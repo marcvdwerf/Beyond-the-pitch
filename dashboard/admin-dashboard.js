@@ -1,24 +1,29 @@
 // ===============================
-// AUTH CHECK - PREVENT REDIRECT LOOP
+// SIMPLIFIED AUTH CHECK
 // ===============================
-console.log("🚀 Admin Dashboard Loading...");
+console.log("🚀 Admin Dashboard Script Loading...");
 
+// Get session data
 const isAuthenticated = sessionStorage.getItem("isAuthenticated");
 const userType = sessionStorage.getItem("userType");
 
-console.log("Auth status:", isAuthenticated);
-console.log("User type:", userType);
+console.log("=== AUTH CHECK ===");
+console.log("isAuthenticated:", isAuthenticated);
+console.log("userType:", userType);
 
-// Only redirect if not authenticated AND not already on index page
-if (isAuthenticated !== "true" || userType !== "admin") {
-    console.log("❌ Not authorized as admin, redirecting to login...");
-    // Clear session to prevent loops
+// Check authentication - MORE LENIENT
+if (!isAuthenticated || !userType) {
+    console.log("❌ No session data found");
+    alert("Please login first");
+    window.location.replace("index.html");
+} else if (userType !== "admin") {
+    console.log("❌ Wrong user type:", userType);
+    alert("Access denied. Admin only.");
     sessionStorage.clear();
     window.location.replace("index.html");
-    throw new Error("Redirecting to login"); // Stop script execution
+} else {
+    console.log("✅ Admin authenticated successfully!");
 }
-
-console.log("✅ Admin authenticated!");
 
 // ===============================
 // DEMO DATA
@@ -98,32 +103,60 @@ function getCountryFlag(country) {
 // PAGE LOAD
 // ===============================
 window.addEventListener('DOMContentLoaded', function() {
-    console.log("📊 Initializing Admin Dashboard...");
+    console.log("📊 DOM Ready - Initializing Admin Dashboard...");
     
+    // Wait a bit to ensure DOM is fully ready
     setTimeout(function() {
-        updateStats();
-        renderPartners('all');
-        renderExperiences();
-        renderBookings();
-        console.log("✅ Dashboard loaded successfully!");
-    }, 100);
+        try {
+            updateStats();
+            renderPartners('all');
+            renderExperiences();
+            renderBookings();
+            console.log("✅ Admin Dashboard loaded successfully!");
+        } catch (error) {
+            console.error("❌ Error loading dashboard:", error);
+        }
+    }, 200);
 });
 
 // ===============================
 // STATS
 // ===============================
 function updateStats() {
+    console.log("Updating stats...");
+    
     const totalPartnersEl = document.getElementById('totalPartners');
     const totalExperiencesEl = document.getElementById('totalExperiences');
     const totalBookingsEl = document.getElementById('totalBookings');
     const pendingApprovalsEl = document.getElementById('pendingApprovals');
 
-    if (totalPartnersEl) totalPartnersEl.textContent = partnersData.length;
-    if (totalExperiencesEl) totalExperiencesEl.textContent = experiencesData.length;
-    if (totalBookingsEl) totalBookingsEl.textContent = bookingsData.length;
+    if (totalPartnersEl) {
+        totalPartnersEl.textContent = partnersData.length;
+        console.log("✓ Total partners:", partnersData.length);
+    } else {
+        console.warn("⚠ totalPartners element not found");
+    }
+    
+    if (totalExperiencesEl) {
+        totalExperiencesEl.textContent = experiencesData.length;
+        console.log("✓ Total experiences:", experiencesData.length);
+    } else {
+        console.warn("⚠ totalExperiences element not found");
+    }
+    
+    if (totalBookingsEl) {
+        totalBookingsEl.textContent = bookingsData.length;
+        console.log("✓ Total bookings:", bookingsData.length);
+    } else {
+        console.warn("⚠ totalBookings element not found");
+    }
+    
     if (pendingApprovalsEl) {
         const pending = partnersData.filter(p => p.status === 'pending').length;
         pendingApprovalsEl.textContent = pending;
+        console.log("✓ Pending approvals:", pending);
+    } else {
+        console.warn("⚠ pendingApprovals element not found");
     }
     
     console.log("✅ Stats updated");
@@ -133,7 +166,7 @@ function updateStats() {
 // NAVIGATION
 // ===============================
 function showSection(sectionId) {
-    console.log("Switching to section:", sectionId);
+    console.log("📑 Switching to section:", sectionId);
     
     const sections = document.querySelectorAll('.content-section');
     sections.forEach(function(section) {
@@ -148,6 +181,9 @@ function showSection(sectionId) {
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
+        console.log("✓ Section shown:", sectionId);
+    } else {
+        console.error("❌ Section not found:", sectionId);
     }
     
     if (window.event && window.event.currentTarget) {
@@ -161,11 +197,11 @@ window.showSection = showSection;
 // PARTNERS
 // ===============================
 function renderPartners(filterCountry) {
-    console.log("Rendering partners, filter:", filterCountry);
+    console.log("👥 Rendering partners, filter:", filterCountry);
     
     const grid = document.getElementById('partnersGrid');
     if (!grid) {
-        console.error("❌ partnersGrid not found!");
+        console.error("❌ partnersGrid element not found!");
         return;
     }
     
@@ -175,6 +211,8 @@ function renderPartners(filterCountry) {
             return p.country === filterCountry;
         });
     }
+    
+    console.log("Found", filtered.length, "partners");
     
     let html = '';
     
@@ -218,11 +256,11 @@ function renderPartners(filterCountry) {
     });
     
     grid.innerHTML = html;
-    console.log("✅ Partners rendered:", filtered.length);
+    console.log("✅ Partners rendered successfully");
 }
 
 function filterPartners(country) {
-    console.log("Filter clicked:", country);
+    console.log("🔍 Filter clicked:", country);
     
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(function(btn) {
@@ -242,11 +280,11 @@ window.filterPartners = filterPartners;
 // EXPERIENCES
 // ===============================
 function renderExperiences() {
-    console.log("Rendering experiences...");
+    console.log("🌍 Rendering experiences...");
     
     const tbody = document.getElementById('experiencesBody');
     if (!tbody) {
-        console.error("❌ experiencesBody not found!");
+        console.error("❌ experiencesBody element not found!");
         return;
     }
     
@@ -274,18 +312,18 @@ function renderExperiences() {
     });
     
     tbody.innerHTML = html;
-    console.log("✅ Experiences rendered");
+    console.log("✅ Experiences rendered successfully");
 }
 
 // ===============================
 // BOOKINGS
 // ===============================
 function renderBookings() {
-    console.log("Rendering bookings...");
+    console.log("📅 Rendering bookings...");
     
     const tbody = document.getElementById('bookingsBody');
     if (!tbody) {
-        console.error("❌ bookingsBody not found!");
+        console.error("❌ bookingsBody element not found!");
         return;
     }
     
@@ -321,7 +359,7 @@ function renderBookings() {
     });
     
     tbody.innerHTML = html;
-    console.log("✅ Bookings rendered");
+    console.log("✅ Bookings rendered successfully");
 }
 
 // ===============================
@@ -395,17 +433,19 @@ window.editExperience = editExperience;
 // MODALS
 // ===============================
 function openAddPartnerModal() {
-    console.log("Opening add partner modal");
+    console.log("➕ Opening add partner modal");
     const modal = document.getElementById('addPartnerModal');
     if (modal) {
         modal.classList.add('active');
+    } else {
+        console.error("❌ Modal not found");
     }
 }
 
 window.openAddPartnerModal = openAddPartnerModal;
 
 function closeModal(modalId) {
-    console.log("Closing modal:", modalId);
+    console.log("✖ Closing modal:", modalId);
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.remove('active');
@@ -416,7 +456,7 @@ window.closeModal = closeModal;
 
 function addPartner(event) {
     event.preventDefault();
-    console.log("Adding new partner...");
+    console.log("➕ Adding new partner...");
     
     const newPartner = {
         id: partnersData.length + 1,
@@ -457,13 +497,10 @@ window.sendBroadcast = sendBroadcast;
 // ===============================
 function logout() {
     console.log("🚪 Logging out...");
-    // Clear ALL session data
     sessionStorage.clear();
-    
-    // Redirect to login
     window.location.replace("index.html");
 }
 
 window.logout = logout;
 
-console.log("✅ All functions loaded and ready!");
+console.log("✅ Admin Dashboard Script fully loaded!");
