@@ -1,7 +1,7 @@
 console.log("🚀 Admin dashboard loading...");
 
-const isAuthenticated = sessionStorage.getItem("isAuthenticated");
-const userType = sessionStorage.getItem("userType");
+const isAuthenticated = localStorage.getItem("isAuthenticated");
+const userType = localStorage.getItem("userType");
 
 console.log("AUTH CHECK:", { isAuthenticated, userType });
 
@@ -12,8 +12,8 @@ if (isAuthenticated !== "true" || userType !== "admin") {
 
 // COMMENTED OUT AUTH CHECK - ENABLE THIS LATER!
 /*
-const isAuthenticated = sessionStorage.getItem("isAuthenticated");
-const userType = sessionStorage.getItem("userType");
+const isAuthenticated = localStorage.getItem("isAuthenticated");
+const userType = localStorage.getItem("userType");
 
 if (!isAuthenticated || userType !== "admin") {
     console.log("❌ Not authorized");
@@ -404,7 +404,7 @@ function sendBroadcast(event) {
 window.sendBroadcast = sendBroadcast;
 
 function logout() {
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.href = "index.html";
 }
 
