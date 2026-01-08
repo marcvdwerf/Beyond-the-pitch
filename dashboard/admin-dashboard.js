@@ -1,27 +1,12 @@
 // ===============================
-// DEBUG: Check if script loads
+// DIRECT START - NO AUTH CHECK FOR TESTING
 // ===============================
-console.log("✅ admin-dashboard.js is loaded!");
+console.log("🚀 Admin Dashboard Script Loaded!");
 
 // ===============================
-// AUTH CHECK
+// DEMO DATA
 // ===============================
-const userData = sessionStorage.getItem("userData");
-const userType = sessionStorage.getItem("userType");
-
-console.log("UserType:", userType);
-console.log("UserData:", userData);
-
-// Comment this out temporarily for testing
-// if (!userData || userType !== "admin") {
-//     console.log("❌ Not authorized, redirecting...");
-//     window.location.href = "index.html";
-// }
-
-// ===============================
-// MOCK DATA
-// ===============================
-const partners = [
+const partnersData = [
     {
         id: 1,
         name: "Peru Adventure Co.",
@@ -63,7 +48,7 @@ const partners = [
     }
 ];
 
-const experiences = [
+const experiencesData = [
     { id: 1, name: "Machu Picchu Hike", partnerId: 1, country: "Peru", type: "Trek", price: 1200, rating: 4.8, bookings: 18 },
     { id: 2, name: "Cusco City Tour", partnerId: 1, country: "Peru", type: "City Tour", price: 120, rating: 4.5, bookings: 34 },
     { id: 3, name: "GAA Training Session", partnerId: 2, country: "Ireland", type: "Sports", price: 150, rating: 4.9, bookings: 28 },
@@ -72,7 +57,7 @@ const experiences = [
     { id: 6, name: "Steppe Football", partnerId: 3, country: "Mongolia", type: "Sports", price: 220, rating: null, bookings: 0 }
 ];
 
-const bookings = [
+const bookingsData = [
     { id: "BTP-1001", experienceId: 1, partnerId: 1, customer: "John Smith", date: "2026-02-10", guests: 4, status: "confirmed", amount: 4800 },
     { id: "BTP-1002", experienceId: 3, partnerId: 2, customer: "Emily Clark", date: "2026-02-14", guests: 2, status: "confirmed", amount: 300 },
     { id: "BTP-1003", experienceId: 2, partnerId: 1, customer: "Michael Johnson", date: "2026-02-20", guests: 3, status: "pending", amount: 360 },
@@ -84,141 +69,191 @@ const bookings = [
 // HELPER FUNCTIONS
 // ===============================
 function getCountryFlag(country) {
-    const flags = { "Peru": "🇵🇪", "Ireland": "🇮🇪", "Mongolia": "🇲🇳" };
+    const flags = {
+        "Peru": "🇵🇪",
+        "Ireland": "🇮🇪",
+        "Mongolia": "🇲🇳"
+    };
     return flags[country] || "🌍";
+}
+
+// ===============================
+// PAGE LOAD
+// ===============================
+window.addEventListener('DOMContentLoaded', function() {
+    console.log("📊 Initializing Admin Dashboard...");
+    
+    // Small delay to ensure DOM is ready
+    setTimeout(function() {
+        updateStats();
+        renderPartners('all');
+        renderExperiences();
+        renderBookings();
+        console.log("✅ Dashboard loaded successfully!");
+    }, 100);
+});
+
+// ===============================
+// STATS
+// ===============================
+function updateStats() {
+    const totalPartnersEl = document.getElementById('totalPartners');
+    const totalExperiencesEl = document.getElementById('totalExperiences');
+    const totalBookingsEl = document.getElementById('totalBookings');
+    const pendingApprovalsEl = document.getElementById('pendingApprovals');
+
+    if (totalPartnersEl) {
+        totalPartnersEl.textContent = partnersData.length;
+    }
+    if (totalExperiencesEl) {
+        totalExperiencesEl.textContent = experiencesData.length;
+    }
+    if (totalBookingsEl) {
+        totalBookingsEl.textContent = bookingsData.length;
+    }
+    if (pendingApprovalsEl) {
+        const pending = partnersData.filter(p => p.status === 'pending').length;
+        pendingApprovalsEl.textContent = pending;
+    }
+    
+    console.log("✅ Stats updated");
 }
 
 // ===============================
 // NAVIGATION
 // ===============================
-window.showSection = function(sectionId) {
+function showSection(sectionId) {
     console.log("Switching to section:", sectionId);
     
     // Hide all sections
-    const sections = document.querySelectorAll(".content-section");
-    sections.forEach(section => {
-        section.classList.remove("active");
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(function(section) {
+        section.classList.remove('active');
     });
     
-    // Remove active from nav items
-    const navItems = document.querySelectorAll(".nav-item");
-    navItems.forEach(item => {
-        item.classList.remove("active");
+    // Remove active from all nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(function(item) {
+        item.classList.remove('active');
     });
     
-    // Show selected section
+    // Show target section
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.classList.add("active");
-    } else {
-        console.error("Section not found:", sectionId);
+        targetSection.classList.add('active');
     }
     
-    // Add active to nav item (if event exists)
+    // Add active to clicked nav item
     if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add("active");
+        window.event.currentTarget.classList.add('active');
     }
 }
 
-// ===============================
-// OVERVIEW
-// ===============================
-function loadOverviewStats() {
-    console.log("Loading overview stats...");
-    
-    const totalPartnersEl = document.getElementById("totalPartners");
-    const totalExperiencesEl = document.getElementById("totalExperiences");
-    const totalBookingsEl = document.getElementById("totalBookings");
-    const pendingApprovalsEl = document.getElementById("pendingApprovals");
-    
-    if (totalPartnersEl) totalPartnersEl.textContent = partners.length;
-    if (totalExperiencesEl) totalExperiencesEl.textContent = experiences.length;
-    if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
-    if (pendingApprovalsEl) pendingApprovalsEl.textContent = partners.filter(p => p.status === "pending").length;
-    
-    console.log("✅ Overview stats loaded");
-}
+// Make it globally accessible
+window.showSection = showSection;
 
 // ===============================
 // PARTNERS
 // ===============================
-window.filterPartners = function(country) {
-    console.log("Filtering partners by:", country);
+function renderPartners(filterCountry) {
+    console.log("Rendering partners, filter:", filterCountry);
     
-    // Update active filter button
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    filterButtons.forEach(btn => btn.classList.remove("active"));
-    
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add("active");
-    }
-    
-    loadPartners(country);
-}
-
-function loadPartners(filter) {
-    console.log("Loading partners with filter:", filter || "all");
-    
-    const grid = document.getElementById("partnersGrid");
+    const grid = document.getElementById('partnersGrid');
     if (!grid) {
-        console.error("❌ partnersGrid element not found!");
+        console.error("❌ partnersGrid not found!");
         return;
     }
     
-    const filtered = (filter === "all" || !filter) ? partners : partners.filter(p => p.country === filter);
-    console.log("Filtered partners:", filtered.length);
-
-    grid.innerHTML = filtered.map(p => `
-        <div class="partner-card">
-            <div class="partner-header">
-                <h3>${p.name}</h3>
-                <span class="partner-country">${getCountryFlag(p.country)} ${p.country}</span>
-            </div>
-            <div class="partner-info">
-                📧 ${p.email}<br>
-                👤 ${p.contactName}<br>
-                📞 ${p.phone}<br>
-                🏢 ${p.type}
-            </div>
-            <div class="partner-stats">
-                <div class="partner-stat">
-                    <div class="partner-stat-value">${p.bookings}</div>
-                    <div class="partner-stat-label">Boekingen</div>
-                </div>
-                <div class="partner-stat">
-                    <div class="partner-stat-value">${p.rating || 'N/A'}</div>
-                    <div class="partner-stat-label">Rating</div>
-                </div>
-            </div>
-            <div style="text-align: center; margin: 10px 0;">
-                <span class="badge badge-${p.status}">${p.status === 'active' ? 'Actief' : 'In afwachting'}</span>
-            </div>
-            <div class="partner-actions">
-                <button class="btn btn-primary" onclick="viewPartner(${p.id})">Details</button>
-                <button class="btn btn-secondary" onclick="editPartner(${p.id})">Bewerk</button>
-                ${p.status === 'pending' ? `<button class="btn btn-success" onclick="approvePartner(${p.id})">Goedkeuren</button>` : ''}
-            </div>
-        </div>
-    `).join("");
+    let filtered = partnersData;
+    if (filterCountry !== 'all') {
+        filtered = partnersData.filter(function(p) {
+            return p.country === filterCountry;
+        });
+    }
     
-    console.log("✅ Partners loaded");
+    let html = '';
+    
+    filtered.forEach(function(partner) {
+        html += `
+            <div class="partner-card">
+                <div class="partner-header">
+                    <h3>${partner.name}</h3>
+                    <span class="partner-country">${getCountryFlag(partner.country)} ${partner.country}</span>
+                </div>
+                <div class="partner-info">
+                    📧 ${partner.email}<br>
+                    👤 ${partner.contactName}<br>
+                    📞 ${partner.phone}<br>
+                    🏢 ${partner.type}
+                </div>
+                <div class="partner-stats">
+                    <div class="partner-stat">
+                        <div class="partner-stat-value">${partner.bookings}</div>
+                        <div class="partner-stat-label">Boekingen</div>
+                    </div>
+                    <div class="partner-stat">
+                        <div class="partner-stat-value">${partner.rating || 'N/A'}</div>
+                        <div class="partner-stat-label">Rating</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin: 10px 0;">
+                    <span class="badge badge-${partner.status}">
+                        ${partner.status === 'active' ? 'Actief' : 'In afwachting'}
+                    </span>
+                </div>
+                <div class="partner-actions">
+                    <button class="btn btn-primary" onclick="viewPartner(${partner.id})">Details</button>
+                    <button class="btn btn-secondary" onclick="editPartner(${partner.id})">Bewerk</button>
+                    ${partner.status === 'pending' ? 
+                        `<button class="btn btn-success" onclick="approvePartner(${partner.id})">Goedkeuren</button>` 
+                        : ''}
+                </div>
+            </div>
+        `;
+    });
+    
+    grid.innerHTML = html;
+    console.log("✅ Partners rendered:", filtered.length);
 }
+
+function filterPartners(country) {
+    console.log("Filter clicked:", country);
+    
+    // Update active button
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+    
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+    }
+    
+    renderPartners(country);
+}
+
+window.filterPartners = filterPartners;
 
 // ===============================
 // EXPERIENCES
 // ===============================
-function loadExperiences() {
-    console.log("Loading experiences...");
+function renderExperiences() {
+    console.log("Rendering experiences...");
     
-    const tbody = document.getElementById("experiencesBody");
+    const tbody = document.getElementById('experiencesBody');
     if (!tbody) {
-        console.error("❌ experiencesBody element not found!");
+        console.error("❌ experiencesBody not found!");
         return;
     }
-
-    tbody.innerHTML = experiences.map(exp => {
-        const partner = partners.find(p => p.id === exp.partnerId);
-        return `
+    
+    let html = '';
+    
+    experiencesData.forEach(function(exp) {
+        const partner = partnersData.find(function(p) {
+            return p.id === exp.partnerId;
+        });
+        
+        html += `
             <tr>
                 <td><strong>${exp.name}</strong></td>
                 <td>${partner ? partner.name : 'N/A'}</td>
@@ -232,155 +267,197 @@ function loadExperiences() {
                 </td>
             </tr>
         `;
-    }).join("");
+    });
     
-    console.log("✅ Experiences loaded");
+    tbody.innerHTML = html;
+    console.log("✅ Experiences rendered");
 }
 
 // ===============================
 // BOOKINGS
 // ===============================
-function loadBookings() {
-    console.log("Loading bookings...");
+function renderBookings() {
+    console.log("Rendering bookings...");
     
-    const tbody = document.getElementById("bookingsBody");
+    const tbody = document.getElementById('bookingsBody');
     if (!tbody) {
-        console.error("❌ bookingsBody element not found!");
+        console.error("❌ bookingsBody not found!");
         return;
     }
-
-    tbody.innerHTML = bookings.map(booking => {
-        const experience = experiences.find(e => e.id === booking.experienceId);
-        const partner = partners.find(p => p.id === booking.partnerId);
+    
+    let html = '';
+    
+    bookingsData.forEach(function(booking) {
+        const experience = experiencesData.find(function(e) {
+            return e.id === booking.experienceId;
+        });
+        const partner = partnersData.find(function(p) {
+            return p.id === booking.partnerId;
+        });
         
-        return `
+        const date = new Date(booking.date);
+        const dateStr = date.toLocaleDateString('nl-NL');
+        
+        html += `
             <tr>
                 <td><strong>${booking.id}</strong></td>
                 <td>${experience ? experience.name : 'N/A'}</td>
                 <td>${partner ? partner.name : 'N/A'}</td>
                 <td>${booking.customer}</td>
-                <td>${new Date(booking.date).toLocaleDateString("nl-NL")}</td>
+                <td>${dateStr}</td>
                 <td>${booking.guests}</td>
-                <td><span class="badge badge-${booking.status}">
-                    ${booking.status === 'confirmed' ? 'Bevestigd' : 'In afwachting'}
-                </span></td>
+                <td>
+                    <span class="badge badge-${booking.status}">
+                        ${booking.status === 'confirmed' ? 'Bevestigd' : 'In afwachting'}
+                    </span>
+                </td>
                 <td><strong>€${booking.amount}</strong></td>
             </tr>
         `;
-    }).join("");
+    });
     
-    console.log("✅ Bookings loaded");
-}
-
-// ===============================
-// MODALS
-// ===============================
-window.openAddPartnerModal = function() {
-    console.log("Opening add partner modal");
-    const modal = document.getElementById("addPartnerModal");
-    if (modal) {
-        modal.classList.add("active");
-    } else {
-        console.error("❌ addPartnerModal not found!");
-    }
-}
-
-window.closeModal = function(modalId) {
-    console.log("Closing modal:", modalId);
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove("active");
-    }
-}
-
-window.addPartner = function(event) {
-    event.preventDefault();
-    console.log("Adding new partner...");
-    
-    const newPartner = {
-        id: partners.length + 1,
-        name: document.getElementById("newCompanyName").value,
-        email: document.getElementById("newEmail").value,
-        country: document.getElementById("newCountry").value,
-        type: document.getElementById("newType").value,
-        contactName: document.getElementById("newContactName").value,
-        phone: document.getElementById("newPhone").value,
-        status: "pending",
-        joinDate: new Date().toISOString().split('T')[0],
-        bookings: 0,
-        rating: null
-    };
-    
-    partners.push(newPartner);
-    
-    closeModal("addPartnerModal");
-    loadPartners();
-    loadOverviewStats();
-    
-    alert(`✅ Partner "${newPartner.name}" succesvol toegevoegd!`);
-    event.target.reset();
+    tbody.innerHTML = html;
+    console.log("✅ Bookings rendered");
 }
 
 // ===============================
 // ACTIONS
 // ===============================
-window.viewPartner = function(id) {
-    const partner = partners.find(p => p.id === id);
+function viewPartner(id) {
+    const partner = partnersData.find(function(p) {
+        return p.id === id;
+    });
+    
     if (partner) {
-        alert(`👤 Partner Details:\n\nNaam: ${partner.name}\nEmail: ${partner.email}\nLand: ${partner.country}\nContact: ${partner.contactName}\nTelefoon: ${partner.phone}\nStatus: ${partner.status}\nJoined: ${partner.joinDate}\nBoekingen: ${partner.bookings}\nRating: ${partner.rating || 'N/A'}`);
+        const info = 
+            "👤 Partner Details:\n\n" +
+            "Naam: " + partner.name + "\n" +
+            "Email: " + partner.email + "\n" +
+            "Land: " + partner.country + "\n" +
+            "Contact: " + partner.contactName + "\n" +
+            "Telefoon: " + partner.phone + "\n" +
+            "Type: " + partner.type + "\n" +
+            "Status: " + partner.status + "\n" +
+            "Joined: " + partner.joinDate + "\n" +
+            "Boekingen: " + partner.bookings + "\n" +
+            "Rating: " + (partner.rating || 'N/A');
+        
+        alert(info);
     }
 }
 
-window.editPartner = function(id) {
-    const partner = partners.find(p => p.id === id);
+window.viewPartner = viewPartner;
+
+function editPartner(id) {
+    const partner = partnersData.find(function(p) {
+        return p.id === id;
+    });
+    
     if (partner) {
-        alert(`✏️ Bewerk Partner:\n\n${partner.name}\n\n(In volledige versie opent hier een formulier)`);
+        alert("✏️ Bewerk Partner:\n\n" + partner.name + "\n\n(In volledige versie opent hier een formulier)");
     }
 }
 
-window.approvePartner = function(id) {
-    const partner = partners.find(p => p.id === id);
+window.editPartner = editPartner;
+
+function approvePartner(id) {
+    const partner = partnersData.find(function(p) {
+        return p.id === id;
+    });
+    
     if (partner) {
-        partner.status = "active";
-        loadPartners();
-        loadOverviewStats();
-        alert(`✅ Partner "${partner.name}" is goedgekeurd!`);
+        partner.status = 'active';
+        renderPartners('all');
+        updateStats();
+        alert("✅ Partner '" + partner.name + "' is goedgekeurd!");
     }
 }
 
-window.editExperience = function(id) {
-    const experience = experiences.find(e => e.id === id);
+window.approvePartner = approvePartner;
+
+function editExperience(id) {
+    const experience = experiencesData.find(function(e) {
+        return e.id === id;
+    });
+    
     if (experience) {
-        alert(`✏️ Bewerk Experience:\n\n${experience.name}\n\n(In volledige versie opent hier een formulier)`);
+        alert("✏️ Bewerk Experience:\n\n" + experience.name + "\n\n(In volledige versie opent hier een formulier)");
     }
 }
 
-window.sendBroadcast = function(event) {
+window.editExperience = editExperience;
+
+// ===============================
+// MODALS
+// ===============================
+function openAddPartnerModal() {
+    console.log("Opening add partner modal");
+    const modal = document.getElementById('addPartnerModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+window.openAddPartnerModal = openAddPartnerModal;
+
+function closeModal(modalId) {
+    console.log("Closing modal:", modalId);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+window.closeModal = closeModal;
+
+function addPartner(event) {
+    event.preventDefault();
+    console.log("Adding new partner...");
+    
+    const newPartner = {
+        id: partnersData.length + 1,
+        name: document.getElementById('newCompanyName').value,
+        email: document.getElementById('newEmail').value,
+        country: document.getElementById('newCountry').value,
+        type: document.getElementById('newType').value,
+        contactName: document.getElementById('newContactName').value,
+        phone: document.getElementById('newPhone').value,
+        status: 'pending',
+        joinDate: new Date().toISOString().split('T')[0],
+        bookings: 0,
+        rating: null
+    };
+    
+    partnersData.push(newPartner);
+    
+    closeModal('addPartnerModal');
+    renderPartners('all');
+    updateStats();
+    
+    alert("✅ Partner '" + newPartner.name + "' succesvol toegevoegd!");
+    event.target.reset();
+}
+
+window.addPartner = addPartner;
+
+function sendBroadcast(event) {
     event.preventDefault();
     alert("📤 Broadcast bericht verstuurd naar alle geselecteerde partners!");
     event.target.reset();
 }
 
-window.logout = function() {
-    console.log("Logging out...");
-    sessionStorage.removeItem("userType");
-    sessionStorage.removeItem("userData");
-    window.location.href = "index.html";
-}
+window.sendBroadcast = sendBroadcast;
 
 // ===============================
-// INITIAL LOAD
+// LOGOUT
 // ===============================
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("🚀 DOM Content Loaded - Initializing admin dashboard...");
-    
-    try {
-        loadOverviewStats();
-        loadPartners();
-        loadExperiences();
-        loadBookings();
-        console.log("✅ Admin dashboard initialized successfully!");
-    } catch (error) {
-        console.error("❌ Error initializing dashboard:", error);
-    }
-});
+function logout() {
+    console.log("Logging out...");
+    sessionStorage.removeItem('userType');
+    sessionStorage.removeItem('userData');
+    window.location.href = 'index.html';
+}
+
+window.logout = logout;
+
+console.log("✅ All functions loaded and ready!");
