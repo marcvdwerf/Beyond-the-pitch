@@ -73,31 +73,23 @@ function handleLogin(role) {
     }
 
     // ===============================
-    // STORE DEMO SESSION
+    // STORE SESSION - USE DIFFERENT KEY TO PREVENT LOOP
     // ===============================
+    sessionStorage.setItem("isAuthenticated", "true");
     sessionStorage.setItem("userType", user.role);
-    sessionStorage.setItem(
-        "userData",
-        JSON.stringify({
-            email: user.email,
-            role: user.role
-        })
-    );
+    sessionStorage.setItem("userData", JSON.stringify({
+        email: user.email,
+        role: user.role
+    }));
+
+    console.log("✅ Login successful, redirecting to:", user.redirect);
 
     // Redirect to dashboard
     window.location.href = user.redirect;
 }
 
 // ===============================
-// CHECK IF ALREADY LOGGED IN
+// PREVENT AUTO-REDIRECT ON INDEX PAGE
 // ===============================
-window.addEventListener("DOMContentLoaded", () => {
-    const userType = sessionStorage.getItem("userType");
-    
-    // If already logged in, redirect to appropriate dashboard
-    if (userType === "partner") {
-        window.location.href = "partner-dashboard.html";
-    } else if (userType === "admin") {
-        window.location.href = "admin-dashboard.html";
-    }
-});
+// Do NOT auto-redirect if already logged in
+// Users should manually login each time
