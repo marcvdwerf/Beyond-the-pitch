@@ -2,8 +2,8 @@
 // MOCK USER DATABASE (DEMO ONLY)
 // ===============================
 const users = [
-    { role: "partner", email: "peru@demo.com", password: "peru123", redirect: "partner-dashboard.html" },
-    { role: "admin", email: "admin@demo.com", password: "admin123", redirect: "admin-dashboard.html" }
+    { role: "partner", email: "peru@demo.com", password: "peru123", redirect: "../partner/partner-dashboard.html" },
+    { role: "admin", email: "admin@demo.com", password: "admin123", redirect: "../admin/admin-dashboard.html" }
 ];
 
 // ===============================
