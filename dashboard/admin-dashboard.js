@@ -1,6 +1,3 @@
-// ===============================
-// TEMPORARILY DISABLED AUTH FOR TESTING
-// ===============================
 console.log("🚀 Admin Dashboard Script Loading...");
 console.log("⚠️ AUTH CHECK DISABLED FOR TESTING");
 
