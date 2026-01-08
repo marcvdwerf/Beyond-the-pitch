@@ -53,7 +53,7 @@ function handleLogin(role) {
     const user = users.find(u => u.role === role && u.email === email && u.password === password);
 
     if (!user) {
-        errorElement.textContent = "Invalid email or password.";
+        errorElement.textContent = "Ongeldig email of wachtwoord.";
         return;
     }
 
@@ -62,14 +62,14 @@ function handleLogin(role) {
     localStorage.setItem("userType", user.role);
     localStorage.setItem("userEmail", user.email);
 
-    console.log("✅ Login successful:", user.role, "Redirecting to:", user.redirect);
+    console.log("✅ Login succesvol:", user.role, "Redirecting to:", user.redirect);
 
     // Redirect naar juiste dashboard
     window.location.href = user.redirect;
 }
 
 // ===============================
-// CHECK LOGIN STATUS ON DASHBOARD
+// CHECK AUTHENTICATION ON DASHBOARD
 // ===============================
 function checkAuth(requiredRole) {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -77,7 +77,7 @@ function checkAuth(requiredRole) {
 
     if (isAuthenticated !== "true" || userType !== requiredRole) {
         console.warn(`⛔ Unauthorized access to ${requiredRole} dashboard`);
-        window.location.href = "index.html";
+        window.location.href = "index.html"; // terug naar login
         return false;
     }
 
@@ -94,14 +94,14 @@ function logout() {
 window.logout = logout;
 
 // ===============================
-// AUTO-REDIRECT IF ALREADY LOGGED IN
+// AUTO-REDIRECT IF ALREADY LOGGED IN (ONLY ON LOGIN PAGE)
 // ===============================
 window.addEventListener("DOMContentLoaded", () => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     const userType = localStorage.getItem("userType");
 
-    if (isAuthenticated === "true") {
-        // Als gebruiker al ingelogd is, direct doorsturen
+    // Alleen redirecten als we op loginpagina zitten
+    if (isAuthenticated === "true" && window.location.pathname.includes("index.html")) {
         const user = users.find(u => u.role === userType);
         if (user) {
             window.location.href = user.redirect;
