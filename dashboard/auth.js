@@ -19,20 +19,22 @@ tabButtons.forEach(button => {
 
         button.classList.add("active");
         const targetForm = document.getElementById(`${button.dataset.tab}-form`);
-        targetForm.classList.add("active");
+        if(targetForm) targetForm.classList.add("active");
     });
 });
 
 // ===============================
 // FORM SUBMISSION HANDLERS
 // ===============================
-document.getElementById("partner-form").addEventListener("submit", event => {
-    event.preventDefault();
+const partnerForm = document.getElementById("partner-form");
+if(partnerForm) partnerForm.addEventListener("submit", e => {
+    e.preventDefault();
     handleLogin("partner");
 });
 
-document.getElementById("admin-form").addEventListener("submit", event => {
-    event.preventDefault();
+const adminForm = document.getElementById("admin-form");
+if(adminForm) adminForm.addEventListener("submit", e => {
+    e.preventDefault();
     handleLogin("admin");
 });
 
@@ -47,13 +49,12 @@ function handleLogin(role) {
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
 
-    // Reset error
-    errorElement.textContent = "";
+    if(errorElement) errorElement.textContent = "";
 
     const user = users.find(u => u.role === role && u.email === email && u.password === password);
 
     if (!user) {
-        errorElement.textContent = "Ongeldig email of wachtwoord.";
+        if(errorElement) errorElement.textContent = "Invalid email or password.";
         return;
     }
 
@@ -62,14 +63,14 @@ function handleLogin(role) {
     localStorage.setItem("userType", user.role);
     localStorage.setItem("userEmail", user.email);
 
-    console.log("✅ Login succesvol:", user.role, "Redirecting to:", user.redirect);
+    console.log("✅ Login successful:", user.role, "Redirecting to:", user.redirect);
 
     // Redirect naar juiste dashboard
     window.location.href = user.redirect;
 }
 
 // ===============================
-// CHECK AUTHENTICATION ON DASHBOARD
+// CHECK LOGIN STATUS ON DASHBOARD
 // ===============================
 function checkAuth(requiredRole) {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -77,7 +78,7 @@ function checkAuth(requiredRole) {
 
     if (isAuthenticated !== "true" || userType !== requiredRole) {
         console.warn(`⛔ Unauthorized access to ${requiredRole} dashboard`);
-        window.location.href = "index.html"; // terug naar login
+        window.location.href = "index.html";
         return false;
     }
 
@@ -92,19 +93,3 @@ function logout() {
     window.location.href = "index.html";
 }
 window.logout = logout;
-
-// ===============================
-// AUTO-REDIRECT IF ALREADY LOGGED IN (ONLY ON LOGIN PAGE)
-// ===============================
-window.addEventListener("DOMContentLoaded", () => {
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    const userType = localStorage.getItem("userType");
-
-    // Alleen redirecten als we op loginpagina zitten
-    if (isAuthenticated === "true" && window.location.pathname.includes("index.html")) {
-        const user = users.find(u => u.role === userType);
-        if (user) {
-            window.location.href = user.redirect;
-        }
-    }
-});
