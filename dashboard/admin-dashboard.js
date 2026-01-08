@@ -1,7 +1,24 @@
 // ===============================
-// DIRECT START - NO AUTH CHECK FOR TESTING
+// AUTH CHECK - PREVENT REDIRECT LOOP
 // ===============================
-console.log("🚀 Admin Dashboard Script Loaded!");
+console.log("🚀 Admin Dashboard Loading...");
+
+const isAuthenticated = sessionStorage.getItem("isAuthenticated");
+const userType = sessionStorage.getItem("userType");
+
+console.log("Auth status:", isAuthenticated);
+console.log("User type:", userType);
+
+// Only redirect if not authenticated AND not already on index page
+if (isAuthenticated !== "true" || userType !== "admin") {
+    console.log("❌ Not authorized as admin, redirecting to login...");
+    // Clear session to prevent loops
+    sessionStorage.clear();
+    window.location.replace("index.html");
+    throw new Error("Redirecting to login"); // Stop script execution
+}
+
+console.log("✅ Admin authenticated!");
 
 // ===============================
 // DEMO DATA
@@ -83,7 +100,6 @@ function getCountryFlag(country) {
 window.addEventListener('DOMContentLoaded', function() {
     console.log("📊 Initializing Admin Dashboard...");
     
-    // Small delay to ensure DOM is ready
     setTimeout(function() {
         updateStats();
         renderPartners('all');
@@ -102,15 +118,9 @@ function updateStats() {
     const totalBookingsEl = document.getElementById('totalBookings');
     const pendingApprovalsEl = document.getElementById('pendingApprovals');
 
-    if (totalPartnersEl) {
-        totalPartnersEl.textContent = partnersData.length;
-    }
-    if (totalExperiencesEl) {
-        totalExperiencesEl.textContent = experiencesData.length;
-    }
-    if (totalBookingsEl) {
-        totalBookingsEl.textContent = bookingsData.length;
-    }
+    if (totalPartnersEl) totalPartnersEl.textContent = partnersData.length;
+    if (totalExperiencesEl) totalExperiencesEl.textContent = experiencesData.length;
+    if (totalBookingsEl) totalBookingsEl.textContent = bookingsData.length;
     if (pendingApprovalsEl) {
         const pending = partnersData.filter(p => p.status === 'pending').length;
         pendingApprovalsEl.textContent = pending;
@@ -125,31 +135,26 @@ function updateStats() {
 function showSection(sectionId) {
     console.log("Switching to section:", sectionId);
     
-    // Hide all sections
     const sections = document.querySelectorAll('.content-section');
     sections.forEach(function(section) {
         section.classList.remove('active');
     });
     
-    // Remove active from all nav items
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(function(item) {
         item.classList.remove('active');
     });
     
-    // Show target section
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
     }
     
-    // Add active to clicked nav item
     if (window.event && window.event.currentTarget) {
         window.event.currentTarget.classList.add('active');
     }
 }
 
-// Make it globally accessible
 window.showSection = showSection;
 
 // ===============================
@@ -219,7 +224,6 @@ function renderPartners(filterCountry) {
 function filterPartners(country) {
     console.log("Filter clicked:", country);
     
-    // Update active button
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(function(btn) {
         btn.classList.remove('active');
@@ -452,10 +456,12 @@ window.sendBroadcast = sendBroadcast;
 // LOGOUT
 // ===============================
 function logout() {
-    console.log("Logging out...");
-    sessionStorage.removeItem('userType');
-    sessionStorage.removeItem('userData');
-    window.location.href = 'index.html';
+    console.log("🚪 Logging out...");
+    // Clear ALL session data
+    sessionStorage.clear();
+    
+    // Redirect to login
+    window.location.replace("index.html");
 }
 
 window.logout = logout;
