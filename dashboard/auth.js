@@ -73,7 +73,7 @@ function handleLogin(role) {
     }
 
     // ===============================
-    // STORE SESSION - USE DIFFERENT KEY TO PREVENT LOOP
+    // STORE SESSION DATA
     // ===============================
     sessionStorage.setItem("isAuthenticated", "true");
     sessionStorage.setItem("userType", user.role);
@@ -87,9 +87,3 @@ function handleLogin(role) {
     // Redirect to dashboard
     window.location.href = user.redirect;
 }
-
-// ===============================
-// PREVENT AUTO-REDIRECT ON INDEX PAGE
-// ===============================
-// Do NOT auto-redirect if already logged in
-// Users should manually login each time
