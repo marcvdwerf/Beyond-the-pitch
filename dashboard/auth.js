@@ -2,8 +2,18 @@
 // MOCK USER DATABASE (DEMO ONLY)
 // ===============================
 const users = [
-    { role: "partner", email: "peru@demo.com", password: "peru123", redirect: "../partner/partner-dashboard.html" },
-    { role: "admin", email: "admin@demo.com", password: "admin123", redirect: "../admin/admin-dashboard.html" }
+    { 
+        role: "partner", 
+        email: "peru@demo.com", 
+        password: "peru123", 
+        redirect: "partner-dashboard.html" 
+    },
+    { 
+        role: "admin", 
+        email: "admin@demo.com", 
+        password: "admin123", 
+        redirect: "admin-dashboard.html" 
+    }
 ];
 
 // ===============================
@@ -27,16 +37,20 @@ tabButtons.forEach(button => {
 // FORM SUBMISSION HANDLERS
 // ===============================
 const partnerForm = document.getElementById("partner-form");
-if(partnerForm) partnerForm.addEventListener("submit", e => {
-    e.preventDefault();
-    handleLogin("partner");
-});
+if(partnerForm) {
+    partnerForm.addEventListener("submit", e => {
+        e.preventDefault();
+        handleLogin("partner");
+    });
+}
 
 const adminForm = document.getElementById("admin-form");
-if(adminForm) adminForm.addEventListener("submit", e => {
-    e.preventDefault();
-    handleLogin("admin");
-});
+if(adminForm) {
+    adminForm.addEventListener("submit", e => {
+        e.preventDefault();
+        handleLogin("admin");
+    });
+}
 
 // ===============================
 // LOGIN HANDLER
@@ -76,12 +90,15 @@ function checkAuth(requiredRole) {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     const userType = localStorage.getItem("userType");
 
+    console.log("🔐 Auth check:", { isAuthenticated, userType, requiredRole });
+
     if (isAuthenticated !== "true" || userType !== requiredRole) {
         console.warn(`⛔ Unauthorized access to ${requiredRole} dashboard`);
         window.location.href = "index.html";
         return false;
     }
 
+    console.log("✅ Auth passed for", requiredRole);
     return true;
 }
 
@@ -89,8 +106,11 @@ function checkAuth(requiredRole) {
 // LOGOUT FUNCTION
 // ===============================
 function logout() {
+    console.log("🚪 Logging out...");
     localStorage.clear();
     window.location.href = "index.html";
 }
+
+// Make functions globally available
+window.checkAuth = checkAuth;
 window.logout = logout;
- d
