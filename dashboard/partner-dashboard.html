@@ -11,15 +11,38 @@
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
         
         /* SIDEBAR */
-        .sidebar { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; }
+        .sidebar { 
+            background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color:white; 
+            padding:30px 0; 
+            position: sticky; 
+            top: 0; 
+            height: 100vh; 
+            display: flex;
+            flex-direction: column;
+        }
         .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.2); margin-bottom:30px; }
         .logo h2 { font-size:1.3rem; margin-bottom:5px; }
         .logo p { opacity:0.8; font-size:0.9rem; }
-        .nav-menu { list-style:none; }
+        .nav-menu { flex-grow: 1; list-style:none; }
         .nav-item { padding:15px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; font-size:1rem; transition:all 0.3s; }
         .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.2); border-left:4px solid white; }
-        .logout-btn { width: calc(100% - 60px); margin:30px; padding:12px; background:rgba(255,255,255,0.2); border:2px solid white; color:white; border-radius:8px; cursor:pointer; font-size:1rem; transition:all 0.3s; }
-        .logout-btn:hover { background:white; color:#667eea; }
+        
+        /* LOGOUT BUTTON */
+        .logout-btn { 
+            width: calc(100% - 60px); 
+            margin:30px; 
+            padding:12px; 
+            background:rgba(255,255,255,0.2); 
+            border:1px solid white; 
+            color:white; 
+            border-radius:8px; 
+            cursor:pointer; 
+            font-size:1rem; 
+            font-weight: 600;
+            transition:all 0.3s; 
+        }
+        .logout-btn:hover { background:#ef4444; border-color:#ef4444; color: white; }
 
         /* MAIN CONTENT */
         .main-content { padding:30px; overflow-y:auto; }
@@ -50,31 +73,13 @@
         td { padding:15px; border-bottom:1px solid #eee; font-size: 0.95rem; }
         tr:hover { background: #fcfcfc; cursor: pointer; }
 
-        /* BADGES */
-        .badge { padding:5px 12px; border-radius:20px; font-size:0.8rem; font-weight:600; text-transform: capitalize; }
-        .badge-confirmed { background:#d1fae5; color:#065f46; }
-        .badge-pending { background:#fef3c7; color:#92400e; }
-        .badge-cancelled { background:#fee2e2; color:#991b1b; }
-
-        /* DETAIL SECTION */
-        #day-detail { transition: all 0.4s ease; }
-        .detail-card { border-left: 5px solid #667eea; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* EXPERIENCE CARDS STYLING */
-        .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
-        .exp-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: transform 0.3s; display: flex; flex-direction: column; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .exp-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .exp-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; font-weight: bold; font-size: 1.1rem; }
-        .exp-body { padding: 20px; flex-grow: 1; }
-        .exp-price { color: #10b981; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; display: block; }
-        .exp-highlights { font-size: 0.9rem; margin-bottom: 15px; list-style-position: inside; color: #555; line-height: 1.5; }
-        .exp-includes { background: #f8f9fa; padding: 10px; border-radius: 8px; font-size: 0.85rem; border-left: 3px solid #667eea; }
-        .exp-includes strong { color: #333; }
-
-        @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
+        /* CONTENT SECTIONS */
         .content-section { display: none; }
         .content-section.active { display: block; }
+        
+        .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        
+        @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
     </style>
 </head>
 <body>
@@ -103,36 +108,6 @@
                 </div>
             </div>
 
-            <div id="statusContainer"></div>
-
-            <div id="connectGoogleSection" class="google-connect-section">
-                <div style="font-size:2rem;">📅</div>
-                <div style="flex:1;">
-                    <h3 style="color:#92400e; margin-bottom:5px;">Connect Google Calendar</h3>
-                    <p style="color:#78350f;">Synchronize your bookings directly from your own calendar.</p>
-                </div>
-                <button id="connectGoogleBtn" class="google-btn" onclick="handleAuthClick()" disabled>
-                    <span id="connectBtnText">Wait...</span>
-                </button>
-            </div>
-
-            <div id="connectedGoogleSection" class="google-connected-section hidden">
-                <div style="display:flex; align-items:center; gap:15px;">
-                    <div style="font-size:2rem;">✅</div>
-                    <div>
-                        <h3 style="color:#065f46; margin-bottom:3px;">Calendar Connected</h3>
-                        <p style="color:#047857; font-size:0.9rem;">
-                            Active: <strong id="connectedCalendarName">Primary</strong> | 
-                            Sync: <span id="lastSyncTime">Not yet</span>
-                        </p>
-                    </div>
-                </div>
-                <div style="display:flex; gap:10px;">
-                    <button class="refresh-btn" onclick="syncCalendar()" id="syncBtn">🔄 Sync Now</button>
-                    <button class="google-btn" onclick="handleSignoutClick()" style="background:#ef4444; padding: 10px 15px;">Disconnect</button>
-                </div>
-            </div>
-
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -155,16 +130,25 @@
             </section>
 
             <section id="bookings" class="content-section">
-                <div id="day-detail"></div>
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                         <h2>📅 Bookings Overview</h2>
-                        <button class="refresh-btn" onclick="syncCalendar()" id="refreshBookingsBtn">🔄 Refresh</button>
+                        <button class="refresh-btn" onclick="alert('Syncing...')">🔄 Refresh</button>
                     </div>
                     <div id="bookingsTableContainer">
-                        <div style="text-align:center; padding:40px; color:#888;">
-                            Connect your Google Calendar to see bookings.
-                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Klant</th>
+                                    <th>Experience</th>
+                                    <th>Datum</th>
+                                    <th>Gasten</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partnerBookingsBody">
+                                </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
@@ -172,22 +156,15 @@
             <section id="experiences" class="content-section">
                 <div class="card">
                     <h2>🌍 My Experiences</h2>
-                    <p style="color:#888;">These are your current offerings for Beyond the Pitch guests.</p>
                     <div id="experience-container" class="experience-grid">
-                        <p style="padding: 20px;">Loading experiences...</p>
-                    </div>
+                        </div>
                 </div>
             </section>
 
             <section id="settings" class="content-section">
                 <div class="card">
-                    <h2>⚙️ Calendar Settings</h2>
-                    <div style="margin-top:20px;">
-                        <label style="display:block; margin-bottom:8px; font-weight:600;">Choose Calendar</label>
-                        <select id="calendarSelect" style="width:100%; max-width:400px; padding:10px; border-radius:8px; border:1px solid #ddd;"></select>
-                        <br><br>
-                        <button class="google-btn" onclick="saveCalendarSettings()">Save Settings</button>
-                    </div>
+                    <h2>⚙️ Settings</h2>
+                    <p style="margin-top: 15px;">Manage your profile and calendar preferences.</p>
                 </div>
             </section>
         </main>
@@ -195,6 +172,6 @@
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
-    <script src="partner-dashboard.js"></script>
+    <script src="auth.js"></script> <script src="partner-dashboard.js"></script>
 </body>
 </html>
