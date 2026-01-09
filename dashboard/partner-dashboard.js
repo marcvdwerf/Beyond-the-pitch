@@ -1,6 +1,6 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
- * Version: 2.6 (Fixed Sync & Filters)
+ * Version: 2.7 (Fixed Detail View & Experience Loader)
  */
 
 const CONFIG = {
@@ -62,7 +62,6 @@ function maybeEnableButtons() {
             btn.disabled = false;
             document.getElementById('connectBtnText').textContent = 'Connect Google Calendar';
         }
-        // Automatisch syncen als we al een token hebben
         if (gapi.client.getToken()) {
             updateUIForSignedIn();
             syncCalendar();
@@ -71,13 +70,11 @@ function maybeEnableButtons() {
 }
 
 // ===============================
-// SYNC LOGIC (DEZE IS AANGEPAST)
+// SYNC & DATA LOGIC
 // ===============================
 async function syncCalendar() {
     try {
         showStatus('info', 'Connecting to Google...');
-        
-        // We halen events op van 3 maanden geleden tot ver in de toekomst
         const now = new Date();
         const response = await gapi.client.calendar.events.list({
             calendarId: currentCalendarId,
@@ -87,31 +84,17 @@ async function syncCalendar() {
         });
 
         const events = response.result.items || [];
-        console.log("Total events found in Google:", events.length);
-
-        // FILTER: We zoeken naar "BTP" ergens in de titel (hoofdletterongevoelig)
         bookingsData = events
-            .filter(e => {
-                const hasTitle = e.summary && e.summary.toUpperCase().includes('BTP');
-                if (!hasTitle) console.log("Skipped event (no BTP in title):", e.summary);
-                return hasTitle;
-            })
+            .filter(e => e.summary && e.summary.toUpperCase().includes('BTP'))
             .map(e => parseBookingEvent(e));
-
-        console.log("Filtered BTP bookings:", bookingsData.length);
 
         updateStats();
         renderBookingsTable();
+        renderExperiences(); // Ververs ook de experiences tab
         updateLastSyncTime();
         
-        if (bookingsData.length > 0) {
-            showStatus('success', `${bookingsData.length} bookings synchronized.`);
-        } else {
-            showStatus('warning', 'No bookings found with "BTP" in title.');
-        }
-
+        showStatus('success', `${bookingsData.length} bookings synchronized.`);
     } catch (e) {
-        console.error("Sync Error:", e);
         showStatus('error', 'Sync failed. Try to reconnect.');
     }
 }
@@ -123,13 +106,10 @@ function parseBookingEvent(event) {
         return m ? m[1].trim() : '';
     };
 
-    // ID uit de titel halen (bijv. BTP-101)
     const idMatch = event.summary.match(/BTP-?\d+/i);
-    const bookingId = idMatch ? idMatch[0].toUpperCase() : 'BTP-???';
-
     return {
-        id: bookingId,
-        experienceName: event.summary.replace(/BTP-?\d+\s*-?\s*/i, '').trim() || 'Custom Experience',
+        id: idMatch ? idMatch[0].toUpperCase() : 'BTP-???',
+        experienceName: event.summary.replace(/BTP-?\d+\s*-?\s*/i, '').trim() || 'Experience',
         customer: getF('Customer') || getF('Name') || 'Guest',
         email: getF('Email') || 'N/A',
         phone: getF('Phone') || 'N/A',
@@ -150,22 +130,17 @@ function renderBookingsTable() {
     if (!container) return;
     
     if (bookingsData.length === 0) {
-        container.innerHTML = `
-            <div style="text-align:center; padding:40px; color:#888; border: 2px dashed #ccc; border-radius:10px;">
-                <p><strong>No bookings found.</strong></p>
-                <p style="font-size:0.9rem;">Make sure your Google Calendar events have "BTP" in the title.</p>
-                <p style="font-size:0.8rem; margin-top:10px;">Example: "BTP-101 Football Tour"</p>
-            </div>`;
+        container.innerHTML = `<p style="text-align:center; padding:20px; color:#888;">No BTP bookings found.</p>`;
         return;
     }
 
     const sorted = [...bookingsData].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     container.innerHTML = `
-        <table style="width:100%; border-collapse:collapse;">
+        <table>
             <thead>
-                <tr style="text-align:left; border-bottom:2px solid #eee;">
-                    <th style="padding:12px;">ID</th>
+                <tr>
+                    <th>ID</th>
                     <th>Experience</th>
                     <th>Customer</th>
                     <th>Date</th>
@@ -175,17 +150,72 @@ function renderBookingsTable() {
             </thead>
             <tbody>
                 ${sorted.map(b => `
-                    <tr onclick="showBookingDetail('${b.id}')" style="border-bottom:1px solid #eee; cursor:pointer;">
-                        <td style="padding:12px;"><strong>${b.id}</strong></td>
+                    <tr onclick="showBookingDetail('${b.id}')">
+                        <td><strong>${b.id}</strong></td>
                         <td>${b.experienceName}</td>
                         <td>${b.customer}</td>
                         <td>${formatDate(b.date)}</td>
-                        <td><span class="badge" style="background:#d1fae5; color:#065f46; padding:4px 8px; border-radius:4px; font-size:0.8rem;">${b.status}</span></td>
+                        <td><span class="badge badge-${b.status}">${b.status}</span></td>
                         <td>€${b.amount}</td>
                     </tr>
                 `).join('')}
             </tbody>
         </table>`;
+}
+
+/**
+ * Toont de details van een boeking wanneer je op een rij klikt
+ */
+function showBookingDetail(bookingId) {
+    const booking = bookingsData.find(b => b.id === bookingId);
+    const detailContainer = document.getElementById('day-detail');
+    if (!booking || !detailContainer) return;
+
+    detailContainer.innerHTML = `
+        <div class="card" style="border-left: 5px solid #667eea; margin-top:20px; animation: fadeIn 0.3s;">
+            <div style="display:flex; justify-content:space-between;">
+                <h2>Booking Details: ${booking.id}</h2>
+                <button onclick="document.getElementById('day-detail').innerHTML=''" style="border:none; background:none; cursor:pointer; font-size:1.2rem;">✕</button>
+            </div>
+            <hr style="margin:15px 0; opacity:0.1;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                <div>
+                    <p><strong>Customer:</strong> ${booking.customer}</p>
+                    <p><strong>Email:</strong> ${booking.email}</p>
+                    <p><strong>Phone:</strong> ${booking.phone}</p>
+                </div>
+                <div>
+                    <p><strong>Experience:</strong> ${booking.experienceName}</p>
+                    <p><strong>Guests:</strong> ${booking.guests}</p>
+                    <p><strong>Location:</strong> ${booking.location}</p>
+                </div>
+            </div>
+        </div>`;
+    detailContainer.scrollIntoView({ behavior: 'smooth' });
+}
+
+/**
+ * Laadt de statische lijst met ervaringen
+ */
+function renderExperiences() {
+    const container = document.getElementById('experience-container');
+    if (!container) return;
+
+    const experiences = [
+        { title: "Full Day Package", price: "€120 - €200", info: "Hidden Spots & Football" },
+        { title: "Two Days, One Night", price: "€150 - €200", info: "Culture & Coastal" },
+        { title: "Three Days, Two Nights", price: "€100 - €200 / day", info: "Complete Lima Experience" }
+    ];
+
+    container.innerHTML = experiences.map(exp => `
+        <div class="exp-card">
+            <div class="exp-banner">${exp.title}</div>
+            <div class="exp-body">
+                <p><strong>Price:</strong> ${exp.price}</p>
+                <p>${exp.info}</p>
+            </div>
+        </div>
+    `).join('');
 }
 
 // ===============================
@@ -219,21 +249,14 @@ function forceLogout() {
 function updateStats() {
     const total = bookingsData.length;
     const revenue = bookingsData.reduce((sum, b) => sum + b.amount, 0);
-    
     if (document.getElementById('totalBookings')) document.getElementById('totalBookings').textContent = total;
     if (document.getElementById('totalRevenue')) document.getElementById('totalRevenue').textContent = `€${revenue}`;
-}
-
-function showSection(id) {
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) target.classList.add('active');
 }
 
 function showStatus(type, msg) {
     const container = document.getElementById('statusContainer');
     if (!container) return;
-    const colors = { success: '#d1fae5', error: '#fee2e2', info: '#dbeafe', warning: '#fef3c7' };
+    const colors = { success: '#d1fae5', error: '#fee2e2', info: '#dbeafe' };
     container.innerHTML = `<div style="padding:15px; margin-bottom:20px; border-radius:8px; background:${colors[type] || '#eee'}">${msg}</div>`;
 }
 
@@ -248,7 +271,10 @@ function updateLastSyncTime() {
 }
 
 function loadPartnerInfo() {
-    document.getElementById('partnerName').textContent = localStorage.getItem('userName') || 'Partner';
+    const name = localStorage.getItem('userName') || 'Partner';
+    if (document.getElementById('partnerName')) document.getElementById('partnerName').textContent = name;
+    if (document.getElementById('welcomeText')) document.getElementById('welcomeText').textContent = `Welcome, ${name}`;
+    if (document.getElementById('partnerEmail')) document.getElementById('partnerEmail').textContent = localStorage.getItem('userEmail') || '';
 }
 
 function updateUIForSignedIn() {
@@ -261,9 +287,8 @@ function updateUIForSignedOut() {
     document.getElementById('connectedGoogleSection').classList.add('hidden');
 }
 
-// Global exposure for HTML
 window.handleAuthClick = handleAuthClick;
 window.handleSignoutClick = handleSignoutClick;
 window.forceLogout = forceLogout;
 window.syncCalendar = syncCalendar;
-window.showSection = showSection;
+window.showBookingDetail = showBookingDetail;
