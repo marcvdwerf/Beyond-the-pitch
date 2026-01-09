@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,18 @@
         .header h1 { color:#333; font-size:2rem; }
         .header-info h3 { color:#667eea; font-size:1.2rem; }
         .header-info p { color:#888; font-size:0.9rem; }
+        
+        /* Google Calendar Connection */
+        .google-connect-section { background:#fef3c7; border:2px solid #fbbf24; border-radius:15px; padding:25px; margin-bottom:30px; display:flex; align-items:center; gap:20px; }
+        .google-connect-section.hidden { display:none; }
+        .google-connected-section { background:#d1fae5; border:2px solid #10b981; border-radius:15px; padding:20px; margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; }
+        .google-connected-section.hidden { display:none; }
+        .google-btn { padding:12px 24px; background:#667eea; color:white; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; }
+        .google-btn:hover { background:#5568d3; transform:translateY(-2px); }
+        .google-btn:disabled { opacity:0.5; cursor:not-allowed; }
+        .refresh-btn { padding:10px 20px; background:#10b981; color:white; border:none; border-radius:8px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:all 0.3s; display:flex; align-items:center; gap:8px; }
+        .refresh-btn:hover { background:#059669; }
+        
         .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin-bottom:30px; }
         .stat-card { background:white; padding:25px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); transition: transform 0.3s; }
         .stat-card:hover { transform:translateY(-5px); }
@@ -31,7 +43,7 @@
         .content-section { display:none; }
         .content-section.active { display:block; }
         .card { background:white; padding:30px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:20px; }
-        .card h2 { color:#333; margin-bottom:20px; font-size:1.5rem; }
+        .card h2 { color:#333; margin-bottom:20px; font-size:1.5rem; display:flex; justify-content:space-between; align-items:center; }
         table { width:100%; border-collapse:collapse; }
         th { background:#f8f9fa; padding:15px; text-align:left; font-weight:600; color:#555; border-bottom:2px solid #e0e0e0; }
         td { padding:15px; border-bottom:1px solid #e0e0e0; color:#666; }
@@ -50,12 +62,12 @@
                 <p>Partner Dashboard</p>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overzicht</li>
-                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Boekingen</li>
-                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> Mijn Experiences</li>
-                <li class="nav-item" onclick="showSection('messages')"><span>💬</span> Berichten</li>
+                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overview</li>
+                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Bookings</li>
+                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> My Experiences</li>
+                <li class="nav-item" onclick="showSection('messages')"><span>💬</span> Messages</li>
             </ul>
-            <button class="logout-btn" onclick="logout()">🚪 Uitloggen</button>
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
         </aside>
 
         <main class="main-content">
@@ -67,22 +79,83 @@
                 </div>
             </div>
 
+            <!-- Google Calendar Connection Status -->
+            <div id="googleStatus"></div>
+
+            <!-- Connect Google Calendar Section -->
+            <div id="connectGoogleSection" class="google-connect-section">
+                <div style="font-size:2rem;">📅</div>
+                <div style="flex:1;">
+                    <h3 style="color:#92400e; font-size:1.2rem; margin-bottom:5px;">Connect Google Calendar</h3>
+                    <p style="color:#78350f;">Connect your Google Calendar to sync bookings in real-time and manage availability</p>
+                </div>
+                <button id="connectGoogleBtn" class="google-btn" onclick="connectGoogleCalendar()" disabled>
+                    Connect Calendar
+                </button>
+            </div>
+
+            <!-- Connected Google Calendar Section -->
+            <div id="connectedGoogleSection" class="google-connected-section hidden">
+                <div style="display:flex; align-items:center; gap:15px;">
+                    <div style="font-size:2rem;">✅</div>
+                    <div>
+                        <h3 style="color:#065f46; font-size:1.1rem; margin-bottom:3px;">Google Calendar Connected</h3>
+                        <p style="color:#047857; font-size:0.9rem;">Last synced: <span id="lastSyncTime">--:--</span></p>
+                    </div>
+                </div>
+                <button class="refresh-btn" onclick="refreshBookings()">
+                    <span>🔄</span> Sync Now
+                </button>
+            </div>
+
             <!-- OVERVIEW -->
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
-                    <div class="stat-card"><h3>Totaal Boekingen</h3><div class="stat-value" id="totalBookings">0</div><div class="stat-change">+12% deze maand</div></div>
-                    <div class="stat-card"><h3>Actieve Experiences</h3><div class="stat-value" id="activeExperiences">0</div><div class="stat-change">Allemaal actief</div></div>
-                    <div class="stat-card"><h3>Gemiddelde Rating</h3><div class="stat-value" id="avgRating">0</div><div class="stat-change">⭐ Excellent</div></div>
-                    <div class="stat-card"><h3>Totale Gasten</h3><div class="stat-value" id="totalGuests">0</div><div class="stat-change">+8% deze maand</div></div>
+                    <div class="stat-card">
+                        <h3>Total Bookings</h3>
+                        <div class="stat-value" id="totalBookings">0</div>
+                        <div class="stat-change">+12% this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Experiences</h3>
+                        <div class="stat-value" id="activeExperiences">0</div>
+                        <div class="stat-change">All active</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Rating</h3>
+                        <div class="stat-value" id="avgRating">0</div>
+                        <div class="stat-change">⭐ Excellent</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Guests</h3>
+                        <div class="stat-value" id="totalGuests">0</div>
+                        <div class="stat-change">+8% this month</div>
+                    </div>
                 </div>
             </section>
 
             <!-- Bookings -->
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <h2>📅 Alle Boekingen</h2>
+                    <h2>
+                        <span>📅 All Bookings</span>
+                        <button class="refresh-btn" onclick="refreshBookings()" style="font-size:0.85rem; padding:8px 16px;">
+                            <span>🔄</span> Refresh
+                        </button>
+                    </h2>
                     <table>
-                        <thead><tr><th>Booking ID</th><th>Experience</th><th>Klant</th><th>Datum</th><th>Gasten</th><th>Status</th><th>Bedrag</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Experience</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Guests</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
                         <tbody id="allBookings"></tbody>
                     </table>
                 </div>
@@ -91,7 +164,7 @@
             <!-- Experiences -->
             <section id="experiences" class="content-section">
                 <div class="card">
-                    <h2>🌍 Mijn Experiences</h2>
+                    <h2>🌍 My Experiences</h2>
                     <div id="experiencesGrid"></div>
                 </div>
             </section>
@@ -99,7 +172,7 @@
             <!-- Messages -->
             <section id="messages" class="content-section">
                 <div class="card">
-                    <h2>💬 Berichten</h2>
+                    <h2>💬 Messages</h2>
                     <div id="messagesContainer"></div>
                 </div>
             </section>
