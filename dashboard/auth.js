@@ -1,23 +1,25 @@
 // ===============================
-// MOCK USER DATABASE (DEMO ONLY)
+// MOCK USER DATABASE
 // ===============================
 const users = [
     { 
         role: "partner", 
         email: "peru@demo.com", 
         password: "peru123", 
+        name: "Lima Experience Partner",
         redirect: "partner-dashboard.html" 
     },
     { 
         role: "admin", 
         email: "admin@demo.com", 
         password: "admin123", 
+        name: "System Admin",
         redirect: "admin-dashboard.html" 
     }
 ];
 
 // ===============================
-// TAB SWITCHING (PARTNER / ADMIN)
+// TAB SWITCHING
 // ===============================
 const tabButtons = document.querySelectorAll(".tab-btn");
 const loginForms = document.querySelectorAll(".login-form");
@@ -32,25 +34,6 @@ tabButtons.forEach(button => {
         if(targetForm) targetForm.classList.add("active");
     });
 });
-
-// ===============================
-// FORM SUBMISSION HANDLERS
-// ===============================
-const partnerForm = document.getElementById("partner-form");
-if(partnerForm) {
-    partnerForm.addEventListener("submit", e => {
-        e.preventDefault();
-        handleLogin("partner");
-    });
-}
-
-const adminForm = document.getElementById("admin-form");
-if(adminForm) {
-    adminForm.addEventListener("submit", e => {
-        e.preventDefault();
-        handleLogin("admin");
-    });
-}
 
 // ===============================
 // LOGIN HANDLER
@@ -68,49 +51,42 @@ function handleLogin(role) {
     const user = users.find(u => u.role === role && u.email === email && u.password === password);
 
     if (!user) {
-        if(errorElement) errorElement.textContent = "Invalid email or password.";
+        if(errorElement) errorElement.textContent = "Ongeldig e-mailadres of wachtwoord.";
         return;
     }
 
-    // ✅ Login succesvol → opslaan in localStorage
+    // ✅ Opslaan voor Dashboard gebruik
     localStorage.setItem("isAuthenticated", "true");
     localStorage.setItem("userType", user.role);
     localStorage.setItem("userEmail", user.email);
+    localStorage.setItem("userName", user.name);
 
-    console.log("✅ Login successful:", user.role, "Redirecting to:", user.redirect);
-
-    // Redirect naar juiste dashboard
     window.location.href = user.redirect;
 }
 
+// Events koppelen
+document.getElementById("partner-form")?.addEventListener("submit", e => {
+    e.preventDefault();
+    handleLogin("partner");
+});
+
+document.getElementById("admin-form")?.addEventListener("submit", e => {
+    e.preventDefault();
+    handleLogin("admin");
+});
+
 // ===============================
-// CHECK LOGIN STATUS ON DASHBOARD
+// AUTH CHECK (Aanroepen bovenaan dashboard)
 // ===============================
 function checkAuth(requiredRole) {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     const userType = localStorage.getItem("userType");
 
-    console.log("🔐 Auth check:", { isAuthenticated, userType, requiredRole });
-
     if (isAuthenticated !== "true" || userType !== requiredRole) {
-        console.warn(`⛔ Unauthorized access to ${requiredRole} dashboard`);
         window.location.href = "index.html";
         return false;
     }
-
-    console.log("✅ Auth passed for", requiredRole);
     return true;
 }
 
-// ===============================
-// LOGOUT FUNCTION
-// ===============================
-function logout() {
-    console.log("🚪 Logging out...");
-    localStorage.clear();
-    window.location.href = "index.html";
-}
-
-// Make functions globally available
 window.checkAuth = checkAuth;
-window.logout = logout;
