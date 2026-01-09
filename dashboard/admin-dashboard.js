@@ -80,6 +80,7 @@ function getCountryFlag(country) {
 window.addEventListener('DOMContentLoaded', function() {
     console.log("📊 Initializing Admin Dashboard...");
     setTimeout(function() {
+        populateExperienceDropdown(); // Vul de dropdown bij start
         updateStats();
         renderPartners('all');
         renderExperiences();
@@ -113,6 +114,65 @@ function showSection(sectionId) {
     }
 }
 window.showSection = showSection;
+
+// ===============================
+// BOOKING FORM LOGIC
+// ===============================
+
+// Zorg dat de dropdown de juiste experiences toont uit de data
+function populateExperienceDropdown() {
+    const select = document.getElementById('event-select');
+    if (!select) return;
+    
+    // Behoud alleen de eerste (default) optie
+    select.innerHTML = '<option value="">Selecteer experience...</option>';
+    
+    experiencesData.forEach(exp => {
+        const option = document.createElement('option');
+        option.value = exp.id;
+        option.textContent = `${exp.name} (€${exp.price})`;
+        select.appendChild(option);
+    });
+}
+
+const addBookingForm = document.getElementById('add-booking-form');
+if (addBookingForm) {
+    addBookingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const selectedExpId = parseInt(document.getElementById('event-select').value);
+        const selectedExp = experiencesData.find(exp => exp.id === selectedExpId);
+        const guestCount = parseInt(document.getElementById('persons').value);
+
+        if (!selectedExp) {
+            alert("Selecteer a.u.b. een experience");
+            return;
+        }
+
+        // Maak het nieuwe boeking object
+        const newBooking = {
+            id: "BTP-" + (1000 + bookingsData.length + 1),
+            experienceId: selectedExpId,
+            partnerId: selectedExp.partnerId,
+            customer: document.getElementById('group-name').value,
+            date: new Date().toISOString().split('T')[0], // Vandaag
+            guests: guestCount,
+            status: 'confirmed',
+            amount: selectedExp.price * guestCount
+        };
+
+        // Voeg toe aan de data array
+        bookingsData.push(newBooking);
+
+        // Update de pagina
+        renderBookings();
+        updateStats();
+        
+        // Reset formulier
+        this.reset();
+        alert(`✅ Boeking voor ${newBooking.customer} succesvol toegevoegd!`);
+    });
+}
 
 // ===============================
 // PARTNERS
@@ -198,7 +258,10 @@ function renderBookings() {
     const tbody = document.getElementById('bookingsBody');
     if (!tbody) return;
     
-    tbody.innerHTML = bookingsData.map(booking => {
+    // We tonen de nieuwste boekingen bovenaan
+    const displayData = [...bookingsData].reverse();
+    
+    tbody.innerHTML = displayData.map(booking => {
         const experience = experiencesData.find(e => e.id === booking.experienceId);
         const partner = partnersData.find(p => p.id === booking.partnerId);
         return `
