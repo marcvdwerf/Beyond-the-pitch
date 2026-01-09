@@ -1,3 +1,8 @@
+/**
+ * Beyond the Pitch - Partner Dashboard Logic
+ * Version: 2.5
+ */
+
 // ===============================
 // CONFIGURATION
 // ===============================
@@ -81,7 +86,7 @@ function maybeEnableButtons() {
 }
 
 // ===============================
-// AUTHENTICATION
+// AUTHENTICATION & SESSION
 // ===============================
 function handleAuthClick() {
     tokenClient.callback = async (resp) => {
@@ -91,10 +96,11 @@ function handleAuthClick() {
         await syncCalendar();
     };
 
+    // FORCEER ACCOUNT SELECTIE: Dit zorgt ervoor dat de gebruiker altijd kan kiezen welk account hij koppelt
     if (gapi.client.getToken() === null) {
-        tokenClient.requestAccessToken({prompt: 'consent'});
+        tokenClient.requestAccessToken({ prompt: 'select_account' });
     } else {
-        tokenClient.requestAccessToken({prompt: ''});
+        tokenClient.requestAccessToken({ prompt: 'select_account' });
     }
 }
 
@@ -107,20 +113,47 @@ function handleSignoutClick() {
     }
 }
 
+/**
+ * Volledige uitlogfunctie: Wist zowel de Google Token als de lokale BTP-sessie
+ */
+function logout() {
+    if (confirm("Are you sure you want to log out?")) {
+        // 1. Verbreek de Google verbinding
+        const token = gapi.client.getToken();
+        if (token !== null) {
+            google.accounts.oauth2.revoke(token.access_token);
+            gapi.client.setToken('');
+        }
+
+        // 2. Wis lokale sessiegegevens
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+
+        // 3. Terug naar login
+        window.location.href = 'index.html';
+    }
+}
+
 function updateUIForSignedIn() {
-    document.getElementById('connectGoogleSection').classList.add('hidden');
-    document.getElementById('connectedGoogleSection').classList.remove('hidden');
+    const connectSec = document.getElementById('connectGoogleSection');
+    const connectedSec = document.getElementById('connectedGoogleSection');
+    if (connectSec) connectSec.classList.add('hidden');
+    if (connectedSec) connectedSec.classList.remove('hidden');
 }
 
 function updateUIForSignedOut() {
-    document.getElementById('connectGoogleSection').classList.remove('hidden');
-    document.getElementById('connectedGoogleSection').classList.add('hidden');
+    const connectSec = document.getElementById('connectGoogleSection');
+    const connectedSec = document.getElementById('connectedGoogleSection');
+    if (connectSec) connectSec.classList.remove('hidden');
+    if (connectedSec) connectedSec.classList.add('hidden');
     bookingsData = [];
     renderBookingsTable();
 }
 
 // ===============================
-// EXPERIENCES RENDERING (Optie A)
+// EXPERIENCES RENDERING
 // ===============================
 function renderExperiences() {
     const container = document.getElementById('experience-container');
@@ -319,33 +352,33 @@ function updateStats() {
     const revenue = bookingsData.reduce((sum, b) => sum + b.amount, 0);
     const guests = bookingsData.reduce((sum, b) => sum + b.guests, 0);
 
-    document.getElementById('totalBookings').textContent = total;
-    document.getElementById('totalGuests').textContent = guests;
-    document.getElementById('totalRevenue').textContent = `€${revenue}`;
+    const elTotal = document.getElementById('totalBookings');
+    const elGuests = document.getElementById('totalGuests');
+    const elRevenue = document.getElementById('totalRevenue');
+
+    if (elTotal) elTotal.textContent = total;
+    if (elGuests) elGuests.textContent = guests;
+    if (elRevenue) elRevenue.textContent = `€${revenue}`;
 }
 
 // ===============================
 // UTILITIES & NAVIGATION
 // ===============================
 function showSection(sectionId) {
-    // Hide all sections
     document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    // Deactivate all nav items
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     
-    // Show selected section
     const targetSection = document.getElementById(sectionId);
     if (targetSection) targetSection.classList.add('active');
     
-    // Highlight nav item
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
-        if (item.getAttribute('onclick').includes(sectionId)) {
+        const onClickAttr = item.getAttribute('onclick');
+        if (onClickAttr && onClickAttr.includes(sectionId)) {
             item.classList.add('active');
         }
     });
 
-    // Run specific logic per section
     if (sectionId === 'experiences') {
         renderExperiences();
     }
@@ -369,13 +402,13 @@ function updateLastSyncTime() {
 }
 
 function loadPartnerInfo() {
-    document.getElementById('partnerName').textContent = 'Beyond the Pitch Lima';
-    document.getElementById('partnerEmail').textContent = 'experiences@beyondthepitch.com';
-    document.getElementById('welcomeText').textContent = 'Welcome back, Partner';
-}
+    const nameEl = document.getElementById('partnerName');
+    const emailEl = document.getElementById('partnerEmail');
+    const welcomeEl = document.getElementById('welcomeText');
 
-function logout() {
-    if(confirm("Are you sure you want to log out?")) location.reload();
+    if (nameEl) nameEl.textContent = localStorage.getItem('userName') || 'Beyond the Pitch Lima';
+    if (emailEl) emailEl.textContent = localStorage.getItem('userEmail') || 'experiences@beyondthepitch.com';
+    if (welcomeEl) welcomeEl.textContent = `Welcome back, ${localStorage.getItem('userName') || 'Partner'}`;
 }
 
 function saveCalendarSettings() {
