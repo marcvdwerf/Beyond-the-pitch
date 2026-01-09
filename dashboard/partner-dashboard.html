@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner Dashboard - Beyond the Pitch</title>
     <style>
-        /* BASIS STYLING */
+        /* BASE STYLING */
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f5f7fa; color: #333; }
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
@@ -62,6 +62,8 @@
         @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
     </style>
 </head>
 <body>
@@ -73,19 +75,19 @@
                 <p>Partner Dashboard</p>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overzicht</li>
-                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Boekingen</li>
-                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> Mijn Experiences</li>
-                <li class="nav-item" onclick="showSection('settings')"><span>⚙️</span> Instellingen</li>
+                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overview</li>
+                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Bookings</li>
+                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> My Experiences</li>
+                <li class="nav-item" onclick="showSection('settings')"><span>⚙️</span> Settings</li>
             </ul>
-            <button class="logout-btn" onclick="logout()">🚪 Uitloggen</button>
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
         </aside>
 
         <main class="main-content">
             <div class="header">
-                <h1 id="welcomeText">Welkom</h1>
+                <h1 id="welcomeText">Welcome</h1>
                 <div class="header-info">
-                    <h3 id="partnerName">Laden...</h3>
+                    <h3 id="partnerName">Loading...</h3>
                     <p id="partnerEmail">...</p>
                 </div>
             </div>
@@ -95,11 +97,11 @@
             <div id="connectGoogleSection" class="google-connect-section">
                 <div style="font-size:2rem;">📅</div>
                 <div style="flex:1;">
-                    <h3 style="color:#92400e; margin-bottom:5px;">Koppel Google Calendar</h3>
-                    <p style="color:#78350f;">Synchroniseer je boekingen direct vanuit je eigen agenda.</p>
+                    <h3 style="color:#92400e; margin-bottom:5px;">Connect Google Calendar</h3>
+                    <p style="color:#78350f;">Synchronize your bookings directly from your own calendar.</p>
                 </div>
                 <button id="connectGoogleBtn" class="google-btn" onclick="handleAuthClick()" disabled>
-                    <span id="connectBtnText">Moment...</span>
+                    <span id="connectBtnText">Wait...</span>
                 </button>
             </div>
 
@@ -107,35 +109,35 @@
                 <div style="display:flex; align-items:center; gap:15px;">
                     <div style="font-size:2rem;">✅</div>
                     <div>
-                        <h3 style="color:#065f46; margin-bottom:3px;">Agenda Gekoppeld</h3>
+                        <h3 style="color:#065f46; margin-bottom:3px;">Calendar Connected</h3>
                         <p style="color:#047857; font-size:0.9rem;">
-                            Actief: <strong id="connectedCalendarName">Primair</strong> | 
-                            Sync: <span id="lastSyncTime">Nog niet</span>
+                            Active: <strong id="connectedCalendarName">Primary</strong> | 
+                            Sync: <span id="lastSyncTime">Not yet</span>
                         </p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
-                    <button class="refresh-btn" onclick="syncCalendar()" id="syncBtn">🔄 Nu Syncen</button>
-                    <button class="google-btn" onclick="handleSignoutClick()" style="background:#ef4444; padding: 10px 15px;">Ontkoppelen</button>
+                    <button class="refresh-btn" onclick="syncCalendar()" id="syncBtn">🔄 Sync Now</button>
+                    <button class="google-btn" onclick="handleSignoutClick()" style="background:#ef4444; padding: 10px 15px;">Disconnect</button>
                 </div>
             </div>
 
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Totaal Boekingen</p>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Total Bookings</p>
                         <div class="stat-value" id="totalBookings">0</div>
                     </div>
                     <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Komende 30 Dagen</p>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Next 30 Days</p>
                         <div class="stat-value" id="upcomingBookings">0</div>
                     </div>
                     <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Totaal Gasten</p>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Total Guests</p>
                         <div class="stat-value" id="totalGuests">0</div>
                     </div>
                     <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Omzet (Est.)</p>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Revenue (Est.)</p>
                         <div class="stat-value" id="totalRevenue">€0</div>
                     </div>
                 </div>
@@ -146,13 +148,13 @@
 
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <h2>📅 Boeking Overzicht</h2>
-                        <button class="refresh-btn" onclick="syncCalendar()" id="refreshBookingsBtn">🔄 Verversen</button>
+                        <h2>📅 Bookings Overview</h2>
+                        <button class="refresh-btn" onclick="syncCalendar()" id="refreshBookingsBtn">🔄 Refresh</button>
                     </div>
                     
                     <div id="bookingsTableContainer">
                         <div style="text-align:center; padding:40px; color:#888;">
-                            Koppel je Google Calendar om boekingen te zien.
+                            Connect your Google Calendar to see bookings.
                         </div>
                     </div>
                 </div>
@@ -160,19 +162,19 @@
 
             <section id="experiences" class="content-section">
                 <div class="card">
-                    <h2>🌍 Mijn Experiences</h2>
-                    <p style="color:#888;">Beheer hier je aanbod. (Binnenkort beschikbaar)</p>
+                    <h2>🌍 My Experiences</h2>
+                    <p style="color:#888;">Manage your offers here. (Coming soon)</p>
                 </div>
             </section>
 
             <section id="settings" class="content-section">
                 <div class="card">
-                    <h2>⚙️ Agenda Instellingen</h2>
+                    <h2>⚙️ Calendar Settings</h2>
                     <div style="margin-top:20px;">
-                        <label style="display:block; margin-bottom:8px; font-weight:600;">Kies Agenda</label>
+                        <label style="display:block; margin-bottom:8px; font-weight:600;">Choose Calendar</label>
                         <select id="calendarSelect" style="width:100%; max-width:400px; padding:10px; border-radius:8px; border:1px solid #ddd;"></select>
                         <br><br>
-                        <button class="google-btn" onclick="saveCalendarSettings()">Instellingen Opslaan</button>
+                        <button class="google-btn" onclick="saveCalendarSettings()">Save Settings</button>
                     </div>
                 </div>
             </section>
