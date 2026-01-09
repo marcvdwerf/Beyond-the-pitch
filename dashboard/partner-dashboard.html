@@ -1,81 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner Dashboard - Beyond the Pitch</title>
     <style>
+        /* BASIS STYLING */
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f5f7fa; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f5f7fa; color: #333; }
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
-        .sidebar { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:30px 0; }
+        
+        /* SIDEBAR */
+        .sidebar { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; }
         .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.2); margin-bottom:30px; }
         .logo h2 { font-size:1.3rem; margin-bottom:5px; }
         .logo p { opacity:0.8; font-size:0.9rem; }
         .nav-menu { list-style:none; }
         .nav-item { padding:15px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; font-size:1rem; transition:all 0.3s; }
         .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.2); border-left:4px solid white; }
-        .logout-btn { margin:30px; padding:12px; background:rgba(255,255,255,0.2); border:2px solid white; color:white; border-radius:8px; cursor:pointer; font-size:1rem; transition:all 0.3s; }
+        .logout-btn { width: calc(100% - 60px); margin:30px; padding:12px; background:rgba(255,255,255,0.2); border:2px solid white; color:white; border-radius:8px; cursor:pointer; font-size:1rem; transition:all 0.3s; }
         .logout-btn:hover { background:white; color:#667eea; }
-        .main-content { padding:30px; overflow-y:auto; max-height:100vh; }
+
+        /* MAIN CONTENT */
+        .main-content { padding:30px; overflow-y:auto; }
         .header { background:white; padding:25px 30px; border-radius:15px; margin-bottom:30px; box-shadow:0 2px 10px rgba(0,0,0,0.05); display:flex; justify-content:space-between; align-items:center; }
-        .header h1 { color:#333; font-size:2rem; }
-        .header-info h3 { color:#667eea; font-size:1.2rem; }
-        .header-info p { color:#888; font-size:0.9rem; }
-        
-        /* Google Calendar Connection */
+        .header h1 { color:#333; font-size:1.8rem; }
+        .header-info h3 { color:#667eea; font-size:1.1rem; text-align: right; }
+        .header-info p { color:#888; font-size:0.85rem; text-align: right; }
+
+        /* GOOGLE SYNC SECTIONS */
         .google-connect-section { background:#fef3c7; border:2px solid #fbbf24; border-radius:15px; padding:25px; margin-bottom:30px; display:flex; align-items:center; gap:20px; }
-        .google-connect-section.hidden { display:none; }
         .google-connected-section { background:#d1fae5; border:2px solid #10b981; border-radius:15px; padding:20px; margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; }
-        .google-connected-section.hidden { display:none; }
+        .hidden { display:none !important; }
+
+        /* BUTTONS */
         .google-btn { padding:12px 24px; background:#667eea; color:white; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; }
         .google-btn:hover { background:#5568d3; transform:translateY(-2px); }
-        .google-btn:disabled { opacity:0.5; cursor:not-allowed; }
         .refresh-btn { padding:10px 20px; background:#10b981; color:white; border:none; border-radius:8px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:all 0.3s; display:flex; align-items:center; gap:8px; }
-        .refresh-btn:hover { background:#059669; }
-        .refresh-btn:disabled { opacity:0.5; cursor:not-allowed; }
-        
-        /* Status Messages */
-        .status-message { padding:15px 20px; border-radius:10px; margin-bottom:20px; display:flex; align-items:center; gap:12px; }
-        .status-message.info { background:#dbeafe; color:#1e40af; border:2px solid #3b82f6; }
-        .status-message.success { background:#d1fae5; color:#065f46; border:2px solid #10b981; }
-        .status-message.error { background:#fee2e2; color:#991b1b; border:2px solid #ef4444; }
-        .status-message.warning { background:#fef3c7; color:#92400e; border:2px solid #fbbf24; }
-        
-        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin-bottom:30px; }
-        .stat-card { background:white; padding:25px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); transition: transform 0.3s; }
-        .stat-card:hover { transform:translateY(-5px); }
-        .stat-card h3 { color:#888; font-size:0.9rem; margin-bottom:10px; text-transform:uppercase; }
-        .stat-value { font-size:2.5rem; font-weight:700; color:#667eea; margin-bottom:5px; }
-        .stat-change { font-size:0.9rem; color:#10b981; }
-        
-        .content-section { display:none; }
-        .content-section.active { display:block; }
+
+        /* STATS */
+        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-bottom:30px; }
+        .stat-card { background:white; padding:25px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+        .stat-value { font-size:2rem; font-weight:700; color:#667eea; }
+
+        /* CARDS & TABLES */
         .card { background:white; padding:30px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:20px; }
-        .card h2 { color:#333; margin-bottom:20px; font-size:1.5rem; display:flex; justify-content:space-between; align-items:center; }
-        
-        table { width:100%; border-collapse:collapse; }
-        th { background:#f8f9fa; padding:15px; text-align:left; font-weight:600; color:#555; border-bottom:2px solid #e0e0e0; }
-        td { padding:15px; border-bottom:1px solid #e0e0e0; color:#666; }
-        tr:hover { background:#f8f9fa; }
-        
-        .badge { padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:600; }
+        table { width:100%; border-collapse:collapse; margin-top: 15px; }
+        th { background:#f8f9fa; padding:15px; text-align:left; color:#555; border-bottom:2px solid #eee; }
+        td { padding:15px; border-bottom:1px solid #eee; font-size: 0.95rem; }
+        tr:hover { background: #fcfcfc; cursor: pointer; }
+
+        /* BADGES */
+        .badge { padding:5px 12px; border-radius:20px; font-size:0.8rem; font-weight:600; text-transform: capitalize; }
         .badge-confirmed { background:#d1fae5; color:#065f46; }
         .badge-pending { background:#fef3c7; color:#92400e; }
         .badge-cancelled { background:#fee2e2; color:#991b1b; }
-        
-        .empty-state { text-align:center; padding:60px 20px; color:#888; }
-        .empty-state svg { width:80px; height:80px; opacity:0.3; margin-bottom:20px; }
-        
-        @media(max-width:768px){ 
-            .dashboard{grid-template-columns:1fr;} 
-            .sidebar{display:none;} 
-            .header { flex-direction:column; gap:15px; }
-            .stats-grid { grid-template-columns:1fr; }
-        }
+
+        /* DETAIL SECTION */
+        #day-detail { transition: all 0.4s ease; }
+        .detail-card { border-left: 5px solid #667eea; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
     </style>
 </head>
 <body>
+
     <div class="dashboard">
         <aside class="sidebar">
             <div class="logo">
@@ -83,149 +73,106 @@
                 <p>Partner Dashboard</p>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overview</li>
-                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Bookings</li>
-                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> My Experiences</li>
-                <li class="nav-item" onclick="showSection('settings')"><span>⚙️</span> Settings</li>
+                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overzicht</li>
+                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Boekingen</li>
+                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> Mijn Experiences</li>
+                <li class="nav-item" onclick="showSection('settings')"><span>⚙️</span> Instellingen</li>
             </ul>
-            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+            <button class="logout-btn" onclick="logout()">🚪 Uitloggen</button>
         </aside>
 
         <main class="main-content">
             <div class="header">
-                <div><h1 id="welcomeText">Partner Dashboard</h1></div>
+                <h1 id="welcomeText">Welkom</h1>
                 <div class="header-info">
-                    <h3 id="partnerName">Loading...</h3>
-                    <p id="partnerEmail"></p>
+                    <h3 id="partnerName">Laden...</h3>
+                    <p id="partnerEmail">...</p>
                 </div>
             </div>
 
-            <!-- Status Messages -->
             <div id="statusContainer"></div>
 
-            <!-- Connect Google Calendar Section -->
             <div id="connectGoogleSection" class="google-connect-section">
                 <div style="font-size:2rem;">📅</div>
                 <div style="flex:1;">
-                    <h3 style="color:#92400e; font-size:1.2rem; margin-bottom:5px;">Connect Google Calendar</h3>
-                    <p style="color:#78350f;">Sync your bookings automatically from Google Calendar</p>
+                    <h3 style="color:#92400e; margin-bottom:5px;">Koppel Google Calendar</h3>
+                    <p style="color:#78350f;">Synchroniseer je boekingen direct vanuit je eigen agenda.</p>
                 </div>
                 <button id="connectGoogleBtn" class="google-btn" onclick="handleAuthClick()" disabled>
-                    <span id="connectBtnText">Loading...</span>
+                    <span id="connectBtnText">Moment...</span>
                 </button>
             </div>
 
-            <!-- Connected Google Calendar Section -->
             <div id="connectedGoogleSection" class="google-connected-section hidden">
                 <div style="display:flex; align-items:center; gap:15px;">
                     <div style="font-size:2rem;">✅</div>
                     <div>
-                        <h3 style="color:#065f46; font-size:1.1rem; margin-bottom:3px;">Google Calendar Connected</h3>
+                        <h3 style="color:#065f46; margin-bottom:3px;">Agenda Gekoppeld</h3>
                         <p style="color:#047857; font-size:0.9rem;">
-                            Calendar: <strong id="connectedCalendarName">Primary</strong><br>
-                            Last synced: <span id="lastSyncTime">Never</span>
+                            Actief: <strong id="connectedCalendarName">Primair</strong> | 
+                            Sync: <span id="lastSyncTime">Nog niet</span>
                         </p>
                     </div>
                 </div>
                 <div style="display:flex; gap:10px;">
-                    <button class="refresh-btn" onclick="syncCalendar()" id="syncBtn">
-                        <span>🔄</span> Sync Now
-                    </button>
-                    <button class="google-btn" onclick="handleSignoutClick()" style="background:#ef4444;">
-                        Disconnect
-                    </button>
+                    <button class="refresh-btn" onclick="syncCalendar()" id="syncBtn">🔄 Nu Syncen</button>
+                    <button class="google-btn" onclick="handleSignoutClick()" style="background:#ef4444; padding: 10px 15px;">Ontkoppelen</button>
                 </div>
             </div>
 
-            <!-- OVERVIEW -->
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <h3>Total Bookings</h3>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Totaal Boekingen</p>
                         <div class="stat-value" id="totalBookings">0</div>
-                        <div class="stat-change" id="bookingsChange">--</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Upcoming Events</h3>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Komende 30 Dagen</p>
                         <div class="stat-value" id="upcomingBookings">0</div>
-                        <div class="stat-change">Next 30 days</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Total Guests</h3>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Totaal Gasten</p>
                         <div class="stat-value" id="totalGuests">0</div>
-                        <div class="stat-change" id="guestsChange">--</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Revenue (Est.)</h3>
+                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Omzet (Est.)</p>
                         <div class="stat-value" id="totalRevenue">€0</div>
-                        <div class="stat-change" id="revenueChange">--</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Bookings -->
             <section id="bookings" class="content-section">
-                <div class="card">
-                    <h2>
-                        <span>📅 All Bookings</span>
-                        <button class="refresh-btn" onclick="syncCalendar()" id="refreshBookingsBtn" style="font-size:0.85rem; padding:8px 16px;">
-                            <span>🔄</span> Refresh
-                        </button>
-                    </h2>
-                    <div id="bookingsTableContainer">
-                        <div class="empty-state">
-                            <p style="font-size:1.1rem; margin-bottom:10px;">📅 No bookings yet</p>
-                            <p>Connect your Google Calendar to see bookings</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                <div id="day-detail"></div>
 
-            <!-- Experiences -->
-            <section id="experiences" class="content-section">
                 <div class="card">
-                    <h2>🌍 My Experiences</h2>
-                    <p style="color:#888; margin-bottom:20px;">Manage your travel experiences and packages</p>
-                    <div class="empty-state">
-                        <p style="font-size:1.1rem; margin-bottom:10px;">🌍 Coming Soon</p>
-                        <p>Experience management will be available in the next update</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Settings -->
-            <section id="settings" class="content-section">
-                <div class="card">
-                    <h2>⚙️ Calendar Settings</h2>
-                    <div style="margin-top:20px;">
-                        <label style="display:block; margin-bottom:10px; font-weight:600; color:#333;">
-                            Select Calendar to Sync
-                        </label>
-                        <select id="calendarSelect" style="width:100%; max-width:500px; padding:12px; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; margin-bottom:20px;">
-                            <option value="">Loading calendars...</option>
-                        </select>
-                        <button class="google-btn" onclick="saveCalendarSettings()" style="margin-top:10px;">
-                            Save Settings
-                        </button>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                        <h2>📅 Boeking Overzicht</h2>
+                        <button class="refresh-btn" onclick="syncCalendar()" id="refreshBookingsBtn">🔄 Verversen</button>
                     </div>
                     
-                    <div style="margin-top:40px; padding-top:30px; border-top:2px solid #e0e0e0;">
-                        <h3 style="color:#333; margin-bottom:15px;">Booking Event Format</h3>
-                        <p style="color:#666; margin-bottom:20px;">
-                            For bookings to be recognized, calendar events should include:<br>
-                            • <strong>Event Title:</strong> Include "BTP-" followed by booking ID (e.g., "BTP-1001 - Machu Picchu Trek")<br>
-                            • <strong>Description:</strong> Include details like customer name, number of guests, amount, etc.
-                        </p>
-                        <div style="background:#f8f9fa; padding:20px; border-radius:10px; font-family:monospace; font-size:0.9rem;">
-                            <strong>Example Format:</strong><br><br>
-                            Title: BTP-1001 - Machu Picchu Trek<br><br>
-                            Description:<br>
-                            Customer: John Smith<br>
-                            Email: john@example.com<br>
-                            Guests: 4<br>
-                            Amount: €800<br>
-                            Status: confirmed
+                    <div id="bookingsTableContainer">
+                        <div style="text-align:center; padding:40px; color:#888;">
+                            Koppel je Google Calendar om boekingen te zien.
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experiences" class="content-section">
+                <div class="card">
+                    <h2>🌍 Mijn Experiences</h2>
+                    <p style="color:#888;">Beheer hier je aanbod. (Binnenkort beschikbaar)</p>
+                </div>
+            </section>
+
+            <section id="settings" class="content-section">
+                <div class="card">
+                    <h2>⚙️ Agenda Instellingen</h2>
+                    <div style="margin-top:20px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:600;">Kies Agenda</label>
+                        <select id="calendarSelect" style="width:100%; max-width:400px; padding:10px; border-radius:8px; border:1px solid #ddd;"></select>
+                        <br><br>
+                        <button class="google-btn" onclick="saveCalendarSettings()">Instellingen Opslaan</button>
                     </div>
                 </div>
             </section>
@@ -234,438 +181,6 @@
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
-    <script>
-        // ===============================
-        // CONFIGURATION
-        // ===============================
-        const CONFIG = {
-            CLIENT_ID: '440103208396-uou0t99knmu2a7dd4ieadvmtlcu47k3g.apps.googleusercontent.com',
-            API_KEY: 'AIzaSyBqL9vK3xN2mH8pR4tC1wE5fG6hJ7iK8lM', // TODO: Replace with your actual API key
-            DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-            SCOPES: 'https://www.googleapis.com/auth/calendar.readonly'
-        };
-
-        // State
-        let tokenClient;
-        let gapiInited = false;
-        let gisInited = false;
-        let currentCalendarId = 'primary';
-        let bookingsData = [];
-
-        // ===============================
-        // INITIALIZATION
-        // ===============================
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 Initializing Partner Dashboard...');
-            loadPartnerInfo();
-            gapiLoaded();
-            gisLoaded();
-        });
-
-        function gapiLoaded() {
-            gapi.load('client', initializeGapiClient);
-        }
-
-        async function initializeGapiClient() {
-            try {
-                await gapi.client.init({
-                    apiKey: CONFIG.API_KEY,
-                    discoveryDocs: [CONFIG.DISCOVERY_DOC],
-                });
-                gapiInited = true;
-                console.log('✅ Google API Client initialized');
-                maybeEnableButtons();
-            } catch (error) {
-                console.error('❌ Error initializing GAPI:', error);
-                showStatus('error', 'Failed to initialize Google API. Please check your API key.');
-            }
-        }
-
-        function gisLoaded() {
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: CONFIG.CLIENT_ID,
-                scope: CONFIG.SCOPES,
-                callback: '', // defined later
-            });
-            gisInited = true;
-            console.log('✅ Google Identity Services initialized');
-            maybeEnableButtons();
-        }
-
-        function maybeEnableButtons() {
-            if (gapiInited && gisInited) {
-                const btn = document.getElementById('connectGoogleBtn');
-                btn.disabled = false;
-                btn.querySelector('#connectBtnText').textContent = 'Connect Calendar';
-                
-                // Check if already authorized
-                if (gapi.client.getToken()) {
-                    updateUIForSignedIn();
-                    loadCalendarList();
-                    syncCalendar();
-                }
-            }
-        }
-
-        // ===============================
-        // AUTHENTICATION
-        // ===============================
-        function handleAuthClick() {
-            tokenClient.callback = async (resp) => {
-                if (resp.error !== undefined) {
-                    console.error('❌ Auth error:', resp);
-                    showStatus('error', 'Authentication failed: ' + resp.error);
-                    return;
-                }
-                console.log('✅ Successfully authenticated');
-                updateUIForSignedIn();
-                await loadCalendarList();
-                await syncCalendar();
-            };
-
-            if (gapi.client.getToken() === null) {
-                tokenClient.requestAccessToken({prompt: 'consent'});
-            } else {
-                tokenClient.requestAccessToken({prompt: ''});
-            }
-        }
-
-        function handleSignoutClick() {
-            const token = gapi.client.getToken();
-            if (token !== null) {
-                google.accounts.oauth2.revoke(token.access_token);
-                gapi.client.setToken('');
-                updateUIForSignedOut();
-                showStatus('info', 'Disconnected from Google Calendar');
-            }
-        }
-
-        function updateUIForSignedIn() {
-            document.getElementById('connectGoogleSection').classList.add('hidden');
-            document.getElementById('connectedGoogleSection').classList.remove('hidden');
-        }
-
-        function updateUIForSignedOut() {
-            document.getElementById('connectGoogleSection').classList.remove('hidden');
-            document.getElementById('connectedGoogleSection').classList.add('hidden');
-            bookingsData = [];
-            updateStats();
-            renderBookingsTable();
-        }
-
-        // ===============================
-        // CALENDAR OPERATIONS
-        // ===============================
-        async function loadCalendarList() {
-            try {
-                const response = await gapi.client.calendar.calendarList.list();
-                const calendars = response.result.items;
-                
-                const select = document.getElementById('calendarSelect');
-                select.innerHTML = calendars.map(cal => 
-                    `<option value="${cal.id}" ${cal.id === currentCalendarId ? 'selected' : ''}>
-                        ${cal.summary} ${cal.primary ? '(Primary)' : ''}
-                    </option>`
-                ).join('');
-                
-                // Update connected calendar name
-                const selectedCal = calendars.find(c => c.id === currentCalendarId);
-                if (selectedCal) {
-                    document.getElementById('connectedCalendarName').textContent = selectedCal.summary;
-                }
-            } catch (error) {
-                console.error('❌ Error loading calendars:', error);
-                showStatus('error', 'Failed to load calendar list');
-            }
-        }
-
-        async function syncCalendar() {
-            const syncBtn = document.getElementById('syncBtn');
-            const refreshBtn = document.getElementById('refreshBookingsBtn');
-            
-            try {
-                syncBtn.disabled = true;
-                refreshBtn.disabled = true;
-                syncBtn.innerHTML = '<span>⏳</span> Syncing...';
-                showStatus('info', 'Syncing with Google Calendar...');
-
-                const now = new Date();
-                const threeMonthsAgo = new Date();
-                threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-
-                const response = await gapi.client.calendar.events.list({
-                    calendarId: currentCalendarId,
-                    timeMin: threeMonthsAgo.toISOString(),
-                    maxResults: 100,
-                    singleEvents: true,
-                    orderBy: 'startTime'
-                });
-
-                const events = response.result.items || [];
-                console.log(`📅 Found ${events.length} calendar events`);
-
-                // Parse booking events (events with "BTP-" in title)
-                bookingsData = events
-                    .filter(event => event.summary && event.summary.includes('BTP-'))
-                    .map(event => parseBookingEvent(event));
-
-                console.log(`✅ Parsed ${bookingsData.length} booking events`);
-
-                updateStats();
-                renderBookingsTable();
-                updateLastSyncTime();
-                showStatus('success', `Successfully synced ${bookingsData.length} bookings`);
-
-            } catch (error) {
-                console.error('❌ Sync error:', error);
-                showStatus('error', 'Failed to sync calendar: ' + (error.result?.error?.message || error.message));
-            } finally {
-                syncBtn.disabled = false;
-                refreshBtn.disabled = false;
-                syncBtn.innerHTML = '<span>🔄</span> Sync Now';
-            }
-        }
-
-        function parseBookingEvent(event) {
-            const summary = event.summary || '';
-            const description = event.description || '';
-            
-            // Extract booking ID from title (e.g., "BTP-1001")
-            const bookingIdMatch = summary.match(/BTP-\d+/);
-            const bookingId = bookingIdMatch ? bookingIdMatch[0] : 'BTP-XXXX';
-            
-            // Extract experience name (everything after "BTP-1001 - ")
-            const experienceName = summary.replace(/BTP-\d+\s*-?\s*/, '').trim() || 'Unknown Experience';
-            
-            // Parse description fields
-            const getField = (fieldName) => {
-                const regex = new RegExp(`${fieldName}:\\s*(.+)`, 'i');
-                const match = description.match(regex);
-                return match ? match[1].trim() : '';
-            };
-
-            // Parse date
-            const startDate = event.start.dateTime || event.start.date;
-            const endDate = event.end?.dateTime || event.end?.date;
-            
-            // Parse amount (support multiple formats)
-            const amountStr = getField('Amount') || getField('Price') || '0';
-            const amount = parseFloat(amountStr.replace(/[€$,]/g, '')) || 0;
-            
-            // Parse guests
-            const guestsStr = getField('Guests') || getField('Participants') || '1';
-            const guests = parseInt(guestsStr) || 1;
-            
-            // Determine status
-            let status = 'pending';
-            if (event.status === 'confirmed' || getField('Status').toLowerCase() === 'confirmed') {
-                status = 'confirmed';
-            } else if (event.status === 'cancelled' || getField('Status').toLowerCase() === 'cancelled') {
-                status = 'cancelled';
-            }
-
-            return {
-                id: bookingId,
-                eventId: event.id,
-                experienceName,
-                customer: getField('Customer') || getField('Name') || 'Unknown',
-                email: getField('Email') || '',
-                date: startDate,
-                endDate,
-                guests,
-                status,
-                amount,
-                description: description,
-                calendarLink: event.htmlLink
-            };
-        }
-
-        function saveCalendarSettings() {
-            const select = document.getElementById('calendarSelect');
-            currentCalendarId = select.value;
-            showStatus('success', 'Calendar settings saved! Syncing...');
-            loadCalendarList();
-            syncCalendar();
-        }
-
-        // ===============================
-        // UI UPDATES
-        // ===============================
-        function updateStats() {
-            const now = new Date();
-            const thirtyDaysFromNow = new Date();
-            thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
-
-            const totalBookings = bookingsData.length;
-            const upcomingBookings = bookingsData.filter(b => 
-                new Date(b.date) >= now && new Date(b.date) <= thirtyDaysFromNow
-            ).length;
-            const totalGuests = bookingsData.reduce((sum, b) => sum + (b.guests || 0), 0);
-            const totalRevenue = bookingsData.reduce((sum, b) => sum + (b.amount || 0), 0);
-
-            document.getElementById('totalBookings').textContent = totalBookings;
-            document.getElementById('upcomingBookings').textContent = upcomingBookings;
-            document.getElementById('totalGuests').textContent = totalGuests;
-            document.getElementById('totalRevenue').textContent = `€${totalRevenue.toFixed(0)}`;
-
-            // Update change indicators
-            document.getElementById('bookingsChange').textContent = totalBookings > 0 ? 'Synced from calendar' : 'No bookings';
-            document.getElementById('guestsChange').textContent = totalGuests > 0 ? `Avg: ${(totalGuests/totalBookings || 0).toFixed(1)} per booking` : '--';
-            document.getElementById('revenueChange').textContent = totalRevenue > 0 ? `Avg: €${(totalRevenue/totalBookings || 0).toFixed(0)} per booking` : '--';
-        }
-
-        function renderBookingsTable() {
-            const container = document.getElementById('bookingsTableContainer');
-            
-            if (bookingsData.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <p style="font-size:1.1rem; margin-bottom:10px;">📅 No bookings found</p>
-                        <p>Make sure your calendar events include "BTP-" in the title</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Sort by date (most recent first)
-            const sortedBookings = [...bookingsData].sort((a, b) => 
-                new Date(b.date) - new Date(a.date)
-            );
-
-            container.innerHTML = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Booking ID</th>
-                            <th>Experience</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Guests</th>
-                            <th>Status</th>
-                            <th>Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${sortedBookings.map(b => `
-                            <tr>
-                                <td><strong>${b.id}</strong></td>
-                                <td>${b.experienceName}</td>
-                                <td>
-                                    ${b.customer}
-                                    ${b.email ? `<br><small style="color:#888;">${b.email}</small>` : ''}
-                                </td>
-                                <td>${formatDate(b.date)}</td>
-                                <td>${b.guests}</td>
-                                <td><span class="badge badge-${b.status}">${capitalizeFirst(b.status)}</span></td>
-                                <td><strong>€${b.amount.toFixed(0)}</strong></td>
-                                <td>
-                                    <a href="${b.calendarLink}" target="_blank" style="color:#667eea; text-decoration:none; font-size:0.9rem;">
-                                        📅 View in Calendar
-                                    </a>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function updateLastSyncTime() {
-            const now = new Date();
-            document.getElementById('lastSyncTime').textContent = 
-                now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        // ===============================
-        // NAVIGATION
-        // ===============================
-        function showSection(sectionId) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            document.getElementById(sectionId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // ===============================
-        // STATUS MESSAGES
-        // ===============================
-        function showStatus(type, message) {
-            const container = document.getElementById('statusContainer');
-            const icons = {
-                info: 'ℹ️',
-                success: '✅',
-                error: '❌',
-                warning: '⚠️'
-            };
-            
-            container.innerHTML = `
-                <div class="status-message ${type}">
-                    <span style="font-size:1.2rem;">${icons[type]}</span>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            // Auto-hide success messages after 5 seconds
-            if (type === 'success') {
-                setTimeout(() => {
-                    container.innerHTML = '';
-                }, 5000);
-            }
-        }
-
-        // ===============================
-        // UTILITY FUNCTIONS
-        // ===============================
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            });
-        }
-
-        function capitalizeFirst(str) {
-            return str.charAt(0).toUpperCase() + str.slice(1);
-        }
-
-        function loadPartnerInfo() {
-            // Load partner info from localStorage or set defaults
-            const partnerName = localStorage.getItem('partnerName') || 'Peru Adventure Co.';
-            const partnerEmail = localStorage.getItem('partnerEmail') || 'partner@example.com';
-            
-            document.getElementById('partnerName').textContent = partnerName;
-            document.getElementById('partnerEmail').textContent = partnerEmail;
-            document.getElementById('welcomeText').textContent = `Welcome, ${partnerName}!`;
-        }
-
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                // Sign out from Google
-                if (gapi.client.getToken() !== null) {
-                    handleSignoutClick();
-                }
-                // Clear localStorage
-                localStorage.clear();
-                // Redirect to login page
-                window.location.href = 'login.html';
-            }
-        }
-
-        // ===============================
-        // AUTO-SYNC (Optional)
-        // ===============================
-        // Uncomment to enable auto-sync every 2 minutes
-        /*
-        setInterval(() => {
-            if (gapi.client.getToken() !== null) {
-                console.log('🔄 Auto-syncing...');
-                syncCalendar();
-            }
-        }, 120000); // 2 minutes
-        */
-    </script>
+    <script src="partner-dashboard.js"></script>
 </body>
 </html>
