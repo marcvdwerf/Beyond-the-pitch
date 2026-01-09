@@ -66,13 +66,21 @@
         .form-group label { display:block; margin-bottom:8px; color:#555; font-weight:600; }
         .form-group input, .form-group select, .form-group textarea { width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; }
         .form-group textarea { resize:vertical; min-height:100px; }
+        
+        /* Inline styling voor het boekingsformulier grid */
+        .booking-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <aside class="sidebar">
             <div class="logo">
-                <h2> Beyond the Pitch</h2>
+                <h2>Beyond the Pitch</h2>
                 <p>Admin Dashboard</p>
             </div>
             <ul class="nav-menu">
@@ -91,7 +99,6 @@
                 <p>Beheer alle partners, experiences en boekingen</p>
             </div>
 
-            <!-- OVERVIEW -->
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
                     <div class="stat-card"><h3>Totaal Partners</h3><div class="stat-value" id="totalPartners">3</div></div>
@@ -101,7 +108,6 @@
                 </div>
             </section>
 
-            <!-- Partners -->
             <section id="partners" class="content-section">
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -118,7 +124,6 @@
                 </div>
             </section>
 
-            <!-- Experiences -->
             <section id="experiences" class="content-section">
                 <div class="card">
                     <h2>🌍 Alle Experiences</h2>
@@ -129,18 +134,54 @@
                 </div>
             </section>
 
-            <!-- Bookings -->
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <h2>📅 Alle Boekingen</h2>
+                    <h2>➕ Nieuwe Boeking Handmatig Toevoegen</h2>
+                    <form id="add-booking-form" class="booking-form-grid">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label>Experience</label>
+                            <select id="event-select" required>
+                                <option value="">Kies Experience...</option>
+                                <option value="Machu Picchu Trek">Machu Picchu Trek</option>
+                                <option value="Dublin Whiskey Tour">Dublin Whiskey Tour</option>
+                                <option value="Gobi Desert Expedition">Gobi Desert Expedition</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label>Klant / Groepsnaam</label>
+                            <input type="text" id="group-name" placeholder="Naam van klant" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label>Aantal Personen</label>
+                            <input type="number" id="persons" min="1" value="1" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <button type="submit" class="btn btn-success" style="width:100%; height:45px;">Toevoegen</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>📅 Overzicht Boekingen</h2>
                     <table id="bookingsTable">
-                        <thead><tr><th>Booking ID</th><th>Experience</th><th>Partner</th><th>Klant</th><th>Datum</th><th>Gasten</th><th>Status</th><th>Bedrag</th></tr></thead>
-                        <tbody id="bookingsBody"></tbody>
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Experience</th>
+                                <th>Partner</th>
+                                <th>Klant</th>
+                                <th>Datum</th>
+                                <th>Gasten</th>
+                                <th>Status</th>
+                                <th>Bedrag</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsBody">
+                            </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- Messages -->
             <section id="messages" class="content-section">
                 <div class="card">
                     <h2>💬 Broadcast Bericht</h2>
@@ -154,7 +195,6 @@
         </main>
     </div>
 
-    <!-- Add Partner Modal -->
     <div id="addPartnerModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -179,5 +219,33 @@
 
     <script src="auth.js"></script>
     <script src="admin-dashboard.js"></script>
+    
+    <script>
+        document.getElementById('add-booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const exp = document.getElementById('event-select').value;
+            const name = document.getElementById('group-name').value;
+            const count = document.getElementById('persons').value;
+            const id = 'BTP-' + Math.floor(Math.random() * 9000 + 1000);
+            const date = new Date().toLocaleDateString('nl-NL');
+
+            const tbody = document.getElementById('bookingsBody');
+            const row = tbody.insertRow(0);
+            row.innerHTML = `
+                <td>#${id}</td>
+                <td>${exp}</td>
+                <td>Handmatig</td>
+                <td>${name}</td>
+                <td>${date}</td>
+                <td>${count}</td>
+                <td><span class="badge badge-active">Bevestigd</span></td>
+                <td>€ --</td>
+            `;
+
+            alert('Boeking succesvol toegevoegd aan de lijst!');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
