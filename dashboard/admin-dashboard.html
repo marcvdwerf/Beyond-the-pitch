@@ -3,175 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Beyond the Pitch</title>
+    <title>Beyond the Pitch | Admin Panel</title>
     <style>
+        /* ... Jouw bestaande styles ... */
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f5f7fa; }
+        body { font-family: system-ui, -apple-system, sans-serif; background:#f5f7fa; color: #333; }
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
-        .sidebar { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:30px 0; }
-        .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.2); margin-bottom:30px; }
-        .logo h2 { font-size:1.3rem; margin-bottom:5px; }
-        .logo p { opacity:0.8; font-size:0.9rem; }
-        .nav-menu { list-style:none; }
-        .nav-item { padding:15px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; font-size:1rem; transition:all 0.3s; }
-        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.2); border-left:4px solid white; }
-        .logout-btn { margin:30px; padding:12px; background:rgba(255,255,255,0.2); border:2px solid white; color:white; border-radius:8px; cursor:pointer; font-size:1rem; transition:all 0.3s; }
-        .logout-btn:hover { background:white; color:#667eea; }
-        .main-content { padding:30px; overflow-y:auto; }
-        .header { background:white; padding:25px 30px; border-radius:15px; margin-bottom:30px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-        .header h1 { color:#333; font-size:2rem; margin-bottom:5px; }
-        .header p { color:#888; }
-        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-bottom:30px; }
-        .stat-card { background:white; padding:25px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-        .stat-card h3 { color:#888; font-size:0.9rem; margin-bottom:10px; text-transform:uppercase; }
-        .stat-value { font-size:2.5rem; font-weight:700; color:#667eea; }
-        .content-section { display:none; }
+        .sidebar { background:linear-gradient(135deg, #1a1c2c 0%, #4a192c 100%); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; }
+        .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:30px; }
+        .nav-item { padding:15px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:0.3s; opacity: 0.7; }
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); border-left:4px solid #667eea; opacity: 1; }
+        .main-content { padding:40px; }
+        .header { margin-bottom: 40px; }
+        .stats-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; margin-bottom:40px; }
+        .stat-card { background:white; padding:25px; border-radius:15px; box-shadow:0 4px 6px rgba(0,0,0,0.02); border-bottom: 4px solid #667eea; }
+        .stat-value { font-size:2rem; font-weight:800; color:#1a1c2c; }
+        .card { background:white; padding:30px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.05); margin-bottom:30px; }
+        .content-section { display:none; animation: fadeIn 0.3s ease-in; }
         .content-section.active { display:block; }
-        .card { background:white; padding:30px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:20px; }
-        .card h2 { color:#333; margin-bottom:20px; font-size:1.5rem; }
-        .filters { display:flex; gap:15px; margin-bottom:20px; flex-wrap:wrap; }
-        .filter-btn { padding:10px 20px; border:2px solid #e0e0e0; background:white; border-radius:8px; cursor:pointer; transition:all 0.3s; font-weight:600; }
-        .filter-btn:hover, .filter-btn.active { background:#667eea; color:white; border-color:#667eea; }
-        .partner-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(350px,1fr)); gap:20px; }
-        .partner-card { background:white; border:2px solid #e0e0e0; border-radius:15px; padding:25px; transition:all 0.3s; }
-        .partner-card:hover { border-color:#667eea; box-shadow:0 5px 20px rgba(102,126,234,0.2); }
-        .partner-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:15px; }
-        .partner-header h3 { color:#333; font-size:1.3rem; }
-        .partner-country { display:inline-block; padding:5px 12px; background:#667eea; color:white; border-radius:20px; font-size:0.85rem; font-weight:600; }
-        .partner-info { margin:15px 0; color:#666; line-height:1.8; }
-        .partner-stats { display:flex; gap:20px; margin:15px 0; padding:15px; background:#f8f9fa; border-radius:8px; }
-        .partner-stat { text-align:center; }
-        .partner-stat-value { font-size:1.5rem; font-weight:700; color:#667eea; }
-        .partner-stat-label { font-size:0.85rem; color:#888; }
-        .partner-actions { display:flex; gap:10px; margin-top:15px; }
-        .btn { padding:10px 20px; border-radius:8px; border:none; cursor:pointer; font-size:0.9rem; transition:all 0.3s; font-weight:600; flex:1; }
-        .btn-primary { background:#667eea; color:white; }
-        .btn-primary:hover { background:#5568d3; }
-        .btn-secondary { background:#e0e0e0; color:#555; }
-        .btn-success { background:#10b981; color:white; }
-        table { width:100%; border-collapse:collapse; }
-        th { background:#f8f9fa; padding:15px; text-align:left; font-weight:600; color:#555; border-bottom:2px solid #e0e0e0; }
-        td { padding:15px; border-bottom:1px solid #e0e0e0; color:#666; }
-        tr:hover { background:#f8f9fa; }
-        .badge { padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:600; }
-        .badge-active { background:#d1fae5; color:#065f46; }
-        .badge-pending { background:#fef3c7; color:#92400e; }
-        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; }
-        .modal.active { display:flex; }
-        .modal-content { background:white; border-radius:15px; padding:40px; max-width:600px; width:90%; max-height:90vh; overflow-y:auto; }
-        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; }
-        .modal-header h2 { color:#333; }
-        .close-btn { font-size:2rem; cursor:pointer; color:#888; border:none; background:none; }
-        .form-group { margin-bottom:20px; }
-        .form-group label { display:block; margin-bottom:8px; color:#555; font-weight:600; }
-        .form-group input, .form-group select, .form-group textarea { width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; }
-        .form-group textarea { resize:vertical; min-height:100px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Inline styling voor het boekingsformulier grid */
-        .booking-form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            align-items: end;
-        }
+        /* Partner Grid Styling */
+        .partner-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:25px; }
+        .partner-card { border: 1px solid #eee; padding: 20px; border-radius: 12px; position: relative; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .status-online { background: #10b981; }
+        
+        /* Buttons & Badges */
+        .btn { border: none; padding: 12px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background: #667eea; color: white; }
+        .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+        .badge-active { background: #d1fae5; color: #065f46; }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <aside class="sidebar">
             <div class="logo">
-                <h2>Beyond the Pitch</h2>
-                <p>Admin Dashboard</p>
+                <h2>⚽ BTP Admin</h2>
+                <p>Global Experience Control</p>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overzicht</li>
-                <li class="nav-item" onclick="showSection('partners')"><span>👥</span> Partners Beheren</li>
-                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> Experiences</li>
-                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Alle Boekingen</li>
-                <li class="nav-item" onclick="showSection('messages')"><span>💬</span> Berichten</li>
+                <li class="nav-item active" onclick="showSection('overview')">📊 Overzicht</li>
+                <li class="nav-item" onclick="showSection('partners')">👥 Partners Beheren</li>
+                <li class="nav-item" onclick="showSection('experiences')">🌍 Alle Experiences</li>
+                <li class="nav-item" onclick="showSection('bookings')">📅 Boekingen</li>
             </ul>
-            <button class="logout-btn" onclick="logout()">🚪 Uitloggen</button>
+            <button class="logout-btn" onclick="logout()" style="margin: 30px; width: calc(100% - 60px);">🚪 Uitloggen</button>
         </aside>
 
         <main class="main-content">
-            <div class="header">
-                <h1>Admin Dashboard</h1>
-                <p>Beheer alle partners, experiences en boekingen</p>
-            </div>
-
-            <section id="overview" class="content-section active">
-                <div class="stats-grid">
-                    <div class="stat-card"><h3>Totaal Partners</h3><div class="stat-value" id="totalPartners">3</div></div>
-                    <div class="stat-card"><h3>Actieve Experiences</h3><div class="stat-value" id="totalExperiences">6</div></div>
-                    <div class="stat-card"><h3>Totaal Boekingen</h3><div class="stat-value" id="totalBookings">5</div></div>
-                    <div class="stat-card"><h3>Pending Approvals</h3><div class="stat-value" id="pendingApprovals">0</div></div>
+            <div id="overview" class="content-section active">
+                <div class="header">
+                    <h1>Systeem Overzicht</h1>
+                    <p>Welkom terug, Hoofdbeheerder.</p>
                 </div>
-            </section>
+                <div class="stats-grid">
+                    <div class="stat-card"><h3>Partners</h3><div class="stat-value" id="totalPartners">0</div></div>
+                    <div class="stat-card"><h3>Experiences</h3><div class="stat-value" id="totalExperiences">0</div></div>
+                    <div class="stat-card"><h3>Boekingen</h3><div class="stat-value" id="totalBookings">0</div></div>
+                    <div class="stat-card"><h3>Omzet (MTD)</h3><div class="stat-value">€ 14.250</div></div>
+                </div>
+            </div>
 
             <section id="partners" class="content-section">
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2>👥 Partner Management</h2>
-                        <button class="btn btn-primary" onclick="openAddPartnerModal()">➕ Nieuwe Partner</button>
+                        <h2>Geregistreerde Partners</h2>
+                        <button class="btn btn-primary" onclick="openModal('addPartnerModal')">➕ Partner Toevoegen</button>
                     </div>
-                    <div class="filters">
-                        <button class="filter-btn active" onclick="filterPartners('all')">Alle Landen</button>
-                        <button class="filter-btn" onclick="filterPartners('Peru')">🇵🇪 Peru</button>
-                        <button class="filter-btn" onclick="filterPartners('Ireland')">🇮🇪 Ireland</button>
-                        <button class="filter-btn" onclick="filterPartners('Mongolia')">🇲🇳 Mongolia</button>
-                    </div>
-                    <div class="partner-grid" id="partnersGrid"></div>
-                </div>
-            </section>
-
-            <section id="experiences" class="content-section">
-                <div class="card">
-                    <h2>🌍 Alle Experiences</h2>
-                    <table id="experiencesTable">
-                        <thead><tr><th>Experience</th><th>Partner</th><th>Land</th><th>Type</th><th>Prijs</th><th>Rating</th><th>Boekingen</th><th>Acties</th></tr></thead>
-                        <tbody id="experiencesBody"></tbody>
-                    </table>
+                    <div class="partner-grid" id="partnersGrid">
+                        </div>
                 </div>
             </section>
 
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <h2>➕ Nieuwe Boeking Handmatig Toevoegen</h2>
-                    <form id="add-booking-form" class="booking-form-grid">
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label>Experience</label>
-                            <select id="event-select" required>
-                                <option value="">Kies Experience...</option>
-                                <option value="Machu Picchu Trek">Machu Picchu Trek</option>
-                                <option value="Dublin Whiskey Tour">Dublin Whiskey Tour</option>
-                                <option value="Gobi Desert Expedition">Gobi Desert Expedition</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label>Klant / Groepsnaam</label>
-                            <input type="text" id="group-name" placeholder="Naam van klant" required />
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label>Aantal Personen</label>
-                            <input type="number" id="persons" min="1" value="1" required />
-                        </div>
-                        <div class="form-group" style="margin-bottom:0;">
-                            <button type="submit" class="btn btn-success" style="width:100%; height:45px;">Toevoegen</button>
-                        </div>
+                    <h2>Nieuwe Boeking Invoeren</h2>
+                    <form id="add-booking-form" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                        <input type="text" id="group-name" placeholder="Klantnaam" required class="btn" style="border:1px solid #ddd; text-align:left;">
+                        <select id="event-select" class="btn" style="border:1px solid #ddd; text-align:left;">
+                            <option value="Full Day Lima">Full Day Lima</option>
+                            <option value="Dublin Football Tour">Dublin Football Tour</option>
+                        </select>
+                        <input type="number" id="persons" value="1" class="btn" style="border:1px solid #ddd;">
+                        <button type="submit" class="btn btn-primary">Boeking Opslaan</button>
                     </form>
                 </div>
-
                 <div class="card">
-                    <h2>📅 Overzicht Boekingen</h2>
-                    <table id="bookingsTable">
+                    <table style="width: 100%; text-align: left; border-collapse: collapse;">
                         <thead>
-                            <tr>
-                                <th>Booking ID</th>
+                            <tr style="border-bottom: 2px solid #eee;">
+                                <th style="padding: 15px;">ID</th>
                                 <th>Experience</th>
-                                <th>Partner</th>
                                 <th>Klant</th>
-                                <th>Datum</th>
-                                <th>Gasten</th>
                                 <th>Status</th>
                                 <th>Bedrag</th>
                             </tr>
@@ -181,71 +106,22 @@
                     </table>
                 </div>
             </section>
-
-            <section id="messages" class="content-section">
-                <div class="card">
-                    <h2>💬 Broadcast Bericht</h2>
-                    <form onsubmit="sendBroadcast(event)">
-                        <div class="form-group"><label>Onderwerp</label><input type="text" required></div>
-                        <div class="form-group"><label>Bericht</label><textarea required></textarea></div>
-                        <button type="submit" class="btn btn-primary">📤 Verstuur</button>
-                    </form>
-                </div>
-            </section>
         </main>
     </div>
 
-    <div id="addPartnerModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>➕ Nieuwe Partner</h2>
-                <button class="close-btn" onclick="closeModal('addPartnerModal')">&times;</button>
-            </div>
-            <form onsubmit="addPartner(event)">
-                <div class="form-group"><label>Bedrijfsnaam</label><input type="text" id="newCompanyName" required></div>
-                <div class="form-group"><label>Email</label><input type="email" id="newEmail" required></div>
-                <div class="form-group"><label>Land</label>
-                    <select id="newCountry" required>
-                        <option value="">Selecteer</option>
-                        <option value="Peru">🇵🇪 Peru</option>
-                        <option value="Ireland">🇮🇪 Ireland</option>
-                        <option value="Mongolia">🇲🇳 Mongolia</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Toevoegen</button>
+    <div id="addPartnerModal" class="modal" style="display: none; position: fixed; background: rgba(0,0,0,0.8); width: 100%; height: 100%; top: 0; left: 0; justify-content: center; align-items: center; z-index: 1000;">
+        <div class="card" style="width: 400px;">
+            <h2>Nieuwe Partner</h2>
+            <form onsubmit="addNewPartner(event)">
+                <div class="form-group"><label>Naam</label><input type="text" id="pName" required style="width: 100%; padding: 10px; margin-bottom: 10px;"></div>
+                <div class="form-group"><label>Land</label><input type="text" id="pCountry" required style="width: 100%; padding: 10px; margin-bottom: 10px;"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Opslaan</button>
+                <button type="button" class="btn" onclick="closeModal('addPartnerModal')" style="width: 100%; margin-top: 10px;">Annuleren</button>
             </form>
         </div>
     </div>
 
     <script src="auth.js"></script>
     <script src="admin-dashboard.js"></script>
-    
-    <script>
-        document.getElementById('add-booking-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const exp = document.getElementById('event-select').value;
-            const name = document.getElementById('group-name').value;
-            const count = document.getElementById('persons').value;
-            const id = 'BTP-' + Math.floor(Math.random() * 9000 + 1000);
-            const date = new Date().toLocaleDateString('nl-NL');
-
-            const tbody = document.getElementById('bookingsBody');
-            const row = tbody.insertRow(0);
-            row.innerHTML = `
-                <td>#${id}</td>
-                <td>${exp}</td>
-                <td>Handmatig</td>
-                <td>${name}</td>
-                <td>${date}</td>
-                <td>${count}</td>
-                <td><span class="badge badge-active">Bevestigd</span></td>
-                <td>€ --</td>
-            `;
-
-            alert('Boeking succesvol toegevoegd aan de lijst!');
-            this.reset();
-        });
-    </script>
 </body>
 </html>
