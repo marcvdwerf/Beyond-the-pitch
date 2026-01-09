@@ -1,7 +1,6 @@
-/**
- * Beyond the Pitch - Partner Logic v2.9
- */
-
+// ===============================
+// CONFIGURATION
+// ===============================
 const CONFIG = {
     CLIENT_ID: '440103208396-uou0t99knmu2a7dd4ieadvmtlcu47k3g.apps.googleusercontent.com',
     API_KEY: 'AIzaSyA2rnwUC3x2OZzwqULdgvkkcyEK1uKqI34', 
@@ -9,125 +8,387 @@ const CONFIG = {
     SCOPES: 'https://www.googleapis.com/auth/calendar.readonly'
 };
 
+// ===============================
+// STATE
+// ===============================
 let tokenClient;
+let gapiInited = false;
+let gisInited = false;
+let currentCalendarId = 'primary';
 let bookingsData = [];
 
+// ===============================
+// INITIALIZATION
+// ===============================
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Initializing Partner Dashboard...');
     loadPartnerInfo();
-    renderExperiences(); // Toon de experiences direct bij laden!
-    initGoogle();
+    loadGoogleAPI();
 });
 
-function initGoogle() {
-    gapi.load('client', async () => {
-        await gapi.client.init({ apiKey: CONFIG.API_KEY, discoveryDocs: [CONFIG.DISCOVERY_DOC] });
-        if (gapi.client.getToken()) {
-            updateUIForSignedIn();
-            syncCalendar();
-        }
-    });
+function loadGoogleAPI() {
+    const gapiScript = document.createElement('script');
+    gapiScript.src = 'https://apis.google.com/js/api.js';
+    gapiScript.onload = gapiLoaded;
+    document.body.appendChild(gapiScript);
 
+    const gisScript = document.createElement('script');
+    gisScript.src = 'https://accounts.google.com/gsi/client';
+    gisScript.onload = gisLoaded;
+    document.body.appendChild(gisScript);
+}
+
+function gapiLoaded() {
+    gapi.load('client', initializeGapiClient);
+}
+
+async function initializeGapiClient() {
+    try {
+        await gapi.client.init({
+            apiKey: CONFIG.API_KEY,
+            discoveryDocs: [CONFIG.DISCOVERY_DOC],
+        });
+        gapiInited = true;
+        maybeEnableButtons();
+    } catch (error) {
+        console.error('❌ Error initializing GAPI:', error);
+    }
+}
+
+function gisLoaded() {
     tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: CONFIG.CLIENT_ID,
         scope: CONFIG.SCOPES,
-        callback: (resp) => {
-            if (resp.error) return;
-            updateUIForSignedIn();
-            syncCalendar();
-        },
+        callback: '', 
     });
-    document.getElementById('connectGoogleBtn').disabled = false;
+    gisInited = true;
+    maybeEnableButtons();
 }
 
-async function syncCalendar() {
-    try {
-        const response = await gapi.client.calendar.events.list({
-            calendarId: 'primary',
-            timeMin: new Date(new Date().setMonth(new Date().getMonth() - 3)).toISOString(),
-            singleEvents: true,
-            orderBy: 'startTime'
-        });
-
-        bookingsData = (response.result.items || [])
-            .filter(e => e.summary && e.summary.toUpperCase().includes('BTP'))
-            .map(e => parseEvent(e));
-
-        renderBookings();
-        updateStats();
-        document.getElementById('lastSyncTime').textContent = new Date().toLocaleTimeString();
-    } catch (e) { console.error(e); }
-}
-
-function parseEvent(e) {
-    const d = e.description || '';
-    const f = (k) => { const m = d.match(new RegExp(`${k}:\\s*(.+)`, 'i')); return m ? m[1].trim() : 'N/A'; };
-    return {
-        id: e.summary.match(/BTP-?\d+/i)?.[0] || 'BTP-???',
-        title: e.summary.replace(/BTP-?\d+/i, '').replace(/-/g, '').trim(),
-        customer: f('Customer'),
-        amount: parseFloat(f('Amount').replace(/[^\d.]/g, '')) || 0,
-        date: e.start.dateTime || e.start.date
-    };
-}
-
-function renderBookings() {
-    const container = document.getElementById('bookingsTableContainer');
-    if (bookingsData.length === 0) {
-        container.innerHTML = "<p>No BTP bookings found.</p>";
-        return;
+function maybeEnableButtons() {
+    if (gapiInited && gisInited) {
+        const btn = document.getElementById('connectGoogleBtn');
+        if (btn) {
+            btn.disabled = false;
+            document.getElementById('connectBtnText').textContent = 'Connect Google Calendar';
+        }
+        if (gapi.client.getToken()) {
+            updateUIForSignedIn();
+            loadCalendarList();
+            syncCalendar();
+        }
     }
-    container.innerHTML = `
-        <table>
-            <thead><tr><th>ID</th><th>Experience</th><th>Date</th><th>Total</th></tr></thead>
-            <tbody>
-                ${bookingsData.map(b => `
-                    <tr>
-                        <td><strong>${b.id}</strong></td>
-                        <td>${b.title}</td>
-                        <td>${new Date(b.date).toLocaleDateString()}</td>
-                        <td>€${b.amount}</td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>`;
 }
 
-// DEZE FUNCTIE VERWERKT DE EXPERIENCES
+// ===============================
+// AUTHENTICATION
+// ===============================
+function handleAuthClick() {
+    tokenClient.callback = async (resp) => {
+        if (resp.error !== undefined) throw (resp);
+        updateUIForSignedIn();
+        await loadCalendarList();
+        await syncCalendar();
+    };
+
+    if (gapi.client.getToken() === null) {
+        tokenClient.requestAccessToken({prompt: 'consent'});
+    } else {
+        tokenClient.requestAccessToken({prompt: ''});
+    }
+}
+
+function handleSignoutClick() {
+    const token = gapi.client.getToken();
+    if (token !== null) {
+        google.accounts.oauth2.revoke(token.access_token);
+        gapi.client.setToken('');
+        updateUIForSignedOut();
+    }
+}
+
+function updateUIForSignedIn() {
+    document.getElementById('connectGoogleSection').classList.add('hidden');
+    document.getElementById('connectedGoogleSection').classList.remove('hidden');
+}
+
+function updateUIForSignedOut() {
+    document.getElementById('connectGoogleSection').classList.remove('hidden');
+    document.getElementById('connectedGoogleSection').classList.add('hidden');
+    bookingsData = [];
+    renderBookingsTable();
+}
+
+// ===============================
+// EXPERIENCES RENDERING (Optie A)
+// ===============================
 function renderExperiences() {
     const container = document.getElementById('experience-container');
     if (!container) return;
 
     const experiences = [
-        { title: "Full Day Package", price: "€120 - €200", desc: "Hidden Spots & Football Tour" },
-        { title: "Two Days, One Night", price: "€150 - €200", desc: "Culture & Coastal Experience" },
-        { title: "Three Days, Two Nights", price: "€100 - €200 / day", desc: "The Complete Lima Journey" }
+        {
+            title: "1. Full Day Package – Hidden Spots & Football",
+            price: "Half day: €50 | Full day: €120 – €200",
+            highlights: ["City exploration (Surco – Barranco)", "Local and hidden gastronomic gems", "Alianza Lima football match"],
+            includes: "Match tickets, Alianza Lima T-shirt, 2 beers"
+        },
+        {
+            title: "2. Two Days, One Night – Culture & Coastal",
+            price: "Day 1: €80 | Day 2: €150 – €200",
+            highlights: ["Gastronomy tasting & Horse riding", "Miraflores exploration", "Alianza Lima football match"],
+            includes: "Transfers, Horse riding, Match tickets, T-shirt, 2 beers"
+        },
+        {
+            title: "3. Three Days, Two Nights – Complete Lima",
+            price: "Day 1: €100 | Day 2: €80 | Day 3: €100 – €200",
+            highlights: ["San Bartolo beach adventure", "Horse riding & ATVs", "Full Gastronomy & Football experience"],
+            includes: "Transfers, ATVs, Sea equipment, Match tickets, T-shirt, 2 beers"
+        }
     ];
 
     container.innerHTML = experiences.map(exp => `
-        <div style="background:#fff; border:1px solid #eee; border-radius:12px; overflow:hidden;">
-            <div style="background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; padding:15px; font-weight:bold;">${exp.title}</div>
-            <div style="padding:15px;">
-                <p><strong>Price:</strong> ${exp.price}</p>
-                <p style="color:#666; font-size:0.9rem; margin-top:5px;">${exp.desc}</p>
+        <div class="exp-card">
+            <div class="exp-banner">${exp.title}</div>
+            <div class="exp-body">
+                <span class="exp-price">${exp.price}</span>
+                <ul class="exp-highlights">
+                    ${exp.highlights.map(h => `<li>${h}</li>`).join('')}
+                </ul>
+                <div class="exp-includes">
+                    <strong>Includes:</strong> ${exp.includes}
+                </div>
             </div>
         </div>
     `).join('');
 }
 
+// ===============================
+// CORE FUNCTIONALITY: SHOW DETAIL
+// ===============================
+function showBookingDetail(bookingId) {
+    const booking = bookingsData.find(b => b.id === bookingId);
+    const detailContainer = document.getElementById('day-detail');
+    
+    if (!booking) return;
+
+    detailContainer.innerHTML = `
+        <div class="card detail-card" style="margin-bottom: 30px; border-left: 5px solid #667eea;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                    <h2 style="margin-bottom:10px;">Details for ${booking.id}</h2>
+                    <p style="font-size:1.1rem; margin-bottom:5px;"><strong>Experience:</strong> ${booking.experienceName}</p>
+                    <p><strong>Date:</strong> ${formatDate(booking.date)}</p>
+                </div>
+                <button onclick="document.getElementById('day-detail').innerHTML=''" style="background:none; border:none; cursor:pointer; font-size:1.5rem;">✕</button>
+            </div>
+            <hr style="margin:15px 0; opacity:0.1;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                <div>
+                    <h4 style="color:#667eea; margin-bottom:8px;">Customer Information</h4>
+                    <p>👤 ${booking.customer}</p>
+                    <p>✉️ ${booking.email || 'No email'}</p>
+                    <p>📞 ${booking.phone || 'No phone'}</p>
+                </div>
+                <div>
+                    <h4 style="color:#667eea; margin-bottom:8px;">Booking Info</h4>
+                    <p>👥 Guests: ${booking.guests}</p>
+                    <p>💰 Amount: €${booking.amount}</p>
+                    <p>📍 Location: ${booking.location || 'N/A'}</p>
+                </div>
+            </div>
+            ${booking.description ? `
+                <div style="margin-top:15px; padding:10px; background:#f8f9fa; border-radius:8px; font-size:0.9rem;">
+                    <strong>Notes/Description:</strong><br>${booking.description.replace(/\n/g, '<br>')}
+                </div>
+            ` : ''}
+        </div>
+    `;
+    
+    detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===============================
+// CALENDAR OPERATIONS
+// ===============================
+async function loadCalendarList() {
+    try {
+        const response = await gapi.client.calendar.calendarList.list();
+        const calendars = response.result.items;
+        const select = document.getElementById('calendarSelect');
+        if (select) {
+            select.innerHTML = calendars.map(cal => 
+                `<option value="${cal.id}" ${cal.id === currentCalendarId ? 'selected' : ''}>${cal.summary}</option>`
+            ).join('');
+        }
+    } catch (e) { console.error(e); }
+}
+
+async function syncCalendar() {
+    try {
+        showStatus('info', 'Fetching bookings...');
+        const now = new Date();
+        const response = await gapi.client.calendar.events.list({
+            calendarId: currentCalendarId,
+            timeMin: new Date(now.setMonth(now.getMonth() - 2)).toISOString(),
+            singleEvents: true,
+            orderBy: 'startTime'
+        });
+
+        const events = response.result.items || [];
+        bookingsData = events
+            .filter(e => e.summary && e.summary.includes('BTP-'))
+            .map(e => parseBookingEvent(e));
+
+        updateStats();
+        renderBookingsTable();
+        updateLastSyncTime();
+        showStatus('success', `${bookingsData.length} bookings synchronized.`);
+    } catch (e) {
+        showStatus('error', 'Sync failed');
+    }
+}
+
+function parseBookingEvent(event) {
+    const desc = event.description || '';
+    const getF = (key) => {
+        const m = desc.match(new RegExp(`${key}:\\s*(.+)`, 'i'));
+        return m ? m[1].trim() : '';
+    };
+
+    return {
+        id: (event.summary.match(/BTP-\d+/) || ['BTP-???'])[0],
+        experienceName: event.summary.replace(/BTP-\d+\s*-?\s*/, '').trim(),
+        customer: getF('Customer') || getF('Name') || 'Unknown',
+        email: getF('Email'),
+        phone: getF('Phone'),
+        date: event.start.dateTime || event.start.date,
+        guests: parseInt(getF('Guests')) || 1,
+        status: (getF('Status') || 'confirmed').toLowerCase(),
+        amount: parseFloat((getF('Amount') || '0').replace(/[^\d.]/g, '')) || 0,
+        description: desc,
+        location: event.location,
+        calendarLink: event.htmlLink
+    };
+}
+
+// ===============================
+// UI RENDERING
+// ===============================
+function renderBookingsTable() {
+    const container = document.getElementById('bookingsTableContainer');
+    if (!container) return;
+    
+    if (bookingsData.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:40px; color:#888;">No bookings found. Ensure events start with "BTP-".</div>';
+        return;
+    }
+
+    const sorted = [...bookingsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    container.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Experience</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${sorted.map(b => `
+                    <tr onclick="showBookingDetail('${b.id}')">
+                        <td><strong>${b.id}</strong></td>
+                        <td>${b.experienceName}</td>
+                        <td>${b.customer}</td>
+                        <td>${formatDate(b.date)}</td>
+                        <td><span class="badge badge-${b.status}">${b.status}</span></td>
+                        <td>€${b.amount}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
 function updateStats() {
-    document.getElementById('totalBookings').textContent = bookingsData.length;
-    const rev = bookingsData.reduce((s, b) => s + b.amount, 0);
-    document.getElementById('totalRevenue').textContent = `€${rev}`;
+    const total = bookingsData.length;
+    const revenue = bookingsData.reduce((sum, b) => sum + b.amount, 0);
+    const guests = bookingsData.reduce((sum, b) => sum + b.guests, 0);
+
+    document.getElementById('totalBookings').textContent = total;
+    document.getElementById('totalGuests').textContent = guests;
+    document.getElementById('totalRevenue').textContent = `€${revenue}`;
+}
+
+// ===============================
+// UTILITIES & NAVIGATION
+// ===============================
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    // Deactivate all nav items
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    
+    // Show selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) targetSection.classList.add('active');
+    
+    // Highlight nav item
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        if (item.getAttribute('onclick').includes(sectionId)) {
+            item.classList.add('active');
+        }
+    });
+
+    // Run specific logic per section
+    if (sectionId === 'experiences') {
+        renderExperiences();
+    }
+}
+
+function formatDate(ds) {
+    const d = new Date(ds);
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function showStatus(type, msg) {
+    const container = document.getElementById('statusContainer');
+    if (!container) return;
+    container.innerHTML = `<div class="card" style="padding:10px; background:${type==='success'?'#d1fae5':'#fef3c7'}">${msg}</div>`;
+    if(type === 'success') setTimeout(() => container.innerHTML = '', 4000);
+}
+
+function updateLastSyncTime() {
+    const syncEl = document.getElementById('lastSyncTime');
+    if (syncEl) syncEl.textContent = new Date().toLocaleTimeString();
 }
 
 function loadPartnerInfo() {
-    document.getElementById('partnerName').textContent = localStorage.getItem('userName') || 'Partner';
-    document.getElementById('partnerEmail').textContent = localStorage.getItem('userEmail') || '';
-    document.getElementById('welcomeText').textContent = `Welcome, ${localStorage.getItem('userName') || 'Partner'}`;
+    document.getElementById('partnerName').textContent = 'Beyond the Pitch Lima';
+    document.getElementById('partnerEmail').textContent = 'experiences@beyondthepitch.com';
+    document.getElementById('welcomeText').textContent = 'Welcome back, Partner';
 }
 
-function handleAuthClick() { tokenClient.requestAccessToken({ prompt: 'select_account' }); }
-function handleSignoutClick() { gapi.client.setToken(''); updateUIForSignedOut(); }
-function forceLogout() { localStorage.clear(); window.location.replace('index.html'); }
-function updateUIForSignedIn() { document.getElementById('connectGoogleSection').classList.add('hidden'); document.getElementById('connectedGoogleSection').classList.remove('hidden'); }
-function updateUIForSignedOut() { document.getElementById('connectGoogleSection').classList.remove('hidden'); document.getElementById('connectedGoogleSection').classList.add('hidden'); }
+function logout() {
+    if(confirm("Are you sure you want to log out?")) location.reload();
+}
+
+function saveCalendarSettings() {
+    currentCalendarId = document.getElementById('calendarSelect').value;
+    showStatus('success', 'Settings saved. Syncing...');
+    syncCalendar();
+}
+
+// Global exposure
+window.handleAuthClick = handleAuthClick;
+window.handleSignoutClick = handleSignoutClick;
+window.syncCalendar = syncCalendar;
+window.showSection = showSection;
+window.showBookingDetail = showBookingDetail;
+window.saveCalendarSettings = saveCalendarSettings;
+window.logout = logout;
