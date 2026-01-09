@@ -392,5 +392,3 @@ window.showSection = showSection;
 window.showBookingDetail = showBookingDetail;
 window.saveCalendarSettings = saveCalendarSettings;
 window.logout = logout;
-
-
