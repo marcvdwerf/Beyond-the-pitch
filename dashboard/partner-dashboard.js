@@ -3,7 +3,7 @@
 // ===============================
 const CONFIG = {
     CLIENT_ID: '440103208396-uou0t99knmu2a7dd4ieadvmtlcu47k3g.apps.googleusercontent.com',
-    API_KEY: 'YOUR_API_KEY_HERE', // TODO: Vervang met jouw API key
+    API_KEY: 'YOUR_API_KEY_HERE', 
     DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
     SCOPES: 'https://www.googleapis.com/auth/calendar.readonly'
 };
@@ -70,7 +70,7 @@ function maybeEnableButtons() {
         const btn = document.getElementById('connectGoogleBtn');
         if (btn) {
             btn.disabled = false;
-            document.getElementById('connectBtnText').textContent = 'Koppel Google Agenda';
+            document.getElementById('connectBtnText').textContent = 'Connect Google Calendar';
         }
         if (gapi.client.getToken()) {
             updateUIForSignedIn();
@@ -132,36 +132,35 @@ function showBookingDetail(bookingId) {
         <div class="card detail-card" style="margin-bottom: 30px; border-left: 5px solid #667eea;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                 <div>
-                    <h2 style="margin-bottom:10px;">Details voor ${booking.id}</h2>
+                    <h2 style="margin-bottom:10px;">Details for ${booking.id}</h2>
                     <p style="font-size:1.1rem; margin-bottom:5px;"><strong>Experience:</strong> ${booking.experienceName}</p>
-                    <p><strong>Datum:</strong> ${formatDate(booking.date)}</p>
+                    <p><strong>Date:</strong> ${formatDate(booking.date)}</p>
                 </div>
                 <button onclick="document.getElementById('day-detail').innerHTML=''" style="background:none; border:none; cursor:pointer; font-size:1.5rem;">✕</button>
             </div>
             <hr style="margin:15px 0; opacity:0.1;">
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                 <div>
-                    <h4 style="color:#667eea; margin-bottom:8px;">Klantgegevens</h4>
+                    <h4 style="color:#667eea; margin-bottom:8px;">Customer Information</h4>
                     <p>👤 ${booking.customer}</p>
-                    <p>✉️ ${booking.email || 'Geen email'}</p>
-                    <p>📞 ${booking.phone || 'Geen telefoon'}</p>
+                    <p>✉️ ${booking.email || 'No email'}</p>
+                    <p>📞 ${booking.phone || 'No phone'}</p>
                 </div>
                 <div>
-                    <h4 style="color:#667eea; margin-bottom:8px;">Boeking Info</h4>
-                    <p>👥 Gasten: ${booking.guests}</p>
-                    <p>💰 Bedrag: €${booking.amount}</p>
-                    <p>📍 Locatie: ${booking.location || 'N.v.t.'}</p>
+                    <h4 style="color:#667eea; margin-bottom:8px;">Booking Info</h4>
+                    <p>👥 Guests: ${booking.guests}</p>
+                    <p>💰 Amount: €${booking.amount}</p>
+                    <p>📍 Location: ${booking.location || 'N/A'}</p>
                 </div>
             </div>
             ${booking.description ? `
                 <div style="margin-top:15px; padding:10px; background:#f8f9fa; border-radius:8px; font-size:0.9rem;">
-                    <strong>Opmerkingen/Beschrijving:</strong><br>${booking.description.replace(/\n/g, '<br>')}
+                    <strong>Notes/Description:</strong><br>${booking.description.replace(/\n/g, '<br>')}
                 </div>
             ` : ''}
         </div>
     `;
     
-    // Scroll soepel naar het detail scherm
     detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -183,7 +182,7 @@ async function loadCalendarList() {
 
 async function syncCalendar() {
     try {
-        showStatus('info', 'Boekingen ophalen...');
+        showStatus('info', 'Fetching bookings...');
         const now = new Date();
         const response = await gapi.client.calendar.events.list({
             calendarId: currentCalendarId,
@@ -200,9 +199,9 @@ async function syncCalendar() {
         updateStats();
         renderBookingsTable();
         updateLastSyncTime();
-        showStatus('success', `${bookingsData.length} boekingen gesynchroniseerd.`);
+        showStatus('success', `${bookingsData.length} bookings synchronized.`);
     } catch (e) {
-        showStatus('error', 'Sync mislukt');
+        showStatus('error', 'Sync failed');
     }
 }
 
@@ -216,7 +215,7 @@ function parseBookingEvent(event) {
     return {
         id: (event.summary.match(/BTP-\d+/) || ['BTP-???'])[0],
         experienceName: event.summary.replace(/BTP-\d+\s*-?\s*/, '').trim(),
-        customer: getF('Customer') || getF('Name') || 'Onbekend',
+        customer: getF('Customer') || getF('Name') || 'Unknown',
         email: getF('Email'),
         phone: getF('Phone'),
         date: event.start.dateTime || event.start.date,
@@ -234,7 +233,12 @@ function parseBookingEvent(event) {
 // ===============================
 function renderBookingsTable() {
     const container = document.getElementById('bookingsTableContainer');
-    if (!container || bookingsData.length === 0) return;
+    if (!container) return;
+    
+    if (bookingsData.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:40px; color:#888;">No bookings found. Ensure events start with "BTP-".</div>';
+        return;
+    }
 
     const sorted = [...bookingsData].sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -244,10 +248,10 @@ function renderBookingsTable() {
                 <tr>
                     <th>ID</th>
                     <th>Experience</th>
-                    <th>Klant</th>
-                    <th>Datum</th>
+                    <th>Customer</th>
+                    <th>Date</th>
                     <th>Status</th>
-                    <th>Bedrag</th>
+                    <th>Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -281,17 +285,24 @@ function updateStats() {
 // ===============================
 function showSection(sectionId) {
     document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    
     document.getElementById(sectionId).classList.add('active');
+    
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+    }
 }
 
 function formatDate(ds) {
     const d = new Date(ds);
-    return d.toLocaleDateString('nl-NL', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
 }
 
 function showStatus(type, msg) {
     const container = document.getElementById('statusContainer');
     container.innerHTML = `<div class="card" style="padding:10px; background:${type==='success'?'#d1fae5':'#fef3c7'}">${msg}</div>`;
+    if(type === 'success') setTimeout(() => container.innerHTML = '', 4000);
 }
 
 function updateLastSyncTime() {
@@ -299,13 +310,26 @@ function updateLastSyncTime() {
 }
 
 function loadPartnerInfo() {
-    document.getElementById('partnerName').textContent = 'Mijn Voetbal Experience';
+    document.getElementById('partnerName').textContent = 'My Football Experience';
     document.getElementById('partnerEmail').textContent = 'info@partner.com';
+    document.getElementById('welcomeText').textContent = 'Welcome, Partner';
 }
 
-// Global exposure for HTML
+function logout() {
+    if(confirm("Are you sure you want to log out?")) location.reload();
+}
+
+function saveCalendarSettings() {
+    currentCalendarId = document.getElementById('calendarSelect').value;
+    showStatus('success', 'Settings saved. Syncing...');
+    syncCalendar();
+}
+
+// Global exposure
 window.handleAuthClick = handleAuthClick;
 window.handleSignoutClick = handleSignoutClick;
 window.syncCalendar = syncCalendar;
 window.showSection = showSection;
 window.showBookingDetail = showBookingDetail;
+window.saveCalendarSettings = saveCalendarSettings;
+window.logout = logout;
