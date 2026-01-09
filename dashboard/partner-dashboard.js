@@ -120,6 +120,50 @@ function updateUIForSignedOut() {
 }
 
 // ===============================
+// EXPERIENCES RENDERING (Optie A)
+// ===============================
+function renderExperiences() {
+    const container = document.getElementById('experience-container');
+    if (!container) return;
+
+    const experiences = [
+        {
+            title: "1. Full Day Package – Hidden Spots & Football",
+            price: "Half day: €50 | Full day: €120 – €200",
+            highlights: ["City exploration (Surco – Barranco)", "Local and hidden gastronomic gems", "Alianza Lima football match"],
+            includes: "Match tickets, Alianza Lima T-shirt, 2 beers"
+        },
+        {
+            title: "2. Two Days, One Night – Culture & Coastal",
+            price: "Day 1: €80 | Day 2: €150 – €200",
+            highlights: ["Gastronomy tasting & Horse riding", "Miraflores exploration", "Alianza Lima football match"],
+            includes: "Transfers, Horse riding, Match tickets, T-shirt, 2 beers"
+        },
+        {
+            title: "3. Three Days, Two Nights – Complete Lima",
+            price: "Day 1: €100 | Day 2: €80 | Day 3: €100 – €200",
+            highlights: ["San Bartolo beach adventure", "Horse riding & ATVs", "Full Gastronomy & Football experience"],
+            includes: "Transfers, ATVs, Sea equipment, Match tickets, T-shirt, 2 beers"
+        }
+    ];
+
+    container.innerHTML = experiences.map(exp => `
+        <div class="exp-card">
+            <div class="exp-banner">${exp.title}</div>
+            <div class="exp-body">
+                <span class="exp-price">${exp.price}</span>
+                <ul class="exp-highlights">
+                    ${exp.highlights.map(h => `<li>${h}</li>`).join('')}
+                </ul>
+                <div class="exp-includes">
+                    <strong>Includes:</strong> ${exp.includes}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ===============================
 // CORE FUNCTIONALITY: SHOW DETAIL
 // ===============================
 function showBookingDetail(bookingId) {
@@ -256,7 +300,7 @@ function renderBookingsTable() {
             </thead>
             <tbody>
                 ${sorted.map(b => `
-                    <tr onclick="showBookingDetail('${b.id}')" style="cursor:pointer;">
+                    <tr onclick="showBookingDetail('${b.id}')">
                         <td><strong>${b.id}</strong></td>
                         <td>${b.experienceName}</td>
                         <td>${b.customer}</td>
@@ -284,13 +328,26 @@ function updateStats() {
 // UTILITIES & NAVIGATION
 // ===============================
 function showSection(sectionId) {
+    // Hide all sections
     document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    // Deactivate all nav items
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     
-    document.getElementById(sectionId).classList.add('active');
+    // Show selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) targetSection.classList.add('active');
     
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('active');
+    // Highlight nav item
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        if (item.getAttribute('onclick').includes(sectionId)) {
+            item.classList.add('active');
+        }
+    });
+
+    // Run specific logic per section
+    if (sectionId === 'experiences') {
+        renderExperiences();
     }
 }
 
@@ -301,18 +358,20 @@ function formatDate(ds) {
 
 function showStatus(type, msg) {
     const container = document.getElementById('statusContainer');
+    if (!container) return;
     container.innerHTML = `<div class="card" style="padding:10px; background:${type==='success'?'#d1fae5':'#fef3c7'}">${msg}</div>`;
     if(type === 'success') setTimeout(() => container.innerHTML = '', 4000);
 }
 
 function updateLastSyncTime() {
-    document.getElementById('lastSyncTime').textContent = new Date().toLocaleTimeString();
+    const syncEl = document.getElementById('lastSyncTime');
+    if (syncEl) syncEl.textContent = new Date().toLocaleTimeString();
 }
 
 function loadPartnerInfo() {
-    document.getElementById('partnerName').textContent = 'My Football Experience';
-    document.getElementById('partnerEmail').textContent = 'info@partner.com';
-    document.getElementById('welcomeText').textContent = 'Welcome, Partner';
+    document.getElementById('partnerName').textContent = 'Beyond the Pitch Lima';
+    document.getElementById('partnerEmail').textContent = 'experiences@beyondthepitch.com';
+    document.getElementById('welcomeText').textContent = 'Welcome back, Partner';
 }
 
 function logout() {
