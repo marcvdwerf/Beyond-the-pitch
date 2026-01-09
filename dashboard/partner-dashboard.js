@@ -10,7 +10,7 @@ const userEmail = localStorage.getItem("userEmail");
 // GOOGLE CALENDAR CONFIG
 // ===============================
 const GOOGLE_CONFIG = {
-    CLIENT_ID: 'YOUR_CLIENT_ID.apps.googleusercontent.com', // TODO: Add your client ID
+    CLIENT_ID: '440103208396-uou0t99knmu2a7dd4ieadvmtlcu47k3g.apps.googleusercontent.com', // TODO: Add your client ID
     API_KEY: 'YOUR_API_KEY', // TODO: Add your API key
     SCOPES: 'https://www.googleapis.com/auth/calendar',
     DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'
