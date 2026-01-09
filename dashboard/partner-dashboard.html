@@ -5,173 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner Dashboard - Beyond the Pitch</title>
     <style>
-        /* BASE STYLING */
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f5f7fa; color: #333; }
+        body { font-family: -apple-system, sans-serif; background:#f5f7fa; color: #333; }
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
         
         /* SIDEBAR */
-        .sidebar { 
-            background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color:white; 
-            padding:30px 0; 
-            position: sticky; 
-            top: 0; 
-            height: 100vh; 
-            display: flex;
-            flex-direction: column;
-        }
+        .sidebar { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:30px 0; position: sticky; top:0; height:100vh; display:flex; flex-direction:column; }
         .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.2); margin-bottom:30px; }
-        .logo h2 { font-size:1.3rem; margin-bottom:5px; }
-        .logo p { opacity:0.8; font-size:0.9rem; }
-        .nav-menu { flex-grow: 1; list-style:none; }
-        .nav-item { padding:15px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; font-size:1rem; transition:all 0.3s; }
+        .nav-menu { flex-grow:1; list-style:none; }
+        .nav-item { padding:15px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:0.3s; }
         .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.2); border-left:4px solid white; }
         
-        /* LOGOUT BUTTON */
-        .logout-btn { 
-            width: calc(100% - 60px); 
-            margin:30px; 
-            padding:12px; 
-            background:rgba(255,255,255,0.2); 
-            border:1px solid white; 
-            color:white; 
-            border-radius:8px; 
-            cursor:pointer; 
-            font-size:1rem; 
-            font-weight: 600;
-            transition:all 0.3s; 
-        }
-        .logout-btn:hover { background:#ef4444; border-color:#ef4444; color: white; }
+        .logout-btn { margin:20px 30px; padding:12px; background:rgba(255,255,255,0.2); border:1px solid white; color:white; border-radius:8px; cursor:pointer; font-weight:600; }
+        .logout-btn:hover { background:#ef4444; border-color:#ef4444; }
 
-        /* MAIN CONTENT */
-        .main-content { padding:30px; overflow-y:auto; }
-        .header { background:white; padding:25px 30px; border-radius:15px; margin-bottom:30px; box-shadow:0 2px 10px rgba(0,0,0,0.05); display:flex; justify-content:space-between; align-items:center; }
-        .header h1 { color:#333; font-size:1.8rem; }
-        .header-info h3 { color:#667eea; font-size:1.1rem; text-align: right; }
-        .header-info p { color:#888; font-size:0.85rem; text-align: right; }
-
-        /* GOOGLE SYNC SECTIONS */
-        .google-connect-section { background:#fef3c7; border:2px solid #fbbf24; border-radius:15px; padding:25px; margin-bottom:30px; display:flex; align-items:center; gap:20px; }
-        .google-connected-section { background:#d1fae5; border:2px solid #10b981; border-radius:15px; padding:20px; margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; }
+        /* MAIN */
+        .main-content { padding:30px; }
+        .header { background:white; padding:20px 30px; border-radius:15px; margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+        
+        /* GOOGLE SECTION */
+        .google-box { background:#fef3c7; border:2px solid #fbbf24; border-radius:15px; padding:20px; margin-bottom:30px; display:flex; align-items:center; gap:20px; }
+        .google-btn { padding:10px 20px; background:#667eea; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+        
+        .card { background:white; padding:25px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:20px; }
+        .content-section { display:none; }
+        .content-section.active { display:block; }
         .hidden { display:none !important; }
-
-        /* BUTTONS */
-        .google-btn { padding:12px 24px; background:#667eea; color:white; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; }
-        .google-btn:hover { background:#5568d3; transform:translateY(-2px); }
-        .refresh-btn { padding:10px 20px; background:#10b981; color:white; border:none; border-radius:8px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:all 0.3s; display:flex; align-items:center; gap:8px; }
-
-        /* STATS */
-        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-bottom:30px; }
-        .stat-card { background:white; padding:25px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-        .stat-value { font-size:2rem; font-weight:700; color:#667eea; }
-
-        /* CARDS & TABLES */
-        .card { background:white; padding:30px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:20px; }
-        table { width:100%; border-collapse:collapse; margin-top: 15px; }
-        th { background:#f8f9fa; padding:15px; text-align:left; color:#555; border-bottom:2px solid #eee; }
-        td { padding:15px; border-bottom:1px solid #eee; font-size: 0.95rem; }
-        tr:hover { background: #fcfcfc; cursor: pointer; }
-
-        /* CONTENT SECTIONS */
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        
-        .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
-        
-        @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
     </style>
 </head>
 <body>
-
     <div class="dashboard">
         <aside class="sidebar">
-            <div class="logo">
-                <h2>⚽ Beyond the Pitch</h2>
-                <p>Partner Dashboard</p>
-            </div>
+            <div class="logo"><h2>⚽ BTP Partner</h2><p>Dashboard</p></div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overview</li>
-                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Bookings</li>
-                <li class="nav-item" onclick="showSection('experiences')"><span>🌍</span> My Experiences</li>
-                <li class="nav-item" onclick="showSection('settings')"><span>⚙️</span> Settings</li>
+                <li class="nav-item active" onclick="showSection('overview')">📊 Overview</li>
+                <li class="nav-item" onclick="showSection('bookings')">📅 Bookings</li>
             </ul>
-            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+            <button class="logout-btn" onclick="handleLogoutClick()">🚪 Logout</button>
         </aside>
 
         <main class="main-content">
             <div class="header">
                 <h1 id="welcomeText">Welcome</h1>
-                <div class="header-info">
-                    <h3 id="partnerName">Loading...</h3>
-                    <p id="partnerEmail">...</p>
+                <div style="text-align:right">
+                    <h3 id="partnerName">Partner Name</h3>
+                    <p id="partnerEmail">email@demo.com</p>
                 </div>
             </div>
 
+            <div id="googleSection" class="google-box">
+                <div style="font-size:2rem;">📅</div>
+                <div style="flex:1;">
+                    <h3>Google Calendar Sync</h3>
+                    <p>Koppel je agenda om boekingen automatisch te synchroniseren.</p>
+                </div>
+                <button class="google-btn" onclick="handleAuthClick()">Koppel Agenda</button>
+            </div>
+
             <section id="overview" class="content-section active">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Total Bookings</p>
-                        <div class="stat-value" id="totalBookings">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Next 30 Days</p>
-                        <div class="stat-value" id="upcomingBookings">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Total Guests</p>
-                        <div class="stat-value" id="totalGuests">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <p style="color:#888; font-size:0.8rem; text-transform:uppercase;">Revenue (Est.)</p>
-                        <div class="stat-value" id="totalRevenue">€0</div>
-                    </div>
+                <div class="card">
+                    <h2>Overview Stats</h2>
+                    <p>Hier komen je statistieken zodra de data is geladen.</p>
                 </div>
             </section>
 
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <h2>📅 Bookings Overview</h2>
-                        <button class="refresh-btn" onclick="alert('Syncing...')">🔄 Refresh</button>
-                    </div>
-                    <div id="bookingsTableContainer">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Klant</th>
-                                    <th>Experience</th>
-                                    <th>Datum</th>
-                                    <th>Gasten</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="partnerBookingsBody">
-                                </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section id="experiences" class="content-section">
-                <div class="card">
-                    <h2>🌍 My Experiences</h2>
-                    <div id="experience-container" class="experience-grid">
-                        </div>
-                </div>
-            </section>
-
-            <section id="settings" class="content-section">
-                <div class="card">
-                    <h2>⚙️ Settings</h2>
-                    <p style="margin-top: 15px;">Manage your profile and calendar preferences.</p>
+                    <h2>Your Bookings</h2>
+                    <table style="width:100%; text-align:left; margin-top:20px;">
+                        <thead><tr><th>Klant</th><th>Datum</th><th>Status</th></tr></thead>
+                        <tbody id="partnerBookingsBody"></tbody>
+                    </table>
                 </div>
             </section>
         </main>
     </div>
 
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://accounts.google.com/gsi/client"></script>
-    <script src="auth.js"></script> <script src="partner-dashboard.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Extra veiligheid voor uitloggen
+        function handleLogoutClick() {
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                console.error("Logout functie niet gevonden in auth.js");
+                // Fallback als auth.js niet laadt
+                localStorage.clear();
+                window.location.href = 'index.html';
+            }
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Simpele invulling van partner info bij laden
+        document.addEventListener('DOMContentLoaded', () => {
+            const name = localStorage.getItem('userName') || 'Partner';
+            const email = localStorage.getItem('userEmail') || '';
+            document.getElementById('partnerName').textContent = name;
+            document.getElementById('partnerEmail').textContent = email;
+            document.getElementById('welcomeText').textContent = `Welcome, ${name.split(' ')[0]}`;
+        });
+    </script>
+    <script src="partner-dashboard.js"></script>
 </body>
 </html>
