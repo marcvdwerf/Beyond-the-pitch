@@ -34,10 +34,10 @@
         .nav-item { padding:14px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:0.2s; color: rgba(255,255,255,0.6); font-weight: 500; border-left: 4px solid transparent; }
         .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.05); color: white; border-left-color: var(--primary); }
 
-        .main-content { padding:40px; max-width: 1400px; margin: 0 auto; width: 100%; }
+        .main-content { padding:40px; width: 100%; }
         .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
         
-        /* CARDS & STATS */
+        /* STATS */
         .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; margin-bottom:40px; }
         .stat-card { background: var(--white); padding:25px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
         .stat-label { color: var(--text-muted); font-size:0.75rem; text-transform:uppercase; font-weight: 700; margin-bottom: 5px; }
@@ -48,19 +48,22 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { background: var(--white); padding:30px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom:30px; border: 1px solid var(--border); }
-        .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+
+        /* TABLES DESKTOP */
+        .table-wrapper { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; table-layout: auto; }
+        th { background: #f8fafc; padding:15px; text-align:left; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid var(--border); }
+        td { padding:15px; border-bottom:1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+        .badge-confirmed { background:#dcfce7; color:#166534; padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; }
 
         /* PACKAGES */
-        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .package-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #fff; }
-        .package-header { background: #f8fafc; padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); }
-        .package-body { padding: 20px; }
-        .price-tag { display: inline-block; background: #f0f9ff; color: var(--primary-dark); padding: 4px 10px; border-radius: 6px; font-weight: 700; margin-bottom: 15px; }
-        
-        /* AVAILABILITY FORM */
-        .availability-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 700px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        input, select { padding: 12px; border-radius: 10px; border: 1px solid var(--border); }
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .package-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+        .package-header { background: #f8fafc; padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--sidebar-bg); }
+        .package-body { padding: 20px; flex-grow: 1; }
+        .price-tag { display: inline-block; background: #f0f9ff; color: var(--primary-dark); padding: 4px 10px; border-radius: 6px; font-weight: 700; margin-bottom: 15px; font-size: 0.85rem; }
+        .package-list { list-style: none; margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); }
+        .package-list li::before { content: "✓ "; color: var(--success); font-weight: bold; }
 
         /* MOBILE FIXES */
         .mobile-header { display: none; background: var(--sidebar-bg); color: white; padding: 15px; position: fixed; top: 0; width: 100%; z-index: 1000; justify-content: space-between; align-items: center; }
@@ -70,46 +73,42 @@
             .sidebar { position: fixed; left: -260px; transition: 0.3s; width: 260px; z-index: 2000; }
             .sidebar.open { left: 0; }
             .mobile-header { display: flex; }
-            .main-content { padding: 80px 20px 20px; }
+            .main-content { padding: 80px 15px 20px; }
             
-            .table-wrapper table, .table-wrapper thead, .table-wrapper tbody, .table-wrapper th, .table-wrapper td, .table-wrapper tr { display: block; }
+            /* Table to Card conversion */
             .table-wrapper thead { display: none; }
-            .table-wrapper tr { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; background: white; padding: 10px; }
-            .table-wrapper td { display: flex; justify-content: space-between; padding: 10px 5px; border-bottom: 1px solid #f1f5f9; text-align: right; }
+            .table-wrapper tr { display: block; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; background: white; padding: 10px; }
+            .table-wrapper td { display: flex; justify-content: space-between; padding: 8px 5px; border-bottom: 1px solid #f1f5f9; text-align: right; }
+            .table-wrapper td:last-child { border-bottom: none; }
             .table-wrapper td::before { content: attr(data-label); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; color: var(--text-muted); }
-            .availability-form { grid-template-columns: 1fr; }
         }
-
-        .btn-primary { background: var(--primary); color:white; border:none; padding:12px 24px; border-radius:10px; font-weight:700; cursor:pointer; }
-        .logout-btn { width: calc(100% - 60px); margin:30px; background: rgba(255,255,255,0.05); color:white; border: 1px solid rgba(255,255,255,0.2); padding:12px; border-radius:10px; cursor:pointer; }
-        #toast { position: fixed; bottom: 30px; right: 30px; background: var(--sidebar-bg); color: white; padding: 15px 25px; border-radius: 12px; display: none; z-index: 2000; }
     </style>
 </head>
 <body>
 
     <div class="mobile-header">
         <strong>Beyond the Pitch</strong>
-        <button onclick="toggleSidebar()" style="background:none; border:none; color:white; font-size:1.5rem;">☰</button>
+        <button onclick="toggleSidebar()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">☰</button>
     </div>
 
     <div class="dashboard">
         <aside class="sidebar" id="sidebar">
             <div class="logo"><h2>⚽ Beyond the Pitch</h2></div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview', this)">📊 <span>Overview</span></li>
-                <li class="nav-item" onclick="showSection('bookings', this)">📋 <span>Bookings</span></li>
-                <li class="nav-item" onclick="showSection('packages', this)">🏆 <span>Packages</span></li>
-                <li class="nav-item" onclick="showSection('availability', this)">📅 <span>Availability</span></li>
+                <li class="nav-item active" onclick="showSection('overview', this)">📊 <span>Calendar Overview</span></li>
+                <li class="nav-item" onclick="showSection('bookings', this)">📋 <span>Booking List</span></li>
+                <li class="nav-item" onclick="showSection('packages', this)">🏆 <span>Experience Packages</span></li>
+                <li class="nav-item" onclick="showSection('availability', this)">📅 <span>Set Availability</span></li>
             </ul>
-            <button class="logout-btn" onclick="window.logout()">🚪 Logout</button>
+            <button class="logout-btn btn" onclick="window.logout()" style="width: calc(100% - 60px); margin:30px; background: rgba(255,255,255,0.05); color:white; border: 1px solid rgba(255,255,255,0.2); padding:10px; border-radius:8px; cursor:pointer;">🚪 Logout</button>
         </aside>
 
         <main class="main-content">
             <div class="header">
-                <h1 id="welcomeText">Welcome back...</h1>
-                <div class="sync-status">
-                    <span>Sync: <strong id="lastSyncTime">Never</strong></span>
-                    <button id="syncBtn" onclick="loadDataFromSheet()" style="background:var(--primary); color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; margin-left:10px;">🔄 Sync</button>
+                <h1 id="welcomeText">Welcome...</h1>
+                <div class="sync-status" style="background:white; padding:10px; border-radius:10px; border:1px solid var(--border); display:flex; align-items:center; gap:10px;">
+                    <span id="lastSyncTime" style="font-size:0.8rem; color:var(--text-muted);">Never synced</span>
+                    <button id="syncBtn" onclick="loadDataFromSheet()" style="background:var(--primary); color:white; border:none; padding:5px 12px; border-radius:6px; cursor:pointer; font-weight:600;">🔄 Sync</button>
                 </div>
             </div>
 
@@ -123,56 +122,68 @@
 
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <div class="card-header"><h2 class="card-title">Booking List</h2></div>
-                    <div class="table-wrapper" id="bookingsTableContainer"><p>Loading...</p></div>
+                    <div class="table-wrapper" id="bookingsTableContainer"><p>Syncing data...</p></div>
                 </div>
             </section>
 
             <section id="packages" class="content-section">
-                <div class="card">
-                    <div class="card-header"><h2 class="card-title">Experience Packages</h2></div>
-                    <div class="packages-grid">
-                        <div class="package-card">
-                            <div class="package-header">1. Full Day - Hidden Spots</div>
-                            <div class="package-body">
-                                <div class="price-tag">€120 - €200</div>
-                                <p>City exploration, local gems, and Alianza match.</p>
-                            </div>
+                <div class="packages-grid">
+                    <div class="package-card">
+                        <div class="package-header">1. Full Day - Hidden Spots & Football</div>
+                        <div class="package-body">
+                            <div class="price-tag">Half: €50 | Full: €120 - €200</div>
+                            <p>City exploration (Surco-Barranco) and Alianza match.</p>
+                            <ul class="package-list">
+                                <li>Match tickets & T-shirt</li>
+                                <li>2 beers included</li>
+                            </ul>
                         </div>
-                        <div class="package-card">
-                            <div class="package-header">2. Two Days - Culture</div>
-                            <div class="package-body">
-                                <div class="price-tag">€150 - €200</div>
-                                <p>Horse riding, Miraflores, and Football match.</p>
-                            </div>
+                    </div>
+                    <div class="package-card">
+                        <div class="package-header">2. Two Days, One Night - Culture & Coast</div>
+                        <div class="package-body">
+                            <div class="price-tag">Day 1: €80 | Day 2: €150 - €200</div>
+                            <p>Horse riding, Miraflores exploration, and match day.</p>
+                            <ul class="package-list">
+                                <li>All transfers & riding</li>
+                                <li>Match tickets & beers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <div class="package-header">3. Three Days, Two Nights - Complete</div>
+                        <div class="package-body">
+                            <div class="price-tag">€80 - €200 per day</div>
+                            <p>Beach adventure (San Bartolo), ATVs, and full match-day package.</p>
+                            <ul class="package-list">
+                                <li>ATVs & Sea activities</li>
+                                <li>Complete football experience</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="availability" class="content-section">
-                <div class="card">
-                    <div class="card-header"><h2 class="card-title">Set Availability</h2></div>
-                    <form class="availability-form" onsubmit="updateAvailability(event)">
-                        <div class="form-group"><label>From</label><input type="date" id="availStart" required></div>
-                        <div class="form-group"><label>To</label><input type="date" id="availEnd" required></div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select id="availStatus">
-                                <option value="Fully Booked">Fully Booked</option>
-                                <option value="Closed">Closed / Holiday</option>
-                            </select>
-                        </div>
-                        <div style="grid-column: span 2; margin-top:10px;">
-                            <button class="btn-primary" type="submit" id="saveAvailBtn">🚀 Save Availability</button>
-                        </div>
+                <div class="card" style="max-width: 600px;">
+                    <form onsubmit="updateAvailability(event)" style="display:flex; flex-direction:column; gap:20px;">
+                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">Start Date</label>
+                        <input type="date" id="availStart" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
+                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">End Date</label>
+                        <input type="date" id="availEnd" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
+                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">Status</label>
+                        <select id="availStatus" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);">
+                            <option value="Fully Booked">Fully Booked</option>
+                            <option value="Closed">Closed</option>
+                        </select></div>
+                        <button type="submit" id="saveAvailBtn" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer;">🚀 Save Availability</button>
                     </form>
                 </div>
             </section>
         </main>
     </div>
 
-    <div id="toast">✅ Changes saved!</div>
+    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none;">✅ Done!</div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="/dashboard/auth.js"></script>
@@ -185,9 +196,7 @@
             document.getElementById(sectionId).classList.add('active');
             if(element) element.classList.add('active');
             document.getElementById('sidebar').classList.remove('open');
-            if(sectionId === 'overview' && window.calendar) {
-                setTimeout(() => { window.calendar.render(); }, 50);
-            }
+            if(sectionId === 'overview' && window.calendar) setTimeout(() => window.calendar.render(), 100);
         }
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
     </script>
