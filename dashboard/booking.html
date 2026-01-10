@@ -26,26 +26,34 @@
         .booking-container {
             max-width: 850px; width: 100%; background: white; border-radius: 24px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .header {
-            background: #1a202c; color: white; padding: 60px 30px; text-align: center;
             position: relative;
         }
 
+        /* Terug-knop bovenaan */
+        .nav-back {
+            position: absolute; top: 20px; left: 20px; z-index: 10;
+        }
+        .nav-back a {
+            color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+            background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 30px;
+            backdrop-filter: blur(5px); transition: all 0.3s;
+        }
+        .nav-back a:hover { background: rgba(255,255,255,0.3); }
+
+        .header {
+            background: #1a202c; color: white; padding: 60px 30px; text-align: center;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80');
+            background-size: cover; background-position: center;
+        }
+
         .header h1 { font-size: 2.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
-        .header p { opacity: 0.9; font-weight: 300; }
 
         .form-section { padding: 40px; }
 
         .section-title {
             font-size: 1rem; font-weight: 700; color: var(--primary);
             text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px;
-            display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f7fafc;
-            padding-bottom: 10px;
+            display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f7fafc; padding-bottom: 10px;
         }
 
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 35px; }
@@ -53,69 +61,42 @@
         .full-width { grid-column: 1 / -1; }
 
         label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
-        
-        input, textarea {
-            padding: 14px 16px; border: 2px solid #edf2f7; border-radius: 12px;
-            font-size: 1rem; transition: all 0.2s; background: #f8fafc;
-        }
+        input, textarea { padding: 14px 16px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; }
 
-        input:focus, textarea:focus { 
-            outline: none; border-color: var(--primary); background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        }
-
-        /* Experience Card Styling */
         .experience-grid { display: grid; gap: 15px; margin-bottom: 35px; }
-        
-        .exp-card {
-            border: 2px solid #edf2f7; border-radius: 16px; padding: 20px;
-            cursor: pointer; transition: all 0.3s; position: relative;
-            background: #fff;
-        }
-
-        .exp-card:hover { border-color: var(--primary); transform: translateX(5px); }
-        
-        .exp-card.selected { 
-            border-color: var(--primary); 
-            background: rgba(102, 126, 234, 0.03);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
-        }
-
+        .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.3s; position: relative; }
+        .exp-card.selected { border-color: var(--primary); background: rgba(102, 126, 234, 0.03); }
         .exp-card input { position: absolute; opacity: 0; }
-        
-        .exp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .exp-price { color: var(--accent); font-weight: 800; font-size: 1.1rem; }
-        .exp-card h3 { font-size: 1.1rem; color: #2d3748; }
-        .exp-details { font-size: 0.85rem; color: #718096; line-height: 1.5; }
+        .exp-price { color: var(--accent); font-weight: 800; }
 
         .btn-submit {
             background: var(--primary); color: white; border: none; padding: 20px;
             border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%;
-            cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
+            cursor: pointer; transition: all 0.3s;
         }
+        .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); }
 
-        .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); box-shadow: 0 7px 14px rgba(102, 126, 234, 0.3); }
+        /* Stijl voor de home knop in het succesbericht */
+        .btn-home {
+            background: #2d3748; color: white; border: none; padding: 20px;
+            border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%;
+            cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block;
+            margin-top: 15px;
+        }
+        .btn-home:hover { background: #1a202c; }
 
         #successMessage { display: none; text-align: center; padding: 80px 40px; }
-        #successMessage h2 { color: var(--accent); font-size: 2rem; margin-bottom: 15px; }
-        
-        .loader { 
-            display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); 
-            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; 
-            margin: 20px auto; 
-        }
-
+        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        @media (max-width: 600px) {
-            .form-section { padding: 25px; }
-            .header h1 { font-size: 1.8rem; }
-        }
     </style>
 </head>
 <body>
 
     <div class="booking-container">
+        <div class="nav-back">
+            <a href="https://www.travelbeyondthepitch.com">← Back to Home</a>
+        </div>
+
         <div class="header">
             <h1>Beyond the Pitch</h1>
             <p>Exclusive Lima Football Experiences</p>
@@ -142,29 +123,18 @@
             <div class="experience-grid">
                 <label class="exp-card">
                     <input type="radio" name="experience" value="Full Day Package – Hidden Spots & Football" required>
-                    <div class="exp-header">
-                        <h3>Full Day Package</h3>
-                        <span class="exp-price">€50 - €200</span>
-                    </div>
-                    <p class="exp-details">City exploration (Surco/Barranco), local gems, and Alianza Lima match. Includes: Tickets, T-shirt, 2 beers.</p>
+                    <div class="exp-header"><h3>Full Day Package</h3><span class="exp-price">€50 - €200</span></div>
+                    <p class="exp-details">City exploration, local gems, and Alianza Lima match.</p>
                 </label>
-
                 <label class="exp-card">
                     <input type="radio" name="experience" value="Two Days, One Night – Culture & Coastal" required>
-                    <div class="exp-header">
-                        <h3>Two Days, One Night</h3>
-                        <span class="exp-price">€80 - €200</span>
-                    </div>
-                    <p class="exp-details">Horse riding on beach, Miraflores, gastronomy, and match. Includes: Transfers, Horse riding, Tickets, T-shirt, 2 beers.</p>
+                    <div class="exp-header"><h3>Two Days, One Night</h3><span class="exp-price">€80 - €200</span></div>
+                    <p class="exp-details">Horse riding, Miraflores, gastronomy, and match.</p>
                 </label>
-
                 <label class="exp-card">
                     <input type="radio" name="experience" value="Three Days, Two Nights – Complete Lima" required>
-                    <div class="exp-header">
-                        <h3>Three Days, Two Nights</h3>
-                        <span class="exp-price">€80 - €400</span>
-                    </div>
-                    <p class="exp-details">San Bartolo Beach, ATVs, Sea equipment, Horse riding, and match. The ultimate Lima adventure.</p>
+                    <div class="exp-header"><h3>Three Days, Two Nights</h3><span class="exp-price">€80 - €400</span></div>
+                    <p class="exp-details">The ultimate Lima adventure including Beach & ATVs.</p>
                 </label>
             </div>
 
@@ -180,7 +150,7 @@
                 </div>
                 <div class="form-group full-width">
                     <label>Special Requests or Questions</label>
-                    <textarea id="requests" rows="3" placeholder="Dietary needs, questions, where you found us..."></textarea>
+                    <textarea id="requests" rows="3" placeholder="Dietary needs, questions, etc."></textarea>
                 </div>
             </div>
 
@@ -191,15 +161,17 @@
         <div id="successMessage">
             <h2>✓ Request Sent!</h2>
             <p>Thank you for your interest in the <strong><span id="summaryPackage"></span></strong>.</p>
-            <p style="margin-top: 10px; color: #718096;">We will contact you via email within 24 hours to confirm the details.</p>
-            <button class="btn-submit" style="margin-top: 40px; max-width: 250px;" onclick="location.reload()">New Booking</button>
+            <p style="margin-top: 10px; color: #718096;">We will contact you via email within 24 hours.</p>
+            
+            <div style="max-width: 300px; margin: 40px auto 0;">
+                <a href="https://www.travelbeyondthepitch.com" class="btn-home">Return to Website</a>
+                <button class="btn-submit" style="background: transparent; color: var(--primary); box-shadow: none; margin-top: 10px;" onclick="location.reload()">Make another booking</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // CONFIGURATIE - GEKOPPELD AAN JOUW NIEUWE GOOGLE FORM
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse';
-        
         const FIELDS = {
             name: 'entry.761572476',
             email: 'entry.1144619265',
@@ -210,7 +182,6 @@
             requests: 'entry.2094398847'
         };
 
-        // Selectie effect voor de kaarten
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -220,7 +191,6 @@
             });
         });
 
-        // Verzendlogica
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const loader = document.getElementById('loader');
@@ -236,42 +206,27 @@
                 requests: document.getElementById('requests').value.trim()
             };
 
-            // Validatie
             if(!data.name || !data.email || !data.exp || !data.date) {
                 alert('Please complete all required fields (*)');
                 return;
             }
 
-            // UI naar laadstand
             btn.style.display = 'none';
             loader.style.display = 'block';
 
-            // Data voorbereiden
             const formData = new FormData();
-            formData.append(FIELDS.name, data.name);
-            formData.append(FIELDS.email, data.email);
-            formData.append(FIELDS.phone, data.phone);
-            formData.append(FIELDS.experience, data.exp);
-            formData.append(FIELDS.date, data.date);
-            formData.append(FIELDS.guests, data.guests);
-            formData.append(FIELDS.requests, data.requests);
+            for(let key in FIELDS) {
+                formData.append(FIELDS[key], data[key]);
+            }
 
             try {
-                // Verzenden naar Google
-                await fetch(FORM_ACTION, { 
-                    method: 'POST', 
-                    body: formData, 
-                    mode: 'no-cors' 
-                });
-                
-                // Bij succes (of no-cors response)
+                await fetch(FORM_ACTION, { method: 'POST', body: formData, mode: 'no-cors' });
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('summaryPackage').innerText = data.exp;
                 document.getElementById('successMessage').style.display = 'block';
                 window.scrollTo(0, 0);
             } catch (e) {
-                console.error('Error:', e);
-                alert('Something went wrong. Please check your connection.');
+                alert('Connection error.');
                 btn.style.display = 'block';
                 loader.style.display = 'none';
             }
