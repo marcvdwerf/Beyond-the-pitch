@@ -32,14 +32,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
@@ -49,19 +43,10 @@
             text-align: center;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
 
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .form-section {
-            padding: 40px 30px;
-        }
+        .form-section { padding: 40px 30px; }
 
         .section-title {
             font-size: 1.3rem;
@@ -81,14 +66,8 @@
             margin-bottom: 25px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full-width { grid-column: 1 / -1; }
 
         label {
             font-weight: 600;
@@ -100,9 +79,7 @@
             gap: 5px;
         }
 
-        label .required {
-            color: #ef4444;
-        }
+        .required { color: #ef4444; }
 
         input, select, textarea {
             padding: 14px 16px;
@@ -111,25 +88,15 @@
             font-size: 1rem;
             font-family: inherit;
             transition: all 0.3s;
-            background: white;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .experience-options {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+        .experience-options { display: grid; gap: 15px; margin-bottom: 25px; }
 
         .experience-card {
             border: 2px solid #e5e7eb;
@@ -140,69 +107,13 @@
             position: relative;
         }
 
-        .experience-card:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
+        .experience-card:hover { border-color: #667eea; transform: translateY(-2px); }
+        .experience-card.selected { border-color: #667eea; background: rgba(102, 126, 234, 0.05); }
 
-        .experience-card.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        }
+        .experience-card input[type="radio"] { position: absolute; opacity: 0; }
 
-        .experience-card input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .experience-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
-        }
-
-        .experience-card h3 {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .experience-price {
-            color: #10b981;
-            font-weight: 700;
-            font-size: 1.1rem;
-            white-space: nowrap;
-        }
-
-        .experience-description {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .experience-highlights {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .experience-highlights ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .experience-highlights li {
-            background: #f8f9fa;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: #555;
-        }
+        .experience-card-header { display: flex; justify-content: space-between; align-items: start; }
+        .experience-price { color: #10b981; font-weight: 700; }
 
         .btn {
             padding: 16px 32px;
@@ -211,166 +122,33 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            transition: all 0.3s;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 60px 30px;
-        }
-
-        .success-message.active {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 3rem;
-            animation: scaleIn 0.5s ease-out;
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0);
-            }
-            to {
-                transform: scale(1);
-            }
-        }
-
-        .success-message h2 {
-            color: #10b981;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .success-message p {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
+        .success-message { display: none; text-align: center; padding: 60px 30px; }
+        .success-message.active { display: block; }
 
         .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 100;
         }
-
-        .loading-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
+        .loading-overlay.active { display: flex; }
 
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            width: 50px; height: 50px; border: 4px solid white; border-top-color: transparent;
+            border-radius: 50%; animation: spin 1s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-section {
-                padding: 30px 20px;
-            }
-
-            .experience-card-header {
-                flex-direction: column;
-            }
-
-            .experience-price {
-                margin-top: 5px;
-            }
-        }
-
-        .info-box {
-            background: #fef3c7;
-            border: 2px solid #fbbf24;
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            display: flex;
-            gap: 12px;
-            align-items: start;
-        }
-
-        .info-box-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .info-box-content {
-            color: #78350f;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
+
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
@@ -382,380 +160,133 @@
         </div>
 
         <div id="bookingForm" class="form-section">
-            <div class="info-box">
-                <div class="info-box-icon">ℹ️</div>
-                <div class="info-box-content">
-                    <strong>Ready to explore Lima?</strong> Fill out the form below and we'll contact you within 24 hours to confirm your booking and answer any questions.
-                </div>
-            </div>
-
-            <!-- Personal Information -->
-            <div class="section-title">
-                <span>👤</span>
-                <span>Your Information</span>
-            </div>
-
+            <div class="section-title"><span>👤</span> Your Information</div>
             <div class="form-grid">
                 <div class="form-group full-width">
-                    <label>
-                        Full Name <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="fullName" 
-                        placeholder="John Doe" 
-                        required
-                    >
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" placeholder="John Doe" required>
                 </div>
-
                 <div class="form-group">
-                    <label>
-                        Email <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        placeholder="john@example.com" 
-                        required
-                    >
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="john@example.com" required>
                 </div>
-
                 <div class="form-group">
-                    <label>
-                        Phone Number <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        placeholder="+31 6 12345678" 
-                        required
-                    >
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" placeholder="+31 6 12345678" required>
                 </div>
             </div>
 
-            <!-- Experience Selection -->
-            <div class="section-title">
-                <span>🌍</span>
-                <span>Choose Your Experience</span>
-            </div>
-
+            <div class="section-title"><span>🌍</span> Experience</div>
             <div class="experience-options">
                 <label class="experience-card">
                     <input type="radio" name="experience" value="Full Day Package" required>
                     <div class="experience-card-header">
-                        <div>
-                            <h3>Full Day Package – Hidden Spots & Football</h3>
-                            <p class="experience-description">
-                                Explore Lima's hidden gems and experience an authentic Alianza Lima match
-                            </p>
-                        </div>
+                        <h3>Full Day Package</h3>
                         <div class="experience-price">€50-200</div>
                     </div>
-                    <div class="experience-highlights">
-                        <ul>
-                            <li>🏙️ City Tour</li>
-                            <li>🍽️ Local Food</li>
-                            <li>⚽ Football Match</li>
-                            <li>👕 Jersey Included</li>
-                        </ul>
-                    </div>
                 </label>
-
                 <label class="experience-card">
                     <input type="radio" name="experience" value="Two Days, One Night" required>
                     <div class="experience-card-header">
-                        <div>
-                            <h3>Two Days, One Night – Culture & Coastal</h3>
-                            <p class="experience-description">
-                                Multi-day adventure combining gastronomy, coastal exploration, and football
-                            </p>
-                        </div>
+                        <h3>Two Days, One Night</h3>
                         <div class="experience-price">€230-280</div>
                     </div>
-                    <div class="experience-highlights">
-                        <ul>
-                            <li>🍷 Gastronomy</li>
-                            <li>🐴 Horse Riding</li>
-                            <li>🌊 Miraflores Coast</li>
-                            <li>⚽ Match Experience</li>
-                        </ul>
-                    </div>
-                </label>
-
-                <label class="experience-card">
-                    <input type="radio" name="experience" value="Three Days, Two Nights" required>
-                    <div class="experience-card-header">
-                        <div>
-                            <h3>Three Days, Two Nights – Complete Lima</h3>
-                            <p class="experience-description">
-                                The ultimate Lima experience with beach, adventure activities, and football
-                            </p>
-                        </div>
-                        <div class="experience-price">€280-400</div>
-                    </div>
-                    <div class="experience-highlights">
-                        <ul>
-                            <li>🏖️ Beach Adventure</li>
-                            <li>🏍️ ATVs</li>
-                            <li>🐴 Horse Riding</li>
-                            <li>⚽ Full Football Experience</li>
-                        </ul>
-                    </div>
                 </label>
             </div>
 
-            <!-- Booking Details -->
-            <div class="section-title">
-                <span>📅</span>
-                <span>Booking Details</span>
-            </div>
-
+            <div class="section-title"><span>📅</span> Details</div>
             <div class="form-grid">
                 <div class="form-group">
-                    <label>
-                        Start Date <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="date" 
-                        id="startDate" 
-                        required
-                    >
+                    <label>Start Date <span class="required">*</span></label>
+                    <input type="date" id="startDate" required>
                 </div>
-
                 <div class="form-group">
-                    <label>
-                        End Date
-                    </label>
-                    <input 
-                        type="date" 
-                        id="endDate"
-                    >
+                    <label>Number of Guests <span class="required">*</span></label>
+                    <input type="number" id="guests" min="1" placeholder="2" required>
                 </div>
-
-                <div class="form-group">
-                    <label>
-                        Number of Guests <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="number" 
-                        id="guests" 
-                        min="1" 
-                        max="20" 
-                        placeholder="2" 
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        Duration (days)
-                    </label>
-                    <input 
-                        type="number" 
-                        id="duration" 
-                        min="1" 
-                        placeholder="1"
-                    >
-                </div>
-
                 <div class="form-group full-width">
-                    <label>
-                        Special Requests or Questions
-                    </label>
-                    <textarea 
-                        id="specialRequests" 
-                        placeholder="Any dietary restrictions, accessibility needs, or special occasions we should know about?"
-                    ></textarea>
+                    <label>Special Requests</label>
+                    <textarea id="specialRequests" placeholder="Dietary needs, questions, etc."></textarea>
                 </div>
             </div>
 
-            <button class="btn btn-primary" id="submitBtn">
-                <span>🎉</span>
-                <span>Book My Experience</span>
-            </button>
+            <button class="btn btn-primary" id="submitBtn">Book My Experience</button>
         </div>
 
         <div id="successMessage" class="success-message">
-            <div class="success-icon">✓</div>
-            <h2>Booking Request Received!</h2>
-            <p>Thank you for choosing Beyond the Pitch, <strong id="confirmName"></strong>!</p>
-            <p>We've sent a confirmation email to <strong id="confirmEmail"></strong>.</p>
-            <p style="margin-top: 20px; color: #888;">
-                Our team will contact you within 24 hours to confirm your booking and provide payment details.
-            </p>
-            <button class="btn btn-primary" style="margin-top: 30px; max-width: 300px; margin-left: auto; margin-right: auto;" onclick="location.reload()">
-                Book Another Experience
-            </button>
+            <h2>✓ Booking Received!</h2>
+            <p>Thank you, <span id="confirmName"></span>. We will contact you soon!</p>
+            <button class="btn btn-primary" style="margin-top:20px" onclick="location.reload()">New Booking</button>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // JOUW GOOGLE FORM CONFIGURATIE
-        // ============================================
+        // 1. CONFIGURATIE (Gebaseerd op jouw persoonlijke link)
+        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeJ7f6iHPKYmB7FrDJzLLi0TvP10fjpj9i3LtUQCw1Bh1pYGg/formResponse';
         
-        // Google Form URL - VERVANG MET JOUW FORM URL
-        // Vind deze door: Google Form → Send → Link icon → kopieer de URL
-       const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeJ7f6iHPKYmB7FrDJzLLi0TvP10fjpj9i3LtUQCw1Bh1pYGg/formResponse';
-        
-        // Entry IDs van jouw Google Form (deze heb je al gevonden!)
         const FORM_FIELDS = {
-            fullName: 'entry.1930314211',      // Naam veld
-            email: 'entry.1325083035',         // Email veld
-            phone: 'entry.355536084',          // Telefoon veld
-            experience: 'entry.948440789',     // Experience keuze
-            startDate: 'entry.2445217127',     // Start datum
-            endDate: 'entry.72418665',         // Eind datum
-            year: 'entry.801451376_year',      // Jaar (wordt auto ingevuld)
-            month: 'entry.801451376_month',    // Maand (wordt auto ingevuld)
-            day: 'entry.801451376_day',        // Dag (wordt auto ingevuld)
-            guests: 'entry.1355449369',        // Aantal gasten
-            duration: 'entry.1768862932501',   // Duur
-            specialRequests: 'emailAddress'    // Email adres veld
+            fullName: 'entry.1930314211',
+            email: 'entry.1325083035',
+            phone: 'entry.595533698',
+            experience: 'entry.1684626906',
+            startDate: 'entry.801451376',
+            guests: 'entry.1355444363',
+            specialRequests: 'entry.728399459'
         };
 
-        // ============================================
-        // FORM FUNCTIONALITEIT
-        // ============================================
-
-        // Experience card selection
+        // UI interactie voor kaarten
         document.querySelectorAll('.experience-card').forEach(card => {
             card.addEventListener('click', function() {
-                document.querySelectorAll('.experience-card').forEach(c => 
-                    c.classList.remove('selected')
-                );
+                document.querySelectorAll('.experience-card').forEach(c => c.classList.remove('selected'));
                 this.classList.add('selected');
             });
         });
 
-        // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('startDate').setAttribute('min', today);
-        document.getElementById('endDate').setAttribute('min', today);
-
-        // Auto-calculate end date based on experience
-        document.querySelectorAll('input[name="experience"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const startDate = document.getElementById('startDate').value;
-                if (!startDate) return;
-
-                const start = new Date(startDate);
-                let days = 1;
-
-                if (this.value.includes('Two Days')) {
-                    days = 2;
-                    document.getElementById('duration').value = 2;
-                } else if (this.value.includes('Three Days')) {
-                    days = 3;
-                    document.getElementById('duration').value = 3;
-                } else {
-                    document.getElementById('duration').value = 1;
-                }
-
-                const endDate = new Date(start);
-                endDate.setDate(endDate.getDate() + days - 1);
-                document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
-            });
-        });
-
-        // Form submission
+        // Formulier verzenden
         document.getElementById('submitBtn').addEventListener('click', async function(e) {
             e.preventDefault();
-            
-            // Validate form
-            const fullName = document.getElementById('fullName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const experience = document.querySelector('input[name="experience"]:checked');
             const startDate = document.getElementById('startDate').value;
             const guests = document.getElementById('guests').value;
+            const specialRequests = document.getElementById('specialRequests').value;
 
             if (!fullName || !email || !phone || !experience || !startDate || !guests) {
-                alert('Please fill in all required fields (marked with *)');
+                alert('Vul alle verplichte velden in.');
                 return;
             }
 
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                return;
-            }
-
-            // Show loading
             document.getElementById('loadingOverlay').classList.add('active');
 
-            // Parse dates for Google Forms
-            const startDateObj = new Date(startDate);
-            const endDateValue = document.getElementById('endDate').value;
-            const endDateObj = endDateValue ? new Date(endDateValue) : startDateObj;
-
-            // Prepare form data
             const formData = new FormData();
             formData.append(FORM_FIELDS.fullName, fullName);
             formData.append(FORM_FIELDS.email, email);
             formData.append(FORM_FIELDS.phone, phone);
             formData.append(FORM_FIELDS.experience, experience.value);
             formData.append(FORM_FIELDS.startDate, startDate);
-            formData.append(FORM_FIELDS.endDate, endDateValue || startDate);
-            
-            // Add date components (jaar, maand, dag)
-            formData.append(FORM_FIELDS.year, startDateObj.getFullYear());
-            formData.append(FORM_FIELDS.month, startDateObj.getMonth() + 1); // JavaScript months are 0-indexed
-            formData.append(FORM_FIELDS.day, startDateObj.getDate());
-            
             formData.append(FORM_FIELDS.guests, guests);
-            formData.append(FORM_FIELDS.duration, document.getElementById('duration').value || '1');
-            formData.append(FORM_FIELDS.specialRequests, document.getElementById('specialRequests').value);
+            formData.append(FORM_FIELDS.specialRequests, specialRequests);
 
             try {
-                // Submit to Google Forms
                 await fetch(GOOGLE_FORM_ACTION_URL, {
                     method: 'POST',
                     body: formData,
-                    mode: 'no-cors' // Google Forms requires this
+                    mode: 'no-cors'
                 });
 
-                // Simulate delay for better UX
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
-                // Hide loading
                 document.getElementById('loadingOverlay').classList.remove('active');
-
-                // Show success message
                 document.getElementById('confirmName').textContent = fullName;
-                document.getElementById('confirmEmail').textContent = email;
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('successMessage').classList.add('active');
-
-                // Log success for debugging
-                console.log('✅ Booking submitted successfully!');
-
             } catch (error) {
-                console.error('❌ Error submitting form:', error);
+                console.error('Error:', error);
                 document.getElementById('loadingOverlay').classList.remove('active');
-                alert('Something went wrong. Please try again or contact us directly at info@beyondthepitch.com');
-            }
-        });
-
-        // Auto-select first experience if none selected
-        window.addEventListener('load', () => {
-            const firstExperience = document.querySelector('.experience-card');
-            if (firstExperience && !document.querySelector('input[name="experience"]:checked')) {
-                firstExperience.click();
-            }
-        });
-
-        // Update end date when start date changes
-        document.getElementById('startDate').addEventListener('change', function() {
-            const experience = document.querySelector('input[name="experience"]:checked');
-            if (experience) {
-                // Trigger the experience change event to recalculate end date
-                experience.dispatchEvent(new Event('change'));
+                alert('Er ging iets mis. Probeer het opnieuw.');
             }
         });
     </script>
 </body>
 </html>
-
-
