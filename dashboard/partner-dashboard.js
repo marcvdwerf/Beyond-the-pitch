@@ -6,7 +6,7 @@
 // ===============================
 // CONFIGURATION
 // ===============================
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxet63ehOgfN6Bx3zhiY496W4PazMwLsX4ohobFx8XHsngLrfqyBU7wpi8uwpd2zt5ijg/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyroakbBxAHnGpcKfTMVrxU6wq0rmR1vXbWkQybJFf1QTgYjlPg7H9fA_pu_P-oRxo3Cw/exec';
 
 // ===============================
 // INITIALIZATION
