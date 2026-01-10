@@ -7,7 +7,7 @@
 // CONFIGURATIE
 // ===============================
 // ZORG ERVOOR DAT DEZE URL EINDIGT OP /exec
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxet63ehOgfN6Bx3zhiY496W4PazMwLsX4ohobFx8XHsngLrfqyBU7wpi8uwpd2zt5ijg/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxG-7KKoTPbOoq6WVG-hr8WFVsqM-7KbQ1wcSvHzjNk__oCfVpO5_eu6tgdaDOsZVdWew/exec';
 
 // ===============================
 // INITIALISATIE
