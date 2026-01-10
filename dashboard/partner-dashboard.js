@@ -1,134 +1,122 @@
+/**
+ * Beyond the Pitch - Partner Dashboard Logic (English)
+ */
+
 // ===============================
 // CONFIGURATION
 // ===============================
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxet63ehOgfN6Bx3zhiY496W4PazMwLsX4ohobFx8XHsngLrfqyBU7wpi8uwpd2zt5ijg/exec';
 
 // ===============================
-// STATE MANAGEMENT
+// INITIALIZATION & AUTH
 // ===============================
-class DashboardState {
-    constructor() {
-        this.bookings = [];
-        this.isLoading = false;
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Verify user is logged in via auth.js
+    if (typeof window.checkAuth === "function") {
+        if (!window.checkAuth('partner')) return;
     }
 
-    setBookings(data) {
-        // We filteren eventuele lege rijen uit de sheet
-        this.bookings = data.filter(row => row.Timestamp || row["Full Name"]);
-        this.renderAll();
-    }
+    // 2. Personalize welcome message
+    const partnerName = localStorage.getItem("userName") || "Partner";
+    const welcomeHeader = document.getElementById('welcomeText');
+    if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    renderAll() {
-        renderBookingsTable();
-        updateStats();
-    }
-}
-
-const state = new DashboardState();
+    // 3. Initial data fetch
+    loadDataFromSheet();
+});
 
 // ===============================
-// DATA FETCHING (De vervanger voor Google Auth)
+// DATA FETCHING
 // ===============================
 async function loadDataFromSheet() {
-    state.isLoading = true;
-    showLoading(true);
+    const tableContainer = document.getElementById('bookingsTableContainer');
+    const syncBtn = document.getElementById('syncBtn');
+    
+    if (syncBtn) syncBtn.innerHTML = "<span>⏳</span> Syncing...";
 
     try {
         const response = await fetch(SHEET_API_URL);
+        if (!response.ok) throw new Error("Network response was not ok");
+        
         const data = await response.json();
         
-        console.log("Data ontvangen uit Sheet:", data);
-        state.setBookings(data);
+        // Filter out empty rows (ensure there is at least a name)
+        const activeBookings = data.filter(row => row["Full Name"] || row["Full name"]);
         
-        // Update de laatste sync tijd in de UI
+        renderTable(activeBookings);
+        updateStats(activeBookings);
+
+        // Update timestamp
         const now = new Date();
-        const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
-        document.getElementById('lastSyncTime').textContent = timeStr;
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('lastSyncTime').textContent = `Today at ${timeString}`;
 
     } catch (error) {
-        console.error("Fout bij ophalen data:", error);
-        alert("Kon de gegevens niet ophalen. Controleer je internetverbinding.");
+        console.error("Sheet Fetch Error:", error);
+        if (tableContainer) {
+            tableContainer.innerHTML = `
+                <div style="color:#ef4444; padding:20px; text-align:center; border: 1px dashed #f87171; border-radius:10px;">
+                    <strong>Unable to load data.</strong><br>
+                    Please check if the Google Sheet script is deployed correctly.
+                </div>`;
+        }
     } finally {
-        state.isLoading = false;
-        showLoading(false);
+        if (syncBtn) syncBtn.innerHTML = "🔄 Refresh Data";
     }
 }
 
 // ===============================
 // UI RENDERING
 // ===============================
-function renderBookingsTable() {
+function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
-    if (!container) return;
-
-    if (state.bookings.length === 0) {
-        container.innerHTML = '<div style="text-align:center; padding:40px; color:#888;">Geen boekingen gevonden in de sheet.</div>';
+    const fullTableContainer = document.getElementById('fullBookingsTable');
+    
+    if (!bookings || bookings.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found yet.</p>';
         return;
     }
 
-    // We bouwen de tabel op basis van de kolommen in jouw Google Sheet
-    // Let op: De namen tussen [ ] moeten exact overeenkomen met de koppen in je Sheet
-    container.innerHTML = `
+    const tableHTML = `
         <table>
             <thead>
                 <tr>
-                    <th>Datum</th>
-                    <th>Naam</th>
+                    <th>Date</th>
+                    <th>Guest Name</th>
                     <th>Package</th>
-                    <th>Gasten</th>
+                    <th>Guests</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                ${state.bookings.map(booking => `
+                ${bookings.map(b => `
                     <tr>
-                        <td>${booking["Preferred Start Date"] || 'Onbekend'}</td>
-                        <td><strong>${booking["Full Name"] || 'Gast'}</strong></td>
-                        <td>${booking["Select Your Package"] || '-'}</td>
-                        <td>${booking["Number of Guests"] || '1'}</td>
-                        <td><span class="badge badge-confirmed">Bevestigd</span></td>
+                        <td>${b["Preferred Start Date"] || b["Timestamp"] || 'N/A'}</td>
+                        <td><strong>${b["Full Name"] || b["Full name"] || 'Guest'}</strong></td>
+                        <td>${b["Select Your Package"] || '-'}</td>
+                        <td>${b["Number of Guests"] || '1'}</td>
+                        <td><span class="badge badge-confirmed">Confirmed</span></td>
                     </tr>
                 `).join('')}
             </tbody>
         </table>
     `;
+
+    container.innerHTML = tableHTML;
+    if (fullTableContainer) fullTableContainer.innerHTML = tableHTML;
 }
 
-function updateStats() {
-    const total = state.bookings.length;
-    let totalGuests = 0;
+function updateStats(bookings) {
+    const totalBookingsEl = document.getElementById('totalBookings');
+    const totalGuestsEl = document.getElementById('totalGuests');
+
+    if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
     
-    state.bookings.forEach(b => {
-        const g = parseInt(b["Number of Guests"]);
-        if(!isNaN(g)) totalGuests += g;
+    let guestCount = 0;
+    bookings.forEach(b => {
+        const num = parseInt(b["Number of Guests"]);
+        if (!isNaN(num)) guestCount += num;
     });
-
-    document.getElementById('totalBookings').textContent = total;
-    document.getElementById('totalGuests').textContent = totalGuests;
     
-    // Revenue is een schatting op basis van het aantal boekingen
-    document.getElementById('totalRevenue').textContent = '€ ' + (total * 150); 
-}
-
-function showLoading(show) {
-    const syncBtn = document.getElementById('syncBtn');
-    if (syncBtn) {
-        syncBtn.innerText = show ? "Bezig met laden..." : "🔄 Refresh Data";
-        syncBtn.disabled = show;
-    }
-}
-
-// Inlog-functie simulatie (zonder Google account)
-function checkAuth() {
-    // Hier zou je later een simpel wachtwoord-systeem kunnen maken
-    // Voor nu laden we de data direct
-    loadDataFromSheet();
-}
-
-// Start de app
-document.addEventListener('DOMContentLoaded', checkAuth);
-
-// Handmatige refresh knop koppelen
-if(document.getElementById('syncBtn')) {
-    document.getElementById('syncBtn').addEventListener('click', loadDataFromSheet);
+    if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
 }
