@@ -1,6 +1,7 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
  * Geoptimaliseerd voor travelbeyondthepitch.com/dashboard/
+ * Inclusief datum-formattering voor de Booking List
  */
 
 // ===============================
@@ -16,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return; 
     } else {
-        // Als auth.js niet geladen is, voor de zekerheid terug naar login
         window.location.href = "index.html";
         return;
     }
@@ -67,15 +67,12 @@ async function loadDataFromSheet() {
         
         const data = await response.json();
         
-        // Filter: we willen alleen rijen met een naam tonen
         const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]));
 
-        // UI Updates
         renderTable(activeBookings);
         updateStats(activeBookings);
         populateCalendar(activeBookings);
 
-        // Update tijdstempel
         const lastSyncEl = document.getElementById('lastSyncTime');
         if (lastSyncEl) {
             const now = new Date();
@@ -93,7 +90,7 @@ async function loadDataFromSheet() {
 }
 
 // ===============================
-// UI RENDERING
+// UI RENDERING (INCLUSIEF DATUM FIX)
 // ===============================
 function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
@@ -103,6 +100,23 @@ function renderTable(bookings) {
         container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found for your account.</p>';
         return;
     }
+
+    // HELPER: Maakt van "2026-01-30T23:00:00.000Z" -> "30 Jan 2026"
+    const formatDisplayDate = (dateStr) => {
+        if (!dateStr || dateStr === "N/A") return "N/A";
+        try {
+            const dateObj = new Date(dateStr);
+            if (isNaN(dateObj.getTime())) return dateStr; 
+            
+            return dateObj.toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        } catch (e) {
+            return dateStr;
+        }
+    };
 
     let html = `
         <table>
@@ -123,14 +137,18 @@ function renderTable(bookings) {
         const name = b["Full Name"] || b["Full name"] || "N/A";
         const email = b["Email Address"] || "";
         const phone = b["Phone Number"] || "";
-        const date = b["Start Date"] || b["Preferred Start Date"] || "N/A";
+        const rawDate = b["Start Date"] || b["Preferred Start Date"] || "N/A";
+        
+        // Formatteer de datum voor weergave
+        const cleanDate = formatDisplayDate(rawDate);
+
         const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
         const guests = b["Number of Guests"] || "1";
         const requests = b["Special Requests"] || "None";
 
         html += `
             <tr>
-                <td><strong>${date}</strong></td>
+                <td><strong style="color: #1e293b;">${cleanDate}</strong></td>
                 <td>
                     <div style="font-weight:700; color:#1e293b;">${name}</div>
                     <div style="font-size:0.75rem; color:#64748b;">${email} ${phone ? '• ' + phone : ''}</div>
@@ -183,15 +201,22 @@ async function updateAvailability(event) {
     
     const saveBtn = document.getElementById('saveAvailBtn');
     const originalText = saveBtn.innerText;
+
+    // Formatteer functie voor de POST naar de Sheet (DD-MM-YYYY)
+    const formatDateForSheet = (dateStr) => {
+        if (!dateStr) return "";
+        const [year, month, day] = dateStr.split('-');
+        return `${day}-${month}-${year}`;
+    };
     
     const availabilityData = {
-        startDate: document.getElementById('availStart').value,
-        endDate: document.getElementById('availEnd').value,
+        startDate: formatDateForSheet(document.getElementById('availStart').value),
+        endDate: formatDateForSheet(document.getElementById('availEnd').value),
         status: document.getElementById('availStatus').value,
         partner: localStorage.getItem("userName") || "Global Partner"
     };
 
-    if (!availabilityData.startDate || !availabilityData.endDate) {
+    if (!document.getElementById('availStart').value || !document.getElementById('availEnd').value) {
         alert("Please select both dates.");
         return;
     }
@@ -200,7 +225,6 @@ async function updateAvailability(event) {
         saveBtn.innerText = "⏳ Saving...";
         saveBtn.disabled = true;
 
-        // POST naar Google Script
         await fetch(SHEET_API_URL, {
             method: 'POST',
             mode: 'no-cors', 
@@ -221,7 +245,6 @@ async function updateAvailability(event) {
     }
 }
 
-// Helper voor meldingen
 function showToast(message) {
     const toast = document.getElementById('toast');
     if (toast) {
