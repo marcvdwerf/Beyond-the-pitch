@@ -1,25 +1,40 @@
 /**
- * Beyond the Pitch - Partner Dashboard Logic (Enhanced Version)
+ * Beyond the Pitch - Partner Dashboard Logic (Full Version)
+ * Inclusief: Boekingen, Kalender, Statistieken en Availability POST
  */
 
+// ===============================
+// CONFIGURATIE
+// ===============================
+// Zorg dat deze URL de allernieuwste is na je 'doPost' implementatie in Google Sheets
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzQ1ZRCue9z1sehve_V7lNMYqKkBRj6Fxl_JAXWOi2NZoQAn_ROwauEEdRLLx1ZPSlwww/exec';
 
+// ===============================
+// INITIALISATIE
+// ===============================
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Controleer login status
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return;
     }
 
+    // 2. Gebruikersnaam instellen
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
+    // 3. Start onderdelen
     initCalendar();
     loadDataFromSheet();
 });
 
-// Initialize the Calendar
+// ===============================
+// KALENDER LOGICA
+// ===============================
 function initCalendar() {
     const calendarEl = document.getElementById('calendar');
+    if (!calendarEl) return;
+
     window.calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         headerToolbar: {
@@ -28,40 +43,60 @@ function initCalendar() {
             right: 'dayGridMonth,timeGridWeek'
         },
         eventColor: '#38bdf8',
-        events: [] // Will be populated by data
+        displayEventTime: false,
+        events: [] // Wordt gevuld door loadDataFromSheet
     });
     window.calendar.render();
 }
 
+// ===============================
+// DATA OPHALEN (GET)
+// ===============================
 async function loadDataFromSheet() {
+    const tableContainer = document.getElementById('bookingsTableContainer');
     const syncBtn = document.getElementById('syncBtn');
+    
     if (syncBtn) syncBtn.innerHTML = "⏳ Syncing...";
 
     try {
         const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
-        if (!response.ok) throw new Error("Network error");
+        if (!response.ok) throw new Error("Network response was niet ok");
         
         const data = await response.json();
-        const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]) );
+        
+        // Filter op rijen die minimaal een naam hebben
+        const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]));
 
+        // UI updaten
         renderTable(activeBookings);
         updateStats(activeBookings);
         populateCalendar(activeBookings);
 
+        // Tijdstip update
         const now = new Date();
-        document.getElementById('lastSyncTime').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const lastSyncEl = document.getElementById('lastSyncTime');
+        if (lastSyncEl) lastSyncEl.textContent = `Today at ${timeString}`;
 
     } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Sheet Fetch Error:", error);
+        if (tableContainer) {
+            tableContainer.innerHTML = `<p style="color:red; padding:20px;">Error syncing data. Check connection.</p>`;
+        }
     } finally {
         if (syncBtn) syncBtn.innerHTML = "🔄 Refresh Data";
     }
 }
 
+// ===============================
+// UI RENDERING
+// ===============================
 function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
-    if (!bookings.length) {
-        container.innerHTML = '<p>No bookings found.</p>';
+    if (!container) return;
+
+    if (!bookings || bookings.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found.</p>';
         return;
     }
 
@@ -85,7 +120,7 @@ function renderTable(bookings) {
         const email = b["Email Address"] || "N/A";
         const phone = b["Phone Number"] || "N/A";
         const date = b["Start Date"] || b["Preferred Start Date"] || "N/A";
-        const pkg = b["Choose Your Experience"] || "-";
+        const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
         const guests = b["Number of Guests"] || "1";
         const requests = b["Special Requests"] || "None";
 
@@ -109,15 +144,16 @@ function renderTable(bookings) {
 }
 
 function populateCalendar(bookings) {
+    if (!window.calendar) return;
+
     const events = bookings.map(b => {
         const dateStr = b["Start Date"] || b["Preferred Start Date"];
-        // Ensure date is in a format JS understands (YYYY-MM-DD)
         return {
             title: `${b["Full Name"] || 'Guest'} (${b["Number of Guests"] || 1})`,
             start: dateStr,
             allDay: true,
             extendedProps: {
-                experience: b["Choose Your Experience"]
+                package: b["Choose Your Experience"]
             }
         };
     });
@@ -127,11 +163,78 @@ function populateCalendar(bookings) {
 }
 
 function updateStats(bookings) {
-    document.getElementById('totalBookings').textContent = bookings.length;
+    const totalBookingsEl = document.getElementById('totalBookings');
+    const totalGuestsEl = document.getElementById('totalGuests');
+
+    if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
+    
     let guestCount = 0;
     bookings.forEach(b => {
-        const n = parseInt(b["Number of Guests"]);
-        guestCount += isNaN(n) ? 1 : n;
+        const num = parseInt(b["Number of Guests"]);
+        guestCount += isNaN(num) ? 1 : num;
     });
-    document.getElementById('totalGuests').textContent = guestCount;
+    
+    if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
+}
+
+// ===============================
+// AVAILABILITY OPSLAAN (POST)
+// ===============================
+async function updateAvailability(event) {
+    event.preventDefault();
+    
+    const saveBtn = document.getElementById('saveAvailBtn');
+    const originalText = saveBtn.innerText;
+    
+    const availabilityData = {
+        startDate: document.getElementById('availStart').value,
+        endDate: document.getElementById('availEnd').value,
+        status: document.getElementById('availStatus').value,
+        partner: localStorage.getItem("userName") || "Unknown Partner"
+    };
+
+    if (!availabilityData.startDate || !availabilityData.endDate) {
+        alert("Please select both dates.");
+        return;
+    }
+
+    try {
+        saveBtn.innerText = "⏳ Saving...";
+        saveBtn.disabled = true;
+
+        await fetch(SHEET_API_URL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(availabilityData)
+        });
+
+        showToast("✅ Availability updated in Google Sheet!");
+        event.target.reset();
+
+    } catch (error) {
+        console.error("Save error:", error);
+        alert("Error saving availability.");
+    } finally {
+        saveBtn.innerText = originalText;
+        saveBtn.disabled = false;
+    }
+}
+
+// Helper: Toast melding
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    if (toast) {
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+}
+
+// Uitlog functie
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
+    window.location.href = "login.html";
 }
