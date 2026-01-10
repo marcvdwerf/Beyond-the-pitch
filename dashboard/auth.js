@@ -1,6 +1,6 @@
 /**
- * Beyond the Pitch - Robuuste Authentication Logic
- * Werkt zowel lokaal als op travelbeyondthepitch.com
+ * Beyond the Pitch - Authentication Logic
+ * Geoptimaliseerd voor travelbeyondthepitch.com/dashboard/
  */
 
 const users = [
@@ -21,9 +21,9 @@ const users = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Auth System Geladen...");
+    console.log("Auth System Geladen in /dashboard/");
 
-    // 1. Tab switching logica (Partner / Admin)
+    // 1. Tab switching
     const tabButtons = document.querySelectorAll(".tab-btn");
     const loginForms = document.querySelectorAll(".login-form");
 
@@ -32,15 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener("click", () => {
                 tabButtons.forEach(btn => btn.classList.remove("active"));
                 loginForms.forEach(form => form.classList.remove("active"));
-
                 button.classList.add("active");
                 const targetId = `${button.dataset.tab}-form`;
-                const targetForm = document.getElementById(targetId);
-                if (targetForm) targetForm.classList.add("active");
+                document.getElementById(targetId)?.classList.add("active");
             });
         });
 
-        // 2. Form Submit Handlers
+        // 2. Form Submits
         document.getElementById("partner-form")?.addEventListener("submit", e => {
             e.preventDefault();
             handleLogin("partner");
@@ -52,15 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Auto-redirect als je al bent ingelogd op de loginpagina
+    // 3. Auto-redirect indien al ingelogd
     const isLoginPage = document.querySelector('.tab-btn') !== null;
     if (isLoginPage && localStorage.getItem("isAuthenticated") === "true") {
         const userType = localStorage.getItem("userType");
         const user = users.find(u => u.role === userType);
-        if (user) {
-            console.log("Al ingelogd, doorsturen...");
-            window.location.href = user.redirect;
-        }
+        if (user) window.location.href = user.redirect;
     }
 });
 
@@ -73,25 +68,15 @@ function handleLogin(role) {
 
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
-
-    // Zoek gebruiker in de lijst
     const user = users.find(u => u.role === role && u.email === email && u.password === password);
 
     if (user) {
-        console.log("Login succesvol voor:", user.name);
-        
-        // Sla sessie op
+        console.log("Login succesvol. Redirect naar:", user.redirect);
         localStorage.setItem("isAuthenticated", "true");
         localStorage.setItem("userType", user.role);
         localStorage.setItem("userName", user.name);
         
-        // De redirect: We gebruiken een relatieve pad-bepaling
-        // Dit zorgt dat het werkt op je-site.com/map/bestand.html
-        const currentPath = window.location.pathname;
-        const directory = currentPath.substring(0, currentPath.lastIndexOf('/'));
-        const targetUrl = directory + '/' + user.redirect;
-        
-        console.log("Redirecting naar:", targetUrl);
+        // Gebruik directe relatieve redirect voor bestanden in dezelfde map
         window.location.href = user.redirect; 
     } else {
         if (errorEl) {
@@ -102,20 +87,23 @@ function handleLogin(role) {
 }
 
 /**
- * Gebruik checkAuth('partner') bovenaan je partner-dashboard.js
+ * Controleert autorisatie
  */
 window.checkAuth = function(requiredRole) {
     const auth = localStorage.getItem("isAuthenticated");
     const role = localStorage.getItem("userType");
 
     if (auth !== "true" || role !== requiredRole) {
-        console.warn("Niet ingelogd of verkeerde rol.");
+        // Altijd terug naar de index in de huidige map
         window.location.href = "index.html";
         return false;
     }
     return true;
 };
 
+/**
+ * Uitloggen
+ */
 window.logout = function() {
     localStorage.clear();
     window.location.href = "index.html";
