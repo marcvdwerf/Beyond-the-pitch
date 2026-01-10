@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner Dashboard - Beyond the Pitch</title>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #38bdf8;
@@ -15,71 +17,80 @@
             --text-muted: #64748b;
             --white: #ffffff;
             --border: #e2e8f0;
+            --success: #10b981;
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.5; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.5; }
         
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
         
         /* SIDEBAR */
-        .sidebar { background: var(--sidebar-bg); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; z-index: 100; }
+        .sidebar { background: var(--sidebar-bg); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
         .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:20px; }
-        .logo h2 { font-size:1.2rem; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .logo h2 { font-size:1.2rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
         
         .nav-menu { list-style:none; }
-        .nav-item { padding:14px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:0.2s; color: rgba(255,255,255,0.6); font-weight: 500; }
-        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.05); color: white; border-right: 4px solid var(--primary); }
+        .nav-item { padding:14px 30px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:0.2s; color: rgba(255,255,255,0.6); font-weight: 500; border-left: 4px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.05); color: white; border-left-color: var(--primary); }
 
         /* MAIN CONTENT */
         .main-content { padding:40px; max-width: 1400px; margin: 0 auto; width: 100%; }
         .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
-        .welcome-box h1 { font-size: 1.75rem; font-weight: 800; }
+        .welcome-box h1 { font-size: 1.75rem; font-weight: 800; color: var(--sidebar-bg); }
         
-        .sync-status { background: var(--white); border: 1px solid var(--border); padding:10px 18px; border-radius:12px; font-size:0.85rem; display:flex; align-items:center; gap:10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .status-dot { width:10px; height:10px; background:#10b981; border-radius:50%; box-shadow: 0 0 8px #10b981; }
+        .sync-status { background: var(--white); border: 1px solid var(--border); padding:10px 18px; border-radius:12px; font-size:0.85rem; display:flex; align-items:center; gap:10px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .status-dot { width:10px; height:10px; background: var(--success); border-radius:50%; box-shadow: 0 0 8px var(--success); }
 
         /* STATS */
         .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; margin-bottom:40px; }
-        .stat-card { background: var(--white); padding:25px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
-        .stat-card::after { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--primary); }
-        .stat-label { color: var(--text-muted); font-size:0.75rem; text-transform:uppercase; font-weight: 700; letter-spacing: 0.05em; }
-        .stat-value { font-size:2rem; font-weight:800; margin-top: 5px; }
+        .stat-card { background: var(--white); padding:25px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
+        .stat-label { color: var(--text-muted); font-size:0.75rem; text-transform:uppercase; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 5px; }
+        .stat-value { font-size:2.2rem; font-weight:800; }
 
-        /* SECTIONS & CARDS */
+        /* CARDS & SECTIONS */
         .content-section { display: none; animation: fadeIn 0.3s ease; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { background: var(--white); padding:30px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom:30px; border: 1px solid var(--border); }
-        .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; }
+        .card { background: var(--white); padding:30px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom:30px; border: 1px solid var(--border); }
+        .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
         .card-title { font-size: 1.25rem; font-weight: 700; }
 
-        /* TABLE STYLING */
-        .table-wrapper { overflow-x: auto; margin: 0 -30px; padding: 0 30px; }
-        table { width:100%; border-collapse:collapse; min-width: 900px; }
-        th { background: #f1f5f9; padding:15px; text-align:left; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
-        td { padding:18px 15px; border-bottom:1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
-        .name-cell { font-weight: 700; color: var(--text-main); }
-        .request-note { font-size: 0.8rem; color: var(--text-muted); font-style: italic; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: help; }
+        /* PACKAGES DESIGN */
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .package-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: 0.3s; background: #fff; }
+        .package-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .package-header { background: #f8fafc; padding: 20px; font-weight: 800; color: var(--sidebar-bg); border-bottom: 1px solid var(--border); }
+        .package-body { padding: 20px; }
+        .package-body h4 { font-size: 0.85rem; text-transform: uppercase; color: var(--primary-dark); margin-bottom: 10px; }
+        .price-tag { display: inline-block; background: #f0f9ff; color: var(--primary-dark); padding: 4px 10px; border-radius: 6px; font-weight: 700; margin-bottom: 15px; }
+        .package-list { list-style: none; margin-top: 15px; }
+        .package-list li { margin-bottom: 8px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .package-list li::before { content: "✓"; color: var(--success); font-weight: bold; }
 
-        /* BUTTONS */
-        .btn { padding:10px 20px; border-radius:10px; border:none; cursor:pointer; font-weight:600; font-size: 0.9rem; display:inline-flex; align-items:center; gap:8px; transition: 0.2s; }
+        /* TABLES */
+        .table-wrapper { overflow-x: auto; }
+        table { width:100%; border-collapse:collapse; min-width: 900px; }
+        th { background: #f8fafc; padding:15px; text-align:left; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; border-bottom: 2px solid var(--border); }
+        td { padding:18px 15px; border-bottom:1px solid var(--border); font-size: 0.9rem; }
+        .badge { padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .badge-confirmed { background:#dcfce7; color:#166534; }
+
+        /* FORMS */
+        .availability-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 700px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        label { font-weight: 600; font-size: 0.9rem; color: var(--text-main); }
+        input, select { padding: 12px; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; }
+        
+        .btn { padding:12px 24px; border-radius:10px; border:none; cursor:pointer; font-weight:700; display:inline-flex; align-items:center; gap:8px; transition: 0.2s; }
         .btn-primary { background: var(--primary); color:white; }
         .btn-primary:hover { background: var(--primary-dark); }
         .logout-btn { width: calc(100% - 60px); margin:30px; background: rgba(255,255,255,0.05); color:white; border: 1px solid rgba(255,255,255,0.2); }
-        .logout-btn:hover { background: #ef4444; border-color: #ef4444; }
+        
+        #toast { position: fixed; bottom: 30px; right: 30px; background: var(--sidebar-bg); color: white; padding: 15px 25px; border-radius: 12px; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; }
 
-        /* CALENDAR CUSTOM */
-        #calendar { margin-top: 20px; background: white; padding: 20px; border-radius: 12px; }
-        .fc-event { cursor: pointer; border: none !important; padding: 2px 5px; }
-
-        /* AVAILABILITY FORM */
-        .availability-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 600px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group input, .form-group select { padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-
-        @media(max-width:1024px) { .dashboard { grid-template-columns: 80px 1fr; } .sidebar span:not(.icon) { display: none; } .nav-item { justify-content: center; padding: 20px; } }
+        @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
     </style>
 </head>
 <body>
@@ -87,12 +98,13 @@
     <div class="dashboard">
         <aside class="sidebar">
             <div class="logo">
-                <h2>⚽ <span class="icon">BTP</span></h2>
+                <h2>⚽ Beyond the Pitch</h2>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')">📅 <span class="icon">Calendar</span></li>
-                <li class="nav-item" onclick="showSection('bookings')">📋 <span class="icon">Bookings List</span></li>
-                <li class="nav-item" onclick="showSection('availability')">✅ <span class="icon">Availability</span></li>
+                <li class="nav-item active" onclick="showSection('overview', this)">📊 <span>Calendar Overview</span></li>
+                <li class="nav-item" onclick="showSection('bookings', this)">📋 <span>Booking List</span></li>
+                <li class="nav-item" onclick="showSection('packages', this)">🏆 <span>Experience Packages</span></li>
+                <li class="nav-item" onclick="showSection('availability', this)">📅 <span>Set Availability</span></li>
             </ul>
             <button class="logout-btn btn" onclick="logout()">🚪 Logout</button>
         </aside>
@@ -100,13 +112,13 @@
         <main class="main-content">
             <div class="header">
                 <div class="welcome-box">
-                    <p style="color: var(--text-muted); font-weight: 500;">Partner Dashboard</p>
-                    <h1 id="welcomeText">Welcome...</h1>
+                    <h1 id="welcomeText">Welcome back...</h1>
+                    <p style="color: var(--text-muted);">Manage your football experiences and guests.</p>
                 </div>
                 <div class="sync-status">
                     <div class="status-dot"></div>
                     <span>Last sync: <strong id="lastSyncTime">Never</strong></span>
-                    <button class="btn btn-primary" onclick="loadDataFromSheet()" id="syncBtn" style="padding: 6px 12px; font-size: 0.75rem;">Sync Now</button>
+                    <button class="btn btn-primary" onclick="loadDataFromSheet()" id="syncBtn" style="padding: 8px 14px; font-size: 0.8rem;">🔄 Sync</button>
                 </div>
             </div>
 
@@ -117,53 +129,93 @@
                         <div class="stat-value" id="totalBookings">0</div>
                     </div>
                     <div class="stat-card">
-                        <p class="stat-label">Active Guests</p>
+                        <p class="stat-label">Total Guests</p>
                         <div class="stat-value" id="totalGuests">0</div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Booking Calendar</h2>
-                    </div>
+                    <div class="card-header"><h2 class="card-title">Event Calendar</h2></div>
                     <div id="calendar"></div>
                 </div>
             </section>
 
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Detailed Booking List</h2>
-                    </div>
+                    <div class="card-header"><h2 class="card-title">Booking Records</h2></div>
                     <div class="table-wrapper" id="bookingsTableContainer">
+                        <p style="text-align:center; padding:20px;">Loading bookings...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="packages" class="content-section">
+                <div class="card">
+                    <div class="card-header"><h2 class="card-title">Our Experience Packages</h2></div>
+                    <div class="packages-grid">
+                        <div class="package-card">
+                            <div class="package-header">1. Full Day - Hidden Spots & Football</div>
+                            <div class="package-body">
+                                <h4>Highlights</h4>
+                                <p>City exploration (Surco-Barranco), local gems, Alianza match.</p>
+                                <div class="price-tag">Half: €50 | Full: €120 - €200</div>
+                                <ul class="package-list">
+                                    <li>Match tickets & Alianza Lima T-shirt</li>
+                                    <li>2 beers before the game</li>
+                                </ul>
+                            </div>
                         </div>
+                        <div class="package-card">
+                            <div class="package-header">2. Two Days, One Night - Culture & Coast</div>
+                            <div class="package-body">
+                                <h4>Program</h4>
+                                <p>Horse riding on the beach, Miraflores exploration, Football match.</p>
+                                <div class="price-tag">Day 1: €80 | Day 2: €150 - €200</div>
+                                <ul class="package-list">
+                                    <li>Transfers & Horse riding included</li>
+                                    <li>Match tickets & 2 beers</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="package-card">
+                            <div class="package-header">3. Three Days, Two Nights - Complete</div>
+                            <div class="package-body">
+                                <h4>The Full Experience</h4>
+                                <p>San Bartolo beach adventure, ATVs, and full match-day package.</p>
+                                <div class="price-tag">€80 - €200 per day</div>
+                                <ul class="package-list">
+                                    <li>ATVs & Sea activities</li>
+                                    <li>Match tickets & T-shirt</li>
+                                    <li>All Transfers included</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section id="availability" class="content-section">
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Manage Availability</h2>
-                    </div>
-                    <p style="margin-bottom: 20px; color: var(--text-muted);">Set days you are unavailable or change session slots.</p>
-                    <form class="availability-form" onsubmit="event.preventDefault(); alert('Functionality to save to Sheet will be added next.');">
+                    <div class="card-header"><h2 class="card-title">Set Your Availability</h2></div>
+                    <p style="margin-bottom:20px; color: var(--text-muted);">Blocked dates will be synced to the management sheet.</p>
+                    <form class="availability-form" onsubmit="updateAvailability(event)">
                         <div class="form-group">
-                            <label>Start Date</label>
-                            <input type="date">
+                            <label>From Date</label>
+                            <input type="date" required id="availStart">
                         </div>
                         <div class="form-group">
-                            <label>End Date</label>
-                            <input type="date">
+                            <label>To Date</label>
+                            <input type="date" required id="availEnd">
                         </div>
                         <div class="form-group">
                             <label>Status</label>
-                            <select>
-                                <option>Available</option>
-                                <option>Fully Booked</option>
-                                <option>Closed</option>
+                            <select id="availStatus">
+                                <option value="Fully Booked">Fully Booked</option>
+                                <option value="Available">Available</option>
+                                <option value="Closed">Closed / Holiday</option>
                             </select>
                         </div>
-                        <div style="grid-column: span 2;">
-                            <button class="btn btn-primary">Update Availability</button>
+                        <div style="grid-column: span 2; margin-top: 10px;">
+                            <button class="btn btn-primary" type="submit" id="saveAvailBtn">🚀 Save Availability</button>
                         </div>
                     </form>
                 </div>
@@ -171,18 +223,24 @@
         </main>
     </div>
 
+    <div id="toast">✅ Changes saved to Google Sheet!</div>
+
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="auth.js"></script>
     <script src="partner-dashboard.js"></script>
     <script>
-        function showSection(sectionId) {
+        // Tab switching logic
+        function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            event.currentTarget.classList.add('active');
             
-            // Re-render calendar if showing overview
-            if(sectionId === 'overview') { window.calendar.render(); }
+            document.getElementById(sectionId).classList.add('active');
+            element.classList.add('active');
+            
+            // Refresh calendar if visible
+            if(sectionId === 'overview' && window.calendar) {
+                setTimeout(() => { window.calendar.render(); }, 50);
+            }
         }
     </script>
 </body>
