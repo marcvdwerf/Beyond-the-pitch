@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,6 @@
             position: relative;
         }
 
-        /* Terug-knop bovenaan */
         .nav-back {
             position: absolute; top: 20px; left: 20px; z-index: 10;
         }
@@ -61,13 +60,16 @@
         .full-width { grid-column: 1 / -1; }
 
         label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
-        input, textarea { padding: 14px 16px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; }
+        input, textarea { padding: 14px 16px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; }
+        input:focus { border-color: var(--primary); }
 
         .experience-grid { display: grid; gap: 15px; margin-bottom: 35px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.3s; position: relative; }
-        .exp-card.selected { border-color: var(--primary); background: rgba(102, 126, 234, 0.03); }
+        .exp-card.selected { border-color: var(--primary); background: rgba(102, 126, 234, 0.05); }
         .exp-card input { position: absolute; opacity: 0; }
+        .exp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
         .exp-price { color: var(--accent); font-weight: 800; }
+        .exp-details { font-size: 0.9rem; color: #718096; }
 
         .btn-submit {
             background: var(--primary); color: white; border: none; padding: 20px;
@@ -76,7 +78,6 @@
         }
         .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); }
 
-        /* Stijl voor de home knop in het succesbericht */
         .btn-home {
             background: #2d3748; color: white; border: none; padding: 20px;
             border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%;
@@ -159,7 +160,7 @@
         </div>
 
         <div id="successMessage">
-            <h2>✓ Request Sent!</h2>
+            <h2 style="color: var(--accent); margin-bottom: 15px;">✓ Request Sent!</h2>
             <p>Thank you for your interest in the <strong><span id="summaryPackage"></span></strong>.</p>
             <p style="margin-top: 10px; color: #718096;">We will contact you via email within 24 hours.</p>
             
@@ -171,17 +172,20 @@
     </div>
 
     <script>
+        // Configuration
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse';
+        
         const FIELDS = {
             name: 'entry.761572476',
             email: 'entry.1144619265',
             phone: 'entry.1213010877',
-            experience: 'entry.1446094233',
+            experience: 'entry.1446094233', // Make sure this key matches your data object below
             date: 'entry.301148404',
             guests: 'entry.175134312',
             requests: 'entry.2094398847'
         };
 
+        // UI: Card Selection
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -191,42 +195,63 @@
             });
         });
 
+        // Submission Logic
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const loader = document.getElementById('loader');
             const expRadio = document.querySelector('input[name="experience"]:checked');
 
+            // Collect Data
             const data = {
                 name: document.getElementById('name').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
-                exp: expRadio ? expRadio.value : '',
+                experience: expRadio ? expRadio.value : '',
                 date: document.getElementById('date').value,
                 guests: document.getElementById('guests').value,
                 requests: document.getElementById('requests').value.trim()
             };
 
-            if(!data.name || !data.email || !data.exp || !data.date) {
+            // Validation
+            if(!data.name || !data.email || !data.experience || !data.date) {
                 alert('Please complete all required fields (*)');
                 return;
             }
 
+            // UI Feedback
             btn.style.display = 'none';
             loader.style.display = 'block';
 
-            const formData = new FormData();
-            for(let key in FIELDS) {
-                formData.append(FIELDS[key], data[key]);
-            }
+            // Prepare URL Encoded Data (Best for Google Forms)
+            const urlEncodedData = new URLSearchParams();
+            urlEncodedData.append(FIELDS.name, data.name);
+            urlEncodedData.append(FIELDS.email, data.email);
+            urlEncodedData.append(FIELDS.phone, data.phone);
+            urlEncodedData.append(FIELDS.experience, data.experience);
+            urlEncodedData.append(FIELDS.date, data.date);
+            urlEncodedData.append(FIELDS.guests, data.guests);
+            urlEncodedData.append(FIELDS.requests, data.requests);
 
             try {
-                await fetch(FORM_ACTION, { method: 'POST', body: formData, mode: 'no-cors' });
+                // Post to Google Forms
+                await fetch(FORM_ACTION, { 
+                    method: 'POST', 
+                    body: urlEncodedData, 
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+
+                // Show Success (Since mode is no-cors, we assume success if no network error)
                 document.getElementById('bookingForm').style.display = 'none';
-                document.getElementById('summaryPackage').innerText = data.exp;
+                document.getElementById('summaryPackage').innerText = data.experience;
                 document.getElementById('successMessage').style.display = 'block';
                 window.scrollTo(0, 0);
+
             } catch (e) {
-                alert('Connection error.');
+                console.error('Submission Error:', e);
+                alert('There was a connection error. Please check your internet and try again.');
                 btn.style.display = 'block';
                 loader.style.display = 'none';
             }
