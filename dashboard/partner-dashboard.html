@@ -44,14 +44,10 @@
         td { padding:15px; border-bottom:1px solid #f1f5f9; font-size: 0.95rem; }
         tr:hover { background: #f8fafc; }
 
-        /* BADGES */
         .badge { padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:600; }
         .badge-confirmed { background:#dcfce7; color:#166534; }
-        .badge-pending { background:#fef9c3; color:#854d0e; }
-        .badge-available { background:#e0f2fe; color:#075985; }
 
-        /* BUTTONS */
-        .refresh-btn { padding:10px 20px; background:#38bdf8; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px; }
+        .refresh-btn { padding:10px 20px; background:#38bdf8; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px; transition: 0.3s; }
         .refresh-btn:hover { background:#0ea5e9; }
 
         @media(max-width:768px){ .dashboard{grid-template-columns:1fr;} .sidebar{display:none;} }
@@ -68,46 +64,40 @@
                 <p>Partner Dashboard</p>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overzicht</li>
-                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> Boekingen</li>
-                <li class="nav-item" onclick="showSection('availability')"><span>🟢</span> Beschikbaarheid</li>
-                <li class="nav-item" onclick="showSection('settings')"><span>⚙️</span> Instellingen</li>
+                <li class="nav-item active" onclick="showSection('overview')"><span>📊</span> Overview</li>
+                <li class="nav-item" onclick="showSection('bookings')"><span>📅</span> All Bookings</li>
             </ul>
-            <button class="logout-btn" onclick="window.location.href='/'">🚪 Uitloggen</button>
+            <button class="logout-btn" onclick="logout()">🚪 Logout</button>
         </aside>
 
         <main class="main-content">
             <div class="header">
-                <h1 id="welcomeText">Partner Dashboard</h1>
+                <h1 id="welcomeText">Loading...</h1>
                 <div class="sync-status">
                     <div class="status-dot"></div>
-                    Laatste update: <span id="lastSyncTime">Zojuist</span>
+                    Last sync: <span id="lastSyncTime">Never</span>
                 </div>
             </div>
 
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <p class="stat-label">Totaal Boekingen</p>
+                        <p class="stat-label">Total Bookings</p>
                         <div class="stat-value" id="totalBookings">0</div>
                     </div>
                     <div class="stat-card">
-                        <p class="stat-label">Totaal Gasten</p>
+                        <p class="stat-label">Total Guests</p>
                         <div class="stat-value" id="totalGuests">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <p class="stat-label">Beschikbare Slots</p>
-                        <div class="stat-value" id="availableSlots">0</div>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h2>Recente Boekingen</h2>
-                        <button class="refresh-btn" onclick="loadDataFromSheet()" id="syncBtn">🔄 Vernieuwen</button>
+                        <h2>Recent Activity</h2>
+                        <button class="refresh-btn" onclick="loadDataFromSheet()" id="syncBtn">🔄 Refresh Data</button>
                     </div>
                     <div id="bookingsTableContainer">
-                        <div style="text-align:center; padding:40px; color:#888;">Laden van boekingen...</div>
+                        <div style="text-align:center; padding:40px; color:#888;">Fetching latest bookings...</div>
                     </div>
                 </div>
             </section>
@@ -115,43 +105,24 @@
             <section id="bookings" class="content-section">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Alle Boekingen</h2>
+                        <h2>Full Booking History</h2>
                     </div>
                     <div id="fullBookingsTable">
                         </div>
                 </div>
             </section>
-
-            <section id="availability" class="content-section">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Jouw Beschikbaarheid</h2>
-                    </div>
-                    <p style="margin-bottom: 20px; color: #64748b;">Deze data zijn gesynchroniseerd met jouw aanbod in de Google Sheet.</p>
-                    <div id="availabilityContainer">
-                        </div>
-                </div>
-            </section>
-
-            <section id="settings" class="content-section">
-                <div class="card">
-                    <h2>⚙️ Instellingen</h2>
-                    <p style="margin-top:15px; color:#64748b;">Dashboard is gekoppeld aan live Google Sheet data.</p>
-                </div>
-            </section>
         </main>
     </div>
 
+    <script src="auth.js"></script>
+    <script src="partner-dashboard.js"></script>
     <script>
-        // Simpele navigatie functie
         function showSection(sectionId) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            
             document.getElementById(sectionId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
     </script>
-    <script src="partner-dashboard.js"></script>
 </body>
 </html>
