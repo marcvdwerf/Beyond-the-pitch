@@ -1,29 +1,32 @@
 /**
- * Beyond the Pitch - Partner Dashboard Logic (Full Version)
- * Inclusief: Boekingen, Kalender, Statistieken en Availability POST
+ * Beyond the Pitch - Partner Dashboard Logic
+ * Geoptimaliseerd voor travelbeyondthepitch.com/dashboard/
  */
 
 // ===============================
 // CONFIGURATIE
 // ===============================
-// Zorg dat deze URL de allernieuwste is na je 'doPost' implementatie in Google Sheets
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzQ1ZRCue9z1sehve_V7lNMYqKkBRj6Fxl_JAXWOi2NZoQAn_ROwauEEdRLLx1ZPSlwww/exec';
 
 // ===============================
 // INITIALISATIE
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Controleer login status
+    // 1. Beveiliging: De checkAuth functie uit auth.js aanroepen
     if (typeof window.checkAuth === "function") {
-        if (!window.checkAuth('partner')) return;
+        if (!window.checkAuth('partner')) return; 
+    } else {
+        // Als auth.js niet geladen is, voor de zekerheid terug naar login
+        window.location.href = "index.html";
+        return;
     }
 
-    // 2. Gebruikersnaam instellen
+    // 2. Dynamische UI-elementen
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    // 3. Start onderdelen
+    // 3. Onderdelen opstarten
     initCalendar();
     loadDataFromSheet();
 });
@@ -44,7 +47,7 @@ function initCalendar() {
         },
         eventColor: '#38bdf8',
         displayEventTime: false,
-        events: [] // Wordt gevuld door loadDataFromSheet
+        events: [] 
     });
     window.calendar.render();
 }
@@ -60,28 +63,29 @@ async function loadDataFromSheet() {
 
     try {
         const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
-        if (!response.ok) throw new Error("Network response was niet ok");
+        if (!response.ok) throw new Error("Network response error");
         
         const data = await response.json();
         
-        // Filter op rijen die minimaal een naam hebben
+        // Filter: we willen alleen rijen met een naam tonen
         const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]));
 
-        // UI updaten
+        // UI Updates
         renderTable(activeBookings);
         updateStats(activeBookings);
         populateCalendar(activeBookings);
 
-        // Tijdstip update
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        // Update tijdstempel
         const lastSyncEl = document.getElementById('lastSyncTime');
-        if (lastSyncEl) lastSyncEl.textContent = `Today at ${timeString}`;
+        if (lastSyncEl) {
+            const now = new Date();
+            lastSyncEl.textContent = `Today at ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        }
 
     } catch (error) {
         console.error("Sheet Fetch Error:", error);
         if (tableContainer) {
-            tableContainer.innerHTML = `<p style="color:red; padding:20px;">Error syncing data. Check connection.</p>`;
+            tableContainer.innerHTML = `<p style="color:#ef4444; padding:20px; text-align:center;">⚠️ Error syncing data. Please check the Google Sheet connection.</p>`;
         }
     } finally {
         if (syncBtn) syncBtn.innerHTML = "🔄 Refresh Data";
@@ -96,7 +100,7 @@ function renderTable(bookings) {
     if (!container) return;
 
     if (!bookings || bookings.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found.</p>';
+        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found for your account.</p>';
         return;
     }
 
@@ -106,9 +110,9 @@ function renderTable(bookings) {
                 <tr>
                     <th>Date</th>
                     <th>Guest Details</th>
-                    <th>Package / Experience</th>
+                    <th>Experience</th>
                     <th>Guests</th>
-                    <th>Special Requests</th>
+                    <th>Requests</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -117,8 +121,8 @@ function renderTable(bookings) {
 
     bookings.forEach(b => {
         const name = b["Full Name"] || b["Full name"] || "N/A";
-        const email = b["Email Address"] || "N/A";
-        const phone = b["Phone Number"] || "N/A";
+        const email = b["Email Address"] || "";
+        const phone = b["Phone Number"] || "";
         const date = b["Start Date"] || b["Preferred Start Date"] || "N/A";
         const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
         const guests = b["Number of Guests"] || "1";
@@ -128,12 +132,12 @@ function renderTable(bookings) {
             <tr>
                 <td><strong>${date}</strong></td>
                 <td>
-                    <div class="name-cell">${name}</div>
-                    <div style="font-size:0.75rem; color:#64748b;">${email} • ${phone}</div>
+                    <div style="font-weight:700; color:#1e293b;">${name}</div>
+                    <div style="font-size:0.75rem; color:#64748b;">${email} ${phone ? '• ' + phone : ''}</div>
                 </td>
                 <td>${pkg}</td>
-                <td>${guests}</td>
-                <td><div class="request-note" title="${requests}">${requests}</div></td>
+                <td><span style="background:#f1f5f9; padding:4px 8px; border-radius:6px;">${guests}</span></td>
+                <td><div style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.8rem;" title="${requests}">${requests}</div></td>
                 <td><span class="badge badge-confirmed">Confirmed</span></td>
             </tr>
         `;
@@ -146,17 +150,11 @@ function renderTable(bookings) {
 function populateCalendar(bookings) {
     if (!window.calendar) return;
 
-    const events = bookings.map(b => {
-        const dateStr = b["Start Date"] || b["Preferred Start Date"];
-        return {
-            title: `${b["Full Name"] || 'Guest'} (${b["Number of Guests"] || 1})`,
-            start: dateStr,
-            allDay: true,
-            extendedProps: {
-                package: b["Choose Your Experience"]
-            }
-        };
-    });
+    const events = bookings.map(b => ({
+        title: `${b["Full Name"] || 'Guest'} (${b["Number of Guests"] || 1})`,
+        start: b["Start Date"] || b["Preferred Start Date"],
+        allDay: true
+    }));
     
     window.calendar.removeAllEvents();
     window.calendar.addEventSource(events);
@@ -190,7 +188,7 @@ async function updateAvailability(event) {
         startDate: document.getElementById('availStart').value,
         endDate: document.getElementById('availEnd').value,
         status: document.getElementById('availStatus').value,
-        partner: localStorage.getItem("userName") || "Unknown Partner"
+        partner: localStorage.getItem("userName") || "Global Partner"
     };
 
     if (!availabilityData.startDate || !availabilityData.endDate) {
@@ -202,6 +200,7 @@ async function updateAvailability(event) {
         saveBtn.innerText = "⏳ Saving...";
         saveBtn.disabled = true;
 
+        // POST naar Google Script
         await fetch(SHEET_API_URL, {
             method: 'POST',
             mode: 'no-cors', 
@@ -210,19 +209,19 @@ async function updateAvailability(event) {
             body: JSON.stringify(availabilityData)
         });
 
-        showToast("✅ Availability updated in Google Sheet!");
+        showToast("✅ Availability synced to management sheet!");
         event.target.reset();
 
     } catch (error) {
         console.error("Save error:", error);
-        alert("Error saving availability.");
+        alert("Connection error. Could not save availability.");
     } finally {
         saveBtn.innerText = originalText;
         saveBtn.disabled = false;
     }
 }
 
-// Helper: Toast melding
+// Helper voor meldingen
 function showToast(message) {
     const toast = document.getElementById('toast');
     if (toast) {
@@ -230,11 +229,4 @@ function showToast(message) {
         toast.style.display = 'block';
         setTimeout(() => { toast.style.display = 'none'; }, 3000);
     }
-}
-
-// Uitlog functie
-function logout() {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole");
-    window.location.href = "login.html";
 }
