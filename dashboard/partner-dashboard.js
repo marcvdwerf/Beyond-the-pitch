@@ -7,7 +7,7 @@
 // CONFIGURATIE
 // ===============================
 // De nieuwe URL van je Google Apps Script
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxAURvnfRhjBNFruVmkE0wpgPQ6Aprw6B9qCgRUhJjnG6cq-lep8mgPh-jw3Mfx8TM/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwRQcpt9Ydu4alij0mrccYTflXrd6f3NvmSDDSbe2aDWrto0BDuV4v1pzuJt2jaKW0fKw/exec';
 
 // ===============================
 // INITIALISATIE
