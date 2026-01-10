@@ -91,7 +91,7 @@ function renderTable(bookings) {
             <tbody>
                 ${bookings.map(b => `
                     <tr>
-                        <td>${b["Preferred Start Date"] || b["Timestamp"] || 'N/A'}</td>
+                        <td>${b["Start Date"] || b["Timestamp"] || 'N/A'}</td>
                         <td><strong>${b["Full Name"] || b["Full name"] || 'Guest'}</strong></td>
                         <td>${b["Select Your Package"] || '-'}</td>
                         <td>${b["Number of Guests"] || '1'}</td>
