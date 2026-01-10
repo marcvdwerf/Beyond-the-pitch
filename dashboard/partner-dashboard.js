@@ -1,157 +1,137 @@
 /**
- * Beyond the Pitch - Partner Dashboard Logic
- * Volledig gecorrigeerd voor jouw specifieke kolomnamen en nieuwe API URL.
+ * Beyond the Pitch - Partner Dashboard Logic (Enhanced Version)
  */
 
-// ===============================
-// CONFIGURATIE
-// ===============================
-// De nieuwe URL van je Google Apps Script
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwRQcpt9Ydu4alij0mrccYTflXrd6f3NvmSDDSbe2aDWrto0BDuV4v1pzuJt2jaKW0fKw/exec';
 
-// ===============================
-// INITIALISATIE
-// ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Controleer of de gebruiker is ingelogd (via auth.js)
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return;
     }
 
-    // 2. Personaliseer welkomstbericht
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    // 3. Start de eerste data-ophaalactie
+    initCalendar();
     loadDataFromSheet();
 });
 
-// ===============================
-// DATA OPHALEN
-// ===============================
+// Initialize the Calendar
+function initCalendar() {
+    const calendarEl = document.getElementById('calendar');
+    window.calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek'
+        },
+        eventColor: '#38bdf8',
+        events: [] // Will be populated by data
+    });
+    window.calendar.render();
+}
+
 async function loadDataFromSheet() {
-    const tableContainer = document.getElementById('bookingsTableContainer');
     const syncBtn = document.getElementById('syncBtn');
-    
-    if (syncBtn) syncBtn.innerHTML = "<span>⏳</span> Syncing...";
+    if (syncBtn) syncBtn.innerHTML = "⏳ Syncing...";
 
     try {
-        // Fetch data van Google Apps Script
         const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
-        
-        if (!response.ok) throw new Error("Netwerk response was niet ok");
+        if (!response.ok) throw new Error("Network error");
         
         const data = await response.json();
-        console.log("Data succesvol geladen:", data);
-
-        // Filter: Alleen rijen tonen waar "Full Name" is ingevuld (met extra check op mogelijke variaties)
-        const activeBookings = data.filter(row => {
-            const nameField = row["Full Name"] || row["Full name"] || "";
-            return nameField.toString().trim() !== "";
-        });
-        
-        // Optioneel: Sorteer op Start Date (nieuwste eerst)
-        activeBookings.sort((a, b) => {
-            const dateA = new Date(a["Start Date"] || a["Preferred Start Date"]);
-            const dateB = new Date(b["Start Date"] || b["Preferred Start Date"]);
-            return dateB - dateA;
-        });
+        const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]) );
 
         renderTable(activeBookings);
         updateStats(activeBookings);
+        populateCalendar(activeBookings);
 
-        // Update de laatste synchronisatietijd
         const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('lastSyncTime').textContent = `Today at ${timeString}`;
+        document.getElementById('lastSyncTime').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     } catch (error) {
-        console.error("Sheet Fetch Error:", error);
-        if (tableContainer) {
-            tableContainer.innerHTML = `
-                <div style="color:#ef4444; padding:20px; text-align:center; border: 1px dashed #f87171; border-radius:10px; background: #fff5f5;">
-                    <strong>Unable to sync with Google Sheets.</strong><br>
-                    <p style="font-size: 0.85rem; margin-top: 10px; color: #666;">
-                        Reden: De browser kan de data niet bereiken. <br>
-                        1. Controleer of de Web App URL klopt.<br>
-                        2. Zorg dat de toegang in Google Scripts op 'Iedereen' staat.
-                    </p>
-                </div>`;
-        }
+        console.error("Fetch error:", error);
     } finally {
         if (syncBtn) syncBtn.innerHTML = "🔄 Refresh Data";
     }
 }
 
-// ===============================
-// UI RENDERING
-// ===============================
 function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
-    const fullTableContainer = document.getElementById('fullBookingsTable');
-    
-    if (!bookings || bookings.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found in the spreadsheet yet.</p>';
+    if (!bookings.length) {
+        container.innerHTML = '<p>No bookings found.</p>';
         return;
     }
 
-    // Genereer de tabel HTML met flexibele kolomnamen
-    const tableHTML = `
+    let html = `
         <table>
             <thead>
                 <tr>
-                    <th>Start Date</th>
-                    <th>Guest Name</th>
-                    <th>Package</th>
+                    <th>Date</th>
+                    <th>Guest Details</th>
+                    <th>Package / Experience</th>
                     <th>Guests</th>
+                    <th>Special Requests</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                ${bookings.map(b => {
-                    // Flexibele toewijzing voor het geval kolomnamen licht afwijken
-                    const name = b["Full Name"] || b["Full name"] || "Unknown";
-                    const date = b["Start Date"] || b["Preferred Start Date"] || "N/A";
-                    const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
-                    const guests = b["Number of Guests"] || "1";
-
-                    return `
-                    <tr>
-                        <td>${date}</td>
-                        <td><strong>${name}</strong></td>
-                        <td>${pkg}</td>
-                        <td>${guests}</td>
-                        <td><span class="badge badge-confirmed">Confirmed</span></td>
-                    </tr>`;
-                }).join('')}
-            </tbody>
-        </table>
     `;
 
-    container.innerHTML = tableHTML;
+    bookings.forEach(b => {
+        const name = b["Full Name"] || b["Full name"] || "N/A";
+        const email = b["Email Address"] || "N/A";
+        const phone = b["Phone Number"] || "N/A";
+        const date = b["Start Date"] || b["Preferred Start Date"] || "N/A";
+        const pkg = b["Choose Your Experience"] || "-";
+        const guests = b["Number of Guests"] || "1";
+        const requests = b["Special Requests"] || "None";
+
+        html += `
+            <tr>
+                <td><strong>${date}</strong></td>
+                <td>
+                    <div class="name-cell">${name}</div>
+                    <div style="font-size:0.75rem; color:#64748b;">${email} • ${phone}</div>
+                </td>
+                <td>${pkg}</td>
+                <td>${guests}</td>
+                <td><div class="request-note" title="${requests}">${requests}</div></td>
+                <td><span class="badge badge-confirmed">Confirmed</span></td>
+            </tr>
+        `;
+    });
+
+    html += '</tbody></table>';
+    container.innerHTML = html;
+}
+
+function populateCalendar(bookings) {
+    const events = bookings.map(b => {
+        const dateStr = b["Start Date"] || b["Preferred Start Date"];
+        // Ensure date is in a format JS understands (YYYY-MM-DD)
+        return {
+            title: `${b["Full Name"] || 'Guest'} (${b["Number of Guests"] || 1})`,
+            start: dateStr,
+            allDay: true,
+            extendedProps: {
+                experience: b["Choose Your Experience"]
+            }
+        };
+    });
     
-    // Update ook de 'Full Bookings' sectie op de andere tab indien aanwezig
-    if (fullTableContainer) fullTableContainer.innerHTML = tableHTML;
+    window.calendar.removeAllEvents();
+    window.calendar.addEventSource(events);
 }
 
 function updateStats(bookings) {
-    const totalBookingsEl = document.getElementById('totalBookings');
-    const totalGuestsEl = document.getElementById('totalGuests');
-
-    if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
-    
+    document.getElementById('totalBookings').textContent = bookings.length;
     let guestCount = 0;
     bookings.forEach(b => {
-        // Gebruik de flexibele kolomnaam voor gasten
-        const guestValue = b["Number of Guests"] || "1";
-        const num = parseInt(guestValue);
-        if (!isNaN(num)) {
-            guestCount += num;
-        } else {
-            guestCount += 1;
-        }
+        const n = parseInt(b["Number of Guests"]);
+        guestCount += isNaN(n) ? 1 : n;
     });
-    
-    if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
+    document.getElementById('totalGuests').textContent = guestCount;
 }
