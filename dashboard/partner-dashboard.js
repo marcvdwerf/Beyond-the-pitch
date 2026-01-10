@@ -2,7 +2,7 @@
  * Beyond the Pitch - Partner Dashboard Logic (Enhanced Version)
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwRQcpt9Ydu4alij0mrccYTflXrd6f3NvmSDDSbe2aDWrto0BDuV4v1pzuJt2jaKW0fKw/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzQ1ZRCue9z1sehve_V7lNMYqKkBRj6Fxl_JAXWOi2NZoQAn_ROwauEEdRLLx1ZPSlwww/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.checkAuth === "function") {
