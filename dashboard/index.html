@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e293b, #334155);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -17,8 +17,8 @@
         }
         .login-container {
             background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             max-width: 1000px;
             width: 100%;
             display: grid;
@@ -27,41 +27,50 @@
         }
         .login-left {
             padding: 60px 40px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
             color: #fff;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        .login-left h1 { font-size: 2.5rem; margin-bottom: 20px; }
+        .login-left h1 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
         .login-left p { opacity: 0.9; line-height: 1.6; font-size: 1.1rem; }
-        .login-right { padding: 60px 40px; }
-        .login-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 30px; }
+        
+        .login-right { padding: 60px 40px; background: white; }
+        .login-tabs { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 30px; }
         .tab-btn {
             flex: 1; padding: 15px; border: none; background: none;
-            cursor: pointer; font-weight: 600; color: #999;
+            cursor: pointer; font-weight: 700; color: #94a3b8;
             border-bottom: 3px solid transparent; transition: 0.3s;
         }
-        .tab-btn.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-btn.active { color: #0ea5e9; border-bottom-color: #0ea5e9; }
+        
         .login-form { display: none; }
-        .login-form.active { display: block; }
-        h2 { margin-bottom: 25px; color: #333; }
+        .login-form.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { margin-bottom: 25px; color: #1e293b; font-weight: 800; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #555; font-weight: 500; }
+        label { display: block; margin-bottom: 8px; color: #64748b; font-weight: 600; font-size: 0.9rem; }
         input {
-            width: 100%; padding: 14px; border-radius: 10px;
-            border: 2px solid #e0e0e0; font-size: 1rem; transition: 0.3s;
+            width: 100%; padding: 14px; border-radius: 12px;
+            border: 2px solid #f1f5f9; font-size: 1rem; transition: 0.3s;
+            background: #f8fafc;
         }
-        input:focus { outline: none; border-color: #667eea; }
+        input:focus { outline: none; border-color: #38bdf8; background: white; }
+        
         .login-btn {
-            width: 100%; padding: 15px; border-radius: 10px; border: none;
-            font-weight: 600; font-size: 1.1rem; color: #fff;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 100%; padding: 15px; border-radius: 12px; border: none;
+            font-weight: 700; font-size: 1.1rem; color: #fff;
+            background: #0ea5e9;
             cursor: pointer; transition: 0.3s;
+            margin-top: 10px;
         }
-        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
-        .error-message { color: #d32f2f; margin-top: 15px; font-size: 0.95rem; min-height: 20px; }
-        .demo-box { margin-top: 25px; background: #f8f9fa; padding: 15px; border-radius: 10px; font-size: 0.9rem; border-left: 4px solid #667eea; }
+        .login-btn:hover { background: #0284c7; transform: translateY(-2px); }
+        
+        .error-message { color: #ef4444; margin-top: 15px; font-size: 0.9rem; font-weight: 500; min-height: 20px; }
+        .demo-box { margin-top: 25px; background: #f0f9ff; padding: 15px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #bae6fd; color: #0369a1; }
+        
         @media (max-width: 768px) { .login-container { grid-template-columns: 1fr; } .login-left { display: none; } }
     </style>
 </head>
@@ -70,50 +79,46 @@
 <div class="login-container">
     <div class="login-left">
         <h1>⚽ Beyond the Pitch</h1>
-        <p>
-            Partner Dashboard – Beheer je voetbal-ervaringen in Lima, bekijk boekingen en synchroniseer je schema in één overzichtelijke omgeving.
-        </p>
+        <p>Partner Dashboard – Manage your Lima football experiences, view guest lists, and sync your availability in one place.</p>
     </div>
 
     <div class="login-right">
-        <div class="login-tabs" role="tablist">
+        <div class="login-tabs">
             <button class="tab-btn active" data-tab="partner">Partner Login</button>
             <button class="tab-btn" data-tab="admin">Admin Login</button>
         </div>
 
         <form class="login-form active" id="partner-form">
-            <h2>Partner Dashboard</h2>
+            <h2>Partner Access</h2>
             <div class="form-group">
-                <label for="partner-email">Email</label>
+                <label>Email Address</label>
                 <input id="partner-email" type="email" placeholder="peru@demo.com" required />
             </div>
             <div class="form-group">
-                <label for="partner-password">Password</label>
+                <label>Password</label>
                 <input id="partner-password" type="password" placeholder="••••••••" required />
             </div>
-            <button class="login-btn" type="submit">Login as Partner</button>
+            <button class="login-btn" type="submit">Sign In</button>
             <p class="error-message" id="partner-error"></p>
             <div class="demo-box">
-                <strong>Demo Login:</strong><br>
-                User: peru@demo.com | Pass: peru123
+                <strong>Demo Partner:</strong> peru@demo.com / peru123
             </div>
         </form>
 
         <form class="login-form" id="admin-form">
             <h2>Admin Panel</h2>
             <div class="form-group">
-                <label for="admin-email">Email</label>
+                <label>Admin Email</label>
                 <input id="admin-email" type="email" placeholder="admin@demo.com" required />
             </div>
             <div class="form-group">
-                <label for="admin-password">Password</label>
+                <label>Password</label>
                 <input id="admin-password" type="password" placeholder="••••••••" required />
             </div>
-            <button class="login-btn" type="submit">Login as Admin</button>
+            <button class="login-btn" type="submit">Sign In as Admin</button>
             <p class="error-message" id="admin-error"></p>
             <div class="demo-box">
-                <strong>Admin Login:</strong><br>
-                User: admin@demo.com | Pass: admin123
+                <strong>Demo Admin:</strong> admin@demo.com / admin123
             </div>
         </form>
     </div>
