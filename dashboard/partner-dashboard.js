@@ -1,33 +1,34 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
- * Geoptimaliseerd voor de laatste Google Form wijzigingen
+ * Volledig gecorrigeerd voor jouw specifieke kolomnamen.
  */
 
 // ===============================
-// CONFIGURATION
+// CONFIGURATIE
 // ===============================
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyroakbBxAHnGpcKfTMVrxU6wq0rmR1vXbWkQybJFf1QTgYjlPg7H9fA_pu_P-oRxo3Cw/exec';
+// ZORG ERVOOR DAT DEZE URL EINDIGT OP /exec
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxet63ehOgfN6Bx3zhiY496W4PazMwLsX4ohobFx8XHsngLrfqyBU7wpi8uwpd2zt5ijg/exec';
 
 // ===============================
-// INITIALIZATION
+// INITIALISATIE
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Check login
+    // 1. Controleer of de gebruiker is ingelogd (via auth.js)
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return;
     }
 
-    // 2. Naam aanpassen
+    // 2. Personaliseer welkomstbericht
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    // 3. Data ophalen
+    // 3. Start de eerste data-ophaalactie
     loadDataFromSheet();
 });
 
 // ===============================
-// DATA FETCHING
+// DATA OPHALEN
 // ===============================
 async function loadDataFromSheet() {
     const tableContainer = document.getElementById('bookingsTableContainer');
@@ -36,31 +37,39 @@ async function loadDataFromSheet() {
     if (syncBtn) syncBtn.innerHTML = "<span>⏳</span> Syncing...";
 
     try {
-        // We voegen redirect: 'follow' toe voor Google Scripts
+        // Fetch data van Google Apps Script
         const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
-        if (!response.ok) throw new Error("Connection to Sheet failed");
+        
+        if (!response.ok) throw new Error("Netwerk response was niet ok");
         
         const data = await response.json();
+        console.log("Data succesvol geladen:", data);
+
+        // Filter: Alleen rijen tonen waar "Full Name" is ingevuld
+        const activeBookings = data.filter(row => row["Full Name"] && row["Full Name"].toString().trim() !== "");
         
-        // Filter: We pakken alleen rijen waar een naam of timestamp staat
-        const activeBookings = data.filter(row => row["Full Name"] || row["Full name"] || row["Timestamp"]);
-        
-        // Sorteer op datum (nieuwste bovenaan)
-        activeBookings.sort((a, b) => new Date(b["Timestamp"]) - new Date(a["Timestamp"]));
+        // Optioneel: Sorteer op Start Date (nieuwste eerst)
+        activeBookings.sort((a, b) => new Date(b["Start Date"]) - new Date(a["Start Date"]));
 
         renderTable(activeBookings);
         updateStats(activeBookings);
 
+        // Update de laatste synchronisatietijd
         const now = new Date();
-        document.getElementById('lastSyncTime').textContent = `Today at ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('lastSyncTime').textContent = `Today at ${timeString}`;
 
     } catch (error) {
-        console.error("Dashboard Error:", error);
+        console.error("Sheet Fetch Error:", error);
         if (tableContainer) {
             tableContainer.innerHTML = `
-                <div style="color:#ef4444; padding:20px; text-align:center; border: 1px dashed #f87171; border-radius:10px; background:#fff5f5;">
+                <div style="color:#ef4444; padding:20px; text-align:center; border: 1px dashed #f87171; border-radius:10px; background: #fff5f5;">
                     <strong>Unable to sync with Google Sheets.</strong><br>
-                    <small>Check if the App Script deployment is set to 'Anyone'.</small>
+                    <p style="font-size: 0.85rem; margin-top: 10px; color: #666;">
+                        Reden: De browser kan de data niet bereiken. <br>
+                        1. Controleer of de Web App URL klopt.<br>
+                        2. Zorg dat de toegang in Google Scripts op 'Iedereen' staat.
+                    </p>
                 </div>`;
         }
     } finally {
@@ -76,15 +85,16 @@ function renderTable(bookings) {
     const fullTableContainer = document.getElementById('fullBookingsTable');
     
     if (!bookings || bookings.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found yet.</p>';
+        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found in the spreadsheet yet.</p>';
         return;
     }
 
+    // Genereer de tabel HTML met jouw specifieke kolomnamen
     const tableHTML = `
         <table>
             <thead>
                 <tr>
-                    <th>Date</th>
+                    <th>Start Date</th>
                     <th>Guest Name</th>
                     <th>Package</th>
                     <th>Guests</th>
@@ -92,28 +102,22 @@ function renderTable(bookings) {
                 </tr>
             </thead>
             <tbody>
-                ${bookings.map(b => {
-                    // We checken meerdere varianten van kolomnamen voor de zekerheid
-                    const date = b["Preferred Start Date"] || b["Start Date"] || b["Timestamp"] || 'N/A';
-                    const name = b["Full Name"] || b["Full name"] || 'Unknown';
-                    const pkg = b["Select Your Package"] || b["Package"] || '-';
-                    const count = b["Number of Guests"] || '1';
-                    
-                    return `
+                ${bookings.map(b => `
                     <tr>
-                        <td>${date}</td>
-                        <td><strong>${name}</strong></td>
-                        <td>${pkg}</td>
-                        <td>${count}</td>
+                        <td>${b["Start Date"] || 'N/A'}</td>
+                        <td><strong>${b["Full Name"] || 'Unknown'}</strong></td>
+                        <td>${b["Choose Your Experience"] || '-'}</td>
+                        <td>${b["Number of Guests"] || '1'}</td>
                         <td><span class="badge badge-confirmed">Confirmed</span></td>
                     </tr>
-                    `;
-                }).join('')}
+                `).join('')}
             </tbody>
         </table>
     `;
 
     container.innerHTML = tableHTML;
+    
+    // Update ook de 'Full Bookings' sectie op de andere tab indien aanwezig
     if (fullTableContainer) fullTableContainer.innerHTML = tableHTML;
 }
 
@@ -125,9 +129,13 @@ function updateStats(bookings) {
     
     let guestCount = 0;
     bookings.forEach(b => {
-        const val = b["Number of Guests"];
-        const num = parseInt(val);
-        if (!isNaN(num)) guestCount += num;
+        // Zorg dat het aantal gasten als getal wordt geteld
+        const num = parseInt(b["Number of Guests"]);
+        if (!isNaN(num)) {
+            guestCount += num;
+        } else {
+            guestCount += 1; // Default naar 1 als het geen getal is
+        }
     });
     
     if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
