@@ -1,11 +1,7 @@
 /**
  * Beyond the Pitch - Authentication Logic
- * Beheert inloggen, uitloggen en toegangscontrole
  */
 
-// ===============================
-// MOCK USER DATABASE
-// ===============================
 const users = [
     { 
         role: "partner", 
@@ -23,15 +19,11 @@ const users = [
     }
 ];
 
-// ===============================
-// INITIALISATIE & TAB SWITCHING
-// ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // Check of we op de loginpagina zijn (index.html)
     const isLoginPage = document.querySelector('.tab-btn') !== null;
     
     if (isLoginPage) {
-        // Voorkom dat ingelogde mensen weer inloggen
+        // Al ingelogd? Stuur direct door naar dashboard
         const isAuthenticated = localStorage.getItem("isAuthenticated");
         const userType = localStorage.getItem("userType");
         if (isAuthenticated === "true") {
@@ -39,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (user) window.location.href = user.redirect;
         }
 
-        // Tab switching logica
+        // Tab Switching
         const tabButtons = document.querySelectorAll(".tab-btn");
         const loginForms = document.querySelectorAll(".login-form");
 
@@ -49,12 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 loginForms.forEach(form => form.classList.remove("active"));
 
                 button.classList.add("active");
-                const targetForm = document.getElementById(`${button.dataset.tab}-form`);
-                if(targetForm) targetForm.classList.add("active");
+                const targetId = `${button.dataset.tab}-form`;
+                document.getElementById(targetId).classList.add("active");
             });
         });
 
-        // Form submits koppelen
+        // Form Submit Handlers
         document.getElementById("partner-form")?.addEventListener("submit", e => {
             e.preventDefault();
             handleLogin("partner");
@@ -67,68 +59,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ===============================
-// LOGIN HANDLER
-// ===============================
 function handleLogin(role) {
-    const emailInput = document.getElementById(`${role}-email`);
-    const passwordInput = document.getElementById(`${role}-password`);
-    const errorElement = document.getElementById(`${role}-error`);
-
-    if (!emailInput || !passwordInput) return;
-
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-
-    if(errorElement) errorElement.textContent = "";
+    const email = document.getElementById(`${role}-email`).value.trim();
+    const password = document.getElementById(`${role}-password`).value.trim();
+    const errorEl = document.getElementById(`${role}-error`);
 
     const user = users.find(u => u.role === role && u.email === email && u.password === password);
 
-    if (!user) {
-        if(errorElement) errorElement.textContent = "Ongeldig e-mailadres of wachtwoord.";
-        return;
+    if (user) {
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("userType", user.role);
+        localStorage.setItem("userName", user.name);
+        window.location.href = user.redirect;
+    } else {
+        errorEl.textContent = "Invalid email or password.";
+        setTimeout(() => { errorEl.textContent = ""; }, 3000);
     }
-
-    // ✅ Sessie opslaan
-    localStorage.setItem("isAuthenticated", "true");
-    localStorage.setItem("userType", user.role);
-    localStorage.setItem("userEmail", user.email);
-    localStorage.setItem("userName", user.name);
-
-    window.location.href = user.redirect;
 }
 
-// ===============================
-// AUTH CHECK (Voor gebruik in dashboards)
-// ===============================
+/**
+ * Gebruik deze functie bovenaan elk dashboard-bestand om beveiliging te garanderen
+ */
 function checkAuth(requiredRole) {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     const userType = localStorage.getItem("userType");
 
     if (isAuthenticated !== "true" || userType !== requiredRole) {
-        console.warn("Niet geautoriseerd. Redirect naar login...");
         window.location.href = "index.html";
         return false;
     }
     return true;
 }
 
-// ===============================
-// LOGOUT (De ontbrekende schakel)
-// ===============================
 function logout() {
-    console.log("🚪 Uitloggen gestart...");
-    
-    // Wis de volledige lokale opslag van de sessie
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("userType");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userName");
-    
-    // Redirect naar de hoofdpagina/loginpagina
+    localStorage.clear();
     window.location.replace("index.html");
 }
 
-// ✅ Maak functies globaal beschikbaar
+// Global scope
 window.checkAuth = checkAuth;
 window.logout = logout;
