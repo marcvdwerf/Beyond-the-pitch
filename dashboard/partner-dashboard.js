@@ -1,5 +1,6 @@
 /**
- * Beyond the Pitch - Partner Dashboard Logic (English)
+ * Beyond the Pitch - Partner Dashboard Logic
+ * Geoptimaliseerd voor de laatste Google Form wijzigingen
  */
 
 // ===============================
@@ -8,20 +9,20 @@
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxet63ehOgfN6Bx3zhiY496W4PazMwLsX4ohobFx8XHsngLrfqyBU7wpi8uwpd2zt5ijg/exec';
 
 // ===============================
-// INITIALIZATION & AUTH
+// INITIALIZATION
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Verify user is logged in via auth.js
+    // 1. Check login
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return;
     }
 
-    // 2. Personalize welcome message
+    // 2. Naam aanpassen
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    // 3. Initial data fetch
+    // 3. Data ophalen
     loadDataFromSheet();
 });
 
@@ -35,29 +36,31 @@ async function loadDataFromSheet() {
     if (syncBtn) syncBtn.innerHTML = "<span>⏳</span> Syncing...";
 
     try {
-        const response = await fetch(SHEET_API_URL);
-        if (!response.ok) throw new Error("Network response was not ok");
+        // We voegen redirect: 'follow' toe voor Google Scripts
+        const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
+        if (!response.ok) throw new Error("Connection to Sheet failed");
         
         const data = await response.json();
         
-        // Filter out empty rows (ensure there is at least a name)
-        const activeBookings = data.filter(row => row["Full Name"] || row["Full name"]);
+        // Filter: We pakken alleen rijen waar een naam of timestamp staat
+        const activeBookings = data.filter(row => row["Full Name"] || row["Full name"] || row["Timestamp"]);
         
+        // Sorteer op datum (nieuwste bovenaan)
+        activeBookings.sort((a, b) => new Date(b["Timestamp"]) - new Date(a["Timestamp"]));
+
         renderTable(activeBookings);
         updateStats(activeBookings);
 
-        // Update timestamp
         const now = new Date();
-        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('lastSyncTime').textContent = `Today at ${timeString}`;
+        document.getElementById('lastSyncTime').textContent = `Today at ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 
     } catch (error) {
-        console.error("Sheet Fetch Error:", error);
+        console.error("Dashboard Error:", error);
         if (tableContainer) {
             tableContainer.innerHTML = `
-                <div style="color:#ef4444; padding:20px; text-align:center; border: 1px dashed #f87171; border-radius:10px;">
-                    <strong>Unable to load data.</strong><br>
-                    Please check if the Google Sheet script is deployed correctly.
+                <div style="color:#ef4444; padding:20px; text-align:center; border: 1px dashed #f87171; border-radius:10px; background:#fff5f5;">
+                    <strong>Unable to sync with Google Sheets.</strong><br>
+                    <small>Check if the App Script deployment is set to 'Anyone'.</small>
                 </div>`;
         }
     } finally {
@@ -89,15 +92,23 @@ function renderTable(bookings) {
                 </tr>
             </thead>
             <tbody>
-                ${bookings.map(b => `
+                ${bookings.map(b => {
+                    // We checken meerdere varianten van kolomnamen voor de zekerheid
+                    const date = b["Preferred Start Date"] || b["Start Date"] || b["Timestamp"] || 'N/A';
+                    const name = b["Full Name"] || b["Full name"] || 'Unknown';
+                    const pkg = b["Select Your Package"] || b["Package"] || '-';
+                    const count = b["Number of Guests"] || '1';
+                    
+                    return `
                     <tr>
-                        <td>${b["Start Date"] || b["Timestamp"] || 'N/A'}</td>
-                        <td><strong>${b["Full Name"] || b["Full name"] || 'Guest'}</strong></td>
-                        <td>${b["Select Your Package"] || '-'}</td>
-                        <td>${b["Number of Guests"] || '1'}</td>
+                        <td>${date}</td>
+                        <td><strong>${name}</strong></td>
+                        <td>${pkg}</td>
+                        <td>${count}</td>
                         <td><span class="badge badge-confirmed">Confirmed</span></td>
                     </tr>
-                `).join('')}
+                    `;
+                }).join('')}
             </tbody>
         </table>
     `;
@@ -114,7 +125,8 @@ function updateStats(bookings) {
     
     let guestCount = 0;
     bookings.forEach(b => {
-        const num = parseInt(b["Number of Guests"]);
+        const val = b["Number of Guests"];
+        const num = parseInt(val);
         if (!isNaN(num)) guestCount += num;
     });
     
