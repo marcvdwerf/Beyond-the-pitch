@@ -1,7 +1,7 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
  * Geoptimaliseerd voor travelbeyondthepitch.com/dashboard/
- * Inclusief datum-formattering voor de Booking List
+ * Focus: Mobile Responsiveness & Date Formatting
  */
 
 // ===============================
@@ -13,7 +13,7 @@ const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzQ1ZRCue9z1sehve
 // INITIALISATIE
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Beveiliging: De checkAuth functie uit auth.js aanroepen
+    // 1. Beveiliging check
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return; 
     } else {
@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 2. Dynamische UI-elementen
+    // 2. Welkomsttekst
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    // 3. Onderdelen opstarten
+    // 3. Start onderdelen
     initCalendar();
     loadDataFromSheet();
 });
@@ -66,7 +66,6 @@ async function loadDataFromSheet() {
         if (!response.ok) throw new Error("Network response error");
         
         const data = await response.json();
-        
         const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]));
 
         renderTable(activeBookings);
@@ -82,7 +81,7 @@ async function loadDataFromSheet() {
     } catch (error) {
         console.error("Sheet Fetch Error:", error);
         if (tableContainer) {
-            tableContainer.innerHTML = `<p style="color:#ef4444; padding:20px; text-align:center;">⚠️ Error syncing data. Please check the Google Sheet connection.</p>`;
+            tableContainer.innerHTML = `<p style="color:#ef4444; padding:20px; text-align:center;">⚠️ Error syncing data.</p>`;
         }
     } finally {
         if (syncBtn) syncBtn.innerHTML = "🔄 Refresh Data";
@@ -90,7 +89,7 @@ async function loadDataFromSheet() {
 }
 
 // ===============================
-// UI RENDERING (INCLUSIEF DATUM FIX)
+// UI RENDERING (MOBILE READY)
 // ===============================
 function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
@@ -101,21 +100,13 @@ function renderTable(bookings) {
         return;
     }
 
-    // HELPER: Maakt van "2026-01-30T23:00:00.000Z" -> "30 Jan 2026"
     const formatDisplayDate = (dateStr) => {
         if (!dateStr || dateStr === "N/A") return "N/A";
         try {
             const dateObj = new Date(dateStr);
             if (isNaN(dateObj.getTime())) return dateStr; 
-            
-            return dateObj.toLocaleDateString('en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-            });
-        } catch (e) {
-            return dateStr;
-        }
+            return dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        } catch (e) { return dateStr; }
     };
 
     let html = `
@@ -138,25 +129,27 @@ function renderTable(bookings) {
         const email = b["Email Address"] || "";
         const phone = b["Phone Number"] || "";
         const rawDate = b["Start Date"] || b["Preferred Start Date"] || "N/A";
-        
-        // Formatteer de datum voor weergave
         const cleanDate = formatDisplayDate(rawDate);
-
         const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
         const guests = b["Number of Guests"] || "1";
         const requests = b["Special Requests"] || "None";
 
+        // De data-label attributen hieronder zijn cruciaal voor de mobiele weergave
         html += `
             <tr>
-                <td><strong style="color: #1e293b;">${cleanDate}</strong></td>
-                <td>
+                <td data-label="Date"><strong style="color: #1e293b;">${cleanDate}</strong></td>
+                <td data-label="Guest">
                     <div style="font-weight:700; color:#1e293b;">${name}</div>
                     <div style="font-size:0.75rem; color:#64748b;">${email} ${phone ? '• ' + phone : ''}</div>
                 </td>
-                <td>${pkg}</td>
-                <td><span style="background:#f1f5f9; padding:4px 8px; border-radius:6px;">${guests}</span></td>
-                <td><div style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.8rem;" title="${requests}">${requests}</div></td>
-                <td><span class="badge badge-confirmed">Confirmed</span></td>
+                <td data-label="Experience">${pkg}</td>
+                <td data-label="Guests"><span style="background:#f1f5f9; padding:4px 8px; border-radius:6px;">${guests}</span></td>
+                <td data-label="Requests">
+                    <div style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.8rem;" title="${requests}">
+                        ${requests}
+                    </div>
+                </td>
+                <td data-label="Status"><span class="badge badge-confirmed">Confirmed</span></td>
             </tr>
         `;
     });
@@ -165,15 +158,16 @@ function renderTable(bookings) {
     container.innerHTML = html;
 }
 
+// ===============================
+// OVERIGE FUNCTIES
+// ===============================
 function populateCalendar(bookings) {
     if (!window.calendar) return;
-
     const events = bookings.map(b => ({
         title: `${b["Full Name"] || 'Guest'} (${b["Number of Guests"] || 1})`,
         start: b["Start Date"] || b["Preferred Start Date"],
         allDay: true
     }));
-    
     window.calendar.removeAllEvents();
     window.calendar.addEventSource(events);
 }
@@ -181,7 +175,6 @@ function populateCalendar(bookings) {
 function updateStats(bookings) {
     const totalBookingsEl = document.getElementById('totalBookings');
     const totalGuestsEl = document.getElementById('totalGuests');
-
     if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
     
     let guestCount = 0;
@@ -189,20 +182,14 @@ function updateStats(bookings) {
         const num = parseInt(b["Number of Guests"]);
         guestCount += isNaN(num) ? 1 : num;
     });
-    
     if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
 }
 
-// ===============================
-// AVAILABILITY OPSLAAN (POST)
-// ===============================
 async function updateAvailability(event) {
     event.preventDefault();
-    
     const saveBtn = document.getElementById('saveAvailBtn');
     const originalText = saveBtn.innerText;
 
-    // Formatteer functie voor de POST naar de Sheet (DD-MM-YYYY)
     const formatDateForSheet = (dateStr) => {
         if (!dateStr) return "";
         const [year, month, day] = dateStr.split('-');
@@ -224,7 +211,6 @@ async function updateAvailability(event) {
     try {
         saveBtn.innerText = "⏳ Saving...";
         saveBtn.disabled = true;
-
         await fetch(SHEET_API_URL, {
             method: 'POST',
             mode: 'no-cors', 
@@ -232,13 +218,10 @@ async function updateAvailability(event) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(availabilityData)
         });
-
-        showToast("✅ Availability synced to management sheet!");
+        showToast("✅ Availability synced!");
         event.target.reset();
-
     } catch (error) {
-        console.error("Save error:", error);
-        alert("Connection error. Could not save availability.");
+        alert("Error saving availability.");
     } finally {
         saveBtn.innerText = originalText;
         saveBtn.disabled = false;
