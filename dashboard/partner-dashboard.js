@@ -1,13 +1,13 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
- * Volledig gecorrigeerd voor jouw specifieke kolomnamen.
+ * Volledig gecorrigeerd voor jouw specifieke kolomnamen en nieuwe API URL.
  */
 
 // ===============================
 // CONFIGURATIE
 // ===============================
-// ZORG ERVOOR DAT DEZE URL EINDIGT OP /exec
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxl76INKpy63lQ4jV0ilMEhNSW_aOVhOInPUZ5KTD9u7ODzYLdBRYYMEyGQyiAuezBAEw/exec';
+// De nieuwe URL van je Google Apps Script
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxAURvnfRhjBNFruVmkE0wpgPQ6Aprw6B9qCgRUhJjnG6cq-lep8mgPh-jw3Mfx8TM/exec';
 
 // ===============================
 // INITIALISATIE
@@ -45,11 +45,18 @@ async function loadDataFromSheet() {
         const data = await response.json();
         console.log("Data succesvol geladen:", data);
 
-        // Filter: Alleen rijen tonen waar "Full Name" is ingevuld
-        const activeBookings = data.filter(row => row["Full Name"] && row["Full Name"].toString().trim() !== "");
+        // Filter: Alleen rijen tonen waar "Full Name" is ingevuld (met extra check op mogelijke variaties)
+        const activeBookings = data.filter(row => {
+            const nameField = row["Full Name"] || row["Full name"] || "";
+            return nameField.toString().trim() !== "";
+        });
         
         // Optioneel: Sorteer op Start Date (nieuwste eerst)
-        activeBookings.sort((a, b) => new Date(b["Start Date"]) - new Date(a["Start Date"]));
+        activeBookings.sort((a, b) => {
+            const dateA = new Date(a["Start Date"] || a["Preferred Start Date"]);
+            const dateB = new Date(b["Start Date"] || b["Preferred Start Date"]);
+            return dateB - dateA;
+        });
 
         renderTable(activeBookings);
         updateStats(activeBookings);
@@ -89,7 +96,7 @@ function renderTable(bookings) {
         return;
     }
 
-    // Genereer de tabel HTML met jouw specifieke kolomnamen
+    // Genereer de tabel HTML met flexibele kolomnamen
     const tableHTML = `
         <table>
             <thead>
@@ -102,15 +109,22 @@ function renderTable(bookings) {
                 </tr>
             </thead>
             <tbody>
-                ${bookings.map(b => `
+                ${bookings.map(b => {
+                    // Flexibele toewijzing voor het geval kolomnamen licht afwijken
+                    const name = b["Full Name"] || b["Full name"] || "Unknown";
+                    const date = b["Start Date"] || b["Preferred Start Date"] || "N/A";
+                    const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
+                    const guests = b["Number of Guests"] || "1";
+
+                    return `
                     <tr>
-                        <td>${b["Start Date"] || 'N/A'}</td>
-                        <td><strong>${b["Full Name"] || 'Unknown'}</strong></td>
-                        <td>${b["Choose Your Experience"] || '-'}</td>
-                        <td>${b["Number of Guests"] || '1'}</td>
+                        <td>${date}</td>
+                        <td><strong>${name}</strong></td>
+                        <td>${pkg}</td>
+                        <td>${guests}</td>
                         <td><span class="badge badge-confirmed">Confirmed</span></td>
-                    </tr>
-                `).join('')}
+                    </tr>`;
+                }).join('')}
             </tbody>
         </table>
     `;
@@ -129,12 +143,13 @@ function updateStats(bookings) {
     
     let guestCount = 0;
     bookings.forEach(b => {
-        // Zorg dat het aantal gasten als getal wordt geteld
-        const num = parseInt(b["Number of Guests"]);
+        // Gebruik de flexibele kolomnaam voor gasten
+        const guestValue = b["Number of Guests"] || "1";
+        const num = parseInt(guestValue);
         if (!isNaN(num)) {
             guestCount += num;
         } else {
-            guestCount += 1; // Default naar 1 als het geen getal is
+            guestCount += 1;
         }
     });
     
