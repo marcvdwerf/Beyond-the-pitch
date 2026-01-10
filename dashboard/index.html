@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beyond the Pitch - Login</title>
+    <title>Beyond the Pitch - Central Login</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -69,7 +69,7 @@
         .login-btn:hover { background: #0284c7; transform: translateY(-2px); }
         
         .error-message { color: #ef4444; margin-top: 15px; font-size: 0.9rem; font-weight: 500; min-height: 20px; }
-        .demo-box { margin-top: 25px; background: #f0f9ff; padding: 15px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #bae6fd; color: #0369a1; }
+        .demo-box { margin-top: 25px; background: #f8fafc; padding: 15px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #e2e8f0; color: #475569; }
         
         @media (max-width: 768px) { .login-container { grid-template-columns: 1fr; } .login-left { display: none; } }
     </style>
@@ -79,7 +79,9 @@
 <div class="login-container">
     <div class="login-left">
         <h1>⚽ Beyond the Pitch</h1>
-        <p>Partner Dashboard – Manage your Lima football experiences, view guest lists, and sync your availability in one place.</p>
+        <p>
+            Global Partner Portal – Access your local football experience dashboard, manage bookings, and update your global availability in real-time.
+        </p>
     </div>
 
     <div class="login-right">
@@ -92,13 +94,13 @@
             <h2>Partner Access</h2>
             <div class="form-group">
                 <label>Email Address</label>
-                <input id="partner-email" type="email" placeholder="peru@demo.com" required />
+                <input id="partner-email" type="email" placeholder="Enter your email" required />
             </div>
             <div class="form-group">
                 <label>Password</label>
                 <input id="partner-password" type="password" placeholder="••••••••" required />
             </div>
-            <button class="login-btn" type="submit">Sign In</button>
+            <button class="login-btn" type="submit">Sign In to Dashboard</button>
             <p class="error-message" id="partner-error"></p>
             <div class="demo-box">
                 <strong>Demo Partner:</strong> peru@demo.com / peru123
@@ -115,15 +117,15 @@
                 <label>Password</label>
                 <input id="admin-password" type="password" placeholder="••••••••" required />
             </div>
-            <button class="login-btn" type="submit">Sign In as Admin</button>
+            <button class="login-btn" type="submit">Admin Access</button>
             <p class="error-message" id="admin-error"></p>
             <div class="demo-box">
-                <strong>Demo Admin:</strong> admin@demo.com / admin123
+                <strong>System Admin:</strong> admin@demo.com / admin123
             </div>
         </form>
     </div>
 </div>
 
-<script src="auth.js"></script>
+<script src="/dashboard/auth.js"></script>
 </body>
 </html>
