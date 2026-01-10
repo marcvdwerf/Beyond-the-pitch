@@ -1,12 +1,8 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
- * Geoptimaliseerd voor travelbeyondthepitch.com/dashboard/
- * Focus: Mobile Responsiveness & Date Formatting
+ * Hersteld: Menu-functionaliteit voor Desktop & Mobiel
  */
 
-// ===============================
-// CONFIGURATIE
-// ===============================
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzQ1ZRCue9z1sehve_V7lNMYqKkBRj6Fxl_JAXWOi2NZoQAn_ROwauEEdRLLx1ZPSlwww/exec';
 
 // ===============================
@@ -21,12 +17,42 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 2. Welkomsttekst
+    // 2. Welkomsttekst & UI
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeHeader = document.getElementById('welcomeText');
     if (welcomeHeader) welcomeHeader.textContent = `Welcome back, ${partnerName}`;
 
-    // 3. Start onderdelen
+    // 3. Maak de showSection functie globaal beschikbaar voor de onclick events
+    window.showSection = (sectionId, element) => {
+        // Verberg alle secties
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        // Deactiveer alle menu items
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        
+        // Toon geselecteerde sectie
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) targetSection.classList.add('active');
+        
+        // Markeer menu item als actief
+        if (element) element.classList.add('active');
+        
+        // Sluit sidebar op mobiel na klik
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) sidebar.classList.remove('open');
+        
+        // Herteken kalender indien nodig
+        if(sectionId === 'overview' && window.calendar) {
+            setTimeout(() => { window.calendar.render(); }, 100);
+        }
+    };
+
+    // 4. Mobiele Sidebar Toggle
+    window.toggleSidebar = () => {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) sidebar.classList.toggle('open');
+    };
+
+    // 5. Start onderdelen
     initCalendar();
     loadDataFromSheet();
 });
@@ -53,7 +79,7 @@ function initCalendar() {
 }
 
 // ===============================
-// DATA OPHALEN (GET)
+// DATA OPHALEN & RENDERING
 // ===============================
 async function loadDataFromSheet() {
     const tableContainer = document.getElementById('bookingsTableContainer');
@@ -63,8 +89,6 @@ async function loadDataFromSheet() {
 
     try {
         const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
-        if (!response.ok) throw new Error("Network response error");
-        
         const data = await response.json();
         const activeBookings = data.filter(row => (row["Full Name"] || row["Full name"]));
 
@@ -77,79 +101,46 @@ async function loadDataFromSheet() {
             const now = new Date();
             lastSyncEl.textContent = `Today at ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
         }
-
     } catch (error) {
-        console.error("Sheet Fetch Error:", error);
-        if (tableContainer) {
-            tableContainer.innerHTML = `<p style="color:#ef4444; padding:20px; text-align:center;">⚠️ Error syncing data.</p>`;
-        }
+        console.error("Fetch error:", error);
     } finally {
-        if (syncBtn) syncBtn.innerHTML = "🔄 Refresh Data";
+        if (syncBtn) syncBtn.innerHTML = "🔄 Sync";
     }
 }
 
-// ===============================
-// UI RENDERING (MOBILE READY)
-// ===============================
 function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
     if (!container) return;
-
-    if (!bookings || bookings.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding:40px; color:#64748b;">No bookings found for your account.</p>';
-        return;
-    }
 
     const formatDisplayDate = (dateStr) => {
         if (!dateStr || dateStr === "N/A") return "N/A";
         try {
             const dateObj = new Date(dateStr);
-            if (isNaN(dateObj.getTime())) return dateStr; 
-            return dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            return isNaN(dateObj.getTime()) ? dateStr : dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
         } catch (e) { return dateStr; }
     };
 
-    let html = `
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Guest Details</th>
-                    <th>Experience</th>
-                    <th>Guests</th>
-                    <th>Requests</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+    let html = `<table><thead><tr><th>Date</th><th>Guest</th><th>Experience</th><th>Guests</th><th>Requests</th><th>Status</th></tr></thead><tbody>`;
 
     bookings.forEach(b => {
         const name = b["Full Name"] || b["Full name"] || "N/A";
         const email = b["Email Address"] || "";
-        const phone = b["Phone Number"] || "";
         const rawDate = b["Start Date"] || b["Preferred Start Date"] || "N/A";
-        const cleanDate = formatDisplayDate(rawDate);
         const pkg = b["Choose Your Experience"] || b["Select Your Package"] || "-";
         const guests = b["Number of Guests"] || "1";
         const requests = b["Special Requests"] || "None";
 
-        // De data-label attributen hieronder zijn cruciaal voor de mobiele weergave
         html += `
             <tr>
-                <td data-label="Date"><strong style="color: #1e293b;">${cleanDate}</strong></td>
+                <td data-label="Date"><strong>${formatDisplayDate(rawDate)}</strong></td>
                 <td data-label="Guest">
-                    <div style="font-weight:700; color:#1e293b;">${name}</div>
-                    <div style="font-size:0.75rem; color:#64748b;">${email} ${phone ? '• ' + phone : ''}</div>
+                    <div style="font-weight:700;">${name}</div>
+                    <div style="font-size:0.75rem; color:#64748b;">${email}</div>
                 </td>
                 <td data-label="Experience">${pkg}</td>
-                <td data-label="Guests"><span style="background:#f1f5f9; padding:4px 8px; border-radius:6px;">${guests}</span></td>
-                <td data-label="Requests">
-                    <div style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.8rem;" title="${requests}">
-                        ${requests}
-                    </div>
-                </td>
-                <td data-label="Status"><span class="badge badge-confirmed">Confirmed</span></td>
+                <td data-label="Guests">${guests}</td>
+                <td data-label="Requests">${requests}</td>
+                <td data-label="Status"><span class="badge-confirmed">Confirmed</span></td>
             </tr>
         `;
     });
@@ -159,7 +150,7 @@ function renderTable(bookings) {
 }
 
 // ===============================
-// OVERIGE FUNCTIES
+// STATS & UTILS
 // ===============================
 function populateCalendar(bookings) {
     if (!window.calendar) return;
@@ -183,49 +174,6 @@ function updateStats(bookings) {
         guestCount += isNaN(num) ? 1 : num;
     });
     if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
-}
-
-async function updateAvailability(event) {
-    event.preventDefault();
-    const saveBtn = document.getElementById('saveAvailBtn');
-    const originalText = saveBtn.innerText;
-
-    const formatDateForSheet = (dateStr) => {
-        if (!dateStr) return "";
-        const [year, month, day] = dateStr.split('-');
-        return `${day}-${month}-${year}`;
-    };
-    
-    const availabilityData = {
-        startDate: formatDateForSheet(document.getElementById('availStart').value),
-        endDate: formatDateForSheet(document.getElementById('availEnd').value),
-        status: document.getElementById('availStatus').value,
-        partner: localStorage.getItem("userName") || "Global Partner"
-    };
-
-    if (!document.getElementById('availStart').value || !document.getElementById('availEnd').value) {
-        alert("Please select both dates.");
-        return;
-    }
-
-    try {
-        saveBtn.innerText = "⏳ Saving...";
-        saveBtn.disabled = true;
-        await fetch(SHEET_API_URL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            cache: 'no-cache',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(availabilityData)
-        });
-        showToast("✅ Availability synced!");
-        event.target.reset();
-    } catch (error) {
-        alert("Error saving availability.");
-    } finally {
-        saveBtn.innerText = originalText;
-        saveBtn.disabled = false;
-    }
 }
 
 function showToast(message) {
