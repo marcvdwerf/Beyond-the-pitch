@@ -2,7 +2,7 @@
  * Beyond the Pitch - Partner Dashboard Logic (Fase 2)
  * Gekoppeld aan Master Sheet API met filtering per partner
  */
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDHMborv6sU8JsoP7ZRAQw-D-W9lL4aYMNztWNv-is5hLkOo-g6kCyaMKfQEG9WPr5Gg/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw0_gnWADW3vzCYhNIbpsfs_eClptWnpfl2wWz7VIxLbbttQK66HQP7IQ8tMo8CmXwPzw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Check Autorisatie (Mag zowel partner als admin zijn)
