@@ -1,22 +1,30 @@
 /**
- * Beyond the Pitch - Partner Dashboard Logic (Fase 2 - Gelijkgetrokken)
+ * Beyond the Pitch - Partner Dashboard Logic (Geoptimaliseerd)
  */
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw0_gnWADW3vzCYhNIbpsfs_eClptWnpfl2wWz7VIxLbbttQK66HQP7IQ8tMo8CmXwPzw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Check Autorisatie
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return; 
     }
 
     const partnerName = localStorage.getItem("userName") || "Partner";
-    document.getElementById('welcomeText').textContent = `Welcome back, ${partnerName}`;
+    const welcomeEl = document.getElementById('welcomeText');
+    if (welcomeEl) welcomeEl.textContent = `Welcome back, ${partnerName}`;
 
+    // 2. Navigatie Logica
     window.showSection = (sectionId, element) => {
         document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.getElementById(sectionId).classList.add('active');
+        
+        const target = document.getElementById(sectionId);
+        if (target) target.classList.add('active');
         if (element) element.classList.add('active');
-        if(sectionId === 'overview' && window.calendar) setTimeout(() => window.calendar.render(), 100);
+        
+        if(sectionId === 'overview' && window.calendar) {
+            setTimeout(() => window.calendar.render(), 100);
+        }
     };
 
     initCalendar();
@@ -34,6 +42,9 @@ function initCalendar() {
     window.calendar.render();
 }
 
+/**
+ * Haalt data op en filtert op basis van de ingelogde partner
+ */
 async function loadDataFromSheet() {
     const syncBtn = document.getElementById('syncBtn');
     if (syncBtn) syncBtn.innerHTML = "⏳ Syncing...";
@@ -41,19 +52,25 @@ async function loadDataFromSheet() {
     const partnerID = localStorage.getItem("partnerID") || "all";
     
     try {
+        // Haal data op van de API
         const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(partnerID)}`, { redirect: 'follow' });
         const data = await response.json();
         
-        // Filter op rijen die een naam hebben
-        const bookings = Array.isArray(data) ? data.filter(row => row["Full Name"]) : [];
+        // Filter op rijen die een geldige naam hebben (flexibel voor Full Name of Full name)
+        const bookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Full name"]) : [];
+
+        console.log("Data ontvangen:", bookings); // Voor debugging in de browser console
 
         renderTable(bookings);
         updateStats(bookings);
         populateCalendar(bookings);
 
-        document.getElementById('lastSyncTime').textContent = `Updated: ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        const syncTimeEl = document.getElementById('lastSyncTime');
+        if (syncTimeEl) {
+            syncTimeEl.textContent = `Updated: ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        }
     } catch (e) { 
-        console.error("Fout:", e); 
+        console.error("Fout bij synchroniseren:", e); 
     } finally {
         if (syncBtn) syncBtn.innerHTML = "🔄 Sync Data";
     }
@@ -73,42 +90,63 @@ function renderTable(bookings) {
         <th>Date</th><th>Guest</th><th>Experience</th><th>Pax</th><th>Requests</th><th>Status</th>
     </tr></thead><tbody>`;
 
-    bookings.forEach(b => {
-        // HIER WORDEN DE KOLOMNAMEN GEMATCHT MET JE SCREENSHOTS
-        const name = b["Full Name"] || "-";
-        const pkg = b["Choose Your Experience"] || "-"; 
-        const guests = b["Number of Guests"] || "1";
-        const date = b["Start Date"] || "-";
+    if (bookings.length === 0) {
+        html += `<tr><td colspan="6" style="text-align:center; padding:30px; color:#64748b;">No bookings found. Make sure data is present in the Master Sheet.</td></tr>`;
+    } else {
+        bookings.forEach(b => {
+            // Flexibele kolom-mapping
+            const name = b["Full Name"] || b["Full name"] || "-";
+            const pkg = b["Choose Your Experience"] || b["Experience"] || "-"; 
+            const guests = b["Number of Guests"] || b["Guests"] || "1";
+            const date = b["Start Date"] || b["Date"] || "-";
+            const email = b["Email Address"] || b["Email"] || "";
+            const requests = b["Special Requests"] || b["Requests"] || "-";
 
-        html += `<tr>
-            <td data-label="Date"><strong>${formatD(date)}</strong></td>
-            <td data-label="Guest"><div>${name}</div><div style="font-size:0.7rem; color:gray;">${b["Email Address"] || ''}</div></td>
-            <td data-label="Experience" style="max-width:150px; font-size:0.8rem;">${pkg}</td>
-            <td data-label="Pax"><strong>${guests}</strong></td>
-            <td data-label="Requests" style="font-size:0.75rem; color:#64748b;">${b["Special Requests"] || '-'}</td>
-            <td data-label="Status"><span class="badge-confirmed">Confirmed</span></td>
-        </tr>`;
-    });
+            html += `<tr>
+                <td data-label="Date"><strong>${formatD(date)}</strong></td>
+                <td data-label="Guest"><div>${name}</div><div style="font-size:0.7rem; color:gray;">${email}</div></td>
+                <td data-label="Experience" style="max-width:150px; font-size:0.8rem;">${pkg}</td>
+                <td data-label="Pax"><strong>${guests}</strong></td>
+                <td data-label="Requests" style="font-size:0.75rem; color:#64748b;">${requests}</td>
+                <td data-label="Status"><span class="badge-confirmed">Confirmed</span></td>
+            </tr>`;
+        });
+    }
 
     html += '</tbody></table>';
     container.innerHTML = html;
 }
 
 function updateStats(b) {
-    document.getElementById('totalBookings').textContent = b.length;
+    const totalBookingsEl = document.getElementById('totalBookings');
+    const totalGuestsEl = document.getElementById('totalGuests');
+    
+    if (totalBookingsEl) totalBookingsEl.textContent = b.length;
+    
     let count = 0;
     b.forEach(x => {
-        count += parseInt(x["Number of Guests"]) || 1;
+        const guests = parseInt(x["Number of Guests"] || x["Guests"]) || 1;
+        count += guests;
     });
-    document.getElementById('totalGuests').textContent = count;
+    
+    if (totalGuestsEl) totalGuestsEl.textContent = count;
 }
 
 function populateCalendar(b) {
     if (!window.calendar) return;
     window.calendar.removeAllEvents();
-    window.calendar.addEventSource(b.map(x => ({
-        title: `${x["Full Name"] || 'Guest'} (${x["Number of Guests"] || 1})`,
-        start: x["Start Date"],
-        allDay: true
-    })));
+    
+    const events = b.map(x => {
+        const name = x["Full Name"] || x["Full name"] || 'Guest';
+        const guests = x["Number of Guests"] || x["Guests"] || 1;
+        const date = x["Start Date"] || x["Date"];
+        
+        return {
+            title: `${name} (${guests})`,
+            start: date,
+            allDay: true
+        };
+    }).filter(event => event.start); // Alleen events met een datum toevoegen
+
+    window.calendar.addEventSource(events);
 }
