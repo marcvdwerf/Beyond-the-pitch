@@ -4,7 +4,7 @@
  */
 
 // De URL van je nieuwe Master Script (met checkLogin functie)
-const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbw0_gnWADW3vzCYhNIbpsfs_eClptWnpfl2wWz7VIxLbbttQK66HQP7IQ8tMo8CmXwPzw/exec';
+const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbx2wFd2ffQaUbzuUWJKjmufU1PcoB4aATfZ3Xg-q_yh0x2PHVPd_MPWn9uxWUZRjy13fw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Tab switching (voor de login pagina)
