@@ -25,7 +25,6 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.5; }
         
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
-        
         .sidebar { background: var(--sidebar-bg); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
         .logo { padding:0 30px 30px; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:20px; }
         .logo h2 { font-size:1.2rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
@@ -41,8 +40,7 @@
         .stat-card { background: var(--white); padding:25px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
         .stat-label { color: var(--text-muted); font-size:0.75rem; text-transform:uppercase; font-weight: 700; margin-bottom: 5px; }
         .stat-value { font-size:1.8rem; font-weight:800; color: var(--sidebar-bg); }
-        #topPackage { font-size: 1.1rem; color: var(--primary-dark); margin-top: 5px; display: block; }
-
+        
         .content-section { display: none; }
         .content-section.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -115,27 +113,63 @@
                     <div class="stat-card"><p class="stat-label">Total Guests</p><div class="stat-value" id="totalGuests">0</div></div>
                     <div class="stat-card" style="border-left-color: var(--success);"><p class="stat-label">Top Experience</p><div class="stat-value" id="topPackage" style="font-size: 1.1rem;">-</div></div>
                 </div>
-                <div class="card"><div id="calendar"></div></div>
+                <div class="card">
+                    <div id="calendar"></div>
+                </div>
             </section>
 
             <section id="bookings" class="content-section">
-                <div class="card"><div class="table-wrapper" id="bookingsTableContainer"><p>Loading bookings...</p></div></div>
+                <div class="card">
+                    <div class="table-wrapper" id="bookingsTableContainer">
+                        <p style="text-align:center; padding:20px; color:var(--text-muted);">Loading bookings from sheet...</p>
+                    </div>
+                </div>
             </section>
 
             <section id="packages" class="content-section">
                 <div class="packages-grid">
-                    <div class="package-card"><div class="package-header">1. Full Day</div><div class="package-body"><div class="price-tag">€50 - €200</div><p>City & Football</p></div></div>
-                    <div class="package-card"><div class="package-header">2. Two Days</div><div class="package-body"><div class="price-tag">€80 - €200</div><p>Culture & Coast</p></div></div>
-                    <div class="package-card"><div class="package-header">3. Three Days</div><div class="package-body"><div class="price-tag">€80 - €200</div><p>Complete Adventure</p></div></div>
+                    <div class="package-card">
+                        <div class="package-header">1. Full Day - Hidden Spots & Football</div>
+                        <div class="package-body">
+                            <div class="price-tag">Half: €50 | Full: €120 - €200</div>
+                            <p>City exploration (Surco-Barranco) and Alianza match.</p>
+                            <ul class="package-list">
+                                <li>Match tickets & T-shirt</li>
+                                <li>2 beers included</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <div class="package-header">2. Two Days, One Night - Culture & Coast</div>
+                        <div class="package-body">
+                            <div class="price-tag">Day 1: €80 | Day 2: €150 - €200</div>
+                            <p>Horse riding, Miraflores exploration, and match day.</p>
+                            <ul class="package-list">
+                                <li>All transfers & riding</li>
+                                <li>Match tickets & beers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <div class="package-header">3. Three Days, Two Nights - Complete</div>
+                        <div class="package-body">
+                            <div class="price-tag">€80 - €200 per day</div>
+                            <p>Beach adventure (San Bartolo), ATVs, and full match-day package.</p>
+                            <ul class="package-list">
+                                <li>ATVs & Sea activities</li>
+                                <li>Complete football experience</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section id="availability" class="content-section">
                 <div class="card" style="max-width: 600px;">
                     <form onsubmit="updateAvailability(event)" style="display:flex; flex-direction:column; gap:20px;">
-                        <div><label>Start Date</label><input type="date" id="availStart" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
-                        <div><label>End Date</label><input type="date" id="availEnd" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
-                        <div><label>Status</label><select id="availStatus" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);"><option value="Fully Booked">Fully Booked</option><option value="Closed">Closed</option><option value="Vacation">Vacation</option></select></div>
+                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">Start Date</label><input type="date" id="availStart" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
+                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">End Date</label><input type="date" id="availEnd" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
+                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">Status</label><select id="availStatus" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);"><option value="Fully Booked">Fully Booked</option><option value="Closed">Closed</option><option value="Vacation">Vacation</option></select></div>
                         <button type="submit" id="saveAvailBtn" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer;">🚀 Save Availability</button>
                     </form>
                 </div>
@@ -143,31 +177,27 @@
         </main>
     </div>
 
-    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none; z-index:3000;">✅ Changes saved!</div>
+    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none; z-index:3000;">✅ Changes saved successfully!</div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="auth.js"></script>
     <script src="partner.js"></script>
 
     <script>
-        // HIER ZAT HET PROBLEEM: Deze functie moet in de HTML staan
+        // ESSENTIEEL: Menu navigatie functie
         function showSection(sectionId, element) {
-            // Verberg alle secties
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            // Deactiveer alle menu-items
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             
-            // Toon de juiste sectie
-            document.getElementById(sectionId).classList.add('active');
-            // Zet menu-item op actief
+            const activeSection = document.getElementById(sectionId);
+            if(activeSection) activeSection.classList.add('active');
             if(element) element.classList.add('active');
             
-            // Sluit mobiel menu na klik
             document.getElementById('sidebar').classList.remove('open');
             
-            // Forceer kalender render als we naar overview gaan
+            // Ververs kalender als die sectie wordt geopend
             if(sectionId === 'overview' && window.calendar) {
-                setTimeout(() => window.calendar.render(), 100);
+                setTimeout(() => window.calendar.render(), 150);
             }
         }
 
