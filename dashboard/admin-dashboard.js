@@ -1,7 +1,7 @@
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
 
 let revenueChart = null;
-let allBookings = []; // Buffer voor lokale filtering
+let allBookings = []; 
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.checkAuth === "function") {
@@ -15,6 +15,37 @@ document.addEventListener('DOMContentLoaded', () => {
     initCalendar();
     loadAdminData();
 });
+
+// --- MENU & SECTIE BEHEER (DE FIX) ---
+window.showSection = (sId, el) => {
+    // 1. Verberg alle secties fysiek en verwijder active class
+    document.querySelectorAll('.content-section').forEach(s => {
+        s.style.display = 'none';
+        s.classList.remove('active');
+    });
+
+    // 2. Toon de geselecteerde sectie
+    const target = document.getElementById(sId);
+    if (target) {
+        target.style.display = 'block';
+        // Timeout zorgt voor een soepele fade-in na de display switch
+        setTimeout(() => target.classList.add('active'), 10);
+    }
+
+    // 3. Update Navigatie Items
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    // 4. Specifieke refresh acties
+    if (sId === 'partners') loadPartnerList();
+    if (sId === 'overview') {
+        // Forceer hertekenen van kalender en grafiek voor correcte afmetingen
+        setTimeout(() => {
+            if (window.calendar) window.calendar.render();
+            if (revenueChart) revenueChart.update();
+        }, 200);
+    }
+};
 
 async function loadAdminData() {
     const syncBtn = document.getElementById('syncBtn');
@@ -57,7 +88,6 @@ function renderAdminTable(bookings) {
 }
 
 function filterByTime(period, btn) {
-    // UI Update
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
@@ -117,40 +147,52 @@ function updateRevenueChart(bookings) {
 }
 
 function updateAdminStats(b) {
-    document.getElementById('totalBookings').textContent = b.length;
+    const bookingsEl = document.getElementById('totalBookings');
+    const guestsEl = document.getElementById('totalGuests');
+    const revenueEl = document.getElementById('totalRevenue');
+    const partnersEl = document.getElementById('activePartners');
+
+    if(!bookingsEl) return;
+
+    bookingsEl.textContent = b.length;
     let g = 0; let r = 0; const p = new Set();
     b.forEach(x => {
         const pax = parseInt(x["Number of Guests"]) || 1;
         g += pax; r += (pax * 75);
         p.add(x["Partner"] || x["PartnerID"]);
     });
-    document.getElementById('totalGuests').textContent = g;
-    document.getElementById('totalRevenue').textContent = `€${r}`;
-    document.getElementById('activePartners').textContent = p.size;
+    guestsEl.textContent = g;
+    revenueEl.textContent = `€${r}`;
+    partnersEl.textContent = p.size;
 }
 
 function initCalendar() {
     const el = document.getElementById('calendar');
     if (!el) return;
-    window.calendar = new FullCalendar.Calendar(el, { initialView: 'dayGridMonth', headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' }, eventColor: '#c5a059' });
+    window.calendar = new FullCalendar.Calendar(el, { 
+        initialView: 'dayGridMonth', 
+        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' }, 
+        eventColor: '#c5a059' 
+    });
     window.calendar.render();
 }
 
 function togglePartnerForm() {
     const f = document.getElementById('addPartnerForm');
-    f.style.display = f.style.display === 'none' ? 'block' : 'none';
+    f.style.display = (f.style.display === 'none' || f.style.display === '') ? 'block' : 'none';
 }
 
 async function loadPartnerList() {
     const c = document.getElementById('partnersTableContainer');
-    c.innerHTML = "Loading...";
+    if(!c) return;
+    c.innerHTML = '<div style="padding:20px; color:#94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Loading partners...</div>';
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect: 'follow' });
         const p = await r.json();
         let h = `<table class="admin-table"><thead><tr><th>Name</th><th>User</th><th>ID</th></tr></thead><tbody>`;
-        p.forEach(x => h += `<tr><td>${x.name}</td><td>${x.email}</td><td><span class="badge-partner">${x.partnerID}</span></td></tr>`);
+        p.forEach(x => h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td><span class="badge-partner">${x.partnerID}</span></td></tr>`);
         c.innerHTML = h + `</tbody></table>`;
-    } catch (e) { c.innerHTML = "Error."; }
+    } catch (e) { c.innerHTML = "Error loading partner list."; }
 }
 
 async function submitNewPartner() {
@@ -159,17 +201,24 @@ async function submitNewPartner() {
     const pass = document.getElementById('p_pass').value;
     const id = document.getElementById('p_id').value;
     if(!name || !user || !pass || !id) return alert("Fill all fields");
-    try {
-        await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
-        alert("Partner added!"); togglePartnerForm(); loadPartnerList();
-    } catch (e) { alert("Partner added!"); loadPartnerList(); }
-}
+    
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+    btn.disabled = true;
 
-window.showSection = (sId, el) => {
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    document.getElementById(sId).classList.add('active');
-    if (el) el.classList.add('active');
-    if (sId === 'partners') loadPartnerList();
-    if (sId === 'overview' && window.calendar) setTimeout(() => window.calendar.render(), 150);
-};
+    try {
+        const resp = await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
+        alert("Partner successfully added!"); 
+        togglePartnerForm(); 
+        loadPartnerList();
+    } catch (e) { 
+        // Google Apps Script redirect triggert vaak een catch ondanks succes
+        alert("Action completed."); 
+        togglePartnerForm();
+        loadPartnerList(); 
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
