@@ -36,7 +36,7 @@
         .login-left h1 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
         .login-left p { opacity: 0.9; line-height: 1.6; font-size: 1.1rem; }
         
-        .login-right { padding: 60px 40px; background: white; }
+        .login-right { padding: 60px 40px; background: white; position: relative; }
         .login-tabs { display: flex; border-bottom: 2px solid #f1f5f9; margin-bottom: 30px; }
         .tab-btn {
             flex: 1; padding: 15px; border: none; background: none;
@@ -59,6 +59,19 @@
         }
         input:focus { outline: none; border-color: #38bdf8; background: white; }
         
+        .login-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .forgot-link {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .forgot-link:hover { color: #0ea5e9; text-decoration: underline; }
+
         .login-btn {
             width: 100%; padding: 15px; border-radius: 12px; border: none;
             font-weight: 700; font-size: 1.1rem; color: #fff;
@@ -67,9 +80,9 @@
             margin-top: 10px;
         }
         .login-btn:hover { background: #0284c7; transform: translateY(-2px); }
+        .login-btn:disabled { background: #94a3b8; cursor: not-allowed; }
         
         .error-message { color: #ef4444; margin-top: 15px; font-size: 0.9rem; font-weight: 500; min-height: 20px; }
-        .demo-box { margin-top: 25px; background: #f8fafc; padding: 15px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #e2e8f0; color: #475569; }
         
         @media (max-width: 768px) { .login-container { grid-template-columns: 1fr; } .login-left { display: none; } }
     </style>
@@ -79,9 +92,7 @@
 <div class="login-container">
     <div class="login-left">
         <h1>⚽ Beyond the Pitch</h1>
-        <p>
-            Global Partner Portal – Access your local football experience dashboard, manage bookings, and update your global availability in real-time.
-        </p>
+        <p>Global Partner Portal – Access your dashboard, manage bookings, and update availability in real-time.</p>
     </div>
 
     <div class="login-right">
@@ -100,32 +111,32 @@
                 <label>Password</label>
                 <input id="partner-password" type="password" placeholder="••••••••" required />
             </div>
-            <button class="login-btn" type="submit">Sign In to Dashboard</button>
-            <p class="error-message" id="partner-error"></p>
-            <div class="demo-box">
-                <strong>Demo Partner:</strong> peru@demo.com / peru123
+            <button class="login-btn" type="submit">Sign In</button>
+            <div class="login-footer">
+                <a href="mailto:support@beyondthepitch.com?subject=Password%20Reset%20Request" class="forgot-link">Forgot Password?</a>
             </div>
+            <p class="error-message" id="partner-error"></p>
         </form>
 
         <form class="login-form" id="admin-form">
             <h2>Admin Panel</h2>
             <div class="form-group">
                 <label>Admin Email</label>
-                <input id="admin-email" type="email" placeholder="admin@demo.com" required />
+                <input id="admin-email" type="email" placeholder="Enter admin email" required />
             </div>
             <div class="form-group">
                 <label>Password</label>
                 <input id="admin-password" type="password" placeholder="••••••••" required />
             </div>
             <button class="login-btn" type="submit">Admin Access</button>
-            <p class="error-message" id="admin-error"></p>
-            <div class="demo-box">
-                <strong>System Admin:</strong> admin@demo.com / admin123
+            <div class="login-footer">
+                <a href="mailto:admin-support@beyondthepitch.com?subject=Admin%20Access%20Issue" class="forgot-link">Access Issues?</a>
             </div>
+            <p class="error-message" id="admin-error"></p>
         </form>
     </div>
 </div>
 
-<script src="/dashboard/auth.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
