@@ -1,7 +1,7 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic (Geoptimaliseerd)
  */
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzBfHwVlLA4B8t-UNBtMGQUxvwhww33SndRKIJRjn83WxtFPiHwU_ZiWsqZYDnytJCNrg/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Check Autorisatie
