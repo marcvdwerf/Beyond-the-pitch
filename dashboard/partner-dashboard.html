@@ -46,20 +46,24 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { background: var(--white); padding:30px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom:30px; border: 1px solid var(--border); }
-
+        
+        /* TABLES */
         .table-wrapper { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         th { background: #f8fafc; padding:15px; text-align:left; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid var(--border); }
         td { padding:15px; border-bottom:1px solid var(--border); font-size: 0.9rem; }
         .badge-confirmed { background:#dcfce7; color:#166534; padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; }
 
-        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .package-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+        /* PACKAGES GRID */
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .package-card { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: #fff; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .package-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .package-header { background: #f8fafc; padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--sidebar-bg); }
         .package-body { padding: 20px; flex-grow: 1; }
-        .price-tag { display: inline-block; background: #f0f9ff; color: var(--primary-dark); padding: 4px 10px; border-radius: 6px; font-weight: 700; margin-bottom: 15px; font-size: 0.85rem; }
-        .package-list { list-style: none; margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); }
-        .package-list li::before { content: "✓ "; color: var(--success); font-weight: bold; }
+        .price-tag { display: inline-block; background: #f0f9ff; color: var(--primary-dark); padding: 5px 12px; border-radius: 8px; font-weight: 700; margin-bottom: 15px; font-size: 0.9rem; }
+        .package-list { list-style: none; margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); }
+        .package-list li { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .package-list li::before { content: "✓"; color: var(--success); font-weight: 900; }
 
         .mobile-header { display: none; background: var(--sidebar-bg); color: white; padding: 15px; position: fixed; top: 0; width: 100%; z-index: 1000; justify-content: space-between; align-items: center; }
 
@@ -69,10 +73,6 @@
             .sidebar.open { left: 0; }
             .mobile-header { display: flex; }
             .main-content { padding: 80px 15px 20px; }
-            .table-wrapper thead { display: none; }
-            .table-wrapper tr { display: block; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; background: white; padding: 10px; }
-            .table-wrapper td { display: flex; justify-content: space-between; padding: 8px 5px; border-bottom: 1px solid #f1f5f9; text-align: right; }
-            .table-wrapper td::before { content: attr(data-label); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; color: var(--text-muted); }
         }
     </style>
 </head>
@@ -113,15 +113,13 @@
                     <div class="stat-card"><p class="stat-label">Total Guests</p><div class="stat-value" id="totalGuests">0</div></div>
                     <div class="stat-card" style="border-left-color: var(--success);"><p class="stat-label">Top Experience</p><div class="stat-value" id="topPackage" style="font-size: 1.1rem;">-</div></div>
                 </div>
-                <div class="card">
-                    <div id="calendar"></div>
-                </div>
+                <div class="card"><div id="calendar"></div></div>
             </section>
 
             <section id="bookings" class="content-section">
                 <div class="card">
                     <div class="table-wrapper" id="bookingsTableContainer">
-                        <p style="text-align:center; padding:20px; color:var(--text-muted);">Loading bookings from sheet...</p>
+                        <p style="text-align:center; padding:20px; color:var(--text-muted);">Loading bookings...</p>
                     </div>
                 </div>
             </section>
@@ -132,10 +130,11 @@
                         <div class="package-header">1. Full Day - Hidden Spots & Football</div>
                         <div class="package-body">
                             <div class="price-tag">Half: €50 | Full: €120 - €200</div>
-                            <p>City exploration (Surco-Barranco) and Alianza match.</p>
+                            <p>City exploration (Surco-Barranco) and Alianza Lima match experience.</p>
                             <ul class="package-list">
-                                <li>Match tickets & T-shirt</li>
+                                <li>Match tickets & Official T-shirt</li>
                                 <li>2 beers included</li>
+                                <li>Local guide & transfers</li>
                             </ul>
                         </div>
                     </div>
@@ -143,10 +142,11 @@
                         <div class="package-header">2. Two Days, One Night - Culture & Coast</div>
                         <div class="package-body">
                             <div class="price-tag">Day 1: €80 | Day 2: €150 - €200</div>
-                            <p>Horse riding, Miraflores exploration, and match day.</p>
+                            <p>Horse riding at the coast, Miraflores exploration, and match day.</p>
                             <ul class="package-list">
-                                <li>All transfers & riding</li>
-                                <li>Match tickets & beers</li>
+                                <li>Horse riding experience</li>
+                                <li>All internal transfers</li>
+                                <li>Match tickets & matchday drinks</li>
                             </ul>
                         </div>
                     </div>
@@ -154,10 +154,11 @@
                         <div class="package-header">3. Three Days, Two Nights - Complete</div>
                         <div class="package-body">
                             <div class="price-tag">€80 - €200 per day</div>
-                            <p>Beach adventure (San Bartolo), ATVs, and full match-day package.</p>
+                            <p>Beach adventure (San Bartolo), ATVs, and full football immersion.</p>
                             <ul class="package-list">
                                 <li>ATVs & Sea activities</li>
-                                <li>Complete football experience</li>
+                                <li>3-day guided experience</li>
+                                <li>Complete football package</li>
                             </ul>
                         </div>
                     </div>
@@ -166,51 +167,37 @@
 
             <section id="availability" class="content-section">
                 <div class="card" style="max-width: 600px;">
-                    <form onsubmit="updateAvailability(event)" style="display:flex; flex-direction:column; gap:20px;">
-                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">Start Date</label><input type="date" id="availStart" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
-                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">End Date</label><input type="date" id="availEnd" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
-                        <div><label style="display:block; margin-bottom:5px; font-weight:600;">Status</label><select id="availStatus" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);"><option value="Fully Booked">Fully Booked</option><option value="Closed">Closed</option><option value="Vacation">Vacation</option></select></div>
-                        <button type="submit" id="saveAvailBtn" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer;">🚀 Save Availability</button>
+                    <form onsubmit="updateAvailability(event)">
+                        <div style="margin-bottom:15px;"><label style="display:block; font-weight:600;">Start Date</label><input type="date" id="availStart" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;" required></div>
+                        <div style="margin-bottom:15px;"><label style="display:block; font-weight:600;">End Date</label><input type="date" id="availEnd" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;" required></div>
+                        <div style="margin-bottom:20px;"><label style="display:block; font-weight:600;">Status</label><select id="availStatus" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px;"><option value="Fully Booked">Fully Booked</option><option value="Closed">Closed</option><option value="Vacation">Vacation</option></select></div>
+                        <button type="submit" id="saveAvailBtn" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer; width:100%;">🚀 Save Availability</button>
                     </form>
                 </div>
             </section>
         </main>
     </div>
 
-    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none; z-index:3000;">✅ Changes saved successfully!</div>
+    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none; z-index:3000;">✅ Changes saved!</div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="auth.js"></script>
     <script src="partner.js"></script>
 
     <script>
-        // ESSENTIEEL: Menu navigatie functie
         function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            
-            const activeSection = document.getElementById(sectionId);
-            if(activeSection) activeSection.classList.add('active');
+            document.getElementById(sectionId).classList.add('active');
             if(element) element.classList.add('active');
-            
             document.getElementById('sidebar').classList.remove('open');
-            
-            // Ververs kalender als die sectie wordt geopend
             if(sectionId === 'overview' && window.calendar) {
                 setTimeout(() => window.calendar.render(), 150);
             }
         }
-
-        function toggleSidebar() { 
-            document.getElementById('sidebar').classList.toggle('open'); 
-        }
-        
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
         const dateEl = document.getElementById('currentDateDisplay');
-        if (dateEl) {
-            dateEl.textContent = new Date().toLocaleDateString('en-GB', { 
-                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' 
-            });
-        }
+        if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     </script>
 </body>
 </html>
