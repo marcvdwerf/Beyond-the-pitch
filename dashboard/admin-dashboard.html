@@ -61,10 +61,14 @@
                         <div class="stat-info"><h4>Total Bookings</h4><p id="totalBookings">0</p></div>
                     </div>
                     <div class="stat-card accent-blue">
+                        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info"><h4>Total Guests</h4><p id="totalGuests">0</p></div>
+                    </div>
+                    <div class="stat-card accent-green">
                         <div class="stat-icon"><i class="fa-solid fa-euro-sign"></i></div>
                         <div class="stat-info"><h4>Est. Revenue</h4><p id="totalRevenue">€0</p></div>
                     </div>
-                    <div class="stat-card accent-green">
+                    <div class="stat-card accent-gold">
                         <div class="stat-icon"><i class="fa-solid fa-building-user"></i></div>
                         <div class="stat-info"><h4>Active Partners</h4><p id="activePartners">0</p></div>
                     </div>
@@ -80,7 +84,7 @@
                 </div>
             </section>
 
-            <section id="bookings" class="content-section">
+            <section id="bookings" class="content-section" style="display: none;">
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <h3>Master Booking List</h3>
@@ -95,5 +99,30 @@
                 </div>
             </section>
 
-            <section id="partners" class="content-section">
-                <div class
+            <section id="partners" class="content-section" style="display: none;">
+                <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+                    <button class="btn-refresh" onclick="togglePartnerForm()"><i class="fa-solid fa-plus"></i> Add New Partner</button>
+                </div>
+
+                <div id="addPartnerForm" class="card" style="display: none; border: 1px solid var(--primary-gold);">
+                    <h3>Add New Partner</h3>
+                    <div class="form-grid">
+                        <div class="input-group"><label>Business Name</label><input type="text" id="p_name" class="form-input" placeholder="e.g. Lima Experience"></div>
+                        <div class="input-group"><label>Login Email</label><input type="text" id="p_user" class="form-input" placeholder="partner@email.com"></div>
+                        <div class="input-group"><label>Password</label><input type="password" id="p_pass" class="form-input" placeholder="••••••••"></div>
+                        <div class="input-group"><label>PartnerID</label><input type="text" id="p_id" class="form-input" placeholder="e.g. Lima"></div>
+                    </div>
+                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPartner()">Save Partner</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><h3>Partner Network</h3></div>
+                    <div class="table-responsive" id="partnersTableContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="auth.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
