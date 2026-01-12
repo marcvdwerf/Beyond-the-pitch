@@ -1,49 +1,27 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
- * Geoptimaliseerd met Top Experience statistiek en veilige auth-koppeling
+ * Geoptimaliseerd voor jouw HTML en inclusief Top Experience statistiek
  */
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Check Autorisatie (Mag deze gebruiker hier zijn?)
+    // 1. Check Autorisatie (via auth.js)
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('partner')) return; 
     }
 
-    // Welkomsttekst en Naam instellen
+    // Welkomsttekst personaliseren met de naam uit localStorage
     const partnerName = localStorage.getItem("userName") || "Partner";
     const welcomeEl = document.getElementById('welcomeText');
     if (welcomeEl) welcomeEl.textContent = `Welcome back, ${partnerName}`;
-
-    // 2. Navigatie Logica
-    window.showSection = (sectionId, element) => {
-        // Verberg alle secties
-        document.querySelectorAll('.content-section').forEach(s => {
-            s.classList.remove('active');
-            s.style.display = 'none';
-        });
-        
-        // Deactiveer alle menu-items
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        
-        // Toon geselecteerde sectie
-        const target = document.getElementById(sectionId);
-        if (target) {
-            target.style.display = 'block';
-            setTimeout(() => target.classList.add('active'), 10);
-        }
-        if (element) element.classList.add('active');
-        
-        // Calendar refresh fix als we naar overview gaan
-        if(sectionId === 'overview' && window.calendar) {
-            setTimeout(() => window.calendar.render(), 150);
-        }
-    };
 
     initCalendar();
     loadDataFromSheet();
 });
 
+/**
+ * Initialiseert de FullCalendar
+ */
 function initCalendar() {
     const calendarEl = document.getElementById('calendar');
     if (!calendarEl) return;
@@ -57,33 +35,32 @@ function initCalendar() {
 }
 
 /**
- * Haalt data op en filtert op basis van de ingelogde partnerID
+ * Haalt data op van Google Sheets specifiek voor de ingelogde partner
  */
 async function loadDataFromSheet() {
     const syncBtn = document.getElementById('syncBtn');
-    if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
-    
-    // Haal de partnerID op die tijdens login is opgeslagen
     const partnerID = localStorage.getItem("partnerID");
     
+    if (syncBtn) syncBtn.innerHTML = "⏳ Syncing...";
+    
     if (!partnerID) {
-        console.error("Geen partnerID gevonden in de sessie.");
+        console.error("Geen partnerID gevonden in sessie.");
         return;
     }
     
     try {
-        // API call met de specifieke partnerID
+        // Fetch data met partner filter
         const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(partnerID)}`, { redirect: 'follow' });
         const data = await response.json();
         
-        // Filter op geldige boekingen
+        // Filter op rijen met een geldige naam
         const bookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Full name"]) : [];
 
         renderTable(bookings);
         updateStats(bookings);
         populateCalendar(bookings);
 
-        // Update sync tijd
+        // Update de laatste sync tijd in de UI
         const syncTimeEl = document.getElementById('lastSyncTime');
         if (syncTimeEl) {
             syncTimeEl.textContent = `Updated: ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
@@ -91,10 +68,13 @@ async function loadDataFromSheet() {
     } catch (e) { 
         console.error("Fout bij synchroniseren:", e); 
     } finally {
-        if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data';
+        if (syncBtn) syncBtn.innerHTML = "🔄 Sync";
     }
 }
 
+/**
+ * Vult de tabel met boekingen
+ */
 function renderTable(bookings) {
     const container = document.getElementById('bookingsTableContainer');
     if (!container) return;
@@ -126,7 +106,7 @@ function renderTable(bookings) {
                 <td data-label="Experience" style="max-width:150px; font-size:0.8rem;">${pkg}</td>
                 <td data-label="Pax"><strong>${guests}</strong></td>
                 <td data-label="Requests" style="font-size:0.75rem; color:#64748b;">${requests}</td>
-                <td data-label="Status"><span class="badge-status status-confirmed" style="background:rgba(34,197,94,0.1); color:#22c55e; padding:4px 8px; border-radius:5px; font-size:0.75rem;">Confirmed</span></td>
+                <td data-label="Status"><span class="badge-confirmed">Confirmed</span></td>
             </tr>`;
         });
     }
@@ -136,7 +116,7 @@ function renderTable(bookings) {
 }
 
 /**
- * Update de statistieken kaarten inclusief Top Experience (Optie 1)
+ * Berekent de statistieken en de Top Experience
  */
 function updateStats(b) {
     const totalBookingsEl = document.getElementById('totalBookings');
@@ -154,27 +134,30 @@ function updateStats(b) {
     let packageCounts = {};
 
     b.forEach(x => {
-        // Gasten tellen
+        // Gasten optellen
         const guests = parseInt(x["Number of Guests"] || x["Guests"]) || 1;
         guestCount += guests;
 
-        // Ervaringen tellen voor Top Experience
+        // Pakketten tellen
         const pkg = x["Choose Your Experience"] || x["Experience"] || "Standard";
         packageCounts[pkg] = (packageCounts[pkg] || 0) + 1;
     });
 
-    // Bepaal meest populaire pakket
+    // Zoek het meest populaire pakket
     let topPkg = Object.keys(packageCounts).reduce((a, b) => packageCounts[a] > packageCounts[b] ? a : b);
 
-    // Update UI
+    // Update de kaarten in de HTML
     if (totalBookingsEl) totalBookingsEl.textContent = b.length;
     if (totalGuestsEl) totalGuestsEl.textContent = guestCount;
     if (topPackageEl) {
-        topPackageEl.textContent = topPkg.length > 20 ? topPkg.substring(0, 18) + '...' : topPkg;
-        topPackageEl.title = topPkg; 
+        // Afkorten als de naam te lang is voor de kaart
+        topPackageEl.textContent = topPkg.length > 18 ? topPkg.substring(0, 16) + '...' : topPkg;
     }
 }
 
+/**
+ * Zet de boekingen als events in de kalender
+ */
 function populateCalendar(b) {
     if (!window.calendar) return;
     window.calendar.removeAllEvents();
@@ -192,4 +175,34 @@ function populateCalendar(b) {
     }).filter(event => event.start);
 
     window.calendar.addEventSource(events);
+}
+
+/**
+ * Update beschikbaarheid (Functie voor de Availability sectie)
+ */
+async function updateAvailability(event) {
+    event.preventDefault();
+    const btn = document.getElementById('saveAvailBtn');
+    const toast = document.getElementById('toast');
+    
+    const start = document.getElementById('availStart').value;
+    const end = document.getElementById('availEnd').value;
+    const status = document.getElementById('availStatus').value;
+    const partnerID = localStorage.getItem("partnerID");
+
+    if (btn) btn.innerText = "Saving...";
+
+    try {
+        const url = `${SHEET_API_URL}?action=updateAvailability&partnerID=${encodeURIComponent(partnerID)}&start=${start}&end=${end}&status=${status}`;
+        await fetch(url, { mode: 'no-cors' });
+        
+        if (toast) {
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+    } catch (e) {
+        alert("Error saving availability.");
+    } finally {
+        if (btn) btn.innerText = "🚀 Save Availability";
+    }
 }
