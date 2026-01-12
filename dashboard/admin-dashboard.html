@@ -6,8 +6,9 @@
     <title>Master Control | Beyond the Pitch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="dashboard-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="stylesheet" href="dashboard-style.css">
 </head>
 <body class="admin-theme">
     <div class="dashboard-container">
@@ -60,14 +61,22 @@
                         <div class="stat-info"><h4>Total Bookings</h4><p id="totalBookings">0</p></div>
                     </div>
                     <div class="stat-card accent-blue">
-                        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-                        <div class="stat-info"><h4>Total Guests</h4><p id="totalGuests">0</p></div>
+                        <div class="stat-icon"><i class="fa-solid fa-euro-sign"></i></div>
+                        <div class="stat-info"><h4>Est. Revenue</h4><p id="totalRevenue">€0</p></div>
                     </div>
                     <div class="stat-card accent-green">
                         <div class="stat-icon"><i class="fa-solid fa-building-user"></i></div>
                         <div class="stat-info"><h4>Active Partners</h4><p id="activePartners">0</p></div>
                     </div>
                 </div>
+
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-chart-line"></i> Revenue Trends</h3>
+                    </div>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+
                 <div class="card calendar-card">
                     <div id="calendar"></div>
                 </div>
@@ -85,9 +94,9 @@
                     <button class="btn-refresh" onclick="togglePartnerForm()"><i class="fa-solid fa-plus"></i> Add New Partner</button>
                 </div>
 
-                <div id="addPartnerForm" class="card" style="display: none; margin-bottom: 20px; border: 1px solid var(--primary-gold);">
+                <div id="addPartnerForm" class="card" style="display: none; border: 1px solid var(--primary-gold);">
                     <h3>Add New Partner</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div class="form-grid">
                         <div class="input-group">
                             <label>Business Name</label>
                             <input type="text" id="p_name" placeholder="e.g. Lima Experience" class="form-input">
@@ -101,7 +110,7 @@
                             <input type="password" id="p_pass" placeholder="••••••••" class="form-input">
                         </div>
                         <div class="input-group">
-                            <label>PartnerID (Column A Match)</label>
+                            <label>PartnerID (Sheet Column A)</label>
                             <input type="text" id="p_id" placeholder="e.g. Lima" class="form-input">
                         </div>
                     </div>
