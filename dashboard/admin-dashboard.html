@@ -3,66 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Beyond the Pitch</title>
-    <link rel="stylesheet" href="dashboard-style.css"> <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <title>Master Control | Beyond the Pitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 </head>
-<body>
+<body class="admin-theme">
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3>Admin Panel</h3>
+                <div class="admin-badge">Admin</div>
+                <h3>Master Control</h3>
             </div>
             <ul class="nav-links">
                 <li class="nav-item active" onclick="showSection('overview', this)">
-                    <span class="icon">📊</span> Overview
+                    <i class="fa-solid fa-chart-pie"></i> <span>Global Overview</span>
                 </li>
                 <li class="nav-item" onclick="showSection('bookings', this)">
-                    <span class="icon">📅</span> All Bookings
+                    <i class="fa-solid fa-list-check"></i> <span>Master Bookings</span>
                 </li>
-                <li class="nav-item" onclick="logout()">
-                    <span class="icon">🚪</span> Logout
+                <li class="nav-item" onclick="showSection('partners', this)">
+                    <i class="fa-solid fa-handshake"></i> <span>Manage Partners</span>
+                </li>
+                <li class="nav-divider"></li>
+                <li class="nav-item logout" onclick="logout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Logout</span>
                 </li>
             </ul>
         </nav>
 
         <main class="main-content">
             <header class="top-bar">
-                <h2 id="welcomeText">Master Control</h2>
-                <div class="admin-controls">
-                    <select id="partnerFilter" onchange="loadAdminData()">
-                        <option value="all">All Partners</option>
-                        <option value="Lima">Lima Experience</option>
+                <div class="welcome-meta">
+                    <h2 id="welcomeText">Dashboard Overview</h2>
+                    <p class="current-date" id="currentDateDisplay"></p>
+                </div>
+                
+                <div class="admin-actions">
+                    <div class="filter-wrapper">
+                        <i class="fa-solid fa-filter"></i>
+                        <select id="partnerFilter" onchange="loadAdminData()">
+                            <option value="all">All Partners</option>
+                            <option value="Lima">Lima Experience</option>
                         </select>
-                    <button class="btn-primary" id="syncBtn" onclick="loadAdminData()">🔄 Sync All</button>
+                    </div>
+                    <button class="btn-refresh" id="syncBtn" onclick="loadAdminData()">
+                        <i class="fa-solid fa-rotate"></i> Sync Data
+                    </button>
                 </div>
             </header>
 
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <h4>Total Bookings</h4>
-                        <p id="totalBookings">0</p>
+                    <div class="stat-card accent-gold">
+                        <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="stat-info">
+                            <h4>Total Bookings</h4>
+                            <p id="totalBookings" class="counter">0</p>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <h4>Total Guests</h4>
-                        <p id="totalGuests">0</p>
+                    <div class="stat-card accent-blue">
+                        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info">
+                            <h4>Total Guests</h4>
+                            <p id="totalGuests" class="counter">0</p>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <h4>Active Partners</h4>
-                        <p id="activePartners">1</p>
+                    <div class="stat-card accent-green">
+                        <div class="stat-icon"><i class="fa-solid fa-building-user"></i></div>
+                        <div class="stat-info">
+                            <h4>Active Partners</h4>
+                            <p id="activePartners" class="counter">1</p>
+                        </div>
                     </div>
                 </div>
-                <div class="calendar-card">
+
+                <div class="calendar-wrapper card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-calendar-days"></i> Booking Schedule</h3>
+                    </div>
                     <div id="calendar"></div>
                 </div>
             </section>
 
             <section id="bookings" class="content-section">
-                <div class="table-card">
-                    <h3>Master Booking List</h3>
-                    <div id="adminTableContainer">
-                        <p>Loading bookings...</p>
+                <div class="table-card card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-database"></i> All Global Bookings</h3>
                     </div>
+                    <div class="table-responsive" id="adminTableContainer">
+                        <div class="loading-spinner">
+                            <i class="fa-solid fa-spinner fa-spin"></i> Fetching data...
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="partners" class="content-section">
+                <div class="card">
+                    <h3>Partner Network</h3>
+                    <p>Current partners connected to the Master Sheet.</p>
                 </div>
             </section>
         </main>
@@ -70,5 +111,11 @@
 
     <script src="auth.js"></script>
     <script src="admin-dashboard.js"></script>
+    <script>
+        // Simpele datum weergave
+        document.getElementById('currentDateDisplay').textContent = new Date().toLocaleDateString('en-GB', { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        });
+    </script>
 </body>
 </html>
