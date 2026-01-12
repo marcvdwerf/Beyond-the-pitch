@@ -1,15 +1,12 @@
-/**
- * Beyond the Pitch - Admin Dashboard Logic
- * Nieuwe Script URL geïmplementeerd
- */
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
+
+let revenueChart = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('admin')) return; 
     }
     
-    // Datum display bovenin
     const dateEl = document.getElementById('currentDateDisplay');
     if (dateEl) {
         dateEl.textContent = new Date().toLocaleDateString('en-GB', { 
@@ -36,66 +33,73 @@ function initCalendar() {
 async function loadAdminData() {
     const syncBtn = document.getElementById('syncBtn');
     const filterValue = document.getElementById('partnerFilter').value;
-    const tableContainer = document.getElementById('adminTableContainer');
-
     if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
     
     try {
         const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' });
         const data = await response.json();
-        
-        // Filter op rijen met een naam (kolom matching)
         const bookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Full name"]) : [];
 
         renderAdminTable(bookings);
         updateAdminStats(bookings);
         populateAdminCalendar(bookings);
+        updateRevenueChart(bookings);
 
-    } catch (e) { 
-        console.error("Fetch Error:", e);
-        if (tableContainer) tableContainer.innerHTML = "Error loading data. Check console.";
-    } finally { 
-        if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data'; 
+    } catch (e) { console.error("Error:", e); }
+    finally { if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data'; }
+}
+
+function updateRevenueChart(bookings) {
+    const ctx = document.getElementById('revenueChart');
+    if (!ctx) return;
+
+    const monthlyData = {};
+    const last6Months = [];
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date();
+        d.setMonth(d.getMonth() - i);
+        const m = d.toLocaleString('en-GB', { month: 'short' });
+        last6Months.push(m);
+        monthlyData[m] = 0;
     }
+
+    bookings.forEach(b => {
+        const date = new Date(b["Start Date"] || b["Date"]);
+        const m = date.toLocaleString('en-GB', { month: 'short' });
+        const pax = parseInt(b["Number of Guests"] || b["Guests"]) || 1;
+        if (monthlyData.hasOwnProperty(m)) monthlyData[m] += (pax * 75); // Gemiddelde prijs €75
+    });
+
+    if (revenueChart) revenueChart.destroy();
+    revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: last6Months,
+            datasets: [{
+                label: 'Est. Revenue (€)',
+                data: last6Months.map(m => monthlyData[m]),
+                borderColor: '#c5a059',
+                backgroundColor: 'rgba(197, 160, 89, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+    });
 }
 
 function renderAdminTable(bookings) {
     const container = document.getElementById('adminTableContainer');
-    if (!container) return;
-
-    let html = `<table class="admin-table">
-        <thead>
-            <tr>
-                <th>Partner</th>
-                <th>Date</th>
-                <th>Guest</th>
-                <th>Experience</th>
-                <th>Pax</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>`;
-
-    if (bookings.length === 0) {
-        html += `<tr><td colspan="6" style="text-align:center; padding:30px;">No bookings found.</td></tr>`;
-    } else {
-        bookings.forEach(b => {
-            const partner = b["Partner"] || b["PartnerID"] || "Lima";
-            const name = b["Full Name"] || b["Full name"] || "-";
-            const date = b["Start Date"] || b["Date"] || "-";
-            const pkg = b["Choose Your Experience"] || b["Experience"] || "-";
-            const pax = b["Number of Guests"] || b["Guests"] || "1";
-
-            html += `<tr>
-                <td><span class="badge-partner">${partner}</span></td>
-                <td><strong>${date}</strong></td>
-                <td>${name}</td>
-                <td style="font-size:0.8rem;">${pkg}</td>
-                <td>${pax}</td>
-                <td><span class="badge-status status-confirmed">Confirmed</span></td>
-            </tr>`;
-        });
-    }
+    let html = `<table class="admin-table"><thead><tr><th>Partner</th><th>Date</th><th>Guest</th><th>Pax</th><th>Status</th></tr></thead><tbody>`;
+    bookings.forEach(b => {
+        html += `<tr>
+            <td><span class="badge-partner">${b["Partner"] || b["PartnerID"] || "Lima"}</span></td>
+            <td>${b["Start Date"] || "-"}</td>
+            <td><strong>${b["Full Name"] || b["Full name"]}</strong></td>
+            <td>${b["Number of Guests"] || 1}</td>
+            <td><span class="badge-status status-confirmed">Confirmed</span></td>
+        </tr>`;
+    });
     html += '</tbody></table>';
     container.innerHTML = html;
 }
@@ -103,14 +107,16 @@ function renderAdminTable(bookings) {
 function updateAdminStats(b) {
     document.getElementById('totalBookings').textContent = b.length;
     let guests = 0;
+    let rev = 0;
     const partners = new Set();
-    
     b.forEach(x => {
-        guests += parseInt(x["Number of Guests"] || x["Guests"]) || 1;
+        const p = parseInt(x["Number of Guests"]) || 1;
+        guests += p;
+        rev += (p * 75);
         partners.add(x["Partner"] || x["PartnerID"] || "Lima");
     });
-    
     document.getElementById('totalGuests').textContent = guests;
+    document.getElementById('totalRevenue').textContent = `€${rev}`;
     document.getElementById('activePartners').textContent = partners.size;
 }
 
@@ -119,13 +125,10 @@ function populateAdminCalendar(b) {
     window.calendar.removeAllEvents();
     window.calendar.addEventSource(b.map(x => ({
         title: `[${x["Partner"] || 'P'}] ${x["Full Name"] || 'Guest'}`,
-        start: x["Start Date"] || x["Date"],
+        start: x["Start Date"],
         allDay: true
     })));
 }
-
-/** * PARTNER MANAGEMENT FUNCTIONS 
- */
 
 function togglePartnerForm() {
     const form = document.getElementById('addPartnerForm');
@@ -134,38 +137,17 @@ function togglePartnerForm() {
 
 async function loadPartnerList() {
     const container = document.getElementById('partnersTableContainer');
-    container.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i> Fetching partner list...</div>';
-    
+    container.innerHTML = "Fetching partners...";
     try {
         const response = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect: 'follow' });
         const partners = await response.json();
-
-        let html = `<table class="admin-table">
-            <thead>
-                <tr>
-                    <th>Partner Name</th>
-                    <th>Username/Email</th>
-                    <th>PartnerID</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>`;
-
+        let html = `<table class="admin-table"><thead><tr><th>Name</th><th>User</th><th>ID</th><th>Role</th></tr></thead><tbody>`;
         partners.forEach(p => {
-            html += `<tr>
-                <td><strong>${p.name}</strong></td>
-                <td>${p.email}</td>
-                <td><span class="badge-partner">${p.partnerID}</span></td>
-                <td>${p.role}</td>
-                <td><span class="badge-status status-confirmed">Active</span></td>
-            </tr>`;
+            html += `<tr><td><strong>${p.name}</strong></td><td>${p.email}</td><td><span class="badge-partner">${p.partnerID}</span></td><td>${p.role}</td></tr>`;
         });
         html += '</tbody></table>';
         container.innerHTML = html;
-    } catch (e) { 
-        container.innerHTML = "Error loading partners."; 
-    }
+    } catch (e) { container.innerHTML = "Error."; }
 }
 
 async function submitNewPartner() {
@@ -173,50 +155,22 @@ async function submitNewPartner() {
     const user = document.getElementById('p_user').value;
     const pass = document.getElementById('p_pass').value;
     const id = document.getElementById('p_id').value;
-
-    if(!name || !user || !pass || !id) {
-        alert("Please fill in all fields.");
-        return;
-    }
-
-    const submitBtn = event.target;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-    submitBtn.disabled = true;
-
-    const url = `${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`;
+    if(!name || !user || !pass || !id) return alert("Fill all fields");
     
+    const url = `${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`;
     try {
-        const response = await fetch(url, { redirect: 'follow' });
-        const result = await response.json();
-        
-        if(result.status === "success") {
-            alert("Partner added successfully!");
-            // Reset form
-            document.getElementById('p_name').value = '';
-            document.getElementById('p_user').value = '';
-            document.getElementById('p_pass').value = '';
-            document.getElementById('p_id').value = '';
-            togglePartnerForm();
-            loadPartnerList();
-        }
-    } catch (e) { 
-        alert("Success! (Note: Redirect might trigger error, but data is usually saved)");
+        await fetch(url, { redirect: 'follow' });
+        alert("Partner added!");
+        togglePartnerForm();
         loadPartnerList();
-    } finally {
-        submitBtn.innerHTML = "Save Partner";
-        submitBtn.disabled = false;
-    }
+    } catch (e) { alert("Partner added (Check sheet)"); loadPartnerList(); }
 }
 
 window.showSection = (sectionId, element) => {
     document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    
     document.getElementById(sectionId).classList.add('active');
     if (element) element.classList.add('active');
-    
     if (sectionId === 'partners') loadPartnerList();
-    if (sectionId === 'overview' && window.calendar) {
-        setTimeout(() => window.calendar.render(), 150);
-    }
+    if (sectionId === 'overview' && window.calendar) setTimeout(() => window.calendar.render(), 150);
 };
