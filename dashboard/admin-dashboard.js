@@ -16,34 +16,32 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAdminData();
 });
 
-// --- MENU & SECTIE BEHEER (DE FIX) ---
+// MENU FIX: Wisselen tussen secties
 window.showSection = (sId, el) => {
-    // 1. Verberg alle secties fysiek en verwijder active class
+    // Verberg alles fysiek
     document.querySelectorAll('.content-section').forEach(s => {
         s.style.display = 'none';
         s.classList.remove('active');
     });
 
-    // 2. Toon de geselecteerde sectie
+    // Toon de juiste sectie
     const target = document.getElementById(sId);
     if (target) {
         target.style.display = 'block';
-        // Timeout zorgt voor een soepele fade-in na de display switch
         setTimeout(() => target.classList.add('active'), 10);
     }
 
-    // 3. Update Navigatie Items
+    // Navigatie styling update
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     if (el) el.classList.add('active');
 
-    // 4. Specifieke refresh acties
+    // Extra refresh acties
     if (sId === 'partners') loadPartnerList();
     if (sId === 'overview') {
-        // Forceer hertekenen van kalender en grafiek voor correcte afmetingen
         setTimeout(() => {
             if (window.calendar) window.calendar.render();
             if (revenueChart) revenueChart.update();
-        }, 200);
+        }, 150);
     }
 };
 
@@ -90,7 +88,6 @@ function renderAdminTable(bookings) {
 function filterByTime(period, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     const now = new Date();
     const startOfToday = new Date(now.setHours(0,0,0,0));
     
@@ -105,8 +102,20 @@ function filterByTime(period, btn) {
         if (period === 'month') return bDate.getMonth() === new Date().getMonth() && bDate.getFullYear() === new Date().getFullYear();
         return true;
     });
-
     renderAdminTable(filtered);
+}
+
+function updateAdminStats(b) {
+    document.getElementById('totalBookings').textContent = b.length;
+    let g = 0; let r = 0; const p = new Set();
+    b.forEach(x => {
+        const pax = parseInt(x["Number of Guests"]) || 1;
+        g += pax; r += (pax * 75);
+        p.add(x["Partner"] || x["PartnerID"]);
+    });
+    document.getElementById('totalGuests').textContent = g;
+    document.getElementById('totalRevenue').textContent = `€${r}`;
+    document.getElementById('activePartners').textContent = p.size;
 }
 
 function populateAdminCalendar(b) {
@@ -146,53 +155,28 @@ function updateRevenueChart(bookings) {
     });
 }
 
-function updateAdminStats(b) {
-    const bookingsEl = document.getElementById('totalBookings');
-    const guestsEl = document.getElementById('totalGuests');
-    const revenueEl = document.getElementById('totalRevenue');
-    const partnersEl = document.getElementById('activePartners');
-
-    if(!bookingsEl) return;
-
-    bookingsEl.textContent = b.length;
-    let g = 0; let r = 0; const p = new Set();
-    b.forEach(x => {
-        const pax = parseInt(x["Number of Guests"]) || 1;
-        g += pax; r += (pax * 75);
-        p.add(x["Partner"] || x["PartnerID"]);
-    });
-    guestsEl.textContent = g;
-    revenueEl.textContent = `€${r}`;
-    partnersEl.textContent = p.size;
-}
-
 function initCalendar() {
     const el = document.getElementById('calendar');
     if (!el) return;
-    window.calendar = new FullCalendar.Calendar(el, { 
-        initialView: 'dayGridMonth', 
-        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' }, 
-        eventColor: '#c5a059' 
-    });
+    window.calendar = new FullCalendar.Calendar(el, { initialView: 'dayGridMonth', headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' }, eventColor: '#c5a059' });
     window.calendar.render();
 }
 
 function togglePartnerForm() {
     const f = document.getElementById('addPartnerForm');
-    f.style.display = (f.style.display === 'none' || f.style.display === '') ? 'block' : 'none';
+    f.style.display = f.style.display === 'none' ? 'block' : 'none';
 }
 
 async function loadPartnerList() {
     const c = document.getElementById('partnersTableContainer');
-    if(!c) return;
-    c.innerHTML = '<div style="padding:20px; color:#94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Loading partners...</div>';
+    c.innerHTML = "Loading...";
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect: 'follow' });
         const p = await r.json();
         let h = `<table class="admin-table"><thead><tr><th>Name</th><th>User</th><th>ID</th></tr></thead><tbody>`;
         p.forEach(x => h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td><span class="badge-partner">${x.partnerID}</span></td></tr>`);
         c.innerHTML = h + `</tbody></table>`;
-    } catch (e) { c.innerHTML = "Error loading partner list."; }
+    } catch (e) { c.innerHTML = "Error loading list."; }
 }
 
 async function submitNewPartner() {
@@ -201,24 +185,8 @@ async function submitNewPartner() {
     const pass = document.getElementById('p_pass').value;
     const id = document.getElementById('p_id').value;
     if(!name || !user || !pass || !id) return alert("Fill all fields");
-    
-    const btn = event.target;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-    btn.disabled = true;
-
     try {
-        const resp = await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
-        alert("Partner successfully added!"); 
-        togglePartnerForm(); 
-        loadPartnerList();
-    } catch (e) { 
-        // Google Apps Script redirect triggert vaak een catch ondanks succes
-        alert("Action completed."); 
-        togglePartnerForm();
-        loadPartnerList(); 
-    } finally {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-    }
+        await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
+        alert("Partner added!"); togglePartnerForm(); loadPartnerList();
+    } catch (e) { alert("Partner added!"); loadPartnerList(); }
 }
