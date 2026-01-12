@@ -24,7 +24,6 @@
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.5; }
         
-        /* DESKTOP LAYOUT */
         .dashboard { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
         
         .sidebar { background: var(--sidebar-bg); color:white; padding:30px 0; position: sticky; top: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
@@ -38,7 +37,6 @@
         .main-content { padding:40px; width: 100%; }
         .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
         
-        /* STATS */
         .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-bottom:40px; }
         .stat-card { background: var(--white); padding:25px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
         .stat-label { color: var(--text-muted); font-size:0.75rem; text-transform:uppercase; font-weight: 700; margin-bottom: 5px; }
@@ -51,14 +49,12 @@
 
         .card { background: var(--white); padding:30px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom:30px; border: 1px solid var(--border); }
 
-        /* TABLES */
         .table-wrapper { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         th { background: #f8fafc; padding:15px; text-align:left; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid var(--border); }
         td { padding:15px; border-bottom:1px solid var(--border); font-size: 0.9rem; }
         .badge-confirmed { background:#dcfce7; color:#166534; padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; }
 
-        /* PACKAGES */
         .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .package-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
         .package-header { background: #f8fafc; padding: 20px; font-weight: 800; border-bottom: 1px solid var(--border); color: var(--sidebar-bg); }
@@ -67,7 +63,6 @@
         .package-list { list-style: none; margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); }
         .package-list li::before { content: "✓ "; color: var(--success); font-weight: bold; }
 
-        /* MOBILE */
         .mobile-header { display: none; background: var(--sidebar-bg); color: white; padding: 15px; position: fixed; top: 0; width: 100%; z-index: 1000; justify-content: space-between; align-items: center; }
 
         @media (max-width: 768px) {
@@ -116,89 +111,31 @@
 
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <p class="stat-label">Total Bookings</p>
-                        <div class="stat-value" id="totalBookings">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <p class="stat-label">Total Guests</p>
-                        <div class="stat-value" id="totalGuests">0</div>
-                    </div>
-                    <div class="stat-card" style="border-left-color: var(--success);">
-                        <p class="stat-label">Top Experience</p>
-                        <div class="stat-value" id="topPackage" style="font-size: 1.1rem;">-</div>
-                    </div>
+                    <div class="stat-card"><p class="stat-label">Total Bookings</p><div class="stat-value" id="totalBookings">0</div></div>
+                    <div class="stat-card"><p class="stat-label">Total Guests</p><div class="stat-value" id="totalGuests">0</div></div>
+                    <div class="stat-card" style="border-left-color: var(--success);"><p class="stat-label">Top Experience</p><div class="stat-value" id="topPackage" style="font-size: 1.1rem;">-</div></div>
                 </div>
-                <div class="card">
-                    <div id="calendar"></div>
-                </div>
+                <div class="card"><div id="calendar"></div></div>
             </section>
 
             <section id="bookings" class="content-section">
-                <div class="card">
-                    <div class="table-wrapper" id="bookingsTableContainer">
-                        <p style="text-align:center; padding:20px; color:var(--text-muted);">Loading bookings...</p>
-                    </div>
-                </div>
+                <div class="card"><div class="table-wrapper" id="bookingsTableContainer"><p>Loading bookings...</p></div></div>
             </section>
 
             <section id="packages" class="content-section">
                 <div class="packages-grid">
-                    <div class="package-card">
-                        <div class="package-header">1. Full Day - Hidden Spots & Football</div>
-                        <div class="package-body">
-                            <div class="price-tag">Half: €50 | Full: €120 - €200</div>
-                            <p>City exploration (Surco-Barranco) and Alianza match.</p>
-                            <ul class="package-list">
-                                <li>Match tickets & T-shirt</li>
-                                <li>2 beers included</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="package-card">
-                        <div class="package-header">2. Two Days, One Night - Culture & Coast</div>
-                        <div class="package-body">
-                            <div class="price-tag">Day 1: €80 | Day 2: €150 - €200</div>
-                            <p>Horse riding, Miraflores exploration, and match day.</p>
-                            <ul class="package-list">
-                                <li>All transfers & riding</li>
-                                <li>Match tickets & beers</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="package-card">
-                        <div class="package-header">3. Three Days, Two Nights - Complete</div>
-                        <div class="package-body">
-                            <div class="price-tag">€80 - €200 per day</div>
-                            <p>Beach adventure (San Bartolo), ATVs, and full match-day package.</p>
-                            <ul class="package-list">
-                                <li>ATVs & Sea activities</li>
-                                <li>Complete football experience</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="package-card"><div class="package-header">1. Full Day</div><div class="package-body"><div class="price-tag">€50 - €200</div><p>City & Football</p></div></div>
+                    <div class="package-card"><div class="package-header">2. Two Days</div><div class="package-body"><div class="price-tag">€80 - €200</div><p>Culture & Coast</p></div></div>
+                    <div class="package-card"><div class="package-header">3. Three Days</div><div class="package-body"><div class="price-tag">€80 - €200</div><p>Complete Adventure</p></div></div>
                 </div>
             </section>
 
             <section id="availability" class="content-section">
                 <div class="card" style="max-width: 600px;">
                     <form onsubmit="updateAvailability(event)" style="display:flex; flex-direction:column; gap:20px;">
-                        <div>
-                            <label style="display:block; margin-bottom:5px; font-weight:600;">Start Date</label>
-                            <input type="date" id="availStart" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required>
-                        </div>
-                        <div>
-                            <label style="display:block; margin-bottom:5px; font-weight:600;">End Date</label>
-                            <input type="date" id="availEnd" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required>
-                        </div>
-                        <div>
-                            <label style="display:block; margin-bottom:5px; font-weight:600;">Status</label>
-                            <select id="availStatus" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);">
-                                <option value="Fully Booked">Fully Booked</option>
-                                <option value="Closed">Closed</option>
-                                <option value="Vacation">Vacation</option>
-                            </select>
-                        </div>
+                        <div><label>Start Date</label><input type="date" id="availStart" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
+                        <div><label>End Date</label><input type="date" id="availEnd" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);" required></div>
+                        <div><label>Status</label><select id="availStatus" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border);"><option value="Fully Booked">Fully Booked</option><option value="Closed">Closed</option><option value="Vacation">Vacation</option></select></div>
                         <button type="submit" id="saveAvailBtn" style="background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer;">🚀 Save Availability</button>
                     </form>
                 </div>
@@ -206,19 +143,38 @@
         </main>
     </div>
 
-    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none; z-index:3000;">✅ Changes saved successfully!</div>
+    <div id="toast" style="position:fixed; bottom:20px; right:20px; background:var(--sidebar-bg); color:white; padding:15px; border-radius:10px; display:none; z-index:3000;">✅ Changes saved!</div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="auth.js"></script>
     <script src="partner.js"></script>
 
     <script>
-        // Lokale UI-functies
+        // HIER ZAT HET PROBLEEM: Deze functie moet in de HTML staan
+        function showSection(sectionId, element) {
+            // Verberg alle secties
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            // Deactiveer alle menu-items
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            
+            // Toon de juiste sectie
+            document.getElementById(sectionId).classList.add('active');
+            // Zet menu-item op actief
+            if(element) element.classList.add('active');
+            
+            // Sluit mobiel menu na klik
+            document.getElementById('sidebar').classList.remove('open');
+            
+            // Forceer kalender render als we naar overview gaan
+            if(sectionId === 'overview' && window.calendar) {
+                setTimeout(() => window.calendar.render(), 100);
+            }
+        }
+
         function toggleSidebar() { 
             document.getElementById('sidebar').classList.toggle('open'); 
         }
         
-        // Datum display bovenaan
         const dateEl = document.getElementById('currentDateDisplay');
         if (dateEl) {
             dateEl.textContent = new Date().toLocaleDateString('en-GB', { 
