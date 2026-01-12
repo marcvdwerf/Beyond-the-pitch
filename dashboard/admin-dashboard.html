@@ -71,9 +71,7 @@
                 </div>
 
                 <div class="card chart-card">
-                    <div class="card-header">
-                        <h3><i class="fa-solid fa-chart-line"></i> Revenue Trends</h3>
-                    </div>
+                    <div class="card-header"><h3><i class="fa-solid fa-chart-line"></i> Revenue Trends</h3></div>
                     <canvas id="revenueChart"></canvas>
                 </div>
 
@@ -84,48 +82,18 @@
 
             <section id="bookings" class="content-section">
                 <div class="card">
-                    <div class="card-header"><h3>Master Booking List</h3></div>
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Master Booking List</h3>
+                        <div class="time-filters">
+                            <button class="filter-btn active" onclick="filterByTime('all', this)">All</button>
+                            <button class="filter-btn" onclick="filterByTime('today', this)">Today</button>
+                            <button class="filter-btn" onclick="filterByTime('week', this)">This Week</button>
+                            <button class="filter-btn" onclick="filterByTime('month', this)">This Month</button>
+                        </div>
+                    </div>
                     <div class="table-responsive" id="adminTableContainer"></div>
                 </div>
             </section>
 
             <section id="partners" class="content-section">
-                <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-                    <button class="btn-refresh" onclick="togglePartnerForm()"><i class="fa-solid fa-plus"></i> Add New Partner</button>
-                </div>
-
-                <div id="addPartnerForm" class="card" style="display: none; border: 1px solid var(--primary-gold);">
-                    <h3>Add New Partner</h3>
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label>Business Name</label>
-                            <input type="text" id="p_name" placeholder="e.g. Lima Experience" class="form-input">
-                        </div>
-                        <div class="input-group">
-                            <label>Login Email</label>
-                            <input type="text" id="p_user" placeholder="partner@email.com" class="form-input">
-                        </div>
-                        <div class="input-group">
-                            <label>Password</label>
-                            <input type="password" id="p_pass" placeholder="••••••••" class="form-input">
-                        </div>
-                        <div class="input-group">
-                            <label>PartnerID (Sheet Column A)</label>
-                            <input type="text" id="p_id" placeholder="e.g. Lima" class="form-input">
-                        </div>
-                    </div>
-                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPartner()">Save Partner</button>
-                </div>
-
-                <div class="card">
-                    <div class="card-header"><h3>Partner Network</h3></div>
-                    <div class="table-responsive" id="partnersTableContainer"></div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <script src="auth.js"></script>
-    <script src="admin-dashboard.js"></script>
-</body>
-</html>
+                <div class
