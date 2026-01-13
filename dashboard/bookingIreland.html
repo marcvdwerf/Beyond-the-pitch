@@ -30,11 +30,18 @@
             position: relative;
         }
 
+        /* BACK BUTTON STYLE */
         .nav-back { position: absolute; top: 20px; left: 20px; z-index: 10; }
         .nav-back a {
             color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
-            background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 30px;
+            background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 30px;
             backdrop-filter: blur(5px); transition: all 0.3s;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .nav-back a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
         }
 
         .header {
@@ -85,7 +92,7 @@
 
     <div class="booking-container">
         <div class="nav-back">
-            <a href="#">← Back to Home</a>
+            <a href="https://www.travelbeyondthepitch.com">← Back to Home</a>
         </div>
 
         <div class="header">
@@ -158,7 +165,6 @@
     </div>
 
     <script>
-        // Exact Entry IDs from your provided Google Form link
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
         
         const FIELDS = {
@@ -171,7 +177,6 @@
             requests: 'entry.2094398847'
         };
 
-        // UI: Card Selection
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -180,7 +185,6 @@
             });
         });
 
-        // Submission Logic
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const loader = document.getElementById('loader');
