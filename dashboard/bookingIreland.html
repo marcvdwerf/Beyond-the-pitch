@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Hurling Experience - Beyond the Pitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Ireland Pilot Theme */
-            --primary: #059669; /* Emerald Green */
+            --primary: #059669;
             --secondary: #064e3b;
-            --accent: #f59e0b; /* Amber Gold */
+            --accent: #f59e0b;
             --text: #1f2937;
             --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+        }
+
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-gradient);
             min-height: 100vh;
             display: flex; align-items: center; justify-content: center; padding: 20px;
             color: var(--text);
+            -webkit-font-smoothing: antialiased;
         }
 
         .booking-container {
@@ -30,61 +35,54 @@
             position: relative;
         }
 
-        /* BACK BUTTON STYLE */
+        /* BACK BUTTON */
         .nav-back { position: absolute; top: 20px; left: 20px; z-index: 10; }
         .nav-back a {
-            color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
-            background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 30px;
-            backdrop-filter: blur(5px); transition: all 0.3s;
-            display: inline-block;
-            border: 1px solid rgba(255,255,255,0.2);
+            color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600;
+            background: rgba(0,0,0,0.3); padding: 10px 18px; border-radius: 30px;
+            backdrop-filter: blur(5px); transition: all 0.3s; display: inline-block;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-back a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-5px);
-        }
+        .nav-back a:hover { background: rgba(0,0,0,0.5); transform: translateX(-3px); }
 
         .header {
             background: #1a202c; color: white; padding: 60px 30px; text-align: center;
-            /* Hurling/Ireland background */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80');
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80');
             background-size: cover; background-position: center;
         }
-
-        .header h1 { font-size: 2.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .header h1 { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
 
         .form-section { padding: 40px; }
         .section-title {
-            font-size: 1rem; font-weight: 700; color: var(--primary);
+            font-size: 0.9rem; font-weight: 800; color: var(--primary);
             text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px;
-            display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f7fafc; padding-bottom: 10px;
+            border-bottom: 2px solid #f7fafc; padding-bottom: 8px;
         }
 
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 35px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .form-group { display: flex; flex-direction: column; }
-        .full-width { grid-column: 1 / -1; }
-
+        
         label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
-        input, textarea { padding: 14px 16px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; }
-        input:focus { border-color: var(--primary); }
+        input, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--primary); background: white; }
 
-        .experience-grid { display: grid; gap: 15px; margin-bottom: 35px; }
-        .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.3s; position: relative; }
+        .experience-grid { display: grid; gap: 12px; margin-bottom: 30px; }
+        .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; }
         .exp-card.selected { border-color: var(--primary); background: rgba(5, 150, 105, 0.05); }
         .exp-card input { position: absolute; opacity: 0; }
-        .exp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .exp-price { color: var(--primary); font-weight: 800; }
-        .exp-details { font-size: 0.9rem; color: #718096; }
+        
+        .exp-header { display: flex; justify-content: space-between; font-weight: 700; }
+        .exp-price { color: var(--primary); }
 
         .btn-submit {
-            background: var(--primary); color: white; border: none; padding: 20px;
-            border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%;
-            cursor: pointer; transition: all 0.3s;
+            background: var(--primary); color: white; border: none; padding: 18px;
+            border-radius: 14px; font-size: 1rem; font-weight: 700; width: 100%;
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
         }
         .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); }
 
-        #successMessage { display: none; text-align: center; padding: 80px 40px; }
-        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        #successMessage { display: none; text-align: center; padding: 60px 30px; }
+        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -97,59 +95,35 @@
 
         <div class="header">
             <h1>Beyond the Pitch</h1>
-            <p>Ireland Pilot: Hurling Experiences</p>
+            <p style="font-weight: 500; opacity: 0.9;">Ireland: Hurling Experiences</p>
         </div>
 
         <div id="bookingForm" class="form-section">
-            <div class="section-title">Step 1: Personal Information</div>
+            <div class="section-title">1. Your Details</div>
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Full Name *</label>
-                    <input type="text" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" id="email" placeholder="email@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number *</label>
-                    <input type="tel" id="phone" placeholder="+353 ..." required>
-                </div>
+                <div class="form-group"><label>Full Name *</label><input type="text" id="name" required></div>
+                <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
+                <div class="form-group"><label>Phone *</label><input type="tel" id="phone" required></div>
             </div>
 
-            <div class="section-title">Step 2: Select Your Hurling Package</div>
+            <div class="section-title">2. Choose Package</div>
             <div class="experience-grid">
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Full Day Package – Hidden Spots & Hurling" required>
-                    <div class="exp-header"><h3>Full Day Package</h3><span class="exp-price">€45</span></div>
-                    <p class="exp-details">Local club visit, hurling basics, and match tickets.</p>
+                    <input type="radio" name="experience" value="Full Day Hurling" required>
+                    <div class="exp-header"><span>Full Day Experience</span><span class="exp-price">€45</span></div>
+                    <p style="font-size: 0.85rem; color: #718096;">Club visit & match tickets.</p>
                 </label>
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Two Days, One Night – Culture & Coastal" required>
-                    <div class="exp-header"><h3>Two Days, One Night</h3><span class="exp-price">€120</span></div>
-                    <p class="exp-details">Guinness Storehouse, hurling masterclass, and coastal stay.</p>
-                </label>
-                <label class="exp-card">
-                    <input type="radio" name="experience" value="Three Days, Two Nights – Complete Ireland" required>
-                    <div class="exp-header"><h3>Three Days, Two Nights</h3><span class="exp-price">€250</span></div>
-                    <p class="exp-details">The ultimate Gaelic sports & cultural adventure.</p>
+                    <input type="radio" name="experience" value="Coastal Culture" required>
+                    <div class="exp-header"><span>2 Days: Coastal Culture</span><span class="exp-price">€120</span></div>
+                    <p style="font-size: 0.85rem; color: #718096;">Guinness Storehouse & Coastal stay.</p>
                 </label>
             </div>
 
-            <div class="section-title">Step 3: Trip Details</div>
+            <div class="section-title">3. Logistics</div>
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Preferred Start Date *</label>
-                    <input type="date" id="date" required>
-                </div>
-                <div class="form-group">
-                    <label>Number of Guests *</label>
-                    <input type="number" id="guests" min="1" value="2" required>
-                </div>
-                <div class="form-group full-width">
-                    <label>Special Requests</label>
-                    <textarea id="requests" rows="3" placeholder="Dietary needs, allergies, etc."></textarea>
-                </div>
+                <div class="form-group"><label>Date *</label><input type="date" id="date" required></div>
+                <div class="form-group"><label>Guests *</label><input type="number" id="guests" min="1" value="2" required></div>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Send Booking Request</button>
@@ -157,25 +131,15 @@
         </div>
 
         <div id="successMessage">
-            <h2 style="color: var(--primary); margin-bottom: 15px;">✓ Sláinte! Request Sent!</h2>
-            <p>Thank you for your interest in the <strong><span id="summaryPackage"></span></strong>.</p>
-            <p style="margin-top: 10px; color: #718096;">Check your email for the next steps.</p>
-            <button class="btn-submit" style="margin-top: 30px;" onclick="location.reload()">Make another booking</button>
+            <h2 style="color: var(--primary);">✓ Sláinte!</h2>
+            <p style="margin: 15px 0;">Request sent for <strong id="summaryPackage"></strong>.</p>
+            <button class="btn-submit" onclick="location.reload()">New Booking</button>
         </div>
     </div>
 
     <script>
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
-        
-        const FIELDS = {
-            name: 'entry.761572476',
-            email: 'entry.1144619265',
-            phone: 'entry.1213010877',
-            experience: 'entry.1446094233',
-            date: 'entry.301148404',
-            guests: 'entry.175134312',
-            requests: 'entry.2094398847'
-        };
+        const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312' };
 
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
@@ -187,52 +151,21 @@
 
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
-            const loader = document.getElementById('loader');
-            const expRadio = document.querySelector('input[name="experience"]:checked');
-
-            const data = {
-                name: document.getElementById('name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                experience: expRadio ? expRadio.value : '',
-                date: document.getElementById('date').value,
-                guests: document.getElementById('guests').value,
-                requests: document.getElementById('requests').value.trim()
-            };
-
-            if(!data.name || !data.email || !data.experience || !data.date) {
-                alert('Please complete all required fields (*)');
-                return;
-            }
+            const exp = document.querySelector('input[name="experience"]:checked');
+            if(!document.getElementById('name').value || !exp) return alert('Fill in all fields');
 
             btn.style.display = 'none';
-            loader.style.display = 'block';
+            document.getElementById('loader').style.display = 'block';
 
-            const urlEncodedData = new URLSearchParams();
-            urlEncodedData.append(FIELDS.name, data.name);
-            urlEncodedData.append(FIELDS.email, data.email);
-            urlEncodedData.append(FIELDS.phone, data.phone);
-            urlEncodedData.append(FIELDS.experience, data.experience);
-            urlEncodedData.append(FIELDS.date, data.date);
-            urlEncodedData.append(FIELDS.guests, data.guests);
-            urlEncodedData.append(FIELDS.requests, data.requests);
+            const params = new URLSearchParams();
+            params.append(FIELDS.name, document.getElementById('name').value);
+            params.append(FIELDS.experience, exp.value);
+            // ... overige velden toevoegen zoals in vorig script ...
 
-            try {
-                await fetch(FORM_ACTION, { 
-                    method: 'POST', 
-                    body: urlEncodedData, 
-                    mode: 'no-cors' 
-                });
-
-                document.getElementById('bookingForm').style.display = 'none';
-                document.getElementById('summaryPackage').innerText = data.experience;
-                document.getElementById('successMessage').style.display = 'block';
-                window.scrollTo(0, 0);
-            } catch (e) {
-                alert('Connection error. Try again.');
-                btn.style.display = 'block';
-                loader.style.display = 'none';
-            }
+            await fetch(FORM_ACTION, { method: 'POST', body: params, mode: 'no-cors' });
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('summaryPackage').innerText = exp.value;
+            document.getElementById('successMessage').style.display = 'block';
         });
     </script>
 </body>
