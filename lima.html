@@ -548,6 +548,66 @@
       color: #000000;
     }
 
+    /* Floating CTA Button */
+    .floating-cta {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 99;
+      background: var(--gold);
+      color: #000000;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    .floating-cta:hover {
+      background: #ffed4e;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6);
+    }
+
+    .floating-cta svg {
+      width: 20px;
+      height: 20px;
+      fill: #000000;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+      }
+      50% {
+        box-shadow: 0 8px 32px rgba(255, 215, 0, 0.7);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .floating-cta {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.875rem 1.25rem;
+        font-size: 0.9rem;
+      }
+      
+      .floating-cta-text {
+        display: none;
+      }
+      
+      .floating-cta svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
     /* Modal styles */
     .modal {
       position: fixed;
@@ -666,6 +726,14 @@
     </div>
   </nav>
 
+  <!-- Floating CTA Button -->
+  <a href="https://www.travelbeyondthepitch.com/dashboard/booking.html" class="floating-cta" aria-label="Book your Lima experience">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+    </svg>
+    <span class="floating-cta-text">Book Now</span>
+  </a>
+
   <main id="main">
     <!-- Hero Video -->
     <section id="video" class="pt-24 pb-16 px-4 text-center relative">
@@ -713,7 +781,7 @@
             In Lima, football isn't just a sport - it's identity, community, and emotion all woven together. This experience takes you beyond the tourist trail into the heart of Peruvian football culture through <strong style="color: var(--gold);">Alianza Lima</strong>, one of Peru's most passionate clubs.
           </p>
           <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
-            Guided by José - a lifelong Alianza supporter with deep connections to the club and its most passionated groups - you'll experience matchday like a true local, explore Lima's hidden food gems, and discover the neighborhoods where football defines daily life.
+            Guided by José - a lifelong Alianza supporter with deep connections to the club and its hooligan groups - you'll experience matchday like a true local, explore Lima's hidden food gems, and discover the neighborhoods where football defines daily life.
           </p>
           <div class="highlight-box">
             <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--alianza-blue);">🎵 The Song-List Ritual</p>
@@ -746,7 +814,7 @@
             </div>
           </div>
           <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
-            José is a lifelong Alianza Lima supporter with deep roots in the club's culture. Years spent in the stadium have given him strong connections - including within the passionated supporter groups - allowing him to secure tickets even for high-demand matches and provide authentic insider access.
+            José is a lifelong Alianza Lima supporter with deep roots in the club's culture. Years spent in the stadium have given him strong connections - including within the hooligan groups - allowing him to secure tickets even for high-demand matches and provide authentic insider access.
           </p>
           <div style="background: rgba(220, 38, 38, 0.1); border-left: 4px solid var(--red); padding: 1.5rem; border-radius: 8px;">
             <p style="font-style: italic; color: #d1d5db; line-height: 1.7;">
