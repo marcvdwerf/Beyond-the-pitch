@@ -14,12 +14,7 @@
             --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Inter', sans-serif; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background: var(--bg-gradient);
@@ -35,7 +30,6 @@
             position: relative;
         }
 
-        /* BACK BUTTON */
         .nav-back { position: absolute; top: 20px; left: 20px; z-index: 10; }
         .nav-back a {
             color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600;
@@ -50,40 +44,50 @@
             background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80');
             background-size: cover; background-position: center;
         }
-        .header h1 { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
+        .header h1 { font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
 
         .form-section { padding: 40px; }
         .section-title {
             font-size: 0.9rem; font-weight: 800; color: var(--primary);
             text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px;
-            border-bottom: 2px solid #f7fafc; padding-bottom: 8px;
+            border-bottom: 2px solid #f7fafc; padding-bottom: 8px; margin-top: 10px;
         }
 
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .form-group { display: flex; flex-direction: column; }
         
         label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
-        input, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--primary); background: white; }
+        input, select, textarea { 
+            padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; 
+            font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; 
+            width: 100%; appearance: none;
+        }
+        input:focus, select:focus { border-color: var(--primary); background: white; }
 
         .experience-grid { display: grid; gap: 12px; margin-bottom: 30px; }
-        .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; }
+        .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
         .exp-card.selected { border-color: var(--primary); background: rgba(5, 150, 105, 0.05); }
         .exp-card input { position: absolute; opacity: 0; }
         
-        .exp-header { display: flex; justify-content: space-between; font-weight: 700; }
+        .exp-header { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 4px; }
         .exp-price { color: var(--primary); }
 
+        .match-selector {
+            background: #fffbeb; border: 2px solid #fef3c7; padding: 20px; border-radius: 16px; margin-bottom: 30px;
+        }
+
         .btn-submit {
-            background: var(--primary); color: white; border: none; padding: 18px;
-            border-radius: 14px; font-size: 1rem; font-weight: 700; width: 100%;
+            background: var(--primary); color: white; border: none; padding: 20px;
+            border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%;
             cursor: pointer; transition: 0.3s; margin-top: 10px;
         }
-        .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); }
+        .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
 
         #successMessage { display: none; text-align: center; padding: 60px 30px; }
-        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) { .form-section { padding: 20px; } }
     </style>
 </head>
 <body>
@@ -101,29 +105,42 @@
         <div id="bookingForm" class="form-section">
             <div class="section-title">1. Your Details</div>
             <div class="form-grid">
-                <div class="form-group"><label>Full Name *</label><input type="text" id="name" required></div>
-                <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
-                <div class="form-group"><label>Phone *</label><input type="tel" id="phone" required></div>
+                <div class="form-group"><label>Full Name *</label><input type="text" id="name" placeholder="John Doe" required></div>
+                <div class="form-group"><label>Email *</label><input type="email" id="email" placeholder="john@example.com" required></div>
+                <div class="form-group"><label>Phone *</label><input type="tel" id="phone" placeholder="+353 ..." required></div>
             </div>
 
-            <div class="section-title">2. Choose Package</div>
+            <div class="section-title">2. Select Official Match (Optional)</div>
+            <div class="match-selector">
+                <label>Do you want to attend a specific GAA match?</label>
+                <select id="matchSelection">
+                    <option value="">No specific match / Not sure yet</option>
+                    <option value="Match: Kilkenny vs Wexford (May 10)">May 10: Kilkenny vs Wexford (Nowlan Park)</option>
+                    <option value="Match: Limerick vs Clare (May 17)">May 17: Limerick vs Clare (Gaelic Grounds)</option>
+                    <option value="Match: Cork vs Tipperary (May 24)">May 24: Cork vs Tipperary (Páirc Uí Chaoimh)</option>
+                    <option value="Match: Galway vs Dublin (June 07)">June 07: Galway vs Dublin (Pearse Stadium)</option>
+                </select>
+                <p style="font-size: 0.75rem; color: #92400e; margin-top: 8px;">* Match tickets are subject to availability.</p>
+            </div>
+
+            <div class="section-title">3. Choose Your Experience</div>
             <div class="experience-grid">
-                <label class="exp-card">
-                    <input type="radio" name="experience" value="Full Day Hurling" required>
+                <label class="exp-card selected">
+                    <input type="radio" name="experience" value="Full Day Hurling" checked>
                     <div class="exp-header"><span>Full Day Experience</span><span class="exp-price">€45</span></div>
-                    <p style="font-size: 0.85rem; color: #718096;">Club visit & match tickets.</p>
+                    <p style="font-size: 0.85rem; color: #718096;">Local club visit, hurling intro & match tickets.</p>
                 </label>
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Coastal Culture" required>
+                    <input type="radio" name="experience" value="Coastal Culture">
                     <div class="exp-header"><span>2 Days: Coastal Culture</span><span class="exp-price">€120</span></div>
-                    <p style="font-size: 0.85rem; color: #718096;">Guinness Storehouse & Coastal stay.</p>
+                    <p style="font-size: 0.85rem; color: #718096;">City highlights, coastal stay & premium match seats.</p>
                 </label>
             </div>
 
-            <div class="section-title">3. Logistics</div>
+            <div class="section-title">4. Logistics</div>
             <div class="form-grid">
-                <div class="form-group"><label>Date *</label><input type="date" id="date" required></div>
-                <div class="form-group"><label>Guests *</label><input type="number" id="guests" min="1" value="2" required></div>
+                <div class="form-group"><label>Travel Date *</label><input type="date" id="date" required></div>
+                <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" min="1" value="2" required></div>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Send Booking Request</button>
@@ -131,16 +148,30 @@
         </div>
 
         <div id="successMessage">
-            <h2 style="color: var(--primary);">✓ Sláinte!</h2>
-            <p style="margin: 15px 0;">Request sent for <strong id="summaryPackage"></strong>.</p>
-            <button class="btn-submit" onclick="location.reload()">New Booking</button>
+            <div style="font-size: 4rem; margin-bottom: 20px;">🍀</div>
+            <h2 style="color: var(--primary); font-size: 2rem;">Sláinte!</h2>
+            <p style="margin: 15px 0; font-size: 1.1rem; color: #4a5568;">
+                Your request for <strong id="summaryPackage"></strong> has been received. <br>
+                We will contact you within 24 hours.
+            </p>
+            <button class="btn-submit" onclick="location.reload()" style="max-width: 200px;">Back</button>
         </div>
     </div>
 
     <script>
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
-        const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312' };
+        
+        // Jouw specifieke entry ID's van Google Forms
+        const FIELDS = { 
+            name: 'entry.761572476', 
+            email: 'entry.1144619265', 
+            phone: 'entry.1213010877', 
+            experience: 'entry.1446094233', // De kolom waar de combi pakket+match komt
+            date: 'entry.301148404', 
+            guests: 'entry.175134312' 
+        };
 
+        // UI: Selectie effect voor kaarten
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -149,23 +180,60 @@
             });
         });
 
+        // SUBMIT LOGICA
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
-            const exp = document.querySelector('input[name="experience"]:checked');
-            if(!document.getElementById('name').value || !exp) return alert('Fill in all fields');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const guests = document.getElementById('guests').value;
+            const baseExp = document.querySelector('input[name="experience"]:checked').value;
+            const selectedMatch = document.getElementById('matchSelection').value;
 
+            // Validatie
+            if(!name || !email || !date) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Combineer Pakket + Match voor de spreadsheet
+            const finalExperience = selectedMatch ? `${baseExp} (${selectedMatch})` : baseExp;
+
+            // UI naar Loading
             btn.style.display = 'none';
             document.getElementById('loader').style.display = 'block';
 
+            // Data voorbereiden
             const params = new URLSearchParams();
-            params.append(FIELDS.name, document.getElementById('name').value);
-            params.append(FIELDS.experience, exp.value);
-            // ... overige velden toevoegen zoals in vorig script ...
+            params.append(FIELDS.name, name);
+            params.append(FIELDS.email, email);
+            params.append(FIELDS.phone, phone);
+            params.append(FIELDS.experience, finalExperience);
+            params.append(FIELDS.date, date);
+            params.append(FIELDS.guests, guests);
+            // Voeg partner ID toe zodat het in jouw dashboard verschijnt
+            params.append('entry.123456789', 'ireland'); // VUL HIER de entry ID in voor de 'Partner' kolom indien van toepassing
 
-            await fetch(FORM_ACTION, { method: 'POST', body: params, mode: 'no-cors' });
-            document.getElementById('bookingForm').style.display = 'none';
-            document.getElementById('summaryPackage').innerText = exp.value;
-            document.getElementById('successMessage').style.display = 'block';
+            try {
+                await fetch(FORM_ACTION, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: params
+                });
+
+                // Succes scherm
+                document.getElementById('bookingForm').style.display = 'none';
+                document.getElementById('summaryPackage').innerText = finalExperience;
+                document.getElementById('successMessage').style.display = 'block';
+                window.scrollTo(0, 0);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+                btn.style.display = 'block';
+                document.getElementById('loader').style.display = 'none';
+            }
         });
     </script>
 </body>
