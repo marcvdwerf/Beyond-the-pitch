@@ -200,7 +200,7 @@
 
 <!-- FOOTER -->
 <footer class="py-10 text-center border-t border-gray-800">
-  <p class="text-gray-500 text-sm">© 2025 Beyond the Pitch</p>
+  <p class="text-gray-500 text-sm">© 2026 Beyond the Pitch</p>
 </footer>
 
 <script>
@@ -282,6 +282,18 @@
         'event_label': link.href,
         'value': 1
       });
+    }
+  });
+</script>
+  <script>
+  // Zorg dat de juiste tab opent op basis van de URL (bijv. contact.html#partner)
+  window.addEventListener('DOMContentLoaded', (event) => {
+    if (window.location.hash === '#partner') {
+      // Simuleer een klik op de partner tab
+      tabPartner.click();
+      
+      // Optioneel: scroll zachtjes naar het formulier
+      document.getElementById('partnerForm').scrollIntoView({ behavior: 'smooth' });
     }
   });
 </script>
