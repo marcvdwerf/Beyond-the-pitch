@@ -135,8 +135,8 @@
     </div>
 
     <script>
-        // EXACTE ENTRY IDS VAN JOUW FORMULIER
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
+        
         const FIELDS = { 
             name: 'entry.761572476', 
             email: 'entry.1144619265', 
@@ -147,7 +147,6 @@
             partner: 'entry.2094398847' 
         };
 
-        // UI selectie
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -156,36 +155,54 @@
             });
         });
 
-        // Submit logica
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const date = document.getElementById('date').value;
             const match = document.getElementById('matchSelect').value;
             const baseExp = document.querySelector('input[name="experience"]:checked').value;
 
-            if(!name || !document.getElementById('email').value) return alert('Please fill in all fields');
+            if(!name || !email || !date) {
+                alert('Please fill in all required fields (Name, Email, Date).');
+                return;
+            }
 
             btn.style.display = 'none';
             document.getElementById('loader').style.display = 'block';
 
             const finalExperience = match ? `${baseExp} (${match})` : baseExp;
 
-            const params = new URLSearchParams();
-            params.append(FIELDS.name, name);
-            params.append(FIELDS.email, document.getElementById('email').value);
-            params.append(FIELDS.phone, document.getElementById('phone').value);
-            params.append(FIELDS.experience, finalExperience);
-            params.append(FIELDS.date, document.getElementById('date').value);
-            params.append(FIELDS.guests, document.getElementById('guests').value);
-            params.append(FIELDS.partner, 'ireland'); // Zorgt voor de koppeling met je dashboard
+            // Gebruik URLSearchParams voor correcte Google Forms formatting
+            const formData = new URLSearchParams();
+            formData.append(FIELDS.name, name);
+            formData.append(FIELDS.email, email);
+            formData.append(FIELDS.phone, document.getElementById('phone').value);
+            formData.append(FIELDS.experience, finalExperience);
+            formData.append(FIELDS.date, date);
+            formData.append(FIELDS.guests, document.getElementById('guests').value);
+            
+            // VERBETERING: Stuur "Ireland" met een hoofdletter als je dashboard daarop filtert
+            formData.append(FIELDS.partner, 'Ireland'); 
 
             try {
-                await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: params });
+                // We gebruiken 'no-cors' omdat Google geen JSON response geeft
+                await fetch(FORM_ACTION, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData.toString()
+                });
+
+                // Zelfs met no-cors gaan we ervan uit dat het verzonden is als er geen error komt
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('summaryPackage').innerText = finalExperience;
                 document.getElementById('successMessage').style.display = 'block';
+                window.scrollTo(0, 0);
+
             } catch (e) {
-                alert('Error submitting form.');
+                console.error('Submission error:', e);
+                alert('Connection error. Please check your internet and try again.');
                 btn.style.display = 'block';
                 document.getElementById('loader').style.display = 'none';
             }
