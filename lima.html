@@ -1433,20 +1433,20 @@
       }
     });
   </script>
-  ... rest van je pagina ...
-
-    <script>
-      // Forceer de quiz-knop om naar de pagina te gaan i.p.v. de modal te openen
-      document.addEventListener('DOMContentLoaded', function() {
-        const quizBtn = document.getElementById('start-quiz-btn');
-        if (quizBtn) {
-          quizBtn.onclick = function(e) {
-            e.stopPropagation(); 
-            window.location.href = this.getAttribute('href');
-          };
-        }
+ <script>
+  // Dit script zorgt ervoor dat de quiz-knop NIET de booking-modal opent
+  document.addEventListener('DOMContentLoaded', function() {
+    const quizBtn = document.getElementById('start-quiz-btn');
+    if (quizBtn) {
+      quizBtn.addEventListener('click', function(e) {
+        // Stop de "bubble" zodat de modal-scripts van de site niet reageren
+        e.stopPropagation();
+        // Stuur de gebruiker direct door naar de quiz pagina
+        window.location.href = "limaquiz.html";
       });
-    </script>
+    }
+  });
+</script>
   </body>
 </html>
 </body>
