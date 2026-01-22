@@ -13,6 +13,8 @@
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #1e293b; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .bg-alianza { background-color: #002D5D; }
+        .text-alianza { color: #002D5D; }
     </style>
 </head>
 <body>
@@ -35,9 +37,10 @@
                     subtitle: 'Fútbol & Vóley Challenge',
                     tagline: '¿Qué tanto conoces la historia del club más grande del Perú?',
                     startQuiz: '¡Empezar el Desafío!',
-                    backHome: 'Volver al Inicio',
-                    projectPage: 'Ver Proyecto Lima',
-                    bookTrip: '¡Reserva tu viaje a Matute!',
+                    backHome: 'Inicio',
+                    projectPage: 'Volver a la página de Lima',
+                    footballTickets: 'Tickets de Fútbol',
+                    volleyballTickets: 'Tickets de Vóley',
                     continue: 'Continuar',
                     readMore: 'Leer más',
                     yourScore: 'Tu puntuación final:',
@@ -49,11 +52,12 @@
                 en: {
                     title: 'ALIANZA LIMA',
                     subtitle: 'Football & Volleyball Challenge',
-                    tagline: 'How much do you know about Perus biggest multi-sport club?',
+                    tagline: 'How much do you know about Peru’s biggest multi-sport club?',
                     startQuiz: 'Start the Challenge!',
-                    backHome: 'Back to Home',
-                    projectPage: 'View Lima Project',
-                    bookTrip: 'Book your trip to Matute!',
+                    backHome: 'Home',
+                    projectPage: 'Back to Lima Page',
+                    footballTickets: 'Football Tickets',
+                    volleyballTickets: 'Volleyball Tickets',
                     continue: 'Continue',
                     readMore: 'Read more',
                     yourScore: 'Your final score:',
@@ -68,69 +72,69 @@
 
             const triviaQuestions = [
                 {
-                    question: { es: '¿En qué año fue fundado Alianza Lima?', en: 'In what year was Alianza Lima founded?' },
-                    options: ['1901', '1905', '1910', '1915'],
-                    correct: '1901',
+                    question: { es: '¿En qué colores juega tradicionalmente Alianza Lima?', en: 'In which colors does Alianza Lima traditionally play?' },
+                    options: ['Blue and White', 'Red and White', 'Yellow and Black', 'Green and White'],
+                    correct: 'Blue and White',
                     image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
-                    shortFact: { es: '¡Correcto! El 15 de febrero de 1901.', en: 'Correct! On February 15, 1901.' },
+                    shortFact: { es: '¡Correcto! Los colores clásicos blanquiazules.', en: 'Correct! The classic Blue and White colors.' },
                     longFact: {
-                        es: 'El Club Alianza Lima fue fundado con el nombre de Sport Alianza el 15 de febrero de 1901 por jóvenes de clase trabajadora del barrio de Chacaritas, en Lima. Es ampliamente conocido por tener uno de los equipos de fútbol más históricos y exitosos de Perú.',
-                        en: 'Club Alianza Lima was founded under the name of Sport Alianza on 15 February 1901 by working-class youth in the Chacaritas neighbourhood of Lima. It is widely known for having one of the most historical and successful football teams in Peru.'
+                        es: 'Alianza Lima es icónico por sus rayas verticales azules y blancas. Estos colores representan la identidad del club desde sus inicios y son la razón por la que se les llama "Los Blanquiazules".',
+                        en: 'Alianza Lima is iconic for its blue and white vertical stripes. These colors have represented the club\'s identity since its early days and are the reason fans are called "Los Blanquiazules".'
                     }
                 },
                 {
-                    question: { es: '¿Cuál es el apodo más popular del club?', en: 'What is the most popular nickname of the club?' },
-                    options: ['Los Blanquiazules', 'Los Íntimos', 'Los Aliancistas', 'Todos los anteriores'],
-                    correct: 'Todos los anteriores',
+                    question: { es: '¿Por qué apodo es conocido Alianza Lima?', en: 'By which nickname is Alianza Lima known?' },
+                    options: ['Los Blanquiazules', 'Los Íntimos', 'El Equipo del Pueblo', 'All of the above'],
+                    correct: 'All of the above',
                     image: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45?w=800',
-                    shortFact: { es: '¡Exacto! El club tiene varios apodos.', en: 'Exactly! The club has several nicknames.' },
+                    shortFact: { es: '¡Exacto! Todos estos nombres definen al club.', en: 'Exactly! All these names define the club.' },
                     longFact: {
-                        es: 'Conocido por los apodos de Blanquiazules, Los Íntimos y El Equipo del Pueblo.',
-                        en: 'Known by the nicknames Blanquiazules (White and Blues), Los Íntimos (The Intimates), and El Equipo del Pueblo (The People’s Team).'
+                        es: 'El club tiene una identidad rica: "Blanquiazules" por sus colores, "Los Íntimos" por la hermandad de sus jugadores históricos, y "El Equipo del Pueblo" por su profunda conexión con las clases trabajadoras.',
+                        en: 'The club has a rich identity: "Blanquiazules" for its colors, "Los Íntimos" for the brotherhood of its historical players, and "El Equipo del Pueblo" for its deep connection with the working classes.'
                     }
                 },
                 {
-                    question: { es: '¿Cuántos títulos nacionales ha ganado Alianza Lima?', en: 'How many national titles has Alianza Lima won?' },
-                    options: ['20', '23', '25', '28'],
-                    correct: '25',
-                    image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800',
-                    shortFact: { es: '¡Correcto! 25 títulos nacionales.', en: 'Correct! 25 national titles.' },
+                    question: { es: '¿Qué ex jugador de Alianza Lima triunfó en grandes clubes de Europa como el Bayern Múnich?', en: 'Which former Alianza Lima player played for big clubs in Europe like Bayern Munich?' },
+                    options: ['Claudio Pizarro', 'Paolo Guerrero', 'Jefferson Farfán', 'Teófilo Cubillas'],
+                    correct: 'Claudio Pizarro',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/peru.jpg',
+                    shortFact: { es: '¡Correcto! "El Bombardero de los Andes".', en: 'Correct! "The Bomber of the Andes".' },
                     longFact: {
-                        es: 'Alianza Lima es uno de los clubes más exitosos con 25 títulos de Primera División, 31 títulos de copa nacional, 1 supercopa y 1 copa internacional (Copa Simón Bolívar). Disfrutó de su época más exitosa durante las primeras décadas de su era profesional.',
-                        en: 'Alianza Lima is one of the most successful clubs with 25 Primera División titles, 31 domestic cup titles, 1 supercup, and 1 international cup (Copa Simón Bolívar). Alianza enjoyed their most successful period throughout the first decades of their professional era.'
+                        es: 'Claudio Pizarro comenzó su leyenda en Alianza Lima antes de convertirse en el máximo goleador extranjero histórico del Bayern Múnich y una leyenda absoluta de la Bundesliga alemana.',
+                        en: 'Claudio Pizarro started his legend at Alianza Lima before becoming Bayern Munich\'s all-time leading foreign goalscorer and an absolute legend of the German Bundesliga.'
                     }
                 },
                 {
-                    question: { es: '¿Cuál es el apodo del equipo de vóley femenino de Alianza?', en: 'What is the nickname of Alianzas female volleyball team?' },
-                    options: ['Las Reinas', 'Las Íntimas', 'Las Matadoras', 'Las Guerreras'],
-                    correct: 'Las Íntimas',
-                    image: 'https://images.unsplash.com/photo-1592656670411-b159f0db29ab?w=800',
-                    shortFact: { es: '¡Exacto! Son conocidas como "Las Íntimas".', en: 'Exactly! They are known as "Las Íntimas".' },
-                    longFact: {
-                        es: 'El vóley de Alianza Lima tiene una de las hinchadas más grandes del país y compite al más alto nivel en la Liga Nacional Superior de Voleibol.',
-                        en: 'Alianzas volleyball team has one of the largest fanbases in the country and competes at the highest level in the National Superior Volleyball League.'
-                    }
-                },
-                {
-                    question: { es: '¿Cómo se llama el estadio principal del club?', en: 'What is the name of the clubs main stadium?' },
-                    options: ['Nacional', 'Monumental', 'Alejandro Villanueva', 'San Marcos'],
-                    correct: 'Alejandro Villanueva',
+                    question: { es: '¿A qué parte de Lima está vinculado tradicionalmente el club?', en: 'To which part of Lima is the club traditionally linked?' },
+                    options: ['Miraflores', 'San Isidro', 'La Victoria', 'Barranco'],
+                    correct: 'La Victoria',
                     image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/Vista_a%C3%A9rea_del_Estadio_Alejandro_Villanueva_2023.jpg',
-                    shortFact: { es: '¡Correcto! También conocido como "Matute".', en: 'Correct! Also known as "Matute".' },
+                    shortFact: { es: '¡Correcto! El corazón de Matute en La Victoria.', en: 'Correct! The heart of Matute in La Victoria.' },
                     longFact: {
-                        es: 'El Estadio Alejandro Villanueva lleva el nombre de uno de los jugadores más importantes de la historia del club. Se encuentra en el barrio de Matute y tiene capacidad para 33,938 espectadores.',
-                        en: 'The Estadio Alejandro Villanueva is named after one of the most important players in the club\'s history. It is located in the Matute neighbourhood and can hold 33,938 spectators.'
+                        es: 'Alianza Lima está profundamente arraigado en La Victoria, un barrio obrero vibrante. Jugar en el Estadio Alejandro Villanueva (Matute) es una experiencia cultural que refleja el alma del pueblo limeño.',
+                        en: 'Alianza Lima is deeply rooted in La Victoria, a vibrant working-class neighborhood. Playing at the Estadio Alejandro Villanueva (Matute) is a cultural experience that reflects the soul of Lima\'s people.'
                     }
                 },
                 {
-                    question: { es: '¿Quién es "El Nene", máximo ídolo del club?', en: 'Who is "El Nene", the clubs greatest idol?' },
-                    options: ['Teófilo Cubillas', 'Jefferson Farfán', 'Waldir Sáenz', 'Paolo Guerrero'],
-                    correct: 'Teófilo Cubillas',
-                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/Te%C3%B3filo_Cubillas_1978.jpg',
-                    shortFact: { es: '¡Correcto! Una leyenda mundial.', en: 'Correct! A world legend.' },
+                    question: { es: 'Alianza Lima es considerado uno de los de Perú...', en: 'Alianza Lima is considered one of Peru’s...' },
+                    options: ['Newest teams', 'Most historic clubs', 'Smallest fanbases', 'Only football clubs'],
+                    correct: 'Most historic clubs',
+                    image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800',
+                    shortFact: { es: '¡Sin duda! Un pilar del deporte peruano.', en: 'Undoubtedly! A pillar of Peruvian sports.' },
                     longFact: {
-                        es: 'Teófilo "El Nene" Cubillas es considerado el mejor jugador de la historia de Perú. Fue parte de la selección que ganó la Copa América de 1975 y fue elegido Futbolista Sudamericano del Año en 1972.',
-                        en: 'Teófilo "El Nene" Cubillas is considered Peru\'s greatest ever player. He was part of the team that won the 1975 Copa América and was elected South American Footballer of the Year in 1972.'
+                        es: 'Fundado en 1901, Alianza Lima es el club más antiguo que compite en la Primera División del Perú, acumulando más de un siglo de gloria, tradición y cultura popular.',
+                        en: 'Founded in 1901, Alianza Lima is the oldest club competing in the Peruvian Primera División, accumulating over a century of glory, tradition, and popular culture.'
+                    }
+                },
+                {
+                    question: { es: 'Además del fútbol, ¿qué otro departamento de Alianza Lima goza de gran popularidad y éxito?', en: 'Apart from football, which other department of Alianza Lima enjoys significant popularity and success?' },
+                    options: ['Basketball', 'Swimming', 'Women’s Volleyball', 'Tennis'],
+                    correct: 'Women’s Volleyball',
+                    image: 'https://images.unsplash.com/photo-1592656670411-b159f0db29ab?w=800',
+                    shortFact: { es: '¡Exacto! El Club Alianza Lima Vóley.', en: 'Exactly! Club Alianza Lima Vóley.' },
+                    longFact: {
+                        es: 'El equipo de vóley femenino, conocido como "Las Íntimas", es una potencia nacional. Sus partidos atraen a miles de fans, demostrando que Alianza es la organización polideportiva más grande del país.',
+                        en: 'The women\'s volleyball team, known as "Las Íntimas," is a national powerhouse. Their matches draw thousands of fans, proving that Alianza is the biggest multi-sport organization in the country.'
                     }
                 }
             ];
@@ -155,7 +159,7 @@
                 <div className="min-h-screen flex flex-col items-center justify-center p-4">
                     {/* NAV / LANG */}
                     <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
-                        <a href="index.html" className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold border border-white/20 hover:bg-white/20 transition">
+                        <a href="https://travelbeyondthepitch.com/lima.html" className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold border border-white/20 hover:bg-white/20 transition">
                              ← {t.backHome}
                         </a>
                         <div className="flex gap-1 bg-white/10 backdrop-blur-md p-1 rounded-full border border-white/20">
@@ -169,14 +173,9 @@
                             <h1 className="text-4xl font-black text-blue-900 mb-2 leading-tight">{t.title}</h1>
                             <p className="text-blue-600 font-bold mb-4">{t.subtitle}</p>
                             <p className="text-gray-500 mb-8 italic">{t.tagline}</p>
-                            <div className="space-y-3">
-                                <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition transform active:scale-95">
-                                    {t.startQuiz}
-                                </button>
-                                <a href="lima.html" className="block w-full border-2 border-gray-100 text-blue-900 py-3 rounded-2xl font-bold hover:bg-gray-50 transition">
-                                    {t.projectPage}
-                                </a>
-                            </div>
+                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition transform active:scale-95">
+                                {t.startQuiz}
+                            </button>
                         </div>
                     )}
 
@@ -221,19 +220,29 @@
                     )}
 
                     {currentStep === 'complete' && (
-                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-yellow-500">
+                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-blue-900">
                             <div className="text-5xl mb-4">🏐⚽</div>
                             <h2 className="text-2xl font-bold text-blue-900 mb-2">{t.yourScore}</h2>
                             <div className="text-5xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
                             <p className="text-gray-600 mb-8">{score === triviaQuestions.length ? t.perfect : t.good}</p>
                             
                             <div className="space-y-3">
-                                <a href="https://your-booking-site.com" className="block w-full bg-yellow-500 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-yellow-600 transition hover:scale-105 active:scale-95">
-                                    ✈️ {t.bookTrip}
+                                {/* VOETBAL TICKETS */}
+                                <a href="https://clubalianzalima.joinnus.com/" target="_blank" className="block w-full bg-[#002D5D] text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-800 transition hover:scale-105 active:scale-95">
+                                    ⚽ {t.footballTickets}
                                 </a>
-                                <button onClick={() => location.reload()} className="w-full text-blue-900 font-bold py-2 hover:underline">{t.restart}</button>
-                                <hr className="my-4 border-gray-100" />
-                                <a href="index.html" className="block w-full text-gray-400 font-bold hover:text-blue-900 transition">{t.backHome}</a>
+
+                                {/* VOLLEYBAL TICKETS */}
+                                <a href="https://www.joinnus.com/events/sports?query=alianza%20lima%20voley" target="_blank" className="block w-full bg-blue-500 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-400 transition hover:scale-105 active:scale-95">
+                                    🏐 {t.volleyballTickets}
+                                </a>
+
+                                {/* LIMA PAGINA KNOP */}
+                                <a href="https://travelbeyondthepitch.com/lima.html" className="block w-full border-2 border-gray-100 text-blue-900 py-3 rounded-2xl font-bold hover:bg-gray-50 transition">
+                                    🏠 {t.projectPage}
+                                </a>
+
+                                <button onClick={() => location.reload()} className="w-full text-blue-900 font-bold py-2 hover:underline text-sm">{t.restart}</button>
                             </div>
                         </div>
                     )}
