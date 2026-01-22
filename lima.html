@@ -6,7 +6,6 @@
   <title>Lima club culture experience - Alianza Lima (Football & Volleyball) | Beyond the Pitch</title>
   <meta name="description" content="Experience Lima through Alianza Lima - football or volleyball. Authentic rituals, local food, and insider access with José. February–November 2026." />
   
-  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,7 +14,6 @@
     gtag('config', 'G-6MT1EREBH1');
   </script>
   
-  <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -24,7 +22,6 @@
     })(window, document, "clarity", "script", "uvqlcstnhp");
   </script>
   
-  <!-- SEO & Social Media -->
   <link rel="canonical" href="https://travelbeyondthepitch.com/lima.html" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   
@@ -42,12 +39,10 @@
   <meta name="twitter:description" content="Experience Lima through Alianza Lima - football or volleyball. February–November 2026." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/peru.jpg" />
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
@@ -524,30 +519,6 @@
       }
     }
 
-    /* Accessibility */
-    .skip-link {
-      position: fixed;
-      top: -100px;
-      left: 1rem;
-      background: var(--gold);
-      color: #000000;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      z-index: 200;
-      transition: top 0.3s;
-      font-weight: 600;
-    }
-
-    .skip-link:focus {
-      top: 1rem;
-    }
-
-    ::selection {
-      background: var(--gold);
-      color: #000000;
-    }
-
     /* Floating CTA Button */
     .floating-cta {
       position: fixed;
@@ -575,105 +546,9 @@
       box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6);
     }
 
-    .floating-cta svg {
-      width: 20px;
-      height: 20px;
-      fill: #000000;
-    }
-
     @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
-      }
-      50% {
-        box-shadow: 0 8px 32px rgba(255, 215, 0, 0.7);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .floating-cta {
-        bottom: 1rem;
-        right: 1rem;
-        padding: 0.875rem 1.25rem;
-        font-size: 0.9rem;
-      }
-      
-      .floating-cta-text {
-        display: none;
-      }
-      
-      .floating-cta svg {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    /* Modal styles */
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-    }
-    .modal.active {
-      display: flex;
-    }
-    .modal-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-    }
-    .modal-content {
-      position: relative;
-      background: var(--panel);
-      border-radius: 12px;
-      padding: 2rem;
-      width: 100%;
-      max-width: 720px;
-      z-index: 2;
-      border: 1px solid var(--border);
-      color: #fff;
-    }
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      font-size: 1.25rem;
-      cursor: pointer;
-    }
-    .modal h3 {
-      margin-bottom: 0.5rem;
-    }
-    .modal .form-row {
-      margin-bottom: 1rem;
-    }
-    .modal input[type="text"],
-    .modal input[type="email"],
-    .modal textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: #fff;
-    }
-    .modal .btn-row {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .btn-secondary {
-      background: transparent;
-      color: #fff;
-      border: 1px solid var(--border);
-      padding: 0.9rem 1.2rem;
-      border-radius: 8px;
-      text-decoration: none;
+      0%, 100% { box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4); }
+      50% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.7); }
     }
 
     .highlight-box {
@@ -686,39 +561,26 @@
   </style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">Skip to content</a>
 
-  <!-- Header -->
   <header class="header" id="header">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html" class="logo">Beyond the Pitch</a>
-
       <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
         <a href="index.html" class="nav-link">Home</a>
         <a href="projects.html" class="nav-link">Journeys</a>
         <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
-
       <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <!-- Mobile Menu -->
   <div class="mobile-overlay" id="mobileOverlay"></div>
-  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <div class="flex justify-end mb-4">
-      <button class="hamburger" id="menuClose" aria-label="Close menu">
-        <span style="transform: rotate(45deg) translateY(7px);"></span>
-        <span style="opacity: 0;"></span>
-        <span style="transform: rotate(-45deg) translateY(-7px);"></span>
-      </button>
-    </div>
-    <div class="flex flex-col gap-4">
+  <nav class="mobile-menu" id="mobileMenu">
+    <div class="flex flex-col gap-4 mt-12">
       <a href="index.html" class="nav-link">Home</a>
       <a href="projects.html" class="nav-link">Journeys</a>
       <a href="about.html" class="nav-link">About</a>
@@ -726,728 +588,130 @@
     </div>
   </nav>
 
-  <!-- Floating CTA Button -->
-  <a href="https://www.travelbeyondthepitch.com/dashboard/booking.html" class="floating-cta" aria-label="Book your Lima experience">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-    </svg>
+  <a href="https://www.travelbeyondthepitch.com/dashboard/booking.html" class="floating-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
     <span class="floating-cta-text">Book Now</span>
   </a>
 
   <main id="main">
-    <!-- Hero Video -->
-    <section id="video" class="pt-24 pb-16 px-4 text-center relative">
-      <div class="max-w-4xl mx-auto" data-animate>
+    <section id="video" class="pt-24 pb-16 px-4 text-center">
+      <div class="max-w-4xl mx-auto">
         <span class="badge"> Experience • February - November 2026</span>
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Lima Club Culture Experience</h1>
+        <h1 class="mb-4">Lima Club Culture Experience</h1>
         <p class="text-xl text-gray-400 mb-8">One club. One city. Choose football or volleyball.</p>
-        
-        <div class="relative">
-          <div class="aspect-w-16 aspect-h-9 relative">
-            <iframe 
-              id="mainVideo"
-              class="w-full h-96 rounded-xl shadow-lg" 
-              src="https://www.youtube.com/embed/hyXi2iIYUvI?enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=hyXi2iIYUvI&mute=1&autoplay=1" 
-              title="Lima Club Culture Experience" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen 
-              loading="lazy">
-            </iframe>
-            
-            <div class="absolute bottom-4 right-4 flex gap-2 z-10">
-              <button id="mainMuteBtn" class="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300" aria-label="Unmute video">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-                </svg>
-              </button>
-              <button id="mainPlayPauseBtn" class="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300" aria-label="Pause video">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                </svg>
-              </button>
-            </div>
-          </div>
+        <div class="aspect-w-16 aspect-h-9">
+          <iframe id="mainVideo" class="w-full h-96 rounded-xl shadow-lg" src="https://www.youtube.com/embed/hyXi2iIYUvI?autoplay=1&mute=1&loop=1&playlist=hyXi2iIYUvI" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </section>
 
-    <!-- Introduction -->
     <section class="section">
       <div class="max-w-4xl mx-auto">
         <h2 class="section-title">This is culture. This is passion. This is Lima.</h2>
-        <div class="card" style="padding: 2.5rem;">
-          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
+        <div class="card">
+          <p class="mb-6 text-lg text-gray-300">
             In Lima, sport isn’t just entertainment - it’s identity, community, and emotion. This experience takes you beyond the tourist trail into the world of
-            <strong style="color: var(--gold);">Alianza Lima</strong>: a club where the colors, chants, and neighborhood pride live across sports - from football to women’s volleyball.
-          </p>
-          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
-            Guided by José - a lifelong Alianza supporter with real local access - you’ll experience Lima like a local: hidden food spots, pre-game streets, and one unforgettable match experience built around belonging, not sightseeing.
+            <strong class="text-yellow-400">Alianza Lima</strong>: a club where the colors, chants, and neighborhood pride live across sports.
           </p>
           <div class="highlight-box">
-            <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--alianza-blue);">🎵 The Song-List Ritual</p>
-            <p style="color: var(--muted);">
-              Before game-time, you’ll learn the chants - lyrics, translations, and cultural meaning. By the first whistle, you’re not just watching… you’re part of the blanquiazul energy.
-            </p>
-          </div>
-          <p style="color: var(--muted); font-size: 0.95rem; margin-top: 1.25rem;">
-            Prefer volleyball over football? Tell us your dates - we’ll propose the best match option available (football, volleyball, or a duo combo on request).
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Meet José -->
-    <section class="section" style="background: var(--panel);">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title">Your Local Guide: José </h2>
-        <div class="card" style="padding: 2.5rem;">
-          <div class="grid md:grid-cols-3 gap-6 mb-6">
-            <div>
-              <div style="font-size: 2rem; margin-bottom: 1rem;">🗣️</div>
-              <h3 style="margin-bottom: 0.5rem; color: var(--gold);">Languages</h3>
-              <p style="color: var(--muted);">English & Spanish</p>
-            </div>
-            <div>
-              <div style="font-size: 2rem; margin-bottom: 1rem;">🗓️</div>
-              <h3 style="margin-bottom: 0.5rem; color: var(--gold);">Availability</h3>
-              <p style="color: var(--muted);">February - November (season)</p>
-            </div>
-            <div>
-              <div style="font-size: 2rem; margin-bottom: 1rem;">🎫</div>
-              <h3 style="margin-bottom: 0.5rem; color: var(--gold);">Special Access</h3>
-              <p style="color: var(--muted);">Passionate Fan Connections</p>
-            </div>
-          </div>
-          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem;">
-            José is a lifelong Alianza Lima supporter with deep roots in the club’s culture. Years spent in the stadium have given him strong connections - including within the most passionate groups - allowing him to secure tickets even for high-demand matches and provide authentic insider access.
-          </p>
-          <div style="background: rgba(220, 38, 38, 0.1); border-left: 4px solid var(--red); padding: 1.5rem; border-radius: 8px;">
-            <p style="font-style: italic; color: #d1d5db; line-height: 1.7;">
-              "In South America, the drums are the heart of the whole team. They keep the vibe going and motivate everyone. I take people to the heart of the stadium, to the fanatic supporters of Alianza. This is not a tour - this is emotion."
-            </p>
-            <p style="margin-top: 1rem; color: var(--gold); font-weight: 600;">- José </p>
+            <p class="font-bold text-blue-400 mb-2">🎵 The Song-List Ritual</p>
+            <p class="text-gray-400">Before game-time, you’ll learn the chants - lyrics, translations, and cultural meaning. By the first whistle, you’re not just watching… you’re part of the blanquiazul energy.</p>
           </div>
         </div>
       </div>
     </section>
 
-   <section class="section" style="background: linear-gradient(90deg, #000000 0%, #002d6b 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="max-w-4xl mx-auto py-8 text-center">
-    <div class="card" style="border: 2px solid var(--alianza-blue); background: rgba(0, 71, 171, 0.05); overflow: hidden; position: relative; padding: 3rem 2rem;">
-      
-      <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.1; color: white; transform: rotate(15deg); pointer-events: none;">⚽</div>
-
-      <div style="position: relative; z-index: 1;">
-        <span class="badge" style="background: var(--gold); color: black; margin-bottom: 1rem;">CHALLENGE</span>
-        <h2 style="margin-bottom: 1rem; font-size: 2.25rem;">Are you a true "Blanquiazul"?</h2>
-        <p style="color: var(--muted); font-size: 1.125rem; max-width: 600px; margin: 0 auto 2.5rem;">
-          Test your knowledge about Alianza Lima’s history and rituals. Prove you're ready to join the heart of the stadium with José!
-        </p>
-        
-     <a href="quiz/lima.html" id="start-quiz-btn" class="btn-package" style="display: inline-block; width: auto; padding: 1rem 3rem; background: #ffffff; color: #000; border-radius: 50px; text-decoration: none; font-weight: 800; transition: all 0.3s ease;">
-  Take the Quiz
-</a>
+    <section class="section" style="background: linear-gradient(90deg, #000000 0%, #002d6b 100%);">
+      <div class="max-w-4xl mx-auto py-8 text-center">
+        <div class="card" style="border: 2px solid var(--alianza-blue); background: rgba(0, 71, 171, 0.05); padding: 3rem 2rem;">
+          <span class="badge" style="background: var(--gold); color: black;">CHALLENGE</span>
+          <h2 class="mt-4 mb-4">Are you a true "Blanquiazul"?</h2>
+          <p class="text-gray-400 mb-8">Test your knowledge about Alianza Lima’s history and rituals. Prove you're ready to join the heart of the stadium with José!</p>
+          <a href="quiz/lima.html" class="btn-package" style="display: inline-block; width: auto; padding: 1rem 3rem; background: #ffffff; color: #000; border-radius: 50px;">
+            Take the Quiz
+          </a>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <section class="section">
       <div class="max-w-5xl mx-auto">
-        <h2 class="section-title" style="text-align: center;">Choose your experience</h2>
-        <p style="text-align: center; color: var(--muted); margin-bottom: 3rem; font-size: 1.125rem;">
-          Every package includes the ritual, local insider guidance by José, and one match experience - football by default, with volleyball options depending on the official schedule.
-        </p>
-
+        <h2 class="section-title text-center">Choose your experience</h2>
         <div class="package-grid">
           <div class="package-card popular">
             <div class="popular-badge">⭐ Most Popular</div>
-            <h3 class="package-title">Football matchday - half day</h3>
-            <p class="package-subtitle">Matute atmosphere (± 4 hours)</p>
-            
+            <h3 class="package-title">Football matchday</h3>
             <div class="package-price">€62</div>
-            <p class="package-price-note">Starting price - varies by match type</p>
-            
             <ul class="package-features">
               <li>4-hour matchday experience</li>
-              <li>Start around 13:00 (depending on kick-off)</li>
-              <li>Pre-match walk through the neighborhood (La Victoria)</li>
-              <li>Fan-zone & local bar visit</li>
+              <li>Pre-match walk in La Victoria</li>
               <li>Match jersey included</li>
-              <li>Alianza Lima football match ticket</li>
-              <li>Song-list ritual (lyrics, translation, rehearsal)</li>
-              <li>Post-match drink and reflection with locals</li>
-              <li>Transfers (pick-up & drop-off)</li>
+              <li>Alianza Lima match ticket</li>
+              <li>Song-list ritual</li>
             </ul>
             <a href="booking.html" class="btn-package">Request Availability</a>
           </div>
-
           <div class="package-card">
-            <h3 class="package-title">Football + hidden Lima - full day</h3>
-            <p class="package-subtitle">Local food, neighborhoods & matchday</p>
-            
+            <h3 class="package-title">Full Day Lima</h3>
             <div class="package-price">€150 - €250</div>
-            <p class="package-price-note">Varies by group size & match type</p>
-            
             <ul class="package-features">
-              <li>Full day experience (8+ hours)</li>
-              <li>City exploration: Surco → Barranco</li>
-              <li>Hidden local food spots</li>
-              <li>Alianza Lima football match (premium tickets)</li>
-              <li>Song-list ritual (lyrics, translation, rehearsal)</li>
+              <li>8+ hours experience</li>
+              <li>City exploration & Hidden food</li>
+              <li>Premium match tickets</li>
               <li>Match jersey included</li>
-              <li>2 beers before the game</li>
-              <li>All transfers (pick-up & drop-off)</li>
+              <li>All transfers included</li>
             </ul>
             <a href="booking.html" class="btn-package">Request Availability</a>
           </div>
         </div>
-
-        <!-- Volleyball option (keeps structure; not a third main card by default) -->
-        <div class="card" style="padding: 2.5rem; margin-top: 1.5rem;">
-          <h3 style="color: var(--gold); margin-bottom: 0.5rem; font-size: 1.5rem;">🏐 Volleyball night (optional)</h3>
-          <p style="color: var(--muted); line-height: 1.8; margin-bottom: 1rem;">
-            Want something more unexpected than football? Choose a women’s volleyball match experience with Alianza Lima.
-            It’s a different vibe - closer to the action, intensely local - but still 100% blanquiazul.
-          </p>
-          <ul style="color: var(--muted); line-height: 1.9; list-style: none; padding: 0; margin: 1rem 0 0;">
-            <li style="margin-bottom: 0.5rem;">✓ One match experience (volleyball)</li>
-            <li style="margin-bottom: 0.5rem;">✓ Local context + smooth logistics</li>
-            <li style="margin-bottom: 0.5rem;">✓ Optional pre-match meet-up (food/drinks depending on time & venue)</li>
-            <li>✓ Duo combo (football + volleyball) possible on request - but we usually recommend focusing on one match for maximum immersion</li>
-          </ul>
-          <p style="margin-top: 1.25rem; color: var(--muted); font-size: 0.95rem;">
-            Availability depends on the official match calendar. Pricing varies by opponent, seating, and group size - request your dates and we’ll propose the best option.
-          </p>
-          <a href="booking.html" class="btn-package" style="margin-top: 1.25rem;">Request Volleyball Availability</a>
-        </div>
-
-        <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 12px; padding: 2rem; margin-top: 3rem; text-align: center;">
-          <h4 style="color: var(--gold); margin-bottom: 1rem; font-size: 1.25rem;">💡 Why do prices vary?</h4>
-          <div class="grid md:grid-cols-3 gap-4" style="color: var(--muted); text-align: left; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-            <div>
-              <strong style="color: #fff;">Group size</strong>
-              <p style="font-size: 0.9rem; margin-top: 0.5rem;">Larger groups reduce price per person</p>
-            </div>
-            <div>
-              <strong style="color: #fff;">Match type</strong>
-              <p style="font-size: 0.9rem; margin-top: 0.5rem;">Rivalries & high-demand games cost more</p>
-            </div>
-            <div>
-              <strong style="color: #fff;">Booking time</strong>
-              <p style="font-size: 0.9rem; margin-top: 0.5rem;">Early bookings = easier ticket access</p>
-            </div>
-          </div>
-          <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.95rem;">
-            José's insider connections mean we can secure tickets even for sold-out matches - but advance notice helps keep costs down.
-          </p>
-        </div>
-
-        <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.95rem;">
-          📧 Questions about packages? <a href="mailto:thebeyondthepitch@gmail.com" style="color: var(--gold); text-decoration: underline;">Email us</a> and we'll help you choose.
-        </p>
       </div>
     </section>
 
-    <!-- What makes this different -->
     <section class="section" style="background: var(--panel);">
       <div class="max-w-4xl mx-auto">
         <h2 class="section-title">This is not a standard tour</h2>
-        <div class="card" style="padding: 2.5rem;">
-          <p style="font-size: 1.125rem; line-height: 1.8; color: var(--muted); margin-bottom: 2rem;">
-            This is not a standard sports tour - it’s a club culture experience. We combine sport, gastronomy, music, and neighborhood stories around Alianza Lima.
-            Sometimes that’s football at Estadio Alejandro Villanueva, sometimes it’s volleyball - always it’s emotion, connection, and real Lima.
+        <div class="card">
+          <p class="text-lg text-gray-400">
+            This is a club culture experience. We combine sport, gastronomy, music, and neighborhood stories around Alianza Lima. 
+            Whether it's football at Estadio Alejandro Villanueva or volleyball at the local gym, you'll experience the true soul of the city.
           </p>
-          
-          <div class="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 style="color: var(--gold); margin-bottom: 1rem;">🎵 The Song-List Ritual</h4>
-              <ul style="color: var(--muted); line-height: 1.8; list-style: none; padding-left: 0;">
-                <li style="margin-bottom: 0.5rem;">→ Printed lyrics in Spanish</li>
-                <li style="margin-bottom: 0.5rem;">→ English translations & cultural context</li>
-                <li style="margin-bottom: 0.5rem;">→ Slow practice sessions</li>
-                <li>→ Group rehearsal before the match</li>
-              </ul>
-              <p style="margin-top: 1rem; color: var(--muted); font-style: italic; font-size: 0.95rem;">
-                By game-time, you're not a tourist - you're part of the Alianza family.
-              </p>
-            </div>
-            
-            <div>
-              <h4 style="color: var(--gold); margin-bottom: 1rem;">🍽️ Food as culture</h4>
-              <p style="color: var(--muted); line-height: 1.8; margin-bottom: 1rem;">
-                "Tasting" isn't just lunch - it's a cultural moment. José explains the dishes, ingredients, and local stories behind every meal.
-              </p>
-              <p style="color: var(--muted); line-height: 1.8;">
-                You'll discover hidden spots locals love, not tourist restaurants. The goal: emotion and memory, not just food.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
-
-    <!-- Alianza Lima Focus -->
-    <section class="section">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title">Why Alianza Lima?</h2>
-        <div class="card" style="padding: 2.5rem;">
-          <div class="grid md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <h4 style="color: var(--gold); margin-bottom: 1rem;">The club</h4>
-              <ul style="color: var(--muted); line-height: 1.8; list-style: none; padding: 0;">
-                <li style="margin-bottom: 0.75rem;"><strong style="color: #fff;">Founded:</strong> 1901</li>
-                <li style="margin-bottom: 0.75rem;"><strong style="color: #fff;">Neighborhood:</strong> La Victoria</li>
-                <li style="margin-bottom: 0.75rem;"><strong style="color: #fff;">Home:</strong> Estadio Alejandro Villanueva (football) + club arenas (volleyball)</li>
-                <li><strong style="color: #fff;">Identity:</strong> Deeply rooted in community, music, and working-class pride</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 style="color: var(--gold); margin-bottom: 1rem;">The experience</h4>
-              <ul style="color: var(--muted); line-height: 1.8; list-style: none; padding: 0;">
-                <li style="margin-bottom: 0.75rem;"><strong style="color: #fff;">Atmosphere:</strong> Sea of blue & white</li>
-                <li style="margin-bottom: 0.75rem;"><strong style="color: #fff;">Pre-match:</strong> Streets fill hours before kick-off</li>
-                <li style="margin-bottom: 0.75rem;"><strong style="color: #fff;">Culture:</strong> Drums, chants, community</li>
-                <li><strong style="color: #fff;">Access:</strong> José's connections with passionate supporters = premium spots</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="highlight-box">
-            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--alianza-blue);">⚽🏐 More than sport</p>
-            <p style="color: var(--muted); line-height: 1.7;">
-              Alianza Lima isn’t just a football team - it’s a club identity that shows up in different arenas. Choosing football or volleyball (when available) gives you a richer story:
-              you’ll see how the same colors, chants, and community spirit create emotion in different ways.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="section" style="background: var(--bg);">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="section-title">Experience Lima like a local </h2>
-        <div class="gallery">
-          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/women%20volleyball.webp" alt="Alianza Lima fans celebrating in Lima">
-          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/stadion%20alianza.jpg" alt="Lima coastal experience and beach activities">
-          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/Lima%20city.jpg" alt="Lima neighborhoods and local culture">
-          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/La%20Victoria%20Alianza%20Lima.jpg" alt="Lima neighborhoods and local culture">
-        </div>
-      </div>
-    </section>
-
-    <!-- Practical Info -->
-    <section class="section">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title">Good to Know</h2>
-        <div class="space-y-4">
-          <div class="card" style="padding: 2rem;">
-            <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.25rem;">Planning Your Trip</h3>
-            <ul style="color: var(--muted); line-height: 2; list-style: none; padding: 0;">
-              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: var(--gold);">🗓️</span>
-                <strong style="color: #ffffff;">Season:</strong> February - November (main sports season). Match availability depends on official football & volleyball calendars.
-              </li>
-              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: var(--gold);">🎫</span>
-                <strong style="color: #ffffff;">Tickets:</strong> Most matches are possible if booked in time. Big rivalries or high-demand fixtures require earlier requests.
-              </li>
-              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: var(--gold);">⏰</span>
-                <strong style="color: #ffffff;">Timing:</strong> Half day = ± 4 hours. Full day = 8+ hours with time to recharge.
-              </li>
-              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: var(--gold);">🚗</span>
-                <strong style="color: #ffffff;">Transfers:</strong> All experiences include pick-up and drop-off at your accommodation.
-              </li>
-              <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: var(--gold);">🌤️</span>
-                <strong style="color: #ffffff;">Weather:</strong> Lima is mild year-round (15-28°C). Bring light layers as evenings can be cool.
-              </li>
-              <li style="padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: var(--gold);">💬</span>
-                <strong style="color: #ffffff;">Language:</strong> José speaks English & Spanish fluently.
-              </li>
-            </ul>
-          </div>
-
-          <div class="card" style="padding: 2rem;">
-            <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.25rem;">What's Included (depending per package)</h3>
-            <div class="grid md:grid-cols-2 gap-4" style="color: var(--muted);">
-              <div>
-                <p style="margin-bottom: 0.5rem;">✓ Match tickets (football or volleyball)</p>
-                <p style="margin-bottom: 0.5rem;">✓ Alianza Lima jersey</p>
-                <p style="margin-bottom: 0.5rem;">✓ 2 beers before the game (football packages)</p>
-                <p style="margin-bottom: 0.5rem;">✓ All transfers</p>
-              </div>
-              <div>
-                <p style="margin-bottom: 0.5rem;">✓ Song-list ritual materials</p>
-                <p style="margin-bottom: 0.5rem;">✓ Food experiences (as per package)</p>
-                <p style="margin-bottom: 0.5rem;">✓ Activities (horse riding, ATVs, etc.)</p>
-                <p style="margin-bottom: 0.5rem;">✓ José as your local guide</p>
-              </div>
-            </div>
-          </div>
-
-          <details class="card" style="cursor: pointer; padding: 2rem;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer; color: #ffffff; font-size: 1.1rem;">What's Not Included</summary>
-            <ul style="color: var(--muted); margin-top: 1.5rem; line-height: 2; padding-left: 1.25rem;">
-              <li>International flights to/from Lima</li>
-              <li>Accommodation (recommendations provided)</li>
-              <li>Travel insurance (mandatory)</li>
-              <li>Meals not specified in your package</li>
-              <li>Personal expenses & additional drinks</li>
-            </ul>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" style="background: var(--panel);">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-
-        <div class="space-y-4 mt-4">
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              Can I choose volleyball instead of football?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              Yes. When you request availability, tell us your dates and whether you prefer football or volleyball. We’ll confirm what’s on and propose the best match experience for your trip.
-            </p>
-          </details>
-
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              Can I do football + volleyball in one trip?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              Sometimes - if schedules align. We can plan a duo combo on request, but we usually recommend focusing on one match experience to keep it immersive rather than rushed.
-            </p>
-          </details>
-
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              Can you really get tickets for any match?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              Thanks to José's connections with passionate supporters and years in the stands, he can secure tickets for most matches - even high-demand rivalry games and international tournaments. For the biggest dates, booking 3-4 days in advance is ideal, but last-minute requests are often possible for regular games.
-            </p>
-          </details>
-
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              Is it safe to attend matches with the most passionate fans?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              Yes. José's deep connections mean you're under his protection and welcomed as his guests. The song-list ritual helps you blend in naturally, and José knows exactly how to navigate the culture safely.
-            </p>
-          </details>
-
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              What if I don't speak Spanish?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              No problem. José speaks English fluently and will handle translation, ordering, and navigation. The song-list ritual includes English translations of chants, so you'll understand what you're singing and why it matters.
-            </p>
-          </details>
-
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              Is this suitable for solo travelers?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              Absolutely. Many travelers join solo and appreciate the small-group, intimate setting. The shared ritual creates natural bonds quickly - you'll feel part of something bigger from the first moment.
-            </p>
-          </details>
-
-          <details class="card" style="cursor: pointer;">
-            <summary style="font-weight: 600; padding: 0.5rem; cursor: pointer;">
-              Why is there a price range for each package?
-            </summary>
-            <p style="color: var(--muted); margin-top: 1rem; line-height: 1.7;">
-              Prices vary based on group size (larger groups reduce per-person cost), match type (rivalries and high-demand games have higher ticket costs), and booking timing (early bookings allow us to secure better options). We’ll give you an exact quote once we know your dates and preferences.
-            </p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section" style="background: radial-gradient(circle at top, rgba(212,175,55,0.25), rgba(0,0,0,0.95)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-      <div class="max-w-4xl mx-auto text-center">
-        <span class="badge" style="background: var(--gold); color: #000; font-weight: 600; margin-bottom: 1rem; display: inline-block;">
-          Limited Spots Available
-        </span>
-
-        <h2 style="color: var(--gold); margin-bottom: 1rem;">
-          Experience Lima Through Alianza Lima - Football or Volleyball
-        </h2>
-
-        <p style="font-size: 1.125rem; margin-bottom: 2.5rem; color: #d1d5db; max-width: 600px; margin-left: auto; margin-right: auto;">
-          This experience is launching for the 2026 season (February–November). Share your dates and your match preference - football, volleyball, or a duo combo on request -
-          and we’ll confirm availability, exact pricing, and the best option for your trip.
-        </p>
-
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="contact.html#communityForm" class="btn-primary" style="background: var(--gold); color: #000; padding: 0.9rem 1.6rem; border-radius: 0.75rem; font-weight: 600; text-decoration: none;">
-            Express Interest
-          </a>
-        </div>
-
-        <p style="margin-top: 2rem; color: var(--muted); font-size: 0.9rem;">
-          Questions? Email us at <a href="mailto:thebeyondthepitch@gmail.com" style="color: var(--gold); text-decoration: underline;">thebeyondthepitch@gmail.com</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">Beyond the Pitch</h3>
-            <p style="color: rgba(255,255,255,0.7); line-height: 1.7;">Sport. Culture. Travel.<br>Curated journeys where sport becomes the gateway to authentic cultural experiences.</p>
-          </div>
-          <div>
-            <h4 style="color: white; margin-bottom: 1rem;">Explore</h4>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <a href="index.html">Home</a>
-              <a href="projects.html">All Journeys</a>
-              <a href="about.html">About Us</a>
-              <a href="contact.html">Contact</a>
-            </div>
-          </div>
-          <div>
-            <h4 style="color: white; margin-bottom: 1rem;">Get in Touch</h4>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <a href="mailto:thebeyondthepitch@gmail.com">thebeyondthepitch@gmail.com</a>
-              <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">Follow our journeys and connect with fellow travelers.</p>
-            </div>
-          </div>
-        </div>
-        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5);">
-          <p>© 2026 Beyond the Pitch. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- Booking Modal -->
-  <div id="bookingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalPackageTitle" aria-hidden="true">
-    <div class="modal-backdrop" tabindex="-1"></div>
-    <div class="modal-content" role="document">
-      <button id="closeModal" class="modal-close" aria-label="Close modal">&times;</button>
-      <h3 id="modalPackageTitle">Selected package</h3>
-      <form id="bookingForm" action="https://formspree.io/f/xjkjkeag" method="POST" novalidate>
-        <input type="hidden" id="selectedPackage" name="selectedPackage" value="">
-        <div class="form-row">
-          <label for="name" style="display:block; margin-bottom:0.5rem; color:#fff;">Name</label>
-          <input id="name" name="name" type="text" required placeholder="Your name">
-        </div>
-        <div class="form-row">
-          <label for="email" style="display:block; margin-bottom:0.5rem; color:#fff;">Email</label>
-          <input id="email" name="email" type="email" required placeholder="you@example.com">
-        </div>
-        <div class="form-row">
-          <label for="message" style="display:block; margin-bottom:0.5rem; color:#fff;">Message (optional)</label>
-          <textarea id="message" name="message" rows="4" placeholder="Tell us your travel dates and whether you prefer football or volleyball"></textarea>
-        </div>
-        <div class="btn-row">
-          <button type="submit" class="btn-package">Send Request</button>
-          <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
-        </div>
-      </form>
+  <footer class="text-center">
+    <p>&copy; 2026 Beyond the Pitch. All rights reserved.</p>
+    <div class="mt-4">
+      <a href="mailto:thebeyondthepitch@gmail.com">Contact Us</a>
     </div>
-  </div>
+  </footer>
 
-  <!-- Scripts -->
   <script>
-    // Video controls
-    (function() {
-      let mainPlayer;
-      let isMuted = true;
-      let isPlaying = true;
-
-      const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      window.onYouTubeIframeAPIReady = function() {
-        mainPlayer = new YT.Player('mainVideo', {
-          events: {
-            'onReady': onMainPlayerReady
-          }
-        });
-      };
-
-      function onMainPlayerReady(event) {
-        event.target.playVideo();
-        event.target.mute();
-      }
-
-      document.getElementById('mainMuteBtn').addEventListener('click', function() {
-        if (!mainPlayer) return;
-        
-        if (isMuted) {
-          mainPlayer.unMute();
-          this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-          </svg>`;
-          this.setAttribute('aria-label', 'Mute video');
-        } else {
-          mainPlayer.mute();
-          this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-          </svg>`;
-          this.setAttribute('aria-label', 'Unmute video');
-        }
-        isMuted = !isMuted;
-      });
-
-      document.getElementById('mainPlayPauseBtn').addEventListener('click', function() {
-        if (!mainPlayer) return;
-        
-        if (isPlaying) {
-          mainPlayer.pauseVideo();
-          this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>`;
-          this.setAttribute('aria-label', 'Play video');
-        } else {
-          mainPlayer.playVideo();
-          this.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-          </svg>`;
-          this.setAttribute('aria-label', 'Pause video');
-        }
-        isPlaying = !isPlaying;
-      });
-    })();
-
-    // Modal functionality
-    document.addEventListener('DOMContentLoaded', function () {
-      const modal = document.getElementById('bookingModal');
-      const modalBackdrop = modal.querySelector('.modal-backdrop');
-      const closeModalBtn = document.getElementById('closeModal');
-      const cancelBtn = document.getElementById('cancelBtn');
-      const bookingForm = document.getElementById('bookingForm');
-      const modalPackageTitle = document.getElementById('modalPackageTitle');
-      const selectedPackageInput = document.getElementById('selectedPackage');
-
-      const packageButtons = document.querySelectorAll('.btn-package');
-      packageButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-          if (this.closest('#bookingModal')) return;
-
-          e.preventDefault();
-          const packageCard = this.closest('.package-card');
-          const packageTitleEl = packageCard ? packageCard.querySelector('.package-title') : null;
-          const packageTitle = packageTitleEl ? packageTitleEl.textContent.trim() : (this.dataset.package || 'Selected package');
-          modalPackageTitle.textContent = packageTitle;
-          selectedPackageInput.value = packageTitle;
-          modal.classList.add('active');
-          modal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-        });
-      });
-
-      function closeModal() {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (bookingForm) bookingForm.reset();
-      }
-
-      closeModalBtn && closeModalBtn.addEventListener('click', closeModal);
-      cancelBtn && cancelBtn.addEventListener('click', closeModal);
-      modalBackdrop && modalBackdrop.addEventListener('click', closeModal);
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-          closeModal();
-        }
-      });
-
-      // Mobile menu
-      const menuToggle = document.getElementById('menuToggle');
-      const menuClose = document.getElementById('menuClose');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const mobileOverlay = document.getElementById('mobileOverlay');
-
-      function openMenu() {
-        mobileMenu && mobileMenu.classList.add('active');
-        mobileOverlay && mobileOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeMenu() {
-        mobileMenu && mobileMenu.classList.remove('active');
-        mobileOverlay && mobileOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      menuToggle && menuToggle.addEventListener('click', openMenu);
-      menuClose && menuClose.addEventListener('click', closeMenu);
-      mobileOverlay && mobileOverlay.addEventListener('click', closeMenu);
-    });
-
-    // Analytics tracking
-    document.addEventListener('click', function(e) {
-      const cta = e.target.closest('a[href*="contact"], a[href*="calendly"], .btn-package');
-      if (cta) {
-        gtag('event', 'cta_click', {
-          'event_category': 'engagement',
-          'event_label': cta.textContent.trim(),
-          'value': 1
-        });
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
       }
     });
 
-    let scrollTracked = false;
-    window.addEventListener('scroll', function() {
-      if (scrollTracked) return;
-      const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
-      if (scrollPercent > 75) {
-        scrollTracked = true;
-        gtag('event', 'scroll_depth', {
-          'event_category': 'engagement',
-          'event_label': '75_percent',
-          'value': 75
-        });
-      }
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
     });
 
-    document.addEventListener('submit', function(e) {
-      const form = e.target;
-      if (form.id === 'bookingForm') {
-        gtag('event', 'form_submit', {
-          'event_category': 'conversion',
-          'event_label': 'lima_booking_request',
-          'value': 10
-        });
-      }
+    mobileOverlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
     });
   </script>
- <script>
-  // Dit script zorgt ervoor dat de quiz-knop NIET de booking-modal opent
-  document.addEventListener('DOMContentLoaded', function() {
-    const quizBtn = document.getElementById('start-quiz-btn');
-    if (quizBtn) {
-      quizBtn.addEventListener('click', function(e) {
-        // Stop de "bubble" zodat de modal-scripts van de site niet reageren
-        e.stopPropagation();
-        // Stuur de gebruiker direct door naar de quiz pagina
-        window.location.href = "limaquiz.html";
-      });
-    }
-  });
-</script>
-  </body>
-</html>
 </body>
 </html>
