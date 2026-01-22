@@ -832,6 +832,43 @@
       </div>
     </section>
 
+    <section class="section" style="background: linear-gradient(90deg, #000000 0%, #002d6b 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="max-w-4xl mx-auto py-8 text-center">
+    <div class="card" style="border: 2px solid var(--alianza-blue); background: rgba(0, 71, 171, 0.05); overflow: hidden; position: relative;">
+      
+      <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.1; color: white; transform: rotate(15deg); pointer-events: none;">⚽</div>
+
+      <div style="position: relative; z-index: 1;">
+        <span class="badge" style="background: var(--gold); color: black; margin-bottom: 1rem;">INTERACTIEF</span>
+        <h2 style="margin-bottom: 1rem; font-size: 2rem;">Hoeveel "Blanquiazul" zit er in jou?</h2>
+        <p style="color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem;">
+          Test je kennis over Alianza Lima. Haal je een score van 80% of hoger? Dan weet José dat hij een echte kenner meeneemt!
+        </p>
+        
+        <a href="#quiz-container" id="startQuizBtn" class="btn-package" style="display: inline-block; width: auto; padding: 1rem 2.5rem; background: #ffffff; color: #000; border-radius: 50px;">
+          Start de Quiz
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="quiz-container" class="max-w-4xl mx-auto px-4" style="display:none; padding-top: 2rem;">
+    <div id="root"></div> 
+</div>
+
+<script>
+  // Simpele script om de quiz te tonen als men op de banner klikt
+  document.getElementById('startQuizBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('quiz-container').style.display = 'block';
+    window.scrollTo({
+      top: document.getElementById('quiz-container').offsetTop - 100,
+      behavior: 'smooth'
+    });
+  });
+</script>
+
     <section class="section">
       <div class="max-w-5xl mx-auto">
         <h2 class="section-title" style="text-align: center;">Choose your experience</h2>
