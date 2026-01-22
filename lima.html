@@ -857,49 +857,103 @@
           Every package includes the ritual, local insider guidance by José, and one match experience - football by default, with volleyball options depending on the official schedule.
         </p>
 
-        <div class="package-grid">
-          <div class="package-card popular">
-            <div class="popular-badge">⭐ Most Popular</div>
-            <h3 class="package-title">Football matchday - half day</h3>
-            <p class="package-subtitle">Matute atmosphere (± 4 hours)</p>
-            
-            <div class="package-price">€62</div>
-            <p class="package-price-note">Starting price - varies by match type</p>
-            
-            <ul class="package-features">
-              <li>4-hour matchday experience</li>
-              <li>Start around 13:00 (depending on kick-off)</li>
-              <li>Pre-match walk through the neighborhood (La Victoria)</li>
-              <li>Fan-zone & local bar visit</li>
-              <li>Match jersey included</li>
-              <li>Alianza Lima football match ticket</li>
-              <li>Song-list ritual (lyrics, translation, rehearsal)</li>
-              <li>Post-match drink and reflection with locals</li>
-              <li>Transfers (pick-up & drop-off)</li>
-            </ul>
-            <a href="booking.html" class="btn-package">12 Feb | Copa Libertadores: Alianza - Club 2 de mayo</a>
-          </div>
+      <style>
+  /* Deze stijl hoeft maar één keer in je pagina te staan */
+  .btn-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffd700; /* Gold */
+    color: #000 !important;
+    text-decoration: none;
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    line-height: 1.3;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 214, 0, 0.3);
+    animation: pulse-gold 2s infinite;
+    margin-top: auto; /* Zorgt dat de knop altijd onderaan de kaart staat */
+  }
+  .btn-event:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 214, 0, 0.5);
+    background: #ffea00;
+  }
+  .event-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: rgba(0,0,0,0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-weight: 900;
+  }
+  .event-details {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  @keyframes pulse-gold {
+    0% { box-shadow: 0 0 0 0 rgba(255, 214, 0, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 214, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 214, 0, 0); }
+  }
+</style>
 
-          <div class="package-card">
-            <h3 class="package-title">Football + hidden Lima - full day</h3>
-            <p class="package-subtitle">Local food, neighborhoods & matchday</p>
-            
-            <div class="package-price">€150 - €250</div>
-            <p class="package-price-note">Varies by group size & match type</p>
-            
-            <ul class="package-features">
-              <li>Full day experience (8+ hours)</li>
-              <li>City exploration: Surco → Barranco</li>
-              <li>Hidden local food spots</li>
-              <li>Alianza Lima football match (premium tickets)</li>
-              <li>Song-list ritual (lyrics, translation, rehearsal)</li>
-              <li>Match jersey included</li>
-              <li>2 beers before the game</li>
-              <li>All transfers (pick-up & drop-off)</li>
-            </ul>
-            <a href="booking.html" class="btn-package">12 Feb | Copa Libertadoress: Alianza - Club 2 de mayo</a>
-          </div>
-        </div>
+<div class="package-grid">
+  <div class="package-card popular" style="display: flex; flex-direction: column;">
+    <div class="popular-badge">⭐ Most Popular</div>
+    <h3 class="package-title">Football matchday - half day</h3>
+    <p class="package-subtitle">Matute atmosphere (± 4 hours)</p>
+    
+    <div class="package-price">€62</div>
+    <p class="package-price-note">Starting price - varies by match type</p>
+    
+    <ul class="package-features" style="flex-grow: 1;">
+      <li>4-hour matchday experience</li>
+      <li>Start around 13:00 (depending on kick-off)</li>
+      <li>Pre-match walk through the neighborhood (La Victoria)</li>
+      <li>Fan-zone & local bar visit</li>
+      <li>Match jersey included</li>
+      <li>Alianza Lima football match ticket</li>
+      <li>Song-list ritual (lyrics, translation, rehearsal)</li>
+      <li>Post-match drink and reflection with locals</li>
+      <li>Transfers (pick-up & drop-off)</li>
+    </ul>
+
+    <a href="booking.html" class="btn-event">
+      <span class="event-label">Copa Libertadores • Qualifier</span>
+      <span class="event-details">12 Feb: Alianza - Club 2 de Mayo</span>
+    </a>
+  </div>
+
+  <div class="package-card" style="display: flex; flex-direction: column;">
+    <h3 class="package-title">Football + hidden Lima - full day</h3>
+    <p class="package-subtitle">Local food, neighborhoods & matchday</p>
+    
+    <div class="package-price">€150 - €250</div>
+    <p class="package-price-note">Varies by group size & match type</p>
+    
+    <ul class="package-features" style="flex-grow: 1;">
+      <li>Full day experience (8+ hours)</li>
+      <li>City exploration: Surco → Barranco</li>
+      <li>Hidden local food spots</li>
+      <li>Alianza Lima football match (premium tickets)</li>
+      <li>Song-list ritual (lyrics, translation, rehearsal)</li>
+      <li>Match jersey included</li>
+      <li>2 beers before the game</li>
+      <li>All transfers (pick-up & drop-off)</li>
+    </ul>
+
+    <a href="booking.html" class="btn-event">
+      <span class="event-label">Copa Libertadores • Qualifier</span>
+      <span class="event-details">12 Feb: Alianza - Club 2 de Mayo</span>
+    </a>
+  </div>
+</div>
 
         <!-- Volleyball option (keeps structure; not a third main card by default) -->
         <div class="card" style="padding: 2.5rem; margin-top: 1.5rem;">
