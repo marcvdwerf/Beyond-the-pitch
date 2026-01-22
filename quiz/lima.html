@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alianza Lima Trivia Challenge</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide-static/0.321.0/lucide.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -20,14 +22,11 @@
     <script type="text/babel">
         const { useState } = React;
 
-        // Eenvoudige icon componenten aangezien Lucide-react anders werkt via CDN
-        const Icon = ({ name, className }) => <i data-lucide={name} className={className}></i>;
-
         const QuizApp = () => {
             const [currentStep, setCurrentStep] = useState('intro');
             const [currentQuestion, setCurrentQuestion] = useState(0);
             const [score, setScore] = useState(0);
-            const [showFeedback, setShowFeedback] = useState(false);
+            const [showFeedback, setShowFeedback] = useState(false); // 'short', 'long', or false
             const [selectedAnswer, setSelectedAnswer] = useState(null);
             const [language, setLanguage] = useState('es');
 
@@ -37,20 +36,30 @@
                     subtitle: 'Trivia Challenge',
                     tagline: '¿Qué tanto sabes sobre los Íntimos?',
                     startQuiz: '¡Empezar el Quiz!',
+                    readMore: 'Leer más',
                     continue: 'Continuar',
                     correct: '¡Correcto!',
                     interesting: '¡Interesante!',
-                    yourScore: 'Tu puntuación final:'
+                    yourScore: 'Tu puntuación final:',
+                    perfect: '¡Perfecto! Eres un verdadero Íntimo 💙',
+                    great: '¡Excelente! Conoces bien al club 👏',
+                    good: '¡Bien! Pero puedes aprender más 📖',
+                    learn: '¡Sigue aprendiendo sobre los Blanquiazules! 💪'
                 },
                 en: {
                     title: 'ALIANZA LIMA',
                     subtitle: 'Trivia Challenge',
                     tagline: 'How much do you know about Los Íntimos?',
                     startQuiz: 'Start Quiz!',
+                    readMore: 'Read more',
                     continue: 'Continue',
                     correct: 'Correct!',
                     interesting: 'Interesting!',
-                    yourScore: 'Your final score:'
+                    yourScore: 'Your final score:',
+                    perfect: 'Perfect! You are a true Íntimo 💙',
+                    great: 'Excellent! You know the club well 👏',
+                    good: 'Good! But you can learn more 📖',
+                    learn: 'Keep learning about Los Blanquiazules! 💪'
                 }
             };
 
@@ -62,31 +71,54 @@
                     options: ['1901', '1905', '1910', '1915'],
                     correct: '1901',
                     image: 'https://googleusercontent.com/image_generation_content/1',
-                    shortFact: { es: '¡Correcto! El 15 de febrero de 1901.', en: 'Correct! On February 15, 1901.' }
+                    shortFact: { es: '¡Correcto! Alianza Lima fue fundado el 15 de febrero de 1901.', en: 'Correct! Alianza Lima was founded on February 15, 1901.' },
+                    longFact: { 
+                        es: 'Alianza Lima fue fundado el 15 de febrero de 1901 en el barrio de La Victoria, Lima. Originalmente se llamaba "Sport Alianza" y fue creado por jóvenes trabajadores del barrio. El club adoptó los colores azul y blanco inspirados en la bandera de la carrera de caballos del hipódromo de Santa Beatriz.',
+                        en: 'Alianza Lima was founded on February 15, 1901 in the La Victoria neighborhood of Lima. Originally called "Sport Alianza," it was created by young workers from the neighborhood.'
+                    }
                 },
                 {
                     question: { es: '¿Cuál es el apodo más popular del club?', en: 'What is the most popular nickname of the club?' },
                     options: ['Los Blanquiazules', 'Los Íntimos', 'Los Aliancistas', 'Todos los anteriores'],
                     correct: 'Todos los anteriores',
                     image: 'https://googleusercontent.com/image_generation_content/2',
-                    shortFact: { es: '¡Exacto! El club tiene varios apodos.', en: 'Exactly! The club has several nicknames.' }
+                    shortFact: { es: '¡Exacto! El club tiene varios apodos cariñosos.', en: 'Exactly! The club has several affectionate nicknames.' },
+                    longFact: {
+                        es: 'Alianza Lima es conocido por varios apodos: "Los Blanquiazules" por sus colores tradicionales; "Los Íntimos" que surgió en los años 20; y "Los Aliancistas" que es como se llaman sus seguidores. Cada apodo representa una parte de la identidad e historia del club.',
+                        en: 'Alianza Lima is known by several nicknames: "Los Blanquiazules" for their traditional colors; "Los Íntimos" which emerged in the 1920s; and "Los Aliancistas".'
+                    }
                 },
                 {
                     question: { es: '¿Cuántos títulos nacionales ha ganado Alianza Lima?', en: 'How many national titles has Alianza Lima won?' },
                     options: ['20', '23', '25', '28'],
                     correct: '25',
                     image: 'https://googleusercontent.com/image_generation_content/3',
-                    shortFact: { es: '¡Correcto! 25 títulos nacionales.', en: 'Correct! 25 national titles.' }
+                    shortFact: { es: '¡Correcto! 25 títulos nacionales.', en: 'Correct! 25 national titles.' },
+                    longFact: {
+                        es: 'Alianza Lima ha conquistado 25 títulos de la Liga Peruana. Sus títulos incluyen años desde 1927 hasta el presente, demostrando su dominio en diferentes épocas del fútbol peruano.',
+                        en: 'Alianza Lima has won 25 Peruvian League titles, making it one of the most successful clubs in the country.'
+                    }
+                },
+                {
+                    question: { es: '¿Cómo se llama el estadio de Alianza Lima?', en: 'What is the name of Alianza Lima\'s stadium?' },
+                    options: ['Estadio Nacional', 'Estadio Monumental', 'Estadio Alejandro Villanueva', 'Estadio San Marcos'],
+                    correct: 'Estadio Alejandro Villanueva',
+                    image: 'https://googleusercontent.com/image_generation_content/4',
+                    shortFact: { es: '¡Perfecto! También conocido como "Matute".', en: 'Perfect! Also known as "Matute".' },
+                    longFact: {
+                        es: 'El Estadio Alejandro Villanueva, conocido como "Matute", es la casa de Alianza Lima desde 1974. Lleva el nombre de su legendario máximo goleador histórico. Tiene una capacidad de aproximadamente 35,000 espectadores.',
+                        en: 'The Alejandro Villanueva Stadium, known as "Matute", has been Alianza Lima\'s home since 1974.'
+                    }
                 }
             ];
 
             const handleAnswer = (answer) => {
                 setSelectedAnswer(answer);
-                setShowFeedback(true);
+                setShowFeedback('short');
                 if (answer === triviaQuestions[currentQuestion].correct) setScore(score + 1);
             };
 
-            const nextQuestion = () => {
+            const handleContinue = () => {
                 if (currentQuestion < triviaQuestions.length - 1) {
                     setCurrentQuestion(currentQuestion + 1);
                     setShowFeedback(false);
@@ -98,13 +130,14 @@
 
             if (currentStep === 'intro') {
                 return (
-                    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
-                        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
-                            <h1 className="text-4xl font-bold text-blue-900 mb-2">{t.title}</h1>
-                            <p className="text-blue-600 font-semibold mb-6">{t.subtitle}</p>
-                            <img src="https://googleusercontent.com/image_generation_content/0" className="rounded-xl mb-6 shadow-lg" />
-                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all">
-                                {t.startQuiz}
+                    <div className="min-h-screen flex items-center justify-center p-4 fade-in">
+                        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center relative overflow-hidden border-t-8 border-blue-900">
+                            <h1 className="text-4xl font-extrabold text-blue-900 mb-2">{t.title}</h1>
+                            <p className="text-blue-600 font-bold text-xl mb-4">{t.subtitle}</p>
+                            <img src="https://googleusercontent.com/image_generation_content/0" className="w-full h-56 object-cover rounded-2xl mb-6 shadow-md" alt="Intro" />
+                            <p className="text-gray-600 mb-8 italic">{t.tagline}</p>
+                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-800 transition-all flex items-center justify-center gap-2">
+                                {t.startQuiz} <i className="lucide-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -114,32 +147,43 @@
             if (currentStep === 'trivia') {
                 const q = triviaQuestions[currentQuestion];
                 return (
-                    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
-                        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
-                            <img src={q.image} className="w-full h-48 object-cover" />
-                            <div className="p-6">
-                                <h2 className="text-xl font-bold mb-4">{q.question[language]}</h2>
-                                <div className="space-y-3">
-                                    {q.options.map((opt, i) => (
+                    <div className="min-h-screen flex items-center justify-center p-4 fade-in">
+                        <div className="max-w-xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-t-8 border-blue-900">
+                            <div className="relative h-64">
+                                <img src={q.image} className="w-full h-full object-cover" alt="Question" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                                    <h2 className="text-white text-2xl font-bold leading-tight">{q.question[language]}</h2>
+                                </div>
+                            </div>
+                            
+                            <div className="p-8 space-y-4">
+                                {!showFeedback ? (
+                                    q.options.map((opt, i) => (
                                         <button 
                                             key={i} 
-                                            disabled={showFeedback}
                                             onClick={() => handleAnswer(opt)}
-                                            className={`w-full p-4 text-left border-2 rounded-xl transition-all ${
-                                                showFeedback && opt === q.correct ? 'bg-green-100 border-green-500' : 
-                                                showFeedback && opt === selectedAnswer ? 'bg-red-100 border-red-500' : 'border-gray-100'
-                                            }`}
+                                            className="w-full p-4 text-left border-2 border-gray-100 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition-all font-semibold text-gray-700"
                                         >
                                             {opt}
                                         </button>
-                                    ))}
-                                </div>
-                                {showFeedback && (
-                                    <div className="mt-6">
-                                        <p className="text-sm text-gray-600 mb-4">{q.shortFact[language]}</p>
-                                        <button onClick={nextQuestion} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">
-                                            {t.continue}
-                                        </button>
+                                    ))
+                                ) : (
+                                    <div className="fade-in">
+                                        <div className={`p-6 rounded-2xl mb-6 ${selectedAnswer === q.correct ? 'bg-green-50 border-2 border-green-200' : 'bg-red-50 border-2 border-red-200'}`}>
+                                            <p className="font-bold text-lg mb-2">{selectedAnswer === q.correct ? t.correct : t.interesting}</p>
+                                            <p className="text-gray-800">{showFeedback === 'short' ? q.shortFact[language] : q.longFact[language]}</p>
+                                        </div>
+                                        <div className="flex gap-4">
+                                            {showFeedback === 'short' && (
+                                                <button onClick={() => setShowFeedback('long')} className="flex-1 border-2 border-gray-200 py-3 rounded-xl font-bold text-gray-600 hover:bg-gray-50 transition-all">
+                                                    {t.readMore}
+                                                </button>
+                                            )}
+                                            <button onClick={handleContinue} className="flex-1 bg-blue-900 text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition-all">
+                                                {t.continue}
+                                            }
+                                            </button>
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -150,11 +194,19 @@
 
             if (currentStep === 'complete') {
                 return (
-                    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
-                        <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center">
-                            <h2 className="text-3xl font-bold mb-4">¡Finalizado!</h2>
-                            <p className="text-xl mb-6">{t.yourScore} {score} / {triviaQuestions.length}</p>
-                            <button onClick={() => location.reload()} className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold">Opnieuw proberen</button>
+                    <div className="min-h-screen flex items-center justify-center p-4 fade-in">
+                        <div className="bg-white rounded-3xl p-10 max-w-md w-full text-center shadow-2xl border-t-8 border-blue-900">
+                            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i className="lucide-trophy text-blue-900 w-10 h-10"></i>
+                            </div>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-2">¡Terminado!</h2>
+                            <p className="text-lg text-gray-600 mb-6">{t.yourScore} {score} / {triviaQuestions.length}</p>
+                            <p className="text-blue-900 font-semibold mb-8">
+                                {score === triviaQuestions.length ? t.perfect : score >= 2 ? t.great : t.learn}
+                            </p>
+                            <button onClick={() => location.reload()} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold hover:bg-blue-800 transition-all">
+                                Opnieuw proberen
+                            </button>
                         </div>
                     </div>
                 );
