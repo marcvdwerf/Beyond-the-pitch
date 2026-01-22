@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alianza Lima Trivia</title>
+    <title>Alianza Lima Trivia - Play & Travel</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #1e293b; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -33,20 +35,36 @@
                     subtitle: 'Trivia Challenge',
                     tagline: '¿Qué tanto sabes sobre los Íntimos?',
                     startQuiz: '¡Empezar el Quiz!',
+                    backHome: 'Volver al Inicio',
+                    projectPage: 'Ver Proyecto Lima',
+                    bookTrip: '¡Reserva tu viaje a Matute!',
                     continue: 'Continuar',
                     readMore: 'Leer más',
-                    yourScore: 'Tu puntuación:',
-                    restart: 'Reintentar'
+                    yourScore: 'Tu puntuación final:',
+                    restart: 'Reintentar',
+                    finish: 'Finalizar',
+                    perfect: '¡Perfecto! Eres un verdadero Íntimo 💙',
+                    great: '¡Excelente! Conoces bien al club 👏',
+                    good: '¡Bien! Pero puedes aprender más 📖',
+                    learn: '¡Sigue aprendiendo sobre los Blanquiazules! 💪'
                 },
                 en: {
                     title: 'ALIANZA LIMA',
                     subtitle: 'Trivia Challenge',
                     tagline: 'How much do you know about Los Íntimos?',
                     startQuiz: 'Start Quiz!',
+                    backHome: 'Back to Home',
+                    projectPage: 'View Lima Project',
+                    bookTrip: 'Book your trip to Matute!',
                     continue: 'Continue',
                     readMore: 'Read more',
-                    yourScore: 'Your score:',
-                    restart: 'Try Again'
+                    yourScore: 'Your final score:',
+                    restart: 'Try Again',
+                    finish: 'Finish',
+                    perfect: 'Perfect! You are a true Íntimo 💙',
+                    great: 'Excellent! You know the club well 👏',
+                    good: 'Good! But you can learn more 📖',
+                    learn: 'Keep learning about Los Blanquiazules! 💪'
                 }
             };
 
@@ -58,10 +76,10 @@
                     options: ['1901', '1905', '1910', '1915'],
                     correct: '1901',
                     image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800', // PLAK HIER JE LINK
-                    shortFact: { es: '¡Correcto! El 15 de febrero de 1901.', en: 'Correct! February 15, 1901.' },
-                    longFact: { 
-                        es: 'Alianza Lima fue fundado en el barrio de La Victoria. Originalmente se llamaba "Sport Alianza".',
-                        en: 'Alianza Lima was founded in the La Victoria neighborhood. Originally called "Sport Alianza".'
+                    shortFact: { es: '¡Correcto! El 15 de febrero de 1901.', en: 'Correct! On February 15, 1901.' },
+                    longFact: {
+                        es: 'Alianza Lima fue fundado el 15 de febrero de 1901 en el barrio de La Victoria, Lima. Originalmente se llamaba "Sport Alianza".',
+                        en: 'Alianza Lima was founded on February 15, 1901 in the La Victoria neighborhood, Lima. Originally called "Sport Alianza".'
                     }
                 },
                 {
@@ -71,8 +89,41 @@
                     image: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45?w=800', // PLAK HIER JE LINK
                     shortFact: { es: '¡Exacto! El club tiene varios apodos.', en: 'Exactly! The club has several nicknames.' },
                     longFact: {
-                        es: 'Es conocido como Los Blanquiazules, Los Íntimos y Los Aliancistas.',
-                        en: 'It is known as Los Blanquiazules, Los Íntimos, and Los Aliancistas.'
+                        es: 'Alianza Lima es conocido como "Los Blanquiazules", "Los Íntimos" y "Los Aliancistas". Cada nombre tiene su historia.',
+                        en: 'Alianza Lima is known as "Los Blanquiazules", "Los Íntimos", and "Los Aliancistas". Each name has its history.'
+                    }
+                },
+                {
+                    question: { es: '¿Cuántos títulos nacionales ha ganado Alianza Lima?', en: 'How many national titles has Alianza Lima won?' },
+                    options: ['20', '23', '25', '28'],
+                    correct: '25',
+                    image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800', // PLAK HIER JE LINK
+                    shortFact: { es: '¡Correcto! 25 títulos nacionales.', en: 'Correct! 25 national titles.' },
+                    longFact: {
+                        es: 'Alianza Lima ha conquistado 25 títulos de la Liga Peruana, siendo uno de los clubes más exitosos del país.',
+                        en: 'Alianza Lima has won 25 Peruvian League titles, being one of the most successful clubs in the country.'
+                    }
+                },
+                {
+                    question: { es: '¿Cómo se llama el estadio de Alianza Lima?', en: 'What is the name of Alianza Lima\'s stadium?' },
+                    options: ['Estadio Nacional', 'Estadio Monumental', 'Estadio Alejandro Villanueva', 'Estadio San Marcos'],
+                    correct: 'Estadio Alejandro Villanueva',
+                    image: 'https://images.unsplash.com/photo-1431324155629-1a6eda1eedbc?w=800', // PLAK HIER JE LINK
+                    shortFact: { es: '¡Perfecto! También conocido como "Matute".', en: 'Perfect! Also known as "Matute".' },
+                    longFact: {
+                        es: 'El Estadio Alejandro Villanueva, conocido como "Matute", es la casa de Alianza Lima desde 1974.',
+                        en: 'The Alejandro Villanueva Stadium, known as "Matute", has been Alianza Lima\'s home since 1974.'
+                    }
+                },
+                {
+                    question: { es: '¿Quién es considerado el máximo ídolo de Alianza Lima?', en: 'Who is considered the greatest idol of Alianza Lima?' },
+                    options: ['Teófilo Cubillas', 'Jefferson Farfán', 'Waldir Sáenz', 'Paolo Guerrero'],
+                    correct: 'Teófilo Cubillas',
+                    image: 'https://images.unsplash.com/photo-1518091043644-c1d445bb5120?w=800', // PLAK HIER JE LINK
+                    shortFact: { es: '¡Correcto! "Nene" Cubillas es una leyenda.', en: 'Correct! "Nene" Cubillas is a legend.' },
+                    longFact: {
+                        es: 'Teófilo Cubillas, "El Nene", es considerado el máximo ídolo y uno de los mejores futbolistas peruanos.',
+                        en: 'Teófilo Cubillas, "El Nene", is considered the greatest idol and one of the best Peruvian footballers.'
                     }
                 }
             ];
@@ -95,39 +146,66 @@
 
             return (
                 <div className="min-h-screen flex flex-col items-center justify-center p-4">
-                    {/* TAAL KNOPPEN */}
-                    <div className="absolute top-4 right-4 flex gap-2">
-                        <button onClick={() => setLanguage('es')} className={`px-3 py-1 rounded ${language === 'es' ? 'bg-blue-600 text-white' : 'bg-white text-blue-900'}`}>ES</button>
-                        <button onClick={() => setLanguage('en')} className={`px-3 py-1 rounded ${language === 'en' ? 'bg-blue-600 text-white' : 'bg-white text-blue-900'}`}>EN</button>
+                    {/* NAVIGATIE & TAAL BALK */}
+                    <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
+                        <a href="index.html" className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold border border-white/20 hover:bg-white/20 transition">
+                             ← {t.backHome}
+                        </a>
+                        <div className="flex gap-1 bg-white/10 backdrop-blur-md p-1 rounded-full border border-white/20">
+                            <button onClick={() => setLanguage('es')} className={`px-4 py-1.5 rounded-full text-xs font-bold transition ${language === 'es' ? 'bg-blue-600 text-white' : 'text-white/60'}`}>ES</button>
+                            <button onClick={() => setLanguage('en')} className={`px-4 py-1.5 rounded-full text-xs font-bold transition ${language === 'en' ? 'bg-blue-600 text-white' : 'text-white/60'}`}>EN</button>
+                        </div>
                     </div>
 
                     {currentStep === 'intro' && (
-                        <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full text-center">
-                            <h1 className="text-3xl font-bold text-blue-900 mb-2">{t.title}</h1>
-                            <p className="text-gray-600 mb-6">{t.tagline}</p>
-                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-3 rounded-xl font-bold">{t.startQuiz}</button>
+                        <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-blue-900 fade-in">
+                            <h1 className="text-4xl font-black text-blue-900 mb-2 leading-tight">{t.title}</h1>
+                            <p className="text-blue-600 font-bold mb-4">{t.subtitle}</p>
+                            <p className="text-gray-500 mb-8 italic">{t.tagline}</p>
+                            <div className="space-y-3">
+                                <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition transform active:scale-95">
+                                    {t.startQuiz}
+                                </button>
+                                <a href="lima.html" className="block w-full border-2 border-gray-100 text-blue-900 py-3 rounded-2xl font-bold hover:bg-gray-50 transition">
+                                    {t.projectPage}
+                                </a>
+                            </div>
                         </div>
                     )}
 
                     {currentStep === 'trivia' && (
-                        <div className="bg-white rounded-3xl shadow-xl max-w-md w-full overflow-hidden">
-                            <img src={triviaQuestions[currentQuestion].image} className="w-full h-48 object-cover" />
+                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-blue-900">
+                            <div className="relative h-48 bg-slate-200">
+                                <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" alt="Question" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-5">
+                                    <h2 className="text-white text-lg font-bold leading-tight">{triviaQuestions[currentQuestion].question[language]}</h2>
+                                </div>
+                            </div>
                             <div className="p-6">
-                                <h2 className="text-xl font-bold mb-4">{triviaQuestions[currentQuestion].question[language]}</h2>
-                                <div className="space-y-2">
+                                <div className="space-y-3">
                                     {triviaQuestions[currentQuestion].options.map(opt => (
-                                        <button key={opt} disabled={showFeedback} onClick={() => handleAnswer(opt)} 
-                                            className={`w-full p-3 text-left border rounded-xl ${showFeedback && opt === triviaQuestions[currentQuestion].correct ? 'bg-green-100 border-green-500' : 'border-gray-200'}`}>
+                                        <button 
+                                            key={opt} 
+                                            disabled={showFeedback} 
+                                            onClick={() => handleAnswer(opt)} 
+                                            className={`w-full p-4 text-left border-2 rounded-2xl font-bold transition-all ${
+                                                showFeedback && opt === triviaQuestions[currentQuestion].correct ? 'bg-green-100 border-green-500 text-green-800' : 
+                                                showFeedback && opt === selectedAnswer ? 'bg-red-100 border-red-500 text-red-800' : 'border-gray-100 hover:border-blue-400'
+                                            }`}>
                                             {opt}
                                         </button>
                                     ))}
                                 </div>
                                 {showFeedback && (
-                                    <div className="mt-4 p-4 bg-blue-50 rounded-xl">
-                                        <p className="text-sm mb-3">{showFeedback === 'short' ? triviaQuestions[currentQuestion].shortFact[language] : triviaQuestions[currentQuestion].longFact[language]}</p>
-                                        <div className="flex gap-2">
-                                            {showFeedback === 'short' && <button onClick={() => setShowFeedback('long')} className="flex-1 text-blue-900 font-bold text-sm underline">{t.readMore}</button>}
-                                            <button onClick={nextStep} className="flex-1 bg-blue-900 text-white py-2 rounded-lg">{t.continue}</button>
+                                    <div className="mt-6 p-5 bg-blue-50 rounded-2xl border border-blue-100 fade-in">
+                                        <p className="text-sm text-blue-900 font-medium mb-4">
+                                            {showFeedback === 'short' ? triviaQuestions[currentQuestion].shortFact[language] : triviaQuestions[currentQuestion].longFact[language]}
+                                        </p>
+                                        <div className="flex items-center gap-4">
+                                            {showFeedback === 'short' && <button onClick={() => setShowFeedback('long')} className="text-blue-900 font-bold text-xs uppercase underline tracking-wider">{t.readMore}</button>}
+                                            <button onClick={nextStep} className="flex-1 bg-blue-900 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-800 transition">
+                                                {currentQuestion === triviaQuestions.length - 1 ? t.finish : t.continue}
+                                            </button>
                                         </div>
                                     </div>
                                 )}
@@ -136,9 +214,20 @@
                     )}
 
                     {currentStep === 'complete' && (
-                        <div className="bg-white p-8 rounded-3xl shadow-xl max-w-md w-full text-center">
-                            <h2 className="text-2xl font-bold mb-4">{t.yourScore} {score} / {triviaQuestions.length}</h2>
-                            <button onClick={() => location.reload()} className="bg-blue-900 text-white px-6 py-2 rounded-xl">{t.restart}</button>
+                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-yellow-500">
+                            <div className="text-5xl mb-4">🏆</div>
+                            <h2 className="text-2xl font-bold text-blue-900 mb-2">{t.yourScore}</h2>
+                            <div className="text-5xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
+                            <p className="text-gray-600 mb-8">{score === triviaQuestions.length ? t.perfect : t.good}</p>
+                            
+                            <div className="space-y-3">
+                                <a href="https://your-booking-site.com" className="block w-full bg-yellow-500 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-yellow-600 transition hover:scale-105 active:scale-95">
+                                    ✈️ {t.bookTrip}
+                                </a>
+                                <button onClick={() => location.reload()} className="w-full text-blue-900 font-bold py-2 hover:underline">{t.restart}</button>
+                                <hr className="my-4 border-gray-100" />
+                                <a href="index.html" className="block w-full text-gray-400 font-bold hover:text-blue-900 transition">{t.backHome}</a>
+                            </div>
                         </div>
                     )}
                 </div>
