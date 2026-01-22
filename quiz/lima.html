@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alianza Lima Trivia - Play & Travel</title>
+    <title>Alianza Lima: Corazón para Ganar - Trivia</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -32,9 +32,9 @@
             const translations = {
                 es: {
                     title: 'ALIANZA LIMA',
-                    subtitle: 'Trivia Challenge',
-                    tagline: '¿Qué tanto sabes sobre los Íntimos?',
-                    startQuiz: '¡Empezar el Quiz!',
+                    subtitle: 'Fútbol & Vóley Challenge',
+                    tagline: '¿Qué tanto conoces la historia del club más grande del Perú?',
+                    startQuiz: '¡Empezar el Desafío!',
                     backHome: 'Volver al Inicio',
                     projectPage: 'Ver Proyecto Lima',
                     bookTrip: '¡Reserva tu viaje a Matute!',
@@ -43,16 +43,14 @@
                     yourScore: 'Tu puntuación final:',
                     restart: 'Reintentar',
                     finish: 'Finalizar',
-                    perfect: '¡Perfecto! Eres un verdadero Íntimo 💙',
-                    great: '¡Excelente! Conoces bien al club 👏',
-                    good: '¡Bien! Pero puedes aprender más 📖',
-                    learn: '¡Sigue aprendiendo sobre los Blanquiazules! 💪'
+                    perfect: '¡Leyenda Blanquiazul! Dominas el fútbol y el vóley 💙',
+                    good: '¡Buen trabajo! Conoces la tradición victoriana 👏',
                 },
                 en: {
                     title: 'ALIANZA LIMA',
-                    subtitle: 'Trivia Challenge',
-                    tagline: 'How much do you know about Los Íntimos?',
-                    startQuiz: 'Start Quiz!',
+                    subtitle: 'Football & Volleyball Challenge',
+                    tagline: 'How much do you know about Perus biggest multi-sport club?',
+                    startQuiz: 'Start the Challenge!',
                     backHome: 'Back to Home',
                     projectPage: 'View Lima Project',
                     bookTrip: 'Book your trip to Matute!',
@@ -61,10 +59,8 @@
                     yourScore: 'Your final score:',
                     restart: 'Try Again',
                     finish: 'Finish',
-                    perfect: 'Perfect! You are a true Íntimo 💙',
-                    great: 'Excellent! You know the club well 👏',
-                    good: 'Good! But you can learn more 📖',
-                    learn: 'Keep learning about Los Blanquiazules! 💪'
+                    perfect: 'Blue and White Legend! You master football and volleyball 💙',
+                    good: 'Good job! You know the Victorian tradition 👏',
                 }
             };
 
@@ -75,55 +71,66 @@
                     question: { es: '¿En qué año fue fundado Alianza Lima?', en: 'In what year was Alianza Lima founded?' },
                     options: ['1901', '1905', '1910', '1915'],
                     correct: '1901',
-                    image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800', // PLAK HIER JE LINK
+                    image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
                     shortFact: { es: '¡Correcto! El 15 de febrero de 1901.', en: 'Correct! On February 15, 1901.' },
                     longFact: {
-                        es: 'El Club Alianza Lima, más conocido simplemente como Alianza Lima, es un club deportivo profesional peruano con sede en el distrito de La Victoria, en Lima, Perú. El club fue fundado con el nombre de Sport Alianza el 15 de febrero de 1901 por jóvenes de clase trabajadora del barrio de Chacaritas, en Lima. Es ampliamente conocido por tener uno de los equipos de fútbol más históricos y exitosos de Perú.".',
-                        en: 'Club Alianza Lima, more commonly known as simply Alianza Lima, is a Peruvian professional sports club based in La Victoria District of Lima, Peru. The club was founded under the name of Sport Alianza on 15 February 1901 by working-class youth in the Chacaritas neighbourhood of Lima. It is widely known for having one of the most historical and successful football teams in Peru".'
+                        es: 'El Club Alianza Lima fue fundado con el nombre de Sport Alianza el 15 de febrero de 1901 por jóvenes de clase trabajadora del barrio de Chacaritas, en Lima. Es ampliamente conocido por tener uno de los equipos de fútbol más históricos y exitosos de Perú.',
+                        en: 'Club Alianza Lima was founded under the name of Sport Alianza on 15 February 1901 by working-class youth in the Chacaritas neighbourhood of Lima. It is widely known for having one of the most historical and successful football teams in Peru.'
                     }
                 },
                 {
                     question: { es: '¿Cuál es el apodo más popular del club?', en: 'What is the most popular nickname of the club?' },
                     options: ['Los Blanquiazules', 'Los Íntimos', 'Los Aliancistas', 'Todos los anteriores'],
                     correct: 'Todos los anteriores',
-                    image: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45?w=800', // PLAK HIER JE LINK
+                    image: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45?w=800',
                     shortFact: { es: '¡Exacto! El club tiene varios apodos.', en: 'Exactly! The club has several nicknames.' },
                     longFact: {
-                        es: 'Conocido por los apodos de Blanquiazules, Los Íntimos y El Equipo del Pueblo. ',
-                        en: 'Known by the nicknames Blanquiazules (White and Blues), Los Íntimos (The Intimates), and El Equipo del Pueblo (The People’s Team). '
+                        es: 'Conocido por los apodos de Blanquiazules, Los Íntimos y El Equipo del Pueblo.',
+                        en: 'Known by the nicknames Blanquiazules (White and Blues), Los Íntimos (The Intimates), and El Equipo del Pueblo (The People’s Team).'
                     }
                 },
                 {
                     question: { es: '¿Cuántos títulos nacionales ha ganado Alianza Lima?', en: 'How many national titles has Alianza Lima won?' },
                     options: ['20', '23', '25', '28'],
                     correct: '25',
-                    image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800', // PLAK HIER JE LINK
+                    image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800',
                     shortFact: { es: '¡Correcto! 25 títulos nacionales.', en: 'Correct! 25 national titles.' },
                     longFact: {
-                        es: 'El Alianza Lima es uno de los clubes de fútbol peruanos más exitosos, con un total de 59 títulos oficiales, entre los que se incluyen 25 títulos de Primera División, 31 títulos de copa nacional, 1 supercopa y 1 copa internacional, la Copa Simón Bolívar. El club también ha ganado numerosos títulos regionales y de ligas cortas. El Alianza disfrutó de su época más exitosa durante las primeras décadas de su era profesional.',
-                        en: 'Alianza Lima is one of the most successful Peruvian football clubs, with a total 59 official titles consisting of 25 Primera División titles, 31 domestic cup titles, 1 supercup, and 1 international cup, the Copa Simón Bolívar. The club has also won numerous regional and short league titles. Alianza enjoyed their most successful period throughout the first decades of their professional era.'
+                        es: 'Alianza Lima es uno de los clubes más exitosos con 25 títulos de Primera División, 31 títulos de copa nacional, 1 supercopa y 1 copa internacional (Copa Simón Bolívar). Disfrutó de su época más exitosa durante las primeras décadas de su era profesional.',
+                        en: 'Alianza Lima is one of the most successful clubs with 25 Primera División titles, 31 domestic cup titles, 1 supercup, and 1 international cup (Copa Simón Bolívar). Alianza enjoyed their most successful period throughout the first decades of their professional era.'
                     }
                 },
                 {
-                    question: { es: '¿Cómo se llama el estadio de Alianza Lima?', en: 'What is the name of Alianza Lima\'s stadium?' },
-                    options: ['Estadio Nacional', 'Estadio Monumental', 'Estadio Alejandro Villanueva', 'Estadio San Marcos'],
-                    correct: 'Estadio Alejandro Villanueva',
-                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/Vista_a%C3%A9rea_del_Estadio_Alejandro_Villanueva_2023.jpg', // PLAK HIER JE LINK
-                    shortFact: { es: '¡Perfecto! También conocido como "Matute".', en: 'Perfect! Also known as "Matute".' },
+                    question: { es: '¿Cuál es el apodo del equipo de vóley femenino de Alianza?', en: 'What is the nickname of Alianzas female volleyball team?' },
+                    options: ['Las Reinas', 'Las Íntimas', 'Las Matadoras', 'Las Guerreras'],
+                    correct: 'Las Íntimas',
+                    image: 'https://images.unsplash.com/photo-1592656670411-b159f0db29ab?w=800',
+                    shortFact: { es: '¡Exacto! Son conocidas como "Las Íntimas".', en: 'Exactly! They are known as "Las Íntimas".' },
                     longFact: {
-                        es: 'El estadio del Alianza es el Estadio Alejandro Villanueva, que lleva el nombre de Alejandro Villanueva, uno de los jugadores más importantes en la historia del club. El estadio también es conocido popularmente como Matute, el nombre del barrio en el que se encuentra. El estadio tiene capacidad para 33 938 espectadores.',
-                        en: 'Alianza's home stadium is the Estadio Alejandro Villanueva, named after Alejandro Villanueva, one of the most important players in the club's history. The stadium is also popularly known as Matute, the name of the neighbourhood in which it is located. The stadium can hold up to 33,938 spectators.'
+                        es: 'El vóley de Alianza Lima tiene una de las hinchadas más grandes del país y compite al más alto nivel en la Liga Nacional Superior de Voleibol.',
+                        en: 'Alianzas volleyball team has one of the largest fanbases in the country and competes at the highest level in the National Superior Volleyball League.'
                     }
                 },
                 {
-                    question: { es: '¿Quién es considerado el máximo ídolo de Alianza Lima?', en: 'Who is considered the greatest idol of Alianza Lima?' },
+                    question: { es: '¿Cómo se llama el estadio principal del club?', en: 'What is the name of the clubs main stadium?' },
+                    options: ['Nacional', 'Monumental', 'Alejandro Villanueva', 'San Marcos'],
+                    correct: 'Alejandro Villanueva',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/Vista_a%C3%A9rea_del_Estadio_Alejandro_Villanueva_2023.jpg',
+                    shortFact: { es: '¡Correcto! También conocido como "Matute".', en: 'Correct! Also known as "Matute".' },
+                    longFact: {
+                        es: 'El Estadio Alejandro Villanueva lleva el nombre de uno de los jugadores más importantes de la historia del club. Se encuentra en el barrio de Matute y tiene capacidad para 33,938 espectadores.',
+                        en: 'The Estadio Alejandro Villanueva is named after one of the most important players in the club\'s history. It is located in the Matute neighbourhood and can hold 33,938 spectators.'
+                    }
+                },
+                {
+                    question: { es: '¿Quién es "El Nene", máximo ídolo del club?', en: 'Who is "El Nene", the clubs greatest idol?' },
                     options: ['Teófilo Cubillas', 'Jefferson Farfán', 'Waldir Sáenz', 'Paolo Guerrero'],
                     correct: 'Teófilo Cubillas',
-                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/Te%C3%B3filo_Cubillas_1978.jpg', // PLAK HIER JE LINK
-                    shortFact: { es: '¡Correcto! "Nene" Cubillas es una leyenda.', en: 'Correct! "Nene" Cubillas is a legend.' },
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/Te%C3%B3filo_Cubillas_1978.jpg',
+                    shortFact: { es: '¡Correcto! Una leyenda mundial.', en: 'Correct! A world legend.' },
                     longFact: {
-                        es: 'Teófilo Juan Cubillas Arizaga, nacido el 8 de marzo de 1949, es un exfutbolista peruano que jugaba como mediocampista ofensivo. Está considerado como el mejor jugador de la historia de Perú y uno de los mejores de la historia de Sudamérica. Comenzó en el Alianza Lima, donde recibió el apodo de «El Nene», y formó parte de la selección peruana que ganó la Copa América de 1975. Fue elegido Futbolista Sudamericano del Año en 1972.',
-                        en: 'Teófilo Juan Cubillas Arizaga, born 8 March 1949) is a Peruvian former footballer who played as an attacking midfielder. He is considered Peru's greatest ever player and one of the best in the history of South America.Beginning at Alianza Lima, he was nicknamed El Nene (The Kid), and was part of the Peru national team that won the 1975 Copa América.He was elected the South American Footballer of the Year in 1972.'
+                        es: 'Teófilo "El Nene" Cubillas es considerado el mejor jugador de la historia de Perú. Fue parte de la selección que ganó la Copa América de 1975 y fue elegido Futbolista Sudamericano del Año en 1972.',
+                        en: 'Teófilo "El Nene" Cubillas is considered Peru\'s greatest ever player. He was part of the team that won the 1975 Copa América and was elected South American Footballer of the Year in 1972.'
                     }
                 }
             ];
@@ -146,7 +153,7 @@
 
             return (
                 <div className="min-h-screen flex flex-col items-center justify-center p-4">
-                    {/* NAVIGATIE & TAAL BALK */}
+                    {/* NAV / LANG */}
                     <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
                         <a href="index.html" className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold border border-white/20 hover:bg-white/20 transition">
                              ← {t.backHome}
@@ -176,7 +183,7 @@
                     {currentStep === 'trivia' && (
                         <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-blue-900">
                             <div className="relative h-48 bg-slate-200">
-                                <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" alt="Question" />
+                                <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-5">
                                     <h2 className="text-white text-lg font-bold leading-tight">{triviaQuestions[currentQuestion].question[language]}</h2>
                                 </div>
@@ -215,7 +222,7 @@
 
                     {currentStep === 'complete' && (
                         <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-yellow-500">
-                            <div className="text-5xl mb-4">🏆</div>
+                            <div className="text-5xl mb-4">🏐⚽</div>
                             <h2 className="text-2xl font-bold text-blue-900 mb-2">{t.yourScore}</h2>
                             <div className="text-5xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
                             <p className="text-gray-600 mb-8">{score === triviaQuestions.length ? t.perfect : t.good}</p>
