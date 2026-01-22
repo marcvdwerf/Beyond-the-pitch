@@ -39,8 +39,8 @@
                     startQuiz: '¡Empezar el Desafío!',
                     backHome: 'Inicio',
                     projectPage: 'Volver a la página de Lima',
-                    footballTickets: 'Tickets de Fútbol',
-                    volleyballTickets: 'Tickets de Vóley',
+                    requestFootball: 'Solicitar Tickets de Fútbol',
+                    requestVolleyball: 'Solicitar Tickets de Vóley',
                     continue: 'Continuar',
                     readMore: 'Leer más',
                     yourScore: 'Tu puntuación final:',
@@ -56,8 +56,8 @@
                     startQuiz: 'Start the Challenge!',
                     backHome: 'Home',
                     projectPage: 'Back to Lima Page',
-                    footballTickets: 'Football Tickets',
-                    volleyballTickets: 'Volleyball Tickets',
+                    requestFootball: 'Request Football Tickets',
+                    requestVolleyball: 'Request Volleyball Tickets',
                     continue: 'Continue',
                     readMore: 'Read more',
                     yourScore: 'Your final score:',
@@ -227,17 +227,17 @@
                             <p className="text-gray-600 mb-8">{score === triviaQuestions.length ? t.perfect : t.good}</p>
                             
                             <div className="space-y-3">
-                                {/* VOETBAL TICKETS */}
-                                <a href="https://clubalianzalima.joinnus.com/" target="_blank" className="block w-full bg-[#002D5D] text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-800 transition hover:scale-105 active:scale-95">
-                                    ⚽ {t.footballTickets}
+                                {/* REQUEST TICKETS - Verwijst naar de sectie op lima.html */}
+                                <a href="https://travelbeyondthepitch.com/lima.html#request" className="block w-full bg-[#002D5D] text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-800 transition hover:scale-105 active:scale-95">
+                                    ⚽ {t.requestFootball}
                                 </a>
 
-                                {/* VOLLEYBAL TICKETS */}
-                                <a href="https://www.joinnus.com/events/sports?query=alianza%20lima%20voley" target="_blank" className="block w-full bg-blue-500 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-400 transition hover:scale-105 active:scale-95">
-                                    🏐 {t.volleyballTickets}
+                                <a href="https://travelbeyondthepitch.com/lima.html#request" className="block w-full bg-blue-500 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-400 transition hover:scale-105 active:scale-95">
+                                    🏐 {t.requestVolleyball}
                                 </a>
 
-                                {/* LIMA PAGINA KNOP */}
+                                <hr className="my-4 border-gray-100" />
+
                                 <a href="https://travelbeyondthepitch.com/lima.html" className="block w-full border-2 border-gray-100 text-blue-900 py-3 rounded-2xl font-bold hover:bg-gray-50 transition">
                                     🏠 {t.projectPage}
                                 </a>
