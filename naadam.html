@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Naadam Festival Mongolia 2026 - Beyond the Pitch</title>
-  <meta name="description" content="Join us July 2026 for Mongolia's Naadam Festival. Experience wrestling, archery, and horse racing with local nomadic traditions." />
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
@@ -30,7 +29,6 @@
     :root {
       --gold: #ffd700;
       --primary: #000000;
-      --accent: #ffd700;
       --bg: #000000;
       --panel: #0a0a0a;
       --muted: #a0a0a0;
@@ -39,28 +37,29 @@
     body { font-family: "Inter", sans-serif; background: var(--bg); color: #ffffff; line-height: 1.6; }
     .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
     
-    /* Hero */
+    /* Hero Section */
     .hero-video-container { position: relative; width: 100%; height: 80vh; overflow: hidden; }
     .hero-video-container iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; min-width: 177.77vh; }
     .hero-content { position: relative; z-index: 2; padding: 3rem 1.5rem; background: var(--bg); border-top: 1px solid var(--border); }
     
-    /* UI Elements */
-    .card { background: var(--panel); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); transition: all 0.3s ease; }
+    /* UI Cards */
+    .card { background: var(--panel); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); }
     .info-card { background: var(--panel); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); }
     .info-card h3 { font-size: 0.875rem; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; font-weight: 600; }
+    
     .section { padding: 4rem 1.5rem; }
     .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--gold); margin-top: 1rem; }
     
-    /* Timeline */
+    /* Timeline Style */
     .timeline-item { position: relative; padding-left: 3rem; padding-bottom: 2rem; }
     .timeline-item::before { content: ''; position: absolute; left: 0.75rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
-    .timeline-dot { position: absolute; left: 0; top: 0.5rem; width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 700; }
+    .timeline-dot { position: absolute; left: 0; top: 0.5rem; width: 1.5rem; height: 1.5rem; background: var(--gold); border-radius: 50%; }
     
-    /* Gallery */
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0; }
-    .gallery img { width: 100%; height: 300px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); }
-    
-    .video-control-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); display: flex; align-items: center; justify-content: center; }
+    /* FAQ Style */
+    details summary { list-style: none; cursor: pointer; }
+    details[open] summary svg { transform: rotate(180deg); }
+
+    .video-control-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); display: flex; align-items: center; justify-content: center; }
   </style>
 </head>
 <body>
@@ -68,7 +67,7 @@
   <header class="header">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html" class="font-extrabold text-xl">Beyond the Pitch</a>
-      <nav class="hidden md:flex gap-8">
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
         <a href="index.html" class="hover:text-yellow-400">Home</a>
         <a href="projects.html" class="hover:text-yellow-400">Journeys</a>
         <a href="contact.html" class="hover:text-yellow-400">Contact</a>
@@ -88,37 +87,35 @@
       </div>
       <div class="hero-content">
         <div class="max-w-6xl mx-auto">
-          <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold mb-4 inline-block">⭐ Special Itinerary</span>
-          <h1 class="text-4xl md:text-6xl font-black mb-4 uppercase">Naadam Festival, Mongolia</h1>
-          <p class="text-xl text-gray-400 max-w-2xl">Experience Mongolia’s most iconic celebration, rich with history, culture, and national pride.</p>
+          <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold mb-4 inline-block tracking-widest uppercase">Limited Availability 2026</span>
+          <h1 class="text-4xl md:text-6xl font-black mb-4 uppercase">Naadam Festival</h1>
+          <p class="text-xl text-gray-400 max-w-2xl italic">Experience the 'Three Games of Men' in the heart of Mongolia.</p>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section border-b border-gray-900">
       <div class="max-w-4xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="info-card"><h3>📅 When</h3><p>11 - 15 July 2026</p></div>
-          <div class="info-card"><h3>📍 Where</h3><p>Ulaanbaatar</p></div>
-          <div class="info-card"><h3>👥 Group</h3><p>8 - 12 People</p></div>
-          <div class="info-card"><h3>💰 Investment</h3><p>$400 per person (for 2 day festival)</p></div>
+          <div class="info-card"><h3>📅 When</h3><p>July 11 - 12, 2026</p></div>
+          <div class="info-card"><h3>📍 Location</h3><p>Ulaanbaatar</p></div>
+          <div class="info-card"><h3>👥 Group Size</h3><p>Small Intimate Groups</p></div>
+          <div class="info-card"><h3>💰 Investment</h3><p>$400 per person</p></div>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-8 uppercase">A Living Tradition</h2>
-        <div class="card p-10">
-          <p class="text-lg text-gray-400 mb-6">
-            This special itinerary offers you the opportunity to experience Mongolia’s most iconic celebration. This isn't just watching sports - it's experiencing a living tradition that has connected the Mongolian people for centuries.
-          </p>
-          <p class="text-lg text-gray-400 mb-8">
-            You will witness the vibrant parade featuring mounted cavalry carrying the <strong>nine white banners</strong> symbolizing Chingis Khaan’s nine horsetails, marking the official opening of the festival.
-          </p>
-          <div style="background: rgba(255, 215, 0, 0.1); border-left: 4px solid var(--gold); padding: 1.5rem; border-radius: 8px;">
-            <p style="font-weight: 600; color: var(--gold);">🚀 Guaranteed Experience</p>
-            <p class="text-gray-400">Experience the 'Three Games of Men': Wrestling, Horse Racing, and Archery with expert local guidance.</p>
+        <h2 class="section-title text-3xl font-bold mb-10 uppercase">Experience Highlights</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="card border-l-4 border-yellow-400">
+            <h4 class="font-bold mb-2">The Nine White Banners</h4>
+            <p class="text-sm text-gray-400">Watch the sacred procession carry the white stallion tail banners from the Government House to the National Stadium.</p>
+          </div>
+          <div class="card border-l-4 border-yellow-400">
+            <h4 class="font-bold mb-2">Ancestral Sports</h4>
+            <p class="text-sm text-gray-400">Get close-up access to world-class wrestling, archery, and ankle-bone shooting competitions.</p>
           </div>
         </div>
       </div>
@@ -126,76 +123,21 @@
 
     <section class="section bg-gray-900 bg-opacity-30">
       <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-12 uppercase">Your 2-Day Journey</h2>
+        <h2 class="section-title text-3xl font-bold mb-12 uppercase">Itinerary</h2>
         
         <div class="timeline-item">
-          <div class="timeline-dot">1</div>
-          <div class="card ml-4">
-            <h3 class="text-yellow-400 font-bold text-xl mb-2">Day 1: The Grand Opening Ceremony</h3>
-            <p class="text-gray-500 mb-4 italic">Tradition in the Heart of the Capital</p>
-            <ul class="space-y-3 text-gray-400">
-              <li>• <strong>09:00</strong> – Head to Sukhbaatar Square for the vibrant parade and the Nine White Banners procession.</li>
-              <li>• <strong>11:00</strong> – Grand Opening Ceremony at the National Stadium (approx. 2 hours).</li>
-              <li>• <strong>Lunch</strong> – Traditional <em>khuushuur</em> tasting at the festive stadium stalls.</li>
-              <li>• <strong>Afternoon</strong> – Explore archery and ankle bone shooting, followed by thrilling wrestling matches.</li>
-              <li>• <strong>Evening</strong> – Return to hotel between 18:00-19:00. Midnight fireworks (optional).</li>
-            </ul>
+          <div class="timeline-dot"></div>
+          <div class="ml-4">
+            <h3 class="text-yellow-400 font-bold text-xl mb-2 uppercase">Day 1: The Opening Ceremony</h3>
+            <p class="text-gray-400 mb-4">Start at <strong>09:00</strong> with the Square parade. At <strong>11:00</strong>, witness the Grand Opening Ceremony. For lunch, we eat traditional <em>khuushuur</em>. The rest of the day is filled with wrestling and archery matches.</p>
           </div>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot">2</div>
-          <div class="card ml-4">
-            <h3 class="text-yellow-400 font-bold text-xl mb-2">Day 2: Horse Racing & The Steppe</h3>
-            <p class="text-gray-500 mb-4 italic">Energy of the Endless Steppe</p>
-            <ul class="space-y-3 text-gray-400">
-              <li>• <strong>08:00</strong> – Drive 40 km from Ulaanbaatar to the horse racing venue.</li>
-              <li>• <strong>Daytime</strong> – Watch two different long-distance horse races. (Boxed lunch provided).</li>
-              <li>• <strong>Closing</strong> – Return to the stadium for the final wrestling rounds and the closing ceremony.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-8 uppercase">Trip Details</h2>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div class="card">
-            <div class="text-2xl mb-2">🚐</div>
-            <h3 class="font-bold mb-2">Included</h3>
-            <p class="text-sm text-gray-500">Transportation, English-speaking guide, entrance tickets, lunch (khuushuur/boxed), and drinking water.</p>
-          </div>
-          <div class="card border-red-900">
-            <div class="text-2xl mb-2">❌</div>
-            <h3 class="font-bold mb-2">Not Included</h3>
-            <p class="text-sm text-gray-500">Accommodation, breakfast, and dinner. International flights and insurance.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section bg-gray-900 bg-opacity-20">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-8 uppercase">Why Beyond the Pitch</h2>
-        <div class="card p-10">
-          <div class="grid md:grid-cols-3 gap-6">
-            <div>
-              <div class="text-2xl mb-2">🎯</div>
-              <h3 class="font-bold mb-2">Beyond Tourism</h3>
-              <p class="text-xs text-gray-500">We help you understand the meaning of Naadam as a guest, not just a spectator.</p>
-            </div>
-            <div>
-              <div class="text-2xl mb-2">🤝</div>
-              <h3 class="font-bold mb-2">Authentic Access</h3>
-              <p class="text-xs text-gray-500">Local connections ensure you see the most important rituals and traditions.</p>
-            </div>
-            <div>
-              <div class="text-2xl mb-2">💫</div>
-              <h3 class="font-bold mb-2">Sport & Culture</h3>
-              <p class="text-xs text-gray-500">Using sport as a gateway to deeper human connection and cultural understanding.</p>
-            </div>
+          <div class="timeline-dot"></div>
+          <div class="ml-4">
+            <h3 class="text-yellow-400 font-bold text-xl mb-2 uppercase">Day 2: Horse Racing on the Steppe</h3>
+            <p class="text-gray-400 mb-4">Depart at <strong>08:00</strong> for the Khui Doloon Khudag valley. Experience the thunderous excitement of child jockeys racing across the steppe. Enjoy a boxed lunch in the open air before returning for the final wrestling rounds.</p>
           </div>
         </div>
       </div>
@@ -204,40 +146,61 @@
     <section class="section">
       <div class="max-w-4xl mx-auto">
         <h2 class="section-title text-3xl font-bold mb-8 uppercase">Practical Information</h2>
-        <div class="card p-10 space-y-6">
-          <div class="flex gap-4">
-            <span class="text-xl">☀️</span>
-            <div><p><strong>Weather:</strong> July is summer, but nights can be cool (5-15°C). Bring layers.</p></div>
-          </div>
-          <div class="flex gap-4">
-            <span class="text-xl">🚶</span>
-            <div><p><strong>Fitness:</strong> Moderate walking required. Accessible for most fitness levels.</p></div>
-          </div>
-          <div class="flex gap-4">
-            <span class="text-xl">🏨</span>
-            <div><p><strong>Accommodation:</strong> Hotels in UB are not included. We can provide recommendations.</p></div>
-          </div>
-          
-          <details class="mt-8 border-t border-gray-800 pt-6 cursor-pointer">
-            <summary class="font-bold text-yellow-400 uppercase">Frequently Asked Questions</summary>
-            <div class="mt-4 text-sm text-gray-500 space-y-4">
-              <p><strong>How to book?</strong> Contact us directly. Minimum group size is 3 people.</p>
-              <p><strong>Is food provided?</strong> Lunch and water are included each day. Breakfast and dinner are on your own.</p>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <span class="text-2xl">🌤️</span>
+              <div><h4 class="font-bold">Weather</h4><p class="text-sm text-gray-500">Expect sun and potential rain. Layers are essential for the variable Mongolian summer climate.</p></div>
             </div>
+            <div class="flex items-start gap-4">
+              <span class="text-2xl">🍽️</span>
+              <div><h4 class="font-bold">Inclusions</h4><p class="text-sm text-gray-500">Transportation, English guide, event tickets, water, and lunch both days.</p></div>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <span class="text-2xl">🚶</span>
+              <div><h4 class="font-bold">Activity Level</h4><p class="text-sm text-gray-500">Moderate. Significant walking and standing at the festival grounds.</p></div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-2xl">🏨</span>
+              <div><h4 class="font-bold">Not Included</h4><p class="text-sm text-gray-500">Flights, accommodation in Ulaanbaatar, breakfast/dinner, and personal insurance.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-gray-900 bg-opacity-20">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="section-title text-3xl font-bold mb-8 uppercase">Common Questions</h2>
+        <div class="space-y-4">
+          <details class="card group">
+            <summary class="flex justify-between items-center font-bold cursor-pointer">
+              What should I wear?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <p class="mt-4 text-sm text-gray-500 border-t border-gray-800 pt-4">Comfortable walking shoes are a must. Bring a hat for the sun and a light waterproof jacket for the steppe.</p>
+          </details>
+          <details class="card group">
+            <summary class="flex justify-between items-center font-bold cursor-pointer">
+              Is the 2-day pass mandatory?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <p class="mt-4 text-sm text-gray-500 border-t border-gray-800 pt-4">This journey is designed as a complete 2-day immersion to capture both the stadium ceremonies and the rural horse racing.</p>
           </details>
         </div>
       </div>
     </section>
 
     <section class="section max-w-6xl mx-auto">
-      <h2 class="section-title text-3xl font-bold mb-8 uppercase">Experience Naadam</h2>
-      <div class="gallery">
-        <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Horse Racing">
-        <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" alt="Naadam Pride">
-        <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Picture%20025.jpg" alt="Archery">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" class="rounded-xl h-64 w-full object-cover" alt="Horse Racing">
+        <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" class="rounded-xl h-64 w-full object-cover" alt="Mongolian Pride">
+        <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Picture%20025.jpg" class="rounded-xl h-64 w-full object-cover" alt="Archery">
       </div>
       <div class="text-center mt-12">
-        <a href="mailto:info@travelbeyondthepitch.com" class="inline-block bg-yellow-400 text-black px-12 py-4 rounded-lg font-black uppercase hover:bg-white transition">Reserve Now - $400</a>
+        <a href="mailto:info@travelbeyondthepitch.com" class="inline-block bg-yellow-400 text-black px-12 py-4 rounded-lg font-black uppercase hover:bg-white transition duration-300">Reserve Your Spot</a>
       </div>
     </section>
   </main>
