@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Naadam Festival Mongolia 2026 - Beyond the Pitch</title>
+  <meta name="description" content="Witness the 'Three Games of Men' in Mongolia. Authentic rituals, horse racing on the steppe, and insider access with Tsetsegee. July 2026." />
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
@@ -22,231 +23,274 @@
   </script>
   
   <link rel="canonical" href="https://travelbeyondthepitch.com/naadam.html" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Beyond the Pitch" />
+  <meta property="og:title" content="Naadam Festival Mongolia 2026 - The Three Games of Men" />
+  <meta property="og:description" content="Experience Naadam through local eyes. Guided by expert Tsetsegee. Limited spots for 2026." />
+  <meta property="og:url" content="https://travelbeyondthepitch.com/naadam.html" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
     :root {
       --gold: #ffd700;
+      --primary: #000000;
+      --accent: #ffd700;
       --bg: #000000;
       --panel: #0a0a0a;
       --muted: #a0a0a0;
       --border: #1a1a1a;
+      --red: #dc2626;
     }
-    body { font-family: "Inter", sans-serif; background: var(--bg); color: #ffffff; line-height: 1.6; }
-    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-    
-    .hero-video-container { position: relative; width: 100%; height: 80vh; overflow: hidden; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: #ffffff; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+
+    h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: #ffffff; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); text-transform: uppercase; font-weight: 900; }
+
+    /* Header */
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); transition: all 0.3s ease; }
+    .logo { font-size: 1.25rem; font-weight: 800; color: #ffffff; text-decoration: none; }
+    .nav-link { color: #ffffff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+    .nav-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* Hero */
+    .hero-video-container { position: relative; width: 100%; height: 80vh; min-height: 500px; max-height: 700px; overflow: hidden; }
     .hero-video-container iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; min-width: 177.77vh; }
-    .hero-content { position: relative; z-index: 2; padding: 3rem 1.5rem; background: var(--bg); border-top: 1px solid var(--border); }
-    
-    .card { background: var(--panel); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); }
+    .hero-video-container::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, var(--bg)); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; padding: 4rem 1.5rem; background: var(--bg); }
+
+    .badge { display: inline-block; padding: 0.4rem 0.9rem; background: var(--red); color: #ffffff; border-radius: 20px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; }
+
+    /* Stats Bar */
     .info-card { background: var(--panel); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); }
-    .info-card h3 { font-size: 0.875rem; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; font-weight: 600; }
-    
-    .section { padding: 4.5rem 1.5rem; }
-    .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--gold); margin-top: 1rem; }
-    
-    .timeline-item { position: relative; padding-left: 3rem; padding-bottom: 2.5rem; }
+    .info-card h3 { font-size: 0.75rem; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+
+    /* Expert Box */
+    .expert-section { background: #ffffff; color: #000000; padding: 5rem 1.5rem; }
+
+    /* Timeline */
+    .timeline-item { position: relative; padding-left: 3rem; padding-bottom: 3rem; }
     .timeline-item::before { content: ''; position: absolute; left: 0.75rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
-    .timeline-dot { position: absolute; left: 0; top: 0.5rem; width: 1.5rem; height: 1.5rem; background: var(--gold); border-radius: 50%; }
-    
-    details summary { list-style: none; cursor: pointer; }
+    .timeline-dot { position: absolute; left: 0; top: 0.5rem; width: 1.5rem; height: 1.5rem; background: var(--gold); border-radius: 50%; box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+
+    /* Gallery */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 3rem 0; }
+    .gallery-img { width: 100%; height: 350px; object-fit: cover; border-radius: 16px; border: 1px solid var(--border); transition: transform 0.3s ease; }
+    .gallery-img:hover { transform: scale(1.02); border-color: var(--gold); }
+
+    /* Video Control */
+    .video-control-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); display: flex; align-items: center; justify-content: center; position: absolute; bottom: 2rem; right: 2rem; z-index: 10; cursor: pointer; border: none; }
+
+    /* Floating CTA */
+    .floating-cta { position: fixed; bottom: 2rem; right: 2rem; z-index: 99; background: var(--gold); color: #000000; padding: 1rem 1.5rem; border-radius: 50px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4); display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; }
+    .floating-cta:hover { transform: translateY(-3px); background: #fff; }
+
+    /* FAQ */
+    details { background: var(--panel); border-radius: 16px; border: 1px solid var(--border); margin-bottom: 1rem; }
+    details summary { list-style: none; cursor: pointer; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-weight: 700; outline: none; }
+    details[open] { border-color: var(--gold); }
     details[open] summary svg { transform: rotate(180deg); }
 
-    .video-control-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); display: flex; align-items: center; justify-content: center; border: none; }
+    @media (max-width: 768px) {
+      .hero-video-container { height: 60vh; }
+      .floating-cta-text { display: none; }
+      .gallery-img { height: 250px; }
+    }
   </style>
 </head>
 <body>
 
   <header class="header">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="index.html" class="font-extrabold text-xl">Beyond the Pitch</a>
-      <nav class="hidden md:flex gap-8 text-sm font-medium">
-        <a href="index.html" class="hover:text-yellow-400">Home</a>
-        <a href="projects.html" class="hover:text-yellow-400">Journeys</a>
-        <a href="contact.html" class="hover:text-yellow-400">Contact</a>
+      <a href="index.html" class="logo font-black uppercase tracking-tighter">Beyond the Pitch</a>
+      <nav class="hidden md:flex gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="projects.html" class="nav-link">Journeys</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero pt-16">
       <div class="hero-video-container">
         <iframe id="heroVideo" src="https://www.youtube.com/embed/gv2Q5I5Wbtg?enablejsapi=1&controls=0&mute=1&loop=1&playlist=gv2Q5I5Wbtg&autoplay=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-        <div class="absolute bottom-8 right-8 z-10">
-          <button id="muteBtn" class="video-control-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="black"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-          </button>
-        </div>
+        <button id="muteBtn" class="video-control-btn" aria-label="Mute/Unmute">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="black"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        </button>
       </div>
-      <div class="hero-content">
-        <div class="max-w-6xl mx-auto">
-          <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold mb-4 inline-block tracking-widest uppercase">July 2026 - Small Group</span>
-          <h1 class="text-4xl md:text-6xl font-black mb-4 uppercase">Naadam Festival</h1>
-          <p class="text-xl text-gray-400 max-w-2xl italic">Witness the "Three Games of Men" with local expertise.</p>
-        </div>
+      <div class="hero-content max-w-6xl mx-auto">
+        <span class="badge">July 2026 - Experience</span>
+        <h1 class="hero-title">Naadam Festival</h1>
+        <p class="hero-subtitle text-gray-400 italic max-w-2xl">Step into the ancient heart of Mongolia. A two-day deep dive into the 'Three Games of Men' with elite local access.</p>
       </div>
     </section>
 
-    <section class="section border-b border-gray-900">
-      <div class="max-w-4xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="info-card"><h3>📅 Date</h3><p>July 11 - 12, 2026</p></div>
-          <div class="info-card"><h3>📍 Location</h3><p>Ulaanbaatar</p></div>
-          <div class="info-card"><h3>👥 Group</h3><p>Small Intimate Groups</p></div>
-          <div class="info-card"><h3>💰 Price</h3><p>$400 per person</p></div>
-        </div>
+    <section class="px-6 py-12 border-b border-gray-900">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="info-card"><h3>📅 Date</h3><p class="font-bold">July 11 - 12, 2026</p></div>
+        <div class="info-card"><h3>📍 Location</h3><p class="font-bold">Ulaanbaatar</p></div>
+        <div class="info-card"><h3>👥 Group</h3><p class="font-bold">Max 12 Guests</p></div>
+        <div class="info-card"><h3>💰 Price</h3><p class="font-bold text-yellow-400">$400 pp</p></div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-10 uppercase">Experience Highlights</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="card border-l-4 border-yellow-400">
-            <h4 class="font-bold mb-2">The Nine White Banners</h4>
-            <p class="text-sm text-gray-400">The sacred horse-hair banners of Chingis Khaan are carried in a magnificent parade to the National Stadium.</p>
-          </div>
-          <div class="card border-l-4 border-yellow-400">
-            <h4 class="font-bold mb-2">The Valley of the Horse</h4>
-            <p class="text-sm text-gray-400">Experience the thunderous thrill of long-distance horse racing across the vast Mongolian steppe.</p>
-          </div>
+    <section class="expert-section">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
+        <div class="w-64 h-64 md:w-80 md:h-80 flex-shrink-0">
+          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Tsetsegee.jpg" alt="Tsetsegee" class="w-full h-full object-cover rounded-2xl shadow-2xl ring-4 ring-yellow-400">
         </div>
-      </div>
-    </section>
-
-    <section class="section bg-white text-black">
-      <div class="max-w-4xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center gap-12">
-          <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0">
-            <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Tsetsegee.jpg" alt="Tsetsegee - Your Host" class="rounded-2xl object-cover w-full h-full shadow-2xl">
-          </div>
-          <div>
-            <h2 class="text-3xl font-black uppercase mb-4 tracking-tight">Meet Your Local Expert</h2>
-            <h3 class="text-xl font-bold text-yellow-600 mb-4">Tsetsegee, our local guide</h3>
-            <p class="text-gray-700 mb-6 leading-relaxed">
-              I help people plan their tours in Mongolia and offer advice on how to have the perfect trip. Having worked in the tourism field since 2000, I am an expert in maximizing your experience in Mongolia.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-medium">
-              <div class="flex items-center gap-2"><span class="text-yellow-600">✔</span> Expert since 2000</div>
-              <div class="flex items-center gap-2"><span class="text-yellow-600">✔</span> English Training Center Owner</div>
-              <div class="flex items-center gap-2"><span class="text-yellow-600">✔</span> No Language Barriers</div>
-              <div class="flex items-center gap-2"><span class="text-yellow-600">✔</span> Maximized Experience</div>
-            </div>
-            <p class="mt-6 text-sm italic text-gray-500">
-              "Our staff offers a comprehensible language experience. I also run an English Training Center for locals, so rest assured, no communication issues."
-            </p>
+        <div class="text-left">
+          <h2 class="text-black text-4xl mb-4 font-black uppercase tracking-tight">Your Expert Guide</h2>
+          <h3 class="text-yellow-600 text-xl mb-6 font-bold uppercase">Tsetsegee — Owner, Khongoryn Els</h3>
+          <p class="text-gray-800 text-lg leading-relaxed mb-8">
+            "I've been planning Mongolian journeys since 2000. My goal is simple: to provide elite cultural insight at a reasonable price. As an English Training Center founder, I ensure our communication is as clear as the Mongolian sky."
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-black uppercase tracking-widest text-gray-600">
+            <div class="flex items-center gap-2"><span class="text-yellow-500 text-xl">✓</span> 24+ Years Experience</div>
+            <div class="flex items-center gap-2"><span class="text-yellow-500 text-xl">✓</span> Native Communication</div>
+            <div class="flex items-center gap-2"><span class="text-yellow-500 text-xl">✓</span> Guaranteed Access</div>
+            <div class="flex items-center gap-2"><span class="text-yellow-500 text-xl">✓</span> Ethical Tourism</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section bg-gray-900 bg-opacity-30">
+    <section class="px-6 py-24 bg-black">
       <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-12 uppercase">Itinerary</h2>
+        <h2 class="mb-16 uppercase italic text-3xl font-black">The Itinerary</h2>
         
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="ml-4">
-            <h3 class="text-yellow-400 font-bold text-xl mb-4 uppercase">Day 1: The Opening & Traditions</h3>
-            <div class="space-y-4 text-gray-400 text-sm md:text-base">
-              <p><strong>09:00 a.m.</strong> – Head to Sukhbaatar Square to watch a vibrant parade featuring mounted cavalry and athletes carrying the nine white banners. The procession continues to the stadium for the official opening.</p>
-              <p><strong>11:00 a.m.</strong> – Grand opening ceremony at the stadium (2 hours). Afterward, we explore ankle bone shooting and archery competitions.</p>
-              <p><strong>Lunch:</strong> Taste traditional <em>khuushuur</em> at the food stalls outside the stadium.</p>
-              <p><strong>Afternoon:</strong> Return to the stadium to watch the thrilling wrestling competitions.</p>
-              <p><strong>Evening:</strong> Return to the hotel by 7:00 p.m. Midnight fireworks are available for those who wish to attend.</p>
-            </div>
+          <h3 class="text-yellow-400 text-2xl mb-4 font-black uppercase tracking-tight">Day 1: Stadium & Rituals</h3>
+          <div class="text-gray-400 space-y-4">
+            <p><strong>Morning:</strong> Witness the Nine White Banners procession from Sukhbaatar Square to the Stadium.</p>
+            <p><strong>Midday:</strong> Reserved seating for the Grand Opening Ceremony. Experience the roar of the crowd as wrestling begins.</p>
+            <p><strong>Lunch:</strong> Authentic 'Khuushuur' stadium experience.</p>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="ml-4">
-            <h3 class="text-yellow-400 font-bold text-xl mb-4 uppercase">Day 2: The Heart of the Steppe</h3>
-            <div class="space-y-4 text-gray-400 text-sm md:text-base">
-              <p><strong>08:00 a.m.</strong> – Drive 40 km from Ulaanbaatar to the rural horse racing venue.</p>
-              <p><strong>Midday:</strong> Watch two different long-distance horse races across the steppe. Boxed lunches will be provided.</p>
-              <p><strong>Closing:</strong> After the races, drive back to the stadium for the final wrestling rounds and the official closing ceremony.</p>
-            </div>
+          <h3 class="text-yellow-400 text-2xl mb-4 font-black uppercase tracking-tight">Day 2: The Steppe Horse Race</h3>
+          <div class="text-gray-400 space-y-4">
+            <p><strong>Morning:</strong> 40km drive into the valley where the legendary horse races take place.</p>
+            <p><strong>Afternoon:</strong> Watch the finishes of the long-distance races. A boxed lunch is served amidst the nomadic camps.</p>
+            <p><strong>Evening:</strong> Return for the final wrestling rounds and closing honors.</p>
           </div>
+        </div>
+
+        <div class="gallery-grid">
+          <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" class="gallery-img" alt="Horse Racing">
+          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" class="gallery-img" alt="Flag Bearer">
+          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Picture%20025.jpg" class="gallery-img" alt="Archery">
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="px-6 py-24 bg-gray-900 bg-opacity-20">
       <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-8 uppercase">Practical Information</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <span class="text-2xl">🚐</span>
-              <div><h4 class="font-bold">Transportation</h4><p class="text-sm text-gray-500">Full transport to all venues and the 40km steppe drive included.</p></div>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-2xl">🍴</span>
-              <div><h4 class="font-bold">Meals</h4><p class="text-sm text-gray-500">Day 1: Local stadium lunch. Day 2: Boxed lunch on the steppe.</p></div>
-            </div>
-          </div>
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <span class="text-2xl">🗣️</span>
-              <div><h4 class="font-bold">Communication</h4><p class="text-sm text-gray-500">Led by Tsetsegee's expert English-speaking team.</p></div>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-2xl">🎟️</span>
-              <div><h4 class="font-bold">Tickets</h4><p class="text-sm text-gray-500">All festival entry and stadium seating tickets are guaranteed.</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section bg-gray-900 bg-opacity-20">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="section-title text-3xl font-bold mb-8 uppercase">Common Questions</h2>
+        <h2 class="mb-16 text-center uppercase font-black italic text-3xl">Expert Advice & FAQ</h2>
+        
         <div class="space-y-4">
-          <details class="card group">
-            <summary class="flex justify-between items-center font-bold cursor-pointer">
-              Is the language barrier an issue?
-              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <details>
+            <summary>
+              How do we get the stadium tickets?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>
-            <p class="mt-4 text-sm text-gray-500 border-t border-gray-800 pt-4">Not at all. Since Tsetsegee runs an English Training Center, our staff provides a seamless and comprehensible communication experience.</p>
+            <div class="px-6 pb-6 text-gray-400 border-t border-gray-800 pt-4">
+              Stadium tickets are notoriously difficult to get and often sell out in minutes. We handle the entire procurement process for you. Your seat is guaranteed and included in the price.
+            </div>
           </details>
-          <details class="card group">
-            <summary class="flex justify-between items-center font-bold cursor-pointer">
-              How difficult are the stadium tickets to get?
-              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+
+          <details>
+            <summary>
+              What should I wear?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </summary>
-            <p class="mt-4 text-sm text-gray-500 border-t border-gray-800 pt-4">They are very hard to secure individually. By joining our group, your stadium access is guaranteed and handled by us.</p>
+            <div class="px-6 pb-6 text-gray-400 border-t border-gray-800 pt-4">
+              Mongolian weather in July is usually hot, but can change quickly. We recommend comfortable, breathable clothing, a sun hat, and high-SPF sunscreen. For Day 2 on the steppe, sturdy walking shoes are a must.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              Is a visa required for Mongolia?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-400 border-t border-gray-800 pt-4">
+              Many nationalities (including EU and US citizens) can currently enter Mongolia visa-free for up to 30 days. However, rules change; Tsetsegee will provide the latest advice specifically for your country upon booking.
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              Can you accommodate dietary restrictions?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-400 border-t border-gray-800 pt-4">
+              Yes. While traditional Mongolian food is meat-heavy, we can arrange vegetarian or gluten-free options for the steppe lunch if notified in advance.
+            </div>
+          </details>
+          
+          <details>
+            <summary>
+              Is this experience physically demanding?
+              <svg class="w-5 h-5 text-yellow-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-400 border-t border-gray-800 pt-4">
+              The experience involves some walking and periods of standing, especially on the steppe. However, it is accessible for most fitness levels. We use comfortable transport to minimize fatigue.
+            </div>
           </details>
         </div>
       </div>
     </section>
 
-    <section class="section max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-        <img src="https://images.pexels.com/photos/9247651/pexels-photo-9247651.jpeg?auto=compress&cs=tinysrgb&w=1200" class="rounded-xl h-64 w-full object-cover" alt="Racing">
-        <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/horse%20rider%20with%20flag%20(1).jpg" class="rounded-xl h-64 w-full object-cover" alt="Procession">
-        <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Picture%20025.jpg" class="rounded-xl h-64 w-full object-cover" alt="Archery">
-      </div>
-      <div class="text-center">
-        <a href="mailto:info@travelbeyondthepitch.com" class="inline-block bg-yellow-400 text-black px-12 py-5 rounded-lg font-black uppercase tracking-widest hover:bg-white transition duration-300">Reserve Journey — $400</a>
-      </div>
-    </section>
+    <a href="mailto:info@travelbeyondthepitch.com" class="floating-cta">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <span class="floating-cta-text">Book Naadam 2026</span>
+    </a>
   </main>
 
-  <footer class="bg-black py-16 border-t border-gray-900 text-center text-gray-600 text-xs uppercase tracking-widest">
-    <p>© 2026 Beyond the Pitch | Mongolia</p>
+  <footer class="bg-black py-20 border-t border-gray-900 text-center text-gray-600 text-xs uppercase tracking-widest">
+    <div class="mb-8">
+      <a href="index.html" class="mx-4 hover:text-white transition">Home</a>
+      <a href="projects.html" class="mx-4 hover:text-white transition">Journeys</a>
+      <a href="contact.html" class="mx-4 hover:text-white transition">Contact</a>
+    </div>
+    <p>© 2026 Beyond the Pitch | Mongolia Insider Series</p>
   </footer>
 
   <script>
+    // Video Mute/Unmute
     const video = document.getElementById('heroVideo');
     const muteBtn = document.getElementById('muteBtn');
     let muted = true;
     muteBtn.addEventListener('click', () => {
       muted = !muted;
       video.contentWindow.postMessage(JSON.stringify({ event: 'command', func: muted ? 'mute' : 'unMute' }), '*');
+    });
+
+    // Header Shadow on Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(0, 0, 0, 0.98)';
+        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+      } else {
+        header.style.background = 'rgba(0, 0, 0, 0.95)';
+        header.style.boxShadow = 'none';
+      }
     });
   </script>
 </body>
