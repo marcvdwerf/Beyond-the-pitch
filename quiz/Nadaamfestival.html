@@ -10,12 +10,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0038a8; /* Mongol Blue */
+            margin: 0;
+        }
+
         .title-font { font-family: 'Cinzel', serif; }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
+        
+        .fade-in { animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .bg-naadam { background-color: #0038a8; }
-        .text-naadam { color: #0038a8; }
+
+        /* Sfeervolle achtergrond voor het startscherm */
+        .bg-hero {
+            background: linear-gradient(rgba(0, 56, 168, 0.7), rgba(0, 56, 168, 0.7)), 
+                        url('https://images.unsplash.com/photo-1524312642411-80a8c9e4ca27?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .btn-mongol-gold {
+            background-color: #ffd700;
+            color: #0038a8;
+            transition: all 0.3s ease;
+        }
+        .btn-mongol-gold:hover {
+            background-color: #f0c800;
+            transform: scale(1.02);
+        }
     </style>
 </head>
 <body>
@@ -32,20 +55,20 @@
             const [selectedAnswer, setSelectedAnswer] = useState(null);
 
             const t = {
-                title: 'NAADAM FESTIVAL',
-                subtitle: 'The Three Manly Games',
-                tagline: 'Test your knowledge on the greatest nomadic celebration on Earth.',
-                startQuiz: 'Start the Challenge!',
+                title: 'NAADAM CHALLENGE',
+                subtitle: 'The Spirit of the Steppe',
+                tagline: 'Step into the world of the Great Khans and test your knowledge.',
+                startQuiz: 'Enter the Festival',
                 backHome: 'Home',
                 projectPage: 'Back to Mongolia Page',
                 requestTickets: 'Request Festival Tickets',
-                continue: 'Continue',
-                readMore: 'Learn the Tradition',
-                yourScore: 'Your Final Score:',
+                continue: 'Next Trial',
+                readMore: 'Deepen your Knowledge',
+                yourScore: 'Your Warrior Rank:',
                 restart: 'Try Again',
-                finish: 'Finish',
-                perfect: 'True Khan! You are a master of Mongolian culture! 🦅',
-                good: 'Well done! You have the spirit of a nomad. 🐎',
+                finish: 'Claim Victory',
+                perfect: 'True Khan! Your wisdom is as vast as the steppe! 🦅',
+                good: 'Honorable Nomad. You know our traditions well. 🐎',
                 shareScore: 'Share my score',
                 copied: 'Copied to clipboard!',
                 shareText: (s, t) => `I scored ${s}/${t} on the Naadam Festival trivia! 🇲🇳 Can you beat my score?`
@@ -58,7 +81,7 @@
                     correct: 'Wrestling, horse racing, and archery',
                     image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/images/IMG_4819%20(1).JPG',
                     shortFact: 'Correct! Known as "Eriin Gurvan Naadam".',
-                    longFact: 'These "Three Manly Games" have existed for centuries. Traditionally, they were used to test the strength, skill, and bravery of nomadic warriors. Today, women also participate in archery and horse racing!'
+                    longFact: 'The "Three Manly Games" date back to the era of Genghis Khan. They were designed to keep the Mongol army in peak physical condition during times of peace.'
                 },
                 {
                     question: 'In Mongolian wrestling, what traditional dance does the winner perform?',
@@ -66,15 +89,15 @@
                     correct: 'The Eagle Dance',
                     image: 'https://images.unsplash.com/photo-1512411516668-8777098e9b08?auto=format&fit=crop&q=80&w=800',
                     shortFact: 'Yes! It is called the "Bikh-iin tsetseg".',
-                    longFact: 'The winner flaps his arms like an eagle to represent power and grace. He circles the victory flag (the Tug) three times as a sign of respect to the spirits and the land.'
+                    longFact: 'The winner performs the Eagle Dance to show his strength and grace. It is a sign of respect to the nature and the spirits of the mountains.'
                 },
                 {
                     question: 'What is the name of the colorful traditional robe many people wear during the festival?',
                     options: ['Kimono', 'Deel', 'Sari', 'Tunic'],
                     correct: 'Deel',
                     image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/images/Picture%20025%20(1).jpg',
-                    shortFact: 'Correct! The Deel is a symbol of Mongolian pride.',
-                    longFact: 'The Deel is designed for the nomadic lifestyle-it can be used as a blanket, a cushion, or even a windbreaker. During Naadam, people wear their finest silk versions with vibrant colors and patterns.'
+                    shortFact: 'Correct! The Deel is a symbol of pride.',
+                    longFact: 'The Deel is perfectly suited for nomadic life. It has long sleeves to protect hands from the wind and a sash that acts as a support for the back during long horse rides.'
                 },
                 {
                     question: 'Unlike Western racing, how long are the longest horse races at Naadam?',
@@ -82,7 +105,7 @@
                     correct: '15 to 30 km',
                     image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/images/horse%20rider%20with%20flag%20(2).jpg',
                     shortFact: 'Exactly! It is a massive cross-country race.',
-                    longFact: 'Mongolian horse racing tests endurance, not just speed. The races take place on the open steppe. Interestingly, the jockeys are usually children (ages 7-13) because they are light and brave riders!'
+                    longFact: 'Mongolian horses are small but incredibly tough. These races take place on the open steppe with no tracks, testing the horse\'s stamina above all else.'
                 },
                 {
                     question: 'In the archery competition, what unique target do the archers aim for?',
@@ -90,15 +113,7 @@
                     correct: 'Stacked leather cylinders (sur)',
                     image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/quiz/images/_MG_0308%20(1).JPG',
                     shortFact: 'Correct! They shoot at the "sur".',
-                    longFact: 'Archers shoot from 75 meters (men) and 65 meters (women). When a target is hit, the judges (who stand right next to the targets!) raise their hands and sing a traditional "Ukhai" song.'
-                },
-                {
-                    question: 'What is "Airag", the traditional drink often shared during the festival?',
-                    options: ['Strong black tea', 'Fermented mare\'s milk', 'Apple cider', 'Yak butter soup'],
-                    correct: 'Fermented mare\'s milk',
-                    image: 'https://images.unsplash.com/photo-1516715667182-441495a973a1?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Cheers! It is the national drink of Mongolia.',
-                    longFact: 'Airag is made by fermenting raw horse milk. It is fizzy, slightly sour, and very healthy. It is a vital part of hospitality-every visitor to a nomad tent during Naadam is offered a bowl of Airag.'
+                    longFact: 'Archers use composite bows made of horn, wood, and sinew. When they hit the sur (leather cylinders), judges sing "Ukhai" to celebrate the skill of the archer.'
                 }
             ];
 
@@ -110,12 +125,8 @@
 
             const handleShare = () => {
                 const shareMsg = t.shareText(score, triviaQuestions.length) + " https://travelbeyondthepitch.com/mongolia.html";
-                if (navigator.share) {
-                    navigator.share({ title: 'Naadam Trivia', text: shareMsg, url: 'https://travelbeyondthepitch.com/mongolia.html' });
-                } else {
-                    navigator.clipboard.writeText(shareMsg);
-                    alert(t.copied);
-                }
+                navigator.clipboard.writeText(shareMsg);
+                alert(t.copied);
             };
 
             const nextStep = () => {
@@ -129,31 +140,32 @@
             };
 
             return (
-                <div className="min-h-screen flex flex-col items-center justify-center p-4">
+                <div className={`min-h-screen flex flex-col items-center justify-center p-4 ${currentStep === 'intro' ? 'bg-hero' : ''}`}>
+                    
+                    {/* Navigation Bar */}
                     <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
-                        {/* HOME BUTTON - Gekoppeld aan index.html in de hoofdmap */}
-                        <a href="../index.html" className="bg-white/20 backdrop-blur-md text-slate-800 px-4 py-2 rounded-full text-xs font-bold border border-black/10 hover:bg-white/40 transition">
+                        <a href="../index.html" className="bg-white/90 text-blue-900 px-4 py-2 rounded-full text-xs font-black shadow-lg hover:bg-yellow-400 transition">
                              ← {t.backHome}
                         </a>
                     </div>
 
                     {currentStep === 'intro' && (
-                        <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-blue-900 fade-in">
-                            <h1 className="text-4xl font-black text-blue-900 title-font mb-2 leading-tight">{t.title}</h1>
-                            <p className="text-blue-600 font-bold mb-4 uppercase tracking-widest">{t.subtitle}</p>
-                            <p className="text-gray-500 mb-8 italic">{t.tagline}</p>
-                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition transform active:scale-95">
+                        <div className="bg-white/95 backdrop-blur-sm p-10 rounded-3xl shadow-2xl max-w-md w-full text-center border-b-8 border-yellow-400 fade-in">
+                            <h1 className="text-5xl font-black text-blue-900 title-font mb-2 leading-tight">{t.title}</h1>
+                            <p className="text-red-600 font-bold mb-4 uppercase tracking-[0.2em] text-sm">{t.subtitle}</p>
+                            <p className="text-gray-600 mb-8 italic">{t.tagline}</p>
+                            <button onClick={() => setCurrentStep('trivia')} className="w-full btn-mongol-gold py-5 rounded-2xl font-black text-lg shadow-xl uppercase tracking-tighter">
                                 {t.startQuiz}
                             </button>
                         </div>
                     )}
 
                     {currentStep === 'trivia' && (
-                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-blue-900">
-                            <div className="relative h-48 bg-slate-200">
+                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-yellow-400">
+                            <div className="relative h-56 bg-slate-200">
                                 <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-5">
-                                    <h2 className="text-white text-lg font-bold leading-tight">{triviaQuestions[currentQuestion].question}</h2>
+                                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent flex items-end p-6">
+                                    <h2 className="text-white text-xl font-bold leading-tight">{triviaQuestions[currentQuestion].question}</h2>
                                 </div>
                             </div>
                             <div className="p-6">
@@ -172,8 +184,8 @@
                                     ))}
                                 </div>
                                 {showFeedback && (
-                                    <div className="mt-6 p-5 bg-blue-50 rounded-2xl border border-blue-100 fade-in">
-                                        <p className="text-sm text-blue-900 font-medium mb-4">
+                                    <div className="mt-6 p-5 bg-blue-50 rounded-2xl border-l-4 border-blue-900 fade-in">
+                                        <p className="text-sm text-blue-900 font-medium mb-4 italic">
                                             {showFeedback === 'short' ? triviaQuestions[currentQuestion].shortFact : triviaQuestions[currentQuestion].longFact}
                                         </p>
                                         <div className="flex items-center gap-4">
@@ -190,30 +202,26 @@
 
                     {currentStep === 'complete' && (
                         <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-blue-900">
-                            <div className="text-5xl mb-4">🏹🐎🦅</div>
+                            <div className="text-6xl mb-4">🦅</div>
                             <h2 className="text-2xl font-bold text-blue-900 mb-2">{t.yourScore}</h2>
-                            <div className="text-5xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
-                            <p className="text-gray-600 mb-8 font-medium">{score === triviaQuestions.length ? t.perfect : t.good}</p>
+                            <div className="text-6xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
+                            <p className="text-gray-600 mb-10 font-medium">{score === triviaQuestions.length ? t.perfect : t.good}</p>
                             
-                            <div className="space-y-3">
-                                <button onClick={handleShare} className="w-full bg-pink-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-pink-700 transition flex items-center justify-center gap-3 transform hover:scale-105 active:scale-95 mb-4">
+                            <div className="space-y-4">
+                                <button onClick={handleShare} className="w-full bg-pink-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-pink-700 transition flex items-center justify-center gap-3 transform hover:scale-105 active:scale-95">
                                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.247 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.247-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.247-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.247 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.355 2.618 6.778 6.98 6.978 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.197-4.354-2.612-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                                     {t.shareScore}
                                 </button>
 
-                                {/* TICKETS LINK - Gekoppeld aan nadaam.html in de hoofdmap */}
-                                <a href="../nadaam.html#tickets" className="block w-full bg-blue-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-blue-800 transition hover:scale-105 active:scale-95">
+                                <a href="../nadaam.html#tickets" className="block w-full btn-mongol-gold py-4 rounded-2xl font-black shadow-lg">
                                     🎫 {t.requestTickets}
                                 </a>
 
-                                <hr className="my-4 border-gray-100" />
-
-                                {/* MONGOLIA PAGE LINK - Gekoppeld aan nadaam.html in de hoofdmap */}
-                                <a href="../nadaam.html" className="block w-full border-2 border-gray-100 text-blue-900 py-3 rounded-2xl font-bold hover:bg-gray-50 transition">
+                                <a href="../naadam.html" className="block w-full border-2 border-blue-900 text-blue-900 py-3 rounded-2xl font-bold hover:bg-blue-50 transition">
                                     🏠 {t.projectPage}
                                 </a>
 
-                                <button onClick={() => location.reload()} className="w-full text-gray-400 font-bold py-2 hover:underline text-sm">{t.restart}</button>
+                                <button onClick={() => location.reload()} className="w-full text-gray-400 font-bold py-2 hover:underline text-sm uppercase tracking-widest">{t.restart}</button>
                             </div>
                         </div>
                     )}
