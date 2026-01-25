@@ -123,10 +123,25 @@
                 if (ans === triviaQuestions[currentQuestion].correct) setScore(score + 1);
             };
 
-            const handleShare = () => {
-                const shareMsg = t.shareText(score, triviaQuestions.length) + " https://travelbeyondthepitch.com/mongolia.html";
-                navigator.clipboard.writeText(shareMsg);
-                alert(t.copied);
+            const handleShare = async () => {
+                const shareMsg = t.shareText(score, triviaQuestions.length);
+                const shareUrl = "https://travelbeyondthepitch.com/mongolia.html";
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: t.title,
+                            text: shareMsg,
+                            url: shareUrl,
+                        });
+                    } catch (err) {
+                        console.log("Error sharing:", err);
+                    }
+                } else {
+                    // Fallback to clipboard
+                    navigator.clipboard.writeText(`${shareMsg} ${shareUrl}`);
+                    alert(t.copied);
+                }
             };
 
             const nextStep = () => {
@@ -213,7 +228,7 @@
                                     {t.shareScore}
                                 </button>
 
-                                <a href="../nadaam.html#tickets" className="block w-full btn-mongol-gold py-4 rounded-2xl font-black shadow-lg">
+                                <a href="../naadam.html#tickets" className="block w-full btn-mongol-gold py-4 rounded-2xl font-black shadow-lg">
                                     🎫 {t.requestTickets}
                                 </a>
 
