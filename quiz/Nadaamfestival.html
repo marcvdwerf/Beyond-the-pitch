@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naadam Festival: The Three Manly Games - Trivia</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f5f5dc; /* Beige/Steppe Sand */
+            background-image: radial-gradient(#d4b483 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            color: #2d241e; 
+        }
+        
+        h1, h2, .title-font { font-family: 'Cinzel', serif; }
+        
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .bg-naadam-blue { background-color: #0038a8; } /* Mongolian Flag Blue */
+        .text-naadam-gold { color: #ffd700; }
+        .border-naadam-red { border-color: #ce1126; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const QuizApp = () => {
+            const [currentStep, setCurrentStep] = useState('intro');
+            const [currentQuestion, setCurrentQuestion] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showFeedback, setShowFeedback] = useState(false);
+            const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+            const t = {
+                title: 'NAADAM FESTIVAL',
+                subtitle: 'The Nomadic Challenge',
+                tagline: 'Test your knowledge of Mongolia\'s "Three Manly Games".',
+                startQuiz: 'Enter the Stadium!',
+                backHome: 'Back',
+                projectPage: 'Return to Mongolia Travel',
+                requestTickets: 'Book Festival Experience',
+                continue: 'Next Question',
+                readMore: 'Learn the Tradition',
+                yourScore: 'Your Warrior Score:',
+                restart: 'Try Again',
+                finish: 'Complete the Festival',
+                perfect: 'True Khan! You know the heart of the Steppe! 🐎🏹',
+                good: 'Well done! You have the spirit of a nomad. 🇲🇳',
+                shareScore: 'Share my victory',
+                copied: 'Copied to clipboard!',
+                shareText: (s, t) => `I scored ${s}/${t} on the Naadam Festival trivia! 🏹🐎🤼‍♂️ Can you beat my nomadic wisdom?`
+            };
+
+            const triviaQuestions = [
+                {
+                    question: 'Which three traditional sports are celebrated at Mongolia’s Naadam Festival?',
+                    options: ['Wrestling, horse racing and archery', 'Judo, running and swimming', 'Polo, boxing and shooting', 'Chess, cycling and wrestling'],
+                    correct: 'Wrestling, horse racing and archery',
+                    image: 'https://images.unsplash.com/photo-1528342551532-613d9f485121?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Correct! These are known as the "Three Manly Games".',
+                    longFact: 'Historically, these sports were used to train soldiers for battle. Today, they are the cornerstone of the national holiday every July.'
+                },
+                {
+                    question: 'In which Mongolian city does the main opening ceremony take place?',
+                    options: ['Darkhan', 'Erdenet', 'Ulaanbaatar', 'Khovd'],
+                    correct: 'Ulaanbaatar',
+                    image: 'https://images.unsplash.com/photo-1524312642411-80a8c9e4ca27?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Exactly! At the National Sports Stadium.',
+                    longFact: 'While Naadam is celebrated all over the country, the largest and most televised event happens in the capital, Ulaanbaatar.'
+                },
+                {
+                    question: 'What type of clothing do many people wear during the Naadam Festival?',
+                    options: ['Modern sportswear', 'Brightly colored traditional clothing', 'Western suits', 'Formal black robes'],
+                    correct: 'Brightly colored traditional clothing',
+                    image: 'https://images.unsplash.com/photo-1629813292025-06f691689e41?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Yes! The beautiful "Deel".',
+                    longFact: 'The Deel is the traditional Mongolian robe. During Naadam, people wear their finest, most colorful Deels made of silk and embroidery.'
+                },
+                {
+                    question: 'What does the Naadam Festival celebrate besides sports?',
+                    options: ['New Year', 'Religious fasting', 'Culture, history, and national pride', 'The harvest season'],
+                    correct: 'Culture, history, and national pride',
+                    image: 'https://images.unsplash.com/photo-1541423408854-5df732b6f6d1?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Correct! It is a celebration of identity.',
+                    longFact: 'Naadam commemorates the 1921 revolution and celebrates the independence, history, and nomadic soul of the Mongolian people.'
+                },
+                {
+                    question: 'Which of these is a common treat you might find at Naadam?',
+                    options: ['Airag (fermented mare’s milk)', 'Coffee and donuts', 'Sweet popcorn', 'Fruit smoothies'],
+                    correct: 'Airag (fermented mare’s milk)',
+                    image: 'https://images.unsplash.com/photo-1516715667182-441495a973a1?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Cheers! A true nomadic staple.',
+                    longFact: 'Airag is a traditional drink made by fermenting horse milk. It is slightly alcoholic and is a vital part of festive gatherings.'
+                },
+                {
+                    question: 'What traditional dance does a Mongolian wrestling winner perform?',
+                    options: ['Horse Gallop', 'The Wolf Prowl', 'Eagle Dance', 'The Falcon Glide'],
+                    correct: 'Eagle Dance',
+                    image: 'https://images.unsplash.com/photo-1512411516668-8777098e9b08?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Perfect! The "Bikh-iin tsetseg".',
+                    longFact: 'The winner flaps his arms like an eagle to represent power and grace, circling the victory flag three times after a match.'
+                }
+            ];
+
+            const handleAnswer = (ans) => {
+                setSelectedAnswer(ans);
+                setShowFeedback('short');
+                if (ans === triviaQuestions[currentQuestion].correct) setScore(score + 1);
+            };
+
+            const handleShare = () => {
+                const shareMsg = t.shareText(score, triviaQuestions.length);
+                navigator.clipboard.writeText(shareMsg);
+                alert(t.copied);
+            };
+
+            const nextStep = () => {
+                if (currentQuestion < triviaQuestions.length - 1) {
+                    setCurrentQuestion(currentQuestion + 1);
+                    setShowFeedback(false);
+                    setSelectedAnswer(null);
+                } else {
+                    setCurrentStep('complete');
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col items-center justify-center p-4">
+                    <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
+                        <button className="bg-white/20 backdrop-blur-md text-slate-800 px-4 py-2 rounded-full text-xs font-bold border border-white/40">
+                             ← {t.backHome}
+                        </button>
+                    </div>
+
+                    {currentStep === 'intro' && (
+                        <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-red-600 fade-in">
+                            <h1 className="text-4xl font-black text-blue-900 mb-2 leading-tight">{t.title}</h1>
+                            <p className="text-red-600 font-bold mb-4 uppercase tracking-widest">{t.subtitle}</p>
+                            <p className="text-gray-600 mb-8 italic">{t.tagline}</p>
+                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition transform active:scale-95">
+                                {t.startQuiz}
+                            </button>
+                        </div>
+                    )}
+
+                    {currentStep === 'trivia' && (
+                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-blue-900">
+                            <div className="relative h-56 bg-slate-200">
+                                <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end p-5">
+                                    <h2 className="text-white text-xl font-bold leading-tight">{triviaQuestions[currentQuestion].question}</h2>
+                                </div>
+                            </div>
+                            <div className="p-6">
+                                <div className="space-y-3">
+                                    {triviaQuestions[currentQuestion].options.map(opt => (
+                                        <button 
+                                            key={opt} 
+                                            disabled={showFeedback} 
+                                            onClick={() => handleAnswer(opt)} 
+                                            className={`w-full p-4 text-left border-2 rounded-2xl font-bold transition-all ${
+                                                showFeedback && opt === triviaQuestions[currentQuestion].correct ? 'bg-green-100 border-green-500 text-green-800' : 
+                                                showFeedback && opt === selectedAnswer ? 'bg-red-100 border-red-500 text-red-800' : 'border-gray-100 hover:border-blue-400'
+                                            }`}>
+                                            {opt}
+                                        </button>
+                                    ))}
+                                </div>
+                                {showFeedback && (
+                                    <div className="mt-6 p-5 bg-amber-50 rounded-2xl border border-amber-100 fade-in">
+                                        <p className="text-sm text-amber-900 font-medium mb-4">
+                                            {showFeedback === 'short' ? triviaQuestions[currentQuestion].shortFact : triviaQuestions[currentQuestion].longFact}
+                                        </p>
+                                        <div className="flex items-center gap-4">
+                                            {showFeedback === 'short' && <button onClick={() => setShowFeedback('long')} className="text-blue-900 font-bold text-xs uppercase underline tracking-wider">{t.readMore}</button>}
+                                            <button onClick={nextStep} className="flex-1 bg-blue-900 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-800 transition">
+                                                {currentQuestion === triviaQuestions.length - 1 ? t.finish : t.continue}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {currentStep === 'complete' && (
+                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-red-600">
+                            <div className="text-5xl mb-4">🏹🐎🤼‍♂️</div>
+                            <h2 className="text-2xl font-bold text-blue-900 mb-2">{t.yourScore}</h2>
+                            <div className="text-5xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
+                            <p className="text-gray-600 mb-8 font-medium">{score === triviaQuestions.length ? t.perfect : t.good}</p>
+                            
+                            <div className="space-y-3">
+                                <button onClick={handleShare} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition flex items-center justify-center gap-3">
+                                    {t.shareScore}
+                                </button>
+                                <button className="w-full bg-red-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-red-700 transition">
+                                    📅 {t.requestTickets}
+                                </button>
+                                <button onClick={() => location.reload()} className="w-full text-gray-500 font-bold py-2 hover:underline text-sm">{t.restart}</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<QuizApp />);
+    </script>
+</body>
+</html>
