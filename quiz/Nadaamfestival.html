@@ -3,30 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naadam Festival: The Three Manly Games - Trivia</title>
+    <title>Naadam Festival: Ultimate Nomad Challenge</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f5f5dc; /* Beige/Steppe Sand */
-            background-image: radial-gradient(#d4b483 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-            color: #2d241e; 
-        }
-        
-        h1, h2, .title-font { font-family: 'Cinzel', serif; }
-        
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #1e293b; }
+        .title-font { font-family: 'Cinzel', serif; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .bg-naadam-blue { background-color: #0038a8; } /* Mongolian Flag Blue */
-        .text-naadam-gold { color: #ffd700; }
-        .border-naadam-red { border-color: #ce1126; }
+        .bg-mongol-blue { background-color: #0038a8; }
+        .text-mongol-blue { color: #0038a8; }
     </style>
 </head>
 <body>
@@ -43,73 +32,65 @@
             const [selectedAnswer, setSelectedAnswer] = useState(null);
 
             const t = {
-                title: 'NAADAM FESTIVAL',
-                subtitle: 'The Nomadic Challenge',
-                tagline: 'Test your knowledge of Mongolia\'s "Three Manly Games".',
-                startQuiz: 'Enter the Stadium!',
-                backHome: 'Back',
-                projectPage: 'Return to Mongolia Travel',
-                requestTickets: 'Book Festival Experience',
-                continue: 'Next Question',
-                readMore: 'Learn the Tradition',
-                yourScore: 'Your Warrior Score:',
+                title: 'NAADAM CHALLENGE',
+                subtitle: 'Beyond the Steppe',
+                tagline: 'Do you truly understand the soul of the Mongolian games?',
+                startQuiz: 'Start the Trial',
+                backHome: 'Home',
+                projectPage: 'Back to Mongolia Page',
+                requestTickets: 'Request Festival Passes',
+                continue: 'Continue',
+                readMore: 'Deep Dive',
+                yourScore: 'Your Warrior Rank:',
                 restart: 'Try Again',
-                finish: 'Complete the Festival',
-                perfect: 'True Khan! You know the heart of the Steppe! 🐎🏹',
-                good: 'Well done! You have the spirit of a nomad. 🇲🇳',
-                shareScore: 'Share my victory',
+                finish: 'Claim Victory',
+                perfect: 'Khan of the Steppe! Your knowledge is unmatched. 🏹',
+                good: 'A Respectable Nomad. You know the traditions well. 🐎',
+                shareScore: 'Share my score',
                 copied: 'Copied to clipboard!',
-                shareText: (s, t) => `I scored ${s}/${t} on the Naadam Festival trivia! 🏹🐎🤼‍♂️ Can you beat my nomadic wisdom?`
+                shareText: (s, t) => `I scored ${s}/${t} on the Expert Naadam Trivia! 🇲🇳 Can you beat my score?`
             };
 
             const triviaQuestions = [
                 {
-                    question: 'Which three traditional sports are celebrated at Mongolia’s Naadam Festival?',
-                    options: ['Wrestling, horse racing and archery', 'Judo, running and swimming', 'Polo, boxing and shooting', 'Chess, cycling and wrestling'],
-                    correct: 'Wrestling, horse racing and archery',
+                    question: 'In Mongolian wrestling (Bökh), what is the primary condition to lose a match?',
+                    options: ['Being pinned on the back', 'Touching the ground with anything other than feet', 'Stepping out of the ring', 'A time limit expires'],
+                    correct: 'Touching the ground with anything other than feet',
                     image: 'https://images.unsplash.com/photo-1528342551532-613d9f485121?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Correct! These are known as the "Three Manly Games".',
-                    longFact: 'Historically, these sports were used to train soldiers for battle. Today, they are the cornerstone of the national holiday every July.'
+                    shortFact: 'Correct! No rings, no weight classes.',
+                    longFact: 'Unlike Western wrestling, there are no weight classes or time limits. A wrestler loses if any part of their body (besides the feet) touches the ground. This makes the matches highly tactical, as one small slip ends the bout instantly.'
                 },
                 {
-                    question: 'In which Mongolian city does the main opening ceremony take place?',
-                    options: ['Darkhan', 'Erdenet', 'Ulaanbaatar', 'Khovd'],
-                    correct: 'Ulaanbaatar',
-                    image: 'https://images.unsplash.com/photo-1524312642411-80a8c9e4ca27?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Exactly! At the National Sports Stadium.',
-                    longFact: 'While Naadam is celebrated all over the country, the largest and most televised event happens in the capital, Ulaanbaatar.'
+                    question: 'Which unique feature distinguishes Mongolian horse racing from Western-style racing?',
+                    options: ['It is held on a paved track', 'The jockeys are usually children', 'Only stallions are allowed', 'The race is only 1 kilometer long'],
+                    correct: 'The jockeys are usually children',
+                    image: 'https://images.unsplash.com/photo-1598904771032-90967397779a?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Yes! Jockeys are typically ages 7 to 13.',
+                    longFact: 'Naadam horse races are cross-country endurance tests over 15-30km. Jockeys are children because their light weight allows the sturdy Mongolian horses to maintain high speeds over long distances. The horse, rather than the rider, is considered the primary athlete.'
                 },
                 {
-                    question: 'What type of clothing do many people wear during the Naadam Festival?',
-                    options: ['Modern sportswear', 'Brightly colored traditional clothing', 'Western suits', 'Formal black robes'],
-                    correct: 'Brightly colored traditional clothing',
-                    image: 'https://images.unsplash.com/photo-1629813292025-06f691689e41?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Yes! The beautiful "Deel".',
-                    longFact: 'The Deel is the traditional Mongolian robe. During Naadam, people wear their finest, most colorful Deels made of silk and embroidery.'
-                },
-                {
-                    question: 'What does the Naadam Festival celebrate besides sports?',
-                    options: ['New Year', 'Religious fasting', 'Culture, history, and national pride', 'The harvest season'],
-                    correct: 'Culture, history, and national pride',
+                    question: 'What is the "Soyombo" found on the Mongolian flag often seen during Naadam?',
+                    options: ['A traditional weapon', 'A national food', 'A complex ideogram representing liberty and sun/moon', 'The name of a famous wrestler'],
+                    correct: 'A complex ideogram representing liberty and sun/moon',
                     image: 'https://images.unsplash.com/photo-1541423408854-5df732b6f6d1?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Correct! It is a celebration of identity.',
-                    longFact: 'Naadam commemorates the 1921 revolution and celebrates the independence, history, and nomadic soul of the Mongolian people.'
+                    shortFact: 'Correct! It is the national symbol.',
+                    longFact: 'The Soyombo symbol contains representations of fire, sun, moon, earth, and water. During Naadam, it symbolizes the endurance of the Mongolian state and its ancient heritage, reminding everyone of the country\'s sovereignty.'
                 },
                 {
-                    question: 'Which of these is a common treat you might find at Naadam?',
-                    options: ['Airag (fermented mare’s milk)', 'Coffee and donuts', 'Sweet popcorn', 'Fruit smoothies'],
-                    correct: 'Airag (fermented mare’s milk)',
-                    image: 'https://images.unsplash.com/photo-1516715667182-441495a973a1?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Cheers! A true nomadic staple.',
-                    longFact: 'Airag is a traditional drink made by fermenting horse milk. It is slightly alcoholic and is a vital part of festive gatherings.'
+                    question: 'In the archery competition, what are the archers aiming at?',
+                    options: ['A bullseye target', 'Moving wooden plates', 'Stacks of small woven leather cylinders (sur)', 'A suspended gold ring'],
+                    correct: 'Stacks of small woven leather cylinders (sur)',
+                    image: 'https://images.unsplash.com/photo-1511191988486-1028b295c3df?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Exactly! They aim for the "sur".',
+                    longFact: 'Archers shoot from 75 meters (men) and 65 meters (women) at dozens of leather cylinders stacked on the ground. When a target is hit, judges raise their hands and sing a traditional "Ukhai" to announce the score.'
                 },
                 {
-                    question: 'What traditional dance does a Mongolian wrestling winner perform?',
-                    options: ['Horse Gallop', 'The Wolf Prowl', 'Eagle Dance', 'The Falcon Glide'],
-                    correct: 'Eagle Dance',
-                    image: 'https://images.unsplash.com/photo-1512411516668-8777098e9b08?auto=format&fit=crop&q=80&w=800',
-                    shortFact: 'Perfect! The "Bikh-iin tsetseg".',
-                    longFact: 'The winner flaps his arms like an eagle to represent power and grace, circling the victory flag three times after a match.'
+                    question: 'What is the significance of the "Nine White Banners" during the opening ceremony?',
+                    options: ['They represent the nine provinces', 'They are the spirits of the Great Khans', 'They represent the nine traditional sports', 'They are used to signal the start of races'],
+                    correct: 'They are the spirits of the Great Khans',
+                    image: 'https://images.unsplash.com/photo-1524312642411-80a8c9e4ca27?auto=format&fit=crop&q=80&w=800',
+                    shortFact: 'Correct! A link to Genghis Khan.',
+                    longFact: 'The Nine White Banners (made of white horse tail hair) were used by Genghis Khan to represent the Mongolian state in times of peace. They are ceremoniously marched from the Government House to the stadium to open the festival.'
                 }
             ];
 
@@ -120,7 +101,7 @@
             };
 
             const handleShare = () => {
-                const shareMsg = t.shareText(score, triviaQuestions.length);
+                const shareMsg = t.shareText(score, triviaQuestions.length) + " https://travelbeyondthepitch.com/mongolia.html";
                 navigator.clipboard.writeText(shareMsg);
                 alert(t.copied);
             };
@@ -138,28 +119,28 @@
             return (
                 <div className="min-h-screen flex flex-col items-center justify-center p-4">
                     <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
-                        <button className="bg-white/20 backdrop-blur-md text-slate-800 px-4 py-2 rounded-full text-xs font-bold border border-white/40">
+                        <a href="#" className="bg-white/10 backdrop-blur-md text-slate-800 px-4 py-2 rounded-full text-xs font-bold border border-black/10 hover:bg-white/20 transition">
                              ← {t.backHome}
-                        </button>
+                        </a>
                     </div>
 
                     {currentStep === 'intro' && (
-                        <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-red-600 fade-in">
-                            <h1 className="text-4xl font-black text-blue-900 mb-2 leading-tight">{t.title}</h1>
+                        <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-mongol-blue fade-in">
+                            <h1 className="text-4xl font-black text-mongol-blue title-font mb-2 leading-tight">{t.title}</h1>
                             <p className="text-red-600 font-bold mb-4 uppercase tracking-widest">{t.subtitle}</p>
-                            <p className="text-gray-600 mb-8 italic">{t.tagline}</p>
-                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition transform active:scale-95">
+                            <p className="text-gray-500 mb-8 italic">{t.tagline}</p>
+                            <button onClick={() => setCurrentStep('trivia')} className="w-full bg-mongol-blue text-white py-4 rounded-2xl font-bold shadow-lg hover:opacity-90 transition transform active:scale-95">
                                 {t.startQuiz}
                             </button>
                         </div>
                     )}
 
                     {currentStep === 'trivia' && (
-                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-blue-900">
-                            <div className="relative h-56 bg-slate-200">
+                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-mongol-blue">
+                            <div className="relative h-48 bg-slate-200">
                                 <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end p-5">
-                                    <h2 className="text-white text-xl font-bold leading-tight">{triviaQuestions[currentQuestion].question}</h2>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-5">
+                                    <h2 className="text-white text-lg font-bold leading-tight">{triviaQuestions[currentQuestion].question}</h2>
                                 </div>
                             </div>
                             <div className="p-6">
@@ -170,21 +151,21 @@
                                             disabled={showFeedback} 
                                             onClick={() => handleAnswer(opt)} 
                                             className={`w-full p-4 text-left border-2 rounded-2xl font-bold transition-all ${
-                                                showFeedback && opt === triviaQuestions[currentQuestion].correct ? 'bg-green-100 border-green-500 text-green-800' : 
-                                                showFeedback && opt === selectedAnswer ? 'bg-red-100 border-red-500 text-red-800' : 'border-gray-100 hover:border-blue-400'
+                                                showFeedback && opt === triviaQuestions[currentQuestion].correct ? 'bg-green-50 border-green-500 text-green-800' : 
+                                                showFeedback && opt === selectedAnswer ? 'bg-red-50 border-red-500 text-red-800' : 'border-gray-100 hover:border-blue-400'
                                             }`}>
                                             {opt}
                                         </button>
                                     ))}
                                 </div>
                                 {showFeedback && (
-                                    <div className="mt-6 p-5 bg-amber-50 rounded-2xl border border-amber-100 fade-in">
-                                        <p className="text-sm text-amber-900 font-medium mb-4">
+                                    <div className="mt-6 p-5 bg-blue-50 rounded-2xl border border-blue-100 fade-in">
+                                        <p className="text-sm text-blue-900 font-medium mb-4">
                                             {showFeedback === 'short' ? triviaQuestions[currentQuestion].shortFact : triviaQuestions[currentQuestion].longFact}
                                         </p>
                                         <div className="flex items-center gap-4">
                                             {showFeedback === 'short' && <button onClick={() => setShowFeedback('long')} className="text-blue-900 font-bold text-xs uppercase underline tracking-wider">{t.readMore}</button>}
-                                            <button onClick={nextStep} className="flex-1 bg-blue-900 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-800 transition">
+                                            <button onClick={nextStep} className="flex-1 bg-mongol-blue text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-800 transition">
                                                 {currentQuestion === triviaQuestions.length - 1 ? t.finish : t.continue}
                                             </button>
                                         </div>
@@ -195,20 +176,29 @@
                     )}
 
                     {currentStep === 'complete' && (
-                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-red-600">
-                            <div className="text-5xl mb-4">🏹🐎🤼‍♂️</div>
-                            <h2 className="text-2xl font-bold text-blue-900 mb-2">{t.yourScore}</h2>
-                            <div className="text-5xl font-black text-blue-900 mb-6">{score} / {triviaQuestions.length}</div>
-                            <p className="text-gray-600 mb-8 font-medium">{score === triviaQuestions.length ? t.perfect : t.good}</p>
+                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-mongol-blue">
+                            <div className="text-5xl mb-4">🦅🏹🐎</div>
+                            <h2 className="text-2xl font-bold text-mongol-blue mb-2">{t.yourScore}</h2>
+                            <div className="text-5xl font-black text-mongol-blue mb-6">{score} / {triviaQuestions.length}</div>
+                            <p className="text-gray-600 mb-8">{score === triviaQuestions.length ? t.perfect : t.good}</p>
                             
                             <div className="space-y-3">
-                                <button onClick={handleShare} className="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-800 transition flex items-center justify-center gap-3">
+                                <button onClick={handleShare} className="w-full bg-pink-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-pink-700 transition flex items-center justify-center gap-3 transform hover:scale-105 active:scale-95 mb-4">
+                                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.247 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.247-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.247-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.247 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.355 2.618 6.778 6.98 6.978 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.197-4.354-2.612-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                                     {t.shareScore}
                                 </button>
-                                <button className="w-full bg-red-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-red-700 transition">
-                                    📅 {t.requestTickets}
-                                </button>
-                                <button onClick={() => location.reload()} className="w-full text-gray-500 font-bold py-2 hover:underline text-sm">{t.restart}</button>
+
+                                <a href="#" className="block w-full bg-red-600 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-red-700 transition hover:scale-105 active:scale-95 uppercase tracking-tighter">
+                                    🇲🇳 {t.requestTickets}
+                                </a>
+
+                                <hr className="my-4 border-gray-100" />
+
+                                <a href="#" className="block w-full border-2 border-gray-100 text-mongol-blue py-3 rounded-2xl font-bold hover:bg-gray-50 transition">
+                                    🏠 {t.projectPage}
+                                </a>
+
+                                <button onClick={() => location.reload()} className="w-full text-gray-400 font-bold py-2 hover:underline text-sm">{t.restart}</button>
                             </div>
                         </div>
                     )}
