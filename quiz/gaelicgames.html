@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaelic Games: The Clash of the Ash</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;900&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #00703c; /* Irish Racing Green */
+            margin: 0;
+        }
+
+        .title-font { font-family: 'Cinzel', serif; }
+        
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sfeervolle achtergrond voor het startscherm (Croke Park / Irish Steppe) */
+        .bg-hero {
+            background: linear-gradient(rgba(0, 112, 60, 0.75), rgba(0, 112, 60, 0.75)), 
+                        url('https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .btn-irish-gold {
+            background-color: #ffffff;
+            color: #00703c;
+            border-bottom: 4px solid #f29400; /* Irish Orange shadow */
+            transition: all 0.3s ease;
+        }
+        .btn-irish-gold:hover {
+            background-color: #f9f9f9;
+            transform: scale(1.02);
+            border-bottom-color: #00703c;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const QuizApp = () => {
+            const [currentStep, setCurrentStep] = useState('intro');
+            const [currentQuestion, setCurrentQuestion] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showFeedback, setShowFeedback] = useState(false);
+            const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+            const t = {
+                title: 'GAELIC TRIVIA',
+                subtitle: 'The Clash of the Ash',
+                tagline: 'Test your knowledge of the world\'s oldest and fastest field games.',
+                startQuiz: 'Enter the Pitch',
+                backHome: 'Home',
+                projectPage: 'Back to Ireland Page',
+                requestTickets: 'Find GAA Matches',
+                continue: 'Next Point',
+                readMore: 'Extra Commentary',
+                yourScore: 'Your All-Star Rank:',
+                restart: 'New Match',
+                finish: 'Final Whistle',
+                perfect: 'All-Ireland Champion! You have the spirit of a legend! 🏆🍀',
+                good: 'Great Performance! You know your way around the pitch. 🏐',
+                shareScore: 'Share my score',
+                copied: 'Copied to clipboard!',
+                shareText: (s, t) => `I scored ${s}/${t} on the Gaelic Games trivia! 🇮🇪 Can you beat my score?`
+            };
+
+            const triviaQuestions = [
+                {
+                    question: 'Which two are the most popular Gaelic games?',
+                    options: ['Hurling & Gaelic Football', 'Rugby & Cricket', 'Soccer & Swimming', 'Hurling & Tennis'],
+                    correct: 'Hurling & Gaelic Football',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/15185613287_d85c9653d5_o.jpg',
+                    shortFact: 'Correct! These are the kings of Irish sport.',
+                    longFact: 'There are actually 4 Gaelic games in total. Beside the famous Hurling and Gaelic Football, the GAA also promotes Gaelic Handball and Rounders (a bat-and-ball game similar to baseball).'
+                },
+                {
+                    question: 'What do you use to hit the ball in Hurling?',
+                    options: ['A Bat', 'A Hurley', 'A Racket', 'A Club'],
+                    correct: 'A Hurley',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/S%C3%A9amus_Callanan_and_Aidan_Harte.jpg',
+                    shortFact: 'Correct! It is traditionally made of ash wood.',
+                    longFact: 'The hurley (or camán) is a wooden stick with a flat end. Hurling is one of the fastest field sports in the world, with the ball traveling at speeds up to 150 km/h!'
+                },
+                {
+                    question: 'What’s the name of the ball in both Hurling and Camogie?',
+                    options: ['Puck', 'Sphere', 'Sliotar', 'Gaelball'],
+                    correct: 'Sliotar',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/sliotar.jpg',
+                    shortFact: 'Exactly! It’s the "Sliotar".',
+                    longFact: 'A sliotar has a cork core and a leather cover. It is incredibly hard and fast, making protective helmets mandatory for players.'
+                },
+                {
+                    question: 'What does “GAA” stand for?',
+                    options: ['Green Athletic Alliance', 'Global Association of Athletes', 'Gaelic Athletic Association', 'Great Adventure Area'],
+                    correct: 'Gaelic Athletic Association',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/15195705808_0efb77e112_o.jpg',
+                    shortFact: 'Correct! Founded in 1884.',
+                    longFact: 'The GAA is a volunteer-led organization that focuses not just on sports, but also on Irish culture, language, and community.'
+                },
+                {
+                    question: 'What is the Irish name of the big Gaelic games stadium in Dublin, Croke Park?',
+                    options: ['Staid na hÉireann', 'Páirc an Chrócaigh', 'Baile Átha Cliath Arena', 'The Spire Field'],
+                    correct: 'Páirc an Chrócaigh',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Leinster_Croke_Park.jpg',
+                    shortFact: 'Perfect! It is the third-largest stadium in Europe.',
+                    longFact: 'Croke Park is the headquarters of the GAA and has a capacity of over 82,300 people. It is considered "holy ground" by Irish sports fans.'
+                },
+                {
+                    question: 'In Gaelic games, what do fans usually feel most proud of and passionately support?',
+                    options: ['Individual star players', 'The National team only', 'Their county team', 'The referee'],
+                    correct: 'Their county team',
+                    image: 'https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Galway%20Cultue.webp',
+                    shortFact: 'Yes! Pride for your county is everything.',
+                    longFact: 'The GAA is unique because players are strictly amateur. They play for the county they were born in, which creates a deep emotional bond between the players and the fans.'
+                }
+            ];
+
+            const handleAnswer = (ans) => {
+                setSelectedAnswer(ans);
+                setShowFeedback('short');
+                if (ans === triviaQuestions[currentQuestion].correct) setScore(score + 1);
+            };
+
+            const handleShare = async () => {
+                const shareMsg = t.shareText(score, triviaQuestions.length);
+                const shareUrl = "https://travelbeyondthepitch.com/ireland.html";
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: t.title,
+                            text: shareMsg,
+                            url: shareUrl,
+                        });
+                    } catch (err) { console.log("Error sharing:", err); }
+                } else {
+                    navigator.clipboard.writeText(`${shareMsg} ${shareUrl}`);
+                    alert(t.copied);
+                }
+            };
+
+            const nextStep = () => {
+                if (currentQuestion < triviaQuestions.length - 1) {
+                    setCurrentQuestion(currentQuestion + 1);
+                    setShowFeedback(false);
+                    setSelectedAnswer(null);
+                } else {
+                    setCurrentStep('complete');
+                }
+            };
+
+            return (
+                <div className={`min-h-screen flex flex-col items-center justify-center p-4 ${currentStep === 'intro' ? 'bg-hero' : ''}`}>
+                    
+                    {/* Navigation Bar */}
+                    <div className="absolute top-4 w-full px-6 flex justify-between items-center z-50">
+                        <a href="../index.html" className="bg-white/90 text-green-900 px-4 py-2 rounded-full text-xs font-black shadow-lg hover:bg-orange-400 transition">
+                             ← {t.backHome}
+                        </a>
+                    </div>
+
+                    {currentStep === 'intro' && (
+                        <div className="bg-white/95 backdrop-blur-sm p-10 rounded-3xl shadow-2xl max-w-md w-full text-center border-b-8 border-orange-500 fade-in">
+                            <h1 className="text-5xl font-black text-green-900 title-font mb-2 leading-tight">{t.title}</h1>
+                            <p className="text-orange-600 font-bold mb-4 uppercase tracking-[0.2em] text-sm">{t.subtitle}</p>
+                            <p className="text-gray-600 mb-8 italic">{t.tagline}</p>
+                            <button onClick={() => setCurrentStep('trivia')} className="w-full btn-irish-gold py-5 rounded-2xl font-black text-lg shadow-xl uppercase tracking-tighter">
+                                {t.startQuiz}
+                            </button>
+                        </div>
+                    )}
+
+                    {currentStep === 'trivia' && (
+                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden fade-in border-t-8 border-orange-500">
+                            <div className="relative h-56 bg-slate-200">
+                                <img src={triviaQuestions[currentQuestion].image} className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-green-900/90 via-transparent to-transparent flex items-end p-6">
+                                    <h2 className="text-white text-xl font-bold leading-tight">{triviaQuestions[currentQuestion].question}</h2>
+                                </div>
+                            </div>
+                            <div className="p-6">
+                                <div className="space-y-3">
+                                    {triviaQuestions[currentQuestion].options.map(opt => (
+                                        <button 
+                                            key={opt} 
+                                            disabled={showFeedback} 
+                                            onClick={() => handleAnswer(opt)} 
+                                            className={`w-full p-4 text-left border-2 rounded-2xl font-bold transition-all ${
+                                                showFeedback && opt === triviaQuestions[currentQuestion].correct ? 'bg-green-100 border-green-500 text-green-800' : 
+                                                showFeedback && opt === selectedAnswer ? 'bg-red-100 border-red-500 text-red-800' : 'border-gray-100 hover:border-green-400'
+                                            }`}>
+                                            {opt}
+                                        </button>
+                                    ))}
+                                </div>
+                                {showFeedback && (
+                                    <div className="mt-6 p-5 bg-green-50 rounded-2xl border-l-4 border-green-900 fade-in">
+                                        <p className="text-sm text-green-900 font-medium mb-4 italic">
+                                            {showFeedback === 'short' ? triviaQuestions[currentQuestion].shortFact : triviaQuestions[currentQuestion].longFact}
+                                        </p>
+                                        <div className="flex items-center gap-4">
+                                            {showFeedback === 'short' && <button onClick={() => setShowFeedback('long')} className="text-green-900 font-bold text-xs uppercase underline tracking-wider">{t.readMore}</button>}
+                                            <button onClick={nextStep} className="flex-1 bg-green-900 text-white py-3 rounded-xl font-bold shadow-md hover:bg-green-800 transition">
+                                                {currentQuestion === triviaQuestions.length - 1 ? t.finish : t.continue}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {currentStep === 'complete' && (
+                        <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center fade-in border-t-8 border-green-900">
+                            <div className="text-6xl mb-4">🏆</div>
+                            <h2 className="text-2xl font-bold text-green-900 mb-2">{t.yourScore}</h2>
+                            <div className="text-6xl font-black text-green-900 mb-6">{score} / {triviaQuestions.length}</div>
+                            <p className="text-gray-600 mb-10 font-medium">{score === triviaQuestions.length ? t.perfect : t.good}</p>
+                            
+                            <div className="space-y-4">
+                                <button onClick={handleShare} className="w-full bg-orange-500 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-orange-600 transition flex items-center justify-center gap-3 transform hover:scale-105 active:scale-95">
+                                    📲 {t.shareScore}
+                                </button>
+
+                                <a href="../ireland.html#matches" className="block w-full btn-irish-gold py-4 rounded-2xl font-black shadow-lg">
+                                    🏟️ {t.requestTickets}
+                                </a>
+
+                                <a href="../ireland.html" className="block w-full border-2 border-green-900 text-green-900 py-3 rounded-2xl font-bold hover:bg-green-50 transition">
+                                    🏠 {t.projectPage}
+                                </a>
+
+                                <button onClick={() => location.reload()} className="w-full text-gray-400 font-bold py-2 hover:underline text-sm uppercase tracking-widest">{t.restart}</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<QuizApp />);
+    </script>
+</body>
+</html>
