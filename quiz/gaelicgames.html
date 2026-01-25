@@ -22,7 +22,6 @@
         .fade-in { animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Sfeervolle achtergrond voor het startscherm (Croke Park / Irish Steppe) */
         .bg-hero {
             background: linear-gradient(rgba(0, 112, 60, 0.75), rgba(0, 112, 60, 0.75)), 
                         url('https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?auto=format&fit=crop&q=80&w=1200');
@@ -135,7 +134,7 @@
 
             const handleShare = async () => {
                 const shareMsg = t.shareText(score, triviaQuestions.length);
-                const shareUrl = "https://travelbeyondthepitch.com/ireland.html";
+                const shareUrl = "https://travelbeyondthepitch.com/gaelic-games.html";
 
                 if (navigator.share) {
                     try {
@@ -234,11 +233,11 @@
                                     📲 {t.shareScore}
                                 </button>
 
-                                <a href="../ireland.html#matches" className="block w-full btn-irish-gold py-4 rounded-2xl font-black shadow-lg">
+                                <a href="../gaelic-games.html" className="block w-full btn-irish-gold py-4 rounded-2xl font-black shadow-lg">
                                     🏟️ {t.requestTickets}
                                 </a>
 
-                                <a href="../ireland.html" className="block w-full border-2 border-green-900 text-green-900 py-3 rounded-2xl font-bold hover:bg-green-50 transition">
+                                <a href="../gaelic-games.html" className="block w-full border-2 border-green-900 text-green-900 py-3 rounded-2xl font-bold hover:bg-green-50 transition">
                                     🏠 {t.projectPage}
                                 </a>
 
