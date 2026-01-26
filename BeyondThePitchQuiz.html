@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beyond The Pitch — Find Your Journey</title>
+  <title>Beyond The Pitch — Experience Matcher</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
@@ -11,9 +11,10 @@
     .fade-in { animation: fadeIn 0.5s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     .option-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid #f1f5f9; }
-    .option-btn:hover { border-color: #e85d35; background-color: #fffaf9; transform: scale(1.02); }
-    .loader { border-top-color: #e85d35; animation: spinner 0.6s linear infinite; }
+    .option-btn:hover { border-color: #e85d35; background-color: #fffaf9; transform: scale(1.01); }
+    .loader { border-top-color: #e85d35; animation: spinner 0.8s linear infinite; }
     @keyframes spinner { to { transform: rotate(360deg); } }
+    .progress-bar { transition: width 0.4s ease; background: #e85d35; }
   </style>
 </head>
 <body class="text-white min-h-screen pb-12">
@@ -35,45 +36,59 @@
   const steps = [
     {
       type: 'intro',
-      title: 'Which Journey is Written in Your DNA?',
-      subtitle: 'Stop being a tourist. Start being a witness to the world’s most powerful sporting cultures.',
-      button: 'Begin Discovery'
+      title: 'Decoding Your Travel Instinct',
+      subtitle: 'Forget brochures. We match your personality to the world’s most authentic sporting cultures.',
+      button: 'Start Discovery'
     },
     {
       type: 'options',
-      title: '1. Choose your stadium atmosphere...',
-      subtitle: 'What makes your heart beat faster?',
+      title: '1. What kind of "Roar" do you seek?',
+      subtitle: 'The sound of a journey defines its soul.',
       options: [
-        { label: 'Singing in the rain at a community pitch', icon: '🌧️', points: { ireland: 5 } },
-        { label: 'The deafening roar of 60,000 fanatics', icon: '🔊', points: { lima: 5 } },
-        { label: 'The silence of the steppe before the race', icon: '🐎', points: { mongolia: 5 } }
+        { label: 'The rhythmic chanting of a loyal city district', icon: '🥁', points: { lima: 5 } },
+        { label: 'The thunder of hooves across open plains', icon: '🌪️', points: { mongolia: 5 } },
+        { label: 'The raw, unpolished cheering of a local village', icon: '🍻', points: { ireland: 5 } }
       ]
     },
     {
       type: 'options',
-      title: '2. Your ideal local connection looks like...',
-      subtitle: 'How do you want to meet the world?',
+      title: '2. It’s 11:00 PM. Where do we find you?',
+      subtitle: 'The best stories happen after hours.',
       options: [
-        { label: 'A deep conversation over a cold pint', icon: '🍻', points: { ireland: 3, lima: 1 } },
-        { label: 'A secret food tour led by a local legend', icon: '🌶️', points: { lima: 3, mongolia: 1 } },
-        { label: 'Sharing a meal inside a nomad’s home', icon: '🛖', points: { mongolia: 3, ireland: 1 } }
+        { label: 'Lost in the neon lights of a vibrant back-alley', icon: '🏮', points: { lima: 3, ireland: 1 } },
+        { label: 'Staring at a sky with zero light pollution', icon: '✨', points: { mongolia: 5 } },
+        { label: 'Trading stories with a stranger by a fireplace', icon: '🔥', points: { ireland: 3, mongolia: 1 } }
       ]
     },
     {
       type: 'options',
-      title: '3. What defines a "Trip of a Lifetime" for you?',
-      subtitle: 'Pick your ultimate travel North Star.',
+      title: '3. What’s your "Comfort Zone" policy?',
+      subtitle: 'How far are you willing to go?',
       options: [
-        { label: 'Uncovering ancient, hidden traditions', icon: '🏺', points: { ireland: 3, mongolia: 2 } },
-        { label: 'Electric urban energy and modern passion', icon: '⚡', points: { lima: 5 } },
-        { label: 'Total disconnection from the digital world', icon: '📵', points: { mongolia: 5 } }
+        { label: 'I want to be where the tourists aren’t', icon: '🗺️', points: { mongolia: 4, ireland: 2 } },
+        { label: 'I want the heat, the chaos, and the energy', icon: '⚡', points: { lima: 5 } },
+        { label: 'I want deep-rooted heritage and grit', icon: '🛡️', points: { ireland: 3, lima: 2 } }
       ]
     },
     {
-      type: 'form',
-      title: 'Finalizing Your Itinerary...',
-      subtitle: 'Where should we send your personal journey match?',
-      button: 'See My Match'
+      type: 'options',
+      title: '4. Choose your "Local Hero" experience...',
+      subtitle: 'Every culture has its icons.',
+      options: [
+        { label: 'The multi-generational artisan at the market', icon: '🍲', points: { lima: 3, ireland: 1 } },
+        { label: 'The nomad master of ancient survival skills', icon: '🦅', points: { mongolia: 5 } },
+        { label: 'The amateur athlete playing for his hometown', icon: '🏅', points: { ireland: 5 } }
+      ]
+    },
+    {
+      type: 'options',
+      title: '5. Your ideal pace of travel is...',
+      subtitle: 'Time moves differently everywhere.',
+      options: [
+        { label: 'Fast, intense, and sensory-overload', icon: '🚕', points: { lima: 5 } },
+        { label: 'Slow, reflective, and deeply connected', icon: '🚶', points: { ireland: 5 } },
+        { label: 'Limitless, nomadic, and untethered', icon: '👣', points: { mongolia: 5 } }
+      ]
     }
   ];
 
@@ -81,69 +96,58 @@
     ireland: {
       title: 'Ireland: The Gaelic Heart',
       flag: '🇮🇪',
-      tagline: 'Tradition, Community & Ancient Glory',
+      tagline: 'Tradition & Community',
       url: 'https://travelbeyondthepitch.com/ireland',
-      desc: 'You seek the soul of a place. In Ireland, you won\'t just watch Hurling; you\'ll understand why a village lives and breathes for their colors.',
-      perks: ['Exclusive access to local Hurling clubs', 'Trad music sessions in hidden pubs', 'Wild Atlantic Way coastal exploration']
+      desc: 'You value grit and local heritage. In Ireland, you won\'t just watch a match; you\'ll witness a community defending its history.',
+      perks: ['Gaelic Games local tickets', 'Pub sessions with the players', 'Rugged coastal exploration']
     },
     lima: {
       title: 'Lima: The Passion of Alianza',
       flag: '🇵🇪',
-      tagline: 'Adrenaline, Cuisine & Urban Soul',
+      tagline: 'Adrenaline & Soul',
       url: 'https://travelbeyondthepitch.com/peru',
-      desc: 'You crave intensity. From the chaotic stands of Matute to the world-renowned kitchens of Lima, this is a journey for the senses.',
-      perks: ['Matchday experience with the "Comando Svr"', 'Guided "Gastronomy & Football" tour', 'Barranco’s electric nightlife']
+      desc: 'You crave the electric pulse of South America. From world-class dining to the raucous stands of Matute, Lima is your match.',
+      perks: ['The true Alianza matchday', 'Secret culinary workshops', 'Urban history tours']
     },
     mongolia: {
       title: 'Mongolia: The Naadam Epic',
       flag: '🇲🇳',
-      tagline: 'Adventure, Steppes & Nomadic Pride',
+      tagline: 'Adventure & Nomad Pride',
       url: 'https://travelbeyondthepitch.com/mongolia',
-      desc: 'You are an explorer of the unknown. Witness the "Three Manly Sports" in a landscape that hasn\'t changed for centuries.',
-      perks: ['Sleep in a luxury traditional Ger', 'Front-row seats at the Naadam Festival', 'Horseback riding across the endless steppe']
+      desc: 'You are a rare breed of explorer. You seek the vastness of the steppe and the raw power of ancient nomadic sports.',
+      perks: ['Nomadic Ger hospitality', 'Naadam Festival ringside', 'Wild steppe trekking']
     }
   };
 
   function render() {
     const step = steps[currentStep];
-    if (!step) return;
+    if (!step) return showLoading();
 
     let html = '';
     if (step.type === 'intro') {
       html = `
         <div class="text-center fade-in bg-white text-gray-900 p-12 rounded-[2rem] shadow-2xl border-b-8 border-[#e85d35]">
           <h1 class="text-4xl font-extrabold mb-6 tracking-tight">${step.title}</h1>
-          <p class="text-gray-500 mb-10 text-xl leading-relaxed font-medium">${step.subtitle}</p>
-          <button onclick="next()" class="bg-[#e85d35] text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-black transition-all w-full shadow-lg shadow-orange-200">${step.button} →</button>
+          <p class="text-gray-500 mb-10 text-xl font-medium leading-relaxed">${step.subtitle}</p>
+          <button onclick="next()" class="bg-[#e85d35] text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-black transition-all w-full shadow-lg">Begin Analysis →</button>
         </div>`;
     } 
-    else if (step.type === 'options') {
+    else {
+      const progress = (currentStep / (steps.length - 1)) * 100;
       html = `
         <div class="fade-in bg-white text-gray-900 p-8 rounded-[2rem] shadow-2xl">
-          <div class="mb-8">
-            <span class="text-[#e85d35] font-extrabold tracking-widest uppercase text-sm">Step ${currentStep} of 3</span>
-            <h2 class="text-3xl font-extrabold mt-2">${step.title}</h2>
-            <p class="text-gray-400 font-medium">${step.subtitle}</p>
+          <div class="w-full bg-gray-100 h-2 rounded-full mb-8">
+            <div class="progress-bar h-2 rounded-full" style="width: ${progress}%"></div>
           </div>
+          <h2 class="text-3xl font-extrabold mb-8">${step.title}</h2>
           <div class="grid gap-4">
             ${step.options.map((o, i) => `
               <button onclick="addScore(${i})" class="option-btn flex items-center gap-5 p-6 rounded-2xl text-left bg-white group">
-                <span class="text-4xl group-hover:rotate-12 transition-transform">${o.icon}</span>
+                <span class="text-3xl group-hover:scale-110 transition-transform">${o.icon}</span>
                 <span class="font-bold text-lg text-gray-700">${o.label}</span>
               </button>
             `).join('')}
           </div>
-        </div>`;
-    }
-    else if (step.type === 'form') {
-      html = `
-        <div class="fade-in bg-white text-gray-900 p-10 rounded-[2rem] shadow-2xl">
-          <h2 class="text-3xl font-extrabold mb-2">${step.title}</h2>
-          <p class="text-gray-500 mb-8 font-medium">${step.subtitle}</p>
-          <form onsubmit="showLoading(event)" class="space-y-4">
-            <input type="email" required placeholder="name@example.com" class="w-full p-5 border-2 border-gray-100 rounded-2xl focus:border-[#e85d35] outline-none text-lg bg-gray-50" />
-            <button type="submit" class="w-full bg-black text-white py-5 rounded-2xl font-extrabold text-xl hover:bg-[#e85d35] transition-colors shadow-xl">${step.button}</button>
-          </form>
         </div>`;
     }
     root.innerHTML = html;
@@ -157,14 +161,13 @@
     next();
   };
 
-  window.showLoading = (e) => {
-    e.preventDefault();
+  function showLoading() {
     root.innerHTML = `
       <div class="text-center py-20 fade-in">
-        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-16 w-16 mx-auto mb-6"></div>
-        <h2 class="text-2xl font-bold">Matching your personality to the pitch...</h2>
+        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-100 h-16 w-16 mx-auto mb-6"></div>
+        <h2 class="text-2xl font-bold">Mapping your instinct to a destination...</h2>
       </div>`;
-    setTimeout(renderResult, 1800);
+    setTimeout(renderResult, 2000);
   };
 
   function renderResult() {
@@ -172,26 +175,23 @@
     const rec = recommendations[winner];
     root.innerHTML = `
       <div class="text-center fade-in">
-        <span class="text-8xl mb-4 block">${rec.flag}</span>
-        <h2 class="text-white text-5xl font-extrabold mb-4 italic">Found It.</h2>
-        
+        <span class="text-8xl mb-4 block animate-bounce">${rec.flag}</span>
+        <h2 class="text-white text-4xl font-extrabold mb-8 italic">Your Journey Awaits.</h2>
         <div class="bg-white text-gray-900 p-10 rounded-[2.5rem] shadow-2xl text-left border-b-8 border-[#e85d35]">
           <h3 class="text-3xl font-black mb-1 uppercase tracking-tight">${rec.title}</h3>
           <p class="text-[#e85d35] font-extrabold text-lg mb-6 uppercase tracking-widest">${rec.tagline}</p>
           <p class="text-gray-600 text-lg leading-relaxed mb-8 font-medium">${rec.desc}</p>
           
-          <div class="bg-orange-50 p-6 rounded-3xl mb-10">
-            <h4 class="font-bold text-gray-400 uppercase text-xs tracking-widest mb-4">Why you'll love it</h4>
-            <ul class="space-y-4">
-              ${rec.perks.map(p => `<li class="flex items-start gap-3 font-bold text-gray-800"> <span class="text-[#e85d35] mt-1">✦</span> ${p}</li>`).join('')}
-            </ul>
+          <div class="space-y-4">
+            <a href="${rec.url}" target="_parent" class="block w-full text-center bg-[#e85d35] text-white py-6 rounded-2xl font-black text-xl hover:bg-black transition-colors shadow-xl">
+              EXPLORE FULL ITINERARY →
+            </a>
+            
+            <a href="https://travelbeyondthepitch.com/community" target="_parent" class="block w-full text-center bg-gray-100 text-gray-900 py-4 rounded-2xl font-bold text-lg hover:bg-gray-200 transition-colors">
+              Join the BTP Community →
+            </a>
           </div>
-          
-          <a href="${rec.url}" class="block w-full text-center bg-[#e85d35] text-white py-6 rounded-2xl font-black text-xl hover:scale-[1.02] transition-transform shadow-xl">
-            VIEW JOURNEY DETAILS →
-          </a>
         </div>
-        <button onclick="location.reload()" class="mt-8 text-gray-500 hover:text-white transition font-bold underline decoration-[#e85d35] underline-offset-4">Try again</button>
       </div>`;
   }
 
