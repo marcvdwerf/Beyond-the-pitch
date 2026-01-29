@@ -13,9 +13,8 @@
             --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px; color: var(--text); position: relative; }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 20px; color: var(--text); position: relative; }
         
-        /* Back to Home Button - Set for subfolder */
         .btn-back {
             position: absolute; top: 20px; left: 20px;
             background: white; color: var(--secondary);
@@ -25,9 +24,9 @@
             transition: 0.3s; z-index: 100;
             display: flex; align-items: center; gap: 8px;
         }
-        .btn-back:hover { background: #f8fafc; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+        .btn-back:hover { background: #f8fafc; transform: translateY(-2px); }
 
-        .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; margin-top: 20px; }
+        .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; }
         
         .header { 
             background: #1a202c; color: white; padding: 50px 30px; text-align: center; 
@@ -42,12 +41,17 @@
         .form-group { display: flex; flex-direction: column; }
         
         label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
-        input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; }
+        input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; width: 100%; }
         input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
 
-        .filter-box { background: #f1f5f9; padding: 15px; border-radius: 16px; margin-bottom: 15px; }
-        .filter-container { display: flex; gap: 10px; }
-        .filter-container select { flex: 1; border: 1px solid #cbd5e1; height: 45px; cursor: pointer; }
+        /* Improved Filter Styling */
+        .filter-box { background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; }
+        .filter-label { display: block; font-weight: 700; color: #1e293b; margin-bottom: 15px; font-size: 1rem; }
+        .filter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .match-select-wrapper { margin-top: 15px; }
+        #match-selector { border: 2px solid #cbd5e1; background-color: #ffffff; cursor: pointer; }
+        #match-selector:focus { border-color: var(--primary); }
 
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
@@ -56,10 +60,7 @@
         
         .btn-submit { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; }
         .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); }
-
         #successMessage { display: none; text-align: center; padding: 60px 30px; }
-        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -86,66 +87,84 @@
             <div class="section-title">2. Choose Your Base Package</div>
             <div class="experience-grid">
                 <label class="exp-card selected">
-                    <input type="radio" name="experience" value="Full Day Package – Hidden Spots & Hurling" checked>
+                    <input type="radio" name="experience" value="Full Day Package" checked>
                     <strong>Full Day Package – Hidden Spots & Hurling</strong>
                     <p style="font-size: 0.8rem; color: #718096; margin-top: 4px;">Local club visit & match tickets.</p>
                 </label>
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Two Days, One Night – Culture & Coastal">
+                    <input type="radio" name="experience" value="Culture & Coastal">
                     <strong>Two Days, One Night – Culture & Coastal</strong>
                     <p style="font-size: 0.8rem; color: #718096; margin-top: 4px;">Guinness Storehouse & coastal stay.</p>
                 </label>
             </div>
 
-            <div class="section-title">3. Select Match Experience (Feb - Mar)</div>
+            <div class="section-title">3. Select Match Fixture</div>
             <div class="filter-box">
-                <label>Filter by sport and month:</label>
+                <span class="filter-label">Find your match:</span>
                 <div class="filter-container">
-                    <select id="sportFilter">
-                        <option value="all">All Sports</option>
-                        <option value="Hurling">Hurling</option>
-                        <option value="Football">Gaelic Football</option>
-                    </select>
-                    <select id="monthFilter">
-                        <option value="all">All Months</option>
-                        <option value="feb">February</option>
-                        <option value="mrt">March</option>
+                    <div class="form-group">
+                        <label>Sport</label>
+                        <select id="sportFilter">
+                            <option value="all">All Sports</option>
+                            <option value="Hurling">Hurling</option>
+                            <option value="Football">Gaelic Football</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Month</label>
+                        <select id="monthFilter">
+                            <option value="all">All Months</option>
+                            <option value="feb">February</option>
+                            <option value="mrt">March</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="match-select-wrapper">
+                    <label>Available Fixtures</label>
+                    <select id="match-selector">
+                        <option value="">-- Choose a match from the list --</option>
+                        
+                        <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
+                            <option value="2026-02-01 | Waterford v Limerick">Feb 01: Waterford v Limerick (Walsh Park)</option>
+                            <option value="2026-02-01 | Antrim v Clare">Feb 01: Antrim v Clare (Dunloy)</option>
+                            <option value="2026-02-01 | Down v Wexford">Feb 01: Down v Wexford (Ballycran)</option>
+                            <option value="2026-02-01 | Laois v Derry">Feb 01: Laois v Derry (Portlaoise)</option>
+                            <option value="2026-02-07 | Cork v Tipperary">Feb 07: Cork v Tipperary (Páirc Uí Chaoimh)</option>
+                            <option value="2026-02-07 | Wexford v Carlow">Feb 07: Wexford v Carlow (Wexford Park)</option>
+                            <option value="2026-02-08 | Limerick v Kilkenny">Feb 08: Limerick v Kilkenny (Gaelic Grounds)</option>
+                            <option value="2026-02-21 | Tipperary v Limerick">Feb 21: Tipperary v Limerick (Semple Stadium)</option>
+                            <option value="2026-02-21 | Dublin v Wexford">Feb 21: Dublin v Wexford (Croke Park)</option>
+                        </optgroup>
+
+                        <optgroup label="Football - February" data-sport="Football" data-month="feb">
+                            <option value="2026-02-01 | Mayo v Dublin">Feb 01: Mayo v Dublin (Castlebar)</option>
+                            <option value="2026-02-01 | Donegal v Kerry">Feb 01: Donegal v Kerry (Ballyshannon)</option>
+                            <option value="2026-02-14 | Kerry v Galway">Feb 14: Kerry v Galway (Tralee)</option>
+                            <option value="2026-02-14 | Dublin v Monaghan">Feb 14: Dublin v Monaghan (Croke Park)</option>
+                            <option value="2026-02-21 | Dublin v Kerry">Feb 21: Dublin v Kerry (Croke Park)</option>
+                            <option value="2026-02-22 | Monaghan v Mayo">Feb 22: Monaghan v Mayo (Clones)</option>
+                            <option value="2026-02-22 | Armagh v Donegal">Feb 22: Armagh v Donegal (Athletic Grounds)</option>
+                        </optgroup>
+
+                        <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
+                            <option value="2026-03-01 | Kilkenny v Cork">Mar 01: Kilkenny v Cork (Nowlan Park)</option>
+                            <option value="2026-03-01 | Galway v Waterford">Mar 01: Galway v Waterford (Salthill)</option>
+                            <option value="2026-03-07 | Limerick v Cork">Mar 07: Limerick v Cork (Gaelic Grounds)</option>
+                            <option value="2026-03-07 | Galway v Kilkenny">Mar 07: Galway v Kilkenny (Salthill)</option>
+                            <option value="2026-03-21 | Tipperary v Kilkenny">Mar 21: Tipperary v Kilkenny (Semple Stadium)</option>
+                        </optgroup>
+
+                        <optgroup label="Football - March" data-sport="Football" data-month="mrt">
+                            <option value="2026-03-01 | Mayo v Armagh">Mar 01: Mayo v Armagh (Castlebar)</option>
+                            <option value="2026-03-14 | Dublin v Armagh">Mar 14: Dublin v Armagh (Croke Park)</option>
+                            <option value="2026-03-15 | Monaghan v Galway">Mar 15: Monaghan v Galway (Inniskeen)</option>
+                            <option value="2026-03-22 | Armagh v Kerry">Mar 22: Armagh v Kerry (Athletic Grounds)</option>
+                            <option value="2026-03-22 | Galway v Dublin">Mar 22: Galway v Dublin (Salthill)</option>
+                        </optgroup>
                     </select>
                 </div>
             </div>
-            
-            <select id="match-selector" style="margin-bottom: 25px; border: 2px solid var(--primary); width: 100%;">
-                <option value="">-- View Upcoming Fixtures --</option>
-                
-                <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
-                    <option value="2026-02-01 | Waterford v Limerick (Walsh Park)">01 Feb: Waterford v Limerick - Walsh Park</option>
-                    <option value="2026-02-01 | Antrim v Clare (Dunloy)">01 Feb: Antrim v Clare - Dunloy</option>
-                    <option value="2026-02-07 | Cork v Tipperary (Páirc Uí Chaoimh)">07 Feb: Cork v Tipperary - Páirc Uí Chaoimh</option>
-                    <option value="2026-02-08 | Limerick v Kilkenny (Gaelic Grounds)">08 Feb: Limerick v Kilkenny - Gaelic Grounds</option>
-                    <option value="2026-02-21 | Tipperary v Limerick (Semple Stadium)">21 Feb: Tipperary v Limerick - Semple Stadium</option>
-                    <option value="2026-02-21 | Dublin v Wexford (Croke Park)">21 Feb: Dublin v Wexford - Croke Park</option>
-                </optgroup>
-
-                <optgroup label="Football - February" data-sport="Football" data-month="feb">
-                    <option value="2026-02-01 | Mayo v Dublin (Castlebar)">01 Feb: Mayo v Dublin - Castlebar</option>
-                    <option value="2026-02-01 | Donegal v Kerry (Ballyshannon)">01 Feb: Donegal v Kerry - Ballyshannon</option>
-                    <option value="2026-02-14 | Kerry v Galway (Tralee)">14 Feb: Kerry v Galway - Tralee</option>
-                    <option value="2026-02-14 | Dublin v Monaghan (Croke Park)">14 Feb: Dublin v Monaghan - Croke Park</option>
-                    <option value="2026-02-21 | Dublin v Kerry (Croke Park)">21 Feb: Dublin v Kerry - Croke Park</option>
-                </optgroup>
-
-                <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
-                    <option value="2026-03-01 | Kilkenny v Cork (Nowlan Park)">01 Mar: Kilkenny v Cork - Nowlan Park</option>
-                    <option value="2026-03-07 | Limerick v Cork (Gaelic Grounds)">07 Mar: Limerick v Cork - Gaelic Grounds</option>
-                    <option value="2026-03-21 | Tipperary v Kilkenny (Semple Stadium)">21 Mar: Tipperary v Kilkenny - Semple Stadium</option>
-                </optgroup>
-
-                <optgroup label="Football - March" data-sport="Football" data-month="mrt">
-                    <option value="2026-03-01 | Mayo v Armagh (Castlebar)">01 Mar: Mayo v Armagh - Castlebar</option>
-                    <option value="2026-03-14 | Dublin v Armagh (Croke Park)">14 Mar: Dublin v Armagh - Croke Park</option>
-                    <option value="2026-03-22 | Galway v Dublin (Salthill)">22 Mar: Galway v Dublin - Salthill</option>
-                </optgroup>
-            </select>
 
             <div class="section-title">4. Trip Details</div>
             <div class="form-grid">
@@ -155,17 +174,16 @@
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label>Special Requests / Notes</label>
-                <textarea id="requests" rows="3" placeholder="Dietary requirements, seat preferences, etc."></textarea>
+                <textarea id="requests" rows="3" placeholder="Dietary requirements, accessibility, etc."></textarea>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Confirm Booking Request</button>
-            <div class="loader" id="loader"></div>
         </div>
 
         <div id="successMessage">
             <div style="font-size: 3rem; margin-bottom: 15px;">🍀</div>
-            <h2 style="color: var(--primary);">Success!</h2>
-            <p style="margin: 15px 0; color: #4a5568;">Your request for <strong>Beyond the Pitch</strong> has been sent.<br>We will be in touch shortly.</p>
+            <h2 style="color: var(--primary);">Thank you!</h2>
+            <p style="margin: 15px 0; color: #4a5568;">Your request has been sent. We'll contact you shortly.</p>
             <button class="btn-submit" onclick="location.reload()" style="max-width: 200px;">New Booking</button>
         </div>
     </div>
@@ -174,17 +192,11 @@
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
         
         const FIELDS = { 
-            name: 'entry.761572476', 
-            email: 'entry.1144619265', 
-            phone: 'entry.1213010877', 
-            experience: 'entry.1446094233', 
-            date: 'entry.301148404', 
-            guests: 'entry.175134312',
-            requests: 'entry.184318357',
-            partner: 'entry.2094398847' 
+            name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', 
+            experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312',
+            requests: 'entry.184318357', partner: 'entry.2094398847' 
         };
 
-        // Filter Logic
         const sportFilter = document.getElementById('sportFilter');
         const monthFilter = document.getElementById('monthFilter');
         const matchSelector = document.getElementById('match-selector');
@@ -206,7 +218,6 @@
         sportFilter.addEventListener('change', updateFilters);
         monthFilter.addEventListener('change', updateFilters);
 
-        // Auto-fill date
         matchSelector.addEventListener('change', (e) => {
             if(e.target.value) {
                 const datePart = e.target.value.split(' | ')[0];
@@ -214,7 +225,6 @@
             }
         });
 
-        // Experience card selection
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -223,23 +233,12 @@
             });
         });
 
-        // Form Submit
         document.getElementById('submitBtn').addEventListener('click', async () => {
-            const btn = document.getElementById('submitBtn');
-            const loader = document.getElementById('loader');
-            
             if(!document.getElementById('name').value || !document.getElementById('email').value || !document.getElementById('date').value) {
-                alert('Please fill in Name, Email and Date.');
+                alert('Please fill in all required fields.');
                 return;
             }
-
-            btn.style.display = 'none';
-            loader.style.display = 'block';
-
-            const selectedMatch = matchSelector.value;
-            const userRequests = document.getElementById('requests').value;
-            const combinedInfo = selectedMatch ? `MATCH: ${selectedMatch} | REQUESTS: ${userRequests}` : userRequests;
-
+            // ... (rest of submit logic remains same)
             const params = new URLSearchParams();
             params.append(FIELDS.name, document.getElementById('name').value);
             params.append(FIELDS.email, document.getElementById('email').value);
@@ -247,25 +246,15 @@
             params.append(FIELDS.experience, document.querySelector('input[name="experience"]:checked').value);
             params.append(FIELDS.date, document.getElementById('date').value);
             params.append(FIELDS.guests, document.getElementById('guests').value);
-            params.append(FIELDS.requests, combinedInfo);
+            params.append(FIELDS.requests, `MATCH: ${matchSelector.value} | NOTES: ${document.getElementById('requests').value}`);
             params.append(FIELDS.partner, 'Ireland');
 
             try {
-                await fetch(FORM_ACTION, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: params
-                });
-
+                await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: params });
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
                 window.scrollTo(0, 0);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Connection error. Please try again.');
-                btn.style.display = 'block';
-                loader.style.display = 'none';
-            }
+            } catch (e) { alert('Error submitting form.'); }
         });
     </script>
 </body>
