@@ -13,8 +13,19 @@
             --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; color: var(--text); }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; color: var(--text); }
         
+        /* Terug naar Home Knop */
+        .btn-back {
+            position: absolute; top: 20px; left: 20px;
+            background: white; color: var(--secondary);
+            padding: 10px 20px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s; z-index: 10;
+        }
+        .btn-back:hover { background: #f1f5f9; transform: translateX(-5px); }
+
         .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; }
         
         .header { 
@@ -34,7 +45,7 @@
         input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
 
         .filter-container { display: flex; gap: 10px; margin-bottom: 12px; }
-        .filter-container select { flex: 1; font-size: 0.85rem; background: #f1f5f9; border: 1px solid #cbd5e1; }
+        .filter-container select { flex: 1; font-size: 0.85rem; background: #f1f5f9; border: 1px solid #cbd5e1; cursor: pointer; }
 
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
@@ -50,6 +61,8 @@
     </style>
 </head>
 <body>
+
+    <a href="index.html" class="btn-back">← Back to Home</a>
 
     <div class="booking-container">
         <div class="header">
@@ -79,7 +92,7 @@
                 </label>
             </div>
 
-            <div class="section-title">3. Select Match (The Experience)</div>
+            <div class="section-title">3. Select Match Experience (Feb - Mar)</div>
             <div class="filter-container">
                 <select id="sportFilter">
                     <option value="all">All Sports</option>
@@ -88,34 +101,51 @@
                 </select>
                 <select id="monthFilter">
                     <option value="all">All Months</option>
-                    <option value="jan">January</option>
                     <option value="feb">February</option>
                     <option value="mrt">March</option>
                 </select>
             </div>
+            
             <select id="match-selector" style="margin-bottom: 25px;">
-                <option value="">-- No specific match yet --</option>
-                <optgroup label="Hurling - January" data-sport="Hurling" data-month="jan">
-                    <option value="2026-01-24 | Tipperary v Galway (Semple Stadium)">24 Jan: Tipperary v Galway - Semple Stadium</option>
-                    <option value="2026-01-25 | Kilkenny v Offaly (Nowlan Park)">25 Jan: Kilkenny v Offaly - Nowlan Park</option>
-                    <option value="2026-01-25 | Cork v Waterford (Páirc Uí Chaoimh)">25 Jan: Cork v Waterford - Páirc Uí Chaoimh</option>
-                </optgroup>
-                <optgroup label="Football - January" data-sport="Football" data-month="jan">
-                    <option value="2026-01-24 | Dublin v Donegal (Croke Park)">24 Jan: Dublin v Donegal - Croke Park</option>
-                    <option value="2026-01-25 | Galway v Mayo (Salthill)">25 Jan: Galway v Mayo - Salthill</option>
-                    <option value="2026-01-25 | Kerry v Roscommon (Killarney)">25 Jan: Kerry v Roscommon - Killarney</option>
-                </optgroup>
+                <option value="">-- View Upcoming Fixtures --</option>
+                
                 <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
+                    <option value="2026-02-01 | Waterford v Limerick (Walsh Park)">01 Feb: Waterford v Limerick - Walsh Park</option>
+                    <option value="2026-02-01 | Antrim v Clare (Dunloy)">01 Feb: Antrim v Clare - Dunloy</option>
+                    <option value="2026-02-01 | Laois v Derry (Portlaoise)">01 Feb: Laois v Derry - Portlaoise</option>
+                    <option value="2026-02-07 | Cork v Tipperary (Páirc Uí Chaoimh)">07 Feb: Cork v Tipperary - Páirc Uí Chaoimh</option>
                     <option value="2026-02-08 | Limerick v Kilkenny (Gaelic Grounds)">08 Feb: Limerick v Kilkenny - Gaelic Grounds</option>
+                    <option value="2026-02-21 | Tipperary v Limerick (Semple Stadium)">21 Feb: Tipperary v Limerick - Semple Stadium</option>
                     <option value="2026-02-21 | Dublin v Wexford (Croke Park)">21 Feb: Dublin v Wexford - Croke Park</option>
+                    <option value="2026-02-22 | Kilkenny v Waterford (Nowlan Park)">22 Feb: Kilkenny v Waterford - Nowlan Park</option>
                 </optgroup>
+
                 <optgroup label="Football - February" data-sport="Football" data-month="feb">
+                    <option value="2026-02-01 | Mayo v Dublin (Castlebar)">01 Feb: Mayo v Dublin - Castlebar</option>
+                    <option value="2026-02-01 | Donegal v Kerry (Ballyshannon)">01 Feb: Donegal v Kerry - Ballyshannon</option>
                     <option value="2026-02-14 | Kerry v Galway (Tralee)">14 Feb: Kerry v Galway - Tralee</option>
+                    <option value="2026-02-14 | Dublin v Monaghan (Croke Park)">14 Feb: Dublin v Monaghan - Croke Park</option>
+                    <option value="2026-02-15 | Tyrone v Cavan (Omagh)">15 Feb: Tyrone v Cavan - Omagh</option>
                     <option value="2026-02-21 | Dublin v Kerry (Croke Park)">21 Feb: Dublin v Kerry - Croke Park</option>
-                    <option value="2026-02-22 | Monaghan v Mayo (Clones)">22 Feb: Monaghan v Mayo - Clones</option>
+                    <option value="2026-02-22 | Armagh v Donegal (Athletic Grounds)">22 Feb: Armagh v Donegal - Athletic Grounds</option>
                 </optgroup>
+
                 <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
+                    <option value="2026-03-01 | Kilkenny v Cork (Nowlan Park)">01 Mar: Kilkenny v Cork - Nowlan Park</option>
+                    <option value="2026-03-01 | Galway v Waterford (Salthill)">01 Mar: Galway v Waterford - Salthill</option>
+                    <option value="2026-03-07 | Limerick v Cork (Gaelic Grounds)">07 Mar: Limerick v Cork - Gaelic Grounds</option>
+                    <option value="2026-03-07 | Galway v Kilkenny (Salthill)">07 Mar: Galway v Kilkenny - Salthill</option>
                     <option value="2026-03-21 | Tipperary v Kilkenny (Semple Stadium)">21 Mar: Tipperary v Kilkenny - Semple Stadium</option>
+                    <option value="2026-03-21 | Limerick v Galway (Gaelic Grounds)">21 Mar: Limerick v Galway - Gaelic Grounds</option>
+                </optgroup>
+
+                <optgroup label="Football - March" data-sport="Football" data-month="mrt">
+                    <option value="2026-03-01 | Mayo v Armagh (Castlebar)">01 Mar: Mayo v Armagh - Castlebar</option>
+                    <option value="2026-03-01 | Donegal v Galway (Ballyshannon)">01 Mar: Donegal v Galway - Ballyshannon</option>
+                    <option value="2026-03-14 | Dublin v Armagh (Croke Park)">14 Mar: Dublin v Armagh - Croke Park</option>
+                    <option value="2026-03-15 | Monaghan v Galway (Inniskeen)">15 Mar: Monaghan v Galway - Inniskeen</option>
+                    <option value="2026-03-22 | Armagh v Kerry (Athletic Grounds)">22 Mar: Armagh v Kerry - Athletic Grounds</option>
+                    <option value="2026-03-22 | Galway v Dublin (Salthill)">22 Mar: Galway v Dublin - Salthill</option>
                 </optgroup>
             </select>
 
@@ -127,7 +157,7 @@
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label>Special Requests / Notes</label>
-                <textarea id="requests" rows="3" placeholder="Dietary requirements or extra info..."></textarea>
+                <textarea id="requests" rows="3" placeholder="Dietary requirements, specific match seats, etc."></textarea>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Confirm Booking Request</button>
@@ -156,7 +186,7 @@
             partner: 'entry.2094398847' 
         };
 
-        // Filter Logica
+        // UI & Filter Logic
         const sportFilter = document.getElementById('sportFilter');
         const monthFilter = document.getElementById('monthFilter');
         const matchSelector = document.getElementById('match-selector');
@@ -178,7 +208,6 @@
         sportFilter.addEventListener('change', updateFilters);
         monthFilter.addEventListener('change', updateFilters);
 
-        // Auto-fill date
         matchSelector.addEventListener('change', (e) => {
             if(e.target.value) {
                 const datePart = e.target.value.split(' | ')[0];
@@ -186,7 +215,6 @@
             }
         });
 
-        // UI: Card Selection
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -195,7 +223,7 @@
             });
         });
 
-        // Submit Function
+        // Submit to Google Sheets
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const loader = document.getElementById('loader');
