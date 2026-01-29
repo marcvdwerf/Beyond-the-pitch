@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Your Hurling Experience - Beyond the Pitch</title>
+    <title>Book Your Experience - Beyond the Pitch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,20 +13,21 @@
             --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; color: var(--text); }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px; color: var(--text); position: relative; }
         
-        /* Terug naar Home Knop */
+        /* Back to Home Button - Set for subfolder */
         .btn-back {
             position: absolute; top: 20px; left: 20px;
             background: white; color: var(--secondary);
-            padding: 10px 20px; border-radius: 50px;
+            padding: 12px 24px; border-radius: 50px;
             text-decoration: none; font-weight: 700; font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: 0.3s; z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: 0.3s; z-index: 100;
+            display: flex; align-items: center; gap: 8px;
         }
-        .btn-back:hover { background: #f1f5f9; transform: translateX(-5px); }
+        .btn-back:hover { background: #f8fafc; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 
-        .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; }
+        .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; margin-top: 20px; }
         
         .header { 
             background: #1a202c; color: white; padding: 50px 30px; text-align: center; 
@@ -44,8 +45,9 @@
         input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; }
         input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
 
-        .filter-container { display: flex; gap: 10px; margin-bottom: 12px; }
-        .filter-container select { flex: 1; font-size: 0.85rem; background: #f1f5f9; border: 1px solid #cbd5e1; cursor: pointer; }
+        .filter-box { background: #f1f5f9; padding: 15px; border-radius: 16px; margin-bottom: 15px; }
+        .filter-container { display: flex; gap: 10px; }
+        .filter-container select { flex: 1; border: 1px solid #cbd5e1; height: 45px; cursor: pointer; }
 
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
@@ -62,12 +64,15 @@
 </head>
 <body>
 
-    <a href="index.html" class="btn-back">← Back to Home</a>
+    <a href="../index.html" class="btn-back">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5m7 7l-7-7 7-7"></path></svg>
+        Back to Home
+    </a>
 
     <div class="booking-container">
         <div class="header">
             <h1>Beyond the Pitch</h1>
-            <p style="font-weight: 500; opacity: 0.9;">Official Ireland Booking Portal</p>
+            <p style="font-weight: 500; opacity: 0.9;">Official Experience Booking Portal</p>
         </div>
 
         <div id="bookingForm" class="form-section">
@@ -93,31 +98,32 @@
             </div>
 
             <div class="section-title">3. Select Match Experience (Feb - Mar)</div>
-            <div class="filter-container">
-                <select id="sportFilter">
-                    <option value="all">All Sports</option>
-                    <option value="Hurling">Hurling</option>
-                    <option value="Football">Gaelic Football</option>
-                </select>
-                <select id="monthFilter">
-                    <option value="all">All Months</option>
-                    <option value="feb">February</option>
-                    <option value="mrt">March</option>
-                </select>
+            <div class="filter-box">
+                <label>Filter by sport and month:</label>
+                <div class="filter-container">
+                    <select id="sportFilter">
+                        <option value="all">All Sports</option>
+                        <option value="Hurling">Hurling</option>
+                        <option value="Football">Gaelic Football</option>
+                    </select>
+                    <select id="monthFilter">
+                        <option value="all">All Months</option>
+                        <option value="feb">February</option>
+                        <option value="mrt">March</option>
+                    </select>
+                </div>
             </div>
             
-            <select id="match-selector" style="margin-bottom: 25px;">
+            <select id="match-selector" style="margin-bottom: 25px; border: 2px solid var(--primary); width: 100%;">
                 <option value="">-- View Upcoming Fixtures --</option>
                 
                 <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
                     <option value="2026-02-01 | Waterford v Limerick (Walsh Park)">01 Feb: Waterford v Limerick - Walsh Park</option>
                     <option value="2026-02-01 | Antrim v Clare (Dunloy)">01 Feb: Antrim v Clare - Dunloy</option>
-                    <option value="2026-02-01 | Laois v Derry (Portlaoise)">01 Feb: Laois v Derry - Portlaoise</option>
                     <option value="2026-02-07 | Cork v Tipperary (Páirc Uí Chaoimh)">07 Feb: Cork v Tipperary - Páirc Uí Chaoimh</option>
                     <option value="2026-02-08 | Limerick v Kilkenny (Gaelic Grounds)">08 Feb: Limerick v Kilkenny - Gaelic Grounds</option>
                     <option value="2026-02-21 | Tipperary v Limerick (Semple Stadium)">21 Feb: Tipperary v Limerick - Semple Stadium</option>
                     <option value="2026-02-21 | Dublin v Wexford (Croke Park)">21 Feb: Dublin v Wexford - Croke Park</option>
-                    <option value="2026-02-22 | Kilkenny v Waterford (Nowlan Park)">22 Feb: Kilkenny v Waterford - Nowlan Park</option>
                 </optgroup>
 
                 <optgroup label="Football - February" data-sport="Football" data-month="feb">
@@ -125,39 +131,31 @@
                     <option value="2026-02-01 | Donegal v Kerry (Ballyshannon)">01 Feb: Donegal v Kerry - Ballyshannon</option>
                     <option value="2026-02-14 | Kerry v Galway (Tralee)">14 Feb: Kerry v Galway - Tralee</option>
                     <option value="2026-02-14 | Dublin v Monaghan (Croke Park)">14 Feb: Dublin v Monaghan - Croke Park</option>
-                    <option value="2026-02-15 | Tyrone v Cavan (Omagh)">15 Feb: Tyrone v Cavan - Omagh</option>
                     <option value="2026-02-21 | Dublin v Kerry (Croke Park)">21 Feb: Dublin v Kerry - Croke Park</option>
-                    <option value="2026-02-22 | Armagh v Donegal (Athletic Grounds)">22 Feb: Armagh v Donegal - Athletic Grounds</option>
                 </optgroup>
 
                 <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
                     <option value="2026-03-01 | Kilkenny v Cork (Nowlan Park)">01 Mar: Kilkenny v Cork - Nowlan Park</option>
-                    <option value="2026-03-01 | Galway v Waterford (Salthill)">01 Mar: Galway v Waterford - Salthill</option>
                     <option value="2026-03-07 | Limerick v Cork (Gaelic Grounds)">07 Mar: Limerick v Cork - Gaelic Grounds</option>
-                    <option value="2026-03-07 | Galway v Kilkenny (Salthill)">07 Mar: Galway v Kilkenny - Salthill</option>
                     <option value="2026-03-21 | Tipperary v Kilkenny (Semple Stadium)">21 Mar: Tipperary v Kilkenny - Semple Stadium</option>
-                    <option value="2026-03-21 | Limerick v Galway (Gaelic Grounds)">21 Mar: Limerick v Galway - Gaelic Grounds</option>
                 </optgroup>
 
                 <optgroup label="Football - March" data-sport="Football" data-month="mrt">
                     <option value="2026-03-01 | Mayo v Armagh (Castlebar)">01 Mar: Mayo v Armagh - Castlebar</option>
-                    <option value="2026-03-01 | Donegal v Galway (Ballyshannon)">01 Mar: Donegal v Galway - Ballyshannon</option>
                     <option value="2026-03-14 | Dublin v Armagh (Croke Park)">14 Mar: Dublin v Armagh - Croke Park</option>
-                    <option value="2026-03-15 | Monaghan v Galway (Inniskeen)">15 Mar: Monaghan v Galway - Inniskeen</option>
-                    <option value="2026-03-22 | Armagh v Kerry (Athletic Grounds)">22 Mar: Armagh v Kerry - Athletic Grounds</option>
                     <option value="2026-03-22 | Galway v Dublin (Salthill)">22 Mar: Galway v Dublin - Salthill</option>
                 </optgroup>
             </select>
 
             <div class="section-title">4. Trip Details</div>
             <div class="form-grid">
-                <div class="form-group"><label>Date *</label><input type="date" id="date" required></div>
+                <div class="form-group"><label>Selected Date *</label><input type="date" id="date" required></div>
                 <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" min="1" value="2" required></div>
             </div>
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label>Special Requests / Notes</label>
-                <textarea id="requests" rows="3" placeholder="Dietary requirements, specific match seats, etc."></textarea>
+                <textarea id="requests" rows="3" placeholder="Dietary requirements, seat preferences, etc."></textarea>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Confirm Booking Request</button>
@@ -167,7 +165,7 @@
         <div id="successMessage">
             <div style="font-size: 3rem; margin-bottom: 15px;">🍀</div>
             <h2 style="color: var(--primary);">Success!</h2>
-            <p style="margin: 15px 0; color: #4a5568;">Your request for <strong>Ireland</strong> has been sent.<br>We will be in touch shortly.</p>
+            <p style="margin: 15px 0; color: #4a5568;">Your request for <strong>Beyond the Pitch</strong> has been sent.<br>We will be in touch shortly.</p>
             <button class="btn-submit" onclick="location.reload()" style="max-width: 200px;">New Booking</button>
         </div>
     </div>
@@ -186,7 +184,7 @@
             partner: 'entry.2094398847' 
         };
 
-        // UI & Filter Logic
+        // Filter Logic
         const sportFilter = document.getElementById('sportFilter');
         const monthFilter = document.getElementById('monthFilter');
         const matchSelector = document.getElementById('match-selector');
@@ -208,6 +206,7 @@
         sportFilter.addEventListener('change', updateFilters);
         monthFilter.addEventListener('change', updateFilters);
 
+        // Auto-fill date
         matchSelector.addEventListener('change', (e) => {
             if(e.target.value) {
                 const datePart = e.target.value.split(' | ')[0];
@@ -215,6 +214,7 @@
             }
         });
 
+        // Experience card selection
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -223,7 +223,7 @@
             });
         });
 
-        // Submit to Google Sheets
+        // Form Submit
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const loader = document.getElementById('loader');
