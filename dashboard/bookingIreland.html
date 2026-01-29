@@ -33,6 +33,9 @@
         input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; }
         input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
 
+        .filter-container { display: flex; gap: 10px; margin-bottom: 12px; }
+        .filter-container select { flex: 1; font-size: 0.85rem; background: #f1f5f9; border: 1px solid #cbd5e1; }
+
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
         .exp-card.selected { border-color: var(--primary); background: rgba(5, 150, 105, 0.05); }
@@ -62,7 +65,7 @@
                 <div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" placeholder="+353..." required></div>
             </div>
 
-            <div class="section-title">2. Choose Your Experience</div>
+            <div class="section-title">2. Choose Your Base Package</div>
             <div class="experience-grid">
                 <label class="exp-card selected">
                     <input type="radio" name="experience" value="Full Day Package – Hidden Spots & Hurling" checked>
@@ -74,22 +77,57 @@
                     <strong>Two Days, One Night – Culture & Coastal</strong>
                     <p style="font-size: 0.8rem; color: #718096; margin-top: 4px;">Guinness Storehouse & coastal stay.</p>
                 </label>
-                <label class="exp-card">
-                    <input type="radio" name="experience" value="Three Days, Two Nights – Complete Ireland">
-                    <strong>Three Days, Two Nights – Complete Ireland</strong>
-                    <p style="font-size: 0.8rem; color: #718096; margin-top: 4px;">The ultimate hurling & cultural immersion.</p>
-                </label>
             </div>
 
-            <div class="section-title">3. Trip Details</div>
+            <div class="section-title">3. Select Match (The Experience)</div>
+            <div class="filter-container">
+                <select id="sportFilter">
+                    <option value="all">All Sports</option>
+                    <option value="Hurling">Hurling</option>
+                    <option value="Football">Gaelic Football</option>
+                </select>
+                <select id="monthFilter">
+                    <option value="all">All Months</option>
+                    <option value="jan">January</option>
+                    <option value="feb">February</option>
+                    <option value="mrt">March</option>
+                </select>
+            </div>
+            <select id="match-selector" style="margin-bottom: 25px;">
+                <option value="">-- No specific match yet --</option>
+                <optgroup label="Hurling - January" data-sport="Hurling" data-month="jan">
+                    <option value="2026-01-24 | Tipperary v Galway (Semple Stadium)">24 Jan: Tipperary v Galway - Semple Stadium</option>
+                    <option value="2026-01-25 | Kilkenny v Offaly (Nowlan Park)">25 Jan: Kilkenny v Offaly - Nowlan Park</option>
+                    <option value="2026-01-25 | Cork v Waterford (Páirc Uí Chaoimh)">25 Jan: Cork v Waterford - Páirc Uí Chaoimh</option>
+                </optgroup>
+                <optgroup label="Football - January" data-sport="Football" data-month="jan">
+                    <option value="2026-01-24 | Dublin v Donegal (Croke Park)">24 Jan: Dublin v Donegal - Croke Park</option>
+                    <option value="2026-01-25 | Galway v Mayo (Salthill)">25 Jan: Galway v Mayo - Salthill</option>
+                    <option value="2026-01-25 | Kerry v Roscommon (Killarney)">25 Jan: Kerry v Roscommon - Killarney</option>
+                </optgroup>
+                <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
+                    <option value="2026-02-08 | Limerick v Kilkenny (Gaelic Grounds)">08 Feb: Limerick v Kilkenny - Gaelic Grounds</option>
+                    <option value="2026-02-21 | Dublin v Wexford (Croke Park)">21 Feb: Dublin v Wexford - Croke Park</option>
+                </optgroup>
+                <optgroup label="Football - February" data-sport="Football" data-month="feb">
+                    <option value="2026-02-14 | Kerry v Galway (Tralee)">14 Feb: Kerry v Galway - Tralee</option>
+                    <option value="2026-02-21 | Dublin v Kerry (Croke Park)">21 Feb: Dublin v Kerry - Croke Park</option>
+                    <option value="2026-02-22 | Monaghan v Mayo (Clones)">22 Feb: Monaghan v Mayo - Clones</option>
+                </optgroup>
+                <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
+                    <option value="2026-03-21 | Tipperary v Kilkenny (Semple Stadium)">21 Mar: Tipperary v Kilkenny - Semple Stadium</option>
+                </optgroup>
+            </select>
+
+            <div class="section-title">4. Trip Details</div>
             <div class="form-grid">
-                <div class="form-group"><label>Start Date *</label><input type="date" id="date" required></div>
+                <div class="form-group"><label>Date *</label><input type="date" id="date" required></div>
                 <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" min="1" value="2" required></div>
             </div>
 
             <div class="form-group" style="margin-bottom: 25px;">
-                <label>Special Requests</label>
-                <textarea id="requests" rows="3" placeholder="Dietary requirements, accessibility, etc."></textarea>
+                <label>Special Requests / Notes</label>
+                <textarea id="requests" rows="3" placeholder="Dietary requirements or extra info..."></textarea>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Confirm Booking Request</button>
@@ -107,7 +145,6 @@
     <script>
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
         
-        // Exacte Entry ID's gebaseerd op jouw formulierstructuur
         const FIELDS = { 
             name: 'entry.761572476', 
             email: 'entry.1144619265', 
@@ -119,7 +156,37 @@
             partner: 'entry.2094398847' 
         };
 
-        // UI: Kaartselectie effect
+        // Filter Logica
+        const sportFilter = document.getElementById('sportFilter');
+        const monthFilter = document.getElementById('monthFilter');
+        const matchSelector = document.getElementById('match-selector');
+
+        function updateFilters() {
+            const sport = sportFilter.value;
+            const month = monthFilter.value;
+            const groups = matchSelector.querySelectorAll('optgroup');
+
+            groups.forEach(group => {
+                const groupSport = group.getAttribute('data-sport');
+                const groupMonth = group.getAttribute('data-month');
+                const showSport = (sport === 'all' || groupSport === sport);
+                const showMonth = (month === 'all' || groupMonth === month);
+                group.style.display = (showSport && showMonth) ? 'block' : 'none';
+            });
+        }
+
+        sportFilter.addEventListener('change', updateFilters);
+        monthFilter.addEventListener('change', updateFilters);
+
+        // Auto-fill date
+        matchSelector.addEventListener('change', (e) => {
+            if(e.target.value) {
+                const datePart = e.target.value.split(' | ')[0];
+                document.getElementById('date').value = datePart;
+            }
+        });
+
+        // UI: Card Selection
         document.querySelectorAll('.exp-card').forEach(card => {
             card.addEventListener('click', () => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -128,12 +195,11 @@
             });
         });
 
-        // Submit Functie
+        // Submit Function
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const btn = document.getElementById('submitBtn');
             const loader = document.getElementById('loader');
             
-            // Verplichte velden check
             if(!document.getElementById('name').value || !document.getElementById('email').value || !document.getElementById('date').value) {
                 alert('Please fill in Name, Email and Date.');
                 return;
@@ -142,7 +208,10 @@
             btn.style.display = 'none';
             loader.style.display = 'block';
 
-            // Gebruik URLSearchParams voor betrouwbare data-overdracht naar Google
+            const selectedMatch = matchSelector.value;
+            const userRequests = document.getElementById('requests').value;
+            const combinedInfo = selectedMatch ? `MATCH: ${selectedMatch} | REQUESTS: ${userRequests}` : userRequests;
+
             const params = new URLSearchParams();
             params.append(FIELDS.name, document.getElementById('name').value);
             params.append(FIELDS.email, document.getElementById('email').value);
@@ -150,8 +219,8 @@
             params.append(FIELDS.experience, document.querySelector('input[name="experience"]:checked').value);
             params.append(FIELDS.date, document.getElementById('date').value);
             params.append(FIELDS.guests, document.getElementById('guests').value);
-            params.append(FIELDS.requests, document.getElementById('requests').value);
-            params.append(FIELDS.partner, 'Ireland'); // Cruciaal voor je dashboard!
+            params.append(FIELDS.requests, combinedInfo);
+            params.append(FIELDS.partner, 'Ireland');
 
             try {
                 await fetch(FORM_ACTION, {
@@ -160,11 +229,9 @@
                     body: params
                 });
 
-                // Succes UI
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
                 window.scrollTo(0, 0);
-
             } catch (error) {
                 console.error('Error:', error);
                 alert('Connection error. Please try again.');
