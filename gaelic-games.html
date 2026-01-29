@@ -868,6 +868,57 @@
       </div>
     </section>
 
+    <section class="section" id="booking-section">
+    <div class="max-w-xl mx-auto">
+        <h2 class="section-title">Plan Your Journey</h2>
+        
+        <div class="card" style="background: var(--panel); border: 1px solid var(--border); padding: 2.5rem;">
+            <h3 style="color: var(--gold); margin-top: 0; margin-bottom: 0.75rem;">Check Availability</h3>
+            <p style="font-size: 15px; color: var(--muted); margin-bottom: 2rem;">
+                Select your preferred travel month. On the next page, you can choose a specific match and complete your booking.
+            </p>
+
+            <div class="space-y-4">
+                <label for="fixture-selector" style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+                    Preferred Month
+                </label>
+                
+                <select id="fixture-selector" style="width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--border); background: #1a1a1a; color: white; font-size: 16px; margin-bottom: 20px; outline: none; focus: border-color: var(--gold);">
+                    <option value="">-- Select your preferred month --</option>
+                    <option value="may-2026">May 2026 (Championship Start)</option>
+                    <option value="jun-2026">June 2026 (Peak Season)</option>
+                    <option value="jul-2026">July 2026 (Finals Month)</option>
+                    <option value="aug-2026">August 2026 (Club Championships)</option>
+                    <option value="custom">Request Custom Date for Group</option>
+                </select>
+
+                <button onclick="redirectToBooking()" class="btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <span>Continue to Booking</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+            
+            <p style="text-align: center; font-size: 12px; color: var(--muted); margin-top: 1.5rem;">
+                <span style="color: var(--gold);">★</span> Secure payments & local guides guaranteed.
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+function redirectToBooking() {
+    const selectedMonth = document.getElementById('fixture-selector').value;
+    
+    if (selectedMonth) {
+        // Stuurt de gebruiker door naar de booking pagina met de maand in de URL
+        // Voorbeeld: dashboard/bookingIreland.html?period=may-2026
+        window.location.href = "dashboard/bookingIreland.html?period=" + selectedMonth;
+    } else {
+        alert("Please select a month to see available dates.");
+    }
+}
+</script>
+
     <section class="section" style="background: var(--bg);">
       <div class="max-w-6xl mx-auto">
         <h2 class="section-title">Experience Gaelic Games</h2>
