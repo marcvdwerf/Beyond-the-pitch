@@ -118,13 +118,38 @@
 
 <script>
   // Legend Database (Expand this to 30+)
-  const legends = [
-    { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [92, 99, 94, 97], img: "https://via.placeholder.com/320x260?text=Henry+Shefflin" },
-    { name: "Christy Ring", team: "Cork", rat: 99, stats: [90, 99, 98, 99], img: "https://via.placeholder.com/320x260?text=Christy+Ring" },
-    { name: "Joe Canning", team: "Galway", rat: 96, stats: [88, 97, 92, 98], img: "https://via.placeholder.com/320x260?text=Joe+Canning" },
-    { name: "Eddie Keher", team: "Kilkenny", rat: 97, stats: [85, 99, 88, 96], img: "https://via.placeholder.com/320x260?text=Eddie+Keher" },
-    { name: "DJ Carey", team: "Kilkenny", rat: 96, stats: [95, 94, 85, 98], img: "https://via.placeholder.com/320x260?text=DJ+Carey" }
-  ];
+ const legends = [
+  { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [88, 99, 94, 97], img: "https://via.placeholder.com/300x250?text=Henry+Shefflin" },
+  { name: "Christy Ring", team: "Cork", rat: 99, stats: [91, 99, 98, 99], img: "https://via.placeholder.com/300x250?text=Christy+Ring" },
+  { name: "Joe Canning", team: "Galway", rat: 96, stats: [82, 98, 92, 98], img: "https://via.placeholder.com/300x250?text=Joe+Canning" },
+  { name: "DJ Carey", team: "Kilkenny", rat: 97, stats: [96, 95, 84, 98], img: "https://via.placeholder.com/300x250?text=DJ+Carey" },
+  { name: "Eddie Keher", team: "Kilkenny", rat: 97, stats: [84, 99, 87, 95], img: "https://via.placeholder.com/300x250?text=Eddie+Keher" },
+  { name: "Nicky Rackard", team: "Wexford", rat: 96, stats: [80, 99, 97, 90], img: "https://via.placeholder.com/300x250?text=Nicky+Rackard" },
+  { name: "Jimmy Doyle", team: "Tipperary", rat: 95, stats: [86, 96, 82, 97], img: "https://via.placeholder.com/300x250?text=Jimmy+Doyle" },
+  { name: "Mick Mackey", team: "Limerick", rat: 96, stats: [88, 94, 98, 92], img: "https://via.placeholder.com/300x250?text=Mick+Mackey" },
+  { name: "Brian Whelahan", team: "Offaly", rat: 95, stats: [85, 88, 90, 96], img: "https://via.placeholder.com/300x250?text=Brian+Whelahan" },
+  { name: "Ken McGrath", team: "Waterford", rat: 94, stats: [84, 87, 95, 92], img: "https://via.placeholder.com/300x250?text=Ken+McGrath" },
+  { name: "T.J. Reid", team: "Kilkenny", rat: 95, stats: [80, 97, 89, 96], img: "https://via.placeholder.com/300x250?text=TJ+Reid" },
+  { name: "Patrick Horgan", team: "Cork", rat: 93, stats: [83, 96, 82, 95], img: "https://via.placeholder.com/300x250?text=Patrick+Horgan" },
+  { name: "Canning Joe", team: "Galway", rat: 96, stats: [82, 98, 92, 98], img: "https://via.placeholder.com/300x250?text=Joe+Canning" },
+  { name: "John Doyle", team: "Tipperary", rat: 95, stats: [82, 80, 99, 88], img: "https://via.placeholder.com/300x250?text=John+Doyle" },
+  { name: "Brian Corcoran", team: "Cork", rat: 94, stats: [82, 85, 96, 93], img: "https://via.placeholder.com/300x250?text=Brian+Corcoran" },
+  { name: "Tony Keady", team: "Galway", rat: 93, stats: [84, 86, 95, 90], img: "https://via.placeholder.com/300x250?text=Tony+Keady" },
+  { name: "Pádraic Maher", team: "Tipperary", rat: 93, stats: [82, 82, 97, 88], img: "https://via.placeholder.com/300x250?text=Padraic+Maher" },
+  { name: "JJ Delaney", team: "Kilkenny", rat: 96, stats: [86, 75, 94, 98], img: "https://via.placeholder.com/300x250?text=JJ+Delaney" },
+  { name: "Cian Lynch", team: "Limerick", rat: 94, stats: [87, 85, 88, 99], img: "https://via.placeholder.com/300x250?text=Cian+Lynch" },
+  { name: "Eoin Kelly", team: "Tipperary", rat: 94, stats: [85, 97, 84, 94], img: "https://via.placeholder.com/300x250?text=Eoin+Kelly" },
+  { name: "Tommy Walsh", team: "Kilkenny", rat: 95, stats: [88, 84, 92, 95], img: "https://via.placeholder.com/300x250?text=Tommy+Walsh" },
+  { name: "Babs Keating", team: "Tipperary", rat: 92, stats: [82, 91, 88, 93], img: "https://via.placeholder.com/300x250?text=Babs+Keating" },
+  { name: "Ger Loughnane", team: "Clare", rat: 91, stats: [84, 82, 93, 89], img: "https://via.placeholder.com/300x250?text=Ger+Loughnane" },
+  { name: "Lohal James", team: "Clare", rat: 92, stats: [83, 78, 96, 88], img: "https://via.placeholder.com/300x250?text=James+Lohan" },
+  { name: "Dan Shanahan", team: "Waterford", rat: 91, stats: [86, 93, 94, 85], img: "https://via.placeholder.com/300x250?text=Dan+Shanahan" },
+  { name: "Cyril Farrell", team: "Galway", rat: 90, stats: [80, 85, 88, 92], img: "https://via.placeholder.com/300x250?text=Cyril+Farrell" },
+  { name: "Jack Lynch", team: "Cork", rat: 94, stats: [85, 89, 90, 94], img: "https://via.placeholder.com/300x250?text=Jack+Lynch" },
+  { name: "Frank Cummins", team: "Kilkenny", rat: 93, stats: [82, 84, 96, 89], img: "https://via.placeholder.com/300x250?text=Frank+Cummins" },
+  { name: "Paddy Phelan", team: "Kilkenny", rat: 92, stats: [84, 78, 92, 94], img: "https://via.placeholder.com/300x250?text=Paddy+Phelan" },
+  { name: "Tony Doran", team: "Wexford", rat: 91, stats: [78, 92, 95, 84], img: "https://via.placeholder.com/300x250?text=Tony+Doran" }
+];
 
   function revealLegend() {
     const random = legends[Math.floor(Math.random() * legends.length)];
