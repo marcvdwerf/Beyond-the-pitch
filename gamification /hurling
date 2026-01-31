@@ -2,117 +2,133 @@
 <html lang="nl">
 <head>
 <style>
-  /* De container die de grootte van de kaart bepaalt */
-  .card-container {
-    background-color: transparent;
-    width: 250px;
-    height: 380px;
-    perspective: 1000px; /* Nodig voor het 3D effect */
-    cursor: pointer;
-    font-family: 'Arial', sans-serif;
+  :root {
+    --gold: #FFD700;
+    --rarity-glow: rgba(255, 215, 0, 0.6);
   }
 
-  /* De binnenkant die daadwerkelijk draait */
+  .card-container {
+    width: 280px;
+    height: 400px;
+    perspective: 1000px;
+    margin: 50px auto;
+  }
+
   .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.8s;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    border-radius: 15px;
+    cursor: pointer;
   }
 
-  /* Draai de kaart om bij hover */
-  .card-container:hover .card-inner {
+  /* De class die we met JavaScript toevoegen */
+  .card-inner.is-flipped {
     transform: rotateY(180deg);
   }
 
-  /* Algemene styling voor voor- en achterkant */
   .card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Verberg achterkant tijdens draaien */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 4px solid #FFD700; /* Goudkleurige rand */
+    border-radius: 20px;
+    border: 5px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
-  /* De voorkant (Het 'pakje' of logo) */
+  /* Voorkant: Het gesloten pakje */
   .card-front {
-    background: linear-gradient(135deg, #1e5799 0%,#2989d8 50%,#207cca 100%);
+    background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: white;
   }
 
-  /* De achterkant (De speler) */
+  /* Achterkant: De Hurling Speler */
   .card-back {
-    background-color: #f8f8f8;
-    color: #333;
+    background: white;
     transform: rotateY(180deg);
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
     box-sizing: border-box;
+    /* Extra glans effect voor de speler */
+    box-shadow: 0 0 20px var(--rarity-glow);
   }
 
   .player-image {
     width: 100%;
-    height: 180px;
-    background-color: #ddd;
+    height: 200px;
+    background: #eee; /* Hier komt je afbeelding */
     border-radius: 10px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: #777;
+    margin-top: 10px;
   }
 
-  .stat-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    border-bottom: 1px solid #eee;
-    padding: 5px 0;
-  }
-
-  .rating {
-    font-size: 24px;
+  .stats {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     font-weight: bold;
-    color: #e67e22;
+  }
+
+  /* Simpele schud-animatie voor het pakje */
+  .card-inner:not(.is-flipped):hover {
+    animation: shake 0.5s infinite;
+  }
+
+  @keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
   }
 </style>
 </head>
 <body>
 
 <div class="card-container">
-  <div class="card-inner">
+  <div class="card-inner" id="hurlingCard">
     
     <div class="card-front">
-      <h2 style="margin:0;">HURLING</h2>
-      <p>Unbox Player</p>
-      <div style="font-size: 50px;">🏑</div>
+      <div style="font-size: 60px;">🏆</div>
+      <h2>TIK OM TE OPENEN</h2>
+      <p>Hurling Stars 2026</p>
     </div>
 
     <div class="card-back">
-      <div class="rating">89</div>
+      <div style="font-size: 24px; font-weight: bold; text-align: left;">92</div>
       <div class="player-image">
-        [Foto van Speler]
+         <img src="https://via.placeholder.com/250x200?text=SPELER+FOTO" alt="Player" style="width:100%; height:100%; border-radius:10px; object-fit:cover;">
       </div>
-      <h3 style="margin: 5px 0;">Cian Lynch</h3>
-      <p style="color: #666; font-size: 14px; margin-bottom: 10px;">Limerick | Midfield</p>
+      <h2 style="margin: 10px 0 0 0;">Joe Canning</h2>
+      <p style="margin: 0; color: #777;">Galway | Forward</p>
       
-      <div class="stat-row"><span>PAC</span> <strong>85</strong></div>
-      <div class="stat-row"><span>SHT</span> <strong>92</strong></div>
-      <div class="stat-row"><span>PHY</span> <strong>88</strong></div>
+      <div class="stats">
+        <div>ACC: 95</div>
+        <div>STR: 88</div>
+        <div>SPD: 82</div>
+        <div>SKL: 97</div>
+      </div>
     </div>
 
   </div>
 </div>
+
+<script>
+  const card = document.getElementById('hurlingCard');
+  
+  card.addEventListener('click', function() {
+    // Toggle de class 'is-flipped'
+    card.classList.toggle('is-flipped');
+  });
+</script>
 
 </body>
 </html>
