@@ -2,91 +2,114 @@
 <html lang="nl">
 <head>
 <style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f0f0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 50px; }
+  body { background: #050505; color: white; font-family: 'Arial Black', sans-serif; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
 
-  /* De Kaart Layout */
-  .card-container { width: 250px; height: 380px; perspective: 1000px; }
-  .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
-  .card-inner.is-flipped { transform: rotateY(180deg); }
-
-  .card-front, .card-back { 
-    position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; 
-    border-radius: 15px; border: 4px solid #FFD700; box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  /* Het Pakje */
+  #pack-wrapper { cursor: pointer; text-align: center; transition: transform 0.3s; }
+  #pack-wrapper:hover { transform: scale(1.05); }
+  
+  .pack {
+    width: 200px; height: 300px;
+    background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+    border-radius: 10px; border: 4px solid #fff;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
   }
 
-  /* Voorkant (Pakje) */
-  .card-front { background: linear-gradient(135deg, #2c3e50, #000); color: gold; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  /* De Shaking Animatie voor de klik */
+  .shake { animation: shakeAnim 0.5s ease-in-out; }
+  @keyframes shakeAnim {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-10px, 10px); }
+    40% { transform: translate(10px, -10px); }
+    60% { transform: translate(-10px, -10px); }
+    80% { transform: translate(10px, 10px); }
+    100% { transform: translate(0, 0); }
+  }
 
-  /* Achterkant (Speler) */
-  .card-back { background: white; transform: rotateY(180deg); padding: 10px; display: flex; flex-direction: column; align-items: center; }
-  
-  .player-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; background: #eee; }
-  .rating-badge { position: absolute; top: 10px; left: 10px; background: gold; padding: 5px 10px; border-radius: 50%; font-weight: bold; font-size: 18px; }
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; width: 100%; margin-top: 10px; font-size: 13px; text-align: left; border-top: 1px solid #eee; padding-top: 10px; }
+  /* Het Onthullingsscherm */
+  #reveal-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, #222 0%, #000 100%);
+    display: none; justify-content: center; align-items: center; z-index: 100;
+  }
 
-  /* Schud effect op hover */
-  .card-container:hover .card-inner:not(.is-flipped) { animation: shake 0.4s ease-in-out infinite; }
-  @keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(1deg); } 75% { transform: rotate(-1deg); } }
+  /* De Speler Kaart die binnenkomt */
+  .player-card {
+    width: 320px; height: 480px;
+    background: white; color: #111; border-radius: 20px;
+    border: 8px solid #ffd700; position: relative;
+    transform: scale(0.5); opacity: 0;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .player-card.show { transform: scale(1); opacity: 1; }
+
+  .burst {
+    position: absolute; width: 100%; height: 100%;
+    background: white; border-radius: 50%; opacity: 0;
+    z-index: 99; pointer-events: none;
+  }
+  .flash-active { animation: flashAnim 0.6s ease-out; }
+  @keyframes flashAnim {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  .player-img { width: 100%; height: 60%; object-fit: cover; border-bottom: 5px solid #ffd700; border-radius: 12px 12px 0 0; }
+  .rating { position: absolute; top: 20px; left: 20px; font-size: 40px; color: #b8860b; }
 </style>
 </head>
 <body>
 
-<div id="player-grid" style="display: contents;"></div>
+  <div id="pack-wrapper" onclick="openPack()">
+    <div class="pack" id="main-pack">
+      <h1 style="margin:0;">ULTIMATE</h1>
+      <p>HURLING</p>
+      <div style="font-size: 40px;">✨</div>
+    </div>
+    <p>KLIK OM TE OPENEN</p>
+  </div>
+
+  <div id="reveal-screen">
+    <div class="burst" id="flash"></div>
+    <div class="player-card" id="card">
+      <div class="rating">94</div>
+      <img src="https://via.placeholder.com/400x600?text=Cian+Lynch" class="player-img">
+      <div style="padding: 20px; text-align: center;">
+        <h2 style="margin:0; font-size: 30px;">Cian Lynch</h2>
+        <p style="color: #666;">LIMERICK | MIDFIELD</p>
+        <button onclick="resetPack()" style="padding:10px 20px; cursor:pointer; background:#ffd700; border:none; font-weight:bold; border-radius:5px;">SLUITEN</button>
+      </div>
+    </div>
+  </div>
 
 <script>
-  // STAP 1: Voeg hier simpelweg je spelers toe!
-  const players = [
-    {
-      name: "Cian Lynch",
-      team: "Limerick",
-      rating: 92,
-      img: "https://via.placeholder.com/250x180?text=Cian+Lynch", // Vervang door echte URL
-      stats: { PAC: 88, SHT: 85, PHY: 90, SKL: 95 }
-    },
-    {
-      name: "Joe Canning",
-      team: "Galway",
-      rating: 90,
-      img: "https://via.placeholder.com/250x180?text=Joe+Canning",
-      stats: { PAC: 82, SHT: 96, PHY: 86, SKL: 92 }
-    },
-    {
-      name: "T.J. Reid",
-      team: "Kilkenny",
-      rating: 91,
-      img: "https://via.placeholder.com/250x180?text=TJ+Reid",
-      stats: { PAC: 80, SHT: 98, PHY: 89, SKL: 94 }
-    }
-  ];
+  function openPack() {
+    const pack = document.getElementById('pack-wrapper');
+    const screen = document.getElementById('reveal-screen');
+    const card = document.getElementById('card');
+    const flash = document.getElementById('flash');
 
-  const grid = document.getElementById('player-grid');
+    // 1. Schud het pakje
+    pack.classList.add('shake');
 
-  // STAP 2: Dit script bouwt de kaarten op basis van de lijst hierboven
-  players.forEach(player => {
-    const cardHTML = `
-      <div class="card-container">
-        <div class="card-inner" onclick="this.classList.toggle('is-flipped')">
-          <div class="card-front">
-            <div style="font-size:40px">🏑</div>
-            <h3>OPEN PACK</h3>
-          </div>
-          <div class="card-back">
-            <div class="rating-badge">${player.rating}</div>
-            <img src="${player.img}" class="player-img" alt="${player.name}">
-            <h3 style="margin:10px 0 0 0">${player.name}</h3>
-            <small>${player.team}</small>
-            <div class="stats-grid">
-              <div>PAC: ${player.stats.PAC}</div>
-              <div>SHT: ${player.stats.SHT}</div>
-              <div>PHY: ${player.stats.PHY}</div>
-              <div>SKL: ${player.stats.SKL}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    grid.innerHTML += cardHTML;
-  });
+    // 2. Na een korte vertraging, doe de "flash" en toon de kaart
+    setTimeout(() => {
+      pack.style.display = 'none';
+      screen.style.display = 'flex';
+      flash.classList.add('flash-active');
+      
+      // 3. Laat de kaart binnenvliegen
+      setTimeout(() => {
+        card.classList.add('show');
+      }, 100);
+    }, 600);
+  }
+
+  function resetPack() {
+    location.reload(); // Simpele manier om terug naar het begin te gaan
+  }
 </script>
 
 </body>
