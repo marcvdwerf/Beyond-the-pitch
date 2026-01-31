@@ -2,131 +2,90 @@
 <html lang="nl">
 <head>
 <style>
-  :root {
-    --gold: #FFD700;
-    --rarity-glow: rgba(255, 215, 0, 0.6);
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f0f0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 50px; }
+
+  /* De Kaart Layout */
+  .card-container { width: 250px; height: 380px; perspective: 1000px; }
+  .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+  .card-inner.is-flipped { transform: rotateY(180deg); }
+
+  .card-front, .card-back { 
+    position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; 
+    border-radius: 15px; border: 4px solid #FFD700; box-shadow: 0 8px 15px rgba(0,0,0,0.2);
   }
 
-  .card-container {
-    width: 280px;
-    height: 400px;
-    perspective: 1000px;
-    margin: 50px auto;
-  }
+  /* Voorkant (Pakje) */
+  .card-front { background: linear-gradient(135deg, #2c3e50, #000); color: gold; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
-  .card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
-    cursor: pointer;
-  }
+  /* Achterkant (Speler) */
+  .card-back { background: white; transform: rotateY(180deg); padding: 10px; display: flex; flex-direction: column; align-items: center; }
+  
+  .player-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; background: #eee; }
+  .rating-badge { position: absolute; top: 10px; left: 10px; background: gold; padding: 5px 10px; border-radius: 50%; font-weight: bold; font-size: 18px; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; width: 100%; margin-top: 10px; font-size: 13px; text-align: left; border-top: 1px solid #eee; padding-top: 10px; }
 
-  /* De class die we met JavaScript toevoegen */
-  .card-inner.is-flipped {
-    transform: rotateY(180deg);
-  }
-
-  .card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 20px;
-    border: 5px solid var(--gold);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-
-  /* Voorkant: Het gesloten pakje */
-  .card-front {
-    background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-  }
-
-  /* Achterkant: De Hurling Speler */
-  .card-back {
-    background: white;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    box-sizing: border-box;
-    /* Extra glans effect voor de speler */
-    box-shadow: 0 0 20px var(--rarity-glow);
-  }
-
-  .player-image {
-    width: 100%;
-    height: 200px;
-    background: #eee; /* Hier komt je afbeelding */
-    border-radius: 10px;
-    margin-top: 10px;
-  }
-
-  .stats {
-    margin-top: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    font-weight: bold;
-  }
-
-  /* Simpele schud-animatie voor het pakje */
-  .card-inner:not(.is-flipped):hover {
-    animation: shake 0.5s infinite;
-  }
-
-  @keyframes shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(2deg); }
-    75% { transform: rotate(-2deg); }
-    100% { transform: rotate(0deg); }
-  }
+  /* Schud effect op hover */
+  .card-container:hover .card-inner:not(.is-flipped) { animation: shake 0.4s ease-in-out infinite; }
+  @keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(1deg); } 75% { transform: rotate(-1deg); } }
 </style>
 </head>
 <body>
 
-<div class="card-container">
-  <div class="card-inner" id="hurlingCard">
-    
-    <div class="card-front">
-      <div style="font-size: 60px;">🏆</div>
-      <h2>TIK OM TE OPENEN</h2>
-      <p>Hurling Stars 2026</p>
-    </div>
-
-    <div class="card-back">
-      <div style="font-size: 24px; font-weight: bold; text-align: left;">92</div>
-      <div class="player-image">
-         <img src="https://via.placeholder.com/250x200?text=SPELER+FOTO" alt="Player" style="width:100%; height:100%; border-radius:10px; object-fit:cover;">
-      </div>
-      <h2 style="margin: 10px 0 0 0;">Joe Canning</h2>
-      <p style="margin: 0; color: #777;">Galway | Forward</p>
-      
-      <div class="stats">
-        <div>ACC: 95</div>
-        <div>STR: 88</div>
-        <div>SPD: 82</div>
-        <div>SKL: 97</div>
-      </div>
-    </div>
-
-  </div>
-</div>
+<div id="player-grid" style="display: contents;"></div>
 
 <script>
-  const card = document.getElementById('hurlingCard');
-  
-  card.addEventListener('click', function() {
-    // Toggle de class 'is-flipped'
-    card.classList.toggle('is-flipped');
+  // STAP 1: Voeg hier simpelweg je spelers toe!
+  const players = [
+    {
+      name: "Cian Lynch",
+      team: "Limerick",
+      rating: 92,
+      img: "https://via.placeholder.com/250x180?text=Cian+Lynch", // Vervang door echte URL
+      stats: { PAC: 88, SHT: 85, PHY: 90, SKL: 95 }
+    },
+    {
+      name: "Joe Canning",
+      team: "Galway",
+      rating: 90,
+      img: "https://via.placeholder.com/250x180?text=Joe+Canning",
+      stats: { PAC: 82, SHT: 96, PHY: 86, SKL: 92 }
+    },
+    {
+      name: "T.J. Reid",
+      team: "Kilkenny",
+      rating: 91,
+      img: "https://via.placeholder.com/250x180?text=TJ+Reid",
+      stats: { PAC: 80, SHT: 98, PHY: 89, SKL: 94 }
+    }
+  ];
+
+  const grid = document.getElementById('player-grid');
+
+  // STAP 2: Dit script bouwt de kaarten op basis van de lijst hierboven
+  players.forEach(player => {
+    const cardHTML = `
+      <div class="card-container">
+        <div class="card-inner" onclick="this.classList.toggle('is-flipped')">
+          <div class="card-front">
+            <div style="font-size:40px">🏑</div>
+            <h3>OPEN PACK</h3>
+          </div>
+          <div class="card-back">
+            <div class="rating-badge">${player.rating}</div>
+            <img src="${player.img}" class="player-img" alt="${player.name}">
+            <h3 style="margin:10px 0 0 0">${player.name}</h3>
+            <small>${player.team}</small>
+            <div class="stats-grid">
+              <div>PAC: ${player.stats.PAC}</div>
+              <div>SHT: ${player.stats.SHT}</div>
+              <div>PHY: ${player.stats.PHY}</div>
+              <div>SKL: ${player.stats.SKL}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    grid.innerHTML += cardHTML;
   });
 </script>
 
