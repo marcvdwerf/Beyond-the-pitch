@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hurling Legends Unboxing</title>
+  <title>Hurling Legends | Ultimate Unboxing</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   
   <style>
@@ -11,12 +11,13 @@
       --gold: #d4af37;
       --gold-bright: #f9f295;
       --dark: #0a0a0a;
+      --card-white: rgba(255,255,255,0.95);
     }
 
     body { 
       background: var(--dark); 
       color: white; 
-      font-family: 'Segoe UI', Roboto, sans-serif; 
+      font-family: 'Montserrat', 'Segoe UI', sans-serif; 
       margin: 0; 
       overflow: hidden; 
       height: 100vh; 
@@ -26,7 +27,7 @@
       align-items: center; 
     }
 
-    /* Home Knop */
+    /* Home Button */
     .home-btn {
       position: absolute; top: 20px; left: 20px;
       padding: 12px 20px; background: rgba(255, 255, 255, 0.1);
@@ -37,60 +38,60 @@
     .home-btn:hover { background: var(--gold); color: black; border-color: white; }
 
     /* Pack Styling */
-    #pack-area { text-align: center; cursor: pointer; }
+    #pack-area { text-align: center; cursor: pointer; transition: 0.3s; }
     .pack {
       width: 220px; height: 320px;
-      background: linear-gradient(135deg, #222, #444);
+      background: linear-gradient(135deg, #1a1a1a, #333);
       border: 4px solid var(--gold); border-radius: 15px;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-      transition: transform 0.3s;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
     }
-    .pack:hover { transform: scale(1.05) rotate(1deg); }
-    .pack h2 { color: var(--gold); margin: 0; letter-spacing: 2px; }
+    .pack:hover { transform: scale(1.08) rotate(2deg); }
+    .pack h2 { color: var(--gold); margin: 0; letter-spacing: 3px; font-size: 24px; }
 
-    /* De Kaart (FIFA Style) */
+    /* The Legend Card */
     .card-to-download {
       width: 320px; height: 480px;
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 50%, var(--gold) 100%);
       border-radius: 20px; border: 6px solid #fff; position: relative;
       color: #111; display: none; overflow: hidden;
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 60px rgba(212, 175, 55, 0.6);
     }
 
-    /* Glimmer effect voor social media */
+    /* Shimmer effect for that premium look */
     .card-to-download::after {
       content: ""; position: absolute; top: -150%; left: -150%;
       width: 300%; height: 300%;
-      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: rotate(45deg); animation: shimmer 4s infinite;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: rotate(45deg); animation: shimmer 5s infinite;
     }
     @keyframes shimmer { 0% { top: -150%; left: -150%; } 100% { top: 150%; left: 150%; } }
 
-    .player-img { width: 100%; height: 260px; object-fit: cover; background: #ddd; border-bottom: 4px solid #fff; }
-    .card-content { padding: 15px; background: white; height: 100%; text-align: center; }
-    .rating-big { position: absolute; top: 15px; left: 15px; font-size: 50px; font-weight: 900; z-index: 10; }
+    .player-img { width: 100%; height: 260px; object-fit: cover; border-bottom: 4px solid #fff; }
+    .card-content { padding: 15px; background: var(--card-white); height: 100%; text-align: center; }
+    .rating-big { position: absolute; top: 15px; left: 15px; font-size: 55px; font-weight: 900; z-index: 10; color: #111; line-height: 1; }
 
-    /* Knoppen onder de kaart */
-    .controls { display: none; margin-top: 20px; gap: 10px; }
-    .btn { padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
-    .btn-next { background: var(--gold); color: black; }
-    .btn-save { background: #27ae60; color: white; }
+    /* Interaction Buttons */
+    .controls { display: none; margin-top: 25px; gap: 15px; }
+    .btn { padding: 14px 28px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.2s; }
+    .btn-next { background: var(--gold); color: black; text-transform: uppercase; }
+    .btn-save { background: #1da1f2; color: white; text-transform: uppercase; } /* Twitter/Social blue */
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
-    /* Special Flash voor 98+ ratings */
-    .epic-flash { animation: flashScreen 0.5s ease-out; }
+    /* Rare Card Flash Animation */
+    .epic-flash { animation: flashScreen 0.4s ease-out; }
     @keyframes flashScreen { 0% { background: white; } 100% { background: var(--dark); } }
   </style>
 </head>
 <body>
 
-  <a href="index.html" class="home-btn">🏠 Terug naar Home</a>
+  <a href="index.html" class="home-btn">🏠 Home</a>
 
-  <div id="pack-area" onclick="openPack()">
+  <div id="pack-area" onclick="revealLegend()">
     <div class="pack">
-      <div style="font-size: 50px; margin-bottom: 10px;">🏆</div>
+      <div style="font-size: 60px; margin-bottom: 10px;">⚡</div>
       <h2>LEGENDS</h2>
-      <p style="color:white; opacity:0.7;">TIK OM TE OPENEN</p>
+      <p style="color:white; opacity:0.8; font-size: 12px; margin-top: 10px;">TAP TO UNBOX</p>
     </div>
   </div>
 
@@ -98,37 +99,37 @@
     <div class="rating-big" id="cardRating">99</div>
     <img src="" id="cardImg" class="player-img">
     <div class="card-content">
-      <h2 id="cardName" style="margin:5px 0; font-size: 28px;">Naam</h2>
-      <p id="cardTeam" style="margin:0; color: #666; font-weight: bold;">TEAM</p>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; font-weight: 900; border-top: 1px solid #eee; padding-top: 15px;">
+      <h2 id="cardName" style="margin:5px 0; font-size: 28px; text-transform: uppercase;">Player Name</h2>
+      <p id="cardTeam" style="margin:0; color: #d4af37; font-weight: bold; font-size: 14px;">COUNTY</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; font-weight: 900; border-top: 2px solid #ddd; padding-top: 15px; font-size: 18px;">
         <div id="s1">PAC: 90</div><div id="s2">SHT: 90</div>
         <div id="s3">PHY: 90</div><div id="s4">SKL: 90</div>
       </div>
-      <p style="font-size: 10px; color: #ccc; margin-top: 10px;">Gemaakt op JouwWebsite.nl</p>
+      
+      <p style="font-size: 10px; color: #999; margin-top: 15px; letter-spacing: 1px;">HURLINGLEGENDS.COM</p>
     </div>
   </div>
 
   <div class="controls" id="controls">
-    <button class="btn btn-next" onclick="location.reload()">VOLGENDE PACK</button>
-    <button class="btn btn-save" onclick="downloadImage()">DOWNLOAD VOOR SOCIALS</button>
+    <button class="btn btn-next" onclick="location.reload()">Next Pack</button>
+    <button class="btn btn-save" onclick="downloadImage()">Download Card</button>
   </div>
 
 <script>
-  // De Database met 30 Legends (voorbeeldset, makkelijk aan te vullen)
+  // Legend Database (Expand this to 30+)
   const legends = [
     { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [92, 99, 94, 97], img: "https://via.placeholder.com/320x260?text=Henry+Shefflin" },
     { name: "Christy Ring", team: "Cork", rat: 99, stats: [90, 99, 98, 99], img: "https://via.placeholder.com/320x260?text=Christy+Ring" },
     { name: "Joe Canning", team: "Galway", rat: 96, stats: [88, 97, 92, 98], img: "https://via.placeholder.com/320x260?text=Joe+Canning" },
     { name: "Eddie Keher", team: "Kilkenny", rat: 97, stats: [85, 99, 88, 96], img: "https://via.placeholder.com/320x260?text=Eddie+Keher" },
-    { name: "DJ Carey", team: "Kilkenny", rat: 96, stats: [95, 94, 85, 98], img: "https://via.placeholder.com/320x260?text=DJ+Carey" },
-    { name: "Nicky Rackard", team: "Wexford", rat: 95, stats: [82, 98, 96, 91], img: "https://via.placeholder.com/320x260?text=Nicky+Rackard" }
-    // Voeg hier de rest van je 30 namen toe...
+    { name: "DJ Carey", team: "Kilkenny", rat: 96, stats: [95, 94, 85, 98], img: "https://via.placeholder.com/320x260?text=DJ+Carey" }
   ];
 
-  function openPack() {
+  function revealLegend() {
     const random = legends[Math.floor(Math.random() * legends.length)];
     
-    // Update de kaart info
+    // Fill Card Data
     document.getElementById('cardName').innerText = random.name;
     document.getElementById('cardTeam').innerText = random.team.toUpperCase();
     document.getElementById('cardRating').innerText = random.rat;
@@ -138,15 +139,16 @@
     document.getElementById('s3').innerText = "PHY: " + random.stats[2];
     document.getElementById('s4').innerText = "SKL: " + random.stats[3];
 
-    // Animatie volgorde
+    // Trigger visual effects
     if(random.rat >= 98) document.body.classList.add('epic-flash');
 
+    // UI State Change
     document.getElementById('pack-area').style.display = 'none';
     document.getElementById('legendCard').style.display = 'block';
     
     setTimeout(() => {
       document.getElementById('controls').style.display = 'flex';
-    }, 500);
+    }, 400);
   }
 
   function downloadImage() {
