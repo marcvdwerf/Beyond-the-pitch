@@ -46,20 +46,32 @@
       background: rgba(0,0,0,0.6); display: inline-block;
     }
 
-    /* Pack Area */
+    /* Premium Pack Styling */
     #pack-area { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+    
     .pack-glow {
-      position: absolute; width: 300px; height: 300px;
+      position: absolute; width: 350px; height: 350px;
       background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
       z-index: -1; animation: pulseGlow 3s infinite alternate;
     }
-    .pack {
-      width: 220px; height: 310px;
-      background: linear-gradient(145deg, #1a1a1a, #000);
-      border: 2px solid var(--gold); border-radius: 12px;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-      animation: float 4s ease-in-out infinite;
+
+    .pack-wrapper {
+      position: relative; width: 240px; height: 350px;
+      transition: 0.4s; animation: float 4s ease-in-out infinite;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .pack-visual {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 12px; border: 2px solid var(--gold);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+    }
+
+    .pack-label {
+      position: absolute; bottom: 20px; background: rgba(0,0,0,0.85);
+      width: 85%; padding: 12px; text-align: center;
+      border-radius: 8px; border: 1px solid var(--gold);
+      backdrop-filter: blur(8px);
     }
 
     /* Card 3D Flip */
@@ -77,28 +89,28 @@
     .rating-big { position: absolute; top: 40px; left: 25px; font-size: 60px; font-family: 'Orbitron'; font-weight: 900; z-index: 10; }
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; font-weight: 700; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 10px; font-size: 18px; }
 
-    /* UI Elements */
+    /* UI & Animations */
     .controls { display: none; margin-top: 20px; gap: 10px; flex-wrap: wrap; justify-content: center; }
     .btn { padding: 12px 20px; border: none; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.3s; clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%); }
     .btn-next { background: var(--gold); color: black; }
     .btn-save { background: #fff; color: black; }
     .btn-share { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
 
-    #out-of-credits { display: none; text-align: center; background: rgba(0,0,0,0.8); padding: 40px; border-radius: 15px; border: 1px solid var(--gold); }
+    #out-of-credits { display: none; text-align: center; background: rgba(0,0,0,0.85); padding: 40px; border-radius: 15px; border: 2px solid var(--gold); z-index: 2000; }
     
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
     @keyframes pulseGlow { from { transform: scale(0.8); opacity: 0.4; } to { transform: scale(1.2); opacity: 0.7; } }
-    #flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; opacity: 0; pointer-events: none; z-index: 2000; }
+    #flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; opacity: 0; pointer-events: none; z-index: 3000; }
     .flash-trigger { animation: flashEffect 0.8s ease-out; }
     @keyframes flashEffect { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
-    .shake-active { animation: shake 0.1s infinite !important; }
-    @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-2px, -1px); } }
+    .shake-active { animation: shake 0.15s infinite !important; }
+    @keyframes shake { 0% { transform: translate(2px, 2px); } 50% { transform: translate(-3px, -1px); } }
   </style>
 </head>
 <body>
 
   <div id="flash-overlay"></div>
-  <a href="index.html" class="home-btn">🏠 Home</a>
+  <a href="/gaelic-games.html" class="home-btn">🏠 Home</a>
 
   <div class="header-info">
     <div class="credits-display">CREDITS: <span id="credit-count">3</span> / 3</div>
@@ -106,16 +118,18 @@
 
   <div id="out-of-credits">
     <h2 style="font-family: 'Orbitron'; color: var(--gold);">LIMIT REACHED</h2>
-    <p>You have used your 3 premium credits.</p>
+    <p>Premium credits exhausted for this session.</p>
     <button class="btn btn-next" onclick="location.reload()">RELOAD PACKS</button>
   </div>
 
   <div id="pack-area" onclick="initiateOpening()">
     <div class="pack-glow"></div>
-    <div class="pack" id="main-pack">
-      <div style="font-size: 50px;">🏆</div>
-      <h2 style="font-family: 'Orbitron'; color: var(--gold);">LEGEND PACK</h2>
-      <p id="status-text" style="opacity:0.6;">TAP TO UNLOCK</p>
+    <div id="main-pack" class="pack-wrapper">
+      <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Gemini_Generated_Image_6u7vqk6u7vqk6u7v.png" class="pack-visual">
+      <div class="pack-label">
+        <h2 style="font-family: 'Orbitron'; color: var(--gold); margin: 0; font-size: 18px;">LEGEND PACK</h2>
+        <p id="status-text" style="opacity:0.8; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 2px;">TAP TO UNLOCK</p>
+      </div>
     </div>
   </div>
 
