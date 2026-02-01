@@ -27,158 +27,113 @@
       align-items: center; 
     }
 
-    .home-btn {
-      position: absolute; top: 20px; left: 20px;
-      padding: 10px 25px; background: rgba(255, 255, 255, 0.05);
-      color: white; text-decoration: none; border-radius: 5px;
-      border: 1px solid var(--gold);
-      font-weight: bold; transition: 0.3s; z-index: 1000;
-      text-transform: uppercase; letter-spacing: 1px;
+    /* Premium Header */
+    .header-info {
+      position: absolute; top: 30px; text-align: center; width: 100%;
     }
-    .home-btn:hover { background: var(--gold); color: black; }
-
-    /* Container for 3D flip */
-    #card-container {
-      perspective: 1000px;
-      display: none;
-      width: 340px;
-      height: 500px;
+    .credits-display {
+      font-family: 'Orbitron'; color: var(--gold); font-size: 18px;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+      border: 1px solid var(--gold); padding: 5px 20px; border-radius: 20px;
+      display: inline-block; background: rgba(0,0,0,0.5);
     }
 
-    .card-inner {
+    /* Pack Area Styling */
+    #pack-area {
       position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-style: preserve-3d;
-    }
-
-    /* Flip animation class */
-    .is-flipped { transform: rotateY(180deg); }
-
-    /* Generic Card Face */
-    .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 15px;
-      border: 6px solid #fff;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    }
-
-    /* BACK SIDE (Logo) */
-    .card-back {
-      background: linear-gradient(135deg, #222 0%, #000 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 6px solid var(--gold);
-    }
-
-    .card-back img {
-      width: 200px;
-      filter: drop-shadow(0 0 10px var(--gold));
-    }
-
-    /* FRONT SIDE (Player) */
-    .card-front {
-      background: linear-gradient(135deg, #b8860b 0%, #fbdf93 50%, #b8860b 100%);
-      color: #111;
-      transform: rotateY(180deg);
-    }
-
-    .player-img { 
-      width: 100%; height: 300px;
-      object-fit: contain;
-      position: relative; z-index: 2;
-      margin-top: 10px;
-    }
-
-    .card-content { 
-      padding: 15px 25px; text-align: center;
-      background: rgba(255, 255, 255, 0.9);
-      position: relative; z-index: 3; height: 100%;
-    }
-
-    .rating-big { 
-      position: absolute; top: 40px; left: 25px; 
-      font-size: 60px; font-family: 'Orbitron', sans-serif; 
-      font-weight: 900; z-index: 10;
-    }
-
-    .stats-grid {
-      display: grid; grid-template-columns: 1fr 1fr; 
-      gap: 5px; margin-top: 5px; font-weight: 700;
-      border-top: 2px solid rgba(0,0,0,0.1); padding-top: 10px;
-      font-size: 18px;
-    }
-
-    /* Pack and Animations */
-    .pack {
-      width: 220px; height: 320px;
-      background: linear-gradient(135deg, #111 0%, #222 100%);
-      border: 2px solid var(--gold); border-radius: 10px;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      display: flex; flex-direction: column; align-items: center;
       cursor: pointer;
     }
 
-    .shake-active { animation: shake 0.1s infinite; }
-    .glow-active { animation: intenseGlow 5s forwards; }
-
-    @keyframes shake {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      50% { transform: translate(-2px, -1px) rotate(-1deg); }
-      100% { transform: translate(1px, 2px) rotate(1deg); }
+    /* Gouden gloed achter het pakket */
+    .pack-glow {
+      position: absolute; width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+      border-radius: 50%; z-index: -1; animation: pulseGlow 3s infinite alternate;
     }
 
-    @keyframes intenseGlow {
-      0% { box-shadow: 0 0 20px var(--gold); }
-      100% { box-shadow: 0 0 150px var(--gold-bright); transform: scale(1.05); }
+    .pack {
+      width: 220px; height: 320px;
+      background: linear-gradient(145deg, #1a1a1a, #000);
+      border: 2px solid var(--gold); border-radius: 12px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,1), inset 0 0 20px rgba(212, 175, 55, 0.1);
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: float 4s ease-in-out infinite;
+    }
+    .pack:hover { transform: scale(1.05) translateY(-10px); border-color: var(--gold-bright); }
+
+    @keyframes float { 
+      0%, 100% { transform: translateY(0); } 
+      50% { transform: translateY(-15px); } 
+    }
+    @keyframes pulseGlow {
+      from { transform: scale(0.8); opacity: 0.4; }
+      to { transform: scale(1.3); opacity: 0.8; }
     }
 
-    #flash-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: white; opacity: 0; pointer-events: none; z-index: 2000;
+    /* Out of Credits screen */
+    #out-of-credits {
+      display: none; text-align: center;
+      animation: fadeIn 0.5s forwards;
     }
+    #out-of-credits h2 { font-family: 'Orbitron'; color: var(--gold); }
+
+    /* The Card Styles (Same as before) */
+    #card-container { perspective: 1000px; display: none; width: 340px; height: 500px; }
+    .card-inner { position: relative; width: 100%; height: 100%; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+    .is-flipped { transform: rotateY(180deg); }
+    .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; border: 6px solid #fff; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+    .card-back { background: linear-gradient(135deg, #222 0%, #000 100%); display: flex; justify-content: center; align-items: center; border: 6px solid var(--gold); }
+    .card-back img { width: 180px; filter: drop-shadow(0 0 10px var(--gold)); }
+    .card-front { background: linear-gradient(135deg, #b8860b 0%, #fbdf93 50%, #b8860b 100%); color: #111; transform: rotateY(180deg); }
+    .player-img { width: 100%; height: 300px; object-fit: contain; margin-top: 10px; position: relative; z-index: 2; }
+    .card-content { padding: 15px 25px; text-align: center; background: rgba(255, 255, 255, 0.9); position: relative; z-index: 3; height: 100%; }
+    .rating-big { position: absolute; top: 40px; left: 25px; font-size: 60px; font-family: 'Orbitron'; font-weight: 900; z-index: 10; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; font-weight: 700; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 10px; font-size: 18px; }
+
+    /* Animations & Controls */
+    .shake-active { animation: shake 0.1s infinite !important; }
+    .glow-active { box-shadow: 0 0 100px var(--gold-bright) !important; transition: 5s; }
+    @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-2px, -1px); } 100% { transform: translate(1px, 2px); } }
+    #flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; opacity: 0; pointer-events: none; z-index: 2000; }
     .flash-trigger { animation: flashEffect 0.8s ease-out; }
     @keyframes flashEffect { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
-
-    .controls { display: none; margin-top: 25px; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .btn { 
-      padding: 12px 20px; border: none; font-family: 'Orbitron', sans-serif;
-      font-weight: bold; cursor: pointer; transition: 0.3s; 
-      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-      font-size: 14px;
-    }
+    .controls { display: none; margin-top: 25px; gap: 10px; z-index: 100; }
+    .btn { padding: 12px 20px; border: none; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.3s; clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%); }
     .btn-next { background: var(--gold); color: black; }
     .btn-save { background: #fff; color: black; }
-    .btn-share { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; }
   </style>
 </head>
 <body>
 
   <div id="flash-overlay"></div>
-  <a href="/gaelic-games.html" class="home-btn">🏠 Home</a>
+
+  <div class="header-info">
+    <h1 style="font-family: 'Orbitron'; font-size: 14px; letter-spacing: 4px; color: #666; margin-bottom: 10px;">ULTIMATE COLLECTION</h1>
+    <div class="credits-display">CREDITS: <span id="credit-count">3</span></div>
+  </div>
+
+  <div id="out-of-credits">
+    <h2>LIMIT REACHED</h2>
+    <p>You've used all your premium credits for today.</p>
+    <button class="btn btn-next" onclick="location.reload()">REFRESH PACKS</button>
+  </div>
 
   <div id="pack-area" onclick="initiateOpening()">
+    <div class="pack-glow"></div>
     <div class="pack" id="main-pack">
-      <div style="font-size: 60px;">⚡</div>
-      <h2 style="font-family: 'Orbitron', sans-serif; color: var(--gold);">LEGENDS</h2>
-      <p id="status-text" style="opacity:0.6; letter-spacing: 2px;">TAP TO REVEAL</p>
+      <div style="font-size: 50px; filter: drop-shadow(0 0 10px var(--gold));">🏆</div>
+      <h2 style="font-family: 'Orbitron'; color: var(--gold); letter-spacing: 2px;">LEGEND PACK</h2>
+      <p id="status-text" style="opacity:0.6; font-size: 12px; letter-spacing: 3px;">CLICK TO UNLOCK</p>
     </div>
   </div>
 
   <div id="card-container">
     <div class="card-inner" id="cardInner">
-      
       <div class="card-face card-back">
          <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" alt="Logo">
       </div>
-
       <div class="card-face card-front" id="legendCard">
         <div class="rating-big" id="cardRating">99</div>
         <img src="" id="cardImg" class="player-img">
@@ -192,17 +147,16 @@
           <p style="font-size: 10px; font-weight: bold; margin-top: 15px; opacity: 0.8;">TRAVELBEYONDTHEPITCH.COM</p>
         </div>
       </div>
-
     </div>
   </div>
 
   <div class="controls" id="controls">
-    <button class="btn btn-next" onclick="location.reload()">AGAIN</button>
+    <button class="btn btn-next" id="btn-again" onclick="tryAgain()">OPEN NEXT</button>
     <button class="btn btn-save" onclick="downloadImage()">SAVE PNG</button>
-    <button class="btn btn-share" onclick="shareToStory()">SHARE TO STORY</button>
   </div>
 
 <script>
+let credits = 3;
 const legends = [
   { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [88, 99, 94, 97], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/henry%20shefflin.jpg" },
   { name: "Christy Ring", team: "Cork", rat: 99, stats: [91, 99, 98, 99], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/christy%20ring.jpg" },
@@ -229,30 +183,31 @@ const legends = [
   { name: "Cyril Farrell", team: "Galway", rat: 90, stats: [80, 85, 88, 92], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Cyril%20farrell.jpg" },
   { name: "Jack Lynch", team: "Cork", rat: 94, stats: [85, 89, 90, 94], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Jack%20Lynch.jpg" },
   { name: "Frank Cummins", team: "Kilkenny", rat: 93, stats: [82, 84, 96, 89], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Frank%20cummins.jpg" },
-  { name: "Tony Doran", team: "Wexford", rat: 91, stats: [78, 92, 95, 84], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Tommy%20Walsh.jpg" }
+  { name: "Tony Doran", team: "Wexford", rat: 91, stats: [78, 92, 95, 84], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Tony%20Doran.jpg" }
 ];
 
 function initiateOpening() {
+  if (credits <= 0) return;
+  
+  credits--;
+  document.getElementById('credit-count').innerText = credits;
+  
   const pack = document.getElementById('main-pack');
   const status = document.getElementById('status-text');
   const flash = document.getElementById('flash-overlay');
 
   document.getElementById('pack-area').onclick = null;
-  status.innerText = "GETTING READY...";
+  status.innerText = "OPENING...";
   pack.classList.add('shake-active', 'glow-active');
 
   setTimeout(() => {
     flash.classList.add('flash-trigger');
-    setTimeout(() => {
-      revealLegend();
-    }, 400);
-  }, 5000); 
+    setTimeout(revealLegend, 400);
+  }, 4000); 
 }
 
 function revealLegend() {
   const random = legends[Math.floor(Math.random() * legends.length)];
-  
-  // Fill data
   document.getElementById('cardName').innerText = random.name;
   document.getElementById('cardTeam').innerText = random.team.toUpperCase();
   document.getElementById('cardRating').innerText = random.rat;
@@ -262,18 +217,32 @@ function revealLegend() {
   document.getElementById('s3').innerText = "PHY: " + random.stats[2];
   document.getElementById('s4').innerText = "SKL: " + random.stats[3];
 
-  // Hide pack and show container
   document.getElementById('pack-area').style.display = 'none';
-  const container = document.getElementById('card-container');
-  container.style.display = 'block';
+  document.getElementById('card-container').style.display = 'block';
 
-  // Trigger the flip and show controls
   setTimeout(() => {
     document.getElementById('cardInner').classList.add('is-flipped');
     setTimeout(() => {
       document.getElementById('controls').style.display = 'flex';
-    }, 1000);
+    }, 1200);
   }, 100);
+}
+
+function tryAgain() {
+  if (credits > 0) {
+    // Reset views
+    document.getElementById('cardInner').classList.remove('is-flipped');
+    document.getElementById('card-container').style.display = 'none';
+    document.getElementById('controls').style.display = 'none';
+    document.getElementById('pack-area').style.display = 'flex';
+    document.getElementById('pack-area').onclick = initiateOpening;
+    document.getElementById('main-pack').classList.remove('shake-active', 'glow-active');
+    document.getElementById('status-text').innerText = "CLICK TO UNLOCK";
+  } else {
+    document.getElementById('card-container').style.display = 'none';
+    document.getElementById('controls').style.display = 'none';
+    document.getElementById('out-of-credits').style.display = 'block';
+  }
 }
 
 function downloadImage() {
@@ -283,28 +252,6 @@ function downloadImage() {
     link.download = `Legend_${document.getElementById('cardName').innerText}.png`;
     link.href = canvas.toDataURL();
     link.click();
-  });
-}
-
-async function shareToStory() {
-  const card = document.getElementById('legendCard');
-  const canvas = await html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true });
-  
-  canvas.toBlob(async (blob) => {
-    const file = new File([blob], 'LegendCard.png', { type: 'image/png' });
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          files: [file],
-          title: 'My Hurling Legend',
-          text: 'Check out my Ultimate Hurling Legend Card! #BeyondThePitch'
-        });
-      } catch (err) {
-        console.error("Share failed:", err);
-      }
-    } else {
-      alert("Please save the image manually to share.");
-    }
   });
 }
 </script>
