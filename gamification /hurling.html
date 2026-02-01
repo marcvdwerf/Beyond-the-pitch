@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hurling Legends | Ultimate Unboxing</title>
+  <title>Hurling Legends | Premium Unboxing</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --gold: #d4af37;
       --gold-bright: #f9f295;
-      --dark: #0a0a0a;
-      --card-white: rgba(255,255,255,0.95);
+      --dark: #050505;
+      --card-white: rgba(255,255,255,0.9);
     }
 
     body { 
-      background: var(--dark); 
+      background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%); 
       color: white; 
-      font-family: 'Montserrat', sans-serif; 
+      font-family: 'Rajdhani', sans-serif; 
       margin: 0; 
       overflow: hidden; 
       height: 100vh; 
@@ -27,72 +28,94 @@
       align-items: center; 
     }
 
-    /* Home Button */
     .home-btn {
       position: absolute; top: 20px; left: 20px;
-      padding: 12px 20px; background: rgba(255, 255, 255, 0.1);
-      color: white; text-decoration: none; border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 25px; background: rgba(255, 255, 255, 0.05);
+      color: white; text-decoration: none; border-radius: 5px;
+      border: 1px solid var(--gold);
       font-weight: bold; transition: 0.3s; z-index: 1000;
+      text-transform: uppercase; letter-spacing: 1px;
     }
+    .home-btn:hover { background: var(--gold); color: black; }
 
-    /* Pack Styling & Animations */
-    #pack-area { text-align: center; cursor: pointer; position: relative; }
-    
+    /* Pack Styling */
     .pack {
       width: 220px; height: 320px;
-      background: linear-gradient(135deg, #1a1a1a, #333);
-      border: 4px solid var(--gold); border-radius: 15px;
+      background: linear-gradient(135deg, #111 0%, #222 100%);
+      border: 2px solid var(--gold); border-radius: 10px;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
-      position: relative;
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      position: relative; transition: 0.4s;
+      cursor: pointer;
+    }
+    .pack h2 { font-family: 'Orbitron', sans-serif; color: var(--gold); margin: 10px 0; }
+
+    /* The Legend Card - Shield Shape */
+    .card-to-download {
+      width: 340px; height: 500px;
+      background: linear-gradient(135deg, #b8860b 0%, #fbdf93 50%, #b8860b 100%);
+      clip-path: polygon(50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%, 0% 15%);
+      position: relative; color: #111; display: none;
+      animation: cardEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* Intense Shake Animation */
+    @keyframes cardEntrance {
+      from { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+      to { transform: scale(1) rotateY(0deg); opacity: 1; }
+    }
+
+    .player-img { 
+      width: 100%; height: 280px; object-fit: cover; 
+      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    }
+
+    .card-content { padding: 10px 30px; text-align: center; }
+
+    .rating-big { 
+      position: absolute; top: 45px; left: 35px; 
+      font-size: 60px; font-family: 'Orbitron', sans-serif; 
+      font-weight: 900; line-height: 0.8;
+    }
+
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; 
+      gap: 5px; margin-top: 10px; font-weight: 700;
+      border-top: 2px solid rgba(0,0,0,0.1); padding-top: 10px;
+      font-size: 18px;
+    }
+
+    /* Animations */
     .shake-active { animation: shake 0.1s infinite; }
     .glow-active { animation: intenseGlow 5s forwards; }
 
     @keyframes shake {
       0% { transform: translate(1px, 1px) rotate(0deg); }
-      20% { transform: translate(-3px, 0px) rotate(-1deg); }
-      40% { transform: translate(1px, -1px) rotate(1deg); }
-      60% { transform: translate(-3px, 1px) rotate(0deg); }
-      80% { transform: translate(1px, 1px) rotate(-1deg); }
-      100% { transform: translate(-1px, -2px) rotate(1deg); }
+      50% { transform: translate(-2px, -1px) rotate(-1deg); }
+      100% { transform: translate(1px, 2px) rotate(1deg); }
     }
 
     @keyframes intenseGlow {
       0% { box-shadow: 0 0 20px var(--gold); }
-      50% { box-shadow: 0 0 60px var(--gold-bright); }
-      100% { box-shadow: 0 0 150px white; transform: scale(1.1); }
+      100% { box-shadow: 0 0 150px var(--gold-bright); transform: scale(1.05); }
     }
 
-    /* Screen Flash */
     #flash-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: white; opacity: 0; pointer-events: none; z-index: 2000;
     }
-    .flash-trigger { animation: flashEffect 0.6s ease-out; }
+    .flash-trigger { animation: flashEffect 0.8s ease-out; }
     @keyframes flashEffect { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
-    /* The Legend Card */
-    .card-to-download {
-      width: 320px; height: 480px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 50%, var(--gold) 100%);
-      border-radius: 20px; border: 6px solid #fff; position: relative;
-      color: #111; display: none; overflow: hidden;
-      box-shadow: 0 0 60px rgba(212, 175, 55, 0.6);
-      z-index: 5;
-    }
-
-    .player-img { width: 100%; height: 260px; object-fit: cover; border-bottom: 4px solid #fff; }
-    .card-content { padding: 15px; background: var(--card-white); height: 100%; text-align: center; }
-    .rating-big { position: absolute; top: 15px; left: 15px; font-size: 55px; font-weight: 900; z-index: 10; color: #111; }
-
     .controls { display: none; margin-top: 25px; gap: 15px; }
-    .btn { padding: 14px 28px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+    .btn { 
+      padding: 12px 30px; border: none; font-family: 'Orbitron', sans-serif;
+      font-weight: bold; cursor: pointer; transition: 0.3s; 
+      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+    }
     .btn-next { background: var(--gold); color: black; }
-    .btn-save { background: #1da1f2; color: white; }
+    .btn-save { background: #fff; color: black; }
+    .btn:hover { transform: scale(1.1); }
   </style>
 </head>
 <body>
@@ -102,9 +125,9 @@
 
   <div id="pack-area" onclick="initiateOpening()">
     <div class="pack" id="main-pack">
-      <div style="font-size: 60px; margin-bottom: 10px;">⚡</div>
+      <div style="font-size: 60px;">⚡</div>
       <h2>LEGENDS</h2>
-      <p id="status-text" style="color:white; opacity:0.8; font-size: 12px; margin-top: 10px;">TAP TO UNBOX</p>
+      <p id="status-text" style="opacity:0.6; letter-spacing: 2px;">TAP TO REVEAL</p>
     </div>
   </div>
 
@@ -112,23 +135,23 @@
     <div class="rating-big" id="cardRating">99</div>
     <img src="" id="cardImg" class="player-img">
     <div class="card-content">
-      <h2 id="cardName" style="margin:5px 0; font-size: 28px; text-transform: uppercase;">Player Name</h2>
-      <p id="cardTeam" style="margin:0; color: #d4af37; font-weight: bold; font-size: 14px;">COUNTY</p>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; font-weight: 900; border-top: 2px solid #ddd; padding-top: 15px; font-size: 18px;">
+      <h2 id="cardName" style="margin:0; font-size: 28px; font-family: 'Orbitron';">NAME</h2>
+      <p id="cardTeam" style="margin:0; font-weight: bold; color: #333; letter-spacing: 2px;">COUNTY</p>
+      <div class="stats-grid">
         <div id="s1">PAC: 90</div><div id="s2">SHT: 90</div>
         <div id="s3">PHY: 90</div><div id="s4">SKL: 90</div>
       </div>
-      <p style="font-size: 10px; color: #999; margin-top: 15px;">HURLINGLEGENDS.COM</p>
+      <p style="font-size: 10px; font-weight: bold; margin-top: 15px; opacity: 0.6; letter-spacing: 1px;">TRAVELBEYONDTHEPITCH.COM</p>
     </div>
   </div>
 
   <div class="controls" id="controls">
-    <button class="btn btn-next" onclick="location.reload()">Next Pack</button>
-    <button class="btn btn-save" onclick="downloadImage()">Download Card</button>
+    <button class="btn btn-next" onclick="location.reload()">AGAIN</button>
+    <button class="btn btn-save" onclick="downloadImage()">SAVE PNG</button>
   </div>
 
 <script>
- const legends = [
+const legends = [
   { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [88, 99, 94, 97], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/henry%20shefflin.jpg" },
   { name: "Christy Ring", team: "Cork", rat: 99, stats: [91, 99, 98, 99], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/christy%20ring.jpg" },
   { name: "Joe Canning", team: "Galway", rat: 96, stats: [82, 98, 92, 98], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Joe%20canning.jpg" },
@@ -157,55 +180,52 @@
   { name: "Tony Doran", team: "Wexford", rat: 91, stats: [78, 92, 95, 84], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Tommy%20Walsh.jpg" }
 ];
 
-  function initiateOpening() {
-    const pack = document.getElementById('main-pack');
-    const status = document.getElementById('status-text');
-    const flash = document.getElementById('flash-overlay');
+function initiateOpening() {
+  const pack = document.getElementById('main-pack');
+  const status = document.getElementById('status-text');
+  const flash = document.getElementById('flash-overlay');
 
-    // Start build-up
-    document.getElementById('pack-area').onclick = null; // Disable multiple clicks
-    status.innerText = "OPENING...";
-    pack.classList.add('shake-active', 'glow-active');
+  document.getElementById('pack-area').onclick = null;
+  status.innerText = "GETTING READY...";
+  pack.classList.add('shake-active', 'glow-active');
 
-    // 5 seconds build-up
+  setTimeout(() => {
+    flash.classList.add('flash-trigger');
     setTimeout(() => {
-      flash.classList.add('flash-trigger');
-      
-      setTimeout(() => {
-        revealLegend();
-      }, 300); // Reveal card during the peak of the flash
-    }, 5000); 
-  }
+      revealLegend();
+    }, 400);
+  }, 5000); 
+}
 
-  function revealLegend() {
-    const random = legends[Math.floor(Math.random() * legends.length)];
-    
-    document.getElementById('cardName').innerText = random.name;
-    document.getElementById('cardTeam').innerText = random.team.toUpperCase();
-    document.getElementById('cardRating').innerText = random.rat;
-    document.getElementById('cardImg').src = random.img;
-    document.getElementById('s1').innerText = "PAC: " + random.stats[0];
-    document.getElementById('s2').innerText = "SHT: " + random.stats[1];
-    document.getElementById('s3').innerText = "PHY: " + random.stats[2];
-    document.getElementById('s4').innerText = "SKL: " + random.stats[3];
+function revealLegend() {
+  const random = legends[Math.floor(Math.random() * legends.length)];
+  
+  document.getElementById('cardName').innerText = random.name;
+  document.getElementById('cardTeam').innerText = random.team.toUpperCase();
+  document.getElementById('cardRating').innerText = random.rat;
+  document.getElementById('cardImg').src = random.img;
+  document.getElementById('s1').innerText = "PAC: " + random.stats[0];
+  document.getElementById('s2').innerText = "SHT: " + random.stats[1];
+  document.getElementById('s3').innerText = "PHY: " + random.stats[2];
+  document.getElementById('s4').innerText = "SKL: " + random.stats[3];
 
-    document.getElementById('pack-area').style.display = 'none';
-    document.getElementById('legendCard').style.display = 'block';
-    
-    setTimeout(() => {
-      document.getElementById('controls').style.display = 'flex';
-    }, 500);
-  }
+  document.getElementById('pack-area').style.display = 'none';
+  document.getElementById('legendCard').style.display = 'block';
+  
+  setTimeout(() => {
+    document.getElementById('controls').style.display = 'flex';
+  }, 600);
+}
 
-  function downloadImage() {
-    const card = document.getElementById('legendCard');
-    html2canvas(card).then(canvas => {
-      const link = document.createElement('a');
-      link.download = `Legend_${document.getElementById('cardName').innerText}.png`;
-      link.href = canvas.toDataURL();
-      link.click();
-    });
-  }
+function downloadImage() {
+  const card = document.getElementById('legendCard');
+  html2canvas(card, { backgroundColor: null, scale: 2 }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = `Legend_${document.getElementById('cardName').innerText}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
 </script>
 </body>
 </html>
