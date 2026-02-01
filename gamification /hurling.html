@@ -12,7 +12,6 @@
       --gold: #d4af37;
       --gold-bright: #f9f295;
       --dark: #050505;
-      --card-white: rgba(255,255,255,0.9);
     }
 
     body { 
@@ -45,18 +44,31 @@
       border: 2px solid var(--gold); border-radius: 10px;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       box-shadow: 0 0 50px rgba(0,0,0,0.8);
-      position: relative; transition: 0.4s;
-      cursor: pointer;
+      cursor: pointer; position: relative;
     }
     .pack h2 { font-family: 'Orbitron', sans-serif; color: var(--gold); margin: 10px 0; }
 
-    /* The Legend Card - Shield Shape */
+    /* The Legend Card */
     .card-to-download {
       width: 340px; height: 500px;
       background: linear-gradient(135deg, #b8860b 0%, #fbdf93 50%, #b8860b 100%);
-      clip-path: polygon(50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%, 0% 15%);
+      border-radius: 15px; border: 6px solid #fff;
       position: relative; color: #111; display: none;
+      overflow: hidden;
       animation: cardEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+
+    /* Logo Watermerk op achtergrond */
+    .card-to-download::before {
+      content: "";
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      /* VERVANG DE URL HIERONDER DOOR JE EIGEN LOGO LINK */
+      background-image: url('https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/logo.png'); 
+      background-size: 80px;
+      background-repeat: repeat;
+      opacity: 0.08; /* Subtiel zichtbaar */
+      pointer-events: none;
     }
 
     @keyframes cardEntrance {
@@ -65,27 +77,32 @@
     }
 
     .player-img { 
-      width: 100%; height: 280px; object-fit: cover; 
-      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      width: 100%; height: 300px;
+      object-fit: contain; /* Foto volledig zichtbaar */
+      position: relative; z-index: 2;
+      margin-top: 10px;
     }
 
-    .card-content { padding: 10px 30px; text-align: center; }
+    .card-content { 
+      padding: 15px 25px; text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      position: relative; z-index: 3; height: 100%;
+    }
 
     .rating-big { 
-      position: absolute; top: 45px; left: 35px; 
+      position: absolute; top: 40px; left: 25px; 
       font-size: 60px; font-family: 'Orbitron', sans-serif; 
-      font-weight: 900; line-height: 0.8;
+      font-weight: 900; z-index: 10;
     }
 
     .stats-grid {
       display: grid; grid-template-columns: 1fr 1fr; 
-      gap: 5px; margin-top: 10px; font-weight: 700;
+      gap: 5px; margin-top: 5px; font-weight: 700;
       border-top: 2px solid rgba(0,0,0,0.1); padding-top: 10px;
       font-size: 18px;
     }
 
-    /* Animations */
+    /* Build-up Animations */
     .shake-active { animation: shake 0.1s infinite; }
     .glow-active { animation: intenseGlow 5s forwards; }
 
@@ -115,7 +132,6 @@
     }
     .btn-next { background: var(--gold); color: black; }
     .btn-save { background: #fff; color: black; }
-    .btn:hover { transform: scale(1.1); }
   </style>
 </head>
 <body>
@@ -135,13 +151,13 @@
     <div class="rating-big" id="cardRating">99</div>
     <img src="" id="cardImg" class="player-img">
     <div class="card-content">
-      <h2 id="cardName" style="margin:0; font-size: 28px; font-family: 'Orbitron';">NAME</h2>
-      <p id="cardTeam" style="margin:0; font-weight: bold; color: #333; letter-spacing: 2px;">COUNTY</p>
+      <h2 id="cardName" style="margin:0; font-size: 26px; font-family: 'Orbitron';">NAME</h2>
+      <p id="cardTeam" style="margin:0; font-weight: bold; color: #444; letter-spacing: 2px;">COUNTY</p>
       <div class="stats-grid">
         <div id="s1">PAC: 90</div><div id="s2">SHT: 90</div>
         <div id="s3">PHY: 90</div><div id="s4">SKL: 90</div>
       </div>
-      <p style="font-size: 10px; font-weight: bold; margin-top: 15px; opacity: 0.6; letter-spacing: 1px;">TRAVELBEYONDTHEPITCH.COM</p>
+      <p style="font-size: 10px; font-weight: bold; margin-top: 15px; opacity: 0.8;">TRAVELBEYONDTHEPITCH.COM</p>
     </div>
   </div>
 
@@ -186,7 +202,7 @@ function initiateOpening() {
   const flash = document.getElementById('flash-overlay');
 
   document.getElementById('pack-area').onclick = null;
-  status.innerText = "GETTING READY...";
+  status.innerText = "PREPARING...";
   pack.classList.add('shake-active', 'glow-active');
 
   setTimeout(() => {
