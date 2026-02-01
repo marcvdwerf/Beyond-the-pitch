@@ -28,7 +28,7 @@
       touch-action: manipulation;
     }
 
-    /* Home Knop - Mobiel Vriendelijk */
+    /* Home Knop - Verbinding naar hoofdmap */
     .home-btn {
       position: absolute; top: 15px; left: 15px;
       padding: 12px 20px; background: rgba(255, 255, 255, 0.1);
@@ -46,19 +46,31 @@
       background: rgba(0,0,0,0.7); display: inline-block;
     }
 
-    /* Pack Area */
-    #pack-area { position: relative; width: 100%; display: flex; justify-content: center; cursor: pointer; }
+    /* Pack Area - CLEAN LOOK (Geen vierkant meer) */
+    #pack-area { 
+      position: relative; 
+      width: 100%; 
+      display: flex; 
+      justify-content: center; 
+      cursor: pointer; 
+    }
     .pack-wrapper {
-      position: relative; width: 70vw; max-width: 260px; height: auto; aspect-ratio: 2/3;
-      transition: 0.4s; animation: float 4s ease-in-out infinite;
+      position: relative; 
+      width: 70vw; 
+      max-width: 260px; 
+      height: auto; 
+      aspect-ratio: 2/3;
+      transition: 0.4s; 
+      animation: float 4s ease-in-out infinite;
     }
     .pack-visual {
-      width: 100%; height: 100%; object-fit: cover;
-      border-radius: 15px; border: 2px solid var(--gold);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; /* Houdt de vorm van het zakje aan */
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); /* Gouden gloed ipv zwarte bak */
     }
 
-    /* Card 3D Flip - Responsief */
+    /* Card 3D Flip */
     #card-container { perspective: 1000px; display: none; width: 85vw; max-width: 330px; aspect-ratio: 2/3; }
     .card-inner { position: relative; width: 100%; height: 100%; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
     .is-flipped { transform: rotateY(180deg); }
@@ -73,7 +85,7 @@
     .rating-big { position: absolute; top: 10%; left: 8%; font-size: clamp(40px, 12vw, 55px); font-family: 'Orbitron'; font-weight: 900; z-index: 10; }
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 5px; font-weight: 700; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 8px; font-size: 16px; }
 
-    /* Controls & Buttons - Mobiel Optimalisatie */
+    /* Controls */
     .controls { display: none; margin-top: 20px; width: 90%; gap: 10px; flex-direction: column; align-items: center; }
     .btn { 
       width: 100%; max-width: 280px; padding: 15px; border: none; 
@@ -84,7 +96,7 @@
     .btn-save { background: #fff; color: black; }
     .btn-share { 
       background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
-      color: white; font-size: 16px; /* Iets groter voor Instagram */
+      color: white; font-size: 16px;
     }
 
     #out-of-credits { display: none; text-align: center; background: rgba(0,0,0,0.9); padding: 30px; border-radius: 15px; border: 2px solid var(--gold); width: 80%; }
@@ -105,7 +117,7 @@
 <body>
 
   <div id="flash-overlay"></div>
-  <a href="/gaelic-games.html" class="home-btn">🏠 Home</a>
+  <a href="../gaelic-games.html" class="home-btn">🏠 Home</a>
 
   <div class="header-info">
     <div class="credits-display">CREDITS: <span id="credit-count">3</span> / 3</div>
@@ -150,6 +162,7 @@
   </div>
 
 <script>
+// (Script blijft hetzelfde als voorheen voor de logica)
 let credits = 3;
 const legends = [
   { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [88, 99, 94, 97], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/henry%20shefflin.jpg" },
