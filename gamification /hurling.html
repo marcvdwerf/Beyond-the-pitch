@@ -37,41 +37,57 @@
     }
     .home-btn:hover { background: var(--gold); color: black; }
 
-    /* Pack Styling */
-    .pack {
-      width: 220px; height: 320px;
-      background: linear-gradient(135deg, #111 0%, #222 100%);
-      border: 2px solid var(--gold); border-radius: 10px;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      box-shadow: 0 0 50px rgba(0,0,0,0.8);
-      cursor: pointer; position: relative;
+    /* Container for 3D flip */
+    #card-container {
+      perspective: 1000px;
+      display: none;
+      width: 340px;
+      height: 500px;
     }
-    .pack h2 { font-family: 'Orbitron', sans-serif; color: var(--gold); margin: 10px 0; }
 
-    /* The Legend Card */
-    .card-to-download {
-      width: 340px; height: 500px;
-      background: linear-gradient(135deg, #b8860b 0%, #fbdf93 50%, #b8860b 100%);
-      border-radius: 15px; border: 6px solid #fff;
-      position: relative; color: #111; display: none;
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    /* Flip animation class */
+    .is-flipped { transform: rotateY(180deg); }
+
+    /* Generic Card Face */
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      border: 6px solid #fff;
       overflow: hidden;
-      animation: cardEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     }
 
-    .card-to-download::before {
-      content: "";
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg'); 
-      background-size: 80px;
-      background-repeat: repeat;
-      opacity: 0.08;
-      pointer-events: none;
+    /* BACK SIDE (Logo) */
+    .card-back {
+      background: linear-gradient(135deg, #222 0%, #000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 6px solid var(--gold);
     }
 
-    @keyframes cardEntrance {
-      from { transform: scale(0.5) rotateY(90deg); opacity: 0; }
-      to { transform: scale(1) rotateY(0deg); opacity: 1; }
+    .card-back img {
+      width: 200px;
+      filter: drop-shadow(0 0 10px var(--gold));
+    }
+
+    /* FRONT SIDE (Player) */
+    .card-front {
+      background: linear-gradient(135deg, #b8860b 0%, #fbdf93 50%, #b8860b 100%);
+      color: #111;
+      transform: rotateY(180deg);
     }
 
     .player-img { 
@@ -100,7 +116,16 @@
       font-size: 18px;
     }
 
-    /* Build-up Animations */
+    /* Pack and Animations */
+    .pack {
+      width: 220px; height: 320px;
+      background: linear-gradient(135deg, #111 0%, #222 100%);
+      border: 2px solid var(--gold); border-radius: 10px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      cursor: pointer;
+    }
+
     .shake-active { animation: shake 0.1s infinite; }
     .glow-active { animation: intenseGlow 5s forwards; }
 
@@ -137,27 +162,37 @@
 <body>
 
   <div id="flash-overlay"></div>
-  <a href="index.html" class="home-btn">🏠 Home</a>
+  <a href="/gaelic-games.html" class="home-btn">🏠 Home</a>
 
   <div id="pack-area" onclick="initiateOpening()">
     <div class="pack" id="main-pack">
       <div style="font-size: 60px;">⚡</div>
-      <h2>LEGENDS</h2>
+      <h2 style="font-family: 'Orbitron', sans-serif; color: var(--gold);">LEGENDS</h2>
       <p id="status-text" style="opacity:0.6; letter-spacing: 2px;">TAP TO REVEAL</p>
     </div>
   </div>
 
-  <div id="legendCard" class="card-to-download">
-    <div class="rating-big" id="cardRating">99</div>
-    <img src="" id="cardImg" class="player-img">
-    <div class="card-content">
-      <h2 id="cardName" style="margin:0; font-size: 26px; font-family: 'Orbitron';">NAME</h2>
-      <p id="cardTeam" style="margin:0; font-weight: bold; color: #444; letter-spacing: 2px;">COUNTY</p>
-      <div class="stats-grid">
-        <div id="s1">PAC: 90</div><div id="s2">SHT: 90</div>
-        <div id="s3">PHY: 90</div><div id="s4">SKL: 90</div>
+  <div id="card-container">
+    <div class="card-inner" id="cardInner">
+      
+      <div class="card-face card-back">
+         <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" alt="Logo">
       </div>
-      <p style="font-size: 10px; font-weight: bold; margin-top: 15px; opacity: 0.8;">TRAVELBEYONDTHEPITCH.COM</p>
+
+      <div class="card-face card-front" id="legendCard">
+        <div class="rating-big" id="cardRating">99</div>
+        <img src="" id="cardImg" class="player-img">
+        <div class="card-content">
+          <h2 id="cardName" style="margin:0; font-size: 26px; font-family: 'Orbitron';">NAME</h2>
+          <p id="cardTeam" style="margin:0; font-weight: bold; color: #444; letter-spacing: 2px;">COUNTY</p>
+          <div class="stats-grid">
+            <div id="s1">PAC: 90</div><div id="s2">SHT: 90</div>
+            <div id="s3">PHY: 90</div><div id="s4">SKL: 90</div>
+          </div>
+          <p style="font-size: 10px; font-weight: bold; margin-top: 15px; opacity: 0.8;">TRAVELBEYONDTHEPITCH.COM</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -203,7 +238,7 @@ function initiateOpening() {
   const flash = document.getElementById('flash-overlay');
 
   document.getElementById('pack-area').onclick = null;
-  status.innerText = "PREPARING...";
+  status.innerText = "GETTING READY...";
   pack.classList.add('shake-active', 'glow-active');
 
   setTimeout(() => {
@@ -217,6 +252,7 @@ function initiateOpening() {
 function revealLegend() {
   const random = legends[Math.floor(Math.random() * legends.length)];
   
+  // Fill data
   document.getElementById('cardName').innerText = random.name;
   document.getElementById('cardTeam').innerText = random.team.toUpperCase();
   document.getElementById('cardRating').innerText = random.rat;
@@ -226,17 +262,23 @@ function revealLegend() {
   document.getElementById('s3').innerText = "PHY: " + random.stats[2];
   document.getElementById('s4').innerText = "SKL: " + random.stats[3];
 
+  // Hide pack and show container
   document.getElementById('pack-area').style.display = 'none';
-  document.getElementById('legendCard').style.display = 'block';
-  
+  const container = document.getElementById('card-container');
+  container.style.display = 'block';
+
+  // Trigger the flip and show controls
   setTimeout(() => {
-    document.getElementById('controls').style.display = 'flex';
-  }, 600);
+    document.getElementById('cardInner').classList.add('is-flipped');
+    setTimeout(() => {
+      document.getElementById('controls').style.display = 'flex';
+    }, 1000);
+  }, 100);
 }
 
 function downloadImage() {
   const card = document.getElementById('legendCard');
-  html2canvas(card, { backgroundColor: null, scale: 2 }).then(canvas => {
+  html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true }).then(canvas => {
     const link = document.createElement('a');
     link.download = `Legend_${document.getElementById('cardName').innerText}.png`;
     link.href = canvas.toDataURL();
@@ -246,11 +288,10 @@ function downloadImage() {
 
 async function shareToStory() {
   const card = document.getElementById('legendCard');
-  const canvas = await html2canvas(card, { backgroundColor: null, scale: 2 });
+  const canvas = await html2canvas(card, { backgroundColor: null, scale: 2, useCORS: true });
   
   canvas.toBlob(async (blob) => {
     const file = new File([blob], 'LegendCard.png', { type: 'image/png' });
-    
     if (navigator.share) {
       try {
         await navigator.share({
@@ -260,10 +301,9 @@ async function shareToStory() {
         });
       } catch (err) {
         console.error("Share failed:", err);
-        alert("Delen mislukt. Probeer de afbeelding op te slaan.");
       }
     } else {
-      alert("Je browser ondersteunt direct delen niet. Sla de afbeelding eerst op.");
+      alert("Please save the image manually to share.");
     }
   });
 }
