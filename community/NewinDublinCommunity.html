@@ -3,165 +3,133 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dublin: New in Town | Powered by Gaelic Games</title>
-  <meta name="description" content="Ireland’s culture, delivered through sport, community, and craic. Join the BTP Dublin community." />
+  <title>Dublin Community | Travel Beyond the Pitch</title>
   
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-6MT1EREBH1');
-  </script>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
     :root {
-      --gold: #ffd700;
-      --bg: #000000;
-      --panel: #0a0a0a;
-      --border: #1a1a1a;
-      --green: #169b62;
+      --btp-gold: #ffd700;
+      --btp-green: #169b62;
+      --btp-black: #000000;
     }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background: var(--bg);
-      color: #ffffff;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      scroll-behavior: smooth;
-    }
-
-    .section { padding: 5rem 1.5rem; }
-    .btn-whatsapp { background: #25D366; color: white; padding: 1.2rem 2.5rem; border-radius: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: -0.02em; }
-    .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
+    body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
     
-    .card-community { background: var(--panel); border: 1px solid var(--border); padding: 2rem; border-radius: 24px; }
-    .highlight-text { background: linear-gradient(90deg, #ffd700, #169b62); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+    .hero-gradient { background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%), url('https://experiencegaelicgames.com/wp-content/uploads/2023/07/IMG_2345.jpg'); background-size: cover; background-position: center; }
     
-    .step-number { width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin-bottom: 1.5rem; }
+    .btp-card { background: #0a0a0a; border: 1px solid #1a1a1a; transition: 0.3s; }
+    .btp-card:hover { border-color: var(--btp-gold); }
+    
+    .tag { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
+    .tag-green { background: rgba(22, 155, 98, 0.2); color: var(--btp-green); border: 1px solid var(--btp-green); }
+    
+    .btn-main { background: var(--btp-gold); color: #000; font-weight: 900; padding: 1rem 2rem; border-radius: 4px; text-transform: uppercase; transition: 0.3s; }
+    .btn-main:hover { background: #fff; transform: scale(1.05); }
   </style>
 </head>
 <body>
 
-  <header class="p-6 border-b border-gray-900 bg-black sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="font-extrabold text-xl tracking-tighter uppercase">Beyond the Pitch</a>
-        <a href="gaelic-games.html" class="text-sm font-bold text-gray-400 hover:text-white transition uppercase tracking-widest">Back to Experiences</a>
+  <header class="p-6 flex justify-between items-center border-b border-gray-900 bg-black">
+    <div class="font-black text-2xl tracking-tighter uppercase italic">Travel <span class="text-yellow-500">Beyond</span> the Pitch</div>
+    <div class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+        <a href="#" class="hover:text-white">Experiences</a>
+        <a href="#" class="text-white border-b-2 border-yellow-500">Community</a>
+        <a href="#" class="hover:text-white">Locations</a>
     </div>
   </header>
 
-  <main>
-    <section class="py-24 px-6 text-center">
-      <div class="max-w-4xl mx-auto">
-        <span class="inline-block py-1 px-4 rounded-full border border-green-600 text-green-500 font-bold text-xs uppercase mb-6 tracking-widest">New in Town? Join the Tribe</span>
-        <h1 class="text-6xl md:text-8xl font-black mb-8 italic tracking-tighter uppercase leading-none">
-          Ireland's culture, <br><span class="highlight-text">delivered through sport.</span>
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
-          Move to Dublin. Join the community. Learn Gaelic Games. <br><strong>Make friends for life.</strong>
-        </p>
-        <div class="flex flex-col md:flex-row justify-center gap-6">
-            <a href="#join" class="btn-whatsapp">Join the WhatsApp Group</a>
-            <a href="#how" class="flex items-center justify-center font-bold uppercase text-sm tracking-widest hover:text-yellow-500 transition">How it works ↓</a>
+  <section class="relative h-[80vh] flex items-center justify-center text-center px-6 hero-gradient">
+    <div class="max-w-4xl">
+      <span class="tag tag-green">Dublin Vertical</span>
+      <h1 class="text-6xl md:text-8xl font-black italic uppercase leading-none mb-6">
+        Don't just visit.<br><span class="text-yellow-500">Belong.</span>
+      </h1>
+      <p class="text-xl md:text-2xl font-medium text-gray-300 mb-10">
+        The ultimate community for expats and locals in Dublin. <br>Discover the soul of Ireland through the grit of Gaelic Games.
+      </p>
+      <div class="flex flex-col md:flex-row gap-4 justify-center">
+        <a href="#join" class="btn-main">Join the Tribe</a>
+        <a href="#about" class="px-8 py-4 border border-white font-bold uppercase text-sm hover:bg-white hover:text-black transition">Our Philosophy</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-24 bg-white text-black">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-20 items-center">
+        <div>
+            <h3 class="text-green-600 font-black uppercase text-sm tracking-widest mb-4">The Bridge</h3>
+            <h2 class="text-5xl font-black uppercase italic leading-none mb-8">Ireland's Culture, <br>Delivered through Sport.</h2>
+            <div class="space-y-6 text-lg text-gray-700">
+                <p>Dublin is a city of stories, but for many newcomers, those stories stay behind closed doors. At <strong>Beyond the Pitch</strong>, we open those doors.</p>
+                <p>By joining our community, you don't just learn <em>how</em> to play Hurling or Gaelic Football; you learn <em>why</em> they are the heartbeat of our nation. We connect the curiosity of the expat with the pride of the local.</p>
+                <blockquote class="border-l-4 border-yellow-500 pl-6 italic font-bold text-2xl text-black">
+                    "I came for the sport, but I stayed for the people who finally made Dublin feel like home."
+                </blockquote>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="aspect-square bg-black rounded-sm overflow-hidden shadow-2xl">
+                <img src="https://experiencegaelicgames.com/wp-content/uploads/2023/07/community-spirit.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700" alt="Local Community">
+            </div>
+            <div class="absolute -bottom-10 -left-10 bg-yellow-500 p-8 hidden md:block">
+                <p class="font-black text-4xl uppercase italic leading-none">100%<br>Local<br>Craic</p>
+            </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section bg-white text-black rounded-t-[3rem]">
-      <div class="max-w-5xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 class="text-4xl font-black uppercase italic mb-6 leading-none">Dublin is more than a coordinate.</h2>
-            <div class="space-y-4 text-lg text-gray-700">
-                <p>You moved here for a job, a degree, or a fresh start. But let’s be real: breaking into local culture is tough. You can live here for years and still feel like an observer.</p>
-                <p><strong>This is not an "expat club".</strong> This is a bridge. We believe that a local GAA club is the heartbeat of Irish identity. It's where neighbors become family.</p>
-                <p class="font-bold">We invite you to stop watching from the sidelines and start playing in the heart of the city.</p>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="h-64 bg-gray-200 rounded-3xl overflow-hidden shadow-xl rotate-3">
-                <img src="https://images.unsplash.com/photo-1541534741688-6078c64b591d?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="GAA Action">
-            </div>
-            <div class="h-64 bg-gray-200 rounded-3xl overflow-hidden shadow-xl -rotate-3 mt-8">
-                <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Pub Craic">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="how" class="section bg-black">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-center text-4xl font-black uppercase italic mb-20">How we connect</h2>
+  <section class="py-24 bg-black">
+    <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-3 gap-12">
-            <div class="flex flex-col items-center text-center">
-                <div class="step-number text-black">1</div>
-                <h3 class="text-xl font-black uppercase mb-4">The Group</h3>
-                <p class="text-gray-400">Our WhatsApp group is where it starts. No spam, just pure connection: training updates, weekend pub nights, and match-day ticket swaps.</p>
+            <div class="btp-card p-10">
+                <div class="text-yellow-500 text-4xl font-black mb-6">01.</div>
+                <h4 class="text-xl font-black uppercase mb-4">The Digital Hub</h4>
+                <p class="text-gray-400">Access our private WhatsApp & Discord. Real-time updates on sessions, pub nights, and All-Ireland tickets.</p>
             </div>
-            <div class="flex flex-col items-center text-center">
-                <div class="step-number text-black">2</div>
-                <h3 class="text-xl font-black uppercase mb-4">The Sessions</h3>
-                <p class="text-gray-400">Low-pressure intro sessions at clubs like Na Fianna or St. Jude's. No experience needed—we teach you the basics of Hurling and Football while we laugh.</p>
+            <div class="btp-card p-10">
+                <div class="text-yellow-500 text-4xl font-black mb-6">02.</div>
+                <h4 class="text-xl font-black uppercase mb-4">The Pitch</h4>
+                <p class="text-gray-400">Weekly social training at legendary clubs like Na Fianna. No experience needed—only a willing spirit.</p>
             </div>
-            <div class="flex flex-col items-center text-center">
-                <div class="step-number text-black">3</div>
-                <h3 class="text-xl font-black uppercase mb-4">The Craic</h3>
-                <p class="text-gray-400">The real magic happens at the clubhouse or the local pub after training. This is where the barrier between 'newcomer' and 'local' disappears.</p>
-            </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-        <div class="max-w-4xl mx-auto">
-            <div class="card-community text-center border-yellow-500/30">
-                <h2 class="text-3xl font-black uppercase mb-6 italic">Support the Community</h2>
-                <p class="text-gray-400 mb-10">We are a community-first initiative. Your contribution helps us cover pitch rentals, gear, insurance, and organizing events.</p>
-                
-                <div class="grid md:grid-cols-2 gap-8 text-left">
-                    <div class="p-6 border border-gray-800 rounded-2xl">
-                        <h4 class="font-black text-yellow-500 uppercase text-xs mb-2">Community Member</h4>
-                        <div class="text-3xl font-black mb-4">€10 <span class="text-sm font-normal text-gray-500">/ month</span></div>
-                        <ul class="text-sm space-y-3 text-gray-400">
-                            <li>• Access to weekly training sessions</li>
-                            <li>• Early-bird event invites</li>
-                            <li>• Partner discounts in local pubs</li>
-                            <li>• Support local GAA infrastructure</li>
-                        </ul>
-                        <a href="#" class="block text-center mt-6 py-3 bg-white text-black font-black rounded-lg text-xs uppercase">Join the Movement</a>
-                    </div>
-                    <div class="p-6 border border-gray-800 rounded-2xl">
-                        <h4 class="font-black text-green-500 uppercase text-xs mb-2">Ambassador / Local</h4>
-                        <div class="text-3xl font-black mb-4 text-green-500">Free</div>
-                        <p class="text-sm text-gray-400 mb-6">Born and bred in Dublin? Share your culture and passion. Guide newcomers and get free access to all BTP community events.</p>
-                        <a href="#" class="block text-center mt-6 py-3 border border-green-600 text-green-600 font-black rounded-lg text-xs uppercase">Apply as Guide</a>
-                    </div>
-                </div>
+            <div class="btp-card p-10">
+                <div class="text-yellow-500 text-4xl font-black mb-6">03.</div>
+                <h4 class="text-xl font-black uppercase mb-4">The Clubhouse</h4>
+                <p class="text-gray-400">Post-session drinks and storytelling. Where the barrier between 'newcomer' and 'local' disappears.</p>
             </div>
         </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="join" class="section text-center bg-gradient-to-t from-gray-900 to-black rounded-b-[3rem]">
-      <div class="max-w-2xl mx-auto">
-        <h2 class="text-4xl font-black mb-8 uppercase">Ready to feel at home?</h2>
-        <a href="#" class="btn-whatsapp">
-            <svg width="24" height="24" fill="currentColor" class="mr-2" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            GET ACCESS TO THE GROUP
-        </a>
-        <p class="mt-8 text-xs text-gray-500 uppercase tracking-widest font-bold">No commitment. Just culture.</p>
-      </div>
-    </section>
-  </main>
+  <section class="py-24 bg-gray-900">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-black uppercase italic mb-12">Support the Tribe</h2>
+        <div class="grid md:grid-cols-2 gap-8 text-left">
+            <div class="btp-card p-8 border-t-4 border-yellow-500">
+                <h4 class="font-black uppercase text-sm mb-2">The Community Pass</h4>
+                <p class="text-3xl font-black mb-4">€15 <span class="text-sm font-normal text-gray-500">/mo</span></p>
+                <ul class="text-sm space-y-3 text-gray-400 mb-8">
+                    <li>✓ Unlimited Training Sessions</li>
+                    <li>✓ Private WhatsApp Community</li>
+                    <li>✓ Exclusive BTP Welcome Gear</li>
+                    <li>✓ Local Pub Discounts</li>
+                </ul>
+                <a href="#" class="btn-main block text-center">Join the Movement</a>
+            </div>
+            <div class="btp-card p-8 border-t-4 border-green-600">
+                <h4 class="font-black uppercase text-sm mb-2">Local Ambassadors</h4>
+                <p class="text-3xl font-black mb-4">Free</p>
+                <p class="text-sm text-gray-400 mb-6">Born and bred in Dublin? Be a guide. Share your passion, help newcomers find their feet, and grow your club's legacy.</p>
+                <a href="#" class="w-full py-3 border border-green-600 text-green-600 font-bold uppercase text-xs block text-center hover:bg-green-600 hover:text-white transition">Apply as Guide</a>
+            </div>
+        </div>
+    </div>
+  </section>
 
-  <footer class="p-12 text-center text-gray-600 text-xs">
-    <p>&copy; 2026 Beyond the Pitch | Dublin Community Hub</p>
+  <footer class="p-12 border-t border-gray-900 text-center text-gray-600 text-xs tracking-widest uppercase">
+    <p>&copy; 2026 Travel Beyond the Pitch | Dublin Community Vertical</p>
   </footer>
 
 </body>
