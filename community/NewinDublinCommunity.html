@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New in Dublin | Beyond the Pitch Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #008148; /* GAA Green */
+            --secondary-gold: #EFB509; /* Irish Gold */
+            --dark-pitch: #1A1A1A;
+            --light-bg: #F9F9F9;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark-pitch);
+            line-height: 1.6;
+            background-color: var(--light-bg);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1590059345003-88741349839a?auto=format&fit=crop&q=80&w=2000') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .btn-whatsapp { background-color: #25D366; color: white; }
+        .btn-primary { background-color: var(--primary-green); color: white; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* --- Community Path Selector --- */
+        .pathway-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1000px;
+            margin: -50px auto 50px;
+            background: var(--white);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        .path {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .path-left { border-right: 1px solid #eee; }
+        .path h3 { color: var(--primary-green); font-size: 1.5rem; margin-top: 0; }
+        .path .tag { font-size: 0.8rem; background: #eee; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
+
+        /* --- Sections --- */
+        .section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--dark-pitch); }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .card i { font-size: 2rem; color: var(--secondary-gold); margin-bottom: 20px; }
+
+        /* --- Membership Table --- */
+        .pricing-table {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .price-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 40px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .price-card.featured { border-color: var(--primary-green); position: relative; }
+        .featured-label { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary-green); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
+        .price { font-size: 3rem; font-weight: bold; margin: 20px 0; }
+        .price span { font-size: 1rem; color: #777; }
+
+        ul.check-list { list-style: none; padding: 0; text-align: left; margin: 30px 0; }
+        ul.check-list li { margin-bottom: 10px; }
+        ul.check-list li i { color: var(--primary-green); margin-right: 10px; }
+
+        @media (max-width: 768px) {
+            .pathway-container { grid-template-columns: 1fr; margin-top: 20px; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="tag" style="background: var(--secondary-gold); color: black; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 20px; font-weight: bold;">🍀 NEW IN DUBLIN</div>
+            <h1>Make Friends Through Gaelic Games</h1>
+            <p>Don't just live in Dublin. Belong here. Join the community where sport meets culture and expats become locals.</p>
+            <a href="#" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Join WhatsApp Group</a>
+            <a href="#events" class="btn btn-primary">View Upcoming Events</a>
+        </div>
+    </header>
+
+    <div class="pathway-container">
+        <div class="path path-left">
+            <span class="tag">VISITING IRELAND?</span>
+            <h3>The Kilkenny Experience</h3>
+            <p>One-time deep dive into Hurling history, clinics, and match tickets. Perfect for travelers.</p>
+            <a href="/kilkenny" style="color: var(--primary-green); font-weight: bold;">Learn More →</a>
+        </div>
+        <div class="path">
+            <span class="tag">LIVING IN DUBLIN?</span>
+            <h3>Community Membership</h3>
+            <p>Weekly trainings, social pub nights, and a network of 100+ internationals calling Dublin home.</p>
+            <a href="#membership" style="color: var(--primary-green); font-weight: bold;">Join Today →</a>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="section-title">
+            <h2>This isn't an "Expat Club"</h2>
+            <p>We are the bridge to Irish culture through its heartbeat: the GAA.</p>
+        </div>
+        <div class="grid-3">
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Real Community</h3>
+                <p>Move beyond small talk. Nothing builds bonds faster than learning a new sport together on a rainy Tuesday.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-beer"></i>
+                <h3>The Craic</h3>
+                <p>Post-training pints are mandatory. We partner with local pubs to ensure you always have a seat at the table.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-heart"></i>
+                <h3>Cultural Identity</h3>
+                <p>Understand the rules of Hurling and Football, and you'll understand the soul of Ireland.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="membership" style="background: #f0f0f0; max-width: 100%;">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <div class="section-title">
+                <h2>Ready to get involved?</h2>
+                <p>Choose the level that fits your Dublin life.</p>
+            </div>
+            
+            <div class="pricing-table">
+                <div class="price-card">
+                    <h3>The Rookie</h3>
+                    <div class="price">€0<span>/mo</span></div>
+                    <ul class="check-list">
+                        <li><i class="fas fa-check"></i> Access to WhatsApp Group</li>
+                        <li><i class="fas fa-check"></i> Weekly Culture Newsletter</li>
+                        <li><i class="fas fa-check"></i> Pay-as-you-go Events</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 80%;">Join Free</a>
+                </div>
+
+                <div class="price-card featured">
+                    <div class="featured-label">MOST POPULAR</div>
+                    <h3>The Local</h3>
+                    <div class="price">€12<span>/mo</span></div>
+                    <ul class="check-list">
+                        <li><i class="fas fa-check"></i> All Rookie benefits</li>
+                        <li><i class="fas fa-check"></i> 20% Discount on Clinics</li>
+                        <li><i class="fas fa-check"></i> Priority Ticket Access</li>
+                        <li><i class="fas fa-check"></i> Exclusive Partner Rewards</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 80%; background: var(--dark-pitch);">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="text-align: center;">
+        <h2>Don't be a stranger.</h2>
+        <p>Join 200+ internationals who have already found their tribe.</p>
+        <br>
+        <a href="#" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat with the Community</a>
+    </section>
+
+</body>
+</html>
