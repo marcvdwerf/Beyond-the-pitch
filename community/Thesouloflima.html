@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title>Lima Soul | Gateway to South America</title>
+  <meta name="description" content="Your starting point for Peru and South America. Connecting expats, solo backpackers, and locals through culture and Alianza Lima.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            alianzaBlue: '#002147',
+            peruRed: '#d91e18',
+            gold: '#ffb300',
+            panel: '#0a0a0a',
+          },
+        }
+      }
+    }
+
+    function toggleLanguage(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.querySelectorAll('[data-lang="' + lang + '"]').forEach(el => {
+        el.classList.remove('hidden');
+      });
+      // Update active button state
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('bg-peruRed', 'text-white');
+        btn.classList.add('text-gray-400');
+      });
+      event.target.classList.add('bg-peruRed', 'text-white');
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer components {
+      .btp-title { @apply font-[900] uppercase italic tracking-tighter; }
+      .btn-primary { @apply bg-white text-black px-8 py-4 font-black uppercase transition-all hover:bg-peruRed hover:text-white hover:-translate-y-1 inline-block; }
+      .btn-whatsapp { @apply bg-[#25D366] text-white px-8 py-4 font-black uppercase flex items-center justify-center gap-3 transition-all hover:brightness-110 hover:-translate-y-1; }
+      .card-btp { @apply bg-panel border-l-4 border-peruRed p-8 transition-all hover:border-alianzaBlue h-full; }
+      .text-outline { -webkit-text-stroke: 1px #444; color: transparent; }
+      .lang-btn { @apply px-3 py-1 text-[10px] font-black uppercase transition-all border border-gray-800; }
+    }
+  </style>
+</head>
+<body class="bg-black text-white antialiased">
+
+  <header class="p-6 flex flex-col md:flex-row justify-between items-center border-b border-gray-900 sticky top-0 bg-black/90 backdrop-blur-md z-50 gap-4">
+    <a href="/" class="btp-title text-xl text-white hover:text-peruRed transition-colors">Beyond the Pitch<span class="text-peruRed">.</span></a>
+    
+    <div class="flex items-center gap-2">
+      <button onclick="toggleLanguage('en')" class="lang-btn bg-peruRed text-white">English</button>
+      <button onclick="toggleLanguage('es')" class="lang-btn text-gray-400">Español</button>
+    </div>
+
+    <a href="#join" class="text-xs font-black border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition uppercase italic">
+      <span data-lang="en">Join the Collective</span>
+      <span data-lang="es" class="hidden">Únete al Colectivo</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden">
+      <div class="absolute inset-0 z-0 opacity-40">
+        <img src="https://images.unsplash.com/photo-1577587230708-187fdbf4a511?q=80&w=2000" class="w-full h-full object-cover" alt="Lima Gateway">
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
+      
+      <div class="relative z-10 max-w-5xl mt-12">
+        <span class="inline-block bg-peruRed text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-6 italic">
+          <span data-lang="en">Your Gateway to South America</span>
+          <span data-lang="es" class="hidden">Tu Puerta a Sudamérica</span>
+        </span>
+        
+        <h1 class="btp-title text-5xl md:text-[7rem] leading-[0.85] mb-8 italic">
+          <span data-lang="en">Learn the City. <br><span class="text-gold">Find Your Tribe.</span></span>
+          <span data-lang="es" class="hidden">Siente la Ciudad. <br><span class="text-gold">Encuentra tu Gente.</span></span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-300 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+          <span data-lang="en">Whether you're an <strong>expat</strong> starting a new life, a <strong>solo traveler</strong> beginning your journey, or a <strong>local</strong> eager to share your culture — this is where Lima connects.</span>
+          <span data-lang="es" class="hidden">Ya seas un <strong>expat</strong> empezando de cero, un <strong>mochilero</strong> iniciando su viaje o un <strong>local</strong> queriendo compartir su cultura — aquí es donde Lima conecta.</span>
+        </p>
+
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+          <a href="https://chat.whatsapp.com/LIMA_SOUL_LINK" class="btn-whatsapp">
+            <span data-lang="en">Join the Hub</span>
+            <span data-lang="es" class="hidden">Únete al Hub</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-24 bg-white text-black px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-12">
+          <div class="space-y-4">
+            <h3 class="btp-title text-3xl text-peruRed italic">The Traveler</h3>
+            <p data-lang="en" class="text-gray-600 italic">Just landed in Peru? Don't navigate the chaos alone. We are your first point of contact for safety, travel tips, and finding buddies for the road ahead.</p>
+            <p data-lang="es" class="hidden text-gray-600 italic">¿Recién llegaste a Perú? No navegues solo. Somos tu primer contacto para tips de seguridad, viajes y para encontrar compañeros de ruta.</p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="btp-title text-3xl text-alianzaBlue italic">The Expat</h3>
+            <p data-lang="en" class="text-gray-600 italic">Moving to Lima? From finding the best ceviche in Barranco to understanding local lingo, we help you transition from 'foreigner' to 'neighbor' through our social events.</p>
+            <p data-lang="es" class="hidden text-gray-600 italic">¿Viviendo en Lima? Desde buscar el mejor ceviche hasta entender la jerga local, te ayudamos a pasar de 'extranjero' a 'vecino'.</p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="btp-title text-3xl text-gold italic">The Local</h3>
+            <p data-lang="en" class="text-gray-600 italic">Proud of your culture? Meet people from all over the world, practice your English, and share the passion of Alianza Lima with a global community.</p>
+            <p data-lang="es" class="hidden text-gray-600 italic">¿Orgulloso de tu cultura? Conoce gente de todo el mundo, practica inglés y comparte la pasión de Alianza con una comunidad global.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-black px-6">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-btp">
+          <h4 class="font-black text-gold mb-2 uppercase italic text-sm">Taste</h4>
+          <p data-lang="en" class="text-xs text-gray-400 italic leading-relaxed">Local market tours and cooking socials. Learn why Lima is the world's food capital.</p>
+          <p data-lang="es" class="hidden text-xs text-gray-400 italic leading-relaxed">Tours de mercados y cocina social. Descubre por qué Lima es la capital gastronómica.</p>
+        </div>
+        <div class="card-btp">
+          <h4 class="font-black text-gold mb-2 uppercase italic text-sm">Speak</h4>
+          <p data-lang="en" class="text-xs text-gray-400 italic leading-relaxed">Intercambio: Practice Spanish/English in a fun, pressure-free social setting.</p>
+          <p data-lang="es" class="hidden text-xs text-gray-400 italic leading-relaxed">Intercambio: Practica inglés/español en un ambiente social y divertido.</p>
+        </div>
+        <div class="card-btp">
+          <h4 class="font-black text-gold mb-2 uppercase italic text-sm">Surf</h4>
+          <p data-lang="en" class="text-xs text-gray-400 italic leading-relaxed">Weekly morning surf sessions at the Costa Verde for all levels.</p>
+          <p data-lang="es" class="hidden text-xs text-gray-400 italic leading-relaxed">Sesiones semanales de surf en la Costa Verde para todos los niveles.</p>
+        </div>
+        <div class="card-btp border-alianzaBlue">
+          <h4 class="font-black text-white mb-2 uppercase italic text-sm">Alianza</h4>
+          <p data-lang="en" class="text-xs text-gray-400 italic leading-relaxed">The ultimate football & volleyball experience. Feel the 'Pueblo' energy at Matute.</p>
+          <p data-lang="es" class="hidden text-xs text-gray-400 italic leading-relaxed">La experiencia total de fútbol y voley. Siente la energía del Pueblo en Matute.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="py-32 px-6 text-center border-t border-gray-900">
+      <h2 class="btp-title text-5xl md:text-8xl mb-8 italic">
+        <span data-lang="en">Start Your <span class="text-peruRed">Journey.</span></span>
+        <span data-lang="es" class="hidden">Empieza tu <span class="text-peruRed">Viaje.</span></span>
+      </h2>
+      <a href="https://chat.whatsapp.com/LIMA_SOUL_LINK" class="btn-whatsapp scale-125">
+        <span data-lang="en">Join the WhatsApp Tribe</span>
+        <span data-lang="es" class="hidden">Únete a la Tribu en WhatsApp</span>
+      </a>
+      <p class="mt-12 text-gray-500 text-[10px] uppercase font-black tracking-widest italic">Lima // Cusco // Beyond</p>
+    </section>
+  </main>
+
+  <footer class="p-12 border-t border-gray-900 text-center text-gray-700 text-[10px] font-black uppercase italic tracking-[0.3em]">
+    &copy; 2026 Beyond the Pitch. One Collective. All of Peru.
+  </footer>
+
+</body>
+</html>
