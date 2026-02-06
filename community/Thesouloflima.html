@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LIMA SOUL | The South American Gateway</title>
+  <title>LIMA SOUL | Your Gateway to Peru</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Archivo+Black&display=swap" rel="stylesheet">
@@ -30,7 +30,6 @@
       document.querySelectorAll('[data-lang]').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('[data-lang="' + lang + '"]').forEach(el => el.classList.remove('hidden'));
       
-      // Update Button Styles
       document.getElementById('btn-en').classList.toggle('bg-peruRed', lang === 'en');
       document.getElementById('btn-en').classList.toggle('text-white', lang === 'en');
       document.getElementById('btn-es').classList.toggle('bg-peruRed', lang === 'es');
@@ -40,20 +39,16 @@
 
   <style type="text/tailwindcss">
     @layer utilities {
-      .bg-noise {
-        background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-      }
-      .text-outline {
-        -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-        color: transparent;
-      }
+      .bg-noise { background-image: url('https://grainy-gradients.vercel.app/noise.svg'); }
+      .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
+      .glass { @apply bg-white/5 backdrop-blur-lg border border-white/10; }
     }
   </style>
 </head>
 
 <body class="bg-darkBg text-white antialiased font-sans bg-noise">
 
-  <header class="fixed top-0 w-full z-50 p-6 flex justify-between items-center backdrop-blur-sm border-b border-white/5 bg-black/20">
+  <header class="fixed top-0 w-full z-50 p-6 flex justify-between items-center backdrop-blur-md border-b border-white/5 bg-black/40">
     <div class="font-brand text-xl tracking-tighter uppercase italic">
       Lima Soul<span class="text-peruRed">.</span>
     </div>
@@ -63,15 +58,15 @@
         <button id="btn-en" onclick="toggleLanguage('en')" class="px-3 py-1 text-[10px] font-black transition-all bg-peruRed text-white">EN</button>
         <button id="btn-es" onclick="toggleLanguage('es')" class="px-3 py-1 text-[10px] font-black transition-all text-gray-400">ES</button>
       </div>
-      <a href="#join" class="hidden md:block bg-white text-black px-5 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-peruRed hover:text-white transition-all">
-        <span data-lang="en">Join Tribe</span>
+      <a href="#join" class="bg-white text-black px-5 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-peruRed hover:text-white transition-all">
+        <span data-lang="en">Join The Tribe</span>
         <span data-lang="es" class="hidden">Únete</span>
       </a>
     </div>
   </header>
 
   <main>
-    <section class="relative h-screen flex flex-col justify-center items-center px-6 text-center">
+    <section class="relative h-[90vh] flex flex-col justify-center items-center px-6 text-center">
       <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 bg-black/70 z-10"></div>
         <img src="https://images.unsplash.com/photo-1577587230708-187fdbf4a511?q=80&w=2000" class="w-full h-full object-cover" alt="Lima">
@@ -79,126 +74,141 @@
       
       <div class="relative z-20 max-w-6xl">
         <h2 class="font-black text-[10px] tracking-[0.5em] uppercase mb-6 text-peruRed">
-          <span data-lang="en">The Gateway to South America</span>
-          <span data-lang="es" class="hidden">La Puerta de Entrada a Sudamérica</span>
+          <span data-lang="en">Gastronomy • Surf • Spanish • Alianza Lima</span>
+          <span data-lang="es" class="hidden">Gastronomía • Surf • Español • Alianza Lima</span>
         </h2>
-        
         <h1 class="font-brand text-5xl md:text-[9rem] leading-[0.85] uppercase italic mb-8 tracking-tighter">
-          <span data-lang="en">Don't Just <br><span class="text-outline">Visit.</span> Connect.</span>
-          <span data-lang="es" class="hidden">No Solo <br><span class="text-outline">Visites.</span> Conecta.</span>
+          <span data-lang="en">The South <br><span class="text-outline">American</span> Merge.</span>
+          <span data-lang="es" class="hidden">La Conexión <br><span class="text-outline">Sudamericana.</span></span>
         </h1>
-
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-light italic mb-12">
-          <span data-lang="en">The ultimate merge of expats, backpackers, and locals. From world-class food to the raw passion of Alianza Lima.</span>
-          <span data-lang="es" class="hidden">La unión definitiva de expats, mochileros y locales. Desde comida de clase mundial hasta la pasión pura de Alianza Lima.</span>
+        <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-light italic mb-10">
+          <span data-lang="en">Your starting point for Peru. Whether you're passing through, staying for months, or calling Lima home.</span>
+          <span data-lang="es" class="hidden">Tu punto de partida en Perú. Ya estés de paso, te quedes meses o llames a Lima tu hogar.</span>
         </p>
-
-        <a href="#join" class="bg-peruRed text-white px-12 py-5 font-brand text-sm uppercase tracking-widest hover:scale-105 transition-transform inline-block shadow-2xl">
-          <span data-lang="en">Enter the Hub</span>
-          <span data-lang="es" class="hidden">Entrar al Hub</span>
-        </a>
       </div>
     </section>
 
-    <section class="py-32 px-6 bg-white text-black">
+    <section id="roadmap" class="py-24 bg-white text-black px-6">
       <div class="max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-3 gap-12">
-          <div class="space-y-6">
-            <div class="h-1 w-20 bg-peruRed"></div>
-            <h3 class="font-brand text-3xl uppercase">
-              <span data-lang="en">The Traveler</span>
-              <span data-lang="es" class="hidden">El Viajero</span>
-            </h3>
-            <p class="text-gray-600 italic">
-              <span data-lang="en">Your starting point in Peru. Get the real tips, find travel partners, and understand the culture before you head to Cusco or the Amazon.</span>
-              <span data-lang="es" class="hidden">Tu punto de partida en Perú. Obtén tips reales, encuentra compañeros de viaje y entiende la cultura antes de ir a Cusco o la Amazonía.</span>
-            </p>
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <h2 class="font-brand text-4xl md:text-6xl uppercase italic">
+            <span data-lang="en">Founding <span class="text-peruRed">30</span> Roadmap</span>
+            <span data-lang="es" class="hidden">Hoja de Ruta <span class="text-peruRed">Fundadora</span></span>
+          </h2>
+          <div class="bg-black text-white p-4 font-brand min-w-[180px] text-center border-b-4 border-peruRed">
+            <span class="block text-3xl text-gold">24/30</span>
+            <span class="text-[9px] uppercase tracking-widest opacity-60">Spots Left</span>
           </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="p-8 border border-gray-200">
+                <span class="font-brand text-peruRed">01.</span>
+                <h3 class="font-brand text-xl mt-2 mb-4 italic">Social Hub</h3>
+                <p class="text-sm text-gray-500 italic leading-relaxed">Join the WhatsApp community. Start meeting people and getting local tips before you even arrive.</p>
+            </div>
+            <div class="p-8 border border-gray-200 opacity-50">
+                <span class="font-brand text-peruRed">02.</span>
+                <h3 class="font-brand text-xl mt-2 mb-4 italic">Alianza Experience</h3>
+                <p class="text-sm text-gray-500 italic leading-relaxed">The first stadium trips and street football matches. Feel the true soul of Matute.</p>
+            </div>
+            <div class="p-8 border border-gray-200 opacity-50">
+                <span class="font-brand text-peruRed">03.</span>
+                <h3 class="font-brand text-xl mt-2 mb-4 italic">Cultural Merge</h3>
+                <p class="text-sm text-gray-500 italic leading-relaxed">Weekly surf socials, gastronomy workshops, and language exchanges become the routine.</p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="py-32 bg-darkBg px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20">
+          <h2 class="font-brand text-5xl md:text-8xl uppercase italic text-white">
+            <span data-lang="en">Choose your <span class="text-peruRed">Role.</span></span>
+            <span data-lang="es" class="hidden">Elige tu <span class="text-peruRed">Rol.</span></span>
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
           
-          <div class="space-y-6">
-            <div class="h-1 w-20 bg-alianzaBlue"></div>
-            <h3 class="font-brand text-3xl uppercase">
-              <span data-lang="en">The Expat</span>
-              <span data-lang="es" class="hidden">El Expat</span>
-            </h3>
-            <p class="text-gray-600 italic">
-              <span data-lang="en">New in Lima? Skip the tourist bubble. We connect you with local neighborhoods, bars, and football fields where real life happens.</span>
-              <span data-lang="es" class="hidden">¿Nuevo en Lima? Olvida la burbuja turista. Te conectamos con los barrios, bares y canchas donde ocurre la vida real.</span>
-            </p>
+          <div class="glass p-8 border-t-4 border-white flex flex-col justify-between">
+            <div>
+              <h3 class="font-brand text-2xl mb-2 italic">The Traveler</h3>
+              <p class="text-white/50 font-black text-[10px] uppercase tracking-widest mb-6">Solo Backpackers & Voyagers</p>
+              <p class="text-peruRed font-brand text-lg mb-6">FREE</p>
+              <ul class="space-y-3 text-gray-400 text-xs italic mb-10">
+                <li>✓ Join the travel-buddy network</li>
+                <li>✓ Ask for local safety & travel tips</li>
+                <li>✓ Share routes for Cusco / Amazon</li>
+                <li>✓ Access to open public meetups</li>
+              </ul>
+            </div>
+            <a href="https://chat.whatsapp.com/LINK" class="block w-full text-center border border-white text-white py-4 font-brand uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">Get Tips</a>
           </div>
 
-          <div class="space-y-6">
-            <div class="h-1 w-20 bg-gold"></div>
-            <h3 class="font-brand text-3xl uppercase">
-              <span data-lang="en">The Local</span>
-              <span data-lang="es" class="hidden">El Local</span>
-            </h3>
-            <p class="text-gray-600 italic">
-              <span data-lang="en">Proud Limeño? Join an international circle. Practice your language skills and show the world the true soul of your city and Alianza Lima.</span>
-              <span data-lang="es" class="hidden">¿Limeño orgulloso? Únete a un círculo internacional. Practica idiomas y muestra al mundo el alma de tu ciudad y de Alianza Lima.</span>
-            </p>
+          <div class="glass p-8 border-t-4 border-gold bg-white/10 relative transform scale-105 z-10 flex flex-col justify-between">
+            <div class="absolute -top-4 right-6 bg-gold text-black px-3 py-1 font-brand text-[9px] uppercase italic">Most Popular</div>
+            <div>
+              <h3 class="font-brand text-2xl mb-2 italic">The Member</h3>
+              <p class="text-gold font-black text-[10px] uppercase tracking-widest mb-6">Expats / International Students</p>
+              <p class="text-white font-brand text-lg mb-6">€10 <span class="text-xs opacity-50">/ month</span></p>
+              <ul class="space-y-3 text-gray-200 text-xs italic mb-10">
+                <li>✓ Access to Private Monthly Events</li>
+                <li>✓ Alianza Lima Matchday Tickets</li>
+                <li>✓ Weekly Surf & Pichanga sessions</li>
+                <li>✓ High-level social & business network</li>
+                <li>✓ VIP Gastronomy tours</li>
+              </ul>
+            </div>
+            <a href="https://chat.whatsapp.com/LINK" class="block w-full text-center bg-gold text-black py-4 font-brand uppercase text-[10px] tracking-widest hover:bg-white transition-all">Join The Tribe</a>
           </div>
+
+          <div class="glass p-8 border-t-4 border-peruRed flex flex-col justify-between">
+            <div>
+              <h3 class="font-brand text-2xl mb-2 italic">Local Soul</h3>
+              <p class="text-peruRed font-black text-[10px] uppercase tracking-widest mb-6">Proud Limeños & Gidse</p>
+              <p class="text-peruRed font-brand text-lg mb-6">FREE</p>
+              <ul class="space-y-3 text-gray-400 text-xs italic mb-10">
+                <li>✓ Help others learn Spanish</li>
+                <li>✓ Showcase your city & favorite spots</li>
+                <li>✓ Lead Alianza Lima stadium trips</li>
+                <li>✓ Practice English with internationals</li>
+                <li>✓ Build a global network of friends</li>
+              </ul>
+            </div>
+            <a href="https://chat.whatsapp.com/LINK" class="block w-full text-center border border-peruRed text-peruRed py-4 font-brand uppercase text-[10px] tracking-widest hover:bg-peruRed hover:text-white transition-all">Share Culture</a>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <section class="py-24 px-6 bg-darkBg overflow-hidden">
-      <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        
-        <div class="bg-white/5 p-8 border border-white/10 group hover:border-peruRed transition-colors">
-          <h4 class="font-brand text-peruRed text-xs mb-4 uppercase tracking-widest">Taste</h4>
-          <h5 class="font-brand text-2xl mb-4 italic">Ceviche Socials</h5>
-          <p class="text-gray-500 text-sm italic">
-            <span data-lang="en">Learn the secrets of Peruvian gastronomy in local Barranco kitchens.</span>
-            <span data-lang="es" class="hidden">Aprende los secretos de la gastronomía peruana en cocinas locales de Barranco.</span>
-          </p>
+    <section class="py-32 bg-alianzaBlue px-6 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="font-brand text-5xl md:text-7xl mb-8 uppercase italic leading-none">The Heart of <br><span class="text-gold">Alianza Lima.</span></h2>
+            <p class="text-blue-100 italic mb-12 text-lg">Football, Volleyball, and the soul of the 'Pueblo'. We don't just watch; we experience it as a tribe.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="glass px-6 py-2 font-brand text-[10px] uppercase italic">Estadio Matute</span>
+                <span class="glass px-6 py-2 font-brand text-[10px] uppercase italic">Volleyball Classics</span>
+                <span class="glass px-6 py-2 font-brand text-[10px] uppercase italic">Fan Immersion</span>
+            </div>
         </div>
-
-        <div class="bg-white/5 p-8 border border-white/10 group hover:border-gold transition-colors">
-          <h4 class="font-brand text-gold text-xs mb-4 uppercase tracking-widest">Nature</h4>
-          <h5 class="font-brand text-2xl mb-4 italic">Pacific Surf</h5>
-          <p class="text-gray-500 text-sm italic">
-            <span data-lang="en">Weekly morning sessions at Costa Verde. For beginners and pros alike.</span>
-            <span data-lang="es" class="hidden">Sesiones semanales en la Costa Verde. Para principiantes y expertos.</span>
-          </p>
-        </div>
-
-        <div class="bg-white/5 p-8 border border-white/10 group hover:border-white transition-colors">
-          <h4 class="font-brand text-white text-xs mb-4 uppercase tracking-widest">Connect</h4>
-          <h5 class="font-brand text-2xl mb-4 italic">Street Spanish</h5>
-          <p class="text-gray-500 text-sm italic">
-            <span data-lang="en">Master the local lingo while sharing drinks with new friends.</span>
-            <span data-lang="es" class="hidden">Domina la jerga local mientras compartes unos tragos con nuevos amigos.</span>
-          </p>
-        </div>
-
-        <div class="bg-alianzaBlue/20 p-8 border border-alianzaBlue group hover:bg-alianzaBlue transition-all">
-          <h4 class="font-brand text-white text-xs mb-4 uppercase tracking-widest text-gold">Passion</h4>
-          <h5 class="font-brand text-2xl mb-4 italic text-white">Alianza Life</h5>
-          <p class="text-blue-100 text-sm italic">
-            <span data-lang="en">Live the football and volleyball energy at the heart of Matute.</span>
-            <span data-lang="es" class="hidden">Vive la energía del fútbol y voley en el corazón de Matute.</span>
-          </p>
-        </div>
-
-      </div>
     </section>
 
-    <section id="join" class="py-40 text-center px-6">
+    <section class="py-40 text-center px-6 border-t border-white/10">
       <h2 class="font-brand text-6xl md:text-[10rem] leading-none uppercase italic mb-12">
-        <span data-lang="en">Find Your <span class="text-peruRed">Soul.</span></span>
-        <span data-lang="es" class="hidden">Encuentra Tu <span class="text-peruRed">Alma.</span></span>
+        <span data-lang="en">Join The <br><span class="text-peruRed">Soul.</span></span>
+        <span data-lang="es" class="hidden">Únete al <br><span class="text-peruRed">Alma.</span></span>
       </h2>
-      <a href="https://chat.whatsapp.com/LIMA_SOUL_LINK" class="bg-white text-black px-12 py-6 font-brand text-lg uppercase tracking-widest hover:bg-peruRed hover:text-white transition-all inline-flex items-center gap-4">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-6 h-6 grayscale brightness-0" alt="WA">
-        <span data-lang="en">Request Invite</span>
-        <span data-lang="es" class="hidden">Solicitar Invitación</span>
+      <a href="https://chat.whatsapp.com/LINK" class="bg-white text-black px-12 py-6 font-brand text-lg uppercase tracking-widest hover:bg-peruRed hover:text-white transition-all inline-flex items-center gap-4 shadow-2xl">
+        <span data-lang="en">Enter the Hub</span>
+        <span data-lang="es" class="hidden">Entrar al Hub</span>
       </a>
     </section>
   </main>
 
   <footer class="p-12 border-t border-white/5 text-center text-gray-700 text-[10px] font-black uppercase tracking-[0.4em]">
-    &copy; 2026 Lima Soul Collective // Beyond the Pitch
+    &copy; 2026 Lima Soul Collective // One Pitch. One Soul.
   </footer>
 
 </body>
