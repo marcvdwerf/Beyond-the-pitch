@@ -3,7 +3,7 @@
  */
 
 // Gebruik de URL van je Google Apps Script
-const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbx2wFd2ffQaUbzuUWJKjmufU1PcoB4aATfZ3Xg-q_yh0x2PHVPd_MPWn9uxWUZRjy13fw/exec';
+const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbwM3W72PX26NIB5_2AR5Zat1Buw8NhzcN2fKvNifmrkbEDPYvresi129kEsjpGMcApC0Q/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
