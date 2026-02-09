@@ -8,17 +8,44 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        :root { --primary: #38bdf8; --primary-dark: #0ea5e9; --sidebar-bg: #1e293b; --bg: #f8fafc; --white: #ffffff; --border: #e2e8f0; }
+        :root { --primary: #38bdf8; --primary-dark: #0ea5e9; --sidebar-bg: #1e293b; --bg: #f8fafc; --white: #ffffff; --border: #e2e8f0; --danger: #f87171; }
         body.theme-ireland { --primary: #10b981; --primary-dark: #059669; }
         
         * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg); color: #1e293b; display: flex; min-height: 100vh; }
 
         /* Sidebar */
-        .sidebar { width: 260px; background: var(--sidebar-bg); color: white; position: sticky; top: 0; height: 100vh; padding: 20px 0; }
+        .sidebar { 
+            width: 260px; 
+            background: var(--sidebar-bg); 
+            color: white; 
+            position: sticky; 
+            top: 0; 
+            height: 100vh; 
+            padding: 20px 0; 
+            display: flex;
+            flex-direction: column;
+        }
         .logo { padding: 0 25px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+        
+        nav { 
+            display: flex; 
+            flex-direction: column; 
+            flex-grow: 1; /* Neemt beschikbare ruimte in */
+            padding-top: 10px;
+        }
+        
         .nav-item { padding: 15px 25px; cursor: pointer; display: flex; align-items: center; gap: 12px; opacity: 0.7; transition: 0.3s; }
         .nav-item:hover, .nav-item.active { opacity: 1; background: rgba(255,255,255,0.05); border-left: 4px solid var(--primary); }
+        
+        /* Logout knop styling */
+        .nav-logout { 
+            margin-top: auto; /* Duwt de knop naar de bodem */
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            color: var(--danger);
+            opacity: 1;
+        }
+        .nav-logout:hover { background: rgba(248, 113, 113, 0.1); border-left: 4px solid var(--danger); }
 
         /* Main Content */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
@@ -34,7 +61,6 @@
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
         th { text-align: left; padding: 12px; color: #64748b; font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid var(--border); }
         td { padding: 14px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; background: #f1f5f9; }
 
         /* Buttons */
         .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
@@ -56,6 +82,10 @@
             <div class="nav-item" onclick="showSection('bookings', this)">📋 Bookings</div>
             <div class="nav-item hurling-only" style="display:none;" onclick="showSection('hurling', this)">🏑 GAA Matches</div>
             <div class="nav-item" onclick="showSection('packages', this)">🏆 Our Packages</div>
+            
+            <div class="nav-item nav-logout" onclick="logout()">
+                🚪 Logout
+            </div>
         </nav>
     </aside>
 
@@ -102,6 +132,7 @@
         </section>
     </main>
 
+    <script src="auth.js"></script>
     <script src="partner-dashboard.js"></script>
 </body>
 </html>
