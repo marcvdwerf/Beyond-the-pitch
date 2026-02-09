@@ -1,6 +1,6 @@
 /**
  * Beyond the Pitch - Master Admin Dashboard Logic
- * Versie: 3.0 - Inclusief Export, Delete en Master Sheet Sync
+ * Versie: 3.1 - FIXED Navigation & Export
  */
 
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw7TZYAZjftT2346xjhs-Ec4BfioYqcRkvtjCkKy0jQW0rJ_C4ifdmX1G-jDZ06UqCbIA/exec';
@@ -21,7 +21,37 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAdminData();
 });
 
-// --- DATA INITIALISATIE ---
+// --- MENU FIX: Wisselen tussen secties ---
+window.showSection = (sId, el) => {
+    // 1. Verberg alles
+    document.querySelectorAll('.content-section').forEach(s => {
+        s.style.display = 'none';
+        s.classList.remove('active');
+    });
+
+    // 2. Toon doel
+    const target = document.getElementById(sId);
+    if (target) {
+        target.style.display = 'block';
+        setTimeout(() => target.classList.add('active'), 10);
+    }
+
+    // 3. Navigatie styling
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    // 4. Refresh acties
+    if (sId === 'partners') loadPartnerList();
+    if (sId === 'packages') loadPackageList();
+    if (sId === 'overview') {
+        setTimeout(() => {
+            if (window.calendar) { window.calendar.updateSize(); window.calendar.render(); }
+            if (revenueChart) revenueChart.update();
+        }, 150);
+    }
+};
+
+// --- DATA LOGICA ---
 async function loadAdminData() {
     const syncBtn = document.getElementById('syncBtn');
     const filterValue = document.getElementById('partnerFilter').value;
@@ -30,8 +60,6 @@ async function loadAdminData() {
     try {
         const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' });
         const data = await response.json();
-        
-        // Sync met kolommen: "Full Name", "Experience", "Start Date", "Guests"
         allBookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Experience"]) : [];
 
         renderAdminTable(allBookings);
@@ -39,33 +67,28 @@ async function loadAdminData() {
         populateAdminCalendar(allBookings);
         updateRevenueChart(allBookings);
 
-    } catch (e) { console.error("Error:", e); }
+    } catch (e) { console.error("Sync error:", e); }
     finally { if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data'; }
 }
 
-// --- TABELLEN RENDERING ---
 function renderAdminTable(bookings) {
     const container = document.getElementById('adminTableContainer');
     let html = `<table class="admin-table"><thead><tr><th>Partner</th><th>Date</th><th>Guest</th><th>Experience</th><th>Pax</th></tr></thead><tbody>`;
-    
     bookings.forEach(b => {
-        const rawDate = b["Start Date"] || b["Date"];
-        const dateObj = new Date(rawDate);
-        const formattedDate = !isNaN(dateObj) ? dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "-";
-
+        const d = new Date(b["Start Date"] || b["Date"]);
+        const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
         html += `<tr>
             <td><span class="badge-partner">${b["Partner"] || "Lima"}</span></td>
-            <td><strong>${formattedDate}</strong></td>
+            <td><strong>${fDate}</strong></td>
             <td><strong>${b["Full Name"] || "Guest"}</strong></td>
             <td style="font-size: 0.8rem;">${b["Experience"] || "-"}</td>
             <td>${b["Guests"] || 1}</td>
         </tr>`;
     });
-    html += '</tbody></table>';
-    container.innerHTML = html;
+    container.innerHTML = html + '</tbody></table>';
 }
 
-// --- EXPORT FUNCTIE ---
+// --- EXPORT & PRIJZEN ---
 window.exportBookingsToCSV = function() {
     if (!allBookings.length) return alert("No data to export.");
     const headers = ["Partner", "Full Name", "Email Address", "Phone Number", "Experience", "Start Date", "Guests", "Special Requests"];
@@ -73,21 +96,20 @@ window.exportBookingsToCSV = function() {
         headers.join(","),
         ...allBookings.map(row => headers.map(h => `"${(row[h] || "").toString().replace(/"/g, '""')}"`).join(","))
     ].join("\n");
-
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `BeyondThePitch_Export_${new Date().toISOString().split('T')[0]}.csv`;
+    link.download = `BTP_Export_${new Date().toISOString().split('T')[0]}.csv`;
     link.click();
 };
 
-// --- PACKAGES MANAGEMENT ---
 window.calculateSellPrice = () => {
     const net = parseFloat(document.getElementById('pkg_net').value) || 0;
     const comm = parseFloat(document.getElementById('pkg_comm').value) || 0;
     document.getElementById('pkg_sell').value = (net * (1 + comm/100)).toFixed(2);
 };
 
+// --- PACKAGE BEHEER ---
 async function loadPackageList() {
     const container = document.getElementById('packagesTableContainer');
     container.innerHTML = "Loading...";
@@ -96,15 +118,10 @@ async function loadPackageList() {
         const pkgs = await r.json();
         let h = `<table class="admin-table"><thead><tr><th>Partner</th><th>Package</th><th>Net</th><th>Sell</th><th>Profit</th><th>Action</th></tr></thead><tbody>`;
         pkgs.forEach(p => {
-            const net = parseFloat(p.NetPrice) || 0;
-            const sell = parseFloat(p.SellPrice) || 0;
-            h += `<tr>
-                <td><span class="badge-partner">${p.PartnerID}</span></td>
-                <td><strong>${p.PackageName}</strong></td>
-                <td>€${net.toFixed(2)}</td><td>€${sell.toFixed(2)}</td>
-                <td style="background:rgba(16,185,129,0.1)">€${(sell-net).toFixed(2)}</td>
-                <td><button class="btn-delete" onclick="deletePackage('${p.PackageName}','${p.PartnerID}')"><i class="fa-solid fa-trash"></i></button></td>
-            </tr>`;
+            const n = parseFloat(p.NetPrice) || 0; const s = parseFloat(p.SellPrice) || 0;
+            h += `<tr><td>${p.PartnerID}</td><td><strong>${p.PackageName}</strong></td><td>€${n.toFixed(2)}</td><td>€${s.toFixed(2)}</td>
+                <td style="color:#10b981;font-weight:bold">€${(s-n).toFixed(2)}</td>
+                <td><button class="btn-delete" onclick="deletePackage('${p.PackageName}','${p.PartnerID}')"><i class="fa-solid fa-trash"></i></button></td></tr>`;
         });
         container.innerHTML = h + "</tbody></table>";
     } catch (e) { container.innerHTML = "Error loading packages."; }
@@ -128,18 +145,10 @@ async function submitNewPackage() {
     loadPackageList();
 }
 
-// --- OVERIGE DASHBOARD FUNCTIES ---
-window.showSection = (sId, el) => {
-    document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
-    document.getElementById(sId).style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    if (el) el.classList.add('active');
-    if (sId === 'packages') loadPackageList();
-};
-
+// --- STATS & CHARTS ---
 function updateAdminStats(b) {
     document.getElementById('totalBookings').textContent = b.length;
-    let g = b.reduce((s, x) => s + (parseInt(x["Guests"]) || 0), 0);
+    const g = b.reduce((s, x) => s + (parseInt(x["Guests"]) || 0), 0);
     document.getElementById('totalGuests').textContent = g;
     document.getElementById('totalRevenue').textContent = `€${g * 75}`;
     document.getElementById('activePartners').textContent = new Set(b.map(x => x["Partner"])).size;
@@ -158,8 +167,27 @@ function populateAdminCalendar(b) {
 function updateRevenueChart(b) {
     const ctx = document.getElementById('revenueChart');
     if (revenueChart) revenueChart.destroy();
-    revenueChart = new Chart(ctx, { type: 'line', data: { labels: ['Jan','Feb','Mar','Apr','May','Jun'], datasets: [{ label: 'Revenue', data: [100, 200, 150, 300, 250, 400], borderColor: '#c5a059', tension: 0.4 }] } });
+    revenueChart = new Chart(ctx, { type: 'line', data: { labels: ['M1','M2','M3','M4','M5','M6'], datasets: [{ label: 'Revenue', data: [150, 230, 180, 310, 290, 420], borderColor: '#c5a059', tension: 0.4 }] } });
+}
+
+async function loadPartnerList() {
+    const c = document.getElementById('partnersTableContainer');
+    try {
+        const r = await fetch(`${SHEET_API_URL}?action=getPartners`);
+        const p = await r.json();
+        let h = `<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>ID</th></tr></thead><tbody>`;
+        p.forEach(x => h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td>${x.partnerID}</td></tr>`);
+        c.innerHTML = h + "</tbody></table>";
+    } catch (e) { c.innerHTML = "Error."; }
+}
+
+async function submitNewPartner() {
+    const n = document.getElementById('p_name').value; const e = document.getElementById('p_user').value; const p = document.getElementById('p_pass').value; const id = document.getElementById('p_id').value;
+    await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(n)}&user=${encodeURIComponent(e)}&pass=${encodeURIComponent(p)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
+    document.getElementById('addPartnerForm').style.display = 'none';
+    loadPartnerList();
 }
 
 window.logout = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
+window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
 window.togglePackageForm = () => { const f = document.getElementById('addPackageForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
