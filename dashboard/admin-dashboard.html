@@ -90,36 +90,34 @@
 
             <section id="bookings" class="content-section" style="display: none;">
                 <div class="card">
-                    <div class="card-header">
-                        <h3>Master Booking List</h3>
-                    </div>
+                    <div class="card-header"><h3>Master Booking List</h3></div>
                     <div class="table-responsive" id="adminTableContainer"></div>
                 </div>
             </section>
 
             <section id="partners" class="content-section" style="display: none;">
                 <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-                    <button class="btn-refresh" onclick="togglePartnerForm()"><i class="fa-solid fa-plus"></i> Add New Partner</button>
+                    <button class="btn-refresh" onclick="togglePartnerForm()"><i class="fa-solid fa-plus"></i> Add Partner</button>
                 </div>
                 <div id="addPartnerForm" class="card" style="display: none;">
                     <h3>Add New Partner</h3>
                     <div class="form-grid">
-                        <div class="input-group"><label>Business Name</label><input type="text" id="p_name" class="form-input"></div>
+                        <div class="input-group"><label>Name</label><input type="text" id="p_name" class="form-input"></div>
                         <div class="input-group"><label>Email</label><input type="text" id="p_user" class="form-input"></div>
                         <div class="input-group"><label>Password</label><input type="password" id="p_pass" class="form-input"></div>
                         <div class="input-group"><label>PartnerID</label><input type="text" id="p_id" class="form-input"></div>
                     </div>
-                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPartner()">Save Partner</button>
+                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPartner()">Save</button>
                 </div>
                 <div class="card" id="partnersTableContainer"></div>
             </section>
 
             <section id="packages" class="content-section" style="display: none;">
                 <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-                    <button class="btn-refresh" onclick="togglePackageForm()"><i class="fa-solid fa-plus"></i> Add New Package</button>
+                    <button class="btn-refresh" onclick="togglePackageForm()"><i class="fa-solid fa-plus"></i> Add Package</button>
                 </div>
-                <div id="addPackageForm" class="card" style="display: none; border: 1px solid #c5a059;">
-                    <h3>Setup New Package Pricing</h3>
+                <div id="addPackageForm" class="card" style="display: none;">
+                    <h3>Setup Package Pricing</h3>
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Partner</label>
@@ -133,7 +131,7 @@
                         <div class="input-group"><label>Commission (%)</label><input type="number" id="pkg_comm" class="form-input" value="20" oninput="calculateSellPrice()"></div>
                         <div class="input-group"><label>Sell Price (€)</label><input type="text" id="pkg_sell" class="form-input" readonly></div>
                     </div>
-                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPackage()">Add Package</button>
+                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPackage()">Save Package</button>
                 </div>
                 <div class="card" id="packagesTableContainer"></div>
             </section>
