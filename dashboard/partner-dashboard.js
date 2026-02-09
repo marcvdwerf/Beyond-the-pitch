@@ -1,167 +1,114 @@
-// --- CONFIGURATIE ---
+/**
+ * Beyond the Pitch - Partner Dashboard Logic
+ */
+
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwM3W72PX26NIB5_2AR5Zat1Buw8NhzcN2fKvNifmrkbEDPYvresi129kEsjpGMcApC0Q/exec';
-const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
 
-const PARTNER_CONTENT = {
-    "lima": { name: "Peru (Lima)", color: "#38bdf8", packages: [{ title: "Alianza Lima Experience", price: "€120", desc: "Local food & Match ticket" }] },
-    "ireland": { name: "Ireland", color: "#10b981", packages: [{ title: "GAA Hurling Masterclass", price: "€45", desc: "Full club immersion" }] }
-};
-
-const GAA_MATCHES = [
-    { teams: 'Kilkenny vs Wexford', date: '2026-05-10', location: 'Nowlan Park' },
-    { teams: 'Limerick vs Clare', date: '2026-05-17', location: 'TUS Gaelic Grounds' }
-];
-
-let currentBookings = [];
-let calendar;
-
-// --- INITIALISATIE ---
 document.addEventListener('DOMContentLoaded', () => {
-    const partnerID = (localStorage.getItem("partnerID") || "lima").toLowerCase();
-    setupTheme(partnerID);
-    initCalendar(partnerID);
+    const partnerID = sessionStorage.getItem("partnerID");
+    const userName = sessionStorage.getItem("userName");
+
+    if (!partnerID) return; // auth.js stuurt de gebruiker al weg
+
+    // UI Initialiseren
+    document.getElementById("welcomeText").innerText = `Welcome, ${userName || 'Partner'}`;
+    
+    // Data laden
     loadDataFromSheet();
-    renderPackages(partnerID);
+    loadPackages();
 });
 
-function setupTheme(id) {
-    const partner = PARTNER_CONTENT[id] || PARTNER_CONTENT.lima;
-    document.getElementById('welcomeText').textContent = `Hello, ${partner.name} 👋`;
-    if(id === 'ireland') {
-        document.body.classList.add('theme-ireland');
-        document.querySelectorAll('.hurling-only').forEach(el => el.style.display = 'flex');
-        renderHurlingMatches();
+// 1. Boekingen ophalen
+async function loadDataFromSheet() {
+    const pID = sessionStorage.getItem("partnerID");
+    const syncBtn = document.getElementById("syncBtn");
+    if(syncBtn) syncBtn.innerText = "Syncing...";
+
+    try {
+        const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(pID)}`);
+        const data = await response.json();
+        
+        renderStats(data);
+        renderTable(data);
+        renderCalendar(data);
+        
+        if(syncBtn) syncBtn.innerText = "🔄 Sync Data";
+    } catch (error) {
+        console.error("Error loading bookings:", error);
     }
 }
 
-// --- DATA FETCHING ---
-async function loadDataFromSheet() {
-    const btn = document.getElementById('syncBtn');
-    btn.textContent = "⏳ Syncing...";
+// 2. Dynamische Pakketten ophalen
+async function loadPackages() {
+    const pID = sessionStorage.getItem("partnerID");
+    const pkgGrid = document.getElementById("dynamicPackagesGrid");
     
     try {
-        const response = await fetch(SHEET_API_URL, { redirect: 'follow' });
-        const data = await response.json();
-        const myPartnerID = (localStorage.getItem("partnerID") || "lima").toLowerCase();
+        const response = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=${encodeURIComponent(pID)}`);
+        const packages = await response.json();
 
-        // Filter en sorteer op datum
-        currentBookings = data
-            .filter(row => String(row["Partner"] || "").toLowerCase().includes(myPartnerID))
-            .sort((a, b) => new Date(formatDate(b["Start Date"])) - new Date(formatDate(a["Start Date"])));
+        if (!packages || packages.length === 0) {
+            pkgGrid.innerHTML = "<p>No packages available for your region yet.</p>";
+            return;
+        }
 
-        updateUI();
-    } catch (e) {
-        console.error("Sync Error:", e);
-        document.getElementById('bookingsTableContainer').innerHTML = "⚠️ Error loading data.";
-    } finally {
-        btn.textContent = "🔄 Sync Data";
+        pkgGrid.innerHTML = packages.map(pkg => `
+            <div class="stat-card">
+                <img src="${pkg.ImageURL || 'https://via.placeholder.com/300x150'}" style="width:100%; border-radius:8px; margin-bottom:10px;">
+                <h3 style="margin-bottom:5px;">${pkg.PackageName}</h3>
+                <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px;">${pkg.Description}</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-weight:800; color:var(--primary);">${pkg.Currency || '€'} ${pkg.Price}</span>
+                    <button class="btn btn-outline" style="padding:5px 10px; font-size:0.75rem;">View Details</button>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        pkgGrid.innerHTML = "<p>Could not load packages.</p>";
     }
 }
 
-// --- UI UPDATES ---
-function updateUI() {
-    renderTable();
-    updateStats();
-    updateCalendar();
+// Hulpfuncties voor UI
+function renderStats(data) {
+    document.getElementById("totalBookings").innerText = data.length;
+    const guests = data.reduce((sum, row) => sum + (parseInt(row["Number of Guests"]) || 0), 0);
+    document.getElementById("totalGuests").innerText = guests;
 }
 
-function renderTable() {
-    const container = document.getElementById('bookingsTableContainer');
-    if (currentBookings.length === 0) {
-        container.innerHTML = "No bookings found.";
-        return;
-    }
+function renderTable(data) {
+    const container = document.getElementById("bookingsTableContainer");
+    if (!data.length) { container.innerHTML = "No bookings found."; return; }
 
-    let html = `<table><thead><tr><th>Date</th><th>Guest Name</th><th>Experience</th><th>Pax</th><th>Status</th></tr></thead><tbody>`;
-    currentBookings.forEach(b => {
-        html += `
-            <tr>
-                <td><strong>${b["Start Date"] || 'TBD'}</strong></td>
-                <td>${b["Full Name"] || 'Unknown'}</td>
-                <td>${b["Experience"] || 'Standard Tour'}</td>
-                <td><span class="badge">${b["Guests"] || '1'} Persons</span></td>
-                <td><span class="badge" style="background:#dcfce7; color:#166534;">Confirmed</span></td>
-            </tr>`;
+    let html = `<table><thead><tr><th>Date</th><th>Customer</th><th>Package</th><th>Guests</th></tr></thead><tbody>`;
+    data.forEach(row => {
+        html += `<tr>
+            <td>${row["Date"] || row["Timestamp"] || 'N/A'}</td>
+            <td>${row["Full Name"] || 'N/A'}</td>
+            <td><span class="badge">${row["Package Selection"] || 'Standard'}</span></td>
+            <td>${row["Number of Guests"] || '0'}</td>
+        </tr>`;
     });
-    container.innerHTML = html + `</tbody></table>`;
+    html += `</tbody></table>`;
+    container.innerHTML = html;
 }
 
-function updateStats() {
-    document.getElementById('totalBookings').textContent = currentBookings.length;
-    const guests = currentBookings.reduce((sum, b) => sum + (parseInt(b["Guests"]) || 1), 0);
-    document.getElementById('totalGuests').textContent = guests;
+function showSection(sectionId, el) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    el.classList.add('active');
 }
 
-// --- HELPER FUNCTIONS ---
-function formatDate(dateStr) {
-    if(!dateStr) return new Date();
-    // Als datum DD-MM-YYYY is, maak er YYYY-MM-DD van voor JS compatibility
-    const parts = dateStr.split('-');
-    if(parts.length === 3 && parts[2].length === 4) {
-        return `${parts[2]}-${parts[1]}-${parts[0]}`;
-    }
-    return dateStr;
-}
-
-function initCalendar(partnerID) {
+// Kalender setup (FullCalendar)
+function renderCalendar(data) {
     const calendarEl = document.getElementById('calendar');
-    calendar = new FullCalendar.Calendar(calendarEl, {
+    const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        headerToolbar: { left: 'prev,next today', center: 'title', right: '' },
-        height: 600,
-        eventColor: partnerID === 'ireland' ? '#10b981' : '#38bdf8'
+        events: data.map(row => ({
+            title: `${row["Full Name"]} (${row["Number of Guests"]})`,
+            start: row["Date"] || row["Timestamp"],
+            backgroundColor: '#38bdf8'
+        }))
     });
     calendar.render();
-}
-
-function updateCalendar() {
-    calendar.removeAllEvents();
-    const events = currentBookings.map(b => ({
-        title: `${b["Full Name"]} (${b["Guests"]})`,
-        start: formatDate(b["Start Date"]),
-        allDay: true
-    }));
-    calendar.addEventSource(events);
-}
-
-function showSection(id, el) {
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    el.classList.add('active');
-    if(id === 'overview') {
-        setTimeout(() => calendar.updateSize(), 100);
-    }
-}
-
-// --- EXPORT & SPECIALS ---
-function exportToExcel() {
-    const ws = XLSX.utils.json_to_sheet(currentBookings);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Bookings");
-    XLSX.writeFile(wb, `BTP_Bookings_${new Date().toLocaleDateString()}.xlsx`);
-}
-
-function renderPackages(id) {
-    const grid = document.getElementById('dynamicPackagesGrid');
-    const partner = PARTNER_CONTENT[id] || PARTNER_CONTENT.lima;
-    grid.innerHTML = partner.packages.map(p => `
-        <div class="stat-card">
-            <h3 style="margin-bottom:10px;">${p.title}</h3>
-            <p style="color:#64748b; font-size:0.9rem;">${p.desc}</p>
-            <div style="margin-top:15px; font-weight:800; color:var(--primary);">${p.price}</div>
-        </div>
-    `).join('');
-}
-
-function renderHurlingMatches() {
-    const grid = document.getElementById('matchGrid');
-    grid.innerHTML = GAA_MATCHES.map(m => `
-        <div class="stat-card">
-            <h3 style="margin-bottom:5px;">${m.teams}</h3>
-            <p style="color:#64748b; font-size:0.85rem;">📍 ${m.location}</p>
-            <p style="margin: 10px 0; font-weight:600;">📅 ${m.date}</p>
-            <button class="btn btn-primary" onclick="alert('Booking request sent for ${m.teams}')" style="width:100%;">Book Ticket</button>
-        </div>
-    `).join('');
 }
