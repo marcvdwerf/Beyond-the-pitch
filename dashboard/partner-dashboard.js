@@ -3,7 +3,7 @@
  * Versie: 2.1 - Inclusief Netto Prijzen, Thema-switch & Maandagenda
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw7TZYAZjftT2346xjhs-Ec4BfioYqcRkvtjCkKy0jQW0rJ_C4ifdmX1G-jDZ06UqCbIA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     const partnerID = sessionStorage.getItem("partnerID");
