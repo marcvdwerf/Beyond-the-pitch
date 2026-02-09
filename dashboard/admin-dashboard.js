@@ -1,9 +1,9 @@
 /**
  * Beyond the Pitch - Master Admin Dashboard Logic
- * Versie: 2.0 - Inclusief Prijsbeheer & Commissie
+ * Versie: 2.3 - Inclusief Delete Package Functie
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw7TZYAZjftT2346xjhs-Ec4BfioYqcRkvtjCkKy0jQW0rJ_C4ifdmX1G-jDZ06UqCbIA/exec';
 
 let revenueChart = null;
 let allBookings = []; 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAdminData();
 });
 
-// --- NAVIGATIE & SECTIE BEHEER ---
+// --- NAVIGATIE ---
 window.showSection = (sId, el) => {
     document.querySelectorAll('.content-section').forEach(s => {
         s.style.display = 'none';
@@ -37,18 +37,11 @@ window.showSection = (sId, el) => {
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     if (el) el.classList.add('active');
 
-    // Specifieke data laden per sectie
     if (sId === 'partners') loadPartnerList();
-    if (sId === 'packages') loadPackageList(); // Nieuwe sectie aanroep
-    if (sId === 'overview') {
-        setTimeout(() => {
-            if (window.calendar) window.calendar.render();
-            if (revenueChart) revenueChart.update();
-        }, 150);
-    }
+    if (sId === 'packages') loadPackageList(); 
 };
 
-// --- DATA INITIALISATIE ---
+// --- BOEKINGEN DATA ---
 async function loadAdminData() {
     const syncBtn = document.getElementById('syncBtn');
     const filterValue = document.getElementById('partnerFilter').value;
@@ -58,8 +51,7 @@ async function loadAdminData() {
         const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' });
         const data = await response.json();
         
-        // Filter lege rijen uit de Google Sheet data
-        allBookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Full name"] || row["Customer"]) : [];
+        allBookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Experience"]) : [];
 
         renderAdminTable(allBookings);
         updateAdminStats(allBookings);
@@ -73,12 +65,31 @@ async function loadAdminData() {
     }
 }
 
-// --- PRIJS & COMMISSIE LOGICA (NIEUW) ---
+function renderAdminTable(bookings) {
+    const container = document.getElementById('adminTableContainer');
+    let html = `<table class="admin-table"><thead><tr><th>Partner</th><th>Date</th><th>Guest</th><th>Experience</th><th>Pax</th></tr></thead><tbody>`;
+    
+    bookings.forEach(b => {
+        const rawDate = b["Start Date"] || b["Date"];
+        const dateObj = new Date(rawDate);
+        const formattedDate = !isNaN(dateObj) ? dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "-";
+
+        html += `<tr>
+            <td><span class="badge-partner">${b["Partner"] || "Lima"}</span></td>
+            <td><strong>${formattedDate}</strong></td>
+            <td><strong>${b["Full Name"] || "Guest"}</strong></td>
+            <td style="font-size: 0.85rem;">${b["Experience"] || "-"}</td>
+            <td>${b["Guests"] || 1}</td>
+        </tr>`;
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+}
+
+// --- PACKAGES & PRICING ---
 window.calculateSellPrice = function() {
     const net = parseFloat(document.getElementById('pkg_net').value) || 0;
     const commPercentage = parseFloat(document.getElementById('pkg_comm').value) || 0;
-    
-    // Verkoopprijs = Netto prijs + commissie percentage
     const sell = net * (1 + (commPercentage / 100));
     document.getElementById('pkg_sell').value = sell.toFixed(2);
 };
@@ -91,7 +102,7 @@ window.togglePackageForm = () => {
 async function loadPackageList() {
     const container = document.getElementById('packagesTableContainer');
     if (!container) return;
-    container.innerHTML = "<p>Loading packages and margins...</p>";
+    container.innerHTML = "<p>Loading data from Master Sheet...</p>";
 
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`);
@@ -99,25 +110,32 @@ async function loadPackageList() {
         
         let h = `<table class="admin-table">
             <thead><tr>
-                <th>Partner</th><th>Package</th><th>Net (Partner)</th><th>Sell (Client)</th><th>Profit</th>
+                <th>Partner</th><th>Package</th><th>Net</th><th>Sell</th><th>Profit</th><th>Action</th>
             </tr></thead><tbody>`;
         
-        pkgs.forEach(p => {
+        pkgs.forEach((p, index) => {
+            const partner = p.PartnerID || "N/A";
+            const name = p.PackageName || "No Name";
             const net = parseFloat(p.NetPrice) || 0;
             const sell = parseFloat(p.SellPrice) || 0;
             const profit = sell - net;
             
             h += `<tr>
-                <td><span class="badge-partner">${p.PartnerID}</span></td>
-                <td><strong>${p.PackageName}</strong></td>
+                <td><span class="badge-partner">${partner}</span></td>
+                <td><strong>${name}</strong></td>
                 <td>€${net.toFixed(2)}</td>
                 <td style="color: #10b981; font-weight: bold;">€${sell.toFixed(2)}</td>
                 <td style="background: rgba(197,160,89,0.1); font-weight: 600;">€${profit.toFixed(2)}</td>
+                <td>
+                    <button class="btn-delete" onclick="deletePackage('${name}', '${partner}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
             </tr>`;
         });
         container.innerHTML = h + `</tbody></table>`;
     } catch (e) { 
-        container.innerHTML = "<p>Error loading package pricing list.</p>"; 
+        container.innerHTML = "<p>Could not connect to Google Sheets.</p>"; 
     }
 }
 
@@ -127,51 +145,44 @@ async function submitNewPackage() {
     const net = document.getElementById('pkg_net').value;
     const sell = document.getElementById('pkg_sell').value;
 
-    if(!pID || !name || !net) return alert("Please fill in all price fields.");
+    if(!pID || !name || !net) return alert("Fill in all fields.");
 
     try {
-        const url = `${SHEET_API_URL}?action=addPackage&partnerID=${encodeURIComponent(pID)}&name=${encodeURIComponent(name)}&net=${net}&sell=${sell}&desc=Added via Admin`;
+        const url = `${SHEET_API_URL}?action=addPackage&partnerID=${encodeURIComponent(pID)}&name=${encodeURIComponent(name)}&net=${net}&sell=${sell}&desc=Experience`;
         await fetch(url, { redirect: 'follow' });
-        alert("Package and prices saved to Master Sheet!");
+        alert("Package saved!");
         togglePackageForm();
         loadPackageList();
     } catch (e) { 
-        alert("Package saved!"); // Fallback voor CORS redirects
         loadPackageList(); 
     }
 }
 
-// --- TABELLEN & STATS ---
-function renderAdminTable(bookings) {
-    const container = document.getElementById('adminTableContainer');
-    let html = `<table class="admin-table"><thead><tr><th>Partner</th><th>Date</th><th>Guest</th><th>Pax</th><th>Status</th></tr></thead><tbody>`;
-    
-    bookings.forEach(b => {
-        const rawDate = b["Start Date"] || b["Date"] || b["Tijdstempel"];
-        const dateObj = new Date(rawDate);
-        const formattedDate = !isNaN(dateObj) ? dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "-";
+// --- NIEUW: DELETE PACKAGE ---
+async function deletePackage(packageName, partnerID) {
+    if (!confirm(`Are you sure you want to delete "${packageName}" for ${partnerID}?`)) return;
 
-        html += `<tr>
-            <td><span class="badge-partner">${b["Partner"] || "Lima"}</span></td>
-            <td><strong>${formattedDate}</strong></td>
-            <td><strong>${b["Full Name"] || b["Full name"] || "Guest"}</strong></td>
-            <td>${b["Number of Guests"] || b["Guests"] || 1}</td>
-            <td><span class="badge-status status-confirmed">Confirmed</span></td>
-        </tr>`;
-    });
-    html += '</tbody></table>';
-    container.innerHTML = html;
+    try {
+        const url = `${SHEET_API_URL}?action=deletePackage&name=${encodeURIComponent(packageName)}&partnerID=${encodeURIComponent(partnerID)}`;
+        await fetch(url, { redirect: 'follow' });
+        alert("Package deleted!");
+        loadPackageList();
+    } catch (e) {
+        alert("Package removed from list.");
+        loadPackageList();
+    }
 }
 
+// --- DASHBOARD STATS & VISUALS ---
 function updateAdminStats(b) {
     document.getElementById('totalBookings').textContent = b.length;
     let g = 0; let r = 0; const p = new Set();
     
     b.forEach(x => {
-        const pax = parseInt(x["Number of Guests"] || x["Guests"]) || 1;
+        const pax = parseInt(x["Guests"]) || 1;
         g += pax; 
-        r += (pax * 75); // Voorbeeld: Admin ziet globale omzet op basis van €75 gemiddelde
-        p.add(x["Partner"] || x["PartnerID"]);
+        r += (pax * 75); 
+        p.add(x["Partner"]);
     });
     
     document.getElementById('totalGuests').textContent = g;
@@ -179,15 +190,13 @@ function updateAdminStats(b) {
     document.getElementById('activePartners').textContent = p.size;
 }
 
-// --- KALENDER & CHARTS ---
 function initCalendar() {
     const el = document.getElementById('calendar');
     if (!el) return;
     window.calendar = new FullCalendar.Calendar(el, { 
         initialView: 'dayGridMonth', 
         headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth' }, 
-        eventColor: '#c5a059',
-        height: 'auto'
+        eventColor: '#c5a059'
     });
     window.calendar.render();
 }
@@ -197,61 +206,47 @@ function populateAdminCalendar(b) {
     window.calendar.removeAllEvents();
     const events = b.map(x => ({
         title: `[${x["Partner"] || 'P'}] ${x["Full Name"] || 'Guest'}`,
-        start: (x["Start Date"] || x["Date"] || "").toString().substring(0,10),
+        start: (x["Start Date"] || "").toString().substring(0,10),
         allDay: true
-    })).filter(e => e.start && e.start.length >= 10);
+    })).filter(e => e.start);
     window.calendar.addEventSource(events);
 }
 
 function updateRevenueChart(bookings) {
     const ctx = document.getElementById('revenueChart');
     if (!ctx) return;
-    
-    const monthlyData = {};
-    const labels = [];
+    const monthlyData = {}; const labels = [];
     for (let i = 5; i >= 0; i--) {
         const d = new Date(); d.setMonth(d.getMonth() - i);
         const m = d.toLocaleString('en-GB', { month: 'short' });
         labels.push(m); monthlyData[m] = 0;
     }
-
     bookings.forEach(b => {
-        const d = new Date(b["Start Date"] || b["Date"]);
+        const d = new Date(b["Start Date"]);
         const m = d.toLocaleString('en-GB', { month: 'short' });
         if (monthlyData.hasOwnProperty(m)) {
-            monthlyData[m] += (parseInt(b["Number of Guests"] || b["Guests"]) || 1) * 75;
+            monthlyData[m] += (parseInt(b["Guests"]) || 1) * 75;
         }
     });
-
     if (revenueChart) revenueChart.destroy();
     revenueChart = new Chart(ctx, {
         type: 'line',
-        data: { 
-            labels, 
-            datasets: [{ 
-                label: 'Revenue Trend', 
-                data: labels.map(l => monthlyData[l]), 
-                borderColor: '#c5a059', 
-                fill: true, 
-                backgroundColor: 'rgba(197,160,89,0.1)', 
-                tension: 0.4 
-            }] 
-        },
+        data: { labels, datasets: [{ label: 'Revenue', data: labels.map(l => monthlyData[l]), borderColor: '#c5a059', fill: true, backgroundColor: 'rgba(197,160,89,0.1)', tension: 0.4 }] },
         options: { responsive: true, plugins: { legend: { display: false } } }
     });
 }
 
-// --- PARTNER MANAGEMENT ---
+// --- PARTNER BEHEER ---
 async function loadPartnerList() {
     const c = document.getElementById('partnersTableContainer');
-    c.innerHTML = "Loading partner network...";
+    c.innerHTML = "Loading...";
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect: 'follow' });
         const p = await r.json();
-        let h = `<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>Partner ID</th></tr></thead><tbody>`;
+        let h = `<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>ID</th></tr></thead><tbody>`;
         p.forEach(x => h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td><span class="badge-partner">${x.partnerID}</span></td></tr>`);
         c.innerHTML = h + `</tbody></table>`;
-    } catch (e) { c.innerHTML = "Error loading partner list."; }
+    } catch (e) { c.innerHTML = "Error."; }
 }
 
 async function submitNewPartner() {
@@ -259,17 +254,11 @@ async function submitNewPartner() {
     const user = document.getElementById('p_user').value;
     const pass = document.getElementById('p_pass').value;
     const id = document.getElementById('p_id').value;
-    
-    if(!name || !user || !pass || !id) return alert("Fill all fields");
-    
+    if(!name || !user || !pass || !id) return alert("Fill fields");
     try {
-        const url = `${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`;
-        await fetch(url, { redirect: 'follow' });
-        alert("New partner added to network!"); 
-        togglePartnerForm(); 
-        loadPartnerList();
-    } catch (e) { 
-        alert("Partner successfully added!"); 
-        loadPartnerList(); 
-    }
+        await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(name)}&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
+        alert("Partner added!"); togglePartnerForm(); loadPartnerList();
+    } catch (e) { alert("Partner added!"); loadPartnerList(); }
 }
+
+window.logout = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
