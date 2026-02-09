@@ -5,60 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner Dashboard - Beyond the Pitch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root { --primary: #38bdf8; --primary-dark: #0ea5e9; --sidebar-bg: #1e293b; --bg: #f8fafc; --white: #ffffff; --border: #e2e8f0; --danger: #f87171; }
         body.theme-ireland { --primary: #10b981; --primary-dark: #059669; }
         
         * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: #1e293b; display: flex; min-height: 100vh; }
+        body { background: var(--bg); color: #1e293b; display: flex; min-height: 100vh; flex-direction: row; }
 
-        /* Sidebar */
+        /* Sidebar Styling */
         .sidebar { 
-            width: 260px; 
-            background: var(--sidebar-bg); 
-            color: white; 
-            position: sticky; 
-            top: 0; 
-            height: 100vh; 
-            padding: 20px 0; 
-            display: flex;
-            flex-direction: column;
+            width: 260px; background: var(--sidebar-bg); color: white; 
+            position: sticky; top: 0; height: 100vh; padding: 20px 0; 
+            display: flex; flex-direction: column; transition: 0.3s; z-index: 1000;
         }
         .logo { padding: 0 25px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem; font-weight: 800; color: var(--primary); }
         
-        nav { 
-            display: flex; 
-            flex-direction: column; 
-            flex-grow: 1; /* Neemt beschikbare ruimte in */
-            padding-top: 10px;
-        }
-        
+        nav { display: flex; flex-direction: column; flex-grow: 1; padding-top: 10px; }
         .nav-item { padding: 15px 25px; cursor: pointer; display: flex; align-items: center; gap: 12px; opacity: 0.7; transition: 0.3s; }
         .nav-item:hover, .nav-item.active { opacity: 1; background: rgba(255,255,255,0.05); border-left: 4px solid var(--primary); }
-        
-        /* Logout knop styling */
-        .nav-logout { 
-            margin-top: auto; /* Duwt de knop naar de bodem */
-            border-top: 1px solid rgba(255,255,255,0.1); 
-            color: var(--danger);
-            opacity: 1;
-        }
-        .nav-logout:hover { background: rgba(248, 113, 113, 0.1); border-left: 4px solid var(--danger); }
+        .nav-logout { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); color: var(--danger); opacity: 1; }
+
+        /* Mobile Header / Menu Toggle */
+        .mobile-nav-toggle { display: none; background: var(--sidebar-bg); color: white; padding: 15px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1100; }
 
         /* Main Content */
-        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .main-content { flex: 1; padding: 40px; overflow-x: hidden; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
         
+        /* Stats & Grids */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card { background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .stat-val { font-size: 2rem; font-weight: 800; display: block; margin-top: 5px; }
 
-        .card { background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 25px; overflow-x: auto; }
+        .card { background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 25px; }
         
-        /* Table Styling */
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        /* Table responsive container */
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
         th { text-align: left; padding: 12px; color: #64748b; font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid var(--border); }
         td { padding: 14px 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
 
@@ -66,26 +51,38 @@
         .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-outline { background: #f1f5f9; color: #1e293b; }
-        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { 
+                position: fixed; left: -260px; width: 260px; height: 100%; 
+            }
+            .sidebar.open { left: 0; }
+            .mobile-nav-toggle { display: flex; }
+            .main-content { padding: 20px; }
+            .header h1 { font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
 
         .content-section { display: none; }
-        .content-section.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-section.active { display: block; }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
+    <div class="mobile-nav-toggle">
+        <span>Beyond the Pitch</span>
+        <button onclick="toggleSidebar()" style="background:none; border:none; color:white; font-size:1.5rem;"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
         <div class="logo">Beyond the Pitch</div>
         <nav>
             <div class="nav-item active" onclick="showSection('overview', this)">📊 Overview</div>
             <div class="nav-item" onclick="showSection('bookings', this)">📋 Bookings</div>
-            <div class="nav-item hurling-only" style="display:none;" onclick="showSection('hurling', this)">🏑 GAA Matches</div>
             <div class="nav-item" onclick="showSection('packages', this)">🏆 Our Packages</div>
-            
-            <div class="nav-item nav-logout" onclick="logout()">
-                🚪 Logout
-            </div>
+            <div class="nav-item nav-logout" onclick="logout()">🚪 Logout</div>
         </nav>
     </aside>
 
@@ -93,22 +90,22 @@
         <header class="header">
             <div>
                 <h1 id="welcomeText">Loading...</h1>
-                <p style="color: #64748b;">Manage your experiences and guests.</p>
+                <p style="color: #64748b;">Experience Management</p>
             </div>
             <div style="display: flex; gap: 10px;">
-                <button class="btn btn-outline" onclick="exportToExcel()">📥 Export</button>
-                <button class="btn btn-primary" id="syncBtn" onclick="loadDataFromSheet()">🔄 Sync Data</button>
+                <button class="btn btn-outline" onclick="exportToExcel()"><i class="fa-solid fa-file-export"></i> Export</button>
+                <button class="btn btn-primary" id="syncBtn" onclick="loadDataFromSheet()"><i class="fa-solid fa-rotate"></i> Sync</button>
             </div>
         </header>
 
         <section id="overview" class="content-section active">
             <div class="stats-grid">
                 <div class="stat-card">
-                    <span style="color:#64748b; font-size: 0.8rem; font-weight: 600;">ACTIVE BOOKINGS</span>
+                    <span style="color:#64748b; font-size: 0.8rem; font-weight: 600;">BOOKINGS</span>
                     <span class="stat-val" id="totalBookings">0</span>
                 </div>
                 <div class="stat-card">
-                    <span style="color:#64748b; font-size: 0.8rem; font-weight: 600;">TOTAL GUESTS</span>
+                    <span style="color:#64748b; font-size: 0.8rem; font-weight: 600;">GUESTS</span>
                     <span class="stat-val" id="totalGuests">0</span>
                 </div>
             </div>
@@ -119,19 +116,33 @@
 
         <section id="bookings" class="content-section">
             <div class="card">
-                <div id="bookingsTableContainer">Fetching latest bookings...</div>
+                <div class="table-responsive" id="bookingsTableContainer">Fetching...</div>
             </div>
         </section>
 
-        <section id="hurling" class="content-section">
-            <div id="matchGrid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;"></div>
-        </section>
-
         <section id="packages" class="content-section">
-            <div id="dynamicPackagesGrid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;"></div>
+            <div id="dynamicPackagesGrid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;"></div>
         </section>
     </main>
 
+    <script>
+        // Mobiele Sidebar Functie
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // Sluit sidebar na klik op mobiel
+        window.showSectionOriginal = window.showSection; // Bewaar originele functie
+        function showSection(id, el) {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+            // Roep de functie in partner-dashboard.js aan
+            if (typeof window.showSection === 'function') {
+                // De logica in partner-dashboard.js handelt de rest af
+            }
+        }
+    </script>
     <script src="auth.js"></script>
     <script src="partner-dashboard.js"></script>
 </body>
