@@ -1,142 +1,101 @@
 /**
- * Beyond the Pitch - Authentication Logic
- * Verbindt met Master Google Sheet voor validatie
+ * Beyond the Pitch - Optimized Authentication
  */
 
+// Gebruik de URL van je Google Apps Script
 const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbx2wFd2ffQaUbzuUWJKjmufU1PcoB4aATfZ3Xg-q_yh0x2PHVPd_MPWn9uxWUZRjy13fw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Tab switching (Partner vs Admin)
+    initTabs();
+    checkExistingSession();
+
+    // Form Events
+    document.getElementById("partner-form")?.addEventListener("submit", e => {
+        e.preventDefault();
+        handleLogin("partner");
+    });
+
+    document.getElementById("admin-form")?.addEventListener("submit", e => {
+        e.preventDefault();
+        handleLogin("admin");
+    });
+});
+
+function initTabs() {
     const tabButtons = document.querySelectorAll(".tab-btn");
     const loginForms = document.querySelectorAll(".login-form");
 
-    if (tabButtons.length > 0) {
-        tabButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                tabButtons.forEach(btn => btn.classList.remove("active"));
-                loginForms.forEach(form => form.classList.remove("active"));
-                
-                button.classList.add("active");
-                const targetId = `${button.dataset.tab}-form`;
-                document.getElementById(targetId)?.classList.add("active");
-                
-                // Wis foutmeldingen bij het wisselen van tab
-                document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
-            });
+    tabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            loginForms.forEach(form => form.classList.remove("active"));
+            
+            button.classList.add("active");
+            const targetId = `${button.dataset.tab}-form`;
+            document.getElementById(targetId)?.classList.add("active");
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
         });
-
-        // 2. Formulier inzendingen koppelen
-        document.getElementById("partner-form")?.addEventListener("submit", e => {
-            e.preventDefault();
-            handleLogin("partner");
-        });
-
-        document.getElementById("admin-form")?.addEventListener("submit", e => {
-            e.preventDefault();
-            handleLogin("admin");
-        });
-    }
-
-    // 3. Automatische redirect als de gebruiker al een sessie heeft
-    checkExistingSession();
-});
-
-/**
- * Controleert of er al een geldige login sessie in de browser staat
- */
-function checkExistingSession() {
-    if (localStorage.getItem("isAuthenticated") === "true") {
-        const role = localStorage.getItem("userType");
-        const isLoginPage = document.querySelector('.tab-btn') !== null;
-        
-        if (isLoginPage) {
-            if (role === "admin") {
-                window.location.href = "admin-dashboard.html";
-            } else {
-                window.location.href = "partner-dashboard.html";
-            }
-        }
-    }
+    });
 }
 
-/**
- * Verifieert inloggegevens via de Master Sheet API
- */
 async function handleLogin(role) {
     const userEl = document.getElementById(`${role}-email`);
     const passEl = document.getElementById(`${role}-password`);
     const errorEl = document.getElementById(`${role}-error`);
-    const submitBtn = document.querySelector(`#${role}-form button`);
+    const submitBtn = document.querySelector(`#${role}-form .login-btn`);
 
-    if (!userEl || !passEl) return;
-
-    const username = userEl.value.trim();
+    const username = userEl.value.trim().toLowerCase(); // Altijd lowercase voor database match
     const password = passEl.value.trim();
 
     try {
-        // UI naar 'bezig' status
-        if (submitBtn) {
-            submitBtn.innerText = "Verifying...";
-            submitBtn.disabled = true;
-        }
-        if (errorEl) errorEl.textContent = "";
+        toggleLoading(submitBtn, true, role);
+        errorEl.textContent = "";
 
-        // API aanroep naar Google Apps Script
-        const response = await fetch(`${MASTER_API_URL}?action=login&user=${encodeURIComponent(username)}&pass=${encodeURIComponent(password)}`);
-        
-        if (!response.ok) throw new Error("Network response error");
-        
+        // API Call
+        const params = new URLSearchParams({
+            action: 'login',
+            user: username,
+            pass: password,
+            role: role // We geven mee of ze als partner of admin proberen in te loggen
+        });
+
+        const response = await fetch(`${MASTER_API_URL}?${params.toString()}`);
         const result = await response.json();
 
         if (result.status === "success") {
-            // Sessie opslaan in de browser
-            localStorage.setItem("isAuthenticated", "true");
-            localStorage.setItem("userType", result.role); // 'admin' of 'partner'
-            localStorage.setItem("userName", result.name);
-            localStorage.setItem("partnerID", result.partnerID);
+            // Sla sessie op (sessionStorage is veiliger dan localStorage voor logins)
+            sessionStorage.setItem("isAuthenticated", "true");
+            sessionStorage.setItem("userRole", result.role);
+            sessionStorage.setItem("partnerID", result.partnerID);
+            sessionStorage.setItem("userName", result.name);
 
-            // Doorsturen naar de juiste pagina
-            if (result.role === "admin") {
-                window.location.href = "admin-dashboard.html";
-            } else {
-                window.location.href = "partner-dashboard.html";
-            }
+            // Redirect op basis van de Role uit de DATABASE, niet uit de tab
+            window.location.href = result.role === "admin" ? "admin-dashboard.html" : "partner-dashboard.html";
         } else {
-            if (errorEl) errorEl.textContent = "Invalid email or password. Please try again.";
+            errorEl.textContent = result.message || "Invalid credentials.";
         }
     } catch (error) {
-        console.error("Login Error:", error);
-        if (errorEl) errorEl.textContent = "Connection error. Please check your internet and try again.";
+        errorEl.textContent = "Server connection failed. Try again later.";
+        console.error("Auth error:", error);
     } finally {
-        if (submitBtn) {
-            submitBtn.innerText = (role === "admin") ? "Admin Access" : "Sign In";
-            submitBtn.disabled = false;
-        }
+        toggleLoading(submitBtn, false, role);
     }
 }
 
-/**
- * Beveiligingscheck: wordt aangeroepen bovenaan dashboard pagina's
- */
-window.checkAuth = function(requiredRole) {
-    const auth = localStorage.getItem("isAuthenticated");
-    const role = localStorage.getItem("userType");
+function toggleLoading(btn, isLoading, role) {
+    btn.disabled = isLoading;
+    if (isLoading) {
+        btn.innerHTML = '<span class="spinner"></span> Verifying...';
+    } else {
+        btn.innerText = role === "admin" ? "Admin Access" : "Sign In";
+    }
+}
 
-    // Admins hebben toegang tot alle dashboards
-    if (auth === "true" && role === "admin") return true;
-
-    // Partners alleen tot hun eigen dashboard
-    if (auth === "true" && role === requiredRole) return true;
-
-    // Niet geautoriseerd? Terug naar login
-    window.location.href = "index.html";
-    return false;
-};
-
-/**
- * Logt de gebruiker uit en wist de browser sessie
- */
-window.logout = function() {
-    localStorage.clear();
-    window.location.href = "index.html";
-};
+function checkExistingSession() {
+    const auth = sessionStorage.getItem("isAuthenticated");
+    const role = sessionStorage.getItem("userRole");
+    
+    if (auth === "true") {
+        window.location.href = (role === "admin") ? "admin-dashboard.html" : "partner-dashboard.html";
+    }
+}
