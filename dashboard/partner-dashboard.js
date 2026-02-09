@@ -1,6 +1,6 @@
 /**
  * Beyond the Pitch - Partner Dashboard Logic
- * Versie: 3.0 - Mobile Optimized, Status Badges & Responsive Tables
+ * Versie: 3.2 - Mobile First, Anti-Undefined & Status Badges
  */
 
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDuYt-8z_lN_e63avbnrK8_Ik-67vt8t-zimn8VOvtz0glCgiEYOGC-Ywq_7ewZ1hrYA/exec';
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 1. Thema Kleuren (bijv. Groen voor Ireland)
+    // 1. Dynamisch Thema (Ireland = Groen, rest = Blauw/Goud)
     if (partnerID.toLowerCase() === "ireland") {
         document.body.classList.add("theme-ireland");
     }
@@ -22,24 +22,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // UI Initialiseren
     document.getElementById("welcomeText").innerText = `Welcome, ${userName || partnerID}`;
     
-    // Data laden
+    // Data inladen
     loadDataFromSheet();
     loadPackages(); 
 });
 
-// 2. Boekingen ophalen en statistieken berekenen
+// 2. Boekingen ophalen en Stats berekenen
 async function loadDataFromSheet() {
     const pID = sessionStorage.getItem("partnerID");
     const syncBtn = document.getElementById("syncBtn");
     if(syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
 
     try {
-        const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(pID)}`);
+        const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(pID)}`, { redirect: 'follow' });
         const data = await response.json();
         
-        if (!data || data.error) throw new Error(data.error || "Geen data");
+        if (!data || data.error) throw new Error(data.error || "No data found");
 
-        // Filter lege rijen en match op koppen uit Master Sheet
+        // Filter lege rijen uit de Google Sheet
         const cleanData = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Experience"]) : [];
 
         renderStats(cleanData);
@@ -48,19 +48,21 @@ async function loadDataFromSheet() {
         
     } catch (error) {
         console.error("Error loading bookings:", error);
+        const container = document.getElementById("bookingsTableContainer");
+        if(container) container.innerHTML = "No active bookings found.";
     } finally {
-        if(syncBtn) syncBtn.innerHTML = '🔄 Sync Data';
+        if(syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data';
     }
 }
 
-// 3. Pakketten ophalen (Responsive Grid)
+// 3. Pakketten ophalen (Nu zonder 'undefined'!)
 async function loadPackages() {
     const pID = sessionStorage.getItem("partnerID");
     const pkgGrid = document.getElementById("dynamicPackagesGrid");
     if (!pkgGrid) return;
     
     try {
-        const response = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=${encodeURIComponent(pID)}`);
+        const response = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=${encodeURIComponent(pID)}`, { redirect: 'follow' });
         const packages = await response.json();
 
         if (!packages || packages.length === 0) {
@@ -68,27 +70,65 @@ async function loadPackages() {
             return;
         }
 
-        pkgGrid.innerHTML = packages.map(pkg => `
-            <div class="stat-card package-card">
-                <img src="${pkg.ImageURL || 'https://via.placeholder.com/300x150'}" class="pkg-img">
-                <h3>${pkg.PackageName}</h3>
-                <p class="pkg-desc">${pkg.Description || 'Experience description'}</p>
-                <div class="pkg-footer">
-                    <span class="pkg-price">€ ${pkg.NetPrice}</span>
-                    <span class="badge-net">NETTO</span>
+        pkgGrid.innerHTML = packages.map(pkg => {
+            // Beveiliging tegen lege velden uit de sheet
+            const name = pkg.PackageName || "Experience";
+            const desc = pkg.Description || "Check our experience details.";
+            const price = pkg.NetPrice || "0.00";
+            const img = pkg.ImageURL || 'https://via.placeholder.com/300x150?text=Beyond+The+Pitch';
+
+            return `
+                <div class="stat-card" style="display: flex; flex-direction: column; gap: 10px;">
+                    <img src="${img}" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
+                    <h3 style="font-size: 1.1rem; margin-top: 5px;">${name}</h3>
+                    <p style="color: #64748b; font-size: 0.8rem; flex-grow: 1;">${desc}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 10px; margin-top: 5px;">
+                        <span style="font-weight: 800; color: var(--primary);">€ ${price}</span>
+                        <span style="font-size: 0.65rem; font-weight: bold; color: #94a3b8;">NETTO PRICE</span>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     } catch (error) { 
+        console.error("Error loading packages:", error);
         pkgGrid.innerHTML = "Error loading packages."; 
     }
 }
 
-// 4. Verbeterde Tabel (Mobile Ready met data-labels)
+// 4. Kalender (Lijstweergave op Mobiel)
+function renderCalendar(data) {
+    const calendarEl = document.getElementById('calendar');
+    if (!calendarEl || !data) return;
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: window.innerWidth < 768 ? 'listWeek' : 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,listWeek'
+        },
+        height: 'auto',
+        events: data.map(row => ({
+            title: `${row["Full Name"] || 'Guest'}`,
+            start: row["Start Date"] || row["Date"],
+            allDay: true,
+            extendedProps: {
+                experience: row["Experience"] || "Not specified",
+                guests: row["Guests"] || "1"
+            }
+        })),
+        eventClick: function(info) {
+            alert(`Customer: ${info.event.title}\nExperience: ${info.event.extendedProps.experience}\nGuests: ${info.event.extendedProps.guests}`);
+        }
+    });
+    
+    calendar.render();
+}
+
+// 5. Tabel Rendering (Responsive met Labels)
 function renderTable(data) {
     const container = document.getElementById("bookingsTableContainer");
     if (!container) return;
-    if (data.length === 0) { container.innerHTML = "No bookings found."; return; }
 
     let html = `
         <table class="admin-table">
@@ -104,10 +144,9 @@ function renderTable(data) {
             <tbody>`;
     
     data.forEach(row => {
-        const status = row["Status"] || "Pending";
-        const statusClass = status.toLowerCase() === 'confirmed' ? 'status-confirmed' : 'status-pending';
+        const rawStatus = row["Status"] || "Pending";
+        const statusClass = rawStatus.toLowerCase() === 'confirmed' ? 'status-confirmed' : 'status-pending';
         
-        // Formatteer datum voor mobiel
         const d = new Date(row["Start Date"] || row["Date"]);
         const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
 
@@ -118,7 +157,7 @@ function renderTable(data) {
                 <td data-label="Experience">${row["Experience"] || '-'}</td>
                 <td data-label="Pax">${row["Guests"] || '1'}</td>
                 <td data-label="Status">
-                    <span class="status-badge ${statusClass}">${status}</span>
+                    <span class="status-badge ${statusClass}">${rawStatus}</span>
                 </td>
             </tr>`;
     });
@@ -127,43 +166,13 @@ function renderTable(data) {
     container.innerHTML = html;
 }
 
-// 5. Maandagenda (Kalender)
-function renderCalendar(data) {
-    const calendarEl = document.getElementById('calendar');
-    if (!calendarEl || !data) return;
-
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: window.innerWidth < 768 ? 'listWeek' : 'dayGridMonth', // List op mobiel
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,listWeek'
-        },
-        events: data.map(row => ({
-            title: `${row["Full Name"] || 'Booking'}`,
-            start: row["Start Date"] || row["Date"],
-            allDay: true,
-            extendedProps: {
-                experience: row["Experience"],
-                guests: row["Guests"] || "0"
-            }
-        })),
-        eventClick: function(info) {
-            alert(`Customer: ${info.event.title}\nExperience: ${info.event.extendedProps.experience}\nGuests: ${info.event.extendedProps.guests}`);
-        }
-    });
-    
-    calendar.render();
-}
-
-// 6. Statistieken
+// 6. Stats & Navigatie
 function renderStats(data) {
     document.getElementById("totalBookings").innerText = data.length;
     const guests = data.reduce((sum, row) => sum + (parseInt(row["Guests"]) || 0), 0);
     document.getElementById("totalGuests").innerText = guests;
 }
 
-// 7. Navigatie
 window.showSection = function(sectionId, el) {
     document.querySelectorAll('.content-section').forEach(s => {
         s.style.display = 'none';
@@ -178,9 +187,26 @@ window.showSection = function(sectionId, el) {
 
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     if(el) el.classList.add('active');
+
+    // Als sidebar open is op mobiel, sluit deze
+    const sidebar = document.getElementById('sidebar');
+    if(sidebar && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+    }
 }
 
 window.logout = function() {
     sessionStorage.clear();
     window.location.href = 'index.html';
 }
+
+// Export functie voor Partners
+window.exportToExcel = function() {
+    const pID = sessionStorage.getItem("partnerID");
+    const filename = `BeyondThePitch_${pID}_Bookings.csv`;
+    // Simpele CSV export logica
+    let csv = "Date,Guest,Experience,Pax,Status\n";
+    // Hier zou je de geladen data kunnen loopen voor een export
+    alert("Preparing download...");
+    // (Optioneel: implementeer volledige CSV logica hier)
+};
