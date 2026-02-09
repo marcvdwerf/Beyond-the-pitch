@@ -44,6 +44,9 @@
                     <p class="current-date" id="currentDateDisplay"></p>
                 </div>
                 <div class="admin-actions">
+                    <button class="btn-refresh" style="background: #10b981; color: white;" onclick="exportBookingsToCSV()">
+                        <i class="fa-solid fa-file-export"></i> Export to Excel
+                    </button>
                     <div class="filter-wrapper">
                         <i class="fa-solid fa-filter"></i>
                         <select id="partnerFilter" onchange="loadAdminData()">
@@ -77,12 +80,9 @@
                         <div class="stat-info"><h4>Active Partners</h4><p id="activePartners">0</p></div>
                     </div>
                 </div>
-
                 <div class="card chart-card">
-                    <div class="card-header"><h3><i class="fa-solid fa-chart-line"></i> Revenue Trends</h3></div>
                     <canvas id="revenueChart"></canvas>
                 </div>
-
                 <div class="card calendar-card">
                     <div id="calendar"></div>
                 </div>
@@ -90,13 +90,8 @@
 
             <section id="bookings" class="content-section" style="display: none;">
                 <div class="card">
-                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="card-header">
                         <h3>Master Booking List</h3>
-                        <div class="time-filters">
-                            <button class="filter-btn active" onclick="filterByTime('all', this)">All</button>
-                            <button class="filter-btn" onclick="filterByTime('today', this)">Today</button>
-                            <button class="filter-btn" onclick="filterByTime('week', this)">This Week</button>
-                        </div>
                     </div>
                     <div class="table-responsive" id="adminTableContainer"></div>
                 </div>
@@ -106,49 +101,41 @@
                 <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
                     <button class="btn-refresh" onclick="togglePartnerForm()"><i class="fa-solid fa-plus"></i> Add New Partner</button>
                 </div>
-                <div id="addPartnerForm" class="card" style="display: none; border: 1px solid var(--primary-gold); margin-bottom: 20px;">
+                <div id="addPartnerForm" class="card" style="display: none;">
                     <h3>Add New Partner</h3>
                     <div class="form-grid">
-                        <div class="input-group"><label>Business Name</label><input type="text" id="p_name" class="form-input" placeholder="e.g. Lima Experience"></div>
+                        <div class="input-group"><label>Business Name</label><input type="text" id="p_name" class="form-input"></div>
                         <div class="input-group"><label>Email</label><input type="text" id="p_user" class="form-input"></div>
                         <div class="input-group"><label>Password</label><input type="password" id="p_pass" class="form-input"></div>
-                        <div class="input-group"><label>PartnerID</label><input type="text" id="p_id" class="form-input" placeholder="e.g. Lima"></div>
+                        <div class="input-group"><label>PartnerID</label><input type="text" id="p_id" class="form-input"></div>
                     </div>
                     <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPartner()">Save Partner</button>
                 </div>
-                <div class="card">
-                    <div class="card-header"><h3>Partner Network</h3></div>
-                    <div class="table-responsive" id="partnersTableContainer"></div>
-                </div>
+                <div class="card" id="partnersTableContainer"></div>
             </section>
 
             <section id="packages" class="content-section" style="display: none;">
                 <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
                     <button class="btn-refresh" onclick="togglePackageForm()"><i class="fa-solid fa-plus"></i> Add New Package</button>
                 </div>
-
-                <div id="addPackageForm" class="card" style="display: none; border: 1px solid var(--primary-gold); margin-bottom: 20px;">
+                <div id="addPackageForm" class="card" style="display: none; border: 1px solid #c5a059;">
                     <h3>Setup New Package Pricing</h3>
                     <div class="form-grid">
                         <div class="input-group">
-                            <label>Assign to Partner</label>
+                            <label>Partner</label>
                             <select id="pkg_partnerid" class="form-input">
                                 <option value="Lima">Lima</option>
                                 <option value="Ireland">Ireland</option>
                             </select>
                         </div>
-                        <div class="input-group"><label>Package Name</label><input type="text" id="pkg_name" class="form-input" placeholder="e.g. Full Day Tour"></div>
-                        <div class="input-group"><label>Net Price (€) (Partner gets this)</label><input type="number" id="pkg_net" class="form-input" oninput="calculateSellPrice()" placeholder="40.00"></div>
+                        <div class="input-group"><label>Package Name</label><input type="text" id="pkg_name" class="form-input"></div>
+                        <div class="input-group"><label>Net Price (€)</label><input type="number" id="pkg_net" class="form-input" oninput="calculateSellPrice()"></div>
                         <div class="input-group"><label>Commission (%)</label><input type="number" id="pkg_comm" class="form-input" value="20" oninput="calculateSellPrice()"></div>
-                        <div class="input-group"><label>Final Sell Price (€) (Client pays this)</label><input type="text" id="pkg_sell" class="form-input" readonly></div>
+                        <div class="input-group"><label>Sell Price (€)</label><input type="text" id="pkg_sell" class="form-input" readonly></div>
                     </div>
-                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPackage()">Add Package to Network</button>
+                    <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPackage()">Add Package</button>
                 </div>
-
-                <div class="card">
-                    <div class="card-header"><h3>Package & Margin Overview</h3></div>
-                    <div class="table-responsive" id="packagesTableContainer"></div>
-                </div>
+                <div class="card" id="packagesTableContainer"></div>
             </section>
         </main>
     </div>
