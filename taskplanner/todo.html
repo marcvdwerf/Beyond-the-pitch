@@ -40,7 +40,11 @@
         .task-note { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #333; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
         .task-item.expanded .task-note { display: block; }
 
+        .task-actions { display: flex; gap: 8px; margin-top: 12px; }
         .btn-mini { font-size: 10px; padding: 5px 10px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .btn-mini:hover { background: #444; }
+        .btn-outlook { background: var(--accent-outlook); }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal.active { display: flex; }
         .modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 450px; border: 1px solid var(--border); }
@@ -55,7 +59,7 @@
         <div class="logo" style="font-size: 24px; margin-bottom: 20px; text-align: center;">⚡ MATRIX LOGIN</div>
         <input type="text" id="user-name" class="form-input" placeholder="Je Naam">
         <input type="password" id="access-code" class="form-input" placeholder="Toegangscode">
-        <button onclick="login()" style="width:100%; padding:12px; background:var(--accent-q2); border:none; border-radius:6px; cursor:pointer; font-weight:bold;">Dashboard Openen</button>
+        <button onclick="login()" style="width:100%; padding:12px; background:var(--accent-q2); border:none; border-radius:6px; cursor:pointer; font-weight:bold; color: black;">Dashboard Openen</button>
     </div>
 </div>
 
@@ -88,15 +92,17 @@
     <div class="modal-content">
       <h3 style="margin-bottom:15px;">Nieuwe Taak</h3>
       <input type="text" id="task-name" class="form-input" placeholder="Wat moet er gebeuren?">
-      <textarea id="task-desc" class="form-input" placeholder="Beschrijving..." rows="3"></textarea>
+      <textarea id="task-desc" class="form-input" placeholder="Beschrijving of notitie..." rows="3"></textarea>
       <div style="display:flex; gap:10px;">
           <input type="date" id="task-deadline" class="form-input">
           <select id="task-pos" class="form-input">
-              <option value="q1">Q1</option><option value="q2">Q2</option>
-              <option value="q3">Q3</option><option value="q4">Q4</option>
+              <option value="q1">Q1: Urgent/Belangrijk</option>
+              <option value="q2">Q2: Planning</option>
+              <option value="q3">Q3: Delegeren</option>
+              <option value="q4">Q4: Elimineren</option>
           </select>
       </div>
-      <button class="btn-mini" style="width:100%; padding:12px; background:var(--accent-q2); color:black;" onclick="saveTask()">Opslaan</button>
+      <button class="btn-mini" style="width:100%; padding:12px; background:var(--accent-q2); color:black; font-weight:bold;" onclick="saveTask()">Opslaan in Cloud</button>
       <button class="btn-mini" style="width:100%; margin-top:10px; background:transparent;" onclick="closeModal()">Annuleren</button>
     </div>
 </div>
@@ -136,15 +142,15 @@ async function loadData() {
         const res = await fetch(`${API_URL}?action=getAll&code=${user.code}`);
         const data = await res.json();
         tasks = data.tasks || [];
-        targets = data.targets || []; // HAALT TARGETS OP
+        targets = data.targets || [];
         renderTasks();
-        renderTargets(); // TOONT TARGETS
+        renderTargets();
     } catch (e) { console.error("Sync error"); }
 }
 
 function renderTargets() {
     const container = document.getElementById('targets-display');
-    if (targets.length === 0) {
+    if (!targets || targets.length === 0) {
         container.innerHTML = '<p style="color:var(--text-secondary); font-size:12px;">Geen targets gevonden in sheet "Targets".</p>';
         return;
     }
@@ -163,11 +169,10 @@ function renderTasks() {
         container.innerHTML = tasks.filter(t => t.quadrant === q && t.status !== 'Done')
             .map(t => {
                 let dateHtml = '';
+                let calParam = '';
                 if (t.deadline && t.deadline !== "") {
-                    // FIX: Strip tijdzone informatie
                     const cleanDate = String(t.deadline).split('T')[0];
                     const d = new Date(cleanDate);
-                    
                     if (!isNaN(d.getTime())) {
                         const today = new Date();
                         today.setHours(0,0,0,0);
@@ -176,6 +181,7 @@ function renderTasks() {
                         const month = String(d.getMonth() + 1).padStart(2, '0');
                         const year = d.getFullYear();
                         dateHtml = `<div class="task-deadline ${isUrgent ? 'date-urgent' : 'date-normal'}">📅 ${day}-${month}-${year}</div>`;
+                        calParam = `${year}${month}${day}`;
                     }
                 }
                 return `
@@ -184,26 +190,45 @@ function renderTasks() {
                     <div class="task-note">${t.description || '<i>Geen notities.</i>'}</div>
                     <div class="task-actions" onclick="event.stopPropagation()">
                         <button class="btn-mini" style="color:var(--accent-q2)" onclick="completeTask('${t.id}')">✓ Done</button>
+                        <button class="btn-mini" onclick="openCalendar('${t.name}', '${calParam}')">📅 Agenda</button>
+                        <button class="btn-mini btn-outlook" onclick="window.open('https://outlook.office.com/mail/', '_blank')">📧 Mail</button>
                     </div>
                 </div>`;
             }).join('');
     });
 }
 
-// REST VAN JE FUNCTIES (saveTask, completeTask, openModal etc. blijven hetzelfde)
 async function saveTask() {
     const name = document.getElementById('task-name').value;
     const desc = document.getElementById('task-desc').value;
     const deadline = document.getElementById('task-deadline').value;
     const q = document.getElementById('task-pos').value;
     if(!name) return alert("Naam verplicht");
-    const newTask = { id: Date.now().toString(), name, description: desc, deadline, quadrant: q, status: 'To Do', user: user.name };
+    const newTask = { 
+        id: Date.now().toString(), name, description: desc, deadline, 
+        quadrant: q, status: 'To Do', user: user.name,
+        urgent: (q==='q1'||q==='q3'), important: (q==='q1'||q==='q2')
+    };
     tasks.push(newTask);
     renderTasks();
     closeModal();
     await fetch(`${API_URL}?action=addTask&code=${user.code}`, { method: 'POST', body: JSON.stringify(newTask) });
     loadData();
 }
+
+async function completeTask(id) {
+    tasks = tasks.filter(t => t.id != id);
+    renderTasks();
+    await fetch(`${API_URL}?action=updateTask&code=${user.code}`, {
+        method: 'POST', body: JSON.stringify({ id, status: 'Done' })
+    });
+}
+
+function openCalendar(title, dateParam) {
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dateParam}/${dateParam}`;
+    window.open(url, '_blank');
+}
+
 function openModal() { document.getElementById('task-modal').classList.add('active'); }
 function closeModal() { document.getElementById('task-modal').classList.remove('active'); }
 init();
