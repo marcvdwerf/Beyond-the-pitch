@@ -2,7 +2,7 @@
   "name": "Taskplanner Pro",
   "short_name": "Matrix",
   "description": "Eisenhower Matrix Taskplanner",
-  "start_url": "index.html",
+  "start_url": "./todo.html",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#4ecdc4",
