@@ -50,6 +50,7 @@ body {
   background: var(--bg-secondary); border-bottom: 1px solid var(--border);
   padding: 15px 40px; display: flex; justify-content: space-between;
   align-items: center; position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(10px);
 }
 
 .logo {
@@ -64,7 +65,8 @@ body {
   font-size: 13px; transition: 0.3s;
 }
 
-.btn-primary { background: linear-gradient(135deg, var(--accent-q1), var(--accent-q2)); border: none; }
+.btn-primary { background: linear-gradient(135deg, var(--accent-q1), var(--accent-q2)); border: none; color: white; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* Tabs */
 .tabs { display: flex; gap: 10px; margin: 20px 0; border-bottom: 1px solid var(--border); }
@@ -78,32 +80,35 @@ body {
   height: 2px; background: var(--accent-q2);
 }
 
-/* Matrix & Grid */
+/* Matrix */
 .matrix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-.quadrant { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; min-height: 350px; }
-.quadrant h3 { font-size: 12px; color: var(--text-secondary); margin-bottom: 15px; text-transform: uppercase; }
+.quadrant { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; min-height: 350px; transition: border 0.3s; }
+.quadrant h3 { font-size: 11px; color: var(--text-secondary); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
-/* Task Items */
 .task-item {
   background: var(--bg-secondary); border: 1px solid var(--border);
   padding: 12px; border-radius: 8px; margin-bottom: 10px;
+  animation: slideIn 0.3s ease-out;
 }
 
-.task-actions { display: flex; gap: 8px; margin-top: 8px; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+.task-meta { font-size: 10px; color: var(--text-secondary); margin-top: 5px; display: flex; gap: 10px; }
+.task-actions { display: flex; gap: 8px; margin-top: 10px; }
 .btn-mini { font-size: 10px; padding: 4px 8px; background: #333; color: #ccc; border: none; border-radius: 4px; cursor: pointer; }
 .btn-mini:hover { background: #444; color: white; }
 
 /* Targets */
-.targets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-.target-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; border-radius: 12px; }
-.progress-bg { height: 10px; background: #111; border-radius: 5px; margin: 10px 0; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--accent-q2); transition: 1s; width: 0%; }
+.target-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 15px; }
+.progress-bg { height: 8px; background: #111; border-radius: 4px; margin: 12px 0; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-q2), var(--accent-q4)); transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); width: 0%; }
 
 /* Modal */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .modal.active { display: flex; }
-.modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 400px; }
-.form-input { width: 100%; padding: 10px; margin-bottom: 10px; background: #111; border: 1px solid var(--border); color: white; border-radius: 5px; }
+.modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; border: 1px solid var(--border); }
+.form-input { width: 100%; padding: 12px; margin-bottom: 12px; background: #111; border: 1px solid var(--border); color: white; border-radius: 6px; outline: none; }
+.form-input:focus { border-color: var(--accent-q2); }
 </style>
 </head>
 <body>
@@ -113,14 +118,14 @@ body {
         <div class="logo" style="font-size: 28px; margin-bottom: 20px;">⚡ EISENHOWER</div>
         <input type="text" id="user-name" class="form-input" placeholder="Naam">
         <input type="password" id="access-code" class="form-input" placeholder="Toegangscode">
-        <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="login()">Dashboard Laden</button>
+        <button class="btn btn-primary" style="width: 100%; padding: 14px;" onclick="login()">Dashboard Laden</button>
     </div>
 </div>
 
 <div class="header">
   <div class="logo">⚡ MATRIX PRO</div>
-  <div style="display: flex; gap: 10px; align-items: center;">
-    <span id="display-name" style="font-size: 12px; color: var(--text-secondary);"></span>
+  <div style="display: flex; gap: 15px; align-items: center;">
+    <span id="display-name" style="font-size: 12px; color: var(--text-secondary); font-family: 'Space Mono';"></span>
     <button class="btn" onclick="logout()">Uitloggen</button>
     <button class="btn btn-primary" onclick="openModal()">+ Nieuwe Taak</button>
   </div>
@@ -135,45 +140,46 @@ body {
 
   <div id="view-dashboard" class="content-view">
     <div class="matrix-grid">
-      <div class="quadrant" id="q1"><h3>🔥 Urgent & Belangrijk</h3><div class="task-list"></div></div>
-      <div class="quadrant" id="q2"><h3>📅 Planning (Q2)</h3><div class="task-list"></div></div>
-      <div class="quadrant" id="q3"><h3>👥 Delegeren (Q3)</h3><div class="task-list"></div></div>
-      <div class="quadrant" id="q4"><h3>🗑️ Elimineren (Q4)</h3><div class="task-list"></div></div>
+      <div class="quadrant" id="q1" style="border-top: 3px solid var(--accent-q1)"><h3>🔥 Urgent & Belangrijk</h3><div class="task-list"></div></div>
+      <div class="quadrant" id="q2" style="border-top: 3px solid var(--accent-q2)"><h3>📅 Planning (Q2)</h3><div class="task-list"></div></div>
+      <div class="quadrant" id="q3" style="border-top: 3px solid var(--accent-q3)"><h3>👥 Delegeren (Q3)</h3><div class="task-list"></div></div>
+      <div class="quadrant" id="q4" style="border-top: 3px solid var(--accent-q4)"><h3>🗑️ Elimineren (Q4)</h3><div class="task-list"></div></div>
     </div>
   </div>
 
   <div id="view-targets" class="content-view" style="display:none;">
-    <div class="targets-grid" id="target-container">
-      <p>Targets worden geladen uit Google Sheets...</p>
-    </div>
+    <div class="targets-grid" id="target-container"></div>
   </div>
 
   <div id="view-outlook" class="content-view" style="display:none;">
     <div class="quadrant" style="width: 100%;">
         <h3>📧 Outlook Integratie</h3>
-        <p style="color: var(--text-secondary); margin-bottom: 15px;">Koppel hier je mails om ze direct naar de matrix te slepen.</p>
-        <button class="btn" onclick="window.open('https://outlook.office.com/mail/', '_blank')" style="background: var(--accent-outlook); border:none;">Open Outlook Web</button>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">Open de webversie om e-mails te verwerken in je matrix.</p>
+        <button class="btn" onclick="window.open('https://outlook.office.com/mail/', '_blank')" style="background: var(--accent-outlook); border:none; padding: 12px 24px;">Open Outlook Web</button>
     </div>
   </div>
 </div>
 
 <div class="modal" id="task-modal">
   <div class="modal-content">
-    <h3>Nieuwe Taak</h3><br>
+    <h3 style="margin-bottom: 15px;">Nieuwe Taak</h3>
     <input type="text" id="task-name" class="form-input" placeholder="Wat moet er gebeuren?">
-    <select id="task-urgent" class="form-input"><option value="true">Urgent</option><option value="false">Niet Urgent</option></select>
-    <select id="task-important" class="form-input"><option value="true">Belangrijk</option><option value="false">Niet Belangrijk</option></select>
-    <button class="btn btn-primary" style="width: 100%;" onclick="saveTask()">Opslaan</button>
-    <button class="btn" style="width: 100%; margin-top: 5px; background: transparent;" onclick="closeModal()">Annuleren</button>
+    <div style="display: flex; gap: 10px;">
+        <select id="task-urgent" class="form-input"><option value="true">Urgent</option><option value="false">Niet Urgent</option></select>
+        <select id="task-important" class="form-input"><option value="true">Belangrijk</option><option value="false">Niet Belangrijk</option></select>
+    </div>
+    <input type="text" id="task-assigned" class="form-input" placeholder="Toewijzen aan (optioneel)">
+    <button id="save-btn" class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="saveTask()">Taak Opslaan</button>
+    <button class="btn" style="width: 100%; margin-top: 8px; background: transparent; border: none;" onclick="closeModal()">Annuleren</button>
   </div>
 </div>
 
 <script>
+// Gebruik je eigen URL die je in de prompt gaf
 const API_URL = 'https://script.google.com/macros/s/AKfycbyDP6EI6NLu8pAAG6o2Y-mw3BqsU8gtkmTPda-UaLMITCvmhWTCbQkBoWWREMJcePjDug/exec';
 let tasks = [];
 let user = { name: '', code: '' };
 
-// AUTH & INIT
 window.onload = () => {
     const savedUser = localStorage.getItem('matrix_user');
     const savedCode = localStorage.getItem('matrix_code');
@@ -187,8 +193,7 @@ window.onload = () => {
 function login() {
     user.name = document.getElementById('user-name').value;
     user.code = document.getElementById('access-code').value;
-    if(!user.name || !user.code) return alert("Vul alles in!");
-    
+    if(!user.name || !user.code) return alert("Vul beide velden in.");
     localStorage.setItem('matrix_user', user.name);
     localStorage.setItem('matrix_code', user.code);
     document.getElementById('auth-overlay').style.display = 'none';
@@ -201,20 +206,22 @@ function logout() {
 }
 
 function init() {
-    document.getElementById('display-name').textContent = "Ingelogd als: " + user.name;
+    document.getElementById('display-name').textContent = user.name.toUpperCase();
     loadData();
-    setInterval(loadData, 60000); // Elke minuut sync
+    setInterval(loadData, 30000); // Sync elke 30 seconden
 }
 
-// DATA LOADING
 async function loadData() {
     try {
         const res = await fetch(`${API_URL}?action=getAll&code=${user.code}`);
         const data = await res.json();
+        if(data.error) throw new Error(data.error);
         tasks = data.tasks || [];
         renderTasks();
         renderTargets(data.targets || []);
-    } catch (e) { console.log("Sync error"); }
+    } catch (e) {
+        console.error("Sync error:", e);
+    }
 }
 
 function renderTasks() {
@@ -224,10 +231,14 @@ function renderTasks() {
         container.innerHTML = tasks.filter(t => t.quadrant === q && t.status !== 'Done')
             .map(t => `
                 <div class="task-item">
-                    <div style="font-weight:bold; font-size:14px;">${t.name}</div>
+                    <div style="font-weight:600; font-size:14px; color: #fff;">${t.name}</div>
+                    <div class="task-meta">
+                        <span>👤 ${t.user || 'Systeem'}</span>
+                        ${t.assigned ? `<span>🎯 ${t.assigned}</span>` : ''}
+                    </div>
                     <div class="task-actions">
-                        <button class="btn-mini" onclick="completeTask(${t.id})">✓ Klaar</button>
-                        <button class="btn-mini" onclick="addToCalendar('${t.name}')">📅 Agenda</button>
+                        <button class="btn-mini" onclick="completeTask('${t.id}')">✓ Klaar</button>
+                        <button class="btn-mini" onclick="addToCalendar('${t.name.replace(/'/g, "\\'")}')">📅 Agenda</button>
                     </div>
                 </div>
             `).join('');
@@ -236,43 +247,90 @@ function renderTasks() {
 
 function renderTargets(targets) {
     const container = document.getElementById('target-container');
-    if(!targets.length) return;
+    if(!targets || targets.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-secondary)">Geen targets gevonden in Sheets.</p>';
+        return;
+    }
     container.innerHTML = targets.map(t => {
-        const perc = Math.round((t.actueel / t.doel) * 100);
+        const perc = Math.min(Math.round((t.actueel / t.doel) * 100), 100);
         return `
             <div class="target-card">
-                <div style="display:flex; justify-content:space-between;">
-                    <span>${t.naam}</span>
-                    <span style="color:var(--accent-q2)">${perc}%</span>
+                <div style="display:flex; justify-content:space-between; align-items: center;">
+                    <span style="font-weight: 700; font-size: 15px;">${t.naam}</span>
+                    <span style="color:var(--accent-q2); font-family: 'Space Mono';">${perc}%</span>
                 </div>
                 <div class="progress-bg"><div class="progress-fill" style="width:${perc}%"></div></div>
-                <div style="font-size:12px; color:var(--text-secondary)">
-                    ${t.eenheid}${t.actueel.toLocaleString()} van ${t.eenheid}${t.doel.toLocaleString()}
+                <div style="font-size:11px; color:var(--text-secondary); display: flex; justify-content: space-between;">
+                    <span>Huidig: ${t.eenheid}${t.actueel.toLocaleString()}</span>
+                    <span>Doel: ${t.eenheid}${t.doel.toLocaleString()}</span>
                 </div>
             </div>
         `;
     }).join('');
 }
 
-// ACTIONS
 async function saveTask() {
-    const name = document.getElementById('task-name').value;
+    const nameInput = document.getElementById('task-name');
+    const assignedInput = document.getElementById('task-assigned');
+    const saveBtn = document.getElementById('save-btn');
+    
+    if(!nameInput.value) return alert("Naam is verplicht");
+
     const urgent = document.getElementById('task-urgent').value === 'true';
     const important = document.getElementById('task-important').value === 'true';
     const q = (urgent && important) ? 'q1' : (!urgent && important) ? 'q2' : (urgent && !important) ? 'q3' : 'q4';
 
-    const newTask = { id: Date.now(), name, quadrant: q, status: 'To Do', user: user.name };
-    
-    // Optimistic Update
+    const newTask = { 
+        id: Date.now().toString(), 
+        name: nameInput.value, 
+        quadrant: q, 
+        urgent: urgent,
+        important: important,
+        status: 'To Do', 
+        user: user.name,
+        assigned: assignedInput.value
+    };
+
+    // Optimistic Update (meteen tonen)
     tasks.push(newTask);
     renderTasks();
     closeModal();
+    
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Verzenden...";
 
-    await fetch(`${API_URL}?action=addTask&code=${user.code}`, {
-        method: 'POST',
-        body: JSON.stringify(newTask)
-    });
-    loadData();
+    try {
+        await fetch(`${API_URL}?action=addTask&code=${user.code}`, {
+            method: 'POST',
+            body: JSON.stringify(newTask)
+        });
+        loadData(); // Sync met server
+    } catch (e) {
+        alert("Fout bij opslaan. Probeer opnieuw.");
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Taak Opslaan";
+        nameInput.value = '';
+        assignedInput.value = '';
+    }
+}
+
+async function completeTask(id) {
+    const task = tasks.find(t => t.id == id);
+    if(!task) return;
+
+    // Direct uit UI halen
+    task.status = 'Done';
+    renderTasks();
+
+    try {
+        await fetch(`${API_URL}?action=updateTask&code=${user.code}`, {
+            method: 'POST',
+            body: JSON.stringify({ id: id, status: 'Done', quadrant: task.quadrant })
+        });
+    } catch (e) {
+        console.error("Update failed");
+    }
 }
 
 function addToCalendar(title) {
@@ -280,14 +338,13 @@ function addToCalendar(title) {
     const outlookUrl = `https://outlook.office.com/calendar/0/deeplink/compose?subject=${eventTitle}`;
     const googleUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}`;
     
-    if(confirm("Toevoegen aan Outlook? (Annuleren voor Google Calendar)")) {
+    if(confirm("Openen in Outlook? (Annuleren voor Google Calendar)")) {
         window.open(outlookUrl, '_blank');
     } else {
         window.open(googleUrl, '_blank');
     }
 }
 
-// UI HELPERS
 function switchTab(view, btn) {
     document.querySelectorAll('.content-view').forEach(v => v.style.display = 'none');
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
