@@ -2,15 +2,15 @@
   "name": "Taskplanner Pro",
   "short_name": "Matrix",
   "description": "Eisenhower Matrix Taskplanner",
-  "start_url": "./todo.html",
+  "start_url": "todo.html",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#4ecdc4",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/906/906334.png",
+      "src": "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     }
   ]
 }
