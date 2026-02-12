@@ -17,49 +17,60 @@
         .header { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, var(--accent-q1), var(--accent-q2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Targets Styling */
-        .targets-section { margin-bottom: 30px; background: var(--bg-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
-        .targets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-        .target-card { background: var(--bg-card); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent-q2); }
-        .target-val { font-size: 20px; font-weight: bold; margin: 5px 0; color: var(--accent-q2); }
-        .target-label { font-size: 11px; text-transform: uppercase; color: var(--text-secondary); }
+        /* Navigatie Tabs */
+        .tab-container { display: flex; gap: 10px; margin-bottom: 25px; margin-top: 10px; }
+        .tab-btn { padding: 12px 24px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: 600; font-family: inherit; }
+        .tab-btn.active { background: var(--accent-q2); color: #000; border-color: var(--accent-q2); box-shadow: 0 4px 15px rgba(78, 205, 196, 0.2); }
 
-        .matrix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
-        .quadrant { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; min-height: 450px; }
-        .quadrant h3 { font-size: 11px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 15px; letter-spacing: 1px; }
-
-        .task-item { background: var(--bg-secondary); border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
-        .task-item:hover { border-color: #555; transform: translateY(-2px); }
-        .task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-        .task-title { font-weight: 600; font-size: 14px; flex: 1; }
+        /* Secties Styling */
+        .content-section { margin-bottom: 30px; background: var(--bg-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
         
-        .task-deadline { font-size: 10px; padding: 2px 6px; border-radius: 4px; white-space: nowrap; font-weight: bold; }
+        /* Kaarten (Targets & Routines) */
+        .card { background: var(--bg-card); padding: 18px; border-radius: 10px; border-left: 4px solid var(--accent-q2); border: 1px solid var(--border); border-left: 4px solid var(--accent-q2); }
+        .card-val { font-size: 22px; font-weight: 700; margin: 8px 0; color: var(--accent-q2); }
+        .card-label { font-size: 11px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; }
+
+        /* Matrix */
+        .matrix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .quadrant { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; min-height: 480px; }
+        .quadrant h3 { font-size: 11px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; letter-spacing: 1px; }
+
+        /* Taken Styling */
+        .task-item { background: var(--bg-secondary); border: 1px solid var(--border); padding: 16px; border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; position: relative; }
+        .task-item:hover { border-color: #666; transform: translateY(-2px); }
+        .task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+        .task-title { font-weight: 600; font-size: 14px; line-height: 1.4; flex: 1; }
+        
+        .task-deadline { font-size: 10px; padding: 3px 8px; border-radius: 5px; white-space: nowrap; font-weight: bold; }
         .date-normal { color: var(--accent-q2); background: rgba(78, 205, 196, 0.1); }
         .date-urgent { color: var(--accent-q1); background: rgba(255, 107, 107, 0.1); border: 1px solid var(--accent-q1); }
         
-        .task-note { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #333; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+        .task-note { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #333; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
         .task-item.expanded .task-note { display: block; }
 
-        .task-actions { display: flex; gap: 8px; margin-top: 12px; }
-        .btn-mini { font-size: 10px; padding: 5px 10px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .task-actions { display: flex; gap: 8px; margin-top: 15px; }
+        .btn-mini { font-size: 10px; padding: 6px 12px; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: 0.2s; font-weight: 600; }
         .btn-mini:hover { background: #444; }
         .btn-outlook { background: var(--accent-outlook); }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        /* Login & Modals */
+        #auth-overlay { position: fixed; inset: 0; background: var(--bg-primary); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .login-box { background: var(--bg-secondary); padding: 40px; border-radius: 20px; border: 1px solid var(--border); width: 350px; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         .modal.active { display: flex; }
         .modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 450px; border: 1px solid var(--border); }
-        .form-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #111; border: 1px solid var(--border); color: white; border-radius: 6px; font-family: inherit; }
-        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .form-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #111; border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit; }
     </style>
 </head>
 <body>
 
 <div id="auth-overlay">
     <div class="login-box">
-        <div class="logo" style="font-size: 24px; margin-bottom: 20px; text-align: center;">⚡ MATRIX LOGIN</div>
+        <div class="logo" style="font-size: 24px; margin-bottom: 25px; text-align: center;">⚡ MATRIX LOGIN</div>
         <input type="text" id="user-name" class="form-input" placeholder="Je Naam">
         <input type="password" id="access-code" class="form-input" placeholder="Toegangscode">
-        <button onclick="login()" style="width:100%; padding:12px; background:var(--accent-q2); border:none; border-radius:6px; cursor:pointer; font-weight:bold; color: black;">Dashboard Openen</button>
+        <button onclick="login()" style="width:100%; padding:14px; background:var(--accent-q2); border:none; border-radius:8px; cursor:pointer; font-weight:bold; color: black; font-size: 14px;">Dashboard Openen</button>
     </div>
 </div>
 
@@ -73,19 +84,35 @@
 </div>
 
 <div class="container">
-  <div class="targets-section">
-      <h3 class="target-label">🎯 Prestatie Targets</h3>
-      <div id="targets-display" class="targets-grid">
-          <p style="color: var(--text-secondary); font-size: 12px;">Laden...</p>
-      </div>
-  </div>
+    <div class="tab-container">
+        <button class="tab-btn active" id="btn-matrix" onclick="switchTab('matrix')">📊 Eisenhower Matrix</button>
+        <button class="tab-btn" id="btn-routines" onclick="switchTab('routines')">♻️ Recurring Routines</button>
+    </div>
 
-  <div class="matrix-grid">
-    <div class="quadrant" id="q1" style="border-top: 3px solid var(--accent-q1)"><h3>🔥 Urgent & Belangrijk</h3><div class="task-list"></div></div>
-    <div class="quadrant" id="q2" style="border-top: 3px solid var(--accent-q2)"><h3>📅 Planning (Q2)</h3><div class="task-list"></div></div>
-    <div class="quadrant" id="q3" style="border-top: 3px solid var(--accent-q3)"><h3>👥 Delegeren (Q3)</h3><div class="task-list"></div></div>
-    <div class="quadrant" id="q4" style="border-top: 3px solid var(--accent-q4)"><h3>🗑️ Elimineren (Q4)</h3><div class="task-list"></div></div>
-  </div>
+    <div id="view-matrix">
+        <div class="content-section">
+            <h3 class="card-label">🎯 Prestatie Targets</h3>
+            <div id="targets-display" class="grid-layout">
+                <p style="color: var(--text-secondary); font-size: 12px;">Data ophalen...</p>
+            </div>
+        </div>
+
+        <div class="matrix-grid">
+            <div class="quadrant" id="q1" style="border-top: 3px solid var(--accent-q1)"><h3>🔥 Urgent & Belangrijk</h3><div class="task-list"></div></div>
+            <div class="quadrant" id="q2" style="border-top: 3px solid var(--accent-q2)"><h3>📅 Planning (Q2)</h3><div class="task-list"></div></div>
+            <div class="quadrant" id="q3" style="border-top: 3px solid var(--accent-q3)"><h3>👥 Delegeren (Q3)</h3><div class="task-list"></div></div>
+            <div class="quadrant" id="q4" style="border-top: 3px solid var(--accent-q4)"><h3>🗑️ Elimineren (Q4)</h3><div class="task-list"></div></div>
+        </div>
+    </div>
+
+    <div id="view-routines" style="display:none;">
+        <div class="content-section">
+            <h3 class="card-label">♻️ Routines (Daily/Weekly/Monthly)</h3>
+            <div id="routines-display" class="grid-layout">
+                <p style="color: var(--text-secondary); font-size: 12px;">Routines laden...</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal" id="task-modal">
@@ -108,9 +135,8 @@
 </div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbxWLeU_AZX-upFCHgqFNTTo_OqKoqsuRNNzXT5zMc_w1h1Sw-DHKEeJv9hbPTOpVSRizA/exec'; 
-let tasks = [];
-let targets = [];
+const API_URL = 'https://script.google.com/macros/s/AKfycbwJiHFt9y_9FPHQ5aLWCM-hanLeUiG_zT65433rtp38Hu08Mb7TsJbsViU638zTrqfrpQ/exec'; 
+let tasks = [], targets = [], routines = [];
 let user = { name: '', code: '' };
 
 function login() {
@@ -119,7 +145,6 @@ function login() {
     if(!user.name || !user.code) return alert("Vul alles in");
     localStorage.setItem('matrix_user', user.name);
     localStorage.setItem('matrix_code', user.code);
-    document.getElementById('auth-overlay').style.display = 'none';
     init();
 }
 
@@ -135,6 +160,13 @@ function init() {
     }
 }
 
+function switchTab(tab) {
+    document.getElementById('view-matrix').style.display = (tab === 'matrix') ? 'block' : 'none';
+    document.getElementById('view-routines').style.display = (tab === 'routines') ? 'block' : 'none';
+    document.getElementById('btn-matrix').className = (tab === 'matrix') ? 'tab-btn active' : 'tab-btn';
+    document.getElementById('btn-routines').className = (tab === 'routines') ? 'tab-btn active' : 'tab-btn';
+}
+
 function logout() { localStorage.clear(); location.reload(); }
 
 async function loadData() {
@@ -143,51 +175,60 @@ async function loadData() {
         const data = await res.json();
         tasks = data.tasks || [];
         targets = data.targets || [];
+        routines = data.routines || [];
         renderTasks();
         renderTargets();
-    } catch (e) { console.error("Sync error"); }
+        renderRoutines();
+    } catch (e) { console.error("Sync error:", e); }
 }
 
 function renderTargets() {
     const container = document.getElementById('targets-display');
-    if (!targets || targets.length === 0) {
-        container.innerHTML = '<p style="color:var(--text-secondary); font-size:12px;">Geen targets gevonden in sheet "Targets".</p>';
-        return;
-    }
+    if (!targets.length) { container.innerHTML = '<p style="color:var(--text-secondary); font-size:11px;">Geen targets gevonden.</p>'; return; }
     container.innerHTML = targets.map(t => `
-        <div class="target-card">
-            <div class="target-label">${t.naam}</div>
-            <div class="target-val">${t.actueel} / ${t.doel}</div>
+        <div class="card">
+            <div class="card-label">${t.naam}</div>
+            <div class="card-val">${t.actueel} / ${t.doel}</div>
             <div style="font-size:10px; color:var(--text-secondary)">${t.eenheid}</div>
+        </div>
+    `).join('');
+}
+
+function renderRoutines() {
+    const container = document.getElementById('routines-display');
+    if (!routines.length) { container.innerHTML = '<p style="color:var(--text-secondary); font-size:11px;">Geen routines gevonden.</p>'; return; }
+    container.innerHTML = routines.map(r => `
+        <div class="card" style="border-left-color: var(--accent-q3)">
+            <div class="card-label">${r.frequentie}</div>
+            <div style="font-weight:700; margin: 10px 0; font-size: 15px;">${r.naam}</div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom: 12px;">${r.categorie}</div>
+            <button class="btn-mini" onclick="alert('Routine bijgewerkt')">Markeer als Gedaan</button>
         </div>
     `).join('');
 }
 
 function renderTasks() {
     ['q1', 'q2', 'q3', 'q4'].forEach(q => {
-        const container = document.querySelector(`#${q} .task-list`);
-        container.innerHTML = tasks.filter(t => t.quadrant === q && t.status !== 'Done')
+        const list = document.querySelector(`#${q} .task-list`);
+        list.innerHTML = tasks.filter(t => t.quadrant === q && t.status !== 'Done')
             .map(t => {
-                let dateHtml = '';
-                let calParam = '';
-                if (t.deadline && t.deadline !== "") {
+                let dateHtml = '', calParam = '';
+                if (t.deadline) {
                     const cleanDate = String(t.deadline).split('T')[0];
                     const d = new Date(cleanDate);
                     if (!isNaN(d.getTime())) {
-                        const today = new Date();
-                        today.setHours(0,0,0,0);
+                        const today = new Date(); today.setHours(0,0,0,0);
                         const isUrgent = d <= today;
                         const day = String(d.getDate()).padStart(2, '0');
                         const month = String(d.getMonth() + 1).padStart(2, '0');
-                        const year = d.getFullYear();
-                        dateHtml = `<div class="task-deadline ${isUrgent ? 'date-urgent' : 'date-normal'}">📅 ${day}-${month}-${year}</div>`;
-                        calParam = `${year}${month}${day}`;
+                        dateHtml = `<div class="task-deadline ${isUrgent ? 'date-urgent' : 'date-normal'}">📅 ${day}-${month}-${d.getFullYear()}</div>`;
+                        calParam = `${d.getFullYear()}${month}${day}`;
                     }
                 }
                 return `
                 <div class="task-item" onclick="this.classList.toggle('expanded')">
                     <div class="task-header"><div class="task-title">${t.name}</div>${dateHtml}</div>
-                    <div class="task-note">${t.description || '<i>Geen notities.</i>'}</div>
+                    <div class="task-note">${t.description || '<i>Geen extra notities.</i>'}</div>
                     <div class="task-actions" onclick="event.stopPropagation()">
                         <button class="btn-mini" style="color:var(--accent-q2)" onclick="completeTask('${t.id}')">✓ Done</button>
                         <button class="btn-mini" onclick="openCalendar('${t.name}', '${calParam}')">📅 Agenda</button>
@@ -204,11 +245,12 @@ async function saveTask() {
     const deadline = document.getElementById('task-deadline').value;
     const q = document.getElementById('task-pos').value;
     if(!name) return alert("Naam verplicht");
+    
     const newTask = { 
-        id: Date.now().toString(), name, description: desc, deadline, 
-        quadrant: q, status: 'To Do', user: user.name,
-        urgent: (q==='q1'||q==='q3'), important: (q==='q1'||q==='q2')
+        id: Date.now().toString(), name, description: desc, deadline, quadrant: q, 
+        status: 'To Do', user: user.name, urgent: (q==='q1'||q==='q3'), important: (q==='q1'||q==='q2') 
     };
+    
     tasks.push(newTask);
     renderTasks();
     closeModal();
@@ -219,14 +261,12 @@ async function saveTask() {
 async function completeTask(id) {
     tasks = tasks.filter(t => t.id != id);
     renderTasks();
-    await fetch(`${API_URL}?action=updateTask&code=${user.code}`, {
-        method: 'POST', body: JSON.stringify({ id, status: 'Done' })
-    });
+    await fetch(`${API_URL}?action=updateTask&code=${user.code}`, { method: 'POST', body: JSON.stringify({ id, status: 'Done' }) });
 }
 
 function openCalendar(title, dateParam) {
-    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dateParam}/${dateParam}`;
-    window.open(url, '_blank');
+    if(!dateParam) return alert("Geen datum ingesteld voor deze taak.");
+    window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dateParam}/${dateParam}`, '_blank');
 }
 
 function openModal() { document.getElementById('task-modal').classList.add('active'); }
