@@ -25,7 +25,11 @@
         .task-item:hover { border-color: #555; transform: translateY(-2px); }
         .task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
         .task-title { font-weight: 600; font-size: 14px; flex: 1; }
-        .task-deadline { font-size: 10px; color: var(--accent-q1); background: rgba(255,107,107,0.1); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+        
+        /* Deadline styling */
+        .task-deadline { font-size: 10px; padding: 2px 6px; border-radius: 4px; white-space: nowrap; font-weight: bold; }
+        .date-normal { color: var(--accent-q2); background: rgba(78, 205, 196, 0.1); }
+        .date-urgent { color: var(--accent-q1); background: rgba(255, 107, 107, 0.1); border: 1px solid var(--accent-q1); }
         
         .task-note { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #333; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
         .task-item.expanded .task-note { display: block; }
@@ -92,7 +96,7 @@
 </div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbzVMPNI7IpqOW2drnkqgtFsHjQVeODa8QS_ldZ2RT9JHmUPQ0RFVClHzqneZLbX-MP1og/exec'; // PLAK HIER JE NIEUWE /exec URL
+const API_URL = 'https://script.google.com/macros/s/AKfycbzVMPNI7IpqOW2drnkqgtFsHjQVeODa8QS_ldZ2RT9JHmUPQ0RFVClHzqneZLbX-MP1og/exec'; 
 let tasks = [];
 let user = { name: '', code: '' };
 
@@ -107,9 +111,16 @@ function login() {
 }
 
 function init() {
-    document.getElementById('display-name').textContent = "Ingelogd: " + user.name;
-    loadData();
-    setInterval(loadData, 30000); 
+    const savedName = localStorage.getItem('matrix_user');
+    const savedCode = localStorage.getItem('matrix_code');
+    if(savedName && savedCode) {
+        user.name = savedName;
+        user.code = savedCode;
+        document.getElementById('auth-overlay').style.display = 'none';
+        document.getElementById('display-name').textContent = "Ingelogd: " + user.name;
+        loadData();
+        setInterval(loadData, 30000); 
+    }
 }
 
 function logout() { localStorage.clear(); location.reload(); }
@@ -127,11 +138,32 @@ function renderTasks() {
     ['q1', 'q2', 'q3', 'q4'].forEach(q => {
         const container = document.querySelector(`#${q} .task-list`);
         container.innerHTML = tasks.filter(t => t.quadrant === q && t.status !== 'Done')
-            .map(t => `
+            .map(t => {
+                // --- Datum Formattering ---
+                let dateHtml = '';
+                if (t.deadline) {
+                    const d = new Date(t.deadline);
+                    if (!isNaN(d.getTime())) {
+                        const today = new Date();
+                        today.setHours(0,0,0,0);
+                        
+                        // Check of deadline vandaag of verstreken is voor rode kleur
+                        const isUrgent = d <= today;
+                        const dateString = d.toLocaleDateString('nl-NL', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric'
+                        });
+                        
+                        dateHtml = `<div class="task-deadline ${isUrgent ? 'date-urgent' : 'date-normal'}">📅 ${dateString}</div>`;
+                    }
+                }
+
+                return `
                 <div class="task-item" onclick="this.classList.toggle('expanded')">
                     <div class="task-header">
                         <div class="task-title">${t.name}</div>
-                        ${t.deadline ? `<div class="task-deadline">${t.deadline}</div>` : ''}
+                        ${dateHtml}
                     </div>
                     <div class="task-note">${t.description || '<i>Geen extra notities.</i>'}</div>
                     <div class="task-actions" onclick="event.stopPropagation()">
@@ -140,7 +172,8 @@ function renderTasks() {
                         <button class="btn-mini btn-outlook" onclick="window.open('https://outlook.office.com/mail/', '_blank')">📧 Mail</button>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
     });
 }
 
@@ -175,13 +208,31 @@ async function completeTask(id) {
 }
 
 function openCalendar(title, date) {
-    const d = date ? date.replace(/-/g, '') : '';
-    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${d}/${d}`;
+    let dateParam = '';
+    if(date) {
+        // Formatteer naar YYYYMMDD voor Google Calendar URL
+        const d = new Date(date);
+        if(!isNaN(d.getTime())) {
+            dateParam = d.toISOString().split('T')[0].replace(/-/g, '');
+        }
+    }
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dateParam}/${dateParam}`;
     window.open(url, '_blank');
 }
 
-function openModal() { document.getElementById('task-modal').classList.add('active'); }
-function closeModal() { document.getElementById('task-modal').classList.remove('active'); }
+function openModal() { 
+    document.getElementById('task-modal').classList.add('active'); 
+    document.getElementById('task-name').focus();
+}
+function closeModal() { 
+    document.getElementById('task-modal').classList.remove('active'); 
+    document.getElementById('task-name').value = '';
+    document.getElementById('task-desc').value = '';
+    document.getElementById('task-deadline').value = '';
+}
+
+// Start de app
+init();
 </script>
 </body>
 </html>
