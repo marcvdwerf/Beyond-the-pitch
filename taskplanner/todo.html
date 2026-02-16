@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg">
     
-    <title>Taskplanner Pro - Trello Integrated</title>
+    <title>Taskplanner Pro - 2026 Enhanced</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,59 +24,135 @@
         .header { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, var(--accent-q1), var(--accent-q2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
+        /* Navigatie Tabs */
         .tab-container { display: flex; gap: 10px; margin-bottom: 25px; margin-top: 10px; overflow-x: auto; }
         .tab-btn { padding: 12px 24px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: 600; font-family: inherit; white-space: nowrap; }
         .tab-btn.active { background: var(--accent-q2); color: #000; border-color: var(--accent-q2); box-shadow: 0 4px 15px rgba(78, 205, 196, 0.2); }
 
+        /* Statistieken Dashboard */
         .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid var(--border); text-align: center; }
         .stat-value { font-size: 28px; font-weight: 700; color: var(--accent-q2); margin-bottom: 5px; }
         .stat-label { font-size: 10px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; }
 
+        /* Zoek & Filter Balk */
         .search-container { background: var(--bg-card); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); }
         .search-input-wrapper { position: relative; margin-bottom: 12px; }
         .search-input-wrapper input { width: 100%; padding: 12px 40px 12px 15px; background: var(--bg-secondary); border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit; }
-        
+        .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 18px; display: none; }
+        .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        /* Secties Styling */
         .content-section { margin-bottom: 30px; background: var(--bg-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
         
+        /* Kaarten (Targets & Routines) */
+        .card { background: var(--bg-card); padding: 18px; border-radius: 10px; border-left: 4px solid var(--accent-q2); border: 1px solid var(--border); border-left: 4px solid var(--accent-q2); }
+        .card-val { font-size: 22px; font-weight: 700; margin: 8px 0; color: var(--accent-q2); }
+        .card-label { font-size: 11px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; }
+
+        /* Matrix */
         .matrix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .quadrant { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; min-height: 480px; position: relative; }
+        .quadrant { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; min-height: 480px; position: relative; transition: 0.2s; }
+        .quadrant.drag-over { background: rgba(78, 205, 196, 0.1); border-color: var(--accent-q2); }
         .quadrant h3 { font-size: 11px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
         .quadrant-count { background: var(--bg-secondary); padding: 3px 10px; border-radius: 12px; font-weight: 700; }
 
-        .task-item { background: var(--bg-secondary); border: 1px solid var(--border); padding: 16px; border-radius: 10px; margin-bottom: 12px; transition: 0.2s; position: relative; }
+        /* Taken Styling */
+        .task-item { background: var(--bg-secondary); border: 1px solid var(--border); padding: 16px; border-radius: 10px; margin-bottom: 12px; cursor: grab; transition: 0.2s; position: relative; }
+        .task-item:hover { border-color: #666; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .task-item.dragging { opacity: 0.5; cursor: grabbing; }
+        .task-item.batch-mode { padding-left: 50px; }
+        
+        .task-checkbox { position: absolute; left: 16px; top: 18px; width: 18px; height: 18px; cursor: pointer; }
+        
+        .task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
         .task-title { font-weight: 600; font-size: 14px; line-height: 1.4; flex: 1; }
-        .task-actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
-        .btn-mini { font-size: 10px; padding: 6px 12px; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; }
+        
+        .task-deadline { font-size: 10px; padding: 3px 8px; border-radius: 5px; white-space: nowrap; font-weight: bold; }
+        .date-normal { color: var(--accent-q2); background: rgba(78, 205, 196, 0.1); }
+        .date-urgent { color: var(--accent-q1); background: rgba(255, 107, 107, 0.1); border: 1px solid var(--accent-q1); }
+        
+        .btn-expand { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 4px 8px; transition: 0.2s; font-size: 12px; }
+        .btn-expand:hover { color: var(--text-primary); }
+        .task-item.expanded .expand-icon { transform: rotate(180deg); display: inline-block; }
+        .expand-icon { display: inline-block; transition: 0.2s; }
+        
+        .task-note { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #333; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+        .task-item.expanded .task-note { display: block; }
 
+        .task-actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+        .btn-mini { font-size: 10px; padding: 6px 12px; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: 0.2s; font-weight: 600; font-family: inherit; }
+        .btn-mini:hover { background: #444; transform: scale(1.05); }
+        .btn-outlook { background: var(--accent-outlook); }
+
+        /* Batch Acties */
+        .batch-actions { display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 15px 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border: 1px solid var(--border); z-index: 999; gap: 10px; align-items: center; }
+        .batch-actions.active { display: flex; }
+        .batch-count { font-size: 12px; color: var(--text-secondary); margin-right: 10px; }
+
+        /* Login & Modals */
         #auth-overlay { position: fixed; inset: 0; background: var(--bg-primary); z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .login-box { background: var(--bg-secondary); padding: 40px; border-radius: 20px; border: 1px solid var(--border); width: 350px; }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         .modal.active { display: flex; }
-        .modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 450px; border: 1px solid var(--border); }
+        .modal-content { background: var(--bg-card); padding: 30px; border-radius: 15px; width: 450px; border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
         .form-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #111; border: 1px solid var(--border); color: white; border-radius: 8px; font-family: inherit; }
+        textarea.form-input { resize: vertical; min-height: 80px; }
 
+        /* Loading Indicator */
         #loading-indicator { position: fixed; top: 70px; right: 20px; background: var(--bg-card); padding: 10px 20px; border-radius: 8px; font-size: 12px; z-index: 999; border: 1px solid var(--border); display: none; }
         #loading-indicator.show { display: block; }
 
+        /* Shortcuts Hint */
+        .shortcuts-hint { position: fixed; bottom: 10px; right: 10px; font-size: 10px; color: var(--text-secondary); background: var(--bg-card); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); opacity: 0.7; transition: 0.2s; }
+        .shortcuts-hint:hover { opacity: 1; }
+
+        /* Notification Permission */
+        .notification-prompt { background: var(--accent-q3); color: #000; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; display: none; align-items: center; justify-content: space-between; }
+        .notification-prompt.show { display: flex; }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+        .empty-state-icon { font-size: 48px; margin-bottom: 15px; opacity: 0.5; }
+
+        /* Responsive Mobile */
         @media (max-width: 768px) {
-            .matrix-grid { grid-template-columns: 1fr; }
+            .matrix-grid { grid-template-columns: 1fr; gap: 15px; }
             .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .header { padding: 10px 15px; flex-direction: column; gap: 10px; position: relative; }
+            .header > div:last-child { width: 100%; display: flex; justify-content: space-between; }
+            .tab-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .task-actions { flex-direction: column; }
+            .modal-content { width: 90vw; max-height: 90vh; overflow-y: auto; padding: 20px; }
+            .grid-layout { grid-template-columns: 1fr; }
+            .filter-buttons { justify-content: center; }
+            .batch-actions { width: 90%; flex-wrap: wrap; justify-content: center; }
+            .shortcuts-hint { display: none; }
+            .quadrant { min-height: 300px; }
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 16px; }
+            .btn-mini { font-size: 9px; padding: 5px 10px; }
+            .task-title { font-size: 13px; }
+            .stat-value { font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
+<!-- Login Overlay -->
 <div id="auth-overlay">
     <div class="login-box">
         <div class="logo" style="font-size: 24px; margin-bottom: 25px; text-align: center;">⚡ MATRIX LOGIN</div>
         <input type="text" id="user-name" class="form-input" placeholder="Je Naam">
         <input type="password" id="access-code" class="form-input" placeholder="Toegangscode">
-        <button onclick="login()" style="width:100%; padding:14px; background:var(--accent-q2); border:none; border-radius:8px; cursor:pointer; font-weight:bold; color: black;">Dashboard Openen</button>
+        <button onclick="login()" style="width:100%; padding:14px; background:var(--accent-q2); border:none; border-radius:8px; cursor:pointer; font-weight:bold; color: black; font-size: 14px;">Dashboard Openen</button>
     </div>
 </div>
 
+<!-- Header -->
 <div class="header">
   <div class="logo">⚡ MATRIX PRO</div>
   <div style="display:flex; gap:12px; align-items:center;">
@@ -86,26 +162,68 @@
   </div>
 </div>
 
+<!-- Loading Indicator -->
 <div id="loading-indicator">⏳ Synchroniseren...</div>
 
+<!-- Main Container -->
 <div class="container">
-    <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('matrix')">📊 Eisenhower Matrix</button>
-        <button class="tab-btn" onclick="switchTab('routines')">♻️ Recurring Routines</button>
+    <!-- Notification Permission Prompt -->
+    <div class="notification-prompt" id="notification-prompt">
+        <span>🔔 Schakel notificaties in voor urgente taken</span>
+        <button class="btn-mini" onclick="requestNotificationPermission()" style="background:#000">Toestaan</button>
     </div>
 
+    <!-- Tabs -->
+    <div class="tab-container">
+        <button class="tab-btn active" id="btn-matrix" onclick="switchTab('matrix')">📊 Eisenhower Matrix</button>
+        <button class="tab-btn" id="btn-routines" onclick="switchTab('routines')">♻️ Recurring Routines</button>
+    </div>
+
+    <!-- Matrix View -->
     <div id="view-matrix">
+        <!-- Statistieken -->
         <div class="stats-bar">
-            <div class="stat-card"><div class="stat-value" id="stat-total">0</div><div class="stat-label">Totaal Taken</div></div>
-            <div class="stat-card"><div class="stat-value" id="stat-done">0</div><div class="stat-label">Voltooid</div></div>
-            <div class="stat-card"><div class="stat-value" id="stat-urgent">0</div><div class="stat-label">🔥 Urgent</div></div>
-            <div class="stat-card"><div class="stat-value" id="stat-completion">0%</div><div class="stat-label">Ratio</div></div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-total">0</div>
+                <div class="stat-label">Totaal Taken</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-done">0</div>
+                <div class="stat-label">Voltooid</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-urgent">0</div>
+                <div class="stat-label">🔥 Urgent</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-completion">0%</div>
+                <div class="stat-label">Voltooiingsratio</div>
+            </div>
         </div>
 
+        <!-- Zoek & Filter -->
         <div class="search-container">
-            <input type="text" id="task-search" class="form-input" style="margin-bottom:0" placeholder="🔍 Zoek taken..." oninput="filterTasks(this.value)">
+            <div class="search-input-wrapper">
+                <input type="text" id="task-search" placeholder="🔍 Zoek taken..." oninput="filterTasks(this.value)">
+                <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+            </div>
+            <div class="filter-buttons">
+                <button class="btn-mini" onclick="filterByDate('today')">🔥 Vandaag</button>
+                <button class="btn-mini" onclick="filterByDate('week')">📅 Deze Week</button>
+                <button class="btn-mini" onclick="filterByDate('all')">🌐 Alles</button>
+                <button class="btn-mini" onclick="toggleBatchMode()">☑️ Batch Selectie</button>
+            </div>
         </div>
 
+        <!-- Targets -->
+        <div class="content-section">
+            <h3 class="card-label">🎯 Prestatie Targets</h3>
+            <div id="targets-display" class="grid-layout">
+                <p style="color: var(--text-secondary); font-size: 12px;">Data ophalen...</p>
+            </div>
+        </div>
+
+        <!-- Matrix -->
         <div class="matrix-grid">
             <div class="quadrant" id="q1" data-quadrant="q1" style="border-top: 3px solid var(--accent-q1)">
                 <h3>🔥 Urgent & Belangrijk <span class="quadrant-count" id="count-q1">0</span></h3>
@@ -125,189 +243,870 @@
             </div>
         </div>
     </div>
+
+    <!-- Routines View -->
+    <div id="view-routines" style="display:none;">
+        <div class="content-section">
+            <h3 class="card-label">♻️ Routines (Daily/Weekly/Monthly)</h3>
+            <div id="routines-display" class="grid-layout">
+                <p style="color: var(--text-secondary); font-size: 12px;">Routines laden...</p>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- Batch Actions Bar -->
+<div class="batch-actions" id="batch-actions">
+    <span class="batch-count" id="batch-count">0 geselecteerd</span>
+    <button class="btn-mini" style="background:var(--accent-q2); color:#000" onclick="batchComplete()">✓ Alles Voltooien</button>
+    <button class="btn-mini" onclick="batchMove()">↔️ Verplaatsen</button>
+    <button class="btn-mini" style="background:var(--accent-q1)" onclick="batchDelete()">🗑️ Verwijderen</button>
+    <button class="btn-mini" onclick="cancelBatchMode()">✕ Annuleren</button>
+</div>
+
+<!-- Keyboard Shortcuts Hint -->
+<div class="shortcuts-hint">
+    ⌨️ <strong>Ctrl+K</strong> Nieuwe taak | <strong>Ctrl+1-4</strong> Quadranten | <strong>ESC</strong> Sluiten
+</div>
+
+<!-- Task Modal -->
 <div class="modal" id="task-modal">
     <div class="modal-content">
-      <h3 style="margin-bottom:15px;">✨ Nieuwe Taak</h3>
+      <h3 style="margin-bottom:15px;">✨ Nieuwe Taak Aanmaken</h3>
       
+      <!-- Templates -->
       <div style="margin-bottom:15px;">
-        <label style="font-size:11px; color:var(--text-secondary); display:block; margin-bottom:5px;">📋 TRELLO LIJST (Optioneel)</label>
-        <select id="task-template" class="form-input">
-            <option value="">-- Geen Trello koppeling --</option>
-            <option value="lima">Lima</option>
-            <option value="gaelic">Gaelic Games</option>
-            <option value="nadaam">Nadaam</option>
+        <label style="font-size:11px; color:var(--text-secondary); display:block; margin-bottom:5px;">⚡ QUICK TEMPLATES</label>
+        <select id="task-template" class="form-input" onchange="applyTemplate(this.value)">
+            <option value="">-- Kies template (optioneel) --</option>
+            <option value="0">Dagelijkse Stand-up</option>
+            <option value="1">Email Inbox Zero</option>
+            <option value="2">Sprint Review</option>
+            <option value="3">Code Review PR#</option>
+            <option value="4">Client Presentatie</option>
         </select>
       </div>
 
       <input type="text" id="task-name" class="form-input" placeholder="Wat moet er gebeuren?">
-      <textarea id="task-desc" class="form-input" placeholder="Beschrijving..." rows="3"></textarea>
-      
+      <textarea id="task-desc" class="form-input" placeholder="Beschrijving of notitie..." rows="3"></textarea>
       <div style="display:flex; gap:10px;">
           <input type="date" id="task-deadline" class="form-input">
           <select id="task-pos" class="form-input">
-              <option value="q1">Q1: Urgent</option>
+              <option value="q1">Q1: Urgent/Belangrijk</option>
               <option value="q2" selected>Q2: Planning</option>
               <option value="q3">Q3: Delegeren</option>
               <option value="q4">Q4: Elimineren</option>
           </select>
       </div>
-      
-      <button class="btn-mini" style="width:100%; padding:12px; background:var(--accent-q2); color:black; font-weight:bold;" onclick="saveTask()">💾 Opslaan & Synchroniseren</button>
+      <button class="btn-mini" style="width:100%; padding:12px; background:var(--accent-q2); color:black; font-weight:bold;" onclick="saveTask()">💾 Opslaan in Cloud</button>
       <button class="btn-mini" style="width:100%; margin-top:10px; background:transparent;" onclick="closeModal()">Annuleren</button>
     </div>
 </div>
 
+<!-- Batch Move Modal -->
+<div class="modal" id="batch-move-modal">
+    <div class="modal-content" style="width: 350px;">
+      <h3 style="margin-bottom:15px;">↔️ Verplaats Taken</h3>
+      <p style="font-size:12px; color:var(--text-secondary); margin-bottom:15px;">Naar welk quadrant wil je de geselecteerde taken verplaatsen?</p>
+      <select id="batch-target-quadrant" class="form-input">
+          <option value="q1">Q1: Urgent/Belangrijk</option>
+          <option value="q2">Q2: Planning</option>
+          <option value="q3">Q3: Delegeren</option>
+          <option value="q4">Q4: Elimineren</option>
+      </select>
+      <button class="btn-mini" style="width:100%; padding:12px; background:var(--accent-q2); color:black; font-weight:bold;" onclick="executeBatchMove()">↔️ Verplaatsen</button>
+      <button class="btn-mini" style="width:100%; margin-top:10px; background:transparent;" onclick="closeBatchMoveModal()">Annuleren</button>
+    </div>
+</div>
+
 <script>
+// ==================== CONFIGURATIE ====================
 const API_URL = 'https://script.google.com/macros/s/AKfycbwJiHFt9y_9FPHQ5aLWCM-hanLeUiG_zT65433rtp38Hu08Mb7TsJbsViU638zTrqfrpQ/exec'; 
 
-let tasks = [];
+// ==================== STATE ====================
+let tasks = [], targets = [], routines = [];
 let user = { name: '', code: '' };
+let selectedTasks = [];
+let batchModeActive = false;
+let currentFilter = 'all';
+let draggedTaskId = null;
 
-// ==================== AUTH ====================
+// ==================== TEMPLATES ====================
+const templates = [
+  { name: "Dagelijkse Stand-up", desc: "15min meeting met team", quadrant: "q2" },
+  { name: "Email Inbox Zero", desc: "Alle emails verwerken", quadrant: "q2" },
+  { name: "Sprint Review", desc: "Voorbereiding presentatie", quadrant: "q1" },
+  { name: "Code Review PR#", desc: "Reviewen en feedback geven", quadrant: "q2" },
+  { name: "Client Presentatie", desc: "Presentatie voorbereiden en oefenen", quadrant: "q1" }
+];
+
+// ==================== AUTHENTICATION ====================
 function login() {
     user.name = document.getElementById('user-name').value.trim();
     user.code = document.getElementById('access-code').value.trim();
-    if(!user.name || !user.code) return alert("Vul alles in");
+    if(!user.name || !user.code) {
+        alert("⚠️ Vul alle velden in");
+        return;
+    }
     localStorage.setItem('matrix_user', user.name);
     localStorage.setItem('matrix_code', user.code);
     init();
 }
 
 function logout() { 
-    localStorage.clear(); 
-    location.reload(); 
+    if(confirm('Weet je zeker dat je wilt uitloggen?')) {
+        localStorage.clear(); 
+        location.reload(); 
+    }
 }
 
 function init() {
     const savedName = localStorage.getItem('matrix_user');
     const savedCode = localStorage.getItem('matrix_code');
     if(savedName && savedCode) {
-        user.name = savedName; user.code = savedCode;
+        user.name = savedName; 
+        user.code = savedCode;
         document.getElementById('auth-overlay').style.display = 'none';
         document.getElementById('display-name').textContent = "👤 " + user.name;
         loadData();
+        setInterval(loadData, 30000); // Auto-refresh elke 30s
+        checkNotificationPermission();
+        setupKeyboardShortcuts();
     }
 }
 
-// ==================== TRELLO LOGICA ====================
-async function syncToTrello(name, desc, listKey) {
-    const apiKey = '2914b3ef8a1e1e53002b19ac471a0ded';
-    const token = 'HIER_JE_TOKEN_PLAKKEN'; // <-- PLAK HIER JE TOKEN
-
-    const listMapping = {
-        'lima': '69924026ebd335126cbeffde',
-        'gaelic': '69924038d05ad7ace7d42f54',
-        'nadaam': '69924044b50f997ecd460ce6'
-    };
-
-    const listId = listMapping[listKey];
-    if (!listId || token === 'ATTA094bbe4296e52917836b0df15dad65251e2d1b32efe3cd0a47f0cf8e71577034C110E631') return;
-
-    const url = `https://api.trello.com/1/cards?idList=${listId}&key=${apiKey}&token=${token}&name=${encodeURIComponent(name)}&desc=${encodeURIComponent(desc)}`;
-
-    try {
-        await fetch(url, { method: 'POST' });
-        console.log("Trello succes");
-    } catch (e) {
-        console.error("Trello Error", e);
-    }
-}
-
-// ==================== DATA & SAVING ====================
+// ==================== DATA MANAGEMENT ====================
 async function loadData() {
-    showLoading('⏳ Laden...');
+    showLoading('⏳ Synchroniseren...');
+    
     try {
-        const res = await fetch(`${API_URL}?action=getAll&code=${user.code}`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+        
+        const res = await fetch(`${API_URL}?action=getAll&code=${user.code}`, {
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        
         const data = await res.json();
+        
+        // Update state
         tasks = data.tasks || [];
+        targets = data.targets || [];
+        routines = data.routines || [];
+        
+        // Render all views
         renderTasks();
+        renderTargets();
+        renderRoutines();
         updateStats();
+        
         showLoading('✓ Bijgewerkt', 'success');
-    } catch (e) {
-        showLoading('⚠️ Fout', 'error');
-    }
-}
-
-async function saveTask() {
-    const name = document.getElementById('task-name').value;
-    const desc = document.getElementById('task-desc').value;
-    const date = document.getElementById('task-deadline').value;
-    const quad = document.getElementById('task-pos').value;
-    const trelloList = document.getElementById('task-template').value;
-
-    if(!name) return alert("Naam verplicht");
-
-    showLoading('⏳ Bezig met opslaan...');
-
-    try {
-        // 1. Dashboard (Google Sheets)
-        await fetch(`${API_URL}?action=add&code=${user.code}&name=${encodeURIComponent(name)}&desc=${encodeURIComponent(desc)}&date=${date}&quadrant=${quad}`);
+        checkNotifications();
         
-        // 2. Trello (Indien gekozen)
-        if (trelloList) {
-            await syncToTrello(name, desc, trelloList);
+    } catch (e) {
+        console.error("Sync error:", e);
+        showLoading('⚠️ Sync mislukt', 'error');
+        
+        // Toon oude data als die er is
+        if (tasks.length > 0) {
+            renderTasks();
+            updateStats();
+        } else {
+            showEmptyState();
         }
-
-        closeModal();
-        loadData();
-    } catch (e) {
-        showLoading('⚠️ Fout bij opslaan', 'error');
     }
 }
 
-// ==================== UI FUNCTIES ====================
-function renderTasks() {
-    const activeTasks = tasks.filter(t => t.status !== 'Done');
-    ['q1', 'q2', 'q3', 'q4'].forEach(q => {
-        const list = document.querySelector(`#${q} .task-list`);
-        const quadTasks = activeTasks.filter(t => t.quadrant === q);
-        document.getElementById(`count-${q}`).textContent = quadTasks.length;
-        
-        list.innerHTML = quadTasks.map(t => `
-            <div class="task-item">
-                <div class="task-title">${t.name}</div>
-                <div class="task-actions">
-                    <button class="btn-mini" style="color:var(--accent-q2)" onclick="completeTask('${t.id}')">✓ Done</button>
-                    <button class="btn-mini" style="background:var(--accent-q1)" onclick="deleteTask('${t.id}')">🗑️</button>
-                </div>
+function showLoading(message, type = 'loading') {
+    const indicator = document.getElementById('loading-indicator');
+    indicator.textContent = message;
+    indicator.className = 'show';
+    
+    if (type === 'success') {
+        indicator.style.background = 'var(--accent-q2)';
+        indicator.style.color = '#000';
+    } else if (type === 'error') {
+        indicator.style.background = 'var(--accent-q1)';
+        indicator.style.color = '#fff';
+    } else {
+        indicator.style.background = 'var(--bg-card)';
+        indicator.style.color = 'var(--text-primary)';
+    }
+    
+    setTimeout(() => {
+        indicator.classList.remove('show');
+    }, type === 'loading' ? 60000 : 3000);
+}
+
+function showEmptyState() {
+    document.querySelectorAll('.task-list').forEach(list => {
+        list.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">📋</div>
+                <p>Nog geen taken in dit quadrant</p>
             </div>
-        `).join('');
+        `;
     });
 }
 
-async function completeTask(id) {
-    showLoading('⏳ Verwerken...');
-    await fetch(`${API_URL}?action=updateStatus&code=${user.code}&id=${id}&status=Done`);
-    loadData();
+// ==================== RENDER FUNCTIONS ====================
+function renderTargets() {
+    const container = document.getElementById('targets-display');
+    if (!targets.length) { 
+        container.innerHTML = '<p style="color:var(--text-secondary); font-size:11px;">Geen targets gevonden.</p>'; 
+        return; 
+    }
+    container.innerHTML = targets.map(t => `
+        <div class="card">
+            <div class="card-label">${t.naam}</div>
+            <div class="card-val">${t.actueel} / ${t.doel}</div>
+            <div style="font-size:10px; color:var(--text-secondary)">${t.eenheid}</div>
+        </div>
+    `).join('');
 }
 
-async function deleteTask(id) {
-    if(!confirm("Verwijderen?")) return;
-    showLoading('⏳ Verwijderen...');
-    await fetch(`${API_URL}?action=delete&code=${user.code}&id=${id}`);
-    loadData();
+function renderRoutines() {
+    const container = document.getElementById('routines-display');
+    if (!routines.length) { 
+        container.innerHTML = '<p style="color:var(--text-secondary); font-size:11px;">Geen routines gevonden.</p>'; 
+        return; 
+    }
+    container.innerHTML = routines.map(r => `
+        <div class="card" style="border-left-color: var(--accent-q3)">
+            <div class="card-label">${r.frequentie}</div>
+            <div style="font-weight:700; margin: 10px 0; font-size: 15px;">${r.naam}</div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom: 12px;">${r.categorie || ''}</div>
+            <button class="btn-mini" onclick="markRoutineDone('${r.naam}')">✓ Markeer als Gedaan</button>
+        </div>
+    `).join('');
+}
+
+function markRoutineDone(name) {
+    alert(`✓ Routine "${name}" gemarkeerd als voltooid!`);
+    // Hier kun je API call toevoegen om routine status te updaten
+}
+
+function renderTasks() {
+    const activeTasks = tasks.filter(t => t.status !== 'Done');
+    
+    ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+        const list = document.querySelector(`#${q} .task-list`);
+        const quadrantTasks = activeTasks.filter(t => t.quadrant === q);
+        
+        // Update count
+        document.getElementById(`count-${q}`).textContent = quadrantTasks.length;
+        
+        if (quadrantTasks.length === 0) {
+            list.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">✨</div>
+                    <p style="font-size:11px;">Geen taken</p>
+                </div>
+            `;
+            return;
+        }
+        
+        list.innerHTML = quadrantTasks.map(t => {
+            let dateHtml = '', calParam = '';
+            if (t.deadline) {
+                const cleanDate = String(t.deadline).split('T')[0];
+                const d = new Date(cleanDate);
+                if (!isNaN(d.getTime())) {
+                    const today = new Date(); 
+                    today.setHours(0,0,0,0);
+                    const isUrgent = d <= today;
+                    const day = String(d.getDate()).padStart(2, '0');
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    dateHtml = `<div class="task-deadline ${isUrgent ? 'date-urgent' : 'date-normal'}">📅 ${day}-${month}-${d.getFullYear()}</div>`;
+                    calParam = `${d.getFullYear()}${month}${day}`;
+                }
+            }
+            
+            const checkboxHtml = batchModeActive ? 
+                `<input type="checkbox" class="task-checkbox" onclick="event.stopPropagation(); toggleTaskSelection('${t.id}')" ${selectedTasks.includes(t.id) ? 'checked' : ''}>` : '';
+            
+            return `
+            <div class="task-item ${batchModeActive ? 'batch-mode' : ''}" 
+                 data-task-id="${t.id}" 
+                 draggable="${!batchModeActive}">
+                ${checkboxHtml}
+                <div class="task-header">
+                    <div class="task-title">${t.name}</div>
+                    <div style="display:flex; gap:5px; align-items:center;">
+                        ${dateHtml}
+                        <button class="btn-expand" onclick="event.stopPropagation(); toggleExpand(this)">
+                            <span class="expand-icon">▼</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="task-note">${t.description || '<i>Geen extra notities.</i>'}</div>
+                <div class="task-actions" onclick="event.stopPropagation()">
+                    <button class="btn-mini" style="color:var(--accent-q2)" onclick="completeTask('${t.id}')">✓ Done</button>
+                    ${calParam ? `<button class="btn-mini" onclick="openCalendar('${escapeHtml(t.name)}', '${calParam}')">📅 Agenda</button>` : ''}
+                    <button class="btn-mini btn-outlook" onclick="window.open('https://outlook.office.com/mail/', '_blank')">📧 Mail</button>
+                    <button class="btn-mini" style="background:var(--accent-q1)" onclick="deleteTask('${t.id}')">🗑️</button>
+                </div>
+            </div>`;
+        }).join('');
+    });
+    
+    // Setup drag & drop na rendering
+    setupDragAndDrop();
+    
+    // Apply current filter
+    if (currentFilter !== 'all') {
+        applyCurrentFilter();
+    }
+}
+
+function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    })[m]);
+}
+
+function toggleExpand(btn) {
+    const taskItem = btn.closest('.task-item');
+    taskItem.classList.toggle('expanded');
 }
 
 function updateStats() {
-    const total = tasks.filter(t => t.status !== 'Done').length;
-    document.getElementById('stat-total').textContent = total;
+    const allTasks = tasks.length;
+    const doneTasks = tasks.filter(t => t.status === 'Done').length;
+    const activeTasks = allTasks - doneTasks;
+    const urgentTasks = tasks.filter(t => t.quadrant === 'q1' && t.status !== 'Done').length;
+    const completion = allTasks > 0 ? Math.round((doneTasks / allTasks) * 100) : 0;
+    
+    document.getElementById('stat-total').textContent = activeTasks;
+    document.getElementById('stat-done').textContent = doneTasks;
+    document.getElementById('stat-urgent').textContent = urgentTasks;
+    document.getElementById('stat-completion').textContent = completion + '%';
 }
 
-function openModal() { document.getElementById('task-modal').classList.add('active'); }
-function closeModal() { document.getElementById('task-modal').classList.remove('active'); }
-
-function showLoading(msg, type='loading') {
-    const ind = document.getElementById('loading-indicator');
-    ind.textContent = msg; ind.className = 'show';
-    if(type !== 'loading') setTimeout(() => ind.classList.remove('show'), 3000);
+// ==================== DRAG & DROP ====================
+function setupDragAndDrop() {
+    // Maak taken draggable
+    document.querySelectorAll('.task-item').forEach(task => {
+        task.addEventListener('dragstart', handleDragStart);
+        task.addEventListener('dragend', handleDragEnd);
+    });
+    
+    // Maak quadranten droppable
+    document.querySelectorAll('.quadrant').forEach(quadrant => {
+        quadrant.addEventListener('dragover', handleDragOver);
+        quadrant.addEventListener('dragleave', handleDragLeave);
+        quadrant.addEventListener('drop', handleDrop);
+    });
 }
 
-function switchTab(view) {
-    alert("Switching to " + view);
+function handleDragStart(e) {
+    if (batchModeActive) return;
+    draggedTaskId = this.dataset.taskId;
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
 }
 
+function handleDragEnd(e) {
+    this.classList.remove('dragging');
+    document.querySelectorAll('.quadrant').forEach(q => q.classList.remove('drag-over'));
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    this.classList.add('drag-over');
+}
+
+function handleDragLeave(e) {
+    this.classList.remove('drag-over');
+}
+
+async function handleDrop(e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+    
+    if (!draggedTaskId) return;
+    
+    const newQuadrant = this.dataset.quadrant;
+    await moveTask(draggedTaskId, newQuadrant);
+    draggedTaskId = null;
+}
+
+async function moveTask(taskId, newQuadrant) {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task || task.quadrant === newQuadrant) return;
+    
+    const oldQuadrant = task.quadrant;
+    task.quadrant = newQuadrant;
+    
+    // Update urgent/important flags
+    task.urgent = (newQuadrant === 'q1' || newQuadrant === 'q3');
+    task.important = (newQuadrant === 'q1' || newQuadrant === 'q2');
+    
+    renderTasks();
+    updateStats();
+    
+    // Sync naar backend
+    try {
+        await fetch(`${API_URL}?action=updateTask&code=${user.code}`, { 
+            method: 'POST', 
+            body: JSON.stringify({ id: taskId, quadrant: newQuadrant, urgent: task.urgent, important: task.important }) 
+        });
+        showLoading(`✓ Verplaatst naar ${getQuadrantName(newQuadrant)}`, 'success');
+    } catch (e) {
+        console.error('Move error:', e);
+        // Rollback bij fout
+        task.quadrant = oldQuadrant;
+        renderTasks();
+        showLoading('⚠️ Verplaatsing mislukt', 'error');
+    }
+}
+
+function getQuadrantName(q) {
+    const names = {
+        'q1': 'Q1 (Urgent/Belangrijk)',
+        'q2': 'Q2 (Planning)',
+        'q3': 'Q3 (Delegeren)',
+        'q4': 'Q4 (Elimineren)'
+    };
+    return names[q] || q;
+}
+
+// ==================== TASK OPERATIONS ====================
+async function saveTask() {
+    const name = document.getElementById('task-name').value.trim();
+    const desc = document.getElementById('task-desc').value.trim();
+    const deadline = document.getElementById('task-deadline').value;
+    const q = document.getElementById('task-pos').value;
+    
+    if(!name) {
+        alert("⚠️ Taaknaam is verplicht");
+        return;
+    }
+    
+    const newTask = { 
+        id: Date.now().toString(), 
+        name, 
+        description: desc, 
+        deadline, 
+        quadrant: q, 
+        status: 'To Do', 
+        user: user.name, 
+        urgent: (q==='q1'||q==='q3'), 
+        important: (q==='q1'||q==='q2'),
+        created: new Date().toISOString()
+    };
+    
+    tasks.push(newTask);
+    renderTasks();
+    updateStats();
+    closeModal();
+    
+    // Reset form
+    document.getElementById('task-name').value = '';
+    document.getElementById('task-desc').value = '';
+    document.getElementById('task-deadline').value = '';
+    document.getElementById('task-template').value = '';
+    
+    showLoading('💾 Taak opslaan...', 'loading');
+    
+    try {
+        await fetch(`${API_URL}?action=addTask&code=${user.code}`, { 
+            method: 'POST', 
+            body: JSON.stringify(newTask) 
+        });
+        showLoading('✓ Taak opgeslagen', 'success');
+        loadData(); // Refresh om zeker te zijn
+    } catch (e) {
+        console.error('Save error:', e);
+        showLoading('⚠️ Opslaan mislukt', 'error');
+    }
+}
+
+async function completeTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+    
+    if (!confirm(`✓ Taak "${task.name}" markeren als voltooid?`)) return;
+    
+    task.status = 'Done';
+    renderTasks();
+    updateStats();
+    
+    showLoading('✓ Taak voltooid!', 'success');
+    
+    try {
+        await fetch(`${API_URL}?action=updateTask&code=${user.code}`, { 
+            method: 'POST', 
+            body: JSON.stringify({ id, status: 'Done', completed: new Date().toISOString() }) 
+        });
+    } catch (e) {
+        console.error('Complete error:', e);
+    }
+}
+
+async function deleteTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+    
+    if (!confirm(`🗑️ Weet je zeker dat je "${task.name}" wilt verwijderen?`)) return;
+    
+    tasks = tasks.filter(t => t.id !== id);
+    renderTasks();
+    updateStats();
+    
+    showLoading('🗑️ Taak verwijderd', 'success');
+    
+    try {
+        await fetch(`${API_URL}?action=deleteTask&code=${user.code}`, { 
+            method: 'POST', 
+            body: JSON.stringify({ id }) 
+        });
+    } catch (e) {
+        console.error('Delete error:', e);
+    }
+}
+
+function openCalendar(title, dateParam) {
+    if(!dateParam) {
+        alert("⚠️ Geen datum ingesteld voor deze taak.");
+        return;
+    }
+    window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dateParam}/${dateParam}`, '_blank');
+}
+
+// ==================== BATCH OPERATIONS ====================
+function toggleBatchMode() {
+    batchModeActive = !batchModeActive;
+    selectedTasks = [];
+    
+    if (batchModeActive) {
+        renderTasks(); // Re-render met checkboxes
+    } else {
+        cancelBatchMode();
+    }
+}
+
+function toggleTaskSelection(taskId) {
+    if (selectedTasks.includes(taskId)) {
+        selectedTasks = selectedTasks.filter(id => id !== taskId);
+    } else {
+        selectedTasks.push(taskId);
+    }
+    
+    updateBatchUI();
+}
+
+function updateBatchUI() {
+    const batchBar = document.getElementById('batch-actions');
+    const count = document.getElementById('batch-count');
+    
+    if (selectedTasks.length > 0) {
+        batchBar.classList.add('active');
+        count.textContent = `${selectedTasks.length} geselecteerd`;
+    } else {
+        batchBar.classList.remove('active');
+    }
+}
+
+async function batchComplete() {
+    if (selectedTasks.length === 0) return;
+    
+    if (!confirm(`✓ ${selectedTasks.length} ${selectedTasks.length === 1 ? 'taak' : 'taken'} markeren als voltooid?`)) return;
+    
+    for (const taskId of selectedTasks) {
+        const task = tasks.find(t => t.id === taskId);
+        if (task) task.status = 'Done';
+        
+        try {
+            await fetch(`${API_URL}?action=updateTask&code=${user.code}`, { 
+                method: 'POST', 
+                body: JSON.stringify({ id: taskId, status: 'Done', completed: new Date().toISOString() }) 
+            });
+        } catch (e) {
+            console.error('Batch complete error:', e);
+        }
+    }
+    
+    cancelBatchMode();
+    renderTasks();
+    updateStats();
+    showLoading(`✓ ${selectedTasks.length} ${selectedTasks.length === 1 ? 'taak' : 'taken'} voltooid`, 'success');
+}
+
+function batchMove() {
+    if (selectedTasks.length === 0) return;
+    document.getElementById('batch-move-modal').classList.add('active');
+}
+
+async function executeBatchMove() {
+    const targetQuadrant = document.getElementById('batch-target-quadrant').value;
+    
+    for (const taskId of selectedTasks) {
+        const task = tasks.find(t => t.id === taskId);
+        if (task) {
+            task.quadrant = targetQuadrant;
+            task.urgent = (targetQuadrant === 'q1' || targetQuadrant === 'q3');
+            task.important = (targetQuadrant === 'q1' || targetQuadrant === 'q2');
+            
+            try {
+                await fetch(`${API_URL}?action=updateTask&code=${user.code}`, { 
+                    method: 'POST', 
+                    body: JSON.stringify({ id: taskId, quadrant: targetQuadrant, urgent: task.urgent, important: task.important }) 
+                });
+            } catch (e) {
+                console.error('Batch move error:', e);
+            }
+        }
+    }
+    
+    closeBatchMoveModal();
+    cancelBatchMode();
+    renderTasks();
+    updateStats();
+    showLoading(`✓ ${selectedTasks.length} ${selectedTasks.length === 1 ? 'taak' : 'taken'} verplaatst`, 'success');
+}
+
+function closeBatchMoveModal() {
+    document.getElementById('batch-move-modal').classList.remove('active');
+}
+
+async function batchDelete() {
+    if (selectedTasks.length === 0) return;
+    
+    if (!confirm(`🗑️ Weet je zeker dat je ${selectedTasks.length} ${selectedTasks.length === 1 ? 'taak' : 'taken'} wilt verwijderen?`)) return;
+    
+    for (const taskId of selectedTasks) {
+        tasks = tasks.filter(t => t.id !== taskId);
+        
+        try {
+            await fetch(`${API_URL}?action=deleteTask&code=${user.code}`, { 
+                method: 'POST', 
+                body: JSON.stringify({ id: taskId }) 
+            });
+        } catch (e) {
+            console.error('Batch delete error:', e);
+        }
+    }
+    
+    cancelBatchMode();
+    renderTasks();
+    updateStats();
+    showLoading(`🗑️ ${selectedTasks.length} ${selectedTasks.length === 1 ? 'taak' : 'taken'} verwijderd`, 'success');
+}
+
+function cancelBatchMode() {
+    batchModeActive = false;
+    selectedTasks = [];
+    document.getElementById('batch-actions').classList.remove('active');
+    renderTasks();
+}
+
+// ==================== FILTER & SEARCH ====================
+function filterTasks(query) {
+    const lowerQuery = query.toLowerCase().trim();
+    const clearBtn = document.getElementById('search-clear');
+    
+    clearBtn.style.display = lowerQuery ? 'block' : 'none';
+    
+    document.querySelectorAll('.task-item').forEach(task => {
+        const text = task.textContent.toLowerCase();
+        const matches = text.includes(lowerQuery);
+        task.style.display = matches ? 'block' : 'none';
+    });
+    
+    updateEmptyStates();
+}
+
+function clearSearch() {
+    document.getElementById('task-search').value = '';
+    document.getElementById('search-clear').style.display = 'none';
+    filterTasks('');
+}
+
+function filterByDate(period) {
+    currentFilter = period;
+    applyCurrentFilter();
+}
+
+function applyCurrentFilter() {
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    
+    document.querySelectorAll('.task-item').forEach(task => {
+        const deadlineEl = task.querySelector('.task-deadline');
+        
+        if (currentFilter === 'all') {
+            task.style.display = 'block';
+            return;
+        }
+        
+        if (!deadlineEl) {
+            task.style.display = 'none';
+            return;
+        }
+        
+        const dateText = deadlineEl.textContent.match(/\d{2}-\d{2}-\d{4}/)?.[0];
+        if (!dateText) {
+            task.style.display = 'none';
+            return;
+        }
+        
+        const [day, month, year] = dateText.split('-');
+        const taskDate = new Date(year, month-1, day);
+        
+        if (currentFilter === 'today') {
+            task.style.display = taskDate.getTime() === now.getTime() ? 'block' : 'none';
+        } else if (currentFilter === 'week') {
+            const weekEnd = new Date(now);
+            weekEnd.setDate(weekEnd.getDate() + 7);
+            task.style.display = (taskDate >= now && taskDate <= weekEnd) ? 'block' : 'none';
+        }
+    });
+    
+    updateEmptyStates();
+}
+
+function updateEmptyStates() {
+    document.querySelectorAll('.quadrant').forEach(quadrant => {
+        const visibleTasks = quadrant.querySelectorAll('.task-item[style*="display: block"], .task-item:not([style*="display: none"])');
+        const list = quadrant.querySelector('.task-list');
+        
+        if (visibleTasks.length === 0 && !list.querySelector('.empty-state')) {
+            const existingTasks = list.querySelectorAll('.task-item');
+            if (existingTasks.length > 0) {
+                // Er zijn taken maar gefilterd
+                list.insertAdjacentHTML('afterbegin', `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <p style="font-size:11px;">Geen taken gevonden met huidige filter</p>
+                    </div>
+                `);
+            }
+        } else {
+            const emptyState = list.querySelector('.empty-state');
+            if (emptyState && visibleTasks.length > 0) {
+                emptyState.remove();
+            }
+        }
+    });
+}
+
+// ==================== TEMPLATES ====================
+function applyTemplate(index) {
+    if (!index) return;
+    const t = templates[index];
+    document.getElementById('task-name').value = t.name;
+    document.getElementById('task-desc').value = t.desc;
+    document.getElementById('task-pos').value = t.quadrant;
+}
+
+// ==================== NOTIFICATIONS ====================
+function checkNotificationPermission() {
+    if (!("Notification" in window)) return;
+    
+    if (Notification.permission === "default") {
+        document.getElementById('notification-prompt').classList.add('show');
+    }
+}
+
+async function requestNotificationPermission() {
+    const permission = await Notification.requestPermission();
+    document.getElementById('notification-prompt').classList.remove('show');
+    
+    if (permission === "granted") {
+        new Notification('⚡ MATRIX PRO', {
+            body: 'Notificaties zijn ingeschakeld! Je ontvangt waarschuwingen voor urgente taken.',
+            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="75" font-size="75">⚡</text></svg>'
+        });
+    }
+}
+
+function checkNotifications() {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    const urgentTasks = tasks.filter(t => {
+        if (!t.deadline || t.status === 'Done') return false;
+        const deadline = new Date(t.deadline.split('T')[0]);
+        return deadline <= today;
+    });
+    
+    if (urgentTasks.length > 0) {
+        // Alleen notificatie tonen als er nieuwe urgente taken zijn (niet bij elke refresh)
+        const lastNotification = localStorage.getItem('last_notification_date');
+        const todayStr = today.toISOString().split('T')[0];
+        
+        if (lastNotification !== todayStr) {
+            new Notification('⚡ MATRIX PRO - Urgente Taken', {
+                body: `Je hebt ${urgentTasks.length} urgente ${urgentTasks.length === 1 ? 'taak' : 'taken'} voor vandaag!`,
+                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="75" font-size="75">🔥</text></svg>',
+                requireInteraction: true
+            });
+            
+            localStorage.setItem('last_notification_date', todayStr);
+        }
+    }
+}
+
+// ==================== KEYBOARD SHORTCUTS ====================
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K = Nieuwe taak
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            openModal();
+        }
+        
+        // Ctrl/Cmd + 1-4 = Scroll naar quadrant
+        if ((e.ctrlKey || e.metaKey) && ['1','2','3','4'].includes(e.key)) {
+            e.preventDefault();
+            const quadrant = document.getElementById(`q${e.key}`);
+            if (quadrant) {
+                quadrant.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                quadrant.style.boxShadow = '0 0 20px rgba(78, 205, 196, 0.5)';
+                setTimeout(() => quadrant.style.boxShadow = '', 1000);
+            }
+        }
+        
+        // ESC = Sluit modals
+        if (e.key === 'Escape') {
+            closeModal();
+            closeBatchMoveModal();
+            if (batchModeActive) cancelBatchMode();
+        }
+        
+        // Ctrl/Cmd + F = Focus op zoekbalk
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            document.getElementById('task-search').focus();
+        }
+    });
+}
+
+// ==================== UI CONTROLS ====================
+function switchTab(tab) {
+    document.getElementById('view-matrix').style.display = (tab === 'matrix') ? 'block' : 'none';
+    document.getElementById('view-routines').style.display = (tab === 'routines') ? 'block' : 'none';
+    document.getElementById('btn-matrix').className = (tab === 'matrix') ? 'tab-btn active' : 'tab-btn';
+    document.getElementById('btn-routines').className = (tab === 'routines') ? 'tab-btn active' : 'tab-btn';
+}
+
+function openModal() { 
+    document.getElementById('task-modal').classList.add('active'); 
+    setTimeout(() => document.getElementById('task-name').focus(), 100);
+}
+
+function closeModal() { 
+    document.getElementById('task-modal').classList.remove('active'); 
+}
+
+// ==================== INITIALIZATION ====================
 init();
 </script>
 </body>
