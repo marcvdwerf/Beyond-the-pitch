@@ -602,43 +602,42 @@
       background: var(--gold);
       color: #000000;
     }
-/* Maak de vertaal-widget subtiel */
-#google_translate_element {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* Verberg het Google logo en de tekst 'Powered by' */
-.goog-logo-link, 
+/* Verberg alle Google rommel */
+.goog-te-banner-frame.skiptranslate, 
 .goog-te-gadget span, 
-.goog-te-banner-frame {
+.goog-logo-link {
     display: none !important;
 }
+body { top: 0px !important; }
 
-/* Zorg dat de gadget zelf transparant is zodat alleen het menu overblijft */
+/* De widget container */
 .goog-te-gadget {
     color: transparent !important;
     font-size: 0 !important;
+    display: flex;
+    align-items: center;
 }
 
-/* Style het dropdown menuutje zelf */
+/* De daadwerkelijke dropdown (het menuutje) */
 .goog-te-combo {
-    background-color: #000 !important;
-    color: #ffd700 !important; /* Goud */
-    border: 1px solid #ffd700 !important; /* Goud randje voor zichtbaarheid */
-    padding: 6px 12px !important;
-    border-radius: 8px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 14px !important; /* Forceer leesbare tekst */
-    outline: none !important;
-    display: inline-block !important; /* Zorg dat hij getoond wordt */
+    display: inline-block !important;
     visibility: visible !important;
+    font-size: 12px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600;
+    color: #ffd700 !important; /* Goud */
+    background-color: transparent !important;
+    border: 1px solid #1a1a1a !important; /* Subtiel randje */
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    outline: none !important;
+    text-transform: uppercase;
 }
 
-/* Zorg dat de container waarin de dropdown staat ook ruimte inneemt */
-.goog-te-gadget {
-    height: 32px !important;
-    overflow: visible !important;
+/* Hover effect voor de dropdown */
+.goog-te-combo:hover {
+    border-color: #ffd700 !important;
 }
   </style>
 </head>
@@ -654,15 +653,15 @@
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="" class="logo">Beyond the Pitch</a>
 
-      <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
-      <div id="google_translate_element" class="ml-4"></div>
-        <a href="" class="nav-link">Home</a>
-        <a href="projects.html" class="nav-link">Journeys</a>
-        <a href="quiz/gaelicgames.html" class="nav-link">The Gaelic Challenge</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-        <div id="google_translate_element"></div>
-      </nav>
+     <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+  <a href="" class="nav-link">Home</a>
+  <a href="projects.html" class="nav-link">Journeys</a>
+  <a href="quiz/gaelicgames.html" class="nav-link">The Gaelic Challenge</a>
+  <a href="about.html" class="nav-link">About</a>
+  <a href="contact.html" class="nav-link">Contact</a>
+  
+  <div id="google_translate_element" class="ml-2"></div>
+</nav>
 
       <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
         <span></span>
@@ -1285,7 +1284,7 @@ function googleTranslateElementInit() {
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
     pageLanguage: 'en', 
-    includedLanguages: 'nl,en', 
+    includedLanguages: 'en,nl', 
     layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
     autoDisplay: false
   }, 'google_translate_element');
