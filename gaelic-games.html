@@ -602,6 +602,24 @@
       background: var(--gold);
       color: #000000;
     }
+    /* Google Translate styling aanpassingen */
+.goog-te-banner-frame.skiptranslate { display: none !important; }
+body { top: 0px !important; }
+.goog-te-gadget { 
+    font-family: 'Inter', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 11px !important;
+}
+/* Verbergt Google logo tekst */
+.goog-logo-link { display:none !important; }
+.goog-te-gadget { color: transparent !important; }
+.goog-te-gadget .goog-te-combo {
+    background: #000;
+    color: #fff;
+    border: 1px solid #1a1a1a;
+    padding: 4px;
+    border-radius: 4px;
+}
   </style>
 </head>
 <body>
@@ -617,6 +635,7 @@
       <a href="" class="logo">Beyond the Pitch</a>
 
       <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+      <div id="google_translate_element" class="ml-4"></div>
         <a href="" class="nav-link">Home</a>
         <a href="projects.html" class="nav-link">Journeys</a>
         <a href="quiz/gaelicgames.html" class="nav-link">The Gaelic Challenge</a>
@@ -1231,5 +1250,16 @@ function redirectToBooking() {
   const firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 </script>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en', 
+    includedLanguages: 'nl,en', 
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
