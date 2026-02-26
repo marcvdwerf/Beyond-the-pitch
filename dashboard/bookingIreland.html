@@ -122,27 +122,62 @@
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
         const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312', requests: 'entry.184318357', partner: 'entry.2094398847' };
 
-        // Volledige database van wedstrijden
+        // VOLLEDIGE LIJST MET WEDSTRIJDEN
         const MATCH_DATA = [
-            // Voetbal Div 1-4
-            { date: "2026-03-01", teams: "Kerry v Monaghan", sport: "Football", month: "mrt", div: "1" },
-            { date: "2026-03-01", teams: "Mayo v Armagh", sport: "Football", month: "mrt", div: "1" },
-            { date: "2026-03-01", teams: "Donegal v Galway", sport: "Football", month: "mrt", div: "1" },
-            { date: "2026-03-01", teams: "Roscommon v Dublin", sport: "Football", month: "mrt", div: "1" },
-            { date: "2026-03-01", teams: "Derry v Cork", sport: "Football", month: "mrt", div: "2" },
-            { date: "2026-03-01", teams: "Wexford v Sligo", sport: "Football", month: "mrt", div: "3" },
-            { date: "2026-03-01", teams: "London v Waterford", sport: "Football", month: "mrt", div: "4" },
-            { date: "2026-03-01", teams: "Longford v Carlow", sport: "Football", month: "mrt", div: "4" },
-            { date: "2026-03-01", teams: "Tipperary v Leitrim", sport: "Football", month: "mrt", div: "4" },
-            { date: "2026-03-14", teams: "Dublin v Armagh", sport: "Football", month: "mrt", div: "1" },
-            // Hurling Div 1
-            { date: "2026-03-01", teams: "Galway v Waterford", sport: "Hurling", month: "mrt", div: "1A" },
-            { date: "2026-03-01", teams: "Offaly v Limerick", sport: "Hurling", month: "mrt", div: "1A" },
-            { date: "2026-03-01", teams: "Kilkenny v Cork", sport: "Hurling", month: "mrt", div: "1A" },
-            { date: "2026-03-07", teams: "Limerick v Cork", sport: "Hurling", month: "mrt", div: "1A" },
-            // Championship
-            { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", sport: "Hurling", month: "apr", div: "Champ" },
-            { date: "2026-05-17", teams: "Leinster Football Final", sport: "Football", month: "may", div: "Final" }
+            // FEBRUARI
+            { date: "2026-02-01", teams: "Waterford v Limerick", sport: "Hurling", month: "feb" },
+            { date: "2026-02-07", teams: "Cork v Tipperary", sport: "Hurling", month: "feb" },
+            { date: "2026-02-01", teams: "Mayo v Dublin", sport: "Football", month: "feb" },
+
+            // MAART 01 - FOOTBALL
+            { date: "2026-03-01", teams: "Kerry v Monaghan (Killarney)", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Mayo v Armagh (Castlebar)", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Donegal v Galway", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Roscommon v Dublin", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Derry v Cork", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Wexford v Sligo", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "London v Waterford", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Longford v Carlow", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Tipperary v Leitrim", sport: "Football", month: "mrt" },
+
+            // MAART 01 - HURLING
+            { date: "2026-03-01", teams: "Galway v Waterford", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-01", teams: "Offaly v Limerick", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-01", teams: "Kilkenny v Cork", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-01", teams: "Down v Kildare", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-01", teams: "Antrim v Dublin", sport: "Hurling", month: "mrt" },
+
+            // MAART 14/15 - FOOTBALL
+            { date: "2026-03-14", teams: "Kerry v Mayo (Tralee)", sport: "Football", month: "mrt" },
+            { date: "2026-03-14", teams: "Dublin v Armagh (Croke Park)", sport: "Football", month: "mrt" },
+            { date: "2026-03-14", teams: "Cork v Kildare", sport: "Football", month: "mrt" },
+            { date: "2026-03-15", teams: "Roscommon v Donegal", sport: "Football", month: "mrt" },
+            { date: "2026-03-15", teams: "Louth v Derry", sport: "Football", month: "mrt" },
+            { date: "2026-03-15", teams: "Sligo v Down", sport: "Football", month: "mrt" },
+            { date: "2026-03-15", teams: "Leitrim v Longford", sport: "Football", month: "mrt" },
+
+            // MAART 07/08 - HURLING
+            { date: "2026-03-07", teams: "Galway v Kilkenny", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-07", teams: "Limerick v Cork", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-08", teams: "Waterford v Tipperary", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-08", teams: "Clare v Wexford", sport: "Hurling", month: "mrt" },
+
+            // MAART 21/22 - ALLES
+            { date: "2026-03-21", teams: "Tipperary v Kilkenny (H)", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-22", teams: "Armagh v Kerry (F)", sport: "Football", month: "mrt" },
+            { date: "2026-03-22", teams: "Galway v Dublin (F)", sport: "Football", month: "mrt" },
+            { date: "2026-03-22", teams: "Mayo v Roscommon (F)", sport: "Football", month: "mrt" },
+            { date: "2026-03-22", teams: "Tipperary v Waterford (F)", sport: "Football", month: "mrt" },
+
+            // FINALES
+            { date: "2026-03-29", teams: "Allianz Football League Finals", sport: "Football", month: "mrt" },
+            { date: "2026-03-29", teams: "Allianz Hurling League Finals (Div 2-4)", sport: "Hurling", month: "mrt" },
+            { date: "2026-04-05", teams: "Allianz Hurling League Div 1 Finals", sport: "Hurling", month: "apr" },
+
+            // CHAMPIONSHIP
+            { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", sport: "Hurling", month: "apr" },
+            { date: "2026-05-17", teams: "Leinster Football Final", sport: "Football", month: "may" },
+            { date: "2026-06-06", teams: "Leinster Hurling Final", sport: "Hurling", month: "may" }
         ];
 
         function buildMenu() {
