@@ -602,44 +602,40 @@
       background: var(--gold);
       color: #000000;
     }
-/* 1. Verberg de Google-icoontjes en extra tekst */
-#google_translate_element img, 
-#google_translate_element_mobile img,
-.goog-te-gadget span {
+/* Verberg Google logo en toolbar */
+.goog-te-banner-frame.skiptranslate, .goog-te-gadget span, .goog-logo-link {
     display: none !important;
 }
+body { top: 0px !important; }
 
-/* 2. De Dropdown zelf stylen */
-.goog-te-combo {
-    background-color: #000 !important;
-    color: #ffd700 !important;
-    border: 1px solid #ffd700 !important;
-    padding: 6px 28px 6px 12px !important; /* Extra ruimte rechts voor het pijltje */
-    border-radius: 6px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    outline: none !important;
-    cursor: pointer !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    
-    /* Voegt een subtiel gouden pijltje toe als achtergrondafbeelding */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 10px center !important;
-}
-
-/* 3. Hover effect voor een interactieve feel */
-.goog-te-combo:hover {
-    border-color: #ffd700 !important; /* Randje wordt goud bij hover */
-    background-color: #0a0a0a !important;
-}
-
-/* 4. Ruimte om de widget op mobiel en desktop */
+/* De container */
 .goog-te-gadget {
     font-size: 0 !important;
-    line-height: 0 !important;
+}
+
+/* De Dropdown (Zwart met Goud) */
+.goog-te-combo {
+    background-color: #000 !important;
+    color: #ffd700 !important; /* Goudkleurige tekst */
+    border: 1px solid #333 !important;
+    padding: 5px 25px 5px 10px !important;
+    border-radius: 4px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    outline: none !important;
+    cursor: pointer !important;
+    appearance: none !important; /* Verwijdert standaard witte pijltje */
+    -webkit-appearance: none !important;
+    
+    /* Voeg een eigen subtiel goud pijltje toe */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 8px center !important;
+}
+
+.goog-te-combo:hover {
+    border-color: #ffd700 !important;
 }
   </style>
 </head>
@@ -1272,37 +1268,37 @@ function redirectToBooking() {
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 </script>
     <script type="text/javascript">
+// 1. Initialiseer de widgets voor beide locaties (Desktop & Mobiel)
 function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en', 
-    includedLanguages: 'nl,en', 
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-}
-</script>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
+  const config = {
     pageLanguage: 'en', 
     includedLanguages: 'en,nl', 
     layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
     autoDisplay: false
-  }, 'google_translate_element');
+  };
+
+  // Laad in de desktop div
+  new google.translate.TranslateElement(config, 'google_translate_element');
+  
+  // Laad in de mobiele div
+  if (document.getElementById('google_translate_element_mobile')) {
+    new google.translate.TranslateElement(config, 'google_translate_element_mobile');
+  }
 }
 </script>
+
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-  // Wacht tot de widget geladen is en pas de tekst aan
+
+<script>
+  // 2. Pas de tekst 'Selecteer een taal' aan naar 'EN / NL' op alle plekken
   const observer = new MutationObserver(function(mutations) {
-    const select = document.querySelector('.goog-te-combo');
-    if (select) {
-      // De eerste optie is altijd de 'Selecteer taal' tekst
-      if (select.options[0].innerHTML !== 'EN / NL') {
-        select.options[0].innerHTML = 'EN / NL';
-      }
-      // Optioneel: stop met kijken zodra het gelukt is
-      // observer.disconnect(); 
+    const selects = document.querySelectorAll('.goog-te-combo');
+    if (selects.length > 0) {
+      selects.forEach(select => {
+        if (select.options.length > 0 && select.options[0].innerHTML !== 'EN / NL') {
+          select.options[0].innerHTML = 'EN / NL';
+        }
+      });
     }
   });
 
