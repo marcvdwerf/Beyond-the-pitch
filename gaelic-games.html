@@ -624,21 +624,21 @@
 /* Style het dropdown menuutje zelf */
 .goog-te-combo {
     background-color: #000 !important;
-    color: #ffd700 !important; /* Beyond the Pitch Goud */
-    border: 1px solid #1a1a1a !important;
-    padding: 5px 10px !important;
+    color: #ffd700 !important; /* Goud */
+    border: 1px solid #ffd700 !important; /* Goud randje voor zichtbaarheid */
+    padding: 6px 12px !important;
     border-radius: 8px !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: 12px !important;
+    font-size: 14px !important; /* Forceer leesbare tekst */
     outline: none !important;
+    display: inline-block !important; /* Zorg dat hij getoond wordt */
+    visibility: visible !important;
 }
 
-/* Verberg de balk die Google bovenaan je site plakt */
-body {
-    top: 0 !important;
-}
-.skiptranslate {
-    display: none !important;
+/* Zorg dat de container waarin de dropdown staat ook ruimte inneemt */
+.goog-te-gadget {
+    height: 32px !important;
+    overflow: visible !important;
 }
   </style>
 </head>
@@ -1285,10 +1285,9 @@ function googleTranslateElementInit() {
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
     pageLanguage: 'en', 
-    includedLanguages: 'en,nl', 
+    includedLanguages: 'nl,en', 
     layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false,
-    multilanguagePage: true
+    autoDisplay: false
   }, 'google_translate_element');
 }
 </script>
