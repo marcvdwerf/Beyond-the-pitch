@@ -44,7 +44,6 @@
         input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
 
         .filter-box { background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; }
-        .filter-label { display: block; font-weight: 700; color: #1e293b; margin-bottom: 15px; font-size: 1rem; }
         .filter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
@@ -104,6 +103,9 @@
                             <option value="all">All Months</option>
                             <option value="feb">February</option>
                             <option value="mrt">March</option>
+                            <option value="apr">April</option>
+                            <option value="may">May</option>
+                            <option value="jun">June</option>
                         </select>
                     </div>
                 </div>
@@ -112,12 +114,133 @@
                     <label>Available Fixtures</label>
                     <select id="match-selector">
                         <option value="">-- Choose a match --</option>
+                        
                         <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
                             <option value="2026-02-01 | Waterford v Limerick">Feb 01: Waterford v Limerick</option>
                             <option value="2026-02-07 | Cork v Tipperary">Feb 07: Cork v Tipperary</option>
                         </optgroup>
                         <optgroup label="Football - February" data-sport="Football" data-month="feb">
                             <option value="2026-02-01 | Mayo v Dublin">Feb 01: Mayo v Dublin</option>
+                        </optgroup>
+
+                        <optgroup label="Football - March" data-sport="Football" data-month="mrt">
+                            <option value="2026-03-01 | Kerry v Monaghan">Mar 01: Kerry v Monaghan (Killarney)</option>
+                            <option value="2026-03-01 | Mayo v Armagh">Mar 01: Mayo v Armagh (Castlebar)</option>
+                            <option value="2026-03-01 | Donegal v Galway">Mar 01: Donegal v Galway</option>
+                            <option value="2026-03-01 | Roscommon v Dublin">Mar 01: Roscommon v Dublin</option>
+                            <option value="2026-03-01 | Derry v Cork">Mar 01: Derry v Cork</option>
+                            <option value="2026-03-01 | Wexford v Sligo">Mar 01: Wexford v Sligo</option>
+                            <option value="2026-03-01 | London v Waterford">Mar 01: London v Waterford</option>
+                            <option value="2026-03-01 | Longford v Carlow">Mar 01: Longford v Carlow</option>
+                            <option value="2026-03-01 | Tipperary v Leitrim">Mar 01: Tipperary v Leitrim</option>
+                            <option value="2026-03-14 | Kerry v Mayo">Mar 14: Kerry v Mayo (Tralee)</option>
+                            <option value="2026-03-14 | Dublin v Armagh">Mar 14: Dublin v Armagh (Croke Park)</option>
+                            <option value="2026-03-14 | Cork v Kildare">Mar 14: Cork v Kildare</option>
+                            <option value="2026-03-14 | Meath v Tyrone">Mar 14: Meath v Tyrone</option>
+                            <option value="2026-03-14 | Fermanagh v Laois">Mar 14: Fermanagh v Laois</option>
+                            <option value="2026-03-14 | Carlow v London">Mar 14: Carlow v London</option>
+                            <option value="2026-03-15 | Roscommon v Donegal">Mar 15: Roscommon v Donegal</option>
+                            <option value="2026-03-15 | Monaghan v Galway">Mar 15: Monaghan v Galway</option>
+                            <option value="2026-03-15 | Louth v Derry">Mar 15: Louth v Derry</option>
+                            <option value="2026-03-15 | Offaly v Cavan">Mar 15: Offaly v Cavan</option>
+                            <option value="2026-03-15 | Clare v Wexford">Mar 15: Clare v Wexford</option>
+                            <option value="2026-03-15 | Sligo v Down">Mar 15: Sligo v Down</option>
+                            <option value="2026-03-15 | Westmeath v Limerick">Mar 15: Westmeath v Limerick</option>
+                            <option value="2026-03-15 | Waterford v Antrim">Mar 15: Waterford v Antrim</option>
+                            <option value="2026-03-15 | Leitrim v Longford">Mar 15: Leitrim v Longford</option>
+                            <option value="2026-03-15 | Wicklow v Tipperary">Mar 15: Wicklow v Tipperary</option>
+                            <option value="2026-03-22 | Armagh v Kerry">Mar 22: Armagh v Kerry</option>
+                            <option value="2026-03-22 | Galway v Dublin">Mar 22: Galway v Dublin</option>
+                            <option value="2026-03-22 | Mayo v Roscommon">Mar 22: Mayo v Roscommon</option>
+                            <option value="2026-03-22 | Monaghan v Donegal">Mar 22: Monaghan v Donegal</option>
+                            <option value="2026-03-22 | Derry v Cavan">Mar 22: Derry v Cavan</option>
+                            <option value="2026-03-22 | Kildare v Louth">Mar 22: Kildare v Louth</option>
+                            <option value="2026-03-22 | Offaly v Meath">Mar 22: Offaly v Meath</option>
+                            <option value="2026-03-22 | Tyrone v Cork">Mar 22: Tyrone v Cork</option>
+                            <option value="2026-03-22 | Down v Laois">Mar 22: Down v Laois</option>
+                            <option value="2026-03-22 | Limerick v Fermanagh">Mar 22: Limerick v Fermanagh</option>
+                            <option value="2026-03-22 | Sligo v Clare">Mar 22: Sligo v Clare</option>
+                            <option value="2026-03-22 | Wexford v Westmeath">Mar 22: Wexford v Westmeath</option>
+                            <option value="2026-03-22 | Antrim v London">Mar 22: Antrim v London</option>
+                            <option value="2026-03-22 | Carlow v Leitrim">Mar 22: Carlow v Leitrim</option>
+                            <option value="2026-03-22 | Longford v Wicklow">Mar 22: Longford v Wicklow</option>
+                            <option value="2026-03-22 | Tipperary v Waterford">Mar 22: Tipperary v Waterford</option>
+                            <option value="2026-03-29 | FL Finals (Div 1-4)">Mar 28/29: Allianz FL Finals</option>
+                        </optgroup>
+
+                        <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
+                            <option value="2026-03-01 | Galway v Waterford">Mar 01: Galway v Waterford</option>
+                            <option value="2026-03-01 | Offaly v Limerick">Mar 01: Offaly v Limerick</option>
+                            <option value="2026-03-01 | Kilkenny v Cork">Mar 01: Kilkenny v Cork</option>
+                            <option value="2026-03-01 | Down v Kildare">Mar 01: Down v Kildare</option>
+                            <option value="2026-03-01 | Antrim v Dublin">Mar 01: Antrim v Dublin</option>
+                            <option value="2026-03-01 | Westmeath v Laois">Mar 01: Westmeath v Laois</option>
+                            <option value="2026-03-01 | Louth v Donegal">Mar 01: Louth v Donegal</option>
+                            <option value="2026-03-01 | Wicklow v Fermanagh">Mar 01: Wicklow v Fermanagh</option>
+                            <option value="2026-03-01 | Warwickshire v Monaghan">Mar 01: Warwickshire v Monaghan</option>
+                            <option value="2026-03-07 | Galway v Kilkenny">Mar 07: Galway v Kilkenny</option>
+                            <option value="2026-03-07 | Limerick v Cork">Mar 07: Limerick v Cork</option>
+                            <option value="2026-03-07 | Dublin v Down">Mar 07: Dublin v Down</option>
+                            <option value="2026-03-07 | Tyrone v Armagh">Mar 07: Tyrone v Armagh</option>
+                            <option value="2026-03-07 | Leitrim v Lancashire">Mar 07: Leitrim v Lancashire</option>
+                            <option value="2026-03-07 | Sligo v Cavan">Mar 07: Sligo v Cavan</option>
+                            <option value="2026-03-08 | Waterford v Tipperary">Mar 08: Waterford v Tipperary</option>
+                            <option value="2026-03-08 | Clare v Wexford">Mar 08: Clare v Wexford</option>
+                            <option value="2026-03-08 | Kildare v Carlow">Mar 08: Kildare v Carlow</option>
+                            <option value="2026-03-08 | Kerry v Mayo">Mar 08: Kerry v Mayo</option>
+                            <option value="2026-03-08 | Laois v Meath">Mar 08: Laois v Meath</option>
+                            <option value="2026-03-08 | Westmeath v Derry">Mar 08: Westmeath v Derry</option>
+                            <option value="2026-03-08 | Donegal v Wicklow">Mar 08: Donegal v Wicklow</option>
+                            <option value="2026-03-08 | Fermanagh v Roscommon">Mar 08: Fermanagh v Roscommon</option>
+                            <option value="2026-03-08 | Warwickshire v Longford">Mar 08: Warwickshire v Longford</option>
+                            <option value="2026-03-21 | Cork v Offaly">Mar 21: Cork v Offaly</option>
+                            <option value="2026-03-21 | Limerick v Galway">Mar 21: Limerick v Galway</option>
+                            <option value="2026-03-21 | Tipperary v Kilkenny">Mar 21: Tipperary v Kilkenny</option>
+                            <option value="2026-03-21 | Carlow v Dublin">Mar 21: Carlow v Dublin</option>
+                            <option value="2026-03-21 | Down v Antrim">Mar 21: Down v Antrim</option>
+                            <option value="2026-03-21 | Wexford v Kildare">Mar 21: Wexford v Kildare</option>
+                            <option value="2026-03-21 | London v Laois">Mar 21: London v Laois</option>
+                            <option value="2026-03-21 | Mayo v Westmeath">Mar 21: Mayo v Westmeath</option>
+                            <option value="2026-03-21 | Meath v Kerry">Mar 21: Meath v Kerry</option>
+                            <option value="2026-03-21 | Armagh v Fermanagh">Mar 21: Armagh v Fermanagh</option>
+                            <option value="2026-03-21 | Roscommon v Donegal">Mar 21: Roscommon v Donegal</option>
+                            <option value="2026-03-21 | Wicklow v Louth">Mar 21: Wicklow v Louth</option>
+                            <option value="2026-03-21 | Cavan v Monaghan">Mar 21: Cavan v Monaghan</option>
+                            <option value="2026-03-21 | Lancashire v Warwickshire">Mar 21: Lancashire v Warwickshire</option>
+                            <option value="2026-03-21 | Longford v Sligo">Mar 21: Longford v Sligo</option>
+                            <option value="2026-03-29 | HL Finals (Div 2-4)">Mar 28/29: Allianz HL Finals</option>
+                        </optgroup>
+
+                        <optgroup label="Football - April/May" data-sport="Football" data-month="apr">
+                            <option value="2026-04-11 | Offaly v Laois">Apr 11: Offaly v Laois</option>
+                            <option value="2026-04-12 | Carlow v Wicklow">Apr 12: Carlow v Wicklow</option>
+                            <option value="2026-04-12 | Westmeath v Longford">Apr 12: Westmeath v Longford</option>
+                            <option value="2026-04-19 | Kildare v TBC">Apr 19: Kildare v Offaly/Laois (Leinster QF)</option>
+                            <option value="2026-04-19 | Meath v TBC">Apr 19: Meath v Westmeath/Longford (Leinster QF)</option>
+                            <option value="2026-04-19 | Louth v Wexford">Apr 19: Louth v Wexford (Leinster QF)</option>
+                            <option value="2026-04-19 | Dublin v TBC">Apr 19: Dublin v Carlow/Wicklow (Leinster QF)</option>
+                            <option value="2026-05-03 | Leinster Semi Finals">May 02/03: Leinster Football SF</option>
+                            <option value="2026-05-17 | Leinster Football Final">May 17: Leinster Final (Croke Park)</option>
+                        </optgroup>
+
+                        <optgroup label="Hurling - April/May" data-sport="Hurling" data-month="apr">
+                            <option value="2026-04-05 | HL Div 1 Finals">Apr 04/05: Allianz HL Div 1 Finals</option>
+                            <option value="2026-04-18 | Galway v Kilkenny">Apr 18: Galway v Kilkenny (Leinster SHC)</option>
+                            <option value="2026-04-18 | Kildare v Wexford">Apr 18: Kildare v Wexford</option>
+                            <option value="2026-04-18 | Offaly v Dublin">Apr 18: Offaly v Dublin</option>
+                            <option value="2026-04-25 | Kilkenny v Wexford">Apr 25: Kilkenny v Wexford</option>
+                            <option value="2026-04-26 | Galway v Offaly">Apr 26: Galway v Offaly</option>
+                            <option value="2026-04-26 | Dublin v Kildare">Apr 26: Dublin v Kildare</option>
+                            <option value="2026-05-09 | Wexford v Dublin">May 09: Wexford v Dublin</option>
+                            <option value="2026-05-09 | Kildare v Galway">May 09: Kildare v Galway</option>
+                            <option value="2026-05-10 | Offaly v Kilkenny">May 10: Offaly v Kilkenny</option>
+                            <option value="2026-05-16 | Kilkenny v Kildare">May 16: Kilkenny v Kildare</option>
+                            <option value="2026-05-16 | Offaly v Wexford">May 16: Offaly v Wexford</option>
+                            <option value="2026-05-16 | Galway v Dublin">May 16: Galway v Dublin</option>
+                            <option value="2026-05-24 | Dublin v Kilkenny">May 24: Dublin v Kilkenny</option>
+                            <option value="2026-05-24 | Wexford v Galway">May 24: Wexford v Galway</option>
+                            <option value="2026-05-24 | Kildare v Offaly">May 24: Kildare v Offaly</option>
+                            <option value="2026-06-06 | Leinster Hurling Final">Jun 06: Leinster SHC Final</option>
                         </optgroup>
                     </select>
                 </div>
@@ -146,7 +269,6 @@
     </div>
 
     <script>
-        // DE CORRECTE URL EN ID'S OP BASIS VAN JE LINK
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
         
         const FIELDS = { 
@@ -156,11 +278,10 @@
             experience: 'entry.1446094233', 
             date: 'entry.301148404', 
             guests: 'entry.175134312',
-            requests: 'entry.184318357', // Let op: zorg dat deze NIET verplicht is in Google Forms
+            requests: 'entry.184318357', 
             partner: 'entry.2094398847' 
         };
 
-        // Filter logica
         function updateFilters() {
             const sport = document.getElementById('sportFilter').value;
             const month = document.getElementById('monthFilter').value;
@@ -176,10 +297,12 @@
         document.getElementById('monthFilter').addEventListener('change', updateFilters);
 
         document.getElementById('match-selector').addEventListener('change', (e) => {
-            if(e.target.value) document.getElementById('date').value = e.target.value.split(' | ')[0];
+            if(e.target.value) {
+                const datePart = e.target.value.split(' | ')[0];
+                document.getElementById('date').value = datePart;
+            }
         });
 
-        // Verzend logica
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
