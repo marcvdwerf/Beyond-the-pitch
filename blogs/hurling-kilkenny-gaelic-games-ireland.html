@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G'wan the Cats! Our First Business Trip to Ireland — Beyond the Pitch</title>
+  <meta name="description" content="February was a milestone for Beyond the Pitch. We travelled to Ireland, witnessed Gaelic Football and Hurling at Croke Park, and experienced matchday in Kilkenny like true locals." />
+  <meta name="keywords" content="Hurling Ireland, Gaelic Games experience, Kilkenny Cats, Croke Park, sport travel Ireland, Beyond the Pitch" />
+  <meta property="og:title" content="G'wan the Cats! Our First Business Trip to Ireland" />
+  <meta property="og:description" content="From Croke Park to Nowlan Park — our first business trip to Ireland turned into something far more than work." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.travelbeyondthepitch.com/blog-gwanthe-cats.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #161616;
+      --border: #2a2a2a;
+      --gold: #f5c842;
+      --gold-dim: #c9a227;
+      --white: #f0ece3;
+      --muted: #8a8678;
+      --accent: #1a1a1a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-back {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 0 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.85) 70%, var(--black) 100%),
+        url('https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=1400') center/cover no-repeat;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.35rem 0.9rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      width: 100%;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* ── ARTICLE ── */
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem 6rem;
+    }
+
+    .lead {
+      font-size: 1.22rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p { margin-bottom: 1.6rem; color: #c8c3b8; }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin: 3.5rem 0 1.2rem;
+      line-height: 1.2;
+    }
+
+    h2 .icon {
+      display: inline-block;
+      margin-right: 0.4rem;
+      color: var(--gold);
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 3rem 0;
+      padding: 2.2rem 2.5rem;
+      border-left: 3px solid var(--gold);
+      background: var(--card);
+      position: relative;
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--white);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      padding: 2rem 2.2rem;
+      margin: 3rem 0;
+    }
+
+    .highlight-box .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .highlight-box p {
+      color: var(--white);
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3.5rem 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── IMAGE FULL ── */
+    .img-full {
+      width: calc(100% + 5rem);
+      margin-left: -2.5rem;
+      margin-right: -2.5rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.88) saturate(0.9);
+    }
+
+    .img-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: -2.4rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin: 3rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .stat {
+      background: var(--card);
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      margin-top: 5rem;
+      padding: 3rem 2.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .cta-block .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .cta-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-block p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn:hover {
+      background: #ffd84a;
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag   { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+    .hero h1    { animation: fadeUp 0.7s ease both; animation-delay: 0.25s; }
+    .hero-meta  { animation: fadeUp 0.7s ease both; animation-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 620px) {
+      .stats { grid-template-columns: 1fr; }
+      .img-full { width: 100%; margin-left: 0; margin-right: 0; height: 260px; }
+      nav { padding: 1rem 1.2rem; }
+      .article-wrap { padding: 3rem 1.4rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="https://www.travelbeyondthepitch.com">Beyond <span>the Pitch</span></a>
+    <a class="nav-back" href="https://www.travelbeyondthepitch.com/blog.html">← All Stories</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">🟡⚫ Ireland · February 2026</div>
+      <h1>G'wan the Cats!<br><em>Our First Trip to Ireland</em></h1>
+      <div class="hero-meta">
+        <span>🏉 Gaelic Games</span>
+        <span>📍 Dublin &amp; Kilkenny</span>
+        <span>📅 February 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ARTICLE -->
+  <article class="article-wrap">
+
+    <p class="lead">
+      February was an absolute milestone for Beyond the Pitch — and that's putting it mildly. Alongside making our first major strategic choices as a young company, we made our very first business trip. Destination: Ireland. 🍀
+    </p>
+
+    <p>
+      What began as a work visit quickly became something far greater than that. After months of research, YouTube deep-dives and stories from our partner James, the moment had finally arrived — we were going to witness the Gaelic Games with our own eyes.
+    </p>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number">82,000</span>
+        <span class="stat-label">Croke Park capacity</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">90min</span>
+        <span class="stat-label">Dublin to Kilkenny</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">1</span>
+        <span class="stat-label">Unforgettable trip</span>
+      </div>
+    </div>
+
+    <h2><span class="icon">🏟️</span> Croke Park: The Cathedral</h2>
+
+    <p>
+      In the legendary Croke Park — an iconic stadium with room for 82,000 spectators and home of the All-Ireland Finals — we stood face to face with Gaelic Football and Hurling for the first time.
+    </p>
+
+    <p>
+      The speed. The relentless physicality. Points and goals struck from the most impossible angles. Supporters from rival counties sitting side by side, united in pride for their county, their Ireland.
+    </p>
+
+    <div class="pull-quote">
+      <p>"It was everything and more than we expected. Sport as a gateway into the soul of a place."</p>
+    </div>
+
+    <p>
+      What a spectacle. It was everything and more than we had expected — the kind of experience that reminds you exactly why Beyond the Pitch exists.
+    </p>
+
+    <img
+      class="img-full"
+      src="https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=1400"
+      alt="Stadium atmosphere — crowd cheering at a Gaelic Games match"
+    />
+    <p class="img-caption">The roar of the crowd — nothing quite like it.</p>
+
+    <div class="divider">Day Two</div>
+
+    <h2><span class="icon">🐱</span> Kilkenny: Home of the Cats</h2>
+
+    <p>
+      The next day might have been even more special. From Dublin we drove to Kilkenny — about 90 minutes south. A city famous for its medieval architecture and, above all, the undisputed hurling capital of Ireland.
+    </p>
+
+    <p>
+      We were there for a meeting with our hurling hero: <strong>James</strong>. Born and raised in Kilkenny, his passion for the sport is completely infectious. He took us to <strong>Nowlan Park</strong> — home of the Kilkenny Cats — and made sure we experienced the match the right way: surrounded by locals on a packed stand.
+    </p>
+
+    <div class="highlight-box">
+      <span class="label">⚡ Matchday moment</span>
+      <p>The man in front of us made one thing crystal clear: TJ Reid was quite possibly the greatest hurler he'd ever seen play. We weren't about to argue.</p>
+    </div>
+
+    <p>
+      <em>G'wan!</em> (Irish for: Go on!) rang out from every corner of the ground. The match was a spectacle right until the final minute — Kilkenny earned a free, Nowlan Park held its breath, and when the <em>sliotar</em> sailed between the posts the stadium erupted. A vital win for the Cats. A memory we won't forget.
+    </p>
+
+    <p>
+      After the final whistle, James guided us through the stream of supporters, pointing out local spots to eat, before dropping us at the village pub — already full of fans reliving every moment. Exactly how it should be.
+    </p>
+
+    <div class="divider">Beyond the Stand</div>
+
+    <h2><span class="icon">🏑</span> We Picked Up a Hurley</h2>
+
+    <p>
+      Alongside watching the sport, we tried it ourselves — hurley in hand, sliotar on the ground. Let's be honest: it looks easier than it is. Serious respect to everyone who plays this game at a high level.
+    </p>
+
+    <p>
+      <strong>James is now a permanent partner in our offering.</strong> Beyond attending a live match, he runs a session where visitors try the sport themselves and genuinely learn the history and culture behind it. Not a tourist box to tick — a real connection.
+    </p>
+
+    <p>
+      Literally: Beyond the Pitch.
+    </p>
+
+    <div class="divider">Community</div>
+
+    <h2><span class="icon">🤝</span> New in Dublin — Meet People Through Gaelic Games</h2>
+
+    <p>
+      And as if that weren't enough — back in Dublin, we also launched our community project: <strong>"New in Dublin — Meet People Through Gaelic Games."</strong> A meaningful first step towards the community we're building: one where sport opens the door to real human connection for people who are new to the city.
+    </p>
+
+    <p>
+      February set the bar high. We can't wait to see what comes next.
+    </p>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <span class="eyebrow">Join the Journey</span>
+      <h3>Experience Ireland Beyond the Stadium</h3>
+      <p>Live matches, hurling sessions with James, and access to the culture that makes Irish sport unforgettable.</p>
+      <a class="btn" href="https://www.travelbeyondthepitch.com/gaelic-games.html">Explore the Ireland Experience →</a>
+    </div>
+
+  </article>
+
+  <footer>
+    <p>© 2026 <a href="https://www.travelbeyondthepitch.com">Beyond the Pitch</a> · Sport. Culture. Travel.</p>
+  </footer>
+
+</body>
+</html>
