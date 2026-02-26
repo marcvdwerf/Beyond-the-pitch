@@ -602,23 +602,43 @@
       background: var(--gold);
       color: #000000;
     }
-    /* Google Translate styling aanpassingen */
-.goog-te-banner-frame.skiptranslate { display: none !important; }
-body { top: 0px !important; }
-.goog-te-gadget { 
-    font-family: 'Inter', sans-serif !important;
-    text-transform: uppercase;
-    font-size: 11px !important;
+/* Maak de vertaal-widget subtiel */
+#google_translate_element {
+    display: inline-block;
+    vertical-align: middle;
 }
-/* Verbergt Google logo tekst */
-.goog-logo-link { display:none !important; }
-.goog-te-gadget { color: transparent !important; }
-.goog-te-gadget .goog-te-combo {
-    background: #000;
-    color: #fff;
-    border: 1px solid #1a1a1a;
-    padding: 4px;
-    border-radius: 4px;
+
+/* Verberg het Google logo en de tekst 'Powered by' */
+.goog-logo-link, 
+.goog-te-gadget span, 
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+/* Zorg dat de gadget zelf transparant is zodat alleen het menu overblijft */
+.goog-te-gadget {
+    color: transparent !important;
+    font-size: 0 !important;
+}
+
+/* Style het dropdown menuutje zelf */
+.goog-te-combo {
+    background-color: #000 !important;
+    color: #ffd700 !important; /* Beyond the Pitch Goud */
+    border: 1px solid #1a1a1a !important;
+    padding: 5px 10px !important;
+    border-radius: 8px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 12px !important;
+    outline: none !important;
+}
+
+/* Verberg de balk die Google bovenaan je site plakt */
+body {
+    top: 0 !important;
+}
+.skiptranslate {
+    display: none !important;
 }
   </style>
 </head>
