@@ -602,38 +602,44 @@
       background: var(--gold);
       color: #000000;
     }
-/* Verberg de Google Toolbar bovenin */
-.goog-te-banner-frame.skiptranslate { display: none !important; }
-body { top: 0px !important; }
-
-/* Verberg specifiek het Google Logo (de afbeelding) en de tekst eromheen */
-#google_translate_element img {
+/* 1. Verberg de Google-icoontjes en extra tekst */
+#google_translate_element img, 
+#google_translate_element_mobile img,
+.goog-te-gadget span {
     display: none !important;
 }
-.goog-te-gadget {
-    font-size: 0 !important; /* Verbergt 'Powered by' */
-    color: transparent !important;
-}
 
-/* Herstel de Dropdown (het menuutje) */
+/* 2. De Dropdown zelf stylen */
 .goog-te-combo {
-    display: inline-block !important;
-    visibility: visible !important;
-    font-size: 13px !important; /* Zorg dat de tekst groot genoeg is */
+    background-color: #000 !important;
+    color: #ffd700 !important;
+    border: 1px solid #ffd700 !important;
+    padding: 6px 28px 6px 12px !important; /* Extra ruimte rechts voor het pijltje */
+    border-radius: 6px !important;
     font-family: 'Inter', sans-serif !important;
-    color: #ffd700 !important; /* Goudkleurige tekst */
-    background: #000 !important; /* Zwarte achtergrond */
-    border: 1px solid #333 !important;
-    padding: 4px 10px !important;
-    border-radius: 4px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
     outline: none !important;
-    cursor: pointer;
-    vertical-align: middle;
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    
+    /* Voegt een subtiel gouden pijltje toe als achtergrondafbeelding */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
 }
 
-/* Hover effect */
+/* 3. Hover effect voor een interactieve feel */
 .goog-te-combo:hover {
-    border-color: #ffd700 !important;
+    border-color: #ffd700 !important; /* Randje wordt goud bij hover */
+    background-color: #0a0a0a !important;
+}
+
+/* 4. Ruimte om de widget op mobiel en desktop */
+.goog-te-gadget {
+    font-size: 0 !important;
+    line-height: 0 !important;
 }
   </style>
 </head>
@@ -1286,5 +1292,24 @@ function googleTranslateElementInit() {
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+  // Wacht tot de widget geladen is en pas de tekst aan
+  const observer = new MutationObserver(function(mutations) {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+      // De eerste optie is altijd de 'Selecteer taal' tekst
+      if (select.options[0].innerHTML !== 'EN / NL') {
+        select.options[0].innerHTML = 'EN / NL';
+      }
+      // Optioneel: stop met kijken zodra het gelukt is
+      // observer.disconnect(); 
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+</script>
 </body>
 </html>
