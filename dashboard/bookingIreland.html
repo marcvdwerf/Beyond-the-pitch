@@ -6,53 +6,26 @@
     <title>Book Your Experience - Beyond the Pitch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #059669;
-            --secondary: #064e3b;
-            --text: #1f2937;
-            --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
-        }
+        :root { --primary: #059669; --secondary: #064e3b; --text: #1f2937; --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 20px; color: var(--text); position: relative; }
-        
-        .btn-back {
-            position: absolute; top: 20px; left: 20px;
-            background: white; color: var(--secondary);
-            padding: 12px 24px; border-radius: 50px;
-            text-decoration: none; font-weight: 700; font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: 0.3s; z-index: 100;
-            display: flex; align-items: center; gap: 8px;
-        }
-
+        .btn-back { position: absolute; top: 20px; left: 20px; background: white; color: var(--secondary); padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; z-index: 100; display: flex; align-items: center; gap: 8px; }
         .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; position: relative; }
-        
-        .header { 
-            background: #1a202c; color: white; padding: 50px 30px; text-align: center; 
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80');
-            background-size: cover; background-position: center;
-        }
-
+        .header { background: #1a202c; color: white; padding: 50px 30px; text-align: center; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
         .form-section { padding: 40px; }
         .section-title { font-size: 0.9rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; border-bottom: 2px solid #f7fafc; padding-bottom: 8px; }
-        
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 25px; }
         .form-group { display: flex; flex-direction: column; }
-        
         label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
         input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; width: 100%; }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
-
-        .filter-box { background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; }
+        .filter-box { background: #f8fafc; padding: 25px; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; transition: 0.3s; }
         .filter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
         .exp-card.selected { border-color: var(--primary); background: rgba(5, 150, 105, 0.05); }
         .exp-card input { position: absolute; opacity: 0; }
-        
+        .price-tag { float: right; color: var(--primary); font-weight: 700; }
         .btn-submit { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; }
-        .btn-submit:hover { background: var(--secondary); transform: translateY(-2px); }
         #successMessage { display: none; text-align: center; padding: 60px 30px; }
     </style>
 </head>
@@ -74,20 +47,27 @@
                 <div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" required></div>
             </div>
 
-            <div class="section-title">2. Choose Your Base Package</div>
+            <div class="section-title">2. Choose Your Package</div>
             <div class="experience-grid">
                 <label class="exp-card selected">
-                    <input type="radio" name="experience" value="Full Day Package" checked>
-                    <strong>Full Day Package – Hidden Spots & Hurling</strong>
+                    <input type="radio" name="experience" value="Clinic Only" checked>
+                    <span class="price-tag">€40 pp</span>
+                    <strong>James' Hurling Clinic Only</strong><br><small>Skill training & local insights.</small>
                 </label>
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Culture & Coastal">
-                    <strong>Two Days, One Night – Culture & Coastal</strong>
+                    <input type="radio" name="experience" value="Full Experience">
+                    <span class="price-tag">Price on request</span>
+                    <strong>Full Experience: Clinic + Match Tickets</strong><br><small>Training plus the big match atmosphere.</small>
+                </label>
+                <label class="exp-card">
+                    <input type="radio" name="experience" value="Tickets Only">
+                    <span class="price-tag">Price on request</span>
+                    <strong>Match Tickets Only</strong><br><small>Seating for official GAA fixtures.</small>
                 </label>
             </div>
 
-            <div class="section-title">3. Select Match Fixture</div>
-            <div class="filter-box">
+            <div id="match-section" class="section-title">3. Select Match Fixture</div>
+            <div class="filter-box" id="fixture-box" style="opacity: 0.5; pointer-events: none;">
                 <div class="filter-container">
                     <div class="form-group">
                         <label>Sport</label>
@@ -105,143 +85,13 @@
                             <option value="mrt">March</option>
                             <option value="apr">April</option>
                             <option value="may">May</option>
-                            <option value="jun">June</option>
                         </select>
                     </div>
                 </div>
-                
                 <div style="margin-top: 15px;">
                     <label>Available Fixtures</label>
                     <select id="match-selector">
                         <option value="">-- Choose a match --</option>
-                        
-                        <optgroup label="Hurling - February" data-sport="Hurling" data-month="feb">
-                            <option value="2026-02-01 | Waterford v Limerick">Feb 01: Waterford v Limerick</option>
-                            <option value="2026-02-07 | Cork v Tipperary">Feb 07: Cork v Tipperary</option>
-                        </optgroup>
-                        <optgroup label="Football - February" data-sport="Football" data-month="feb">
-                            <option value="2026-02-01 | Mayo v Dublin">Feb 01: Mayo v Dublin</option>
-                        </optgroup>
-
-                        <optgroup label="Football - March" data-sport="Football" data-month="mrt">
-                            <option value="2026-03-01 | Kerry v Monaghan">Mar 01: Kerry v Monaghan (Killarney)</option>
-                            <option value="2026-03-01 | Mayo v Armagh">Mar 01: Mayo v Armagh (Castlebar)</option>
-                            <option value="2026-03-01 | Donegal v Galway">Mar 01: Donegal v Galway</option>
-                            <option value="2026-03-01 | Roscommon v Dublin">Mar 01: Roscommon v Dublin</option>
-                            <option value="2026-03-01 | Derry v Cork">Mar 01: Derry v Cork</option>
-                            <option value="2026-03-01 | Wexford v Sligo">Mar 01: Wexford v Sligo</option>
-                            <option value="2026-03-01 | London v Waterford">Mar 01: London v Waterford</option>
-                            <option value="2026-03-01 | Longford v Carlow">Mar 01: Longford v Carlow</option>
-                            <option value="2026-03-01 | Tipperary v Leitrim">Mar 01: Tipperary v Leitrim</option>
-                            <option value="2026-03-14 | Kerry v Mayo">Mar 14: Kerry v Mayo (Tralee)</option>
-                            <option value="2026-03-14 | Dublin v Armagh">Mar 14: Dublin v Armagh (Croke Park)</option>
-                            <option value="2026-03-14 | Cork v Kildare">Mar 14: Cork v Kildare</option>
-                            <option value="2026-03-14 | Meath v Tyrone">Mar 14: Meath v Tyrone</option>
-                            <option value="2026-03-14 | Fermanagh v Laois">Mar 14: Fermanagh v Laois</option>
-                            <option value="2026-03-14 | Carlow v London">Mar 14: Carlow v London</option>
-                            <option value="2026-03-15 | Roscommon v Donegal">Mar 15: Roscommon v Donegal</option>
-                            <option value="2026-03-15 | Monaghan v Galway">Mar 15: Monaghan v Galway</option>
-                            <option value="2026-03-15 | Louth v Derry">Mar 15: Louth v Derry</option>
-                            <option value="2026-03-15 | Offaly v Cavan">Mar 15: Offaly v Cavan</option>
-                            <option value="2026-03-15 | Clare v Wexford">Mar 15: Clare v Wexford</option>
-                            <option value="2026-03-15 | Sligo v Down">Mar 15: Sligo v Down</option>
-                            <option value="2026-03-15 | Westmeath v Limerick">Mar 15: Westmeath v Limerick</option>
-                            <option value="2026-03-15 | Waterford v Antrim">Mar 15: Waterford v Antrim</option>
-                            <option value="2026-03-15 | Leitrim v Longford">Mar 15: Leitrim v Longford</option>
-                            <option value="2026-03-15 | Wicklow v Tipperary">Mar 15: Wicklow v Tipperary</option>
-                            <option value="2026-03-22 | Armagh v Kerry">Mar 22: Armagh v Kerry</option>
-                            <option value="2026-03-22 | Galway v Dublin">Mar 22: Galway v Dublin</option>
-                            <option value="2026-03-22 | Mayo v Roscommon">Mar 22: Mayo v Roscommon</option>
-                            <option value="2026-03-22 | Monaghan v Donegal">Mar 22: Monaghan v Donegal</option>
-                            <option value="2026-03-22 | Derry v Cavan">Mar 22: Derry v Cavan</option>
-                            <option value="2026-03-22 | Kildare v Louth">Mar 22: Kildare v Louth</option>
-                            <option value="2026-03-22 | Offaly v Meath">Mar 22: Offaly v Meath</option>
-                            <option value="2026-03-22 | Tyrone v Cork">Mar 22: Tyrone v Cork</option>
-                            <option value="2026-03-22 | Down v Laois">Mar 22: Down v Laois</option>
-                            <option value="2026-03-22 | Limerick v Fermanagh">Mar 22: Limerick v Fermanagh</option>
-                            <option value="2026-03-22 | Sligo v Clare">Mar 22: Sligo v Clare</option>
-                            <option value="2026-03-22 | Wexford v Westmeath">Mar 22: Wexford v Westmeath</option>
-                            <option value="2026-03-22 | Antrim v London">Mar 22: Antrim v London</option>
-                            <option value="2026-03-22 | Carlow v Leitrim">Mar 22: Carlow v Leitrim</option>
-                            <option value="2026-03-22 | Longford v Wicklow">Mar 22: Longford v Wicklow</option>
-                            <option value="2026-03-22 | Tipperary v Waterford">Mar 22: Tipperary v Waterford</option>
-                            <option value="2026-03-29 | FL Finals (Div 1-4)">Mar 28/29: Allianz FL Finals</option>
-                        </optgroup>
-
-                        <optgroup label="Hurling - March" data-sport="Hurling" data-month="mrt">
-                            <option value="2026-03-01 | Galway v Waterford">Mar 01: Galway v Waterford</option>
-                            <option value="2026-03-01 | Offaly v Limerick">Mar 01: Offaly v Limerick</option>
-                            <option value="2026-03-01 | Kilkenny v Cork">Mar 01: Kilkenny v Cork</option>
-                            <option value="2026-03-01 | Down v Kildare">Mar 01: Down v Kildare</option>
-                            <option value="2026-03-01 | Antrim v Dublin">Mar 01: Antrim v Dublin</option>
-                            <option value="2026-03-01 | Westmeath v Laois">Mar 01: Westmeath v Laois</option>
-                            <option value="2026-03-01 | Louth v Donegal">Mar 01: Louth v Donegal</option>
-                            <option value="2026-03-01 | Wicklow v Fermanagh">Mar 01: Wicklow v Fermanagh</option>
-                            <option value="2026-03-01 | Warwickshire v Monaghan">Mar 01: Warwickshire v Monaghan</option>
-                            <option value="2026-03-07 | Galway v Kilkenny">Mar 07: Galway v Kilkenny</option>
-                            <option value="2026-03-07 | Limerick v Cork">Mar 07: Limerick v Cork</option>
-                            <option value="2026-03-07 | Dublin v Down">Mar 07: Dublin v Down</option>
-                            <option value="2026-03-07 | Tyrone v Armagh">Mar 07: Tyrone v Armagh</option>
-                            <option value="2026-03-07 | Leitrim v Lancashire">Mar 07: Leitrim v Lancashire</option>
-                            <option value="2026-03-07 | Sligo v Cavan">Mar 07: Sligo v Cavan</option>
-                            <option value="2026-03-08 | Waterford v Tipperary">Mar 08: Waterford v Tipperary</option>
-                            <option value="2026-03-08 | Clare v Wexford">Mar 08: Clare v Wexford</option>
-                            <option value="2026-03-08 | Kildare v Carlow">Mar 08: Kildare v Carlow</option>
-                            <option value="2026-03-08 | Kerry v Mayo">Mar 08: Kerry v Mayo</option>
-                            <option value="2026-03-08 | Laois v Meath">Mar 08: Laois v Meath</option>
-                            <option value="2026-03-08 | Westmeath v Derry">Mar 08: Westmeath v Derry</option>
-                            <option value="2026-03-08 | Donegal v Wicklow">Mar 08: Donegal v Wicklow</option>
-                            <option value="2026-03-08 | Fermanagh v Roscommon">Mar 08: Fermanagh v Roscommon</option>
-                            <option value="2026-03-08 | Warwickshire v Longford">Mar 08: Warwickshire v Longford</option>
-                            <option value="2026-03-21 | Cork v Offaly">Mar 21: Cork v Offaly</option>
-                            <option value="2026-03-21 | Limerick v Galway">Mar 21: Limerick v Galway</option>
-                            <option value="2026-03-21 | Tipperary v Kilkenny">Mar 21: Tipperary v Kilkenny</option>
-                            <option value="2026-03-21 | Carlow v Dublin">Mar 21: Carlow v Dublin</option>
-                            <option value="2026-03-21 | Down v Antrim">Mar 21: Down v Antrim</option>
-                            <option value="2026-03-21 | Wexford v Kildare">Mar 21: Wexford v Kildare</option>
-                            <option value="2026-03-21 | London v Laois">Mar 21: London v Laois</option>
-                            <option value="2026-03-21 | Mayo v Westmeath">Mar 21: Mayo v Westmeath</option>
-                            <option value="2026-03-21 | Meath v Kerry">Mar 21: Meath v Kerry</option>
-                            <option value="2026-03-21 | Armagh v Fermanagh">Mar 21: Armagh v Fermanagh</option>
-                            <option value="2026-03-21 | Roscommon v Donegal">Mar 21: Roscommon v Donegal</option>
-                            <option value="2026-03-21 | Wicklow v Louth">Mar 21: Wicklow v Louth</option>
-                            <option value="2026-03-21 | Cavan v Monaghan">Mar 21: Cavan v Monaghan</option>
-                            <option value="2026-03-21 | Lancashire v Warwickshire">Mar 21: Lancashire v Warwickshire</option>
-                            <option value="2026-03-21 | Longford v Sligo">Mar 21: Longford v Sligo</option>
-                            <option value="2026-03-29 | HL Finals (Div 2-4)">Mar 28/29: Allianz HL Finals</option>
-                        </optgroup>
-
-                        <optgroup label="Football - April/May" data-sport="Football" data-month="apr">
-                            <option value="2026-04-11 | Offaly v Laois">Apr 11: Offaly v Laois</option>
-                            <option value="2026-04-12 | Carlow v Wicklow">Apr 12: Carlow v Wicklow</option>
-                            <option value="2026-04-12 | Westmeath v Longford">Apr 12: Westmeath v Longford</option>
-                            <option value="2026-04-19 | Kildare v TBC">Apr 19: Kildare v Offaly/Laois (Leinster QF)</option>
-                            <option value="2026-04-19 | Meath v TBC">Apr 19: Meath v Westmeath/Longford (Leinster QF)</option>
-                            <option value="2026-04-19 | Louth v Wexford">Apr 19: Louth v Wexford (Leinster QF)</option>
-                            <option value="2026-04-19 | Dublin v TBC">Apr 19: Dublin v Carlow/Wicklow (Leinster QF)</option>
-                            <option value="2026-05-03 | Leinster Semi Finals">May 02/03: Leinster Football SF</option>
-                            <option value="2026-05-17 | Leinster Football Final">May 17: Leinster Final (Croke Park)</option>
-                        </optgroup>
-
-                        <optgroup label="Hurling - April/May" data-sport="Hurling" data-month="apr">
-                            <option value="2026-04-05 | HL Div 1 Finals">Apr 04/05: Allianz HL Div 1 Finals</option>
-                            <option value="2026-04-18 | Galway v Kilkenny">Apr 18: Galway v Kilkenny (Leinster SHC)</option>
-                            <option value="2026-04-18 | Kildare v Wexford">Apr 18: Kildare v Wexford</option>
-                            <option value="2026-04-18 | Offaly v Dublin">Apr 18: Offaly v Dublin</option>
-                            <option value="2026-04-25 | Kilkenny v Wexford">Apr 25: Kilkenny v Wexford</option>
-                            <option value="2026-04-26 | Galway v Offaly">Apr 26: Galway v Offaly</option>
-                            <option value="2026-04-26 | Dublin v Kildare">Apr 26: Dublin v Kildare</option>
-                            <option value="2026-05-09 | Wexford v Dublin">May 09: Wexford v Dublin</option>
-                            <option value="2026-05-09 | Kildare v Galway">May 09: Kildare v Galway</option>
-                            <option value="2026-05-10 | Offaly v Kilkenny">May 10: Offaly v Kilkenny</option>
-                            <option value="2026-05-16 | Kilkenny v Kildare">May 16: Kilkenny v Kildare</option>
-                            <option value="2026-05-16 | Offaly v Wexford">May 16: Offaly v Wexford</option>
-                            <option value="2026-05-16 | Galway v Dublin">May 16: Galway v Dublin</option>
-                            <option value="2026-05-24 | Dublin v Kilkenny">May 24: Dublin v Kilkenny</option>
-                            <option value="2026-05-24 | Wexford v Galway">May 24: Wexford v Galway</option>
-                            <option value="2026-05-24 | Kildare v Offaly">May 24: Kildare v Offaly</option>
-                            <option value="2026-06-06 | Leinster Hurling Final">Jun 06: Leinster SHC Final</option>
-                        </optgroup>
                     </select>
                 </div>
             </div>
@@ -254,7 +104,7 @@
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label>Special Requests / Notes</label>
-                <textarea id="requests" rows="3"></textarea>
+                <textarea id="requests" placeholder="Any specific seating needs or experience goals?" rows="3"></textarea>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Confirm Booking Request</button>
@@ -262,82 +112,120 @@
 
         <div id="successMessage">
             <div style="font-size: 3rem; margin-bottom: 15px;">🍀</div>
-            <h2 style="color: var(--primary);">Thank you!</h2>
-            <p style="margin: 15px 0; color: #4a5568;">Your request has been sent.</p>
+            <h2 style="color: var(--primary);">Success!</h2>
+            <p style="margin: 15px 0; color: #4a5568;">We have received your request and will contact you shortly with the final price and details.</p>
             <button class="btn-submit" onclick="location.reload()" style="max-width: 200px;">New Booking</button>
         </div>
     </div>
 
     <script>
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
-        
-        const FIELDS = { 
-            name: 'entry.761572476', 
-            email: 'entry.1144619265', 
-            phone: 'entry.1213010877', 
-            experience: 'entry.1446094233', 
-            date: 'entry.301148404', 
-            guests: 'entry.175134312',
-            requests: 'entry.184318357', 
-            partner: 'entry.2094398847' 
-        };
+        const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312', requests: 'entry.184318357', partner: 'entry.2094398847' };
 
-        function updateFilters() {
+        // Volledige database van wedstrijden
+        const MATCH_DATA = [
+            // Voetbal Div 1-4
+            { date: "2026-03-01", teams: "Kerry v Monaghan", sport: "Football", month: "mrt", div: "1" },
+            { date: "2026-03-01", teams: "Mayo v Armagh", sport: "Football", month: "mrt", div: "1" },
+            { date: "2026-03-01", teams: "Donegal v Galway", sport: "Football", month: "mrt", div: "1" },
+            { date: "2026-03-01", teams: "Roscommon v Dublin", sport: "Football", month: "mrt", div: "1" },
+            { date: "2026-03-01", teams: "Derry v Cork", sport: "Football", month: "mrt", div: "2" },
+            { date: "2026-03-01", teams: "Wexford v Sligo", sport: "Football", month: "mrt", div: "3" },
+            { date: "2026-03-01", teams: "London v Waterford", sport: "Football", month: "mrt", div: "4" },
+            { date: "2026-03-01", teams: "Longford v Carlow", sport: "Football", month: "mrt", div: "4" },
+            { date: "2026-03-01", teams: "Tipperary v Leitrim", sport: "Football", month: "mrt", div: "4" },
+            { date: "2026-03-14", teams: "Dublin v Armagh", sport: "Football", month: "mrt", div: "1" },
+            // Hurling Div 1
+            { date: "2026-03-01", teams: "Galway v Waterford", sport: "Hurling", month: "mrt", div: "1A" },
+            { date: "2026-03-01", teams: "Offaly v Limerick", sport: "Hurling", month: "mrt", div: "1A" },
+            { date: "2026-03-01", teams: "Kilkenny v Cork", sport: "Hurling", month: "mrt", div: "1A" },
+            { date: "2026-03-07", teams: "Limerick v Cork", sport: "Hurling", month: "mrt", div: "1A" },
+            // Championship
+            { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", sport: "Hurling", month: "apr", div: "Champ" },
+            { date: "2026-05-17", teams: "Leinster Football Final", sport: "Football", month: "may", div: "Final" }
+        ];
+
+        function buildMenu() {
+            const selector = document.getElementById('match-selector');
             const sport = document.getElementById('sportFilter').value;
             const month = document.getElementById('monthFilter').value;
-            const groups = document.getElementById('match-selector').querySelectorAll('optgroup');
-            groups.forEach(group => {
-                const sMatch = (sport === 'all' || group.dataset.sport === sport);
-                const mMatch = (month === 'all' || group.dataset.month === month);
-                group.style.display = (sMatch && mMatch) ? 'block' : 'none';
+            selector.innerHTML = '<option value="">-- Choose a match --</option>';
+
+            const groups = {};
+            MATCH_DATA.forEach(m => {
+                if ((sport === 'all' || m.sport === sport) && (month === 'all' || m.month === month)) {
+                    const label = `${m.sport} - ${m.month.toUpperCase()}`;
+                    if (!groups[label]) groups[label] = [];
+                    groups[label].push(m);
+                }
             });
+
+            for (const [label, matches] of Object.entries(groups)) {
+                const group = document.createElement('optgroup');
+                group.label = label;
+                matches.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = `${m.date} | ${m.teams} (Div ${m.div})`;
+                    opt.textContent = `${m.date}: ${m.teams}`;
+                    group.appendChild(opt);
+                });
+                selector.appendChild(group);
+            }
         }
 
-        document.getElementById('sportFilter').addEventListener('change', updateFilters);
-        document.getElementById('monthFilter').addEventListener('change', updateFilters);
-
-        document.getElementById('match-selector').addEventListener('change', (e) => {
-            if(e.target.value) {
-                const datePart = e.target.value.split(' | ')[0];
-                document.getElementById('date').value = datePart;
-            }
+        // Package UI Logic
+        document.querySelectorAll('input[name="experience"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
+                e.target.closest('.exp-card').classList.add('selected');
+                
+                const box = document.getElementById('fixture-box');
+                if (e.target.value === 'Clinic Only') {
+                    box.style.opacity = '0.5';
+                    box.style.pointerEvents = 'none';
+                    document.getElementById('match-selector').value = "";
+                } else {
+                    box.style.opacity = '1';
+                    box.style.pointerEvents = 'auto';
+                }
+            });
         });
 
+        document.getElementById('sportFilter').addEventListener('change', buildMenu);
+        document.getElementById('monthFilter').addEventListener('change', buildMenu);
+        document.getElementById('match-selector').addEventListener('change', (e) => {
+            if(e.target.value) document.getElementById('date').value = e.target.value.split(' | ')[0];
+        });
+
+        // Submit to Google Sheets
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const date = document.getElementById('date').value;
+            const exp = document.querySelector('input[name="experience"]:checked').value;
+            const match = document.getElementById('match-selector').value;
 
-            if(!name || !email || !date) {
-                alert('Please fill in Name, Email and Date.');
-                return;
-            }
+            if(!name || !email || !date) { alert('Please fill in all required fields.'); return; }
 
             const formData = new FormData();
             formData.append(FIELDS.name, name);
             formData.append(FIELDS.email, email);
             formData.append(FIELDS.phone, document.getElementById('phone').value);
-            formData.append(FIELDS.experience, document.querySelector('input[name="experience"]:checked').value);
+            formData.append(FIELDS.experience, exp + (exp === 'Clinic Only' ? ' (€40 pp)' : ' (Price on Request)'));
             formData.append(FIELDS.date, date);
             formData.append(FIELDS.guests, document.getElementById('guests').value);
-            formData.append(FIELDS.requests, document.getElementById('requests').value);
+            formData.append(FIELDS.requests, "Match: " + (match || "N/A") + " | Note: " + document.getElementById('requests').value);
             formData.append(FIELDS.partner, 'Ireland');
 
             try {
-                await fetch(FORM_ACTION, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
-                });
-                
+                await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData });
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
                 window.scrollTo(0, 0);
-            } catch (error) {
-                alert('Submission error. Please try again.');
-                console.error(error);
-            }
+            } catch (e) { alert('Submission error. Please try again.'); }
         });
+
+        buildMenu();
     </script>
 </body>
 </html>
