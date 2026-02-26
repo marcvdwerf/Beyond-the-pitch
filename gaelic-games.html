@@ -602,40 +602,36 @@
       background: var(--gold);
       color: #000000;
     }
-/* Verberg alle Google rommel */
-.goog-te-banner-frame.skiptranslate, 
-.goog-te-gadget span, 
-.goog-logo-link {
-    display: none !important;
-}
+/* Verberg de Google Toolbar bovenin */
+.goog-te-banner-frame.skiptranslate { display: none !important; }
 body { top: 0px !important; }
 
-/* De widget container */
+/* Verberg specifiek het Google Logo (de afbeelding) en de tekst eromheen */
+#google_translate_element img {
+    display: none !important;
+}
 .goog-te-gadget {
+    font-size: 0 !important; /* Verbergt 'Powered by' */
     color: transparent !important;
-    font-size: 0 !important;
-    display: flex;
-    align-items: center;
 }
 
-/* De daadwerkelijke dropdown (het menuutje) */
+/* Herstel de Dropdown (het menuutje) */
 .goog-te-combo {
     display: inline-block !important;
     visibility: visible !important;
-    font-size: 12px !important;
+    font-size: 13px !important; /* Zorg dat de tekst groot genoeg is */
     font-family: 'Inter', sans-serif !important;
-    font-weight: 600;
-    color: #ffd700 !important; /* Goud */
-    background-color: transparent !important;
-    border: 1px solid #1a1a1a !important; /* Subtiel randje */
-    padding: 2px 4px !important;
+    color: #ffd700 !important; /* Goudkleurige tekst */
+    background: #000 !important; /* Zwarte achtergrond */
+    border: 1px solid #333 !important;
+    padding: 4px 10px !important;
     border-radius: 4px !important;
-    cursor: pointer;
     outline: none !important;
-    text-transform: uppercase;
+    cursor: pointer;
+    vertical-align: middle;
 }
 
-/* Hover effect voor de dropdown */
+/* Hover effect */
 .goog-te-combo:hover {
     border-color: #ffd700 !important;
 }
@@ -653,14 +649,13 @@ body { top: 0px !important; }
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="" class="logo">Beyond the Pitch</a>
 
-     <nav class="hidden md:flex items-center gap-8" aria-label="Primary navigation">
-  <a href="" class="nav-link">Home</a>
-  <a href="projects.html" class="nav-link">Journeys</a>
-  <a href="quiz/gaelicgames.html" class="nav-link">The Gaelic Challenge</a>
-  <a href="about.html" class="nav-link">About</a>
-  <a href="contact.html" class="nav-link">Contact</a>
-  
-  <div id="google_translate_element" class="ml-2"></div>
+   <nav class="hidden md:flex items-center gap-8">
+    <a href="" class="nav-link">Home</a>
+    <a href="projects.html" class="nav-link">Journeys</a>
+    <a href="quiz/gaelicgames.html" class="nav-link">The Gaelic Challenge</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <div id="google_translate_element" class="ml-4"></div>
 </nav>
 
       <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
