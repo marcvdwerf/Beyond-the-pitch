@@ -11,12 +11,10 @@
   
   <!-- 2️⃣ DAN: Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-6MT1EREBH1');
-  </script>
+ <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+</script>>
   
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -63,6 +61,189 @@
   
   <!-- 4️⃣ LAATSTE: CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --cb-black:  #111111;
+      --cb-white:  #ffffff;
+      --cb-accent: #FFD700;
+      --cb-mid:    #1a1a1a;
+      --cb-line:   rgba(255,215,0,0.15);
+      --cb-radius: 8px;
+    }
+
+    #cb-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      opacity: 0;
+      transition: opacity .4s ease;
+      pointer-events: none;
+    }
+    #cb-overlay.visible { opacity: 1; pointer-events: auto; }
+
+    #cookie-banner {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      width: min(680px, calc(100vw - 2rem));
+      background: var(--cb-mid);
+      border: 1px solid var(--cb-line);
+      border-radius: var(--cb-radius);
+      z-index: 9999;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.7);
+      transition: transform .5s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+      opacity: 0;
+    }
+    #cookie-banner.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .cb-bar {
+      height: 3px;
+      background: var(--cb-accent);
+    }
+
+    .cb-inner { padding: 1.6rem 1.8rem; }
+
+    .cb-header {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1rem;
+    }
+    .cb-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .12em;
+      color: var(--cb-accent);
+    }
+    .cb-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: .1em;
+      color: #ffffff;
+    }
+    .cb-sep { color: rgba(255,215,0,0.15); }
+
+    .cb-text {
+      font-size: .83rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 1.4rem;
+    }
+    .cb-text a { color: var(--cb-accent); text-decoration: none; }
+    .cb-text a:hover { text-decoration: underline; }
+
+    #cb-settings {
+      display: none;
+      border-top: 1px solid var(--cb-line);
+      padding-top: 1.2rem;
+      margin-bottom: 1.4rem;
+      gap: .6rem;
+      flex-direction: column;
+    }
+    #cb-settings.open { display: flex; }
+
+    .cb-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .cb-toggle-info { flex: 1; }
+    .cb-toggle-label {
+      font-size: .8rem;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .cb-toggle-desc {
+      font-size: .75rem;
+      color: rgba(255,255,255,.45);
+      margin-top: .15rem;
+    }
+
+    .cb-switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .cb-switch input { opacity: 0; width: 0; height: 0; }
+    .cb-switch-track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.12);
+      border-radius: 99px;
+      cursor: pointer;
+      transition: background .25s;
+    }
+    .cb-switch-track::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      transition: transform .25s, background .25s;
+    }
+    .cb-switch input:checked + .cb-switch-track { background: var(--cb-accent); }
+    .cb-switch input:checked + .cb-switch-track::after {
+      transform: translateX(18px);
+      background: var(--cb-black);
+    }
+    .cb-switch input:disabled + .cb-switch-track { opacity: .45; cursor: not-allowed; }
+
+    .cb-actions {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .cb-btn {
+      flex: 1;
+      min-width: 110px;
+      padding: .65rem 1rem;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: opacity .2s, transform .15s;
+    }
+    .cb-btn:hover { opacity: .85; transform: translateY(-1px); }
+    .cb-btn:active { transform: translateY(0); }
+
+    .cb-btn-accept { background: var(--cb-accent); color: var(--cb-black); }
+    .cb-btn-reject {
+      background: transparent;
+      color: rgba(255,255,255,.6);
+      border: 1px solid rgba(255,215,0,0.25);
+    }
+    .cb-btn-reject:hover { color: #ffffff; border-color: rgba(255,215,0,.6); }
+    .cb-btn-settings {
+      background: transparent;
+      color: rgba(255,255,255,.45);
+      border: 1px solid transparent;
+      flex: 0 0 auto;
+      font-size: .75rem;
+    }
+    .cb-btn-settings:hover { color: #ffffff; }
+    .cb-btn-save { background: var(--cb-accent); color: var(--cb-black); }
+</style>
   
   <style>
     :root{
@@ -1292,6 +1473,60 @@ if (floatingCta && contactSection) {
     </div>
   </footer>
 
+<div id="cb-overlay"></div>
+
+<div id="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie preferences">
+  <div class="cb-bar"></div>
+  <div class="cb-inner">
+    <div class="cb-header">
+      <span class="cb-logo">Beyond the Pitch</span>
+      <span class="cb-sep">·</span>
+      <span class="cb-title">Cookie Preferences</span>
+    </div>
+    <p class="cb-text">
+      We use cookies to keep the platform running and — with your permission — to understand how visitors use our site (Google Analytics) and show relevant content (Meta Pixel).
+      Read more in our <a href="juridisch/Privacy policy.html">Privacy Policy</a>.
+    </p>
+    <div id="cb-settings">
+      <div class="cb-toggle-row">
+        <div class="cb-toggle-info">
+          <div class="cb-toggle-label">Essential</div>
+          <div class="cb-toggle-desc">Login sessions, bookings, security. Always active.</div>
+        </div>
+        <label class="cb-switch">
+          <input type="checkbox" checked disabled />
+          <span class="cb-switch-track"></span>
+        </label>
+      </div>
+      <div class="cb-toggle-row">
+        <div class="cb-toggle-info">
+          <div class="cb-toggle-label">Analytics</div>
+          <div class="cb-toggle-desc">Google Analytics — helps us improve the platform.</div>
+        </div>
+        <label class="cb-switch">
+          <input type="checkbox" id="cb-analytics" />
+          <span class="cb-switch-track"></span>
+        </label>
+      </div>
+      <div class="cb-toggle-row">
+        <div class="cb-toggle-info">
+          <div class="cb-toggle-label">Marketing</div>
+          <div class="cb-toggle-desc">Meta Pixel — used to show relevant ads.</div>
+        </div>
+        <label class="cb-switch">
+          <input type="checkbox" id="cb-marketing" />
+          <span class="cb-switch-track"></span>
+        </label>
+      </div>
+    </div>
+    <div class="cb-actions" id="cb-action-row">
+      <button class="cb-btn cb-btn-accept" onclick="cbAcceptAll()">Accept all</button>
+      <button class="cb-btn cb-btn-reject" onclick="cbRejectAll()">Reject all</button>
+      <button class="cb-btn cb-btn-settings" onclick="cbToggleSettings()">Customise ▾</button>
+    </div>
+  </div>
+</div>
+  
  <!-- ================= Hero Modal (Become part of the community) ================= -->
 <div id="modalHero" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeroTitle" aria-hidden="true">
   <div class="modal-inner rounded-3xl shadow-soft max-w-2xl" role="document">
@@ -2037,5 +2272,99 @@ if (floatingCta && contactSection) {
     }
   });
 </script>
+  <script>
+(function () {
+  const STORAGE_KEY = 'btp_cookie_consent';
+
+  /* ── Helpers ── */
+  function getConsent() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; }
+  }
+  function saveConsent(analytics, marketing) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      analytics, marketing, ts: Date.now()
+    }));
+  }
+
+  /* ── Load third-party scripts based on consent ── */
+function loadScripts(analytics, marketing) {
+    if (analytics) {
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1';
+      s.async = true;
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'G-6MT1EREBH1');
+    }
+  }
+
+  /* ── Show / hide banner ── */
+  function showBanner() {
+    document.getElementById('cb-overlay').classList.add('visible');
+    document.getElementById('cookie-banner').classList.add('visible');
+  }
+  function hideBanner() {
+    document.getElementById('cb-overlay').classList.remove('visible');
+    document.getElementById('cookie-banner').classList.remove('visible');
+  }
+
+  /* ── Public actions ── */
+  window.cbAcceptAll = function () {
+    saveConsent(true, true);
+    loadScripts(true, true);
+    hideBanner();
+  };
+
+  window.cbRejectAll = function () {
+    saveConsent(false, false);
+    hideBanner();
+  };
+
+  window.cbToggleSettings = function () {
+    const panel = document.getElementById('cb-settings');
+    const btn   = document.querySelector('.cb-btn-settings');
+    const row   = document.getElementById('cb-action-row');
+    const open  = panel.classList.toggle('open');
+
+    btn.textContent = open ? 'Customise ▴' : 'Customise ▾';
+
+    if (open) {
+      // Swap buttons to show Save
+      if (!document.getElementById('cb-save-btn')) {
+        const save = document.createElement('button');
+        save.id = 'cb-save-btn';
+        save.className = 'cb-btn cb-btn-save';
+        save.textContent = 'Save preferences';
+        save.onclick = cbSaveCustom;
+        row.insertBefore(save, row.querySelector('.cb-btn-settings'));
+      }
+    } else {
+      const s = document.getElementById('cb-save-btn');
+      if (s) s.remove();
+    }
+  };
+
+  window.cbSaveCustom = function () {
+    const analytics = document.getElementById('cb-analytics').checked;
+    const marketing = document.getElementById('cb-marketing').checked;
+    saveConsent(analytics, marketing);
+    loadScripts(analytics, marketing);
+    hideBanner();
+  };
+
+  /* ── Init ── */
+  const existing = getConsent();
+  if (existing) {
+    // Consent already given — just load approved scripts
+    loadScripts(existing.analytics, existing.marketing);
+  } else {
+    // No consent yet — show banner after short delay
+    window.addEventListener('DOMContentLoaded', function () {
+      setTimeout(showBanner, 600);
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
