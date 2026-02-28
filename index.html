@@ -907,44 +907,275 @@ if (floatingCta && contactSection) {
     </div>
   </section>
 
- <section id="faq" class="py-24 px-6 bg-black border-t border-gray-900">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16" data-animate>
-        <h2 class="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
-        <p class="text-gray-400">Everything you need to know about our journeys.</p>
-      </div>
+  <style>
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .faq-icon { transform: rotate(45deg); }
+  .faq-icon { 
+    transition: transform 0.3s ease; 
+    font-style: normal; 
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+</style>
 
-      <div class="space-y-4">
-        <div class="bg-gray-900/50 rounded-2xl border border-gray-800 p-6 hover:border-gold/30 transition-colors" data-animate>
-          <h3 class="text-xl font-semibold text-gold mb-2">Who are these journeys for?</h3>
-          <p class="text-gray-300 leading-relaxed">
-            Our trips are designed for travelers who want more than a standard tourist experience. Whether you're a solo traveler, a couple, or a group of friends, if you have a passion for sports culture and authentic human connection, you'll feel right at home.
-          </p>
-        </div>
-
-        <div class="bg-gray-900/50 rounded-2xl border border-gray-800 p-6 hover:border-gold/30 transition-colors" data-animate>
-          <h3 class="text-xl font-semibold text-gold mb-2">What is included in the price?</h3>
-          <p class="text-gray-300 leading-relaxed">
-            While each trip varies, we always include match or event tickets, local expert guides, curated cultural experiences, and internal transport. International flights are generally not included unless specified.
-          </p>
-        </div>
-
-        <div class="bg-gray-900/50 rounded-2xl border border-gray-800 p-6 hover:border-gold/30 transition-colors" data-animate>
-          <h3 class="text-xl font-semibold text-gold mb-2">Are the groups small?</h3>
-          <p class="text-gray-300 leading-relaxed">
-            Yes. To maintain authenticity and ensure we don't overwhelm the local communities we visit, we keep our groups small-typically between 8 and 14 people.
-          </p>
-        </div>
-
-        <div class="bg-gray-900/50 rounded-2xl border border-gray-800 p-6 hover:border-gold/30 transition-colors" data-animate>
-          <h3 class="text-xl font-semibold text-gold mb-2">I am a solo traveler, can I join?</h3>
-          <p class="text-gray-300 leading-relaxed">
-            Absolutely! More than half of our community starts their journey solo. It's the fastest way to make new friends who share your specific interests.
-          </p>
-        </div>
-      </div>
+<section id="faq" class="py-24 px-6 bg-black border-t border-gray-900">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16" data-animate>
+      <h2 class="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+      <p class="text-gray-400">Everything you need to know about our journeys.</p>
     </div>
-  </section>
+
+    <div itemscope itemtype="https://schema.org/FAQPage" class="space-y-3">
+
+      <!-- VRAAG 1 - OPEN -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details open>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is authentic sports travel and why is Beyond the Pitch different?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Authentic sports travel means experiencing a country's sporting culture 
+              from the inside — not from a tour bus. Beyond the Pitch connects you 
+              directly with local communities, coaches, and fans in destinations like 
+              Mongolia, Ireland, and Peru. You don't just watch; you participate, 
+              learn, and share the traditions that define a place.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 2 - OPEN -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details open>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What unique travel experiences does Beyond the Pitch offer?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              We currently offer three signature journeys: the Naadam Festival in 
+              Mongolia — one of the world's oldest sporting traditions featuring 
+              wrestling, horse racing, and archery; a Hurling & Gaelic Football 
+              experience in Kilkenny, Ireland; and a multi-sport immersion in Lima, 
+              Peru combining football and volleyball culture. Each journey includes 
+              live events, local guides, and direct community access.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 3 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              Who are these journeys for?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Our journeys are designed for curious travelers who want more than 
+              standard tourism — people who believe sport is a gateway to culture 
+              and human connection. Whether you're a solo traveler, a couple, or a 
+              small group, you don't need to be an athlete or sports expert. A love 
+              of adventure and authentic experiences is all you need.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 4 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is the Naadam Festival in Mongolia and can tourists attend?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Naadam is Mongolia's national festival, held every July, celebrating 
+              the country's three ancient sports: wrestling, horse racing, and archery. 
+              It is one of the most spectacular cultural events in the world and largely 
+              unknown to Western travelers. Beyond the Pitch provides access to the 
+              official opening ceremony, local festivals near Ulaanbaatar, and the 
+              famous steppe horse races — experiences that are difficult to arrange 
+              independently.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 5 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is included in the price of a Beyond the Pitch journey?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Each journey includes match or event tickets, a passionate local expert 
+              guide, curated cultural experiences, and selected meals. The Kilkenny 
+              hurling experience starts from €40 for the clinic, the Lima journey from 
+              €62, and the Mongolia Naadam trip from €400. International flights and 
+              accommodation are generally not included, but recommendations are always 
+              provided.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 6 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              Can I join as a solo traveler?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Absolutely. More than half of our community joins solo. Small group 
+              travel with shared passions is one of the fastest ways to build 
+              genuine friendships. Our groups are kept small — typically 8 to 14 
+              people — which means you'll connect personally with every person 
+              on the journey.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 7 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              Where is Beyond the Pitch based and which countries do you operate in?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Beyond the Pitch is based in the Netherlands and operates journeys 
+              worldwide. Current destinations include Ireland (Kilkenny), Mongolia 
+              (Ulaanbaatar and the Mongolian steppe), and Peru (Lima). New destinations 
+              are added regularly as we build local partnerships with communities, 
+              clubs, and guides around the world.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- VRAAG 8 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"
+           class="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/30 transition-colors">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              How is this different from a regular sports tour or travel agency?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 0 1.5rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p itemprop="text" class="text-gray-300 leading-relaxed" style="padding-top: 1rem;">
+              Traditional sports tours put you in a stadium seat. Beyond the Pitch 
+              puts you inside the culture — on the pitch learning hurling, at a 
+              nomadic family's ger during Naadam, or in Lima's historic football 
+              neighborhoods. We work exclusively with local partners and keep 
+              groups small so every experience feels personal, not packaged.
+            </p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</section>
 
   <footer class="bg-black pt-20 pb-10 px-6 border-t border-gray-900">
     <div class="max-w-7xl mx-auto">
