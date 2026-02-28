@@ -1118,125 +1118,253 @@ function redirectToBooking() {
     </div>
   </div>
 </section>
-    <section class="section" style="background: var(--bg);">
+   <style>
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .faq-icon { transform: rotate(45deg); }
+  .faq-icon { 
+    transition: transform 0.3s ease; 
+    font-style: normal; 
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  details[open] summary {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+</style>
+
+<section class="section" style="background: var(--bg);">
   <div class="max-w-4xl mx-auto">
     <h2 class="section-title">Frequently Asked Questions</h2>
-    
+
     <div itemscope itemtype="https://schema.org/FAQPage">
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          What is a unique thing to do in Ireland?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            One of the most unique experiences in Ireland is learning to play hurling 
-            with a local expert in Kilkenny - the hurling capital of the world - and 
-            attending a live match the same day. Unlike typical tourist activities, this 
-            connects you directly with Irish communities and a 3,000-year-old tradition.
-          </p>
-        </div>
+      <!-- VRAAG 1 - OPEN -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details open>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is a unique thing to do in Ireland?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              One of the most unique experiences in Ireland is learning to play hurling 
+              with a local expert in Kilkenny - the hurling capital of the world - and 
+              attending a live match the same day. Unlike typical tourist activities, this 
+              connects you directly with Irish communities and a 3,000-year-old tradition.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          What is there to do in Ireland besides Dublin?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            Kilkenny is one of Ireland's most rewarding day trips from Dublin - just 
-            90 minutes away. Beyond the Pitch offers a full hurling experience in 
-            Kilkenny: a cultural presentation in a traditional Irish pub, a hands-on 
-            coaching session on the pitch, and tickets to a live GAA match.
-          </p>
-        </div>
+      <!-- VRAAG 2 - OPEN -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details open>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is there to do in Ireland besides Dublin?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              Kilkenny is one of Ireland's most rewarding day trips from Dublin - just 
+              90 minutes away. Beyond the Pitch offers a full hurling experience in 
+              Kilkenny: a cultural presentation in a traditional Irish pub, a hands-on 
+              coaching session on the pitch, and tickets to a live GAA match.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          What is hurling and why should I experience it in Ireland?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            Hurling is Ireland's ancient national sport - widely considered the fastest 
-            field game in the world. Played with a wooden stick (hurley) and a small 
-            ball (sliotar), it has been part of Irish culture for over 3,000 years. 
-            Kilkenny is the most successful hurling county in Ireland, making it the 
-            ideal place to experience the sport authentically.
-          </p>
-        </div>
+      <!-- VRAAG 3 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is hurling and why should I experience it in Ireland?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              Hurling is Ireland's ancient national sport - widely considered the fastest 
+              field game in the world. Played with a wooden stick (hurley) and a small 
+              ball (sliotar), it has been part of Irish culture for over 3,000 years. 
+              Kilkenny is the most successful hurling county in Ireland, making it the 
+              ideal place to experience the sport authentically.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          Do I need any experience to join the hurling clinic?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            No experience is needed whatsoever. The hurling clinic with local expert 
-            James is designed for complete beginners and international visitors. You'll 
-            learn the basic skills - ground stroke, hand pass, and solo run - in a 
-            relaxed and welcoming environment typical of Irish GAA club culture.
-          </p>
-        </div>
+      <!-- VRAAG 4 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              Do I need any experience to join the hurling clinic?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              No experience is needed whatsoever. The hurling clinic with local expert 
+              James is designed for complete beginners and international visitors. You'll 
+              learn the basic skills - ground stroke, hand pass, and solo run - in a 
+              relaxed and welcoming environment typical of Irish GAA club culture.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          How do I get from Dublin to Kilkenny for this experience?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            Kilkenny is approximately 90 minutes from Dublin by car or bus. Direct 
-            coaches run regularly from Dublin's Busáras station. Beyond the Pitch 
-            specialises in Dublin day trips to Kilkenny, making this one of the most 
-            accessible authentic Irish cultural experiences outside the capital.
-          </p>
-        </div>
+      <!-- VRAAG 5 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              How do I get from Dublin to Kilkenny for this experience?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              Kilkenny is approximately 90 minutes from Dublin by car or bus. Direct 
+              coaches run regularly from Dublin's Busáras station. Beyond the Pitch 
+              specialises in Dublin day trips to Kilkenny, making this one of the most 
+              accessible authentic Irish cultural experiences outside the capital.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          What is the best time of year to experience hurling in Ireland?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            The GAA Championship season runs from May to August, which is peak season 
-            for live hurling matches. However, hurling clinics and local club matches 
-            are available year-round. The All-Ireland Hurling Final takes place every 
-            August in Croke Park, Dublin - the pinnacle of the sport.
-          </p>
-        </div>
+      <!-- VRAAG 6 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              What is the best time of year to experience hurling in Ireland?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              The GAA Championship season runs from May to August, which is peak season 
+              for live hurling matches. However, hurling clinics and local club matches 
+              are available year-round. The All-Ireland Hurling Final takes place every 
+              August in Croke Park, Dublin - the pinnacle of the sport.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          Is this a good experience for groups or families?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            Yes. The Kilkenny hurling experience works well for families, corporate 
-            groups, and solo travellers alike. Groups looking for unique team-building 
-            activities in Ireland often find the combination of coaching, culture, and 
-            a live match to be a standout experience. Custom group dates can be 
-            arranged on request.
-          </p>
-        </div>
+      <!-- VRAAG 7 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              Is this a good experience for groups or families?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              Yes. The Kilkenny hurling experience works well for families, corporate 
+              groups, and solo travellers alike. Groups looking for unique team-building 
+              activities in Ireland often find the combination of coaching, culture, and 
+              a live match to be a standout experience. Custom group dates can be 
+              arranged on request.
+            </p>
+          </div>
+        </details>
       </div>
 
-      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="card" style="margin-bottom: 1rem;">
-        <h3 itemprop="name" style="color: var(--gold); margin-bottom: 0.75rem;">
-          How is this different from a standard Ireland tour?
-        </h3>
-        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color: var(--muted);">
-            Most Ireland tours show you the country from a bus window. Beyond the Pitch 
-            puts you inside Irish culture - on the pitch with local coaches, in a 
-            traditional pub learning the history, and in the stands watching real 
-            championship hurling. It is widely considered one of the most authentic 
-            and unique cultural experiences available to visitors in Ireland.
-          </p>
-        </div>
+      <!-- VRAAG 8 - DICHT -->
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" 
+           class="card" style="margin-bottom: 1rem; padding: 0; overflow: hidden;">
+        <details>
+          <summary itemprop="name" style="
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;">
+            <span style="color: var(--gold); font-weight: 600; font-size: 1.05rem;">
+              How is this different from a standard Ireland tour?
+            </span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"
+               style="padding: 1.25rem 1.5rem 1.5rem;">
+            <p itemprop="text" style="color: var(--muted);">
+              Most Ireland tours show you the country from a bus window. Beyond the Pitch 
+              puts you inside Irish culture - on the pitch with local coaches, in a 
+              traditional pub learning the history, and in the stands watching real 
+              championship hurling. It is widely considered one of the most authentic 
+              and unique cultural experiences available to visitors in Ireland.
+            </p>
+          </div>
+        </details>
       </div>
 
     </div>
@@ -1300,6 +1428,7 @@ function redirectToBooking() {
       <div>
         <h4 style="margin-bottom: 1.5rem;">Connect</h4>
         <div class="flex flex-col gap-3">
+           <a href="https://www.tiktok.com/@travelbeyondthepitch" target="_blank">Tiktok</a>
           <a href="https://www.instagram.com/travelbeyondthepitch/" target="_blank">Instagram</a>
           <a href="https://www.linkedin.com/company/beyond-the-pitch" target="_blank">LinkedIn</a>
         </div>
