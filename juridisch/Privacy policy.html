@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – Beyond the Pitch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0d0d0d;
+      --white: #f5f3ee;
+      --accent: #c8f060;
+      --mid: #3a3a3a;
+      --line: rgba(255,255,255,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 2rem 4vw;
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      position: sticky;
+      top: 0;
+      background: var(--black);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: .12em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .header-label {
+      font-size: 0.72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(245,243,238,0.45);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem 4vw 4rem;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      line-height: .95;
+      letter-spacing: .04em;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-meta {
+      text-align: right;
+      font-size: 0.75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(245,243,238,0.4);
+      white-space: nowrap;
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 4vw;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .toc-label {
+      font-size: 0.68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .toc ol {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.4rem 2rem;
+      counter-reset: toc;
+    }
+
+    .toc li { counter-increment: toc; }
+
+    .toc a {
+      color: rgba(245,243,238,0.6);
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
+      transition: color .2s;
+    }
+
+    .toc a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 0.7rem;
+      color: var(--accent);
+      opacity: .7;
+    }
+
+    .toc a:hover { color: var(--white); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(200,240,96,0.12);
+      letter-spacing: .05em;
+      margin-bottom: -1.5rem;
+    }
+
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      letter-spacing: .06em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    p { margin-bottom: 1rem; color: rgba(245,243,238,0.78); }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: var(--white); font-weight: 500; }
+
+    /* ── DATA GRID ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+
+    .data-item {
+      background: #161616;
+      padding: 1.2rem 1.4rem;
+    }
+
+    .data-item-label {
+      font-size: 0.65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+
+    .data-item p {
+      font-size: 0.875rem;
+      margin: 0;
+      color: rgba(245,243,238,0.7);
+    }
+
+    /* ── PURPOSE TABLE ── */
+    .purpose-list { margin: 1.5rem 0; }
+
+    .purpose-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem 2rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .purpose-item:last-child { border-bottom: 1px solid var(--line); }
+
+    .purpose-basis {
+      font-size: 0.72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: .2rem;
+    }
+
+    .purpose-desc { font-size: 0.88rem; color: rgba(245,243,238,0.72); }
+
+    /* ── RIGHTS GRID ── */
+    .rights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+
+    .right-item {
+      background: #161616;
+      padding: 1.2rem 1.4rem;
+      font-size: 0.84rem;
+      color: rgba(245,243,238,0.7);
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .right-item::before {
+      content: '→';
+      color: var(--accent);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ── INFO BLOCK ── */
+    .info-block {
+      background: #161616;
+      border-left: 3px solid var(--accent);
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 4px 4px 0;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+      color: rgba(245,243,238,0.72);
+    }
+
+    .info-block a { color: var(--accent); text-decoration: none; }
+    .info-block a:hover { text-decoration: underline; }
+
+    /* ── CONTACT ── */
+    .contact-card {
+      background: #161616;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-field-label {
+      font-size: 0.65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .3rem;
+    }
+
+    .contact-field-value {
+      font-size: 0.88rem;
+      color: rgba(245,243,238,0.75);
+    }
+
+    .contact-field-value a { color: var(--white); text-decoration: none; }
+    .contact-field-value a:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 4vw;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: .12em;
+      color: var(--accent);
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: rgba(245,243,238,0.35);
+      letter-spacing: .06em;
+    }
+
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-meta { text-align: left; }
+      .purpose-item { grid-template-columns: 1fr; gap: .4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="https://www.travelbeyondthepitch.com">Beyond the Pitch</a>
+  <span class="header-label">Privacy Policy</span>
+</header>
+
+<!-- HERO -->
+<div class="hero wrapper" style="max-width:100%; padding: 6rem 4vw 4rem;">
+  <h1>Privacy<br><span>Policy</span></h1>
+  <div class="hero-meta">
+    Effective date<br>28 February 2026<br><br>
+    Last updated<br>28 February 2026
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <p class="toc-label">Table of Contents</p>
+    <ol>
+      <li><a href="#s1">Who we are</a></li>
+      <li><a href="#s2">What data we collect</a></li>
+      <li><a href="#s3">Why we use your data</a></li>
+      <li><a href="#s4">Cookies and tracking</a></li>
+      <li><a href="#s5">Who receives your data</a></li>
+      <li><a href="#s6">International transfers</a></li>
+      <li><a href="#s7">Data retention</a></li>
+      <li><a href="#s8">Your rights</a></li>
+      <li><a href="#s9">Children</a></li>
+      <li><a href="#s10">Security &amp; changes</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="s1">
+    <div class="section-number">01</div>
+    <h2>Who we are</h2>
+    <p>Beyond the Pitch ("Beyond the Pitch", "we", "us") is an international online platform that brings together sport, culture, and travel. We act solely as a third-party intermediary and marketplace connecting travelers with independent local providers of sports and cultural experiences via <strong>www.travelbeyondthepitch.com</strong> and associated services (the "Platform").</p>
+    <p>We are <strong>not a tour operator</strong>. We do not execute, organize, or carry out travel trips ourselves. All experiences are provided directly by third-party local partners. Beyond the Pitch is not responsible for the execution, quality, safety, or outcomes of any trips or services booked through the Platform.</p>
+    <p>We are the <strong>data controller</strong> for personal data processed through the Platform under the General Data Protection Regulation (GDPR) and Dutch Implementation Act (Uitvoeringswet AVG).</p>
+
+    <div class="contact-card">
+      <div>
+        <div class="contact-field-label">Organisation</div>
+        <div class="contact-field-value">Beyond the Pitch</div>
+      </div>
+      <div>
+        <div class="contact-field-label">Email</div>
+        <div class="contact-field-value"><a href="mailto:thebeyondthepitch@gmail.com">thebeyondthepitch@gmail.com</a></div>
+      </div>
+      <div>
+        <div class="contact-field-label">Website</div>
+        <div class="contact-field-value"><a href="https://www.travelbeyondthepitch.com">www.travelbeyondthepitch.com</a></div>
+      </div>
+    </div>
+    <p style="margin-top:1rem; font-size:.82rem; color:rgba(245,243,238,0.45);">If we appoint a Data Protection Officer (DPO), we will publish their contact details here.</p>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <div class="section-number">02</div>
+    <h2>What data we collect</h2>
+    <p>We collect personal data only to facilitate connections between you and local providers.</p>
+
+    <div class="data-grid">
+      <div class="data-item">
+        <div class="data-item-label">Account details</div>
+        <p>Name, email, password, phone, country, language, optional profile photo.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Booking facilitation</div>
+        <p>Traveler names, contacts, passport/ID (if required by provider), dates, dietary needs, emergency contacts.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Payment facilitation</div>
+        <p>Billing details. Full card data is handled exclusively by third-party processors. We store no card numbers or CVV codes.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Communications</div>
+        <p>Inquiries, feedback, newsletters.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">User content</div>
+        <p>Reviews and photos you share.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Technical data</div>
+        <p>IP address, device info, usage patterns, cookies.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Partner data</div>
+        <p>Local providers share minimal info needed for bookings (e.g., attendance confirmation).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <div class="section-number">03</div>
+    <h2>Why we use your data</h2>
+    <p>We process data strictly to run the Platform as an intermediary. Below is an overview of purposes and their legal bases.</p>
+
+    <div class="purpose-list">
+      <div class="purpose-item">
+        <div class="purpose-basis">Contract</div>
+        <div class="purpose-desc">Facilitate bookings by passing your details to selected local providers; manage accounts and customer support.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Legitimate interests</div>
+        <div class="purpose-desc">Analyze Platform usage, prevent fraud, and improve matching between travelers and providers.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Consent</div>
+        <div class="purpose-desc">Marketing emails and offers (opt out at any time); non-essential cookies.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Legal obligation</div>
+        <div class="purpose-desc">Tax and accounting records; requests from competent authorities.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Vital interests</div>
+        <div class="purpose-desc">Emergency data sharing if required for your safety (via providers).</div>
+      </div>
+    </div>
+
+    <p>You may withdraw your consent at any time without affecting processing that has already taken place.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <div class="section-number">04</div>
+    <h2>Cookies and tracking</h2>
+    <p>Essential cookies are required for the Platform to function. Other cookies – such as Google Analytics and Meta Pixel – help us improve matching and advertising.</p>
+    <p>A cookie banner on your first visit lets you accept or reject non-essential cookies. You can also update your preferences at any time via your browser settings.</p>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <div class="section-number">05</div>
+    <h2>Who receives your data</h2>
+    <p>We share only what is strictly necessary to connect you with providers.</p>
+
+    <div class="purpose-list">
+      <div class="purpose-item">
+        <div class="purpose-basis">Local providers</div>
+        <div class="purpose-desc">Name, contact details, special needs, and emergency contact information – solely for the execution of the booking. They are independent data controllers; please review their privacy policies.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Processors</div>
+        <div class="purpose-desc">Payment companies (e.g., Stripe), hosting and email tools, analytics – bound by contracts to process data only on our instructions.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Authorities / legal</div>
+        <div class="purpose-desc">Where required by law or to protect rights and safety.</div>
+      </div>
+      <div class="purpose-item">
+        <div class="purpose-basis">Aggregated data</div>
+        <div class="purpose-desc">Anonymous statistics for Platform analysis (no individual identification possible).</div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <strong>Liability note:</strong> Local providers are solely responsible for the execution of trips. Beyond the Pitch does not endorse or guarantee their services.
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <div class="section-number">06</div>
+    <h2>International transfers</h2>
+    <p>Because users and providers are based worldwide, data may be transferred outside the European Economic Area (EEA). We safeguard your data through <strong>EU Standard Contractual Clauses (SCCs)</strong> and European Commission adequacy decisions.</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <div class="section-number">07</div>
+    <h2>Data retention</h2>
+    <p>We retain personal data no longer than necessary.</p>
+
+    <div class="data-grid">
+      <div class="data-item">
+        <div class="data-item-label">Accounts &amp; bookings</div>
+        <p>Active period + 7 years after last activity (tax/legal requirements).</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Marketing</div>
+        <p>Until you opt out.</p>
+      </div>
+      <div class="data-item">
+        <div class="data-item-label">Support</div>
+        <p>3 years after last contact.</p>
+      </div>
+    </div>
+
+    <p>After the retention period expires, data is deleted or anonymized.</p>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <div class="section-number">08</div>
+    <h2>Your rights</h2>
+    <p>As an EEA resident, you have the following rights regarding your personal data:</p>
+
+    <div class="rights-grid">
+      <div class="right-item">Access</div>
+      <div class="right-item">Rectification</div>
+      <div class="right-item">Erasure</div>
+      <div class="right-item">Restriction</div>
+      <div class="right-item">Data portability</div>
+      <div class="right-item">Object (incl. marketing)</div>
+      <div class="right-item">Withdraw consent</div>
+    </div>
+
+    <p>Contact us via the details in section 1. We will respond within <strong>one month</strong>.</p>
+
+    <div class="info-block">
+      You have the right to lodge a complaint with the <strong>Dutch Data Protection Authority</strong>:<br>
+      <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank">www.autoriteitpersoonsgegevens.nl</a>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <div class="section-number">09</div>
+    <h2>Children</h2>
+    <p>Our Platform is not intended for persons under the age of 18, unless a parent or legal guardian makes the booking and provides consent.</p>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <div class="section-number">10</div>
+    <h2>Security &amp; changes</h2>
+    <p>We protect your personal data with appropriate technical and organisational measures, including encryption and access controls. In the event of a data breach that poses a risk to you, we will notify the competent authorities <strong>within 72 hours</strong>.</p>
+    <p>Any changes to this Privacy Policy will be published on this page. You will be notified of material changes.</p>
+    <p>For questions or requests, please contact us using the details in section 1.</p>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Beyond the Pitch</span>
+  <span class="footer-text">© 2026 Beyond the Pitch · Netherlands</span>
+</footer>
+
+</body>
+</html>
