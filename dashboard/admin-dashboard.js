@@ -339,18 +339,47 @@ function populateAdminCalendar(b) {
     })));
 }
 
-function updateRevenueChart(b) {
+function updateRevenueChart(bookings) {
     const ctx = document.getElementById('revenueChart');
     if (revenueChart) revenueChart.destroy();
+
+    // Groepeer boekingen per maand
+    const monthlyData = {};
+    bookings.forEach(b => {
+        const d = new Date(b["Start Date"] || b["Date"]);
+        if (isNaN(d)) return;
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        monthlyData[key] = (monthlyData[key] || 0) + (parseInt(b["Guests"]) || 0);
+    });
+
+    const sortedKeys = Object.keys(monthlyData).sort();
+    const labels = sortedKeys.map(k => {
+        const [y, m] = k.split('-');
+        return new Date(y, m - 1).toLocaleDateString('en-GB', { month: 'short', year: '2-digit' });
+    });
+    const values = sortedKeys.map(k => monthlyData[k]);
+
     revenueChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['M1','M2','M3','M4','M5','M6'],
-            datasets: [{ label: 'Revenue', data: [150, 230, 180, 310, 290, 420], borderColor: '#c5a059', tension: 0.4 }]
+            labels: labels.length ? labels : ['No data'],
+            datasets: [{
+                label: 'Guests per month',
+                data: values.length ? values : [0],
+                borderColor: '#c5a059',
+                backgroundColor: 'rgba(197, 160, 89, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#c5a059'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { color: '#94a3b8' } }, x: { ticks: { color: '#94a3b8' } } }
         }
     });
 }
-
 // --- PARTNERS ---
 async function loadPartnerList() {
     const c = document.getElementById('partnersTableContainer');
