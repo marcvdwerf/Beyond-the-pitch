@@ -109,22 +109,84 @@ function renderCalendar(data) {
         },
         height: 'auto',
         events: data.map(row => ({
-            title: `${row["Full Name"] || 'Guest'}`,
+            title: row["Full Name"] || 'Guest',
             start: row["Start Date"] || row["Date"],
             allDay: true,
             extendedProps: {
-                experience: row["Experience"] || "Not specified",
-                guests: row["Guests"] || "1"
+                experience: row["Experience"]       || "Not specified",
+                guests:     row["Guests"]           || "1",
+                status:     row["Status"]           || "Pending",
+                email:      row["Email Address"]    || "-",
+                phone:      row["Phone Number"]     || "-",
+                requests:   row["Special Requests"] || "-"
             }
         })),
         eventClick: function(info) {
-            alert(`Customer: ${info.event.title}\nExperience: ${info.event.extendedProps.experience}\nGuests: ${info.event.extendedProps.guests}`);
+            showBookingModal(info.event);
         }
     });
-    
+
     calendar.render();
 }
 
+function showBookingModal(event) {
+    const existing = document.getElementById('bookingModal');
+    if (existing) existing.remove();
+
+    const p = event.extendedProps;
+    const statusClass = p.status.toLowerCase() === 'confirmed' ? 'status-confirmed' : 'status-pending';
+    const dateStr = new Date(event.start).toLocaleDateString('en-GB', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    });
+
+    const modal = document.createElement('div');
+    modal.id = 'bookingModal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-card">
+            <button class="modal-close" onclick="document.getElementById('bookingModal').remove()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 style="margin-bottom:20px; color:#1e293b;">Booking Details</h3>
+            <div class="modal-row">
+                <div class="modal-label">Guest</div>
+                <div class="modal-value">${event.title}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Experience</div>
+                <div class="modal-value">${p.experience}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Date</div>
+                <div class="modal-value">${dateStr}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Guests</div>
+                <div class="modal-value">${p.guests} pax</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Email</div>
+                <div class="modal-value">${p.email}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Phone</div>
+                <div class="modal-value">${p.phone}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Special Requests</div>
+                <div class="modal-value">${p.requests}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Status</div>
+                <div style="margin-top:4px;">
+                    <span class="status-badge ${statusClass}">${p.status}</span>
+                </div>
+            </div>
+        </div>`;
+
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    document.body.appendChild(modal);
+}
 // 5. Tabel Rendering (Responsive met Labels)
 function renderTable(data) {
     const container = document.getElementById("bookingsTableContainer");
