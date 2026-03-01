@@ -3,7 +3,7 @@
  * Versie: 2.0 - Veilige POST login + Token validatie
  */
 
-const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbwAZB3Rd9_xsj0xuoTucR3P0PlvkW4Nkolquia0HbTYvX_mqsi7TQ3XZW1WYmbaHQ_x/exec';
+const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbxPkyCqIml8BmoV5btvqZ5l3rsB77P1gLvX7HFyE-_5UNaTx6v2GKfLcUzi4yZLxiGe2w/exec';
 
 // ─── 1. ROUTE BEVEILIGING ────────────────────────────────────────────────────
 // Controleer bij elke dashboardpagina of er een geldig token in sessie zit
@@ -70,17 +70,13 @@ async function handleLogin(role) {
     btn.innerText = "Verifying...";
 
     try {
-        // Wachtwoord gaat via POST body — niet zichtbaar in URL of logs
-        const response = await fetch(MASTER_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: 'login',
-                user: userEl.value.trim(),
-                pass: passEl.value.trim()
-            }),
-            redirect: 'follow'
+        // GET request — Apps Script ondersteunt geen externe POST via CORS
+        const params = new URLSearchParams({
+            action: 'login',
+            user: userEl.value.trim(),
+            pass: passEl.value.trim()
         });
+        const response = await fetch(`${MASTER_API_URL}?${params.toString()}`, { redirect: 'follow' });
 
         const result = await response.json();
 
