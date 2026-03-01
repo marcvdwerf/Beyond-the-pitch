@@ -3,7 +3,7 @@
  * Versie: 4.0 - apiFetch + dynamische partner filter + echte revenue chart
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwAZB3Rd9_xsj0xuoTucR3P0PlvkW4Nkolquia0HbTYvX_mqsi7TQ3XZW1WYmbaHQ_x/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxPkyCqIml8BmoV5btvqZ5l3rsB77P1gLvX7HFyE-_5UNaTx6v2GKfLcUzi4yZLxiGe2w/exec';
 
 let revenueChart = null;
 let allBookings  = [];
