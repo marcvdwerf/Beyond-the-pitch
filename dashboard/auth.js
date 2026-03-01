@@ -3,7 +3,7 @@
  * Versie: 2.0 - Veilige POST login + Token validatie
  */
 
-const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbwM3W72PX26NIB5_2AR5Zat1Buw8NhzcN2fKvNifmrkbEDPYvresi129kEsjpGMcApC0Q/exec';
+const MASTER_API_URL = 'https://script.google.com/macros/s/AKfycbwAZB3Rd9_xsj0xuoTucR3P0PlvkW4Nkolquia0HbTYvX_mqsi7TQ3XZW1WYmbaHQ_x/exec';
 
 // ─── 1. ROUTE BEVEILIGING ────────────────────────────────────────────────────
 // Controleer bij elke dashboardpagina of er een geldig token in sessie zit
