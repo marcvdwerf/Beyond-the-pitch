@@ -112,7 +112,7 @@ function renderAdminTable(bookings) {
     const container = document.getElementById('adminTableContainer');
     if (!bookings.length) {
         container.innerHTML = "<p style='padding:20px; color:#64748b;'>No bookings found.</p>";
-        return;
+  return;
     }
 
     let html = `
@@ -140,7 +140,7 @@ function renderAdminTable(bookings) {
             <tr>
                 <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
                 <td><strong>${fDate}</strong></td>
-              <td><strong style="cursor:pointer; color: var(--accent, #c5a059);" onclick="showAdminBookingModal(${allBookings.indexOf(b)})">${b["Full Name"] || "Guest"}</strong></td>
+             <td><strong class="clickable-guest" data-index="${allBookings.indexOf(b)}" style="cursor:pointer; color: var(--accent, #c5a059);">${b["Full Name"] || "Guest"}</strong></td>
                 <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
                 <td>${b["Guests"] || 1}</td>
                 <td>
@@ -156,7 +156,16 @@ function renderAdminTable(bookings) {
             </tr>`;
     });
 
-    container.innerHTML = html + '</tbody></table>';
+  container.innerHTML = html + '</tbody></table>';
+
+    // Klik events toevoegen na renderen
+    document.querySelectorAll('.clickable-guest').forEach(el => {
+        el.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            const b = allBookings[index];
+            if (b) showAdminBookingModal(b);
+        });
+    });
 }
 
 async function updateBookingStatus(name, date, newStatus, selectEl) {
@@ -286,9 +295,9 @@ async function submitNewPartner() {
     alert(`Partner "${n}" successfully added!`);
 }
 
-function showAdminBookingModal(index) {
-    const b = allBookings[index];
-    if (!b) return;
+function showAdminBookingModal(b) {
+    const existing = document.getElementById('adminBookingModal');
+    if (existing) existing.remove();
 
     const rawStatus = b["Status"] || "Pending";
     const statusColor = rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e';
