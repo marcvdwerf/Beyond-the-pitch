@@ -135,7 +135,7 @@ function renderAdminTable(bookings) {
             <tr>
                 <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
                 <td><strong>${fDate}</strong></td>
-                <td><span class="clickable-guest" data-index="${index}" style="cursor:pointer; color: var(--accent, #c5a059); font-weight:700;">${b["Full Name"] || "Guest"}</span></td>
+                <td><span onclick="openBookingModal(${index})" style="cursor:pointer; color:#c5a059; font-weight:700;">${b["Full Name"] || "Guest"}</span></td>
                 <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
                 <td>${b["Guests"] || 1}</td>
                 <td>
@@ -153,15 +153,6 @@ function renderAdminTable(bookings) {
 
     container.innerHTML = html + '</tbody></table>';
 
-    // Klik events na renderen
-    document.querySelectorAll('.clickable-guest').forEach(el => {
-        el.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const index = parseInt(this.getAttribute('data-index'));
-            const b = allBookings[index];
-            if (b) showAdminBookingModal(b);
-        });
-    });
 }
 
 // --- STATUS UPDATE ---
@@ -186,6 +177,10 @@ async function updateBookingStatus(name, date, newStatus, selectEl) {
 }
 
 // --- BOOKING MODAL ---
+window.openBookingModal = function(index) {
+    const b = allBookings[index];
+    if (b) showAdminBookingModal(b);
+};
 function showAdminBookingModal(b) {
     const existing = document.getElementById('adminBookingModal');
     if (existing) existing.remove();
