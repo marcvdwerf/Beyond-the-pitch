@@ -140,7 +140,7 @@ function renderAdminTable(bookings) {
             <tr>
                 <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
                 <td><strong>${fDate}</strong></td>
-               <td><strong style="cursor:pointer; color: var(--accent, #c5a059);" onclick="showAdminBookingModal(${JSON.stringify(b).replace(/"/g, '&quot;')})">${b["Full Name"] || "Guest"}</strong></td>
+              <td><strong style="cursor:pointer; color: var(--accent, #c5a059);" onclick="showAdminBookingModal(${allBookings.indexOf(b)})">${b["Full Name"] || "Guest"}</strong></td>
                 <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
                 <td>${b["Guests"] || 1}</td>
                 <td>
@@ -286,9 +286,9 @@ async function submitNewPartner() {
     alert(`Partner "${n}" successfully added!`);
 }
 
-function showAdminBookingModal(b) {
-    const existing = document.getElementById('adminBookingModal');
-    if (existing) existing.remove();
+function showAdminBookingModal(index) {
+    const b = allBookings[index];
+    if (!b) return;
 
     const rawStatus = b["Status"] || "Pending";
     const statusColor = rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e';
