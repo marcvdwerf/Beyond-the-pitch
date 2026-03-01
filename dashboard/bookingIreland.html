@@ -27,6 +27,7 @@
         .price-tag { float: right; color: var(--primary); font-weight: 700; }
         .btn-submit { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; }
         #successMessage { display: none; text-align: center; padding: 60px 30px; }
+        .fixture-hint { font-size: 0.8rem; color: #718096; margin-top: 8px; font-style: italic; }
     </style>
 </head>
 <body>
@@ -50,20 +51,23 @@
             <div class="section-title">2. Choose Your Package</div>
             <div class="experience-grid">
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Full Experience">
+                    <input type="radio" name="experience" value="Hurling Experience" data-filter="kilkenny-home">
                     <span class="price-tag">from €120 </span>
-                    <strong>The Hurling Experience (Flexible Package)</strong><br><small>Master the game with a training session from Hurling hero James and receive a match ticket of your choice!</small>
+                    <strong>The Hurling Experience (Flexible Package)</strong><br>
+                    <small>Master the game with a training session from Hurling hero James and receive a match ticket of your choice!</small>
                 </label>
                 <label class="exp-card">
-                    <input type="radio" name="experience" value="Full Experience">
+                    <input type="radio" name="experience" value="Kilkenny Premium Package" data-filter="all">
                     <span class="price-tag">from €150 </span>
-                    <strong>Kilkenny Premium Package (All-in-one weekend experience)</strong><br><small>Enjoy the ultimate weekend in the Hurling capital, featuring a hands-on training session and tickets to a match at Nowlan Park.</small>
+                    <strong>Kilkenny Premium Package (All-in-one weekend experience)</strong><br>
+                    <small>Enjoy the ultimate weekend in the Hurling capital, featuring a hands-on training session and tickets to a match at Nowlan Park.</small>
                 </label>
             </div>
 
             <div id="match-section" class="section-title">3. Select Match Fixture</div>
             <div class="filter-box" id="fixture-box" style="opacity: 0.5; pointer-events: none;">
-                <div class="filter-container">
+                <div id="fixture-hint" class="fixture-hint" style="margin-bottom: 12px; display: none;"></div>
+                <div class="filter-container" id="filter-controls">
                     <div class="form-group">
                         <label>Sport</label>
                         <select id="sportFilter">
@@ -86,7 +90,7 @@
                 <div style="margin-top: 15px;">
                     <label>Available Fixtures</label>
                     <select id="match-selector">
-                        <option value="">-- Choose a match --</option>
+                        <option value="">-- First select a package above --</option>
                     </select>
                 </div>
             </div>
@@ -117,99 +121,108 @@
         const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
         const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312', requests: 'entry.184318357', partner: 'entry.2094398847' };
 
-     // VOLLEDIGE LIJST MET WEDSTRIJDEN (NFL, NHL & LEINSTER CHAMPIONSHIPS)
         const MATCH_DATA = [
             // --- MAART 1 (FOOTBALL) ---
-            { date: "2026-03-01", teams: "Kerry v Monaghan (Killarney)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Mayo v Armagh (Castlebar)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Donegal v Galway (Ballyshannon)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Roscommon v Dublin (Roscommon)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Derry v Cork (Derry)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Wexford v Sligo (Wexford)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "London v Waterford (Ruislip)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Longford v Carlow (Longford)", sport: "Football", month: "mrt" },
-            { date: "2026-03-01", teams: "Tipperary v Leitrim (Thurles)", sport: "Football", month: "mrt" },
+            { date: "2026-03-01", teams: "Kerry v Monaghan (Killarney)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Mayo v Armagh (Castlebar)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Donegal v Galway (Ballyshannon)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Roscommon v Dublin (Roscommon)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Derry v Cork (Derry)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Wexford v Sligo (Wexford)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "London v Waterford (Ruislip)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Longford v Carlow (Longford)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Tipperary v Leitrim (Thurles)", sport: "Football", month: "mrt", kilkennyHome: false },
 
             // --- MAART 1 (HURLING) ---
-            { date: "2026-03-01", teams: "Galway v Waterford (Salthill)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-01", teams: "Offaly v Limerick (Tullamore)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-01", teams: "Kilkenny v Cork (Nowlan Park)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-01", teams: "Down v Kildare (Ballycran)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-01", teams: "Antrim v Dublin (Dunloy)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-01", teams: "Westmeath v Laois (Mullingar)", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-01", teams: "Galway v Waterford (Salthill)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Offaly v Limerick (Tullamore)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Kilkenny v Cork (Nowlan Park)", sport: "Hurling", month: "mrt", kilkennyHome: true },
+            { date: "2026-03-01", teams: "Down v Kildare (Ballycran)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Antrim v Dublin (Dunloy)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-01", teams: "Westmeath v Laois (Mullingar)", sport: "Hurling", month: "mrt", kilkennyHome: false },
 
             // --- MAART 7/8 (HURLING) ---
-            { date: "2026-03-07", teams: "Galway v Kilkenny (Salthill)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-07", teams: "Limerick v Cork (Gaelic Grounds)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-07", teams: "Dublin v Down (Parnell Park)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-08", teams: "Waterford v Tipperary (Walsh Park)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-08", teams: "Clare v Wexford (Ennis)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-08", teams: "Kildare v Carlow (Newbridge)", sport: "Hurling", month: "mrt" },
+            { date: "2026-03-07", teams: "Galway v Kilkenny (Salthill)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-07", teams: "Limerick v Cork (Gaelic Grounds)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-07", teams: "Dublin v Down (Parnell Park)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-08", teams: "Waterford v Tipperary (Walsh Park)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-08", teams: "Clare v Wexford (Ennis)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-08", teams: "Kildare v Carlow (Newbridge)", sport: "Hurling", month: "mrt", kilkennyHome: false },
 
             // --- MAART 14/15 (FOOTBALL) ---
-            { date: "2026-03-14", teams: "Kerry v Mayo (Tralee)", sport: "Football", month: "mrt" },
-            { date: "2026-03-14", teams: "Dublin v Armagh (Croke Park)", sport: "Football", month: "mrt" },
-            { date: "2026-03-14", teams: "Cork v Kildare (Cork)", sport: "Football", month: "mrt" },
-            { date: "2026-03-14", teams: "Meath v Tyrone (Croke Park)", sport: "Football", month: "mrt" },
-            { date: "2026-03-14", teams: "Fermanagh v Laois (Enniskillen)", sport: "Football", month: "mrt" },
-            { date: "2026-03-14", teams: "Carlow v London (Carlow)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Roscommon v Donegal (Roscommon)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Monaghan v Galway (Inniskeen)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Louth v Derry (Ardee)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Clare v Wexford (Ennis)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Sligo v Down (TBC)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Leitrim v Longford (Carrick)", sport: "Football", month: "mrt" },
-            { date: "2026-03-15", teams: "Wicklow v Tipperary (Aughrim)", sport: "Football", month: "mrt" },
+            { date: "2026-03-14", teams: "Kerry v Mayo (Tralee)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-14", teams: "Dublin v Armagh (Croke Park)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-14", teams: "Cork v Kildare (Cork)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-14", teams: "Meath v Tyrone (Croke Park)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-14", teams: "Fermanagh v Laois (Enniskillen)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-14", teams: "Carlow v London (Carlow)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Roscommon v Donegal (Roscommon)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Monaghan v Galway (Inniskeen)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Louth v Derry (Ardee)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Clare v Wexford (Ennis)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Sligo v Down (TBC)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Leitrim v Longford (Carrick)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-15", teams: "Wicklow v Tipperary (Aughrim)", sport: "Football", month: "mrt", kilkennyHome: false },
 
             // --- MAART 21/22 (HURLING & FOOTBALL) ---
-            { date: "2026-03-21", teams: "Tipperary v Kilkenny (Thurles)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-21", teams: "Limerick v Galway (Gaelic Grounds)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-21", teams: "Cork v Offaly (Cork)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-21", teams: "Wexford v Kildare (Wexford)", sport: "Hurling", month: "mrt" },
-            { date: "2026-03-22", teams: "Armagh v Kerry (Armagh)", sport: "Football", month: "mrt" },
-            { date: "2026-03-22", teams: "Galway v Dublin (Salthill)", sport: "Football", month: "mrt" },
-            { date: "2026-03-22", teams: "Mayo v Roscommon (Castlebar)", sport: "Football", month: "mrt" },
-            { date: "2026-03-22", teams: "Tyrone v Cork (Omagh)", sport: "Football", month: "mrt" },
-            { date: "2026-03-22", teams: "Down v Laois (Newry)", sport: "Football", month: "mrt" },
-            { date: "2026-03-22", teams: "Tipperary v Waterford (Thurles)", sport: "Football", month: "mrt" },
+            { date: "2026-03-21", teams: "Tipperary v Kilkenny (Thurles)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-21", teams: "Limerick v Galway (Gaelic Grounds)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-21", teams: "Cork v Offaly (Cork)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-21", teams: "Wexford v Kildare (Wexford)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-22", teams: "Armagh v Kerry (Armagh)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-22", teams: "Galway v Dublin (Salthill)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-22", teams: "Mayo v Roscommon (Castlebar)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-22", teams: "Tyrone v Cork (Omagh)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-22", teams: "Down v Laois (Newry)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-22", teams: "Tipperary v Waterford (Thurles)", sport: "Football", month: "mrt", kilkennyHome: false },
 
             // --- LEAGUE FINALS ---
-            { date: "2026-03-29", teams: "Football League Finals (Div 1-4)", sport: "Football", month: "mrt" },
-            { date: "2026-03-29", teams: "Hurling League Finals (Div 2-4)", sport: "Hurling", month: "mrt" },
-            { date: "2026-04-05", teams: "Hurling League Div 1 Final", sport: "Hurling", month: "apr" },
+            { date: "2026-03-29", teams: "Football League Finals (Div 1-4)", sport: "Football", month: "mrt", kilkennyHome: false },
+            { date: "2026-03-29", teams: "Hurling League Finals (Div 2-4)", sport: "Hurling", month: "mrt", kilkennyHome: false },
+            { date: "2026-04-05", teams: "Hurling League Div 1 Final", sport: "Hurling", month: "apr", kilkennyHome: false },
 
             // --- LEINSTER FOOTBALL CHAMPIONSHIP ---
-            { date: "2026-04-11", teams: "Offaly v Laois (Leinster SFC)", sport: "Football", month: "apr" },
-            { date: "2026-04-12", teams: "Carlow v Wicklow (Leinster SFC)", sport: "Football", month: "apr" },
-            { date: "2026-04-12", teams: "Westmeath v Longford (Leinster SFC)", sport: "Football", month: "apr" },
-            { date: "2026-04-19", teams: "Kildare v TBC (Leinster SFC QF)", sport: "Football", month: "apr" },
-            { date: "2026-04-19", teams: "Meath v TBC (Leinster SFC QF)", sport: "Football", month: "apr" },
-            { date: "2026-04-19", teams: "Louth v Wexford (Leinster SFC QF)", sport: "Football", month: "apr" },
-            { date: "2026-04-19", teams: "Dublin v TBC (Leinster SFC QF)", sport: "Football", month: "apr" },
-            { date: "2026-05-17", teams: "Leinster Football Final (Croke Park)", sport: "Football", month: "may" },
+            { date: "2026-04-11", teams: "Offaly v Laois (Leinster SFC)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-04-12", teams: "Carlow v Wicklow (Leinster SFC)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-04-12", teams: "Westmeath v Longford (Leinster SFC)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-04-19", teams: "Kildare v TBC (Leinster SFC QF)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-04-19", teams: "Meath v TBC (Leinster SFC QF)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-04-19", teams: "Louth v Wexford (Leinster SFC QF)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-04-19", teams: "Dublin v TBC (Leinster SFC QF)", sport: "Football", month: "apr", kilkennyHome: false },
+            { date: "2026-05-17", teams: "Leinster Football Final (Croke Park)", sport: "Football", month: "may", kilkennyHome: false },
 
             // --- LEINSTER HURLING CHAMPIONSHIP ---
-            { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", sport: "Hurling", month: "apr" },
-            { date: "2026-04-18", teams: "Kildare v Wexford (Leinster SHC)", sport: "Hurling", month: "apr" },
-            { date: "2026-04-18", teams: "Offaly v Dublin (Leinster SHC)", sport: "Hurling", month: "apr" },
-            { date: "2026-04-25", teams: "Kilkenny v Wexford (Leinster SHC)", sport: "Hurling", month: "apr" },
-            { date: "2026-04-26", teams: "Galway v Offaly (Leinster SHC)", sport: "Hurling", month: "apr" },
-            { date: "2026-04-26", teams: "Dublin v Kildare (Leinster SHC)", sport: "Hurling", month: "apr" },
-            { date: "2026-05-09", teams: "Wexford v Dublin (Leinster SHC)", sport: "Hurling", month: "may" },
-            { date: "2026-05-10", teams: "Offaly v Kilkenny (Leinster SHC)", sport: "Hurling", month: "may" },
-            { date: "2026-05-16", teams: "Galway v Dublin (Leinster SHC)", sport: "Hurling", month: "may" },
-            { date: "2026-05-24", teams: "Dublin v Kilkenny (Leinster SHC)", sport: "Hurling", month: "may" },
-            { date: "2026-05-24", teams: "Wexford v Galway (Leinster SHC)", sport: "Hurling", month: "may" },
-            { date: "2026-06-06", teams: "Leinster Hurling Final (Croke Park)", sport: "Hurling", month: "may" }
+            { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", sport: "Hurling", month: "apr", kilkennyHome: false },
+            { date: "2026-04-18", teams: "Kildare v Wexford (Leinster SHC)", sport: "Hurling", month: "apr", kilkennyHome: false },
+            { date: "2026-04-18", teams: "Offaly v Dublin (Leinster SHC)", sport: "Hurling", month: "apr", kilkennyHome: false },
+            { date: "2026-04-25", teams: "Kilkenny v Wexford (Nowlan Park)", sport: "Hurling", month: "apr", kilkennyHome: true },
+            { date: "2026-04-26", teams: "Galway v Offaly (Leinster SHC)", sport: "Hurling", month: "apr", kilkennyHome: false },
+            { date: "2026-04-26", teams: "Dublin v Kildare (Leinster SHC)", sport: "Hurling", month: "apr", kilkennyHome: false },
+            { date: "2026-05-09", teams: "Wexford v Dublin (Leinster SHC)", sport: "Hurling", month: "may", kilkennyHome: false },
+            { date: "2026-05-10", teams: "Offaly v Kilkenny (Leinster SHC)", sport: "Hurling", month: "may", kilkennyHome: false },
+            { date: "2026-05-16", teams: "Galway v Dublin (Leinster SHC)", sport: "Hurling", month: "may", kilkennyHome: false },
+            { date: "2026-05-24", teams: "Dublin v Kilkenny (Leinster SHC)", sport: "Hurling", month: "may", kilkennyHome: false },
+            { date: "2026-05-24", teams: "Wexford v Galway (Leinster SHC)", sport: "Hurling", month: "may", kilkennyHome: false },
+            { date: "2026-06-06", teams: "Leinster Hurling Final (Croke Park)", sport: "Hurling", month: "may", kilkennyHome: false }
         ];
+
+        // Tracks which filter mode is active: 'kilkenny-home' or 'all'
+        let activeFilter = null;
+
         function buildMenu() {
             const selector = document.getElementById('match-selector');
             const sport = document.getElementById('sportFilter').value;
             const month = document.getElementById('monthFilter').value;
             selector.innerHTML = '<option value="">-- Choose a match --</option>';
 
+            if (!activeFilter) return;
+
             const groups = {};
             MATCH_DATA.forEach(m => {
+                // If package 1 (kilkenny-home): only show Kilkenny home matches
+                if (activeFilter === 'kilkenny-home' && !m.kilkennyHome) return;
+
+                // Apply sport and month filters
                 if ((sport === 'all' || m.sport === sport) && (month === 'all' || m.month === month)) {
                     const label = `${m.sport} - ${m.month.toUpperCase()}`;
                     if (!groups[label]) groups[label] = [];
@@ -217,41 +230,70 @@
                 }
             });
 
+            let totalOptions = 0;
             for (const [label, matches] of Object.entries(groups)) {
                 const group = document.createElement('optgroup');
                 group.label = label;
                 matches.forEach(m => {
                     const opt = document.createElement('option');
-                    opt.value = `${m.date} | ${m.teams} (Div ${m.div})`;
+                    opt.value = `${m.date} | ${m.teams}`;
                     opt.textContent = `${m.date}: ${m.teams}`;
                     group.appendChild(opt);
+                    totalOptions++;
                 });
                 selector.appendChild(group);
             }
+
+            if (totalOptions === 0) {
+                const opt = document.createElement('option');
+                opt.disabled = true;
+                opt.textContent = '-- No matches found for this filter --';
+                selector.appendChild(opt);
+            }
         }
 
-        // Package UI Logic
+        // Package selection logic
         document.querySelectorAll('input[name="experience"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
                 document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
                 e.target.closest('.exp-card').classList.add('selected');
-                
+
+                activeFilter = e.target.dataset.filter;
+
                 const box = document.getElementById('fixture-box');
-                if (e.target.value === 'Clinic Only') {
-                    box.style.opacity = '0.5';
-                    box.style.pointerEvents = 'none';
-                    document.getElementById('match-selector').value = "";
+                const hint = document.getElementById('fixture-hint');
+                const filterControls = document.getElementById('filter-controls');
+
+                box.style.opacity = '1';
+                box.style.pointerEvents = 'auto';
+
+                if (activeFilter === 'kilkenny-home') {
+                    // Package 1: Only Kilkenny home fixtures — hide sport/month filters for simplicity, or keep them
+                    hint.style.display = 'block';
+                    hint.textContent = '🏟️ Showing only Kilkenny home fixtures (Nowlan Park & Kilkenny venues)';
+                    // Pre-set sport filter to Hurling and reset month
+                    document.getElementById('sportFilter').value = 'Hurling';
+                    document.getElementById('monthFilter').value = 'all';
                 } else {
-                    box.style.opacity = '1';
-                    box.style.pointerEvents = 'auto';
+                    hint.style.display = 'block';
+                    hint.textContent = '🌐 Showing all available fixtures';
+                    document.getElementById('sportFilter').value = 'all';
+                    document.getElementById('monthFilter').value = 'all';
                 }
+
+                // Reset date when switching packages
+                document.getElementById('date').value = '';
+                buildMenu();
             });
         });
 
         document.getElementById('sportFilter').addEventListener('change', buildMenu);
         document.getElementById('monthFilter').addEventListener('change', buildMenu);
+
         document.getElementById('match-selector').addEventListener('change', (e) => {
-            if(e.target.value) document.getElementById('date').value = e.target.value.split(' | ')[0];
+            if (e.target.value) {
+                document.getElementById('date').value = e.target.value.split(' | ')[0];
+            }
         });
 
         // Submit to Google Sheets
@@ -259,16 +301,21 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const date = document.getElementById('date').value;
-            const exp = document.querySelector('input[name="experience"]:checked').value;
+            const expRadio = document.querySelector('input[name="experience"]:checked');
             const match = document.getElementById('match-selector').value;
 
-            if(!name || !email || !date) { alert('Please fill in all required fields.'); return; }
+            if (!name || !email || !date || !expRadio) {
+                alert('Please fill in all required fields and select a package.');
+                return;
+            }
+
+            const exp = expRadio.value;
 
             const formData = new FormData();
             formData.append(FIELDS.name, name);
             formData.append(FIELDS.email, email);
             formData.append(FIELDS.phone, document.getElementById('phone').value);
-            formData.append(FIELDS.experience, exp + (exp === 'Clinic Only' ? ' (€40 pp)' : ' (Price on Request)'));
+            formData.append(FIELDS.experience, exp + ' (Price on Request)');
             formData.append(FIELDS.date, date);
             formData.append(FIELDS.guests, document.getElementById('guests').value);
             formData.append(FIELDS.requests, "Match: " + (match || "N/A") + " | Note: " + document.getElementById('requests').value);
@@ -279,10 +326,10 @@
                 document.getElementById('bookingForm').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
                 window.scrollTo(0, 0);
-            } catch (e) { alert('Submission error. Please try again.'); }
+            } catch (e) {
+                alert('Submission error. Please try again.');
+            }
         });
-
-        buildMenu();
     </script>
 </body>
 </html>
