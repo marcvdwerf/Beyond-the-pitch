@@ -282,8 +282,10 @@ async function submitNewPartner() {
     await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(n)}&user=${encodeURIComponent(e)}&pass=${encodeURIComponent(p)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
     document.getElementById('addPartnerForm').style.display = 'none';
     loadPartnerList();
-    loadPartnerFilterOptions(); // ← dropdown direct bijwerken
+    loadPartnerFilterOptions();
     alert(`Partner "${n}" successfully added!`);
+}
+
 function showAdminBookingModal(b) {
     const existing = document.getElementById('adminBookingModal');
     if (existing) existing.remove();
@@ -355,4 +357,3 @@ function showAdminBookingModal(b) {
 window.logout = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
 window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
 window.togglePackageForm = () => { const f = document.getElementById('addPackageForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
-
