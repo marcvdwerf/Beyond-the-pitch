@@ -110,19 +110,68 @@ async function loadAdminData() {
 
 function renderAdminTable(bookings) {
     const container = document.getElementById('adminTableContainer');
-    let html = `<table class="admin-table"><thead><tr><th>Partner</th><th>Date</th><th>Guest</th><th>Experience</th><th>Pax</th></tr></thead><tbody>`;
+    if (!bookings.length) {
+        container.innerHTML = "<p style='padding:20px; color:#64748b;'>No bookings found.</p>";
+        return;
+    }
+
+    let html = `
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Partner</th>
+                    <th>Date</th>
+                    <th>Guest</th>
+                    <th>Experience</th>
+                    <th>Pax</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>`;
+
     bookings.forEach(b => {
         const d = new Date(b["Start Date"] || b["Date"]);
         const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
-        html += `<tr>
-            <td><span class="badge-partner">${b["Partner"] || "Lima"}</span></td>
-            <td><strong>${fDate}</strong></td>
-            <td><strong>${b["Full Name"] || "Guest"}</strong></td>
-            <td style="font-size: 0.8rem;">${b["Experience"] || "-"}</td>
-            <td>${b["Guests"] || 1}</td>
-        </tr>`;
+        const rawDate   = b["Start Date"] || b["Date"] || "";
+        const rawStatus = b["Status"] || "Pending";
+        const name = (b["Full Name"] || "Guest").replace(/'/g, "\\'");
+
+        html += `
+            <tr>
+                <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
+                <td><strong>${fDate}</strong></td>
+                <td><strong>${b["Full Name"] || "Guest"}</strong></td>
+                <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
+                <td>${b["Guests"] || 1}</td>
+                <td>
+                    <select onchange="updateBookingStatus('${name}', '${rawDate}', this.value, this)"
+                        style="padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; font-size:0.8rem; font-weight:600; cursor:pointer;
+                        background:${rawStatus.toLowerCase() === 'confirmed' ? '#dcfce7' : '#fef3c7'};
+                        color:${rawStatus.toLowerCase() === 'confirmed' ? '#166534' : '#92400e'};">
+                        <option value="Pending"   ${rawStatus === 'Pending'   ? 'selected' : ''}>Pending</option>
+                        <option value="Confirmed" ${rawStatus === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                        <option value="Cancelled" ${rawStatus === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                    </select>
+                </td>
+            </tr>`;
     });
+
     container.innerHTML = html + '</tbody></table>';
+}
+
+async function updateBookingStatus(name, date, newStatus, selectEl) {
+    selectEl.style.background = newStatus === 'Confirmed' ? '#dcfce7' : newStatus === 'Cancelled' ? '#fee2e2' : '#fef3c7';
+    selectEl.style.color      = newStatus === 'Confirmed' ? '#166534' : newStatus === 'Cancelled' ? '#991b1b' : '#92400e';
+
+    try {
+        const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(date)}&status=${encodeURIComponent(newStatus)}`, { redirect: 'follow' });
+        const result = await response.json();
+        if (result.status !== "success") {
+            alert("Could not update status. Please try again.");
+        }
+    } catch (e) {
+        alert("Connection error. Please try again.");
+    }
 }
 
 // --- EXPORT & PRIJZEN ---
