@@ -140,7 +140,7 @@ function renderAdminTable(bookings) {
             <tr>
                 <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
                 <td><strong>${fDate}</strong></td>
-                <td><strong>${b["Full Name"] || "Guest"}</strong></td>
+               <td><strong style="cursor:pointer; color: var(--accent, #c5a059);" onclick="showAdminBookingModal(${JSON.stringify(b).replace(/"/g, '&quot;')})">${b["Full Name"] || "Guest"}</strong></td>
                 <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
                 <td>${b["Guests"] || 1}</td>
                 <td>
@@ -284,7 +284,74 @@ async function submitNewPartner() {
     loadPartnerList();
     loadPartnerFilterOptions(); // ← dropdown direct bijwerken
     alert(`Partner "${n}" successfully added!`);
+function showAdminBookingModal(b) {
+    const existing = document.getElementById('adminBookingModal');
+    if (existing) existing.remove();
+
+    const rawStatus = b["Status"] || "Pending";
+    const statusColor = rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e';
+    const statusBg    = rawStatus.toLowerCase() === 'confirmed' ? '#dcfce7' : rawStatus.toLowerCase() === 'cancelled' ? '#fee2e2' : '#fef3c7';
+
+    const d = new Date(b["Start Date"] || b["Date"]);
+    const dateStr = !isNaN(d) ? d.toLocaleDateString('en-GB', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }) : "-";
+
+    const modal = document.createElement('div');
+    modal.id = 'adminBookingModal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-card">
+            <button class="modal-close" onclick="document.getElementById('adminBookingModal').remove()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 style="margin-bottom:20px; color:#1e293b;">Booking Details</h3>
+            <div class="modal-row">
+                <div class="modal-label">Partner</div>
+                <div class="modal-value">${b["Partner"] || "-"}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Guest</div>
+                <div class="modal-value">${b["Full Name"] || "-"}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Experience</div>
+                <div class="modal-value">${b["Experience"] || "-"}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Date</div>
+                <div class="modal-value">${dateStr}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Guests</div>
+                <div class="modal-value">${b["Guests"] || "1"} pax</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Email</div>
+                <div class="modal-value">${b["Email Address"] || "-"}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Phone</div>
+                <div class="modal-value">${b["Phone Number"] || "-"}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Special Requests</div>
+                <div class="modal-value">${b["Special Requests"] || "-"}</div>
+            </div>
+            <div class="modal-row">
+                <div class="modal-label">Status</div>
+                <div style="margin-top:4px;">
+                    <span style="padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; background:${statusBg}; color:${statusColor};">
+                        ${rawStatus}
+                    </span>
+                </div>
+            </div>
+        </div>`;
+
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    document.body.appendChild(modal);
 }
+
 window.logout = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
 window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
 window.togglePackageForm = () => { const f = document.getElementById('addPackageForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
