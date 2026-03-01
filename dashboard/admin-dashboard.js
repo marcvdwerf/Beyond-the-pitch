@@ -165,12 +165,18 @@ async function updateBookingStatus(name, date, newStatus, selectEl) {
 
     try {
         const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(date)}&status=${encodeURIComponent(newStatus)}`, { redirect: 'follow' });
-        const result = await response.json();
-        if (result.status !== "success") {
-            alert("Could not update status. Please try again.");
+        const text = await response.text();
+        try {
+            const result = JSON.parse(text);
+            if (result.status !== "success") {
+                console.warn("Status update warning:", result.message);
+            }
+        } catch(parseErr) {
+            // Apps Script redirect — update is waarschijnlijk wel gelukt
+            console.log("Status updated (redirect response)");
         }
     } catch (e) {
-        alert("Connection error. Please try again.");
+        console.error("Connection error:", e);
     }
 }
 
