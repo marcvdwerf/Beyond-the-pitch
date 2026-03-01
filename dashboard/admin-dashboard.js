@@ -140,7 +140,7 @@ function renderAdminTable(bookings) {
             <tr>
                 <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
                 <td><strong>${fDate}</strong></td>
-             <td><strong class="clickable-guest" data-index="${allBookings.indexOf(b)}" style="cursor:pointer; color: var(--accent, #c5a059);">${b["Full Name"] || "Guest"}</strong></td>
+            <td><span class="clickable-guest" data-index="${allBookings.indexOf(b)}" style="cursor:pointer; color: var(--accent, #c5a059); font-weight:700;">${b["Full Name"] || "Guest"}</span></td>
                 <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
                 <td>${b["Guests"] || 1}</td>
                 <td>
@@ -159,14 +159,15 @@ function renderAdminTable(bookings) {
   container.innerHTML = html + '</tbody></table>';
 
     // Klik events toevoegen na renderen
-    document.querySelectorAll('.clickable-guest').forEach(el => {
-        el.addEventListener('click', function() {
-            const index = parseInt(this.getAttribute('data-index'));
-            const b = allBookings[index];
-            if (b) showAdminBookingModal(b);
-        });
+   document.querySelectorAll('.clickable-guest').forEach(el => {
+    el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const index = parseInt(this.getAttribute('data-index'));
+        const b = allBookings[index];
+        console.log("Modal data:", b);
+        if (b) showAdminBookingModal(b);
     });
-}
+});
 
 async function updateBookingStatus(name, date, newStatus, selectEl) {
     selectEl.style.background = newStatus === 'Confirmed' ? '#dcfce7' : newStatus === 'Cancelled' ? '#fee2e2' : '#fef3c7';
