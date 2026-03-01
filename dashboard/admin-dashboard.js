@@ -18,8 +18,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     initCalendar();
+    loadPartnerFilterOptions();
     loadAdminData();
 });
+
+async function loadPartnerFilterOptions() {
+    try {
+        const response = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect: 'follow' });
+        const partners = await response.json();
+        if (!partners || !partners.length) return;
+
+        const select = document.getElementById('partnerFilter');
+        if (!select) return;
+
+        const current = select.value;
+
+        select.innerHTML = `<option value="all">Global View</option>`;
+        partners.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value       = p.partnerID;
+            opt.textContent = p.name || p.partnerID;
+            select.appendChild(opt);
+        });
+
+        select.value = current;
+
+        const pkgSelect = document.getElementById('pkg_partnerid');
+        if (pkgSelect) {
+            pkgSelect.innerHTML = '';
+            partners.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value       = p.partnerID;
+                opt.textContent = p.name || p.partnerID;
+                pkgSelect.appendChild(opt);
+            });
+        }
+    } catch (e) {
+        console.error("Could not load partner filter:", e);
+    }
+}
 
 // --- MENU FIX: Wisselen tussen secties ---
 window.showSection = (sId, el) => {
@@ -182,12 +219,17 @@ async function loadPartnerList() {
 }
 
 async function submitNewPartner() {
-    const n = document.getElementById('p_name').value; const e = document.getElementById('p_user').value; const p = document.getElementById('p_pass').value; const id = document.getElementById('p_id').value;
+    const n  = document.getElementById('p_name').value;
+    const e  = document.getElementById('p_user').value;
+    const p  = document.getElementById('p_pass').value;
+    const id = document.getElementById('p_id').value;
+    if (!n || !e || !p || !id) return alert("Fill in all fields.");
     await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(n)}&user=${encodeURIComponent(e)}&pass=${encodeURIComponent(p)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
     document.getElementById('addPartnerForm').style.display = 'none';
     loadPartnerList();
+    loadPartnerFilterOptions(); // ← dropdown direct bijwerken
+    alert(`Partner "${n}" successfully added!`);
 }
-
 window.logout = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
 window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
 window.togglePackageForm = () => { const f = document.getElementById('addPackageForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
