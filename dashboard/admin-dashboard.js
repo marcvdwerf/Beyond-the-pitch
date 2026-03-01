@@ -296,8 +296,8 @@ async function submitNewPartner() {
 }
 
 function showAdminBookingModal(b) {
+    console.log("Modal data:", b); // ← tijdelijk
     const existing = document.getElementById('adminBookingModal');
-    if (existing) existing.remove();
 
     const rawStatus = b["Status"] || "Pending";
     const statusColor = rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e';
