@@ -203,11 +203,33 @@ window.logout = function() {
 // Export functie voor Partners
 window.exportToExcel = function() {
     const pID = sessionStorage.getItem("partnerID");
-    const filename = `BeyondThePitch_${pID}_Bookings.csv`;
-    // Simpele CSV export logica
+
+    // Haal de data op uit de al geladen tabel
+    const rows = document.querySelectorAll(".admin-table tbody tr");
+    if (!rows || rows.length === 0) {
+        alert("No bookings to export.");
+        return;
+    }
+
     let csv = "Date,Guest,Experience,Pax,Status\n";
-    // Hier zou je de geladen data kunnen loopen voor een export
-    alert("Preparing download...");
-    // (Optioneel: implementeer volledige CSV logica hier)
+
+    rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        if (cells.length < 5) return;
+        const line = [
+            cells[0].innerText.trim(),
+            cells[1].innerText.trim(),
+            cells[2].innerText.trim(),
+            cells[3].innerText.trim(),
+            cells[4].innerText.trim()
+        ].map(val => `"${val.replace(/"/g, '""')}"`).join(",");
+        csv += line + "\n";
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `BeyondThePitch_${pID}_Bookings_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
 };
 
