@@ -75,6 +75,9 @@ body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(
 /* Mobile Header */
 .mobile-header { display: none; }
 
+/* Mobile Header */
+.mobile-header { display: none; }
+
 @media (max-width: 768px) {
     .sidebar {
         position: fixed; left: -260px; transition: left 0.3s;
@@ -88,8 +91,6 @@ body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(
     }
     .sidebar-overlay.open { display: block; }
 
-    .main-content { margin-left: 0; padding: 20px; }
-
     .mobile-header {
         display: flex; align-items: center; justify-content: space-between;
         background: #1e293b; padding: 15px 20px;
@@ -102,10 +103,40 @@ body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(
         font-size: 1.3rem; cursor: pointer; padding: 5px;
     }
 
-    .top-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
-    .admin-actions { flex-wrap: wrap; gap: 10px; width: 100%; }
+    .main-content {
+        margin-left: 0 !important;
+        padding: 15px !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .top-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+    .admin-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .admin-actions button,
+    .admin-actions .filter-wrapper,
+    .admin-actions select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .filter-wrapper {
+        display: flex; align-items: center; gap: 8px; width: 100%;
+    }
+
+    .filter-wrapper select { flex: 1; }
+
+    .welcome-meta h2 { font-size: 1.3rem; }
+
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .form-grid { grid-template-columns: 1fr; }
+
+    .card { padding: 15px !important; overflow-x: hidden; }
+    .table-responsive { overflow-x: auto; width: 100%; }
 
     /* Tabel naar kaarten op mobiel */
     .admin-table thead { display: none; }
@@ -116,5 +147,50 @@ body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(
     .admin-table td::before {
         content: attr(data-label); position: absolute; left: 10px;
         font-weight: 700; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase;
+    }
+}
+
+.top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.admin-actions {
+    flex-direction: column;
+    width: 100%;
+}
+
+.admin-actions button,
+.admin-actions .filter-wrapper,
+.admin-actions select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.filter-wrapper select {
+    flex: 1;
+}
+
+.welcome-meta h2 {
+    font-size: 1.3rem;
+}
+
+.card {
+    padding: 15px !important;
+    overflow-x: hidden;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
     }
 }
