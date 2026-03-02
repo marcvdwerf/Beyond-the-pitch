@@ -192,6 +192,16 @@ function renderTable(data) {
     const container = document.getElementById("bookingsTableContainer");
     if (!container) return;
 
+    if (!data || data.length === 0) {
+        container.innerHTML = `
+            <div style="padding: 40px; text-align: center; color: #94a3b8;">
+                <i class="fa-solid fa-calendar-xmark" style="font-size: 2.5rem; margin-bottom: 15px; display: block;"></i>
+                <p style="font-weight: 600; font-size: 1rem;">No bookings yet</p>
+                <p style="font-size: 0.85rem; margin-top: 5px;">Your upcoming bookings will appear here.</p>
+            </div>`;
+        return;
+    }
+
     let html = `
         <table class="admin-table">
             <thead>
