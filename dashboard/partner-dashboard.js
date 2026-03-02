@@ -14,6 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    if (partnerID.toLowerCase() === "ireland") {
+        document.body.classList.add("theme-ireland");
+    }
+
+    document.getElementById("welcomeText").innerText = `Welcome, ${userName || partnerID}`;
+    
+    loadDataFromSheet();
+    loadPackages();
+
+    // Automatisch elke 5 minuten verversen
+    setInterval(loadDataFromSheet, 5 * 60 * 1000);
+});
+
     // 1. Dynamisch Thema (Ireland = Groen, rest = Blauw/Goud)
     if (partnerID.toLowerCase() === "ireland") {
         document.body.classList.add("theme-ireland");
