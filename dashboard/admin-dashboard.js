@@ -411,7 +411,10 @@ async function submitNewPartner() {
     loadPartnerList();
     loadPartnerFilterOptions();
     alert(`Partner "${n}" successfully added!`);
-}
+ window.toggleSidebar = function() {
+    document.querySelector('.sidebar').classList.toggle('open');
+    document.querySelector('.sidebar-overlay').classList.toggle('open');
+};
 
 window.logout          = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
 window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
