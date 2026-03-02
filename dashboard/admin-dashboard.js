@@ -411,7 +411,9 @@ async function submitNewPartner() {
     loadPartnerList();
     loadPartnerFilterOptions();
     alert(`Partner "${n}" successfully added!`);
- window.toggleSidebar = function() {
+}
+
+window.toggleSidebar = function() {
     document.querySelector('.sidebar').classList.toggle('open');
     document.querySelector('.sidebar-overlay').classList.toggle('open');
 };
