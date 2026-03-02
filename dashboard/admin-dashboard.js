@@ -128,10 +128,11 @@ function renderAdminTable(bookings) {
             <tbody>`;
 
     const sorted = [...bookings].sort((a, b) => {
-        return new Date(a["Start Date"] || a["Date"]) - new Date(b["Start Date"] || b["Date"]);
+        return new Date(b["Start Date"] || b["Date"]) - new Date(a["Start Date"] || a["Date"]);
     });
 
-    sorted.forEach((b, index) => {
+    sorted.forEach((b) => {
+        const index = allBookings.indexOf(b);
         const d = new Date(b["Start Date"] || b["Date"]);
         const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
         const rawDate   = b["Start Date"] || b["Date"] || "";
