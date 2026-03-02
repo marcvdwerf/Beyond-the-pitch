@@ -27,19 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(loadDataFromSheet, 5 * 60 * 1000);
 });
 
-    // 1. Dynamisch Thema (Ireland = Groen, rest = Blauw/Goud)
-    if (partnerID.toLowerCase() === "ireland") {
-        document.body.classList.add("theme-ireland");
-    }
-
-    // UI Initialiseren
-    document.getElementById("welcomeText").innerText = `Welcome, ${userName || partnerID}`;
-    
-    // Data inladen
-    loadDataFromSheet();
-    loadPackages(); 
-});
-
 // 2. Boekingen ophalen en Stats berekenen
 async function loadDataFromSheet() {
     const pID = sessionStorage.getItem("partnerID");
