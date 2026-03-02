@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="dashboard-style.css">
 </head>
 <body class="admin-theme">
+    <!-- Mobiele header -->
+<div class="mobile-header">
+    <button class="hamburger" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <span style="font-weight: 700; color: #c5a059;">Master Control</span>
+    <button class="btn-refresh" style="padding: 8px 12px; font-size: 0.8rem;" onclick="loadAdminData()">
+        <i class="fa-solid fa-rotate"></i>
+    </button>
+</div>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="dashboard-container">
         <nav class="sidebar">
             <div class="sidebar-header">
