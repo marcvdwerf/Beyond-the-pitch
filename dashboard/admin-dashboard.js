@@ -124,7 +124,11 @@ function renderAdminTable(bookings) {
             </thead>
             <tbody>`;
 
-    bookings.forEach((b, index) => {
+    const sorted = [...bookings].sort((a, b) => {
+        return new Date(a["Start Date"] || a["Date"]) - new Date(b["Start Date"] || b["Date"]);
+    });
+
+    sorted.forEach((b, index) => {
         const d = new Date(b["Start Date"] || b["Date"]);
         const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
         const rawDate   = b["Start Date"] || b["Date"] || "";
