@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCalendar();
     loadPartnerFilterOptions();
     loadAdminData();
+
+    // Automatisch elke 5 minuten verversen
+    setInterval(loadAdminData, 5 * 60 * 1000);
 });
 
 async function loadPartnerFilterOptions() {
