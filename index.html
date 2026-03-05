@@ -244,8 +244,7 @@
     .cb-btn-settings:hover { color: #ffffff; }
     .cb-btn-save { background: var(--cb-accent); color: var(--cb-black); }
 </style>
-  /* Verberg TikTok embed footer */
-    .tiktok-embed {
+ 
       margin: 0 !important;
     }
 
@@ -281,7 +280,16 @@
 
     /* Mobile menu */
     #mobileMenu { display:none; }
+/* Mobile menu */
+    #mobileMenu { display:none; }
 
+    /* Verberg TikTok embed footer */
+    .tiktok-embed {
+      margin: 0 !important;
+    }
+    blockquote.tiktok-embed > :not(section) {
+      display: none !important;
+    }
   /* About background (Beyond the Pitch) */
 .about-bg {
   background-image: url('https://www.genspark.ai/api/files/s/OKLB9iJE');
