@@ -130,14 +130,14 @@
 
   <div id="pack-area" onclick="initiateOpening()">
     <div id="main-pack" class="pack-wrapper">
-      <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/afbeelding%20pakket.png" class="pack-visual">
+      <img src="images/afbeelding-pakket.png" class="pack-visual">
     </div>
   </div>
 
   <div id="card-container">
     <div class="card-inner" id="cardInner">
       <div class="card-face card-back">
-         <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/beyond%20the%20pitch%20logo.jpg" alt="Logo">
+         <img src="images/afbeelding-pakket.png" alt="hurling Legends unboxing package game Ireland">
       </div>
       <div class="card-face card-front" id="legendCard">
         <div class="rating-big" id="cardRating">99</div>
@@ -165,33 +165,31 @@
 // (Script blijft hetzelfde als voorheen voor de logica)
 let credits = 3;
 const legends = [
-  { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [88, 99, 94, 97], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/henry%20shefflin.jpg" },
-  { name: "Christy Ring", team: "Cork", rat: 99, stats: [91, 99, 98, 99], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/christy%20ring.jpg" },
-  { name: "Joe Canning", team: "Galway", rat: 96, stats: [82, 98, 92, 98], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Joe%20canning.jpg" },
-  { name: "Eddie Keher", team: "Kilkenny", rat: 97, stats: [84, 99, 87, 95], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/eddie%20Keher.jpg" },
-  { name: "Nicky Rackard", team: "Wexford", rat: 96, stats: [80, 99, 97, 90], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Nicky%20Rackard.jpg" },
-  { name: "Jimmy Doyle", team: "Tipperary", rat: 95, stats: [86, 96, 82, 97], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Jimmy%20Doyle.jpg" },
-  { name: "Mick Mackey", team: "Limerick", rat: 96, stats: [88, 94, 98, 92], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Mick%20Mackey.jpg" },
-  { name: "Brian Whelahan", team: "Offaly", rat: 95, stats: [85, 88, 90, 96], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Brian%20whelahan.jpg" },
-  { name: "Ken McGrath", team: "Waterford", rat: 94, stats: [84, 87, 95, 92], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Ken%20Mcgrath.jpg" },
-  { name: "T.J. Reid", team: "Kilkenny", rat: 95, stats: [80, 97, 89, 96], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/T.J.%20Reid.jpg" },
-  { name: "Patrick Horgan", team: "Cork", rat: 93, stats: [83, 96, 82, 95], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Patrick%20Horgan.jpg" },
-  { name: "John Doyle", team: "Tipperary", rat: 95, stats: [82, 80, 99, 88], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/John%20Doyle.jpg" },
-  { name: "Brian Corcoran", team: "Cork", rat: 94, stats: [82, 85, 96, 93], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Brian%20corcoran.jpg" },
-  { name: "Tony Keady", team: "Galway", rat: 93, stats: [84, 86, 95, 90], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Tony%20Keady.jpg" },
-  { name: "Pádraic Maher", team: "Tipperary", rat: 93, stats: [82, 82, 97, 88], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Padraic%20maher.jpg" },
-  { name: "JJ Delaney", team: "Kilkenny", rat: 96, stats: [86, 75, 94, 98], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/JJ%20Delaney.jpg" },
-  { name: "Cian Lynch", team: "Limerick", rat: 94, stats: [87, 85, 88, 99], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Cian%20Lync.jpg" },
-  { name: "Eoin Kelly", team: "Tipperary", rat: 94, stats: [85, 97, 84, 94], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/eoin%20Kelly.jpg" },
-  { name: "Tommy Walsh", team: "Kilkenny", rat: 95, stats: [88, 84, 92, 95], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Tommy%20Walsh.jpg" },
-  { name: "Babs Keating", team: "Tipperary", rat: 92, stats: [82, 91, 88, 93], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Babs%20Keating.jpg" },
-  { name: "Ger Loughnane", team: "Clare", rat: 91, stats: [84, 82, 93, 89], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Ger%20Loughnane.jpg" },
-  { name: "Dan Shanahan", team: "Waterford", rat: 91, stats: [86, 93, 94, 85], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Dan%20Shanahan.jpg" },
-  { name: "Cyril Farrell", team: "Galway", rat: 90, stats: [80, 85, 88, 92], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Cyril%20farrell.jpg" },
-  { name: "Jack Lynch", team: "Cork", rat: 94, stats: [85, 89, 90, 94], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Jack%20Lynch.jpg" },
-  { name: "Frank Cummins", team: "Kilkenny", rat: 93, stats: [82, 84, 96, 89], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Frank%20cummins.jpg" },
-  { name: "Tony Doran", team: "Wexford", rat: 91, stats: [78, 92, 95, 84], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Tony%20Doran.jpg" },
-  { name: "Michael Kavanagh", team: "Kilkenny", rat: 92, stats: [82, 94, 88, 91], img: "https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/gamification/Michael%20Kavanagh%20kilkenny.jpg" }
+  { name: "Henry Shefflin", team: "Kilkenny", rat: 98, stats: [88, 99, 94, 97], img: "images/henry-shefflin-kilkenny-hurling.jpg" },
+  { name: "Christy Ring", team: "Cork", rat: 99, stats: [91, 99, 98, 99], img: "images/christy-ring-cork-hurling.jpg" },
+  { name: "Joe Canning", team: "Galway", rat: 96, stats: [82, 98, 92, 98], img: "images/joe-canning-galway-hurling.jpg" },
+  { name: "Eddie Keher", team: "Kilkenny", rat: 97, stats: [84, 99, 87, 95], img: "images/eddie-keher-kilkenny-hurling.jpg" },
+  { name: "Nicky Rackard", team: "Wexford", rat: 96, stats: [80, 99, 97, 90], img: "images/nicky-rackard-wexford-hurling.jpg" },
+  { name: "Jimmy Doyle", team: "Tipperary", rat: 95, stats: [86, 96, 82, 97], img: "images/jimmy-doyle-tipperary-hurling.jpg" },
+  { name: "Mick Mackey", team: "Limerick", rat: 96, stats: [88, 94, 98, 92], img: "images/mick-mackey-limerick-hurling.jpg" },
+  { name: "Brian Whelahan", team: "Offaly", rat: 95, stats: [85, 88, 90, 96], img: "images/brian-whelahan-offaly-hurling.jpg" },
+  { name: "Ken McGrath", team: "Waterford", rat: 94, stats: [84, 87, 95, 92], img: "images/ken-mcgrath-waterford-hurling.jpg" },
+  { name: "T.J. Reid", team: "Kilkenny", rat: 95, stats: [80, 97, 89, 96], img: "images/tj-reid-kilkenny-hurling.jpg" },
+  { name: "Patrick Horgan", team: "Cork", rat: 93, stats: [83, 96, 82, 95], img: "images/patrick-horgan-cork-hurling.jpg" },
+  { name: "John Doyle", team: "Tipperary", rat: 95, stats: [82, 80, 99, 88], img: "images/john-doyle-tipperary-hurling.jpg" },
+  { name: "Brian Corcoran", team: "Cork", rat: 94, stats: [82, 85, 96, 93], img: "images/brian-corcoran-cork-hurling.jpg" },
+  { name: "Tony Keady", team: "Galway", rat: 93, stats: [84, 86, 95, 90], img: "images/tony-keady-galway-hurling.jpg" },
+  { name: "Pádraic Maher", team: "Tipperary", rat: 93, stats: [82, 82, 97, 88], img: "images/padraic-maher-tipperary-hurling.jpg" },
+  { name: "JJ Delaney", team: "Kilkenny", rat: 96, stats: [86, 75, 94, 98], img: "images/jj-delaney-kilkenny-hurling.jpg" },
+  { name: "Cian Lynch", team: "Limerick", rat: 94, stats: [87, 85, 88, 99], img: "images/cian-lynch-limerick-hurling.jpg" },
+  { name: "Eoin Kelly", team: "Tipperary", rat: 94, stats: [85, 97, 84, 94], img: "images/eoin-kelly-tipperary-hurling.jpg" },
+  { name: "Tommy Walsh", team: "Kilkenny", rat: 95, stats: [88, 84, 92, 95], img: "images/tommy-walsh-kilkenny-hurling.jpg" },
+  { name: "Babs Keating", team: "Tipperary", rat: 92, stats: [82, 91, 88, 93], img: "images/babs-keating-tipperary-hurling.jpg" },
+  { name: "Dan Shanahan", team: "Waterford", rat: 91, stats: [86, 93, 94, 85], img: "images/dan-shanahan-waterford-hurling.jpg" },
+  { name: "Jack Lynch", team: "Cork", rat: 94, stats: [85, 89, 90, 94], img: "images/jack-lynch-cork-hurling.jpg" },
+  { name: "Frank Cummins", team: "Kilkenny", rat: 93, stats: [82, 84, 96, 89], img: "images/frank-cummins-kilkenny-hurling.jpg" },
+  { name: "Tony Doran", team: "Wexford", rat: 91, stats: [78, 92, 95, 84], img: "images/tony-doran-wexford-hurling.jpg" },
+  { name: "Michael Kavanagh", team: "Kilkenny", rat: 92, stats: [82, 94, 88, 91], img: "images/michael-kavanagh-kilkenny-hurling.jpg" }
 ];
 
 function initiateOpening() {
