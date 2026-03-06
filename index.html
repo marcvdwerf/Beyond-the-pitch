@@ -244,9 +244,6 @@
     .cb-btn-settings:hover { color: #ffffff; }
     .cb-btn-save { background: var(--cb-accent); color: var(--cb-black); }
 </style>
- 
-      margin: 0 !important;
-    }
 
     }
 
@@ -1097,40 +1094,54 @@ most tourists never find
 
  <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-animate>
 
-  <!-- Short 1 -->
-  <div class="rounded-xl overflow-hidden border border-gray-800" style="aspect-ratio: 9/16;">
-    <iframe 
-      src="https://www.youtube.com/embed/QUUFanCZvtk" 
-      class="w-full h-full"
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-  </div>
+  <!-- ================= Shorts ================= -->
+<section id="shorts" class="py-24 px-4 text-center bg-black border-t border-gray-900">
+  <div class="max-w-6xl mx-auto" data-animate>
+    <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gold tracking-tight">
+      Short. Sharp. Real.
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-  <!-- Short 2 -->
-  <div class="rounded-xl overflow-hidden border border-gray-800" style="aspect-ratio: 9/16;">
-    <iframe 
-      src="https://www.youtube.com/embed/QJdNn7wG088" 
-      class="w-full h-full"
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-  </div>
+      <!-- Short 1 -->
+      <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800 bg-gray-900" style="aspect-ratio: 9/16;">
+        <iframe
+          class="absolute top-0 left-0 w-full h-full"
+          src="https://www.youtube.com/embed/QUUFanCZvtk?rel=0&modestbranding=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
 
-  <!-- Short 3 -->
-  <div class="rounded-xl overflow-hidden border border-gray-800" style="aspect-ratio: 9/16;">
-    <iframe 
-      src="https://www.youtube.com/embed/vOSIg3YTgxs" 
-      class="w-full h-full"
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-  </div>
+      <!-- Short 2 -->
+      <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800 bg-gray-900" style="aspect-ratio: 9/16;">
+        <iframe
+          class="absolute top-0 left-0 w-full h-full"
+          src="https://www.youtube.com/embed/QJdNn7wG088?rel=0&modestbranding=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
 
-</div>
+      <!-- Short 3 -->
+      <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800 bg-gray-900" style="aspect-ratio: 9/16;">
+        <iframe
+          class="absolute top-0 left-0 w-full h-full"
+          src="https://www.youtube.com/embed/vOSIg3YTgxs?rel=0&modestbranding=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+    <p class="mt-8 text-gray-500 text-sm uppercase tracking-[0.2em]">Watch our shorts</p>
+  </div>
+</section>
 <!-- ================= Video ================= -->
 <section id="video" class="py-24 px-4 text-center bg-black border-t border-gray-900">
   <div class="max-w-6xl mx-auto" data-animate>
