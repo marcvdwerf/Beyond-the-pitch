@@ -179,6 +179,14 @@
       display: flex;
       flex-direction: column;
     }
+    /* Fallback: als JS uitvalt, toch zichtbaar */
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>  ← hier eindigt de stijlblok
   </style>
 </head>
 <body>
@@ -476,17 +484,27 @@
       rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-        }
-      });
-    }, observerOptions);
+ const animateEls = document.querySelectorAll('[data-animate]');
 
-    document.querySelectorAll('[data-animate]').forEach(el => {
-      observer.observe(el);
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
     });
+  }, observerOptions);
+
+  animateEls.forEach(el => observer.observe(el));
+} else {
+  // Fallback: alles direct zichtbaar maken
+  animateEls.forEach(el => el.classList.add('animate'));
+}
+
+// Extra zekerheid: na 2 seconden alles zichtbaar maken
+setTimeout(() => {
+  animateEls.forEach(el => el.classList.add('animate'));
+}, 2000);
   </script>
 <script>
   // Track CTA button clicks
