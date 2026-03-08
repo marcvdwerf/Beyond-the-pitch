@@ -28,6 +28,35 @@
         .btn-submit { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; }
         #successMessage { display: none; text-align: center; padding: 60px 30px; }
         .fixture-hint { font-size: 0.8rem; color: #718096; margin-top: 8px; font-style: italic; }
+
+        /* Disclaimer styling */
+        .disclaimer-box {
+            background: #fffbeb;
+            border: 1px solid #f6ad55;
+            border-left: 4px solid #ed8936;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .disclaimer-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .disclaimer-text {
+            font-size: 0.82rem;
+            color: #7b5e3a;
+            line-height: 1.6;
+        }
+        .disclaimer-text strong {
+            color: #5c4a2a;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.84rem;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +133,15 @@
             <div class="form-group" style="margin-bottom: 25px;">
                 <label>Special Requests / Notes</label>
                 <textarea id="requests" placeholder="Any specific seating needs or experience goals?" rows="3"></textarea>
+            </div>
+
+            <!-- Ticket Availability Disclaimer -->
+            <div class="disclaimer-box">
+                <div class="disclaimer-icon">⚠️</div>
+                <div class="disclaimer-text">
+                    <strong>Match Ticket Availability Notice</strong>
+                    Match ticket access is subject to GAA ticket availability, which is typically confirmed 2 weeks prior to the match. Beyond the Pitch cannot guarantee ticket availability at time of booking. In case tickets are unavailable, a full refund of the ticket component will be provided or an alternative match date offered.
+                </div>
             </div>
 
             <button type="button" class="btn-submit" id="submitBtn">Confirm Booking Request</button>
@@ -268,10 +306,8 @@
                 box.style.pointerEvents = 'auto';
 
                 if (activeFilter === 'kilkenny-home') {
-                    // Package 1: Only Kilkenny home fixtures — hide sport/month filters for simplicity, or keep them
                     hint.style.display = 'block';
                     hint.textContent = '🏟️ Showing only Kilkenny home fixtures (Nowlan Park & Kilkenny venues)';
-                    // Pre-set sport filter to Hurling and reset month
                     document.getElementById('sportFilter').value = 'Hurling';
                     document.getElementById('monthFilter').value = 'all';
                 } else {
@@ -281,7 +317,6 @@
                     document.getElementById('monthFilter').value = 'all';
                 }
 
-                // Reset date when switching packages
                 document.getElementById('date').value = '';
                 buildMenu();
             });
