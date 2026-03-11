@@ -812,9 +812,9 @@ authentic Irish culture. The most unique sports experience in Ireland. Learn hur
 
   <main id="main">
 
-   <!-- ==================== TWO EXPERIENCES WITH TABS ==================== -->
+<!-- ==================== TWO EXPERIENCES WITH TABS ==================== -->
 <section style="padding: 7rem 0 5rem; background: var(--bg);">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;">
+  <div style="max-width: 860px; margin: 0 auto; padding: 0 1.5rem;">
 
     <!-- Section intro -->
     <div style="text-align: center; margin-bottom: 3rem;">
@@ -824,12 +824,12 @@ authentic Irish culture. The most unique sports experience in Ireland. Learn hur
     </div>
 
     <!-- Tab Buttons -->
-    <div style="display: flex; gap: 0; max-width: 480px; margin: 0 auto 2.5rem; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+    <div style="display: flex; gap: 0; max-width: 480px; margin: 0 auto 3.5rem; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
       <button
         id="tab-kilkenny"
         onclick="switchTab('kilkenny')"
-        style="flex: 1; padding: 0.9rem 1.5rem; background: var(--gold); color: #000; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        style="flex: 1; padding: 0.9rem 1.5rem; background: var(--gold); color: #000; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
         Kilkenny
@@ -837,184 +837,212 @@ authentic Irish culture. The most unique sports experience in Ireland. Learn hur
       <button
         id="tab-dublin"
         onclick="switchTab('dublin')"
-        style="flex: 1; padding: 0.9rem 1.5rem; background: #111; color: var(--muted); font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+        style="flex: 1; padding: 0.9rem 1.5rem; background: #111; color: var(--muted); font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
         </svg>
         Dublin
       </button>
     </div>
 
     <!-- ===== KILKENNY PANEL ===== -->
-    <div id="panel-kilkenny" class="exp-panel exp-panel-kilkenny" style="max-width: 760px; margin: 0 auto;">
-      <div class="exp-panel-header">
-        <p class="exp-panel-label">Kilkenny · Hurling</p>
-        <h3 class="exp-panel-title">The Kilkenny Experience</h3>
-        <p class="exp-panel-intro" style="margin-bottom: 1rem;">Welcome to Kilkenny, the hurling capital of the world. Home of the legendary <strong style="color:#fff;">Kilkenny Cats</strong> — Ireland's most successful hurling team and the pride of the county.</p>
-        <p class="exp-panel-intro">In Kilkenny, hurling is more than just a game. Local clubs form the backbone of social life, where children grow up playing and families gather to support their county or club. With our Kilkenny Experience, you'll <strong style="color:#fff;">learn, play and feel the thrill</strong> of the fastest field sport in the world.</p>
+    <div id="panel-kilkenny" style="max-width: 760px; margin: 0 auto;">
+
+      <p style="color: rgba(255,215,0,0.5); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem;">Kilkenny · Hurling</p>
+      <h3 style="color: var(--gold); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; margin-bottom: 1.5rem;">The Kilkenny Experience</h3>
+
+      <p style="color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 1rem;">
+        Welcome to Kilkenny, the hurling capital of the world. Home of the legendary <strong style="color:#fff;">Kilkenny Cats</strong> — Ireland's most successful hurling team and the pride of the county.
+      </p>
+      <p style="color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 3rem;">
+        In Kilkenny, hurling is more than just a game. Local clubs form the backbone of social life, where children grow up playing and families gather to support their county or club. With our Kilkenny Experience, you'll <strong style="color:#fff;">learn, play and feel the thrill</strong> of the fastest field sport in the world.
+      </p>
+
+      <!-- Step 1 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; flex-shrink: 0;">1</div>
+          <h4 style="color: #fff; font-size: 1.15rem; font-weight: 800; margin: 0;">Culture &amp; Heritage</h4>
+        </div>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem; padding-left: 3rem;">
+          Your experience begins with a unique introduction to the world of hurling. You'll first meet <strong style="color:#fff;">James</strong>, a Kilkenny native with a lifelong love for the sport. Through an engaging presentation, he introduces you to the history, rules and cultural significance of hurling.
+        </p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 0.75rem; padding-left: 3rem;">This takes place at a location of your choice:</p>
+        <ul style="list-style: none; padding: 0 0 0 3rem; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li style="color: var(--muted); font-size: 0.9rem; padding-left: 1.25rem; position: relative; line-height: 1.7;">
+            <span style="position: absolute; left: 0; color: var(--gold);">—</span>
+            A traditional Irish pub in the heart of the rural village of Freshford, Kilkenny
+          </li>
+          <li style="color: var(--muted); font-size: 0.9rem; padding-left: 1.25rem; position: relative; line-height: 1.7;">
+            <span style="position: absolute; left: 0; color: var(--gold);">—</span>
+            Or the intense environment of a players' dressing room, just a stone's throw from Nowlan Park — the iconic stadium of the Kilkenny Cats
+          </li>
+        </ul>
       </div>
 
-      <div class="exp-panel-body">
-        <div class="panel-timeline">
-
-          <div class="panel-timeline-item">
-            <div class="panel-timeline-dot">1</div>
-            <p class="panel-tl-title">Culture &amp; Heritage</p>
-            <p class="panel-tl-sub">The heart of rural Kilkenny</p>
-            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem;">
-              Your experience begins with a unique introduction to the world of hurling. You'll first meet <strong style="color:#fff;">James</strong>, a Kilkenny native with a lifelong love for the sport. Through an engaging presentation, he introduces you to the history, rules and cultural significance of hurling.
-            </p>
-            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; font-style: italic;">Choose your setting:</p>
-            <ul class="panel-tl-list">
-              <li>A traditional Irish pub in the heart of the rural village of Freshford, Kilkenny</li>
-              <li>Or the intense environment of a players' dressing room, just a stone's throw from Nowlan Park — the iconic stadium of the Kilkenny Cats</li>
-            </ul>
-          </div>
-
-          <div class="panel-timeline-item">
-            <div class="panel-timeline-dot">2</div>
-            <p class="panel-tl-title">Step Onto the Pitch</p>
-            <p class="panel-tl-sub">Master the skills for yourself</p>
-            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem;">
-              After immersing yourself in the world of hurling, it's time to take the hurley into your own hands. Led by expert local coaches, you'll learn the fundamentals of the game.
-            </p>
-            <ul class="panel-tl-list">
-              <li>Ground stroke, hand pass, solo run &amp; hand strike</li>
-              <li>Take your first shots at the goalposts</li>
-              <li>The moment you strike the sliotar for the first time is one you won't forget</li>
-            </ul>
-          </div>
-
-          <div class="panel-timeline-item">
-            <div class="panel-timeline-dot">3</div>
-            <p class="panel-tl-title">Live Hurling Matchday Immersion</p>
-            <p class="panel-tl-sub">Witness the legends in action — match access facilitated subject to availability</p>
-            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem;">
-              There's only one thing left to complete the experience: watching the very best players in action. As the first whistle sounds, the match explodes into life.
-            </p>
-            <ul class="panel-tl-list">
-              <li>Fast, physical and played with incredible skill — one of the most spectacular sports you'll ever witness</li>
-              <li>Follow James's list of local pubs and experience matchday the true Kilkenny way</li>
-            </ul>
-          </div>
-
+      <!-- Step 2 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; flex-shrink: 0;">2</div>
+          <h4 style="color: #fff; font-size: 1.15rem; font-weight: 800; margin: 0;">Step Onto the Pitch</h4>
         </div>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem; padding-left: 3rem;">
+          After immersing yourself in the world of hurling, it's time to take the hurley into your own hands. Led by expert local coaches, you'll learn the fundamentals of the game: the ground stroke, hand pass, solo run and hand strike. Soon you'll be ready to take your first shot at the goalposts.
+        </p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; padding-left: 3rem;">
+          The moment you strike the sliotar for the first time is one you won't forget.
+        </p>
+      </div>
 
-        <!-- About Kilkenny -->
-        <div class="city-blurb">
-          <h4 style="display: flex; align-items: center; gap: 0.4rem;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-            About Kilkenny
-          </h4>
-          <p>Besides being the hurling capital of Ireland, Kilkenny is a vibrant medieval city full of character and charm. Known as the <em>"Marble City,"</em> it enchants with narrow cobbled streets, colourful shopfronts, cosy cafés and lively traditional pubs — all overlooked by the impressive Kilkenny Castle.</p>
-          <p style="margin-top: 0.6rem; font-size: 0.8rem; color: rgba(255,215,0,0.5);">Flights and accommodation not included. Participants arrange their own travel to Kilkenny independently.</p>
+      <!-- Step 3 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+          <div style="width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; flex-shrink: 0;">3</div>
+          <h4 style="color: #fff; font-size: 1.15rem; font-weight: 800; margin: 0;">Live Hurling Matchday Immersion</h4>
         </div>
+        <p style="color: var(--muted); font-size: 0.8rem; font-style: italic; margin-bottom: 0.75rem; padding-left: 3rem;">Match access facilitated subject to availability — see our booking conditions</p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem; padding-left: 3rem;">
+          There's only one thing left to complete the experience: watching the very best players in action. As the first whistle sounds, the match explodes into life. Fast, physical and played with incredible skill and precision, hurling is one of the most spectacular sports you'll ever witness.
+        </p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; padding-left: 3rem;">
+          With a list of local pubs recommended by James, you can follow the footsteps of the fans and experience matchday the true Kilkenny way.
+        </p>
+      </div>
 
-        <a href="/booking-page-ireland/" class="panel-cta panel-cta-kilkenny">
+      <!-- Divider -->
+      <div style="border-top: 1px solid var(--border); margin-bottom: 2.5rem;"></div>
+
+      <!-- About Kilkenny -->
+      <div style="margin-bottom: 2.5rem;">
+        <p style="color: rgba(255,255,255,0.3); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          About Kilkenny
+        </p>
+        <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.9;">
+          Besides being the hurling capital of Ireland, Kilkenny is a vibrant medieval city full of character and charm. Known as the <em>"Marble City,"</em> it enchants visitors with narrow cobbled streets, colourful shopfronts, cosy cafés and lively traditional pubs. All of this is overlooked by the impressive Kilkenny Castle, whose towers dominate the skyline and give the city its storybook atmosphere.
+        </p>
+        <p style="margin-top: 0.6rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); line-height: 1.7;">
+          Flights and accommodation not included. Participants arrange their own travel to Kilkenny independently.
+        </p>
+      </div>
+
+      <!-- CTA + Disclaimer block -->
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+        <a href="/booking-page-ireland/" class="panel-cta panel-cta-kilkenny" style="margin-bottom: 1.5rem;">
           Book This Experience
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-
-        <div style="margin-top: 1.25rem; background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.2); border-left: 3px solid #f6ad55; border-radius: 8px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 2px;">
+        <div style="border-top: 1px solid var(--border); padding-top: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 3px;">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
-          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.6; margin: 0;">
-            <strong style="color: rgba(255,255,255,0.8); display: block; margin-bottom: 3px;">Match access — facilitated subject to availability</strong>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7; margin: 0;">
+            <strong style="color: rgba(255,255,255,0.7); display: block; margin-bottom: 3px;">Match access — facilitated subject to availability</strong>
             Live match access is subject to GAA ticket availability, typically confirmed 2 weeks prior to the match. Beyond the Pitch cannot guarantee ticket availability at time of booking. In case tickets are unavailable, a full refund of the ticket component will be provided or an alternative match date offered.
           </p>
         </div>
-
       </div>
+
     </div>
 
     <!-- ===== DUBLIN PANEL ===== -->
-    <div id="panel-dublin" class="exp-panel exp-panel-dublin" style="max-width: 760px; margin: 0 auto; display: none;">
-      <div class="exp-panel-header">
-        <p class="exp-panel-label">Dublin · Hurling &amp; Gaelic Football</p>
-        <h3 class="exp-panel-title" style="color:#fff;">The Dublin Experience</h3>
-        <p class="exp-panel-intro">In Dublin for a weekend with friends, a bachelor party, or travelling through Ireland? Add something truly unique to your stay. Gaelic Games have been part of life on this island for over a thousand years.</p>
+    <div id="panel-dublin" style="max-width: 760px; margin: 0 auto; display: none;">
+
+      <p style="color: rgba(255,255,255,0.3); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem;">Dublin · Hurling &amp; Gaelic Football</p>
+      <h3 style="color: #fff; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; margin-bottom: 1.5rem;">The Dublin Experience</h3>
+
+      <p style="color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 1rem;">
+        In Dublin for a weekend with friends, a bachelor party, or travelling through Ireland? Add something truly unique to your stay.
+      </p>
+      <p style="color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 3rem;">
+        With dozens of clubs spread across the city, Gaelic Games are part of everyday life in Dublin. At the centre of it all lies the iconic Croke Park, the symbolic heart of Gaelic Games — with a capacity of over 80,000, one of the largest stadiums in Europe. Our Dublin Experience lets you step into the world of Gaelic Games: learn about the sports, give them a go yourself, and experience the electric atmosphere of a live matchday.
+      </p>
+
+      <!-- Step 1 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 2rem; height: 2rem; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.85rem; flex-shrink: 0;">1</div>
+          <h4 style="color: #fff; font-size: 1.15rem; font-weight: 800; margin: 0;">Culture &amp; Heritage</h4>
+        </div>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; padding-left: 3rem;">
+          The experience kicks off at the grounds of <strong style="color:#fff;">Na Fianna</strong>, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and discover why these sports hold such an important place in Irish culture and community life.
+        </p>
       </div>
 
-      <div class="exp-panel-body">
-        <div class="panel-timeline">
-
-          <div class="panel-timeline-item">
-            <div class="panel-timeline-dot" style="background: rgba(255,255,255,0.15); color:#fff; box-shadow: none;">1</div>
-            <p class="panel-tl-title" style="color:#fff;">Culture &amp; Heritage</p>
-            <p class="panel-tl-sub">Na Fianna GAA Club, Dublin</p>
-            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem;">
-              The experience kicks off at the grounds of Na Fianna, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, discover the origins of Gaelic Games and why these sports hold such an important place in Irish culture and community life.
-            </p>
-          </div>
-
-          <div class="panel-timeline-item">
-            <div class="panel-timeline-dot" style="background: rgba(255,255,255,0.15); color:#fff; box-shadow: none;">2</div>
-            <p class="panel-tl-title" style="color:#fff;">Step Onto the Pitch</p>
-            <p class="panel-tl-sub">Gaelic Football, Hurling &amp; Handball</p>
-            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem;">
-              Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling — the perfect preparation for watching the very best athletes in action.
-            </p>
-            <ul class="panel-tl-list">
-              <li>Learn key skills of both Gaelic Football and Hurling</li>
-              <li>Also introduced to a third traditional sport: Gaelic handball</li>
-              <li>Feel the speed and intensity before watching the best athletes live</li>
-            </ul>
-          </div>
-
-          <div class="panel-timeline-item">
-            <div class="panel-timeline-dot" style="background: rgba(255,255,255,0.15); color:#fff; box-shadow: none;">3</div>
-            <p class="panel-tl-title" style="color:#fff;">Live Gaelic Games Matchday</p>
-            <p class="panel-tl-sub">Match access facilitated subject to availability — see our booking conditions</p>
-            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem;">
-              Now it's time to experience the games live. Whether it's the lightning speed of hurling or the physical thrill of Gaelic football, from the moment <em>Amhrán na bhFiann</em> plays, you're hooked.
-            </p>
-            <ul class="panel-tl-list">
-              <li>Choose your match: Gaelic Football or Hurling</li>
-              <li>Follow in the footsteps of local supporters gathering in pubs and streets en route to the stadium</li>
-            </ul>
-          </div>
-
+      <!-- Step 2 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 2rem; height: 2rem; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.85rem; flex-shrink: 0;">2</div>
+          <h4 style="color: #fff; font-size: 1.15rem; font-weight: 800; margin: 0;">Step Onto the Pitch</h4>
         </div>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem; padding-left: 3rem;">
+          The stage is set, and now it's your turn to step onto the pitch. Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.
+        </p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; padding-left: 3rem;">
+          You'll also be introduced to a third traditional sport: Gaelic handball.
+        </p>
+      </div>
 
-        <!-- About Dublin -->
-        <div class="city-blurb">
-          <h4 style="display: flex; align-items: center; gap: 0.4rem;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
-            </svg>
-            About Dublin
-          </h4>
-          <p>Beyond being home to the iconic Croke Park (80,000+ capacity — one of the largest stadiums in Europe), Dublin thrives on energy and character. Elegant Georgian squares, buzzing neighbourhood pubs, live music and the River Liffey connecting it all. Best explored on foot.</p>
-          <p style="margin-top: 0.6rem; font-size: 0.8rem; color: rgba(255,255,255,0.3);">Flights and accommodation not included. Participants arrange their own travel and accommodation independently.</p>
+      <!-- Step 3 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+          <div style="width: 2rem; height: 2rem; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.85rem; flex-shrink: 0;">3</div>
+          <h4 style="color: #fff; font-size: 1.15rem; font-weight: 800; margin: 0;">Live Gaelic Games Matchday</h4>
         </div>
+        <p style="color: var(--muted); font-size: 0.8rem; font-style: italic; margin-bottom: 0.75rem; padding-left: 3rem;">Match access facilitated subject to availability — see our booking conditions</p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem; padding-left: 3rem;">
+          Now it's time to experience the games live. You'll attend a Gaelic Games match of your choice: Gaelic Football or Hurling. Whether it's the lightning speed of hurling or the physical thrill of Gaelic football, from the moment <em>Amhrán na bhFiann</em> ("The Soldier's Song") is played, you're hooked.
+        </p>
+        <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; padding-left: 3rem;">
+          We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
+        </p>
+      </div>
 
-        <a href="/booking-page-ireland/" class="panel-cta panel-cta-dublin">
+      <!-- Divider -->
+      <div style="border-top: 1px solid var(--border); margin-bottom: 2.5rem;"></div>
+
+      <!-- About Dublin -->
+      <div style="margin-bottom: 2.5rem;">
+        <p style="color: rgba(255,255,255,0.3); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          About Dublin
+        </p>
+        <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.9;">
+          Beyond being home to the iconic Croke Park, Dublin is a city that thrives on energy and character. Elegant Georgian squares sit alongside colourful streets, while buzzing neighbourhood pubs, live music and lively cafés create an atmosphere that feels both historic and unmistakably modern. The River Liffey runs through the heart of the capital, connecting the north and south sides of the city. Dublin is best explored on foot, where every street reveals another gallery or hidden corner waiting to be discovered.
+        </p>
+        <p style="margin-top: 0.6rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); line-height: 1.7;">
+          Flights and accommodation not included. Participants arrange their own travel and accommodation independently.
+        </p>
+      </div>
+
+      <!-- CTA + Disclaimer block -->
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+        <a href="/booking-page-ireland/" class="panel-cta panel-cta-dublin" style="margin-bottom: 1.5rem;">
           Book This Experience
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-
-        <div style="margin-top: 1.25rem; background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.2); border-left: 3px solid #f6ad55; border-radius: 8px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 2px;">
+        <div style="border-top: 1px solid var(--border); padding-top: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 3px;">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
-          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.6; margin: 0;">
-            <strong style="color: rgba(255,255,255,0.8); display: block; margin-bottom: 3px;">Match access — facilitated subject to availability</strong>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7; margin: 0;">
+            <strong style="color: rgba(255,255,255,0.7); display: block; margin-bottom: 3px;">Match access — facilitated subject to availability</strong>
             Live match access is subject to GAA ticket availability, typically confirmed 2 weeks prior to the match. Beyond the Pitch cannot guarantee ticket availability at time of booking. In case tickets are unavailable, a full refund of the ticket component will be provided or an alternative match date offered.
           </p>
         </div>
-
-        <div style="margin-top: 1.25rem; background: rgba(255,255,255,0.03); border-left: 3px solid #169b62; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0;">
-          <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin: 0; font-style: italic;">
-            <strong style="color: #fff; font-style: normal;">New to Ireland or a local resident?</strong> Connect with our
-            <a href="/community/new-in-dublin/" style="color: #4ade80; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">Dublin Community Initiative</a>
-            and turn strangers into friends.
-          </p>
-        </div>
-
       </div>
+
+      <!-- Dublin Community -->
+      <div style="margin-top: 2rem; border-left: 2px solid #169b62; padding: 0.75rem 1.25rem;">
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.8; margin: 0; font-style: italic;">
+          <strong style="color: #fff; font-style: normal;">New to Ireland or a local resident?</strong> Connect with our <a href="/community/new-in-dublin/" style="color: #4ade80; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">Dublin Community Initiative</a> and turn strangers into friends.
+        </p>
+      </div>
+
     </div>
 
   </div>
@@ -1023,28 +1051,28 @@ authentic Irish culture. The most unique sports experience in Ireland. Learn hur
 <script>
   function switchTab(tab) {
     const kilkennyPanel = document.getElementById('panel-kilkenny');
-    const dublinPanel = document.getElementById('panel-dublin');
-    const kilkennyBtn = document.getElementById('tab-kilkenny');
-    const dublinBtn = document.getElementById('tab-dublin');
+    const dublinPanel   = document.getElementById('panel-dublin');
+    const kilkennyBtn   = document.getElementById('tab-kilkenny');
+    const dublinBtn     = document.getElementById('tab-dublin');
 
     if (tab === 'kilkenny') {
-      kilkennyPanel.style.display = 'flex';
-      dublinPanel.style.display = 'none';
+      kilkennyPanel.style.display = 'block';
+      dublinPanel.style.display   = 'none';
       kilkennyBtn.style.background = 'var(--gold)';
-      kilkennyBtn.style.color = '#000';
+      kilkennyBtn.style.color      = '#000';
       kilkennyBtn.querySelector('svg').setAttribute('stroke', '#000');
       dublinBtn.style.background = '#111';
-      dublinBtn.style.color = 'var(--muted)';
-      dublinBtn.querySelector('svg').setAttribute('stroke', 'var(--muted)');
+      dublinBtn.style.color      = '#a0a0a0';
+      dublinBtn.querySelector('svg').setAttribute('stroke', '#a0a0a0');
     } else {
       kilkennyPanel.style.display = 'none';
-      dublinPanel.style.display = 'flex';
+      dublinPanel.style.display   = 'block';
       dublinBtn.style.background = '#fff';
-      dublinBtn.style.color = '#000';
+      dublinBtn.style.color      = '#000';
       dublinBtn.querySelector('svg').setAttribute('stroke', '#000');
       kilkennyBtn.style.background = '#111';
-      kilkennyBtn.style.color = 'var(--muted)';
-      kilkennyBtn.querySelector('svg').setAttribute('stroke', 'var(--muted)');
+      kilkennyBtn.style.color      = '#a0a0a0';
+      kilkennyBtn.querySelector('svg').setAttribute('stroke', '#a0a0a0');
     }
   }
 </script>
