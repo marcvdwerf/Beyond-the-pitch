@@ -812,306 +812,305 @@ authentic Irish culture. The most unique sports experience in Ireland. Learn hur
 
   <main id="main">
 
-<!-- ==================== TWO EXPERIENCES WITH TABS ==================== -->
-<section style="padding: 7rem 0 6rem; background: var(--bg); position: relative; overflow: hidden;">
+<!-- ==================== GAELIC GAMES EXPERIENCES ==================== -->
+<section style="padding: 8rem 0 8rem; background: var(--bg); position: relative;">
 
-  <!-- Subtle background texture -->
-  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,215,0,0.04) 0%, transparent 70%); pointer-events: none;"></div>
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 3rem;">
 
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative;">
-
-    <!-- Section intro -->
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <p style="color: rgba(255,215,0,0.6); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 1rem;">Kilkenny &amp; Dublin · Cultural Sports Experiences</p>
-      <h2 style="color: #fff; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; letter-spacing: -0.03em;">The Gaelic Games</h2>
-      <p style="color: var(--muted); font-size: 1.05rem; max-width: 620px; margin: 0 auto; line-height: 1.9;">For the Irish, these games are far more than sport. They carry history, local pride and a deep connection to where people come from. Learn about them from a local, try them yourself, and experience a live matchday the way the Irish do.</p>
+    <!-- ── Section header ── -->
+    <div style="margin-bottom: 5rem;">
+      <p style="color: rgba(255,215,0,0.55); font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 1.25rem;">Ireland · Cultural Sports Experiences</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end;">
+        <h2 style="color: #fff; font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin: 0;">The Gaelic<br>Games</h2>
+        <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.9; margin: 0; padding-bottom: 0.25rem;">For the Irish, these games are far more than sport. They carry history, local pride and a deep connection to where people come from. Learn about them from a local, try them yourself, and experience a live matchday the way the Irish do.</p>
+      </div>
     </div>
 
-    <!-- Tab Buttons -->
-    <div style="display: flex; gap: 0; max-width: 520px; margin: 0 auto 4rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; background: rgba(255,255,255,0.02);">
-      <button
-        id="tab-kilkenny"
-        onclick="switchTab('kilkenny')"
-        style="flex: 1; padding: 1rem 1.5rem; background: var(--gold); color: #000; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; justify-content: center; gap: 0.6rem; letter-spacing: 0.01em;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
+    <!-- ── Tab switcher ── -->
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 0;">
+      <button id="tab-kilkenny" onclick="switchTab('kilkenny')"
+        style="padding: 0.85rem 2rem; background: none; border: none; border-bottom: 2px solid var(--gold); color: #fff; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; margin-bottom: -1px; letter-spacing: -0.01em; transition: all 0.2s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Kilkenny
       </button>
-      <button
-        id="tab-dublin"
-        onclick="switchTab('dublin')"
-        style="flex: 1; padding: 1rem 1.5rem; background: transparent; color: var(--muted); font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; justify-content: center; gap: 0.6rem;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-        </svg>
+      <button id="tab-dublin" onclick="switchTab('dublin')"
+        style="padding: 0.85rem 2rem; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; margin-bottom: -1px; letter-spacing: -0.01em; transition: all 0.2s;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         Dublin
       </button>
     </div>
 
-    <!-- ===== KILKENNY PANEL ===== -->
-    <div id="panel-kilkenny" style="max-width: 1100px; margin: 0 auto;">
+    <!-- ════════════════════════════════
+         KILKENNY PANEL
+    ════════════════════════════════ -->
+    <div id="panel-kilkenny">
 
-      <!-- Two-column intro -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 5rem; align-items: start;">
+      <!-- Row 1: title + video shorts -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 6rem; align-items: start;">
+
         <div>
-          <p style="color: rgba(255,215,0,0.5); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 0.75rem;">Kilkenny · Hurling</p>
-          <h3 style="color: var(--gold); font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.1;">The Kilkenny<br>Experience</h3>
+          <p style="color: rgba(255,215,0,0.45); font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem;">Kilkenny · Hurling</p>
+          <h3 style="color: #fff; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 2rem;">The Kilkenny<br><span style="color: var(--gold);">Experience</span></h3>
           <p style="color: var(--muted); font-size: 1rem; line-height: 1.95; margin-bottom: 1.25rem;">
             Welcome to Kilkenny, the hurling capital of the world. Home of the legendary <strong style="color:#fff;">Kilkenny Cats</strong> — Ireland's most successful hurling team and the pride of the county.
           </p>
-          <p style="color: var(--muted); font-size: 1rem; line-height: 1.95;">
+          <p style="color: var(--muted); font-size: 1rem; line-height: 1.95; margin-bottom: 2.5rem;">
             In Kilkenny, hurling is more than just a game. Local clubs form the backbone of social life, where children grow up playing and families gather to support their county or club. With our Kilkenny Experience, you'll <strong style="color:#fff;">learn, play and feel the thrill</strong> of the fastest field sport in the world.
           </p>
-        </div>
-        <!-- Pull quote -->
-        <div style="padding-top: 1rem;">
-          <div style="border-left: 3px solid var(--gold); padding: 1.5rem 0 1.5rem 2rem; margin-bottom: 2rem;">
-            <p style="color: rgba(255,255,255,0.55); font-size: 1.05rem; line-height: 1.85; font-style: italic;">"The moment you strike the sliotar for the first time is one you won't forget."</p>
-          </div>
-          <!-- Quick facts -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div style="padding: 1.25rem; background: rgba(255,215,0,0.05); border-radius: 10px; border: 1px solid rgba(255,215,0,0.1);">
-              <p style="color: rgba(255,215,0,0.5); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Location</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">Kilkenny</p>
+
+          <!-- Quick facts strip -->
+          <div style="display: flex; gap: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07);">
+            <div>
+              <p style="color: rgba(255,215,0,0.45); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Guide</p>
+              <p style="color: #fff; font-size: 0.95rem; font-weight: 700;">James</p>
             </div>
-            <div style="padding: 1.25rem; background: rgba(255,215,0,0.05); border-radius: 10px; border: 1px solid rgba(255,215,0,0.1);">
-              <p style="color: rgba(255,215,0,0.5); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Sport</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">Hurling</p>
+            <div style="width: 1px; background: rgba(255,255,255,0.07);"></div>
+            <div>
+              <p style="color: rgba(255,215,0,0.45); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Sport</p>
+              <p style="color: #fff; font-size: 0.95rem; font-weight: 700;">Hurling</p>
             </div>
-            <div style="padding: 1.25rem; background: rgba(255,215,0,0.05); border-radius: 10px; border: 1px solid rgba(255,215,0,0.1);">
-              <p style="color: rgba(255,215,0,0.5); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Guide</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">James</p>
-            </div>
-            <div style="padding: 1.25rem; background: rgba(255,215,0,0.05); border-radius: 10px; border: 1px solid rgba(255,215,0,0.1);">
-              <p style="color: rgba(255,215,0,0.5); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">From</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">€120 p.p.</p>
+            <div style="width: 1px; background: rgba(255,255,255,0.07);"></div>
+            <div>
+              <p style="color: rgba(255,215,0,0.45); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">From</p>
+              <p style="color: #fff; font-size: 0.95rem; font-weight: 700;">€120 p.p.</p>
             </div>
           </div>
         </div>
+
+        <!-- Two shorts side by side -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div style="border-radius: 16px; overflow: hidden; aspect-ratio: 9/16; position: relative; background: #111;">
+            <iframe style="position: absolute; inset: 0; width: 100%; height: 100%;"
+              src="https://www.youtube.com/embed/QUUFanCZvtk?rel=0&modestbranding=1"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div style="border-radius: 16px; overflow: hidden; aspect-ratio: 9/16; position: relative; background: #111;">
+            <iframe style="position: absolute; inset: 0; width: 100%; height: 100%;"
+              src="https://www.youtube.com/embed/QJdNn7wG088?rel=0&modestbranding=1"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Steps — full width, horizontal rule between -->
-      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4rem; margin-bottom: 4rem;">
+      <!-- Row 2: steps -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.07); padding-top: 4rem; margin-bottom: 5rem;">
 
-        <p style="color: rgba(255,255,255,0.2); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 3rem;">The Experience</p>
+        <p style="color: rgba(255,255,255,0.18); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 3.5rem;">What to expect</p>
 
-        <!-- Step 1 -->
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; margin-bottom: 3.5rem; align-items: start;">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
-            <div style="width: 2.25rem; height: 2.25rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.85rem; flex-shrink: 0;">1</div>
-            <div style="width: 1px; height: 100%; min-height: 60px; background: rgba(255,215,0,0.15); margin-top: 0.5rem;"></div>
-          </div>
-          <div style="padding-bottom: 1rem;">
-            <h4 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.25rem; letter-spacing: -0.01em;">Culture &amp; Heritage</h4>
-            <p style="color: rgba(255,215,0,0.4); font-size: 0.78rem; font-style: italic; margin-bottom: 1rem;">The heart of rural Kilkenny</p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem;">
+
+          <!-- Step 1 -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.8rem; flex-shrink: 0;">1</div>
+              <div style="height: 1px; flex: 1; background: rgba(255,215,0,0.2);"></div>
+            </div>
+            <h4 style="color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.01em;">Culture &amp; Heritage</h4>
+            <p style="color: rgba(255,215,0,0.4); font-size: 0.75rem; font-style: italic; margin-bottom: 1rem;">The heart of rural Kilkenny</p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1rem;">
               Your experience begins with a unique introduction to the world of hurling. You'll first meet <strong style="color:#fff;">James</strong>, a Kilkenny native with a lifelong love for the sport. Through an engaging presentation, he introduces you to the history, rules and cultural significance of hurling.
             </p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 0.75rem;">This takes place at a location of your choice:</p>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
-              <li style="color: var(--muted); font-size: 0.9rem; padding-left: 1.25rem; position: relative; line-height: 1.75;">
-                <span style="position: absolute; left: 0; color: var(--gold); font-weight: 700;">—</span>
-                A traditional Irish pub in the heart of the rural village of Freshford, Kilkenny
-              </li>
-              <li style="color: var(--muted); font-size: 0.9rem; padding-left: 1.25rem; position: relative; line-height: 1.75;">
-                <span style="position: absolute; left: 0; color: var(--gold); font-weight: 700;">—</span>
-                Or the intense environment of a players' dressing room, just a stone's throw from Nowlan Park — the iconic stadium of the Kilkenny Cats
-              </li>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-bottom: 0.75rem;">This takes place at a location of your choice:</p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li style="color: var(--muted); font-size: 0.875rem; padding-left: 1rem; position: relative; line-height: 1.7;"><span style="position: absolute; left: 0; color: var(--gold); font-weight: 700;">—</span>A traditional Irish pub in the heart of the rural village of Freshford, Kilkenny</li>
+              <li style="color: var(--muted); font-size: 0.875rem; padding-left: 1rem; position: relative; line-height: 1.7;"><span style="position: absolute; left: 0; color: var(--gold); font-weight: 700;">—</span>Or the intense environment of a players' dressing room, just a stone's throw from Nowlan Park</li>
             </ul>
           </div>
-        </div>
 
-        <!-- Step 2 -->
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; margin-bottom: 3.5rem; align-items: start;">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
-            <div style="width: 2.25rem; height: 2.25rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.85rem; flex-shrink: 0;">2</div>
-            <div style="width: 1px; height: 100%; min-height: 60px; background: rgba(255,215,0,0.15); margin-top: 0.5rem;"></div>
-          </div>
-          <div style="padding-bottom: 1rem;">
-            <h4 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.25rem; letter-spacing: -0.01em;">Step Onto the Pitch</h4>
-            <p style="color: rgba(255,215,0,0.4); font-size: 0.78rem; font-style: italic; margin-bottom: 1rem;">Master the skills for yourself</p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem;">
+          <!-- Step 2 -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.8rem; flex-shrink: 0;">2</div>
+              <div style="height: 1px; flex: 1; background: rgba(255,215,0,0.2);"></div>
+            </div>
+            <h4 style="color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.01em;">Step Onto the Pitch</h4>
+            <p style="color: rgba(255,215,0,0.4); font-size: 0.75rem; font-style: italic; margin-bottom: 1rem;">Master the skills for yourself</p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1rem;">
               After immersing yourself in the world of hurling, it's time to take the hurley into your own hands. Led by expert local coaches, you'll learn the fundamentals of the game: the ground stroke, hand pass, solo run and hand strike. Soon you'll be ready to take your first shot at the goalposts.
             </p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9;">
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85;">
               The moment you strike the sliotar for the first time is one you won't forget.
             </p>
           </div>
-        </div>
 
-        <!-- Step 3 -->
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;">
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 2.25rem; height: 2.25rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.85rem; flex-shrink: 0;">3</div>
-          </div>
+          <!-- Step 3 -->
           <div>
-            <h4 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.25rem; letter-spacing: -0.01em;">Live Hurling Matchday Immersion</h4>
-            <p style="color: rgba(255,215,0,0.4); font-size: 0.78rem; font-style: italic; margin-bottom: 1rem;">Match access facilitated subject to availability</p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 2rem; height: 2rem; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 900; font-size: 0.8rem; flex-shrink: 0;">3</div>
+              <div style="height: 1px; flex: 1; background: rgba(255,215,0,0.2);"></div>
+            </div>
+            <h4 style="color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.01em;">Live Matchday Immersion</h4>
+            <p style="color: rgba(255,215,0,0.4); font-size: 0.75rem; font-style: italic; margin-bottom: 1rem;">Match access facilitated subject to availability</p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1rem;">
               There's only one thing left to complete the experience: watching the very best players in action. As the first whistle sounds, the match explodes into life. Fast, physical and played with incredible skill and precision, hurling is one of the most spectacular sports you'll ever witness.
             </p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9;">
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85;">
               With a list of local pubs recommended by James, you can follow the footsteps of the fans and experience matchday the true Kilkenny way.
             </p>
           </div>
-        </div>
 
+        </div>
       </div>
 
-      <!-- About Kilkenny -->
-      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 3rem; margin-bottom: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+      <!-- Row 3: About + CTA -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 4rem;">
+
         <div>
-          <p style="color: rgba(255,255,255,0.25); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
+          <p style="color: rgba(255,255,255,0.2); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             About Kilkenny
           </p>
-          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.9;">
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9;">
             Besides being the hurling capital of Ireland, Kilkenny is a vibrant medieval city full of character and charm. Known as the <em>"Marble City,"</em> it enchants visitors with narrow cobbled streets, colourful shopfronts, cosy cafés and lively traditional pubs. All of this is overlooked by the impressive Kilkenny Castle, whose towers dominate the skyline and give the city its storybook atmosphere.
           </p>
-          <p style="margin-top: 0.75rem; font-size: 0.76rem; color: rgba(255,255,255,0.2); line-height: 1.7;">
+          <p style="margin-top: 1rem; font-size: 0.78rem; color: rgba(255,255,255,0.2); line-height: 1.7;">
             Flights and accommodation not included. Participants arrange their own travel to Kilkenny independently.
           </p>
         </div>
 
-        <!-- CTA block -->
-        <div style="background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.15); border-radius: 16px; padding: 2rem;">
-          <p style="color: rgba(255,215,0,0.6); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.5rem;">Ready to experience it?</p>
-          <p style="color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem;">Secure your spot in Kilkenny</p>
-          <a href="/booking-page-ireland/" class="panel-cta panel-cta-kilkenny" style="margin-bottom: 1.5rem; width: 100%; justify-content: center;">
+        <!-- CTA -->
+        <div>
+          <p style="color: rgba(255,255,255,0.25); font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.75rem;">Ready to experience it?</p>
+          <p style="color: #fff; font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 1.75rem; line-height: 1.2;">Secure your spot<br>in Kilkenny</p>
+          <a href="/booking-page-ireland/" class="panel-cta panel-cta-kilkenny" style="display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1.75rem; padding: 1rem 2rem;">
             Book This Experience
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <div style="border-top: 1px solid rgba(255,215,0,0.1); padding-top: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 2px;">
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-            </svg>
-            <p style="font-size: 0.76rem; color: rgba(255,255,255,0.35); line-height: 1.7; margin: 0;">
-              <strong style="color: rgba(255,255,255,0.5);">Match access — facilitated subject to availability.</strong> Typically confirmed 2 weeks prior. Full refund or alternative date if unavailable.
+          <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 2px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <p style="font-size: 0.78rem; color: rgba(255,255,255,0.28); line-height: 1.7; margin: 0;">
+              <strong style="color: rgba(255,255,255,0.4);">Match access — facilitated subject to availability.</strong> Typically confirmed 2 weeks prior. Full refund or alternative date if unavailable.
             </p>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
 
-    <!-- ===== DUBLIN PANEL ===== -->
-    <div id="panel-dublin" style="max-width: 1100px; margin: 0 auto; display: none;">
+    <!-- ════════════════════════════════
+         DUBLIN PANEL
+    ════════════════════════════════ -->
+    <div id="panel-dublin" style="display: none;">
 
-      <!-- Two-column intro -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 5rem; align-items: start;">
+      <!-- Row 1: title + video shorts -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 6rem; align-items: start;">
+
         <div>
-          <p style="color: rgba(255,255,255,0.25); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 0.75rem;">Dublin · Hurling &amp; Gaelic Football</p>
-          <h3 style="color: #fff; font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.1;">The Dublin<br>Experience</h3>
+          <p style="color: rgba(255,255,255,0.2); font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem;">Dublin · Hurling &amp; Gaelic Football</p>
+          <h3 style="color: #fff; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 2rem;">The Dublin<br><span style="color: rgba(255,255,255,0.55);">Experience</span></h3>
           <p style="color: var(--muted); font-size: 1rem; line-height: 1.95; margin-bottom: 1.25rem;">
             In Dublin for a weekend with friends, a bachelor party, or travelling through Ireland? Add something truly unique to your stay.
           </p>
-          <p style="color: var(--muted); font-size: 1rem; line-height: 1.95;">
+          <p style="color: var(--muted); font-size: 1rem; line-height: 1.95; margin-bottom: 2.5rem;">
             With dozens of clubs spread across the city, Gaelic Games are part of everyday life in Dublin. At the centre of it all lies the iconic Croke Park — with a capacity of over 80,000, one of the largest stadiums in Europe. Our Dublin Experience lets you step into the world of Gaelic Games: learn about the sports, give them a go yourself, and experience the electric atmosphere of a live matchday.
           </p>
-        </div>
-        <!-- Pull quote + facts -->
-        <div style="padding-top: 1rem;">
-          <div style="border-left: 3px solid rgba(255,255,255,0.15); padding: 1.5rem 0 1.5rem 2rem; margin-bottom: 2rem;">
-            <p style="color: rgba(255,255,255,0.45); font-size: 1.05rem; line-height: 1.85; font-style: italic;">"From the moment <em>Amhrán na bhFiann</em> plays, you're hooked."</p>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
-              <p style="color: rgba(255,255,255,0.25); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Location</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">Dublin</p>
+
+          <div style="display: flex; gap: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07);">
+            <div>
+              <p style="color: rgba(255,255,255,0.2); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Venue</p>
+              <p style="color: #fff; font-size: 0.95rem; font-weight: 700;">Na Fianna GAA</p>
             </div>
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
-              <p style="color: rgba(255,255,255,0.25); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Sports</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">Football &amp; Hurling</p>
+            <div style="width: 1px; background: rgba(255,255,255,0.07);"></div>
+            <div>
+              <p style="color: rgba(255,255,255,0.2); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Sports</p>
+              <p style="color: #fff; font-size: 0.95rem; font-weight: 700;">Football &amp; Hurling</p>
             </div>
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
-              <p style="color: rgba(255,255,255,0.25); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Venue</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">Na Fianna GAA</p>
-            </div>
-            <div style="padding: 1.25rem; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
-              <p style="color: rgba(255,255,255,0.25); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem;">Stadium</p>
-              <p style="color: #fff; font-size: 0.9rem; font-weight: 700;">Croke Park</p>
+            <div style="width: 1px; background: rgba(255,255,255,0.07);"></div>
+            <div>
+              <p style="color: rgba(255,255,255,0.2); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.3rem;">Stadium</p>
+              <p style="color: #fff; font-size: 0.95rem; font-weight: 700;">Croke Park</p>
             </div>
           </div>
         </div>
+
+        <!-- Two shorts -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div style="border-radius: 16px; overflow: hidden; aspect-ratio: 9/16; position: relative; background: #111;">
+            <iframe style="position: absolute; inset: 0; width: 100%; height: 100%;"
+              src="https://www.youtube.com/embed/QJdNn7wG088?rel=0&modestbranding=1"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div style="border-radius: 16px; overflow: hidden; aspect-ratio: 9/16; position: relative; background: #111;">
+            <iframe style="position: absolute; inset: 0; width: 100%; height: 100%;"
+              src="https://www.youtube.com/shorts/OjHzUi5J35E"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Steps -->
-      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4rem; margin-bottom: 4rem;">
+      <!-- Row 2: steps -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.07); padding-top: 4rem; margin-bottom: 5rem;">
 
-        <p style="color: rgba(255,255,255,0.2); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 3rem;">The Experience</p>
+        <p style="color: rgba(255,255,255,0.18); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 3.5rem;">What to expect</p>
 
-        <!-- Step 1 -->
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; margin-bottom: 3.5rem; align-items: start;">
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 2.25rem; height: 2.25rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.85rem; flex-shrink: 0;">1</div>
-            <div style="width: 1px; height: 100%; min-height: 60px; background: rgba(255,255,255,0.06); margin-top: 0.5rem;"></div>
-          </div>
-          <div style="padding-bottom: 1rem;">
-            <h4 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.25rem; letter-spacing: -0.01em;">Culture &amp; Heritage</h4>
-            <p style="color: rgba(255,255,255,0.3); font-size: 0.78rem; font-style: italic; margin-bottom: 1rem;">Na Fianna GAA Club, Dublin</p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem;">
+
+          <!-- Step 1 -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 2rem; height: 2rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.8rem; flex-shrink: 0;">1</div>
+              <div style="height: 1px; flex: 1; background: rgba(255,255,255,0.08);"></div>
+            </div>
+            <h4 style="color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.01em;">Culture &amp; Heritage</h4>
+            <p style="color: rgba(255,255,255,0.25); font-size: 0.75rem; font-style: italic; margin-bottom: 1rem;">Na Fianna GAA Club, Dublin</p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85;">
               The experience kicks off at the grounds of <strong style="color:#fff;">Na Fianna</strong>, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and discover why these sports hold such an important place in Irish culture and community life.
             </p>
           </div>
-        </div>
 
-        <!-- Step 2 -->
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; margin-bottom: 3.5rem; align-items: start;">
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 2.25rem; height: 2.25rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.85rem; flex-shrink: 0;">2</div>
-            <div style="width: 1px; height: 100%; min-height: 60px; background: rgba(255,255,255,0.06); margin-top: 0.5rem;"></div>
-          </div>
-          <div style="padding-bottom: 1rem;">
-            <h4 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.25rem; letter-spacing: -0.01em;">Step Onto the Pitch</h4>
-            <p style="color: rgba(255,255,255,0.3); font-size: 0.78rem; font-style: italic; margin-bottom: 1rem;">Gaelic Football, Hurling &amp; Handball</p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem;">
+          <!-- Step 2 -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 2rem; height: 2rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.8rem; flex-shrink: 0;">2</div>
+              <div style="height: 1px; flex: 1; background: rgba(255,255,255,0.08);"></div>
+            </div>
+            <h4 style="color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.01em;">Step Onto the Pitch</h4>
+            <p style="color: rgba(255,255,255,0.25); font-size: 0.75rem; font-style: italic; margin-bottom: 1rem;">Gaelic Football, Hurling &amp; Handball</p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1rem;">
               The stage is set, and now it's your turn to step onto the pitch. Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.
             </p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9;">
-              You'll also be introduced to a third traditional sport: Gaelic handball.
-            </p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85;">You'll also be introduced to a third traditional sport: Gaelic handball.</p>
           </div>
-        </div>
 
-        <!-- Step 3 -->
-        <div style="display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;">
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 2.25rem; height: 2.25rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.85rem; flex-shrink: 0;">3</div>
-          </div>
+          <!-- Step 3 -->
           <div>
-            <h4 style="color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 0.25rem; letter-spacing: -0.01em;">Live Gaelic Games Matchday</h4>
-            <p style="color: rgba(255,255,255,0.3); font-size: 0.78rem; font-style: italic; margin-bottom: 1rem;">Match access facilitated subject to availability</p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 2rem; height: 2rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 0.8rem; flex-shrink: 0;">3</div>
+              <div style="height: 1px; flex: 1; background: rgba(255,255,255,0.08);"></div>
+            </div>
+            <h4 style="color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.01em;">Live Gaelic Games Matchday</h4>
+            <p style="color: rgba(255,255,255,0.25); font-size: 0.75rem; font-style: italic; margin-bottom: 1rem;">Match access facilitated subject to availability</p>
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1rem;">
               Now it's time to experience the games live. You'll attend a Gaelic Games match of your choice: Gaelic Football or Hurling. Whether it's the lightning speed of hurling or the physical thrill of Gaelic football, from the moment <em>Amhrán na bhFiann</em> ("The Soldier's Song") is played, you're hooked.
             </p>
-            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9;">
+            <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.85;">
               We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
             </p>
           </div>
-        </div>
 
+        </div>
       </div>
 
-      <!-- About Dublin + CTA -->
-      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 3rem; margin-bottom: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+      <!-- Row 3: About + CTA -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 4rem;">
+
         <div>
-          <p style="color: rgba(255,255,255,0.25); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
+          <p style="color: rgba(255,255,255,0.2); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             About Dublin
           </p>
-          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.9;">
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.9; margin-bottom: 1rem;">
             Beyond being home to the iconic Croke Park, Dublin is a city that thrives on energy and character. Elegant Georgian squares sit alongside colourful streets, while buzzing neighbourhood pubs, live music and lively cafés create an atmosphere that feels both historic and unmistakably modern. The River Liffey runs through the heart of the capital, connecting the north and south sides of the city. Dublin is best explored on foot, where every street reveals another gallery or hidden corner waiting to be discovered.
           </p>
-          <p style="margin-top: 0.75rem; font-size: 0.76rem; color: rgba(255,255,255,0.2); line-height: 1.7;">
+          <p style="font-size: 0.78rem; color: rgba(255,255,255,0.2); line-height: 1.7;">
             Flights and accommodation not included. Participants arrange their own travel and accommodation independently.
           </p>
-
-          <!-- Dublin Community -->
           <div style="margin-top: 1.5rem; border-left: 2px solid #169b62; padding: 0.75rem 1.25rem;">
             <p style="font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.8; margin: 0; font-style: italic;">
               <strong style="color: #fff; font-style: normal;">New to Ireland or a local resident?</strong> Connect with our <a href="/community/new-in-dublin/" style="color: #4ade80; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">Dublin Community Initiative</a> and turn strangers into friends.
@@ -1119,117 +1118,72 @@ authentic Irish culture. The most unique sports experience in Ireland. Learn hur
           </div>
         </div>
 
-        <!-- CTA block -->
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem;">
-          <p style="color: rgba(255,255,255,0.3); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.5rem;">Ready to experience it?</p>
-          <p style="color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem;">Secure your spot in Dublin</p>
-          <a href="/booking-page-ireland/" class="panel-cta panel-cta-dublin" style="margin-bottom: 1.5rem; width: 100%; justify-content: center;">
+        <!-- CTA -->
+        <div>
+          <p style="color: rgba(255,255,255,0.25); font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.75rem;">Ready to experience it?</p>
+          <p style="color: #fff; font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 1.75rem; line-height: 1.2;">Secure your spot<br>in Dublin</p>
+          <a href="/booking-page-ireland/" class="panel-cta panel-cta-dublin" style="display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1.75rem; padding: 1rem 2rem;">
             Book This Experience
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 2px;">
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-            </svg>
-            <p style="font-size: 0.76rem; color: rgba(255,255,255,0.3); line-height: 1.7; margin: 0;">
-              <strong style="color: rgba(255,255,255,0.45);">Match access — facilitated subject to availability.</strong> Typically confirmed 2 weeks prior. Full refund or alternative date if unavailable.
+          <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f6ad55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top: 2px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <p style="font-size: 0.78rem; color: rgba(255,255,255,0.28); line-height: 1.7; margin: 0;">
+              <strong style="color: rgba(255,255,255,0.4);">Match access — facilitated subject to availability.</strong> Typically confirmed 2 weeks prior. Full refund or alternative date if unavailable.
             </p>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- Responsive: stack columns on mobile -->
+<!-- Mobile responsive -->
 <style>
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     #panel-kilkenny [style*="grid-template-columns: 1fr 1fr"],
-    #panel-dublin [style*="grid-template-columns: 1fr 1fr"] {
+    #panel-dublin [style*="grid-template-columns: 1fr 1fr"],
+    #panel-kilkenny [style*="grid-template-columns: 1fr 1fr 1fr"],
+    #panel-dublin [style*="grid-template-columns: 1fr 1fr 1fr"] {
       display: block !important;
     }
-    #panel-kilkenny [style*="grid-template-columns: 1fr 1fr"] > div,
-    #panel-dublin [style*="grid-template-columns: 1fr 1fr"] > div {
+    #panel-kilkenny > div > div,
+    #panel-dublin > div > div {
       margin-bottom: 2.5rem;
-    }
-    #panel-kilkenny [style*="gap: 5rem"],
-    #panel-dublin [style*="gap: 5rem"] {
-      gap: 0 !important;
     }
   }
 </style>
 
 <script>
   function switchTab(tab) {
-    const kilkennyPanel = document.getElementById('panel-kilkenny');
-    const dublinPanel   = document.getElementById('panel-dublin');
-    const kilkennyBtn   = document.getElementById('tab-kilkenny');
-    const dublinBtn     = document.getElementById('tab-dublin');
+    const kPanel = document.getElementById('panel-kilkenny');
+    const dPanel = document.getElementById('panel-dublin');
+    const kBtn   = document.getElementById('tab-kilkenny');
+    const dBtn   = document.getElementById('tab-dublin');
 
     if (tab === 'kilkenny') {
-      kilkennyPanel.style.display = 'block';
-      dublinPanel.style.display   = 'none';
-      kilkennyBtn.style.background = 'var(--gold)';
-      kilkennyBtn.style.color      = '#000';
-      kilkennyBtn.querySelector('svg').setAttribute('stroke', '#000');
-      dublinBtn.style.background = 'transparent';
-      dublinBtn.style.color      = '#a0a0a0';
-      dublinBtn.querySelector('svg').setAttribute('stroke', '#a0a0a0');
+      kPanel.style.display = 'block';
+      dPanel.style.display = 'none';
+      kBtn.style.color = '#fff';
+      kBtn.style.borderBottomColor = 'var(--gold)';
+      kBtn.querySelector('svg').setAttribute('stroke', '#fff');
+      dBtn.style.color = '#a0a0a0';
+      dBtn.style.borderBottomColor = 'transparent';
+      dBtn.querySelector('svg').setAttribute('stroke', '#a0a0a0');
     } else {
-      kilkennyPanel.style.display = 'none';
-      dublinPanel.style.display   = 'block';
-      dublinBtn.style.background = '#fff';
-      dublinBtn.style.color      = '#000';
-      dublinBtn.querySelector('svg').setAttribute('stroke', '#000');
-      kilkennyBtn.style.background = 'transparent';
-      kilkennyBtn.style.color      = '#a0a0a0';
-      kilkennyBtn.querySelector('svg').setAttribute('stroke', '#a0a0a0');
+      kPanel.style.display = 'none';
+      dPanel.style.display = 'block';
+      dBtn.style.color = '#fff';
+      dBtn.style.borderBottomColor = '#fff';
+      dBtn.querySelector('svg').setAttribute('stroke', '#fff');
+      kBtn.style.color = '#a0a0a0';
+      kBtn.style.borderBottomColor = 'transparent';
+      kBtn.querySelector('svg').setAttribute('stroke', '#a0a0a0');
     }
   }
-</script>
-    <!-- ==================== SHORTS ==================== -->
-    <section id="shorts" class="py-24 px-4 text-center bg-black border-t border-gray-900">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gold tracking-tight" style="color: var(--gold);">
-          Short. Sharp. Real.
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800 bg-gray-900" style="aspect-ratio: 9/16;">
-            <iframe
-              class="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/QUUFanCZvtk?rel=0&modestbranding=1"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800 bg-gray-900" style="aspect-ratio: 9/16;">
-            <iframe
-              class="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/QJdNn7wG088?rel=0&modestbranding=1"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800 bg-gray-900" style="aspect-ratio: 9/16;">
-            <iframe
-              class="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/shorts/OjHzUi5J35E"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-        <p class="mt-8 text-gray-500 text-sm uppercase tracking-[0.2em]">Watch our shorts</p>
-      </div>
-    </section>
+</script>>
 
     <!-- ==================== INFO GRID ==================== -->
     <section class="section" style="padding-top: 3rem;">
