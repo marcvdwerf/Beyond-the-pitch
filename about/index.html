@@ -97,6 +97,26 @@
       position: relative;
       overflow: hidden;
     }
+
+    /* Disclaimer banner */
+    .disclaimer-banner {
+      background: rgba(255, 215, 0, 0.06);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      border-radius: 0.75rem;
+      padding: 1.5rem 2rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .disclaimer-banner p {
+      font-size: 0.875rem;
+      color: #d1d5db;
+      line-height: 1.7;
+    }
+
+    .disclaimer-banner strong {
+      color: #fff;
+    }
     
     /* Value cards */
     .value-card {
@@ -187,7 +207,6 @@
       }
     }
   </style> 
-  </style>
 </head>
 <body>
 
@@ -197,13 +216,13 @@
       <div class="flex justify-between items-center">
         
         <a href="/" class="text-gold font-bold text-xl tracking-wide hover:opacity-80 transition-opacity">
-  Beyond the Pitch
-</a>
+          Beyond the Pitch
+        </a>
         
         <!-- Desktop Menu -->
         <div class="hidden md:flex space-x-8 text-sm font-medium">
           <a href="index.html#audience" class="text-gray-300 hover:text-gold transition-colors">Start</a>
-          <a href="index.html#journeys" class="text-gray-300 hover:text-gold transition-colors">Journeys</a>
+          <a href="index.html#journeys" class="text-gray-300 hover:text-gold transition-colors">Experiences</a>
           <a href="index.html#community" class="text-gray-300 hover:text-gold transition-colors">Community</a>
           <a href="index.html#partners" class="text-gray-300 hover:text-gold transition-colors">Partners</a>
           <a href="about.html" class="text-gold transition-colors">About</a>
@@ -222,7 +241,7 @@
       <!-- Mobile Menu -->
       <div id="mobileNavMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
         <a href="index.html#audience" class="block py-2 text-gray-300 hover:text-gold transition-colors">Start</a>
-        <a href="index.html#journeys" class="block py-2 text-gray-300 hover:text-gold transition-colors">Journeys</a>
+        <a href="index.html#journeys" class="block py-2 text-gray-300 hover:text-gold transition-colors">Experiences</a>
         
         <!-- Projects Dropdown -->
         <details class="mt-2">
@@ -236,7 +255,7 @@
         
         <a href="index.html#community" class="block py-2 text-gray-300 hover:text-gold transition-colors">Community</a>
         <a href="index.html#partners" class="block py-2 text-gray-300 hover:text-gold transition-colors">Partners</a>
-        <a href="about.html" class="block py-2 text-gold transition-colors"></a>
+        <a href="about.html" class="block py-2 text-gold transition-colors">About</a>
         <a href="index.html#faq" class="block py-2 text-gray-300 hover:text-gold transition-colors">FAQ</a>
       </div>
       
@@ -250,10 +269,25 @@
         About us
       </h1>
       <p class="text-2xl text-gray-300 mb-6 font-light">
-        Where Sport, Culture and Travel come together
+        Where Sport, Culture and Community come together
       </p>
       <p class="lead-text max-w-3xl mx-auto">
-        Beyond the Pitch is a global travel concept built around a simple belief: to truly understand a place, you need to experience the sports, traditions and communities that shape it.
+        Beyond the Pitch is a <strong>Sports Culture Experience &amp; Media Company</strong> built around a simple belief: to truly understand a place, you need to experience the sports, traditions and communities that shape it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Key Disclaimer -->
+  <section class="py-10 px-6 bg-black">
+    <div class="disclaimer-banner" data-animate>
+      <p class="mb-3">
+        <strong>We are a Sports Culture Experience &amp; Media Company.</strong>
+      </p>
+      <p class="mb-3">
+        Beyond the Pitch creates authentic sports culture <em>experiences</em> and storytelling content. We provide local access, hosting, and community immersion – <strong>not complete travel arrangements</strong>.
+      </p>
+      <p>
+        <strong>Important:</strong> Flights, transport, and accommodation are arranged independently or via licensed travel operators. We are <em>not a tour operator</em> and bear no travel responsibility.
       </p>
     </div>
   </section>
@@ -262,10 +296,10 @@
   <section class="py-24 px-6 md:px-20 bg-black">
     <div class="max-w-4xl mx-auto" data-animate>
       <p class="lead-text mb-6">
-        We create small-scale, authentic travel experiences that go far beyond stadiums and tourist hotspots. Our journeys are designed for people who want to see the world differently - travellers who want to meet the locals, feel the culture, and discover the stories behind the sports that unite communities worldwide.
+        We create small-scale, authentic <strong>sport culture experiences</strong> that go far beyond stadiums and tourist hotspots. Our <strong>programs</strong> are designed for people who want to connect deeply with local sports traditions – meeting locals, feeling the culture, and discovering the stories behind the sports that unite communities worldwide.
       </p>
       <p class="lead-text mb-12">
-        From Mongolian wrestling to Hurling in Ireland, from Lima's football energy to the Highland Games in Scotland, Beyond the Pitch unlocks the real heartbeat of a destination.
+        From Mongolian wrestling to Hurling in Ireland, from Lima's football energy to the Highland Games in Scotland, Beyond the Pitch unlocks the real heartbeat of a destination through <strong>local experiences</strong>.
       </p>
       
       <div class="grid md:grid-cols-3 gap-8 mt-16 text-center">
@@ -291,14 +325,15 @@
       <div class="grid md:grid-cols-2 gap-16">
         <div data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Mission</p>
-          <p class="text-xl text-gray-200 leading-relaxed">
-            To connect travellers with the true spirit of a destination through sport, culture and community - creating authentic, respectful and memorable experiences led by local partners.
+          <p class="text-xl text-gray-200 leading-relaxed mb-4">
+            To connect people with authentic sport cultures through curated experiences, local storytelling, and community access – powered by local partners.
           </p>
+          <p class="text-sm text-gray-500 italic">Travel &amp; accommodation arranged independently.</p>
         </div>
         <div data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Vision</p>
           <p class="text-xl text-gray-200 leading-relaxed">
-            To become a global platform for cultural sports travel, setting a new standard for meaningful exploration by combining local tradition, athletic passion and human connection.
+            To become a global platform for cultural sports experiences, setting a new standard for meaningful cultural immersion through local tradition, athletic passion, and human connection.
           </p>
         </div>
       </div>
@@ -324,7 +359,7 @@
         <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Community First</p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            Every destination is built in collaboration with locals. They lead, we support. Their stories shape the journey.
+            Every destination is built in collaboration with locals. They lead, we support. Their stories shape the experience.
           </p>
         </div>
         
@@ -338,21 +373,21 @@
         <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Connection</p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            Sport is our gateway, but people are at the centre of everything we do - travellers, fans, families and local hosts.
+            Sport is our gateway, but people are at the centre of everything we do - participants, fans, families and local hosts.
           </p>
         </div>
         
         <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Curated Quality</p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            Small groups, well-crafted itineraries, safe execution and professional guidance ensure that every traveller feels supported and inspired.
+            Small groups, thoughtfully designed cultural programs, safe execution, and professional local guidance ensure every participant feels supported and immersed.
           </p>
         </div>
         
         <div class="value-card" data-animate>
           <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Beyond the Game</p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            The match is only the starting point. We take travellers deeper - into rituals, food, stories, music and daily life.
+            The match is only the starting point. We take participants deeper - into rituals, food, stories, music and daily life.
           </p>
         </div>
       </div>
@@ -383,7 +418,7 @@
              Born and based in the Netherlands, I've built my career in tourism, working on global projects for some of the world's largest airlines and leading international ground-transportation initiatives. Alongside my professional work, sport has always been a constant in my life - from playing as a kid to exploring new cities through their local sports culture.
             </p>
             <p class="text-gray-300 leading-relaxed text-sm">
-              With a degree in Sports Marketing and a lifelong passion for exploring new cultures through Sports, food, language, and local experiences, I felt inspired to create a platform that brings all these elements together. That idea grew into Beyond the Pitch.
+              With a degree in Sports Marketing and a lifelong passion for exploring new cultures through sports, food, language, and local experiences, I felt inspired to create a platform that brings all these elements together. That idea grew into Beyond the Pitch.
             </p>
           </div>
         </article>
@@ -420,11 +455,12 @@
         Because sport is more than competition.
       </p>
       <p class="text-xl text-gray-300 leading-relaxed mb-6">
-        It's culture. It's human. It's a universal language.
+        It's culture. It's human. It's universal connection.
       </p>
-      <p class="lead-text mb-12">
-        Through that language, travellers can experience the world in a deeper, more meaningful way.
+      <p class="lead-text mb-8">
+        <strong>Beyond the Pitch unlocks these stories through local experiences</strong> – the match is just the beginning.
       </p>
+      <p class="text-sm text-gray-500 italic mb-12">We are not a travel agency.</p>
       <p class="text-3xl font-bold text-gold mt-12">
         This is Beyond the Pitch
       </p>
@@ -436,15 +472,24 @@
     <div class="max-w-7xl mx-auto text-center">
       <div class="mb-6">
         <a href="/" class="text-gold text-2xl font-bold hover:opacity-80 transition-opacity">
-  Beyond the Pitch
-</a>
-        <p class="text-sm text-gray-500 mt-2">Sport · Culture · Travel</p>
+          Beyond the Pitch
+        </a>
+        <p class="text-sm text-gray-500 mt-2">Sport · Culture · Experience</p>
       </div>
       <div class="mb-6">
         <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors">
           📧 thebeyondthepitch@gmail.com
         </a>
       </div>
+
+      <!-- Legal Notice -->
+      <div class="mt-8 mb-6 max-w-2xl mx-auto border-t border-gray-800 pt-8">
+        <p class="text-xs text-gray-600 leading-relaxed">
+          <strong class="text-gray-500">Legal Notice:</strong> Beyond the Pitch organizes cultural sports experiences and media content. We are not a licensed tour operator. Transportation and accommodation are your responsibility or arranged via licensed partners.
+          <a href="#" class="text-gray-500 hover:text-gold underline ml-1 transition-colors">See full terms.</a>
+        </p>
+      </div>
+
       <p class="text-gray-600 text-sm">© 2025 Beyond the Pitch. All rights reserved.</p>
     </div>
   </footer>
@@ -484,89 +529,87 @@
       rootMargin: '0px 0px -50px 0px'
     };
 
- const animateEls = document.querySelectorAll('[data-animate]');
+    const animateEls = document.querySelectorAll('[data-animate]');
 
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      }, observerOptions);
+
+      animateEls.forEach(el => observer.observe(el));
+    } else {
+      animateEls.forEach(el => el.classList.add('animate'));
+    }
+
+    setTimeout(() => {
+      animateEls.forEach(el => el.classList.add('animate'));
+    }, 2000);
+  </script>
+  <script>
+    // Track CTA button clicks
+    document.addEventListener('click', function(e) {
+      const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta, .floating-cta');
+      if (cta) {
+        gtag('event', 'cta_click', {
+          'event_category': 'engagement',
+          'event_label': cta.textContent.trim(),
+          'value': 1
+        });
       }
     });
-  }, observerOptions);
 
-  animateEls.forEach(el => observer.observe(el));
-} else {
-  // Fallback: alles direct zichtbaar maken
-  animateEls.forEach(el => el.classList.add('animate'));
-}
-
-// Extra zekerheid: na 2 seconden alles zichtbaar maken
-setTimeout(() => {
-  animateEls.forEach(el => el.classList.add('animate'));
-}, 2000);
-  </script>
-<script>
-  // Track CTA button clicks
-  document.addEventListener('click', function(e) {
-    const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta, .floating-cta');
-    if (cta) {
-      gtag('event', 'cta_click', {
-        'event_category': 'engagement',
-        'event_label': cta.textContent.trim(),
-        'value': 1
-      });
-    }
-  });
-
-  // Track scroll depth (75% = engaged user)
-  let scrollTracked = false;
-  window.addEventListener('scroll', function() {
-    if (scrollTracked) return;
-    const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
-    if (scrollPercent > 75) {
-      scrollTracked = true;
-      gtag('event', 'scroll_depth', {
-        'event_category': 'engagement',
-        'event_label': '75_percent',
-        'value': 75
-      });
-    }
-  });
-
-  // Track form submissions
-  document.addEventListener('submit', function(e) {
-    const form = e.target;
-    const formName = form.querySelector('input[name="_subject"]')?.value || 'unknown_form';
-    gtag('event', 'form_submit', {
-      'event_category': 'conversion',
-      'event_label': formName,
-      'value': 10
+    // Track scroll depth (75% = engaged user)
+    let scrollTracked = false;
+    window.addEventListener('scroll', function() {
+      if (scrollTracked) return;
+      const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+      if (scrollPercent > 75) {
+        scrollTracked = true;
+        gtag('event', 'scroll_depth', {
+          'event_category': 'engagement',
+          'event_label': '75_percent',
+          'value': 75
+        });
+      }
     });
-  });
 
-  // Track video plays
-  document.addEventListener('play', function(e) {
-    if (e.target.tagName === 'VIDEO' || e.target.tagName === 'IFRAME') {
-      gtag('event', 'video_play', {
-        'event_category': 'engagement',
-        'event_label': 'hero_video',
-        'value': 5
+    // Track form submissions
+    document.addEventListener('submit', function(e) {
+      const form = e.target;
+      const formName = form.querySelector('input[name="_subject"]')?.value || 'unknown_form';
+      gtag('event', 'form_submit', {
+        'event_category': 'conversion',
+        'event_label': formName,
+        'value': 10
       });
-    }
-  }, true);
+    });
 
-  // Track outbound links (social media, partners)
-  document.addEventListener('click', function(e) {
-    const link = e.target.closest('a');
-    if (link && link.hostname !== window.location.hostname) {
-      gtag('event', 'outbound_click', {
-        'event_category': 'engagement',
-        'event_label': link.href,
-        'value': 1
-      });
-    }
-  });
-</script>
+    // Track video plays
+    document.addEventListener('play', function(e) {
+      if (e.target.tagName === 'VIDEO' || e.target.tagName === 'IFRAME') {
+        gtag('event', 'video_play', {
+          'event_category': 'engagement',
+          'event_label': 'hero_video',
+          'value': 5
+        });
+      }
+    }, true);
+
+    // Track outbound links (social media, partners)
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.hostname !== window.location.hostname) {
+        gtag('event', 'outbound_click', {
+          'event_category': 'engagement',
+          'event_label': link.href,
+          'value': 1
+        });
+      }
+    });
+  </script>
 </body>
 </html>
