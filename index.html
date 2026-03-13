@@ -332,6 +332,19 @@
       .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
       .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
       .exp-card img { height: 200px; }
+      .footer-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-section { padding: 7rem 1.25rem 3.5rem !important; }
+      .hero-btns { flex-direction: column !important; }
+      .hero-btns a { width: 100%; justify-content: center; }
+      .hero-logo-col { order: -1; margin-bottom: 0 !important; }
+      .hero-logo-col img { max-width: 110px !important; margin: 0 auto; display: block; opacity: 0.75 !important; }
+      .info-strip { grid-template-columns: 1fr 1fr !important; }
+      .faq-two-col { display: block !important; }
+      .faq-two-col > * { margin-bottom: 2rem; }
+      .footer-grid { grid-template-columns: 1fr !important; }
     }
 
     ::selection { background: var(--gold-bright); color: #000; }
@@ -341,7 +354,7 @@
   <a href="#main" class="skip-link">Skip to content</a>
 
   <!-- ── FLOATING CTA ── -->
-  <a href="/experiences/" class="floating-cta">
+  <a href="/projects/" class="floating-cta">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
     <span>Explore experiences</span>
   </a>
@@ -351,7 +364,7 @@
     <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;">
       <a href="/" class="logo">Beyond the Pitch</a>
       <nav class="hidden md:flex items-center gap-8">
-        <a href="/experiences/" class="nav-link">Experiences</a>
+        <a href="/projects/" class="nav-link">Experiences</a>
         <a href="/blogs/" class="nav-link">Stories</a>
         <a href="/community/new-in-dublin/" class="nav-link">Community</a>
         <a href="/about/" class="nav-link">About</a>
@@ -373,7 +386,7 @@
       </button>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.25rem;">
-      <a href="/experiences/" class="nav-link">Experiences</a>
+      <a href="/projects/" class="nav-link">Experiences</a>
       <a href="/blogs/" class="nav-link">Stories</a>
       <a href="/community/new-in-dublin/" class="nav-link">Community</a>
       <a href="/about/" class="nav-link">About</a>
@@ -387,9 +400,9 @@
   <!-- ══════════════════════════════════════════════
        ZONE 1 - DARK | Hero
   ══════════════════════════════════════════════ -->
-  <section class="zone-dark" style="padding:9rem 1.5rem 5rem;">
+  <section class="zone-dark hero-section" style="padding:9rem 1.5rem 5rem;">
     <div style="max-width:1100px;margin:0 auto;">
-      <span class="section-label">Cultural Sports Experience Platform</span>
+      <span class="section-label">Cultural Sports Experience Organiser</span>
       <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
 
         <!-- Left: title + body + CTAs -->
@@ -403,8 +416,8 @@
           <p style="color:rgba(255,255,255,0.65);font-size:1.1rem;line-height:1.9;margin-top:2rem;margin-bottom:2rem;max-width:480px;">
             We connect curious people with authentic sporting traditions - bringing them face to face with the communities, rituals and athletes that make local sport extraordinary.
           </p>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-            <a href="/experiences/" class="btn-gold">
+          <div class="hero-btns" style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="/projects/" class="btn-gold">
               See all experiences
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -413,7 +426,7 @@
         </div>
 
         <!-- Right: logo mark -->
-        <div style="display:flex;justify-content:center;align-items:center;">
+        <div class="hero-logo-col" style="display:flex;justify-content:center;align-items:center;">
           <img
             src="images/beyond-the-pitch-grey.png"
             alt="Beyond the Pitch"
@@ -624,7 +637,7 @@
           <p style="font-size:0.88rem;color:var(--text-mid);line-height:1.75;margin-bottom:1.5rem;">
             Curious about a sporting tradition you've never witnessed? We'll bring you inside it - with a small group, a local guide and a real match on the schedule.
           </p>
-          <a href="/experiences/" style="font-size:0.85rem;font-weight:700;color:var(--text-dark);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:2px;">Explore experiences →</a>
+          <a href="/projects/" style="font-size:0.85rem;font-weight:700;color:var(--text-dark);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:2px;">Explore experiences →</a>
         </div>
 
         <div class="audience-card">
@@ -704,7 +717,7 @@
   ══════════════════════════════════════════════ -->
   <section class="zone-white" id="faq" style="padding:6rem 1.5rem;">
     <div style="max-width:1100px;margin:0 auto;">
-      <div class="two-col" style="display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start;">
+      <div class="two-col faq-two-col" style="display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start;">
         <div>
           <span class="section-label">FAQ</span>
           <h2 class="section-heading">Common<br>questions</h2>
@@ -818,7 +831,7 @@
         It's on the pitch, in the community, in the moment. Spots fill up fast - and once they're gone, they're gone.
       </p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
-        <a href="/experiences/" class="btn-gold">
+        <a href="/projects/" class="btn-gold">
           See all experiences
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -845,7 +858,7 @@
   <!-- ══ FOOTER ══ -->
   <footer>
     <div style="max-width:1100px;margin:0 auto;">
-      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;">
+      <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;">
 
         <div>
           <a href="/" style="font-size:1.1rem;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.02em;display:block;margin-bottom:1rem;">Beyond the Pitch</a>
@@ -862,7 +875,7 @@
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             <a href="/gaelic-games/">Hurling & Gaelic Football</a>
             <a href="/naadam/">Naadam Festival</a>
-            <a href=/experiences/">All experiences</a>
+            <a href="/projects/">All experiences</a>
           </div>
         </div>
 
