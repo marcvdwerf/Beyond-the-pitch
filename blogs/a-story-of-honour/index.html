@@ -228,9 +228,9 @@
   .pull-quote p {
     font-family: 'Playfair Display', serif;
     font-size: clamp(22px, 3.5vw, 30px);
-    font-weight: 400;
+    font-weight: 600;
     font-style: italic;
-    color: var(--parchment);
+    color: #ffffff;
     line-height: 1.4;
     margin: 0;
   }
@@ -581,6 +581,17 @@
   }
 
   .personal-note p::first-letter { all: unset; }
+
+  /* Force first-letter to white inside any dark-green block */
+  .pull-quote p::first-letter,
+  .coda p::first-letter {
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: inherit;
+    float: none;
+    line-height: inherit;
+    margin: 0;
+  }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 700px) {
@@ -963,7 +974,7 @@
     <div class="cta-rule"></div>
     <p class="cta-next-label">Which story would you like us to cover next?</p>
     <div class="cta-options">
-      <span class="cta-chip">DJ Carey - Wexford's Wizard</span>
+      <span class="cta-chip">Jimmy Barry-Murphy - Cork's Rebel Star</span>
       <span class="cta-chip">Brian Corcoran - Cork's Iron Man</span>
       <span class="cta-chip">Nicky English - Tipperary's Golden Era</span>
       <span class="cta-chip">Eddie Keher - Kilkenny Before Shefflin</span>
