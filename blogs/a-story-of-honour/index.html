@@ -808,42 +808,28 @@
 
   /* ─── PLAYER IMAGE ─── */
   .player-image {
-    width: calc(100% + 80px);
-    margin: 0 -40px 32px;
-    height: 420px;
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+    border-radius: 4px;
     overflow: hidden;
-    position: relative;
+    border: 2px solid var(--sand);
   }
 
   .player-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center top;
     display: block;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
   }
 
-  .player-image-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 48px 24px 14px;
-    background: linear-gradient(to top, rgba(15,14,12,0.75), transparent);
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.6);
-  }
+  .player-image-caption { display: none; }
 
   @media (max-width: 700px) {
     .player-image {
-      width: calc(100% + 48px);
-      margin: 0 -24px 24px;
-      height: 260px;
+      width: 64px;
+      height: 64px;
     }
   }
 
@@ -942,10 +928,8 @@
       <!-- Hurley + sliotar SVG icon -->
       <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="21" cy="21" r="20" stroke="#b8922a" stroke-width="1.5" fill="none"/>
-        <!-- Hurley stick -->
         <line x1="28" y1="8" x2="10" y2="34" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round"/>
         <path d="M10 34 Q7 37 9 35 Q12 32 10 34Z" stroke="#f5f0e8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <!-- Sliotar ball -->
         <circle cx="30" cy="26" r="4" stroke="#b8922a" stroke-width="1.5" fill="none"/>
         <path d="M28 24 Q30 22 32 24" stroke="#b8922a" stroke-width="1" fill="none"/>
       </svg>
@@ -955,11 +939,10 @@
       <h3>Henry Shefflin</h3>
       <div class="player-nickname">"King Henry"</div>
     </div>
-  </div>
-
-  <div class="player-image">
-    <img src="/hurling-legend-packs/images/henry-shefflin-kilkenny-hurling.jpg" alt="Henry Shefflin in action for Kilkenny - King Henry, 10x All-Ireland winner">
-    <div class="player-image-caption">Henry Shefflin · Kilkenny · 1999–2015</div>
+    <div class="player-image">
+      <img src="/hurling-legend-packs/images/henry-shefflin-kilkenny-hurling.jpg" alt="Henry Shefflin - Kilkenny hurler, 10x All-Ireland winner">
+      <div class="player-image-caption"></div>
+    </div>
   </div>
 
   <div class="player-stats-row">
@@ -1064,11 +1047,10 @@
       <h3>Michael Kavanagh</h3>
       <div class="player-nickname">Defender of a Dynasty</div>
     </div>
-  </div>
-
-  <div class="player-image">
-    <img src="/hurling-legend-packs/images/michael-kavanagh-kilkenny-hurling.jpg" alt="Michael Kavanagh in action for Kilkenny - 7x All-Ireland winner and cornerstone defender">
-    <div class="player-image-caption">Michael Kavanagh · Kilkenny · 1998–2012</div>
+    <div class="player-image">
+      <img src="/hurling-legend-packs/images/michael-kavanagh-kilkenny-hurling.jpg" alt="Michael Kavanagh - Kilkenny hurler, 7x All-Ireland winner">
+      <div class="player-image-caption"></div>
+    </div>
   </div>
 
   <div class="player-stats-row">
