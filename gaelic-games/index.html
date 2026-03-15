@@ -37,47 +37,61 @@
   <meta name="twitter:description" content="Experience Ireland's Gaelic sports culture." />
   <meta name="twitter:image" content="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" />
 
- <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Event",
+  "@type": "TouristTrip",
   "name": "Hurling & Gaelic Football - Cultural Sports Experience, Ireland",
   "description": "Learn the fastest field sport on earth from a Kilkenny native. Then watch a live match the way the Irish do — from the stands, with locals, with everything on the line.",
-  "startDate": "2026-01-01",
-  "endDate": "2026-12-31",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "location": [
-    {
-      "@type": "Place",
-      "name": "Kilkenny, Ireland",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kilkenny",
-        "addressCountry": "IE"
+  "touristType": "Cultural travellers",
+  "itinerary": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Place",
+          "name": "Kilkenny, Ireland",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kilkenny",
+            "addressCountry": "IE"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Place",
+          "name": "Dublin, Ireland",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Dublin",
+            "addressCountry": "IE"
+          }
+        }
       }
-    },
-    {
-      "@type": "Place",
-      "name": "Dublin, Ireland",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Dublin",
-        "addressCountry": "IE"
-      }
-    }
-  ],
-  "organizer": {
-    "@type": "Organization",
-    "name": "Beyond the Pitch",
-    "url": "https://www.travelbeyondthepitch.com"
+    ]
   },
   "offers": {
     "@type": "Offer",
     "price": "120",
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
-    "url": "https://www.travelbeyondthepitch.com/gaelic-games/"
+    "url": "https://www.travelbeyondthepitch.com/gaelic-games/",
+    "validFrom": "2026-01-01",
+    "priceValidUntil": "2026-12-31"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Beyond the Pitch",
+    "url": "https://www.travelbeyondthepitch.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "NL"
+    }
   },
   "image": "https://travelbeyondthepitch.com/images/hurling-kilkenny.JPG",
   "url": "https://www.travelbeyondthepitch.com/gaelic-games/"
