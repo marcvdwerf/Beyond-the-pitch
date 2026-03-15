@@ -3,9 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stories - Beyond the Pitch | Sport. Culture. Travel.</title>
-  <meta name="description" content="Read stories from people who've experienced sport and culture beyond typical tourism. experience guides, tips, and authentic experiences." />
-  
+
+  <!-- SEO: title expanded with keywords, "Travel" → "Experience" -->
+  <title>Stories — Sport, Culture &amp; Local Sport Experiences | Beyond the Pitch</title>
+  <meta name="description" content="Stories, cultural guides and insights from Beyond the Pitch — exploring hurling in Kilkenny, the Naadam Festival in Mongolia, and the traditions behind local sport around the world." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/images/beyond-the-pitch-sport-culture-travel-logo.png" />
+  <link rel="canonical" href="https://travelbeyondthepitch.com/blogs/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://travelbeyondthepitch.com/blogs/" />
+  <link rel="alternate" hreflang="x-default" href="https://travelbeyondthepitch.com/blogs/" />
+
+  <!-- GEO meta -->
+  <meta name="geo.region" content="NL" />
+  <meta name="geo.placename" content="Netherlands" />
+
+  <!-- Open Graph — absolute image URL, locale added -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:site_name" content="Beyond the Pitch" />
+  <meta property="og:title" content="Stories — Sport, Culture &amp; Local Sport Experiences | Beyond the Pitch" />
+  <meta property="og:description" content="Stories, cultural guides and insights from Beyond the Pitch — hurling in Kilkenny, Naadam in Mongolia, and the traditions behind local sport." />
+  <meta property="og:url" content="https://travelbeyondthepitch.com/blogs/" />
+  <meta property="og:image" content="https://travelbeyondthepitch.com/images/beyond-the-pitch-sport-culture-travel-logo.png" />
+
+  <!-- Twitter Card — typo fixed -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Beyond the Pitch — Stories" />
+  <meta name="twitter:description" content="Stories, guides and authentic sporting experiences from Ireland, Mongolia and beyond." />
+
+  <!-- Schema.org: CollectionPage + BreadcrumbList -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Stories — Beyond the Pitch",
+      "description": "Stories, cultural guides and insights about local sporting traditions around the world. Published by Beyond the Pitch, a cultural sports experience organiser based in the Netherlands.",
+      "url": "https://travelbeyondthepitch.com/blogs/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Beyond the Pitch",
+        "url": "https://travelbeyondthepitch.com",
+        "logo": "https://travelbeyondthepitch.com/images/beyond-the-pitch-sport-culture-travel-logo.png"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://travelbeyondthepitch.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Stories",
+          "item": "https://travelbeyondthepitch.com/blogs/"
+        }
+      ]
+    }
+  ]
+  </script>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -21,44 +87,28 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "uvqlcstnhp");
   </script>
-  
-  <link rel="canonical" href="https://travelbeyondthepitch.com/blogs/" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Beyond the Pitch" />
-  <meta property="og:title" content="Stories - Beyond the Pitch Blog" />
-  <meta property="og:description" content="Read stories from people who've experienced sport and culture beyond typical tourism. guides, tips, and authentic experiences." />
-  <meta property="og:url" content="https://travelbeyondthepitch.com/blogs/" />
-  <meta property="og:image" content="/images/beyond-the-pitch-sport-culture-travel-logo.png" />
-  
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Beyond the Pitch - Stories" />
-  <meta name="twitter:description" content=" tories, guides and authentic sporting experiences." />
-  
+
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
+
   <style>
     :root {
       --gold: #ffd700;
     }
-    
-    body { 
+
+    body {
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: #000; 
-      color: #fff; 
+      background: #000;
+      color: #fff;
       -webkit-font-smoothing: antialiased;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     .text-gold { color: var(--gold); }
     .bg-gold { background: var(--gold); }
-    
+
     .sticky-nav {
       position: sticky;
       top: 0;
@@ -88,9 +138,7 @@
       width: 250px !important;
     }
 
-    .leaflet-popup-tip {
-      background: #1a1a1a;
-    }
+    .leaflet-popup-tip { background: #1a1a1a; }
 
     .journey-popup img {
       width: 100%;
@@ -98,9 +146,7 @@
       object-fit: cover;
     }
 
-    .journey-popup-content {
-      padding: 1rem;
-    }
+    .journey-popup-content { padding: 1rem; }
 
     .custom-marker {
       background: var(--gold);
@@ -131,13 +177,8 @@
       border-color: rgba(255, 215, 0, 0.3);
     }
 
-    .story-card img {
-      transition: transform 0.6s ease;
-    }
-
-    .story-card:hover img {
-      transform: scale(1.05);
-    }
+    .story-card img { transition: transform 0.6s ease; }
+    .story-card:hover img { transform: scale(1.05); }
 
     .filter-tag {
       background: rgba(31, 31, 31, 0.8);
@@ -169,21 +210,22 @@
 </head>
 <body>
 
+  <!-- NAV: broken href fixed, /experiences/ → /projects/ -->
   <nav class="sticky-nav">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
-        <a href="/./" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <img 
-            src="/images/beyond-the-pitch-sport-culture-travel-logo.png" 
-            alt="Beyond the Pitch" 
+        <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img
+            src="/images/beyond-the-pitch-sport-culture-travel-logo.png"
+            alt="Beyond the Pitch"
             class="h-12 w-auto"
           />
         </a>
         <div class="hidden md:flex space-x-8 text-sm font-medium">
-          <a href="/./ class="text-gray-300 hover:text-gold transition-colors">Home</a>
-          <a href="/experiences/" class="text-gray-300 hover:text-gold transition-colors">Experiences</a>
-          <a href="/blogs/" class="text-gold">Stories</a>
-          <a href="/contact/" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+          <a href="/" class="text-gray-300 hover:text-gold transition-colors">Home</a>
+          <a href="/projects/" class="text-gray-300 hover:text-gold transition-colors">Experiences</a>
+          <a href="/blogs/" class="text-gold" aria-current="page">Stories</a>
+          <a href="/community/new-in-dublin/" class="text-gray-300 hover:text-gold transition-colors">Community</a>
           <a href="/about/" class="text-gray-300 hover:text-gold transition-colors">About</a>
         </div>
       </div>
@@ -194,7 +236,7 @@
     <div class="max-w-4xl mx-auto" data-animate>
       <h1 class="text-5xl md:text-6xl font-bold text-gold mb-6">Our Stories</h1>
       <p class="text-xl text-gray-300 leading-relaxed">
-       Tales, cultural discoveries and sporting traditions from around the world
+        Tales, cultural discoveries and sporting traditions from around the world
       </p>
     </div>
   </section>
@@ -219,13 +261,14 @@
 
   <section class="px-6 pb-20">
     <div class="max-w-7xl mx-auto">
-      
+
+      <!-- Featured story — "platform" removed -->
       <article class="story-card mb-16" data-animate>
         <div class="grid md:grid-cols-2 gap-0">
           <div class="h-96 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" 
-              alt="Travel Journey South America" 
+            <img
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80"
+              alt="The origin story of Beyond the Pitch"
               class="w-full h-full object-cover"
             />
           </div>
@@ -239,7 +282,7 @@
               A new beginning Beyond the Pitch
             </h2>
             <p class="text-gray-400 leading-relaxed mb-6">
-              What once started as a personal journey to find my craft has grown into something much bigger. From solo backpacking through Brazil and Colombia to building a platform for authentic cultural experiences through sport.
+              What once started as a personal experience to find my craft has grown into something much bigger. From solo backpacking through Brazil and Colombia to building Beyond the Pitch — connecting people with authentic cultural experiences through sport.
             </p>
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
@@ -259,14 +302,15 @@
         </div>
       </article>
 
+      <!-- Newsletter section — "journeys" → "experiences" -->
       <div class="mb-16" data-animate>
         <div class="flex items-center justify-between mb-8">
           <div>
             <h2 class="text-3xl font-bold text-gold mb-2">Community Newsletter</h2>
-            <p class="text-gray-400 text-sm">Monthly insights, stories & journey updates</p>
+            <p class="text-gray-400 text-sm">Monthly insights, stories &amp; experience updates</p>
           </div>
-          <a 
-            href="https://substack.com/@travelbeyondthepitch" 
+          <a
+            href="https://substack.com/@travelbeyondthepitch"
             target="_blank"
             rel="noopener"
             class="hidden md:inline-flex items-center gap-2 text-gold hover:text-white transition-colors text-sm font-semibold">
@@ -278,12 +322,12 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-          
+
           <article class="story-card group">
             <div class="relative h-56 overflow-hidden">
-              <img 
-                src="images/beyond-the-pitch-sport-culture-travel-logo.png" 
-                alt="Newsletter January" 
+              <img
+                src="/images/beyond-the-pitch-sport-culture-travel-logo.png"
+                alt="Beyond the Pitch Community Newsletter February 2026"
                 class="w-full h-full object-cover"
               />
               <div class="absolute top-4 left-4">
@@ -296,22 +340,22 @@
               <div class="flex items-center gap-2 mb-3">
                 <span class="text-gold text-xs uppercase tracking-wider font-semibold">📧 Newsletter</span>
                 <span class="text-gray-600">•</span>
-                <span class="text-gray-400 text-xs">february 2026 #2</span>
+                <span class="text-gray-400 text-xs">February 2026 #2</span>
               </div>
               <h3 class="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors">
-                Beyond the Pitch - Community Newsletter
+                Beyond the Pitch — Community Newsletter
               </h3>
               <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                Welcome to our february community newsletter! Updates on upcoming journeys, stories, and authentic cultural experiences through sport.
+                Welcome to our February community newsletter! Updates on upcoming experiences, stories, and cultural insights through sport.
               </p>
               <div class="flex items-center justify-between">
                 <span class="text-gray-500 text-xs">5 min read</span>
-                <a 
-                  href="https://open.substack.com/pub/travelbeyondthepitch/p/beyond-the-pitch-community-newsletter-ec6?r=75eenv&utm_campaign=post&utm_medium=web" 
+                <a
+                  href="https://open.substack.com/pub/travelbeyondthepitch/p/beyond-the-pitch-community-newsletter-ec6?r=75eenv&utm_campaign=post&utm_medium=web"
                   target="_blank"
                   rel="noopener"
                   class="text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1">
-                  Read on Substack 
+                  Read on Substack
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>
@@ -320,6 +364,7 @@
             </div>
           </article>
 
+          <!-- "new journeys" → "new experiences" -->
           <article class="story-card bg-gradient-to-br from-gray-900 to-black border-2 border-gold border-opacity-20">
             <div class="p-8 h-full flex flex-col justify-center">
               <div class="text-center">
@@ -330,10 +375,10 @@
                   Never miss an issue
                 </h3>
                 <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                  Get exclusive stories, cultural insights, and early access to new journeys delivered monthly.
+                  Get exclusive stories, cultural insights, and early access to new experiences delivered monthly.
                 </p>
-                <a 
-                  href="https://substack.com/@travelbeyondthepitch" 
+                <a
+                  href="https://substack.com/@travelbeyondthepitch"
                   target="_blank"
                   rel="noopener"
                   class="inline-block bg-gold text-black font-semibold px-6 py-3 rounded-full hover:bg-opacity-90 transition-all text-sm">
@@ -352,57 +397,57 @@
       </div>
 
       <div class="mb-8" data-animate>
-        <h2 class="text-3xl font-bold text-white mb-2"> Stories</h2>
+        <h2 class="text-3xl font-bold text-white mb-2">Stories</h2>
         <p class="text-gray-400 text-sm">Authentic experiences from around the world</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        
-      <article class="story-card" data-animate>
-  <div class="h-56 overflow-hidden">
-    <img 
-      src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg" 
-      alt="Gaelic Football" 
-      class="w-full h-full object-cover"
-    />
-  </div>
-  <div class="p-6">
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-gold text-xs uppercase tracking-wider font-semibold">Culture Guide</span>
-      <span class="text-gray-600">•</span>
-      <span class="text-gray-400 text-xs">🇮🇪 Ireland</span>
-    </div>
-    <h3 class="text-xl font-bold text-white mb-3">
-      Gaelic Games: The soul of Irish sport
-    </h3>
-    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-      Discover the passion, history and community spirit behind Ireland's national sports.
-    </p>
-    <a href="/blogs/hurling-kilkenny-gaelic-games-ireland/" class="text-gold text-sm font-semibold hover:underline">
-      Read More →
-    </a>
-  </div>
-</article>
 
         <article class="story-card" data-animate>
           <div class="h-56 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80" 
-              alt="Authentic Travel" 
+            <img
+              src="https://cdn.pixabay.com/photo/2018/07/02/13/09/damien-comer-3511499_1280.jpg"
+              alt="Gaelic Football match in Ireland"
               class="w-full h-full object-cover"
             />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-3">
-              <span class="text-gold text-xs uppercase tracking-wider font-semibold"> Tips</span>
+              <span class="text-gold text-xs uppercase tracking-wider font-semibold">Culture Guide</span>
+              <span class="text-gray-600">•</span>
+              <span class="text-gray-400 text-xs">🇮🇪 Ireland</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">
+              Gaelic Games: The soul of Irish sport
+            </h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Discover the passion, history and community spirit behind Ireland's national sports.
+            </p>
+            <a href="/blogs/hurling-kilkenny-gaelic-games-ireland/" class="text-gold text-sm font-semibold hover:underline">
+              Read More →
+            </a>
+          </div>
+        </article>
+
+        <article class="story-card" data-animate>
+          <div class="h-56 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80"
+              alt="Experiencing local culture through sport"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-gold text-xs uppercase tracking-wider font-semibold">Tips</span>
               <span class="text-gray-600">•</span>
               <span class="text-gray-400 text-xs">General</span>
             </div>
             <h3 class="text-xl font-bold text-white mb-3">
-              How to travel authentically
+              How to experience local culture authentically
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed mb-4">
-              Create deeper connections with places you visit and local cultures.
+              Create deeper connections with the places you visit and the communities behind them.
             </p>
             <a href="/blogs/story-travel-authentically" class="text-gold text-sm font-semibold hover:underline">
               Read More →
@@ -410,37 +455,37 @@
           </div>
         </article>
 
-       <article class="story-card" data-animate>
-  <div class="h-56 overflow-hidden">
-    <img 
-      src="/hurling-legend-packs/images/henry-shefflin-kilkenny-hurling.jpg" 
-      alt="Henry Shefflin - Kilkenny Hurling Legend" 
-      class="w-full h-full object-cover"
-    />
-  </div>
-  <div class="p-6">
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-gold text-xs uppercase tracking-wider font-semibold">Original stories</span>
-      <span class="text-gray-600">•</span>
-      <span class="text-gray-400 text-xs">🇮🇪 Ireland</span>
-    </div>
-    <h3 class="text-xl font-bold text-white mb-3">
-      Playing for Honour, Not Money - Inside Kilkenny's Hurling Dynasty
-    </h3>
-    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-      Henry Shefflin won 10 All-Ireland titles without earning a salary. Discover why hurling legends play purely for the pride of their county.
-    </p>
-    <a href="/blogs/a-story-of-honour/" class="text-gold text-sm font-semibold hover:underline">
-      Read More →
-    </a>
-  </div>
-</article>
+        <article class="story-card" data-animate>
+          <div class="h-56 overflow-hidden">
+            <img
+              src="/hurling-legend-packs/images/henry-shefflin-kilkenny-hurling.jpg"
+              alt="Henry Shefflin — Kilkenny hurling legend"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-gold text-xs uppercase tracking-wider font-semibold">Original Stories</span>
+              <span class="text-gray-600">•</span>
+              <span class="text-gray-400 text-xs">🇮🇪 Ireland</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">
+              Playing for Honour, Not Money — Inside Kilkenny's Hurling Dynasty
+            </h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Henry Shefflin won 10 All-Ireland titles without earning a salary. Discover why hurling legends play purely for the pride of their county.
+            </p>
+            <a href="/blogs/a-story-of-honour/" class="text-gold text-sm font-semibold hover:underline">
+              Read More →
+            </a>
+          </div>
+        </article>
 
         <article class="story-card" data-animate>
           <div class="h-56 overflow-hidden">
-            <img 
-              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Juichende%20matta.jpg" 
-              alt="Football culture" 
+            <img
+              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Juichende%20matta.jpg"
+              alt="Football culture and community — the story behind Beyond the Pitch"
               class="w-full h-full object-cover"
             />
           </div>
@@ -454,15 +499,13 @@
               Where the journey began
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed mb-4">
-              A personal story about football, community, and the moments that shaped this platform.
+              A personal story about football, community, and the moments that shaped Beyond the Pitch.
             </p>
             <a href="/blogs/pro-footballer-to-enterpeneur/" class="text-gold text-sm font-semibold hover:underline">
               Read more →
             </a>
           </div>
         </article>
-
-
 
       </div>
 
@@ -475,25 +518,43 @@
     </div>
   </section>
 
+  <!-- LEGAL DISCLAIMER — added, consistent with rest of site -->
+  <div style="background:#0a0a0a;border-top:1px solid #222;border-bottom:1px solid #222;padding:1.25rem 1.5rem;">
+    <div style="max-width:1280px;margin:0 auto;display:flex;align-items:flex-start;gap:0.75rem;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.25);line-height:1.75;margin:0;">
+        <strong style="color:rgba(255,255,255,0.4);">Beyond the Pitch is a cultural sports experience organiser, not a travel agency or tour operator.</strong>
+        We do not sell travel packages, arrange flights or book accommodation. All prices cover the hosted experience only. Participants arrange their own flights and accommodation independently.
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER — "Travel" → "Experience", legal links added -->
   <footer class="py-12 px-6 bg-black border-t border-gray-900">
     <div class="max-w-7xl mx-auto text-center">
-      <a href="/./" class="inline-block hover:opacity-80 transition-opacity mb-4">
-        <img 
-          src="images/beyond-the-pitch-sport-culture-travel-logo.png" 
-          alt="Beyond the Pitch" 
+      <a href="/" class="inline-block hover:opacity-80 transition-opacity mb-4">
+        <img
+          src="/images/beyond-the-pitch-sport-culture-travel-logo.png"
+          alt="Beyond the Pitch"
           class="h-20 w-auto mx-auto"
         />
       </a>
-      <p class="text-sm text-gray-500 mb-4">Sport · Culture · Travel</p>
+      <p class="text-sm text-gray-500 mb-4">Sport · Culture · Experience</p>
       <a href="mailto:thebeyondthepitch@gmail.com" class="text-gray-400 hover:text-gold transition-colors block mb-4">
         📧 thebeyondthepitch@gmail.com
       </a>
-      <p class="text-gray-600 text-sm">© 2026 Beyond the Pitch. All rights reserved.</p>
+      <div class="flex justify-center gap-6 mb-4">
+        <a href="/privacy-policy/" class="text-gray-600 hover:text-gray-400 text-xs transition-colors">Privacy Policy</a>
+        <a href="/terms/" class="text-gray-600 hover:text-gray-400 text-xs transition-colors">Terms &amp; Conditions</a>
+      </div>
+      <p class="text-gray-600 text-xs">Not a travel agency. Flights and accommodation not included.</p>
+      <p class="text-gray-600 text-sm mt-2">© 2026 Beyond the Pitch. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Map initialization
+    document.addEventListener('DOMContentLoaded', function() {
+    // Map
     const map = L.map('worldMap', {
       center: [30, 20],
       zoom: 2,
@@ -508,14 +569,14 @@
       maxZoom: 19
     }).addTo(map);
 
-    const journeys = [
+    const destinations = [
       {
         name: 'Mongolia',
         coords: [47.9197, 106.9057],
         flag: '🇲🇳',
         title: 'Naadam Festival',
-        description: 'Experience wrestling, archery & horse racing',
-        image: 'nadaam/images/naadam-festival-horse-racing-mongolia.jpg',
+        description: 'Wrestling, archery &amp; horse racing',
+        image: '/naadam/images/naadam-festival-horse-racing-mongolia.jpg',
         link: '/naadam/'
       },
       {
@@ -523,59 +584,44 @@
         coords: [53.3498, -6.2603],
         flag: '🇮🇪',
         title: 'Gaelic Games',
-        description: 'Dive into Ireland\'s national sports',
-        image: 'images/hurling-kilkenny.JPG',
+        description: "Hurling &amp; Gaelic Football in Kilkenny",
+        image: '/images/hurling-kilkenny.JPG',
         link: '/blogs/hurling-kilkenny-gaelic-games-ireland/'
       },
     ];
 
-    journeys.forEach(journey => {
+    destinations.forEach(dest => {
       const goldIcon = L.divIcon({
         className: 'custom-marker',
         iconSize: [20, 20]
       });
 
-      const marker = L.marker(journey.coords, { icon: goldIcon }).addTo(map);
+      const marker = L.marker(dest.coords, { icon: goldIcon }).addTo(map);
 
       const popupContent = `
         <div class="journey-popup">
-          <img src="${journey.image}" alt="${journey.name}">
+          <img src="${dest.image}" alt="${dest.name}">
           <div class="journey-popup-content">
-            <p style="color: #ffd700; font-size: 0.75rem; margin-bottom: 0.25rem;">${journey.flag} ${journey.name}</p>
-            <h4 style="color: white; font-weight: bold; margin-bottom: 0.5rem;">${journey.title}</h4>
-            <p style="color: #9ca3af; font-size: 0.75rem; margin-bottom: 0.75rem;">${journey.description}</p>
-            <a href="${journey.link}" style="color: #ffd700; font-size: 0.75rem; font-weight: 600;">Explore →</a>
+            <p style="color:#ffd700;font-size:0.75rem;margin-bottom:0.25rem;">${dest.flag} ${dest.name}</p>
+            <h4 style="color:white;font-weight:bold;margin-bottom:0.5rem;">${dest.title}</h4>
+            <p style="color:#9ca3af;font-size:0.75rem;margin-bottom:0.75rem;">${dest.description}</p>
+            <a href="${dest.link}" style="color:#ffd700;font-size:0.75rem;font-weight:600;">Explore →</a>
           </div>
         </div>
       `;
 
-      marker.bindPopup(popupContent, {
-        maxWidth: 250,
-        closeButton: false
-      });
-
-      marker.on('mouseover', function() {
-        this.openPopup();
-      });
+      marker.bindPopup(popupContent, { maxWidth: 250, closeButton: false });
+      marker.on('mouseover', function() { this.openPopup(); });
     });
 
     // Scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
     const observer = new IntersectionObserver(function(entries) {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('animate');
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    document.querySelectorAll('[data-animate]').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
     // Filter tags
     const filterTags = document.querySelectorAll('.filter-tag');
@@ -586,42 +632,30 @@
       });
     });
 
-    // Analytics tracking
+    // Analytics
     document.addEventListener('click', function(e) {
-      const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta');
-      if (cta) {
-        gtag('event', 'cta_click', {
-          'event_category': 'engagement',
-          'event_label': cta.textContent.trim(),
-          'value': 1
-        });
+      const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], a[href*="gaelic"], .nav-cta');
+      if (cta && typeof gtag !== 'undefined') {
+        gtag('event', 'cta_click', { event_category: 'engagement', event_label: cta.textContent.trim(), value: 1 });
       }
     });
 
-    // Track newsletter clicks
     document.querySelectorAll('a[href*="substack"]').forEach(link => {
       link.addEventListener('click', function() {
-        gtag('event', 'newsletter_click', {
-          'event_category': 'engagement',
-          'event_label': 'Newsletter Click',
-          'value': 5
-        });
+        gtag('event', 'newsletter_click', { event_category: 'engagement', event_label: 'Newsletter Click', value: 5 });
       });
     });
 
     let scrollTracked = false;
     window.addEventListener('scroll', function() {
       if (scrollTracked) return;
-      const scrollPercent = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
-      if (scrollPercent > 75) {
+      const pct = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+      if (pct > 75) {
         scrollTracked = true;
-        gtag('event', 'scroll_depth', {
-          'event_category': 'engagement',
-          'event_label': '75_percent',
-          'value': 75
-        });
+        gtag('event', 'scroll_depth', { event_category: 'engagement', event_label: '75_percent', value: 75 });
       }
     });
+    }); // end DOMContentLoaded
   </script>
 
 </body>
