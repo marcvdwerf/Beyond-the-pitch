@@ -171,7 +171,7 @@
         <!-- Step 3: Fixture -->
         <div class="section-title">3. Select Match Fixture</div>
         <div class="fixture-section disabled" id="fixtureSection">
-            <p class="fixture-hint" id="fixtureHint">Select a package above to see available fixtures.</p>
+            <p class="fixture-hint" id="fixtureHint">Select a experience above to see available fixtures.</p>
             <div class="featured-fixtures" id="featuredFixtures" style="display:none;"></div>
             <div class="show-more-bar" id="showMoreBar" style="display:none;">
                 <button type="button" class="show-more-btn" id="showMoreBtn" onclick="toggleFullPanel()">
@@ -230,7 +230,7 @@
             <div class="price-summary-title">Booking summary</div>
             <div class="price-summary-rows">
                 <div class="price-row">
-                    <span class="price-row-label" id="summaryPackage">—</span>
+                    <span class="price-row-label" id="summaryexperience">—</span>
                     <span class="price-row-value" id="summaryPricePerPerson">—</span>
                 </div>
                 <div class="price-row">
@@ -482,7 +482,7 @@
         updateSubmitButton();
     }
 
-    // ── PACKAGE SELECTION ─────────────────────────────────────────────────────
+    // ── Experience SELECTION ─────────────────────────────────────────────────────
     document.querySelectorAll('input[name="experience"]').forEach(radio => {
         radio.addEventListener('change', e => {
             document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
@@ -515,7 +515,7 @@
 
         summary.classList.add('visible');
 
-        const packageName = selectedPrice === 120 ? 'The Hurling Experience' : 'Kilkenny Premium Package';
+        const packageName = selectedPrice === 120 ? 'The Hurling Experience' : 'Kilkenny Premium Experience';
         const fullTotal = selectedPrice * guests;
         const deposit = DEPOSIT_PER_PERSON * guests;
         const remaining = fullTotal - deposit;
