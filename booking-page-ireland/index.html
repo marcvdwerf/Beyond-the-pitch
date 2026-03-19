@@ -8,58 +8,111 @@
     <style>
         :root { --primary: #059669; --secondary: #064e3b; --text: #1f2937; --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 20px; color: var(--text); position: relative; }
-        
-        .btn-back { position: absolute; top: 20px; left: 20px; background: white; color: var(--secondary); padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; transition: 0.3s; }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 20px; color: var(--text); position: relative; }
+        .btn-back { position: absolute; top: 20px; left: 20px; background: white; color: var(--secondary); padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; z-index: 100; display: flex; align-items: center; gap: 8px; }
         .booking-container { max-width: 850px; width: 100%; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; }
-        
-        .header { background: #1a202c; color: white; padding: 40px 30px; text-align: center; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
+        .header { background: #1a202c; color: white; padding: 50px 30px; text-align: center; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
         .form-section { padding: 40px; }
 
-        /* Progress Steps */
-        .progress-bar { display: flex; align-items: center; gap: 0; margin-bottom: 30px; }
-        .progress-step { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; color: #9ca3af; }
+        /* Progress steps */
+        .progress-bar { display: flex; align-items: center; gap: 0; margin-bottom: 36px; }
+        .progress-step { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 600; color: #9ca3af; }
         .progress-step.active { color: var(--primary); }
         .progress-step.done { color: #6b7280; }
-        .step-num { width: 22px; height: 22px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; }
+        .step-num { width: 24px; height: 24px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; flex-shrink: 0; }
         .progress-step.active .step-num { background: var(--primary); color: white; }
         .progress-step.done .step-num { background: #d1fae5; color: var(--secondary); }
-        .progress-sep { flex: 1; height: 1px; background: #e5e7eb; margin: 0 10px; }
+        .progress-sep { flex: 1; height: 1px; background: #e5e7eb; margin: 0 8px; min-width: 16px; }
 
-        .section-title { font-size: 0.85rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 20px; border-bottom: 2px solid #f7fafc; padding-bottom: 6px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .section-title { font-size: 0.9rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; border-bottom: 2px solid #f7fafc; padding-bottom: 8px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 25px; }
         .form-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 6px; font-size: 0.8rem; color: #4a5568; }
-        input, select, textarea { padding: 12px; border: 2px solid #edf2f7; border-radius: 10px; font-size: 0.95rem; background: #f8fafc; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--primary); }
-        
-        /* Experience Cards */
-        .exp-card { border: 2px solid #edf2f7; border-radius: 14px; padding: 16px; cursor: pointer; transition: 0.2s; position: relative; display: block; margin-bottom: 10px; }
-        .exp-card.selected { border-color: var(--primary); background: rgba(5,150,105,0.04); }
-        .exp-card input { position: absolute; opacity: 0; }
+        label { font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: #4a5568; }
+        input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; width: 100%; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
+
+        /* Package cards */
+        .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
+        .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
+        .exp-card.selected { border-color: var(--primary); background: rgba(5,150,105,0.05); }
+        .exp-card input[type="radio"] { position: absolute; opacity: 0; }
         .price-tag { float: right; color: var(--primary); font-weight: 700; }
 
-        /* Fixtures */
-        .fixture-section { background: #f8fafc; border-radius: 14px; margin-bottom: 25px; border: 1px solid #e2e8f0; min-height: 50px; }
-        .fixture-section.disabled { opacity: 0.4; pointer-events: none; }
-        .fixture-hint { font-size: 0.8rem; color: #718096; padding: 15px; text-align: center; }
-        .featured-fixtures { padding: 15px; display: grid; gap: 8px; }
-        .fixture-card { border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; background: white; display: flex; align-items: center; justify-content: space-between; transition: 0.2s; }
-        .fixture-card.selected { border-color: var(--primary); background: #f0fdf4; }
+        /* Fixture section */
+        .fixture-section { background: #f8fafc; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; overflow: hidden; transition: opacity 0.3s; }
+        .fixture-section.disabled { opacity: 0.45; pointer-events: none; }
+        .fixture-hint { font-size: 0.8rem; color: #718096; font-style: italic; padding: 14px 20px 0; }
+        .featured-fixtures { padding: 16px 20px; display: grid; gap: 10px; }
+        .fixture-card { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 14px; background: white; }
+        .fixture-card:hover { border-color: #a7d9c5; background: #f0fdf8; }
+        .fixture-card.selected { border-color: var(--primary); background: rgba(5,150,105,0.06); }
+        .fixture-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+        .fixture-badge { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; flex-shrink: 0; }
+        .badge-home { background: rgba(5,150,105,0.12); color: var(--secondary); }
+        .badge-away { background: #edf2f7; color: #4a5568; }
+        .fixture-info { flex: 1; }
+        .fixture-teams { font-weight: 700; font-size: 0.95rem; color: var(--text); line-height: 1.3; }
+        .fixture-meta { font-size: 0.78rem; color: #718096; margin-top: 3px; }
+        .fixture-sport-tag { font-size: 0.72rem; font-weight: 600; color: #718096; background: #edf2f7; padding: 2px 7px; border-radius: 5px; }
+        .fixture-checkmark { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #e2e8f0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .fixture-card.selected .fixture-checkmark { background: var(--primary); border-color: var(--primary); }
+        .fixture-card.selected .fixture-checkmark::after { content: ''; width: 6px; height: 10px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
 
-        /* Summary & Button */
-        .price-summary { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 14px; padding: 18px; margin-bottom: 25px; display: none; }
+        /* Show more */
+        .show-more-bar { border-top: 1px solid #e2e8f0; }
+        .show-more-btn { width: 100%; background: none; border: none; padding: 12px 20px; font-size: 0.85rem; font-weight: 600; color: #4a5568; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s; }
+        .show-more-btn:hover { background: #f0fdf8; color: var(--primary); }
+        .show-more-btn svg { transition: transform 0.2s; }
+        .show-more-btn.open svg { transform: rotate(180deg); }
+        .full-fixture-panel { display: none; padding: 16px 20px; border-top: 1px solid #edf2f7; }
+        .full-fixture-panel.open { display: block; }
+        .filter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+
+        /* Price summary */
+        .price-summary { background: linear-gradient(135deg, #f0fdf8 0%, #ecfdf5 100%); border: 2px solid #a7f3d0; border-radius: 16px; padding: 20px 24px; margin-bottom: 25px; display: none; }
         .price-summary.visible { display: block; }
-        .price-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85rem; }
-        .deposit-total { border-top: 1px solid #a7f3d0; padding-top: 8px; margin-top: 8px; font-weight: 800; font-size: 1rem; color: var(--secondary); }
+        .price-summary-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #065f46; margin-bottom: 14px; }
+        .price-summary-rows { display: flex; flex-direction: column; gap: 8px; }
+        .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.9rem; }
+        .price-row-label { color: #374151; }
+        .price-row-value { font-weight: 600; color: var(--text); }
+        .price-row.subtotal { border-top: 1px dashed #6ee7b7; padding-top: 10px; margin-top: 2px; }
+        .price-row.deposit-row { background: white; border-radius: 10px; padding: 10px 14px; margin-top: 6px; border: 1.5px solid #6ee7b7; }
+        .price-row.deposit-row .price-row-label { font-weight: 700; color: #065f46; }
+        .price-row.deposit-row .price-row-value { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+        .deposit-explainer { font-size: 0.78rem; color: #6b7280; margin-top: 10px; line-height: 1.5; }
+        .deposit-explainer strong { color: #374151; }
 
-        .btn-stripe { background: var(--primary); color: white; border: none; padding: 18px; border-radius: 12px; font-size: 1rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; }
-        .btn-stripe:disabled { background: #9ca3af; cursor: not-allowed; }
-        
-        .cancelled-notice { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 10px; padding: 12px; margin-bottom: 20px; color: #b91c1c; display: none; }
-        #successMessage { display: none; text-align: center; padding: 50px 20px; }
+        /* Disclaimer */
+        .disclaimer-box { background: #fffbeb; border: 1px solid #f6ad55; border-left: 4px solid #ed8936; border-radius: 12px; padding: 16px 20px; margin-bottom: 25px; display: flex; gap: 12px; align-items: flex-start; }
+        .disclaimer-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+        .disclaimer-text { font-size: 0.82rem; color: #7b5e3a; line-height: 1.6; }
+        .disclaimer-text strong { color: #5c4a2a; display: block; margin-bottom: 4px; }
 
-        @media (max-width: 600px) { .form-section { padding: 25px; } .progress-step span:not(.step-num) { display: none; } }
+        /* Stripe button */
+        .btn-stripe { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 14px; font-size: 1.05rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-stripe:hover:not(:disabled) { background: var(--secondary); transform: translateY(-1px); }
+        .btn-stripe:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-stripe.loading { background: var(--secondary); }
+        .stripe-badge { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; font-size: 0.75rem; color: #9ca3af; }
+        .stripe-badge svg { opacity: 0.5; }
+
+        /* Spinner */
+        .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Cancelled notice */
+        .cancelled-notice { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; font-size: 0.85rem; color: #991b1b; display: none; }
+        .cancelled-notice.visible { display: block; }
+
+        #successMessage { display: none; text-align: center; padding: 60px 30px; }
+
+        @media (max-width: 600px) {
+            .form-section { padding: 24px 20px; }
+            .filter-container { grid-template-columns: 1fr; }
+            .progress-step span:not(.step-num) { display: none; }
+            .progress-sep { min-width: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -68,11 +121,13 @@
 
 <div class="booking-container">
     <div class="header">
-        <h1 style="font-size: 1.8rem; font-weight: 800;">Beyond the Pitch</h1>
-        <p style="font-size: 0.9rem; opacity: 0.9;">Official 2026 Experience Booking</p>
+        <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 6px;">Beyond the Pitch</h1>
+        <p style="font-weight: 500; opacity: 0.9;">Official Experience Booking Portal</p>
     </div>
 
     <div id="bookingForm" class="form-section">
+
+        <!-- Progress indicator -->
         <div class="progress-bar">
             <div class="progress-step active" id="prog-1"><span class="step-num">1</span><span>Details</span></div>
             <div class="progress-sep"></div>
@@ -83,226 +138,471 @@
             <div class="progress-step" id="prog-4"><span class="step-num">4</span><span>Deposit</span></div>
         </div>
 
-        <div class="cancelled-notice" id="cancelledNotice">⚠️ Payment was cancelled. Your details are saved below.</div>
+        <!-- Cancelled notice (shown if user came back from Stripe) -->
+        <div class="cancelled-notice" id="cancelledNotice">
+            Payment was cancelled — your details are still saved below. Ready when you are.
+        </div>
 
+        <!-- Step 1: Personal info -->
         <div class="section-title">1. Personal Information</div>
         <div class="form-grid">
-            <div class="form-group"><label>Full Name *</label><input type="text" id="name" placeholder="John Doe" required oninput="updateProgress()"></div>
-            <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="john@example.com" required oninput="updateProgress()"></div>
+            <div class="form-group"><label>Full Name *</label><input type="text" id="name" placeholder="Your full name" required oninput="updateProgress()"></div>
+            <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="your@email.com" required oninput="updateProgress()"></div>
             <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" placeholder="+31 6 ..."></div>
         </div>
 
+        <!-- Step 2: Experience -->
         <div class="section-title">2. Choose Your Experience</div>
         <div class="experience-grid">
-            <label class="exp-card">
-                <input type="radio" name="experience" value="The Kilkenny Experience (Flexible)" data-price="120" data-filter="flexible">
-                <span class="price-tag">€120 p.p.</span>
-                <strong>The Kilkenny Experience</strong><br><small>Flexible choice of GAA matches</small>
+            <label class="exp-card" id="card-flexible">
+                <input type="radio" name="experience" value="Hurling Experience" data-price="120" data-filter="kilkenny-home">
+                <span class="price-tag">from €120 p.p.</span>
+                <strong>The Kilkenny Experience</strong> <span style="font-size:0.8rem;color:#718096;font-weight:400;">Flexible</span><br>
+                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">Hands-on training session with Kilkenny expert James, combined with a live GAA match attendence of your choice. </small>
             </label>
-            <label class="exp-card">
-                <input type="radio" name="experience" value="The Kilkenny Experience (Premium)" data-price="150" data-filter="premium">
-                <span class="price-tag">€150 p.p.</span>
-                <strong>The Kilkenny Experience</strong><br><small>Premium Kilkenny match access</small>
+            <label class="exp-card" id="card-premium">
+                <input type="radio" name="experience" value="Kilkenny Premium " data-price="150" data-filter="all">
+                <span class="price-tag">from €150 p.p.</span>
+                <strong> The Kilkenny experience</strong> <span style="font-size:0.8rem;color:#718096;font-weight:400;">Premium </span><br>
+                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">Cultural pub presentation + hands-on training with James + live match ticket at or near Nowlan Park.</small>
             </label>
         </div>
 
+        <!-- Step 3: Fixture -->
         <div class="section-title">3. Select Match Fixture</div>
         <div class="fixture-section disabled" id="fixtureSection">
-            <p class="fixture-hint" id="fixtureHint">Choose an experience to see matches</p>
-            <div class="featured-fixtures" id="featuredFixtures"></div>
+            <p class="fixture-hint" id="fixtureHint">Select a experience above to see available fixtures.</p>
+            <div class="featured-fixtures" id="featuredFixtures" style="display:none;"></div>
+            <div class="show-more-bar" id="showMoreBar" style="display:none;">
+                <button type="button" class="show-more-btn" id="showMoreBtn" onclick="toggleFullPanel()">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Show all fixtures
+                </button>
+            </div>
+            <div class="full-fixture-panel" id="fullFixturePanel">
+                <div class="filter-container">
+                    <div class="form-group">
+                        <label>Sport</label>
+                        <select id="sportFilter" onchange="buildFullMenu()">
+                            <option value="all">All Sports</option>
+                            <option value="Hurling">Hurling</option>
+                            <option value="Football">Gaelic Football</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Month</label>
+                        <select id="monthFilter" onchange="buildFullMenu()">
+                            <option value="all">All Months</option>
+                            <option value="mrt">March</option>
+                            <option value="apr">April</option>
+                            <option value="may">May</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>All available fixtures</label>
+                    <select id="match-selector" onchange="onFullSelectorChange()">
+                        <option value="">-- Choose a fixture --</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
+        <!-- Step 4: Trip details -->
         <div class="section-title">4. Trip Details</div>
         <div class="form-grid">
-            <div class="form-group"><label>Selected Date *</label><input type="date" id="date" required onchange="updateSubmitButton()"></div>
-            <div class="form-group"><label>Guests *</label><input type="number" id="guests" min="1" value="2" oninput="updateSummary()"></div>
+            <div class="form-group">
+                <label>Selected Date *</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label>Number of Guests *</label>
+                <input type="number" id="guests" min="1" max="20" value="2" required oninput="updateSummary()">
+            </div>
         </div>
         <div class="form-group" style="margin-bottom: 25px;">
-            <label>Special Requests</label>
-            <textarea id="requests" rows="2" placeholder="Dietary needs, seating, etc."></textarea>
+            <label>Special Requests / Notes</label>
+            <textarea id="requests" placeholder="Seating needs, dietary requirements, experience goals..." rows="3"></textarea>
         </div>
 
+        <!-- Price summary with deposit breakdown -->
         <div class="price-summary" id="priceSummary">
-            <div class="price-row"><span id="sumPkgName">-</span><span id="sumPkgPrice">-</span></div>
-            <div class="price-row"><span>Number of Guests</span><span id="sumGuests">-</span></div>
-            <div class="price-row deposit-total"><span>Due Today (Deposit)</span><span id="sumDeposit">-</span></div>
+            <div class="price-summary-title">Booking summary</div>
+            <div class="price-summary-rows">
+                <div class="price-row">
+                    <span class="price-row-label" id="summaryPackage">—</span>
+                    <span class="price-row-value" id="summaryPricePerPerson">—</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-row-label" id="summaryGuests">—</span>
+                    <span class="price-row-value" id="summaryFullTotal">—</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-row-label" id="summaryFixture" style="color:#9ca3af;font-size:0.85rem;">No fixture selected yet</span>
+                </div>
+                <div class="price-row subtotal">
+                    <span class="price-row-label" style="color:#6b7280;">Remaining after deposit</span>
+                    <span class="price-row-value" id="summaryRemaining" style="color:#6b7280;">—</span>
+                </div>
+                <div class="price-row deposit-row">
+                    <span class="price-row-label">Due today (deposit)</span>
+                    <span class="price-row-value" id="summaryDeposit">—</span>
+                </div>
+            </div>
+            <p class="deposit-explainer">
+                <strong>How it works:</strong> Pay the deposit today to secure your spot. We'll confirm your booking within 48h. The remaining balance is due once GAA attendance are confirmed (~2 weeks before the match) — we'll send you a payment link by email.
+            </p>
         </div>
 
-        <button type="button" class="btn-stripe" id="submitBtn" onclick="handleStripeCheckout()" disabled>Pay Deposit & Confirm</button>
+        <!-- Disclaimer -->
+        <div class="disclaimer-box">
+            <div class="disclaimer-icon">⚠️</div>
+            <div class="disclaimer-text">
+                <strong>Match access - facilitated subject to availability.</strong>
+                Typically confirmed 2 weeks prior. Full refund or alternative date if unavailable.
+            </div>
+        </div>
+
+        <!-- Stripe submit -->
+        <button type="button" class="btn-stripe" id="submitBtn" onclick="handleStripeCheckout()" disabled>
+            Pay deposit to confirm booking
+        </button>
+        <div class="stripe-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11.5 2h-9A1.5 1.5 0 001 3.5v7A1.5 1.5 0 002.5 12h9A1.5 1.5 0 0013 10.5v-7A1.5 1.5 0 0011.5 2z" stroke="#9ca3af" stroke-width="0.8"/><path d="M1 5.5h12" stroke="#9ca3af" stroke-width="0.8"/></svg>
+            Secured by Stripe · iDEAL, credit & debit card accepted
+        </div>
+
     </div>
 
     <div id="successMessage">
-        <h2 style="color: var(--primary); margin-bottom: 15px;">🍀 Booking Confirmed!</h2>
-        <p>Your deposit has been received. We've sent a confirmation to your email.</p>
-        <button class="btn-stripe" onclick="window.location.href='/'" style="margin-top: 25px; max-width: 200px;">Back to Home</button>
+        <div style="font-size: 3rem; margin-bottom: 15px;">🍀</div>
+        <h2 style="color: var(--primary); margin-bottom: 12px; font-size: 1.8rem;">Booking confirmed!</h2>
+        <p style="color: #4a5568; line-height: 1.7; max-width: 480px; margin: 0 auto 12px;">
+            Your deposit has been received. You'll get a confirmation email from Beyond the Pitch within 48 hours.
+        </p>
+        <p style="color: #6b7280; font-size: 0.88rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6;">
+            The remaining balance will be requested once GAA Match attendance is confirmed - typically 2 weeks before the match.
+        </p>
+        <button class="btn-stripe" onclick="location.reload()" style="max-width: 200px; margin: 0 auto;">New booking</button>
     </div>
 </div>
 
 <script>
-    // --- CONFIGURATIE ---
-    const DEPOSIT_PER_PERSON = 50;
-    const API_ENDPOINT = '/api/create-checkout';
-    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
-    const GOOGLE_FIELDS = { 
-        name: 'entry.761572476', 
-        email: 'entry.1144619265', 
-        phone: 'entry.1213010877', 
-        experience: 'entry.1446094233', 
-        date: 'entry.301148404', 
-        guests: 'entry.175134312', 
-        requests: 'entry.184318357' 
-    };
+    // ── CONFIG ────────────────────────────────────────────────────────────────
+    const DEPOSIT_PER_PERSON = 50; // €50 p.p.
 
+    // Vercel API endpoint — zelfde domein, geen CORS-probleem
+    const API_ENDPOINT = '/api/create-checkout';
+
+    // Google Form fallback (voor notities/requests, blijft als backup)
+    const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
+    const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312', requests: 'entry.184318357', partner: 'entry.2094398847' };
+
+    // ── MATCH DATA ────────────────────────────────────────────────────────────
     const MATCH_DATA = [
-        { date: "2026-03-01", teams: "Kilkenny v Cork", venue: "Nowlan Park", type: "premium" },
-        { date: "2026-03-07", teams: "Galway v Kilkenny", venue: "Salthill", type: "premium" },
-        { date: "2026-03-21", teams: "Tipperary v Kilkenny", venue: "Thurles", type: "premium" },
-        { date: "2026-04-25", teams: "Kilkenny v Wexford", venue: "Nowlan Park", type: "premium" },
-        { date: "2026-05-10", teams: "Offaly v Kilkenny", venue: "Tullamore", type: "premium" },
-        { date: "2026-03-01", teams: "Galway v Waterford", venue: "Salthill", type: "flexible" },
-        { date: "2026-03-08", teams: "Waterford v Tipperary", venue: "Walsh Park", type: "flexible" },
-        { date: "2026-03-14", teams: "Dublin v Armagh", venue: "Croke Park", type: "flexible" },
-        { date: "2026-05-17", teams: "Leinster Football Final", venue: "Croke Park", type: "flexible" }
+        { date: "2026-03-01", teams: "Kilkenny v Cork", venue: "Nowlan Park", sport: "Hurling", month: "mrt", kilkennyHome: true },
+        { date: "2026-04-25", teams: "Kilkenny v Wexford", venue: "Nowlan Park", sport: "Hurling", month: "apr", kilkennyHome: true },
+        { date: "2026-03-07", teams: "Galway v Kilkenny", venue: "Salthill", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-21", teams: "Tipperary v Kilkenny", venue: "Thurles", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Galway v Waterford", venue: "Salthill", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Offaly v Limerick", venue: "Tullamore", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-07", teams: "Limerick v Cork", venue: "Gaelic Grounds", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-08", teams: "Waterford v Tipperary", venue: "Walsh Park", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-08", teams: "Clare v Wexford", venue: "Ennis", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-29", teams: "Hurling League Finals (Div 2–4)", venue: "TBC", sport: "Hurling", month: "mrt", kilkennyHome: false },
+        { date: "2026-04-05", teams: "Hurling League Div 1 Final", venue: "TBC", sport: "Hurling", month: "apr", kilkennyHome: false },
+        { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "apr", kilkennyHome: false },
+        { date: "2026-04-26", teams: "Galway v Offaly (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "apr", kilkennyHome: false },
+        { date: "2026-05-10", teams: "Offaly v Kilkenny (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "may", kilkennyHome: false },
+        { date: "2026-05-24", teams: "Dublin v Kilkenny (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "may", kilkennyHome: false },
+        { date: "2026-06-06", teams: "Leinster Hurling Final", venue: "Croke Park", sport: "Hurling", month: "may", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Kerry v Monaghan", venue: "Killarney", sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Mayo v Armagh", venue: "Castlebar", sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-14", teams: "Dublin v Armagh", venue: "Croke Park", sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-22", teams: "Galway v Dublin", venue: "Salthill", sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-29", teams: "Football League Finals (Div 1–4)", venue: "TBC", sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-04-19", teams: "Dublin v TBC (Leinster SFC QF)", venue: "TBC", sport: "Football", month: "apr", kilkennyHome: false },
+        { date: "2026-05-17", teams: "Leinster Football Final", venue: "Croke Park", sport: "Football", month: "may", kilkennyHome: false },
     ];
 
+    // ── STATE ─────────────────────────────────────────────────────────────────
+    let activeFilter = null;
+    let selectedFixture = null;
     let selectedPrice = 0;
-    let selectedMatch = null;
 
-    // --- INITIALISATIE ---
+    // ── INIT ──────────────────────────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', () => {
-        const params = new URLSearchParams(window.location.search);
-        
-        // Als we terugkomen van Stripe (Succes)
-        if (params.get('session_id')) {
+        // Show cancelled notice if returning from Stripe cancel
+        if (new URLSearchParams(location.search).get('cancelled') === 'true') {
+            document.getElementById('cancelledNotice').classList.add('visible');
+            history.replaceState({}, '', location.pathname);
+        }
+        // Show success if returning from Stripe success
+        if (new URLSearchParams(location.search).get('session_id')) {
             document.getElementById('bookingForm').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
-            
-            // Haal opgeslagen data op en stuur naar Google Forms
-            const savedData = JSON.parse(localStorage.getItem('pendingBooking'));
-            if (savedData) {
-                submitToGoogleForms(savedData);
-                localStorage.removeItem('pendingBooking'); // Verwijder na verzenden
-            }
-        }
-
-        if (params.get('cancelled')) {
-            document.getElementById('cancelledNotice').style.display = 'block';
         }
     });
+
+    // ── HELPERS ───────────────────────────────────────────────────────────────
+    function formatDate(str) {
+        const d = new Date(str + 'T12:00:00');
+        return d.toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
+    }
 
     function updateProgress() {
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        if (name && email) {
-            document.getElementById('prog-1').classList.add('done');
-            document.getElementById('prog-2').classList.add('active');
-        }
-        updateSubmitButton();
-    }
-
-    document.querySelectorAll('input[name="experience"]').forEach(radio => {
-        radio.addEventListener('change', e => {
-            selectedPrice = parseInt(e.target.dataset.price);
-            document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
-            e.target.closest('.exp-card').classList.add('selected');
-            document.getElementById('fixtureSection').classList.remove('disabled');
-            document.getElementById('fixtureHint').style.display = 'none';
-            renderMatches(e.target.dataset.filter);
-            updateSummary();
-            document.getElementById('prog-2').classList.add('done');
-            document.getElementById('prog-3').classList.add('active');
-        });
-    });
-
-    function renderMatches(filter) {
-        const container = document.getElementById('featuredFixtures');
-        container.innerHTML = '';
-        MATCH_DATA.filter(m => m.type === filter).forEach(m => {
-            const card = document.createElement('div');
-            card.className = 'fixture-card';
-            card.innerHTML = `<div><strong>${m.teams}</strong><br><small>${m.date} - ${m.venue}</small></div>`;
-            card.onclick = () => {
-                document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                selectedMatch = m;
-                document.getElementById('date').value = m.date;
-                document.getElementById('prog-3').classList.add('done');
-                document.getElementById('prog-4').classList.add('active');
-                updateSubmitButton();
-            };
-            container.appendChild(card);
-        });
-    }
-
-    function updateSummary() {
-        const guests = document.getElementById('guests').value || 1;
-        if (selectedPrice) {
-            document.getElementById('priceSummary').classList.add('visible');
-            document.getElementById('sumPkgName').textContent = document.querySelector('input[name="experience"]:checked').value;
-            document.getElementById('sumPkgPrice').textContent = `€${selectedPrice} p.p.`;
-            document.getElementById('sumGuests').textContent = guests;
-            document.getElementById('sumDeposit').textContent = `€${guests * DEPOSIT_PER_PERSON}`;
-        }
-        updateSubmitButton();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const p1 = document.getElementById('prog-1');
+        const p2 = document.getElementById('prog-2');
+        if (name && email) { p1.classList.remove('active'); p1.classList.add('done'); p2.classList.add('active'); }
+        else { p1.classList.add('active'); p1.classList.remove('done'); p2.classList.remove('active'); }
     }
 
     function updateSubmitButton() {
-        const name = document.getElementById('name').value;
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
         const date = document.getElementById('date').value;
-        document.getElementById('submitBtn').disabled = !(name && date && selectedPrice);
+        const btn = document.getElementById('submitBtn');
+        const ready = name && email && date && selectedPrice > 0;
+        btn.disabled = !ready;
+        if (ready) {
+            const guests = parseInt(document.getElementById('guests').value, 10) || 1;
+            const deposit = DEPOSIT_PER_PERSON * guests;
+            btn.textContent = `Pay €${deposit} deposit to confirm booking`;
+        } else {
+            btn.textContent = 'Pay deposit to confirm booking';
+        }
     }
 
-    // --- STRIPE & GOOGLE FLOW ---
+    // ── FIXTURE RENDERING ─────────────────────────────────────────────────────
+    function renderFeatured(filter) {
+        const container = document.getElementById('featuredFixtures');
+        container.innerHTML = '';
+
+        const featured = filter === 'kilkenny-home'
+            ? MATCH_DATA.filter(m => m.kilkennyHome)
+            : MATCH_DATA.filter(m => m.kilkennyHome).slice(0, 2).concat(MATCH_DATA.filter(m => !m.kilkennyHome).slice(0, 1));
+
+        featured.forEach(m => {
+            const card = document.createElement('label');
+            card.className = 'fixture-card';
+            const badgeClass = m.kilkennyHome ? 'badge-home' : 'badge-away';
+            const badgeLabel = m.kilkennyHome ? '★ Nowlan Park' : m.venue;
+            card.innerHTML = `
+                <input type="radio" name="fixture" value="${m.date}|${m.teams}">
+                <div class="fixture-info">
+                    <div class="fixture-teams">${m.teams}</div>
+                    <div class="fixture-meta">
+                        <span class="fixture-sport-tag">${m.sport}</span>
+                        &nbsp;·&nbsp; ${formatDate(m.date)}
+                        &nbsp;·&nbsp; <span class="${badgeClass} fixture-badge">${badgeLabel}</span>
+                    </div>
+                </div>
+                <div class="fixture-checkmark"></div>
+            `;
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
+                document.getElementById('match-selector').value = '';
+                card.classList.add('selected');
+                selectedFixture = m;
+                document.getElementById('date').value = m.date;
+                updateSummary();
+                updateProgress();
+                // Update progress steps
+                document.getElementById('prog-3').classList.add('active');
+                document.getElementById('prog-4').classList.add('active');
+            });
+            container.appendChild(card);
+        });
+
+        container.style.display = 'grid';
+    }
+
+    function toggleFullPanel() {
+        const panel = document.getElementById('fullFixturePanel');
+        const btn = document.getElementById('showMoreBtn');
+        const isOpen = panel.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.innerHTML = isOpen
+            ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Show fewer`
+            : `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Show all fixtures`;
+        if (isOpen) buildFullMenu();
+    }
+
+    function buildFullMenu() {
+        const selector = document.getElementById('match-selector');
+        const sport = document.getElementById('sportFilter').value;
+        const month = document.getElementById('monthFilter').value;
+        selector.innerHTML = '<option value="">-- Choose a fixture --</option>';
+        if (!activeFilter) return;
+
+        const groups = {};
+        MATCH_DATA.forEach(m => {
+            if (activeFilter === 'kilkenny-home' && !m.kilkennyHome) return;
+            if (sport !== 'all' && m.sport !== sport) return;
+            if (month !== 'all' && m.month !== month) return;
+            const key = `${m.sport} · ${m.month.toUpperCase()}`;
+            if (!groups[key]) groups[key] = [];
+            groups[key].push(m);
+        });
+
+        let total = 0;
+        for (const [label, matches] of Object.entries(groups)) {
+            const group = document.createElement('optgroup');
+            group.label = label;
+            matches.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = `${m.date}|${m.teams}`;
+                opt.textContent = `${m.date}: ${m.teams} (${m.venue})`;
+                group.appendChild(opt);
+                total++;
+            });
+            selector.appendChild(group);
+        }
+
+        if (total === 0) {
+            const opt = document.createElement('option');
+            opt.disabled = true;
+            opt.textContent = '— No matches for this filter —';
+            selector.appendChild(opt);
+        }
+    }
+
+    function onFullSelectorChange() {
+        const val = document.getElementById('match-selector').value;
+        if (!val) return;
+        const [date, teams] = val.split('|');
+        const m = MATCH_DATA.find(x => x.date === date && x.teams === teams);
+        if (!m) return;
+        document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
+        selectedFixture = m;
+        document.getElementById('date').value = date;
+        updateSummary();
+        updateSubmitButton();
+    }
+
+    // ── PACKAGE SELECTION ─────────────────────────────────────────────────────
+    document.querySelectorAll('input[name="experience"]').forEach(radio => {
+        radio.addEventListener('change', e => {
+            document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
+            e.target.closest('.exp-card').classList.add('selected');
+            activeFilter = e.target.dataset.filter;
+            selectedPrice = parseInt(e.target.dataset.price, 10);
+
+            document.getElementById('fixtureSection').classList.remove('disabled');
+            document.getElementById('fixtureHint').textContent = activeFilter === 'kilkenny-home'
+                ? '🏟️ Kilkenny home fixtures at Nowlan Park — best for the full experience.'
+                : '🌐 All fixtures available. Kilkenny home matches are recommended.';
+
+            renderFeatured(activeFilter);
+            document.getElementById('showMoreBar').style.display = 'block';
+            selectedFixture = null;
+            document.getElementById('date').value = '';
+            document.getElementById('prog-2').classList.remove('active');
+            document.getElementById('prog-2').classList.add('done');
+            document.getElementById('prog-3').classList.add('active');
+            updateSummary();
+        });
+    });
+
+    // ── SUMMARY ───────────────────────────────────────────────────────────────
+    function updateSummary() {
+        const summary = document.getElementById('priceSummary');
+        const guests = parseInt(document.getElementById('guests').value, 10) || 1;
+
+        if (!selectedPrice) { summary.classList.remove('visible'); updateSubmitButton(); return; }
+
+        summary.classList.add('visible');
+
+        const packageName = selectedPrice === 120 ? 'The Hurling Experience' : 'Kilkenny Premium Package';
+        const fullTotal = selectedPrice * guests;
+        const deposit = DEPOSIT_PER_PERSON * guests;
+        const remaining = fullTotal - deposit;
+
+        document.getElementById('summaryPackage').textContent = packageName;
+        document.getElementById('summaryPricePerPerson').textContent = `€${selectedPrice} p.p.`;
+        document.getElementById('summaryGuests').textContent = `${guests} guest${guests !== 1 ? 's' : ''}`;
+        document.getElementById('summaryFullTotal').textContent = `€${fullTotal}`;
+        document.getElementById('summaryDeposit').textContent = `€${deposit}`;
+        document.getElementById('summaryRemaining').textContent = `€${remaining}`;
+
+        const fixtureEl = document.getElementById('summaryFixture');
+        if (selectedFixture) {
+            fixtureEl.textContent = `${selectedFixture.teams} · ${formatDate(selectedFixture.date)}`;
+            fixtureEl.style.color = '#374151';
+        } else {
+            fixtureEl.textContent = 'No fixture selected yet';
+            fixtureEl.style.color = '#9ca3af';
+        }
+
+        updateSubmitButton();
+    }
+
+    // ── STRIPE CHECKOUT ───────────────────────────────────────────────────────
     async function handleStripeCheckout() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const date = document.getElementById('date').value;
+        const expRadio = document.querySelector('input[name="experience"]:checked');
+        const guests = parseInt(document.getElementById('guests').value, 10) || 1;
+
+        if (!name || !email || !date || !expRadio) {
+            alert('Please fill in all required fields before paying.');
+            return;
+        }
+
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.textContent = 'Connecting to Stripe...';
+        btn.classList.add('loading');
+        btn.innerHTML = `<div class="spinner"></div> Redirecting to payment…`;
 
-        const bookingData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            guests: document.getElementById('guests').value,
-            experience: document.querySelector('input[name="experience"]:checked').value,
-            date: document.getElementById('date').value,
-            fixture: selectedMatch ? selectedMatch.teams : 'Selected Date',
-            requests: document.getElementById('requests').value
-        };
+        // Also submit to Google Form as backup record
+        try {
+            const formData = new FormData();
+            formData.append(FIELDS.name, name);
+            formData.append(FIELDS.email, email);
+            formData.append(FIELDS.phone, document.getElementById('phone').value);
+            formData.append(FIELDS.experience, expRadio.value);
+            formData.append(FIELDS.date, date);
+            formData.append(FIELDS.guests, String(guests));
+            formData.append(FIELDS.requests, `Fixture: ${selectedFixture ? selectedFixture.teams + ' at ' + selectedFixture.venue : 'TBC'} | Notes: ${document.getElementById('requests').value}`);
+            formData.append(FIELDS.partner, 'Ireland');
+            fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData }).catch(() => {});
+        } catch (e) { /* non-critical */ }
 
-        // Sla data lokaal op om later naar Google Forms te sturen na succes
-        localStorage.setItem('pendingBooking', JSON.stringify(bookingData));
-
+        // Create Stripe Checkout session
         try {
             const response = await fetch(API_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bookingData)
+                body: JSON.stringify({
+                    packageName: expRadio.value,
+                    pricePerPerson: selectedPrice,
+                    guests,
+                    fixture: selectedFixture ? `${selectedFixture.teams} at ${selectedFixture.venue}` : null,
+                    date,
+                    name,
+                    email,
+                }),
             });
-            const session = await response.json();
-            if (session.url) window.location.href = session.url;
-            else throw new Error();
+
+            const data = await response.json();
+
+            if (!response.ok || !data.url) {
+                throw new Error(data.error || 'Could not create payment session.');
+            }
+
+            // Redirect to Stripe Checkout
+            window.location.href = data.url;
+
         } catch (err) {
-            alert('Stripe connection failed. Please try again.');
+            console.error(err);
+            alert(`Payment setup failed: ${err.message}\n\nPlease try again or email us directly.`);
             btn.disabled = false;
-            btn.textContent = 'Pay Deposit & Confirm';
+            btn.classList.remove('loading');
+            updateSubmitButton();
         }
-    }
-
-    function submitToGoogleForms(data) {
-        const formData = new FormData();
-        formData.append(GOOGLE_FIELDS.name, data.name);
-        formData.append(GOOGLE_FIELDS.email, data.email);
-        formData.append(GOOGLE_FIELDS.phone, data.phone);
-        formData.append(GOOGLE_FIELDS.experience, data.experience);
-        formData.append(GOOGLE_FIELDS.date, data.date);
-        formData.append(GOOGLE_FIELDS.guests, data.guests);
-        formData.append(GOOGLE_FIELDS.requests, data.requests);
-
-        fetch(GOOGLE_FORM_URL, { 
-            method: 'POST', 
-            mode: 'no-cors', 
-            body: formData 
-        }).then(() => console.log('Data synced to Google Forms.'));
     }
 </script>
 </body>
