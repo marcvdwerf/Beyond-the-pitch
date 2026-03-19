@@ -14,7 +14,6 @@
         .header { background: #1a202c; color: white; padding: 50px 30px; text-align: center; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1594223522959-1e38944f8f4a?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; }
         .form-section { padding: 40px; }
 
-        /* Progress steps */
         .progress-bar { display: flex; align-items: center; gap: 0; margin-bottom: 36px; }
         .progress-step { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 600; color: #9ca3af; }
         .progress-step.active { color: var(--primary); }
@@ -31,14 +30,12 @@
         input, select, textarea { padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; font-size: 1rem; background: #f8fafc; outline: none; transition: 0.2s; width: 100%; }
         input:focus, select:focus, textarea:focus { border-color: var(--primary); background: white; }
 
-        /* Package cards */
         .experience-grid { display: grid; gap: 12px; margin-bottom: 25px; }
         .exp-card { border: 2px solid #edf2f7; border-radius: 16px; padding: 18px; cursor: pointer; transition: 0.3s; position: relative; display: block; }
         .exp-card.selected { border-color: var(--primary); background: rgba(5,150,105,0.05); }
         .exp-card input[type="radio"] { position: absolute; opacity: 0; }
         .price-tag { float: right; color: var(--primary); font-weight: 700; }
 
-        /* Fixture section */
         .fixture-section { background: #f8fafc; border-radius: 16px; margin-bottom: 25px; border: 1px solid #e2e8f0; overflow: hidden; transition: opacity 0.3s; }
         .fixture-section.disabled { opacity: 0.45; pointer-events: none; }
         .fixture-hint { font-size: 0.8rem; color: #718096; font-style: italic; padding: 14px 20px 0; }
@@ -58,17 +55,15 @@
         .fixture-card.selected .fixture-checkmark { background: var(--primary); border-color: var(--primary); }
         .fixture-card.selected .fixture-checkmark::after { content: ''; width: 6px; height: 10px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); display: block; }
 
-        /* Show more */
         .show-more-bar { border-top: 1px solid #e2e8f0; }
         .show-more-btn { width: 100%; background: none; border: none; padding: 12px 20px; font-size: 0.85rem; font-weight: 600; color: #4a5568; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s; }
         .show-more-btn:hover { background: #f0fdf8; color: var(--primary); }
-        .show-more-btn svg { transition: transform 0.2s; }
         .show-more-btn.open svg { transform: rotate(180deg); }
+        .show-more-btn svg { transition: transform 0.2s; }
         .full-fixture-panel { display: none; padding: 16px 20px; border-top: 1px solid #edf2f7; }
         .full-fixture-panel.open { display: block; }
         .filter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
 
-        /* Price summary */
         .price-summary { background: linear-gradient(135deg, #f0fdf8 0%, #ecfdf5 100%); border: 2px solid #a7f3d0; border-radius: 16px; padding: 20px 24px; margin-bottom: 25px; display: none; }
         .price-summary.visible { display: block; }
         .price-summary-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #065f46; margin-bottom: 14px; }
@@ -83,25 +78,20 @@
         .deposit-explainer { font-size: 0.78rem; color: #6b7280; margin-top: 10px; line-height: 1.5; }
         .deposit-explainer strong { color: #374151; }
 
-        /* Disclaimer */
         .disclaimer-box { background: #fffbeb; border: 1px solid #f6ad55; border-left: 4px solid #ed8936; border-radius: 12px; padding: 16px 20px; margin-bottom: 25px; display: flex; gap: 12px; align-items: flex-start; }
         .disclaimer-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
         .disclaimer-text { font-size: 0.82rem; color: #7b5e3a; line-height: 1.6; }
         .disclaimer-text strong { color: #5c4a2a; display: block; margin-bottom: 4px; }
 
-        /* Stripe button */
         .btn-stripe { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 14px; font-size: 1.05rem; font-weight: 700; width: 100%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-stripe:hover:not(:disabled) { background: var(--secondary); transform: translateY(-1px); }
         .btn-stripe:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .btn-stripe.loading { background: var(--secondary); }
         .stripe-badge { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; font-size: 0.75rem; color: #9ca3af; }
-        .stripe-badge svg { opacity: 0.5; }
 
-        /* Spinner */
         .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Cancelled notice */
         .cancelled-notice { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; font-size: 0.85rem; color: #991b1b; display: none; }
         .cancelled-notice.visible { display: block; }
 
@@ -127,7 +117,6 @@
 
     <div id="bookingForm" class="form-section">
 
-        <!-- Progress indicator -->
         <div class="progress-bar">
             <div class="progress-step active" id="prog-1"><span class="step-num">1</span><span>Details</span></div>
             <div class="progress-sep"></div>
@@ -138,12 +127,11 @@
             <div class="progress-step" id="prog-4"><span class="step-num">4</span><span>Deposit</span></div>
         </div>
 
-        <!-- Cancelled notice (shown if user came back from Stripe) -->
         <div class="cancelled-notice" id="cancelledNotice">
             Payment was cancelled — your details are still saved below. Ready when you are.
         </div>
 
-        <!-- Step 1: Personal info -->
+        <!-- Step 1 -->
         <div class="section-title">1. Personal Information</div>
         <div class="form-grid">
             <div class="form-group"><label>Full Name *</label><input type="text" id="name" placeholder="Your full name" required oninput="updateProgress()"></div>
@@ -151,27 +139,29 @@
             <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" placeholder="+31 6 ..."></div>
         </div>
 
-        <!-- Step 2: Experience -->
+        <!-- Step 2 -->
         <div class="section-title">2. Choose Your Experience</div>
         <div class="experience-grid">
+            <!-- Flexible: ALL fixtures -->
             <label class="exp-card" id="card-flexible">
-                <input type="radio" name="experience" value="Hurling Experience" data-price="120" data-filter="kilkenny-home">
+                <input type="radio" name="experience" value="Hurling Experience" data-price="120" data-filter="all">
                 <span class="price-tag">from €120 p.p.</span>
                 <strong>The Kilkenny Experience</strong> <span style="font-size:0.8rem;color:#718096;font-weight:400;">Flexible</span><br>
-                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">Hands-on training session with Kilkenny expert James, combined with a live GAA match attendence of your choice. </small>
+                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">Hands-on training session with Kilkenny expert James, combined with a live GAA match attendance of your choice.</small>
             </label>
+            <!-- Premium: Nowlan Park only -->
             <label class="exp-card" id="card-premium">
-                <input type="radio" name="experience" value="Kilkenny Premium " data-price="150" data-filter="all">
+                <input type="radio" name="experience" value="Kilkenny Premium" data-price="150" data-filter="kilkenny-home">
                 <span class="price-tag">from €150 p.p.</span>
-                <strong> The Kilkenny experience</strong> <span style="font-size:0.8rem;color:#718096;font-weight:400;">Premium </span><br>
-                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">Cultural pub presentation + hands-on training with James + live match ticket at or near Nowlan Park.</small>
+                <strong>The Kilkenny Experience</strong> <span style="font-size:0.8rem;color:#718096;font-weight:400;">Premium</span><br>
+                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">Cultural pub presentation + hands-on training with James + live match ticket at Nowlan Park.</small>
             </label>
         </div>
 
-        <!-- Step 3: Fixture -->
+        <!-- Step 3 -->
         <div class="section-title">3. Select Match Fixture</div>
         <div class="fixture-section disabled" id="fixtureSection">
-            <p class="fixture-hint" id="fixtureHint">Select a experience above to see available fixtures.</p>
+            <p class="fixture-hint" id="fixtureHint">Select an experience above to see available fixtures.</p>
             <div class="featured-fixtures" id="featuredFixtures" style="display:none;"></div>
             <div class="show-more-bar" id="showMoreBar" style="display:none;">
                 <button type="button" class="show-more-btn" id="showMoreBtn" onclick="toggleFullPanel()">
@@ -208,7 +198,7 @@
             </div>
         </div>
 
-        <!-- Step 4: Trip details -->
+        <!-- Step 4 -->
         <div class="section-title">4. Trip Details</div>
         <div class="form-grid">
             <div class="form-group">
@@ -225,7 +215,7 @@
             <textarea id="requests" placeholder="Seating needs, dietary requirements, experience goals..." rows="3"></textarea>
         </div>
 
-        <!-- Price summary with deposit breakdown -->
+        <!-- Price summary -->
         <div class="price-summary" id="priceSummary">
             <div class="price-summary-title">Booking summary</div>
             <div class="price-summary-rows">
@@ -250,7 +240,7 @@
                 </div>
             </div>
             <p class="deposit-explainer">
-                <strong>How it works:</strong> Pay the deposit today to secure your spot. We'll confirm your booking within 48h. The remaining balance is due once GAA attendance are confirmed (~2 weeks before the match) — we'll send you a payment link by email.
+                <strong>How it works:</strong> Pay the deposit today to secure your spot. We'll confirm your booking within 48h. The remaining balance is due once GAA attendance is confirmed (~2 weeks before the match) — we'll send you a payment link by email.
             </p>
         </div>
 
@@ -258,12 +248,12 @@
         <div class="disclaimer-box">
             <div class="disclaimer-icon">⚠️</div>
             <div class="disclaimer-text">
-                <strong>Match access - facilitated subject to availability.</strong>
+                <strong>Match access — facilitated subject to availability.</strong>
                 Typically confirmed 2 weeks prior. Full refund or alternative date if unavailable.
             </div>
         </div>
 
-        <!-- Stripe submit -->
+        <!-- Submit -->
         <button type="button" class="btn-stripe" id="submitBtn" onclick="handleStripeCheckout()" disabled>
             Pay deposit to confirm booking
         </button>
@@ -281,7 +271,7 @@
             Your deposit has been received. You'll get a confirmation email from Beyond the Pitch within 48 hours.
         </p>
         <p style="color: #6b7280; font-size: 0.88rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6;">
-            The remaining balance will be requested once GAA Match attendance is confirmed - typically 2 weeks before the match.
+            The remaining balance will be requested once GAA Match attendance is confirmed — typically 2 weeks before the match.
         </p>
         <button class="btn-stripe" onclick="location.reload()" style="max-width: 200px; margin: 0 auto;">New booking</button>
     </div>
@@ -289,60 +279,85 @@
 
 <script>
     // ── CONFIG ────────────────────────────────────────────────────────────────
-    const DEPOSIT_PER_PERSON = 50; // €50 p.p.
-
-    // Vercel API endpoint — zelfde domein, geen CORS-probleem
+    const DEPOSIT_PER_PERSON = 50;
     const API_ENDPOINT = '/api/create-checkout';
-
-    // Google Form fallback (voor notities/requests, blijft als backup)
     const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
-    const FIELDS = { name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877', experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312', requests: 'entry.184318357', partner: 'entry.2094398847' };
+    const FIELDS = {
+        name:       'entry.761572476',
+        email:      'entry.1144619265',
+        phone:      'entry.1213010877',
+        experience: 'entry.1446094233',
+        date:       'entry.301148404',
+        guests:     'entry.175134312',
+        requests:   'entry.184318357',
+        partner:    'entry.2094398847'
+    };
 
     // ── MATCH DATA ────────────────────────────────────────────────────────────
     const MATCH_DATA = [
-        { date: "2026-03-01", teams: "Kilkenny v Cork", venue: "Nowlan Park", sport: "Hurling", month: "mrt", kilkennyHome: true },
-        { date: "2026-04-25", teams: "Kilkenny v Wexford", venue: "Nowlan Park", sport: "Hurling", month: "apr", kilkennyHome: true },
-        { date: "2026-03-07", teams: "Galway v Kilkenny", venue: "Salthill", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-21", teams: "Tipperary v Kilkenny", venue: "Thurles", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-01", teams: "Galway v Waterford", venue: "Salthill", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-01", teams: "Offaly v Limerick", venue: "Tullamore", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-07", teams: "Limerick v Cork", venue: "Gaelic Grounds", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-08", teams: "Waterford v Tipperary", venue: "Walsh Park", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-08", teams: "Clare v Wexford", venue: "Ennis", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-29", teams: "Hurling League Finals (Div 2–4)", venue: "TBC", sport: "Hurling", month: "mrt", kilkennyHome: false },
-        { date: "2026-04-05", teams: "Hurling League Div 1 Final", venue: "TBC", sport: "Hurling", month: "apr", kilkennyHome: false },
-        { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "apr", kilkennyHome: false },
-        { date: "2026-04-26", teams: "Galway v Offaly (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "apr", kilkennyHome: false },
-        { date: "2026-05-10", teams: "Offaly v Kilkenny (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "may", kilkennyHome: false },
-        { date: "2026-05-24", teams: "Dublin v Kilkenny (Leinster SHC)", venue: "TBC", sport: "Hurling", month: "may", kilkennyHome: false },
-        { date: "2026-06-06", teams: "Leinster Hurling Final", venue: "Croke Park", sport: "Hurling", month: "may", kilkennyHome: false },
-        { date: "2026-03-01", teams: "Kerry v Monaghan", venue: "Killarney", sport: "Football", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-01", teams: "Mayo v Armagh", venue: "Castlebar", sport: "Football", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-14", teams: "Dublin v Armagh", venue: "Croke Park", sport: "Football", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-22", teams: "Galway v Dublin", venue: "Salthill", sport: "Football", month: "mrt", kilkennyHome: false },
-        { date: "2026-03-29", teams: "Football League Finals (Div 1–4)", venue: "TBC", sport: "Football", month: "mrt", kilkennyHome: false },
-        { date: "2026-04-19", teams: "Dublin v TBC (Leinster SFC QF)", venue: "TBC", sport: "Football", month: "apr", kilkennyHome: false },
-        { date: "2026-05-17", teams: "Leinster Football Final", venue: "Croke Park", sport: "Football", month: "may", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Kilkenny v Cork",                    venue: "Nowlan Park",    sport: "Hurling",  month: "mrt", kilkennyHome: true  },
+        { date: "2026-04-25", teams: "Kilkenny v Wexford",                 venue: "Nowlan Park",    sport: "Hurling",  month: "apr", kilkennyHome: true  },
+        { date: "2026-03-07", teams: "Galway v Kilkenny",                  venue: "Salthill",       sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-21", teams: "Tipperary v Kilkenny",               venue: "Thurles",        sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Galway v Waterford",                 venue: "Salthill",       sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Offaly v Limerick",                  venue: "Tullamore",      sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-07", teams: "Limerick v Cork",                    venue: "Gaelic Grounds", sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-08", teams: "Waterford v Tipperary",              venue: "Walsh Park",     sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-08", teams: "Clare v Wexford",                    venue: "Ennis",          sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-03-29", teams: "Hurling League Finals (Div 2–4)",    venue: "TBC",            sport: "Hurling",  month: "mrt", kilkennyHome: false },
+        { date: "2026-04-05", teams: "Hurling League Div 1 Final",         venue: "TBC",            sport: "Hurling",  month: "apr", kilkennyHome: false },
+        { date: "2026-04-18", teams: "Galway v Kilkenny (Leinster SHC)",   venue: "TBC",            sport: "Hurling",  month: "apr", kilkennyHome: false },
+        { date: "2026-04-26", teams: "Galway v Offaly (Leinster SHC)",     venue: "TBC",            sport: "Hurling",  month: "apr", kilkennyHome: false },
+        { date: "2026-05-10", teams: "Offaly v Kilkenny (Leinster SHC)",   venue: "TBC",            sport: "Hurling",  month: "may", kilkennyHome: false },
+        { date: "2026-05-24", teams: "Dublin v Kilkenny (Leinster SHC)",   venue: "TBC",            sport: "Hurling",  month: "may", kilkennyHome: false },
+        { date: "2026-06-06", teams: "Leinster Hurling Final",             venue: "Croke Park",     sport: "Hurling",  month: "may", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Kerry v Monaghan",                   venue: "Killarney",      sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-01", teams: "Mayo v Armagh",                      venue: "Castlebar",      sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-14", teams: "Dublin v Armagh",                    venue: "Croke Park",     sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-22", teams: "Galway v Dublin",                    venue: "Salthill",       sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-03-29", teams: "Football League Finals (Div 1–4)",   venue: "TBC",            sport: "Football", month: "mrt", kilkennyHome: false },
+        { date: "2026-04-19", teams: "Dublin v TBC (Leinster SFC QF)",     venue: "TBC",            sport: "Football", month: "apr", kilkennyHome: false },
+        { date: "2026-05-17", teams: "Leinster Football Final",            venue: "Croke Park",     sport: "Football", month: "may", kilkennyHome: false },
     ];
 
     // ── STATE ─────────────────────────────────────────────────────────────────
-    let activeFilter = null;
+    let activeFilter    = null;
     let selectedFixture = null;
-    let selectedPrice = 0;
+    let selectedPrice   = 0;
 
     // ── INIT ──────────────────────────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', () => {
-        // Show cancelled notice if returning from Stripe cancel
-        if (new URLSearchParams(location.search).get('cancelled') === 'true') {
+        const params = new URLSearchParams(location.search);
+
+        // Stripe cancelled
+        if (params.get('cancelled') === 'true') {
             document.getElementById('cancelledNotice').classList.add('visible');
             history.replaceState({}, '', location.pathname);
         }
-        // Show success if returning from Stripe success
-        if (new URLSearchParams(location.search).get('session_id')) {
-            document.getElementById('bookingForm').style.display = 'none';
+
+        // ✅ Stripe success — submit Google Form HERE (only after payment)
+        if (params.get('session_id')) {
+            document.getElementById('bookingForm').style.display  = 'none';
             document.getElementById('successMessage').style.display = 'block';
+            submitToGoogleForm(params);
         }
     });
+
+    // ── GOOGLE FORM SUBMIT (only called after successful Stripe payment) ───────
+    function submitToGoogleForm(params) {
+        try {
+            const formData = new FormData();
+            formData.append(FIELDS.name,       params.get('name')       || '');
+            formData.append(FIELDS.email,      params.get('email')      || '');
+            formData.append(FIELDS.phone,      params.get('phone')      || '');
+            formData.append(FIELDS.experience, params.get('experience') || '');
+            formData.append(FIELDS.date,       params.get('date')       || '');
+            formData.append(FIELDS.guests,     params.get('guests')     || '');
+            formData.append(FIELDS.requests,   params.get('fixture')    || '');
+            formData.append(FIELDS.partner,    'Ireland');
+            fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData }).catch(() => {});
+        } catch (e) { /* non-critical */ }
+    }
 
     // ── HELPERS ───────────────────────────────────────────────────────────────
     function formatDate(str) {
@@ -351,23 +366,28 @@
     }
 
     function updateProgress() {
-        const name = document.getElementById('name').value.trim();
+        const name  = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const p1 = document.getElementById('prog-1');
         const p2 = document.getElementById('prog-2');
-        if (name && email) { p1.classList.remove('active'); p1.classList.add('done'); p2.classList.add('active'); }
-        else { p1.classList.add('active'); p1.classList.remove('done'); p2.classList.remove('active'); }
+        if (name && email) {
+            p1.classList.remove('active'); p1.classList.add('done');
+            p2.classList.add('active');
+        } else {
+            p1.classList.add('active');    p1.classList.remove('done');
+            p2.classList.remove('active');
+        }
     }
 
     function updateSubmitButton() {
-        const name = document.getElementById('name').value.trim();
+        const name  = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-        const date = document.getElementById('date').value;
-        const btn = document.getElementById('submitBtn');
+        const date  = document.getElementById('date').value;
+        const btn   = document.getElementById('submitBtn');
         const ready = name && email && date && selectedPrice > 0;
         btn.disabled = !ready;
         if (ready) {
-            const guests = parseInt(document.getElementById('guests').value, 10) || 1;
+            const guests  = parseInt(document.getElementById('guests').value, 10) || 1;
             const deposit = DEPOSIT_PER_PERSON * guests;
             btn.textContent = `Pay €${deposit} deposit to confirm booking`;
         } else {
@@ -380,9 +400,17 @@
         const container = document.getElementById('featuredFixtures');
         container.innerHTML = '';
 
-        const featured = filter === 'kilkenny-home'
-            ? MATCH_DATA.filter(m => m.kilkennyHome)
-            : MATCH_DATA.filter(m => m.kilkennyHome).slice(0, 2).concat(MATCH_DATA.filter(m => !m.kilkennyHome).slice(0, 1));
+        let featured;
+        if (filter === 'kilkenny-home') {
+            // Premium: alleen Kilkenny thuis op Nowlan Park
+            featured = MATCH_DATA.filter(m => m.kilkennyHome);
+        } else {
+            // Flexible: selectie van aankomende wedstrijden uit de volledige lijst
+            const kilkHome = MATCH_DATA.filter(m =>  m.kilkennyHome).slice(0, 2);
+            const kilkAway = MATCH_DATA.filter(m => !m.kilkennyHome && m.teams.includes('Kilkenny')).slice(0, 1);
+            const other    = MATCH_DATA.filter(m => !m.kilkennyHome && !m.teams.includes('Kilkenny')).slice(0, 2);
+            featured = [...kilkHome, ...kilkAway, ...other];
+        }
 
         featured.forEach(m => {
             const card = document.createElement('label');
@@ -409,7 +437,6 @@
                 document.getElementById('date').value = m.date;
                 updateSummary();
                 updateProgress();
-                // Update progress steps
                 document.getElementById('prog-3').classList.add('active');
                 document.getElementById('prog-4').classList.add('active');
             });
@@ -420,8 +447,8 @@
     }
 
     function toggleFullPanel() {
-        const panel = document.getElementById('fullFixturePanel');
-        const btn = document.getElementById('showMoreBtn');
+        const panel  = document.getElementById('fullFixturePanel');
+        const btn    = document.getElementById('showMoreBtn');
         const isOpen = panel.classList.toggle('open');
         btn.classList.toggle('open', isOpen);
         btn.innerHTML = isOpen
@@ -432,16 +459,19 @@
 
     function buildFullMenu() {
         const selector = document.getElementById('match-selector');
-        const sport = document.getElementById('sportFilter').value;
-        const month = document.getElementById('monthFilter').value;
+        const sport    = document.getElementById('sportFilter').value;
+        const month    = document.getElementById('monthFilter').value;
         selector.innerHTML = '<option value="">-- Choose a fixture --</option>';
         if (!activeFilter) return;
 
         const groups = {};
         MATCH_DATA.forEach(m => {
+            // Premium: alleen Nowlan Park wedstrijden
             if (activeFilter === 'kilkenny-home' && !m.kilkennyHome) return;
+            // Sport- en maandfilter
             if (sport !== 'all' && m.sport !== sport) return;
             if (month !== 'all' && m.month !== month) return;
+
             const key = `${m.sport} · ${m.month.toUpperCase()}`;
             if (!groups[key]) groups[key] = [];
             groups[key].push(m);
@@ -453,7 +483,7 @@
             group.label = label;
             matches.forEach(m => {
                 const opt = document.createElement('option');
-                opt.value = `${m.date}|${m.teams}`;
+                opt.value       = `${m.date}|${m.teams}`;
                 opt.textContent = `${m.date}: ${m.teams} (${m.venue})`;
                 group.appendChild(opt);
                 total++;
@@ -463,7 +493,7 @@
 
         if (total === 0) {
             const opt = document.createElement('option');
-            opt.disabled = true;
+            opt.disabled    = true;
             opt.textContent = '— No matches for this filter —';
             selector.appendChild(opt);
         }
@@ -487,21 +517,28 @@
         radio.addEventListener('change', e => {
             document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('selected'));
             e.target.closest('.exp-card').classList.add('selected');
-            activeFilter = e.target.dataset.filter;
+
+            activeFilter  = e.target.dataset.filter;
             selectedPrice = parseInt(e.target.dataset.price, 10);
 
             document.getElementById('fixtureSection').classList.remove('disabled');
             document.getElementById('fixtureHint').textContent = activeFilter === 'kilkenny-home'
-                ? '🏟️ Kilkenny home fixtures at Nowlan Park — best for the full experience.'
-                : '🌐 All fixtures available. Kilkenny home matches are recommended.';
+                ? '🏟️ Premium: alleen Kilkenny thuiswedstrijden op Nowlan Park.'
+                : '🌐 Alle beschikbare GAA-wedstrijden — combineer de ervaring met elke match naar keuze.';
 
             renderFeatured(activeFilter);
             document.getElementById('showMoreBar').style.display = 'block';
+
+            // Reset fixture selectie bij wisselen van pakket
             selectedFixture = null;
             document.getElementById('date').value = '';
+            document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('match-selector').value = '';
+
             document.getElementById('prog-2').classList.remove('active');
             document.getElementById('prog-2').classList.add('done');
             document.getElementById('prog-3').classList.add('active');
+
             updateSummary();
         });
     });
@@ -509,31 +546,31 @@
     // ── SUMMARY ───────────────────────────────────────────────────────────────
     function updateSummary() {
         const summary = document.getElementById('priceSummary');
-        const guests = parseInt(document.getElementById('guests').value, 10) || 1;
+        const guests  = parseInt(document.getElementById('guests').value, 10) || 1;
 
         if (!selectedPrice) { summary.classList.remove('visible'); updateSubmitButton(); return; }
 
         summary.classList.add('visible');
 
-        const packageName = selectedPrice === 120 ? 'The Hurling Experience' : 'Kilkenny Premium Package';
-        const fullTotal = selectedPrice * guests;
-        const deposit = DEPOSIT_PER_PERSON * guests;
-        const remaining = fullTotal - deposit;
+        const packageName = selectedPrice === 120 ? 'The Kilkenny Experience — Flexible' : 'The Kilkenny Experience — Premium';
+        const fullTotal   = selectedPrice * guests;
+        const deposit     = DEPOSIT_PER_PERSON * guests;
+        const remaining   = fullTotal - deposit;
 
-        document.getElementById('summaryPackage').textContent = packageName;
+        document.getElementById('summaryPackage').textContent       = packageName;
         document.getElementById('summaryPricePerPerson').textContent = `€${selectedPrice} p.p.`;
-        document.getElementById('summaryGuests').textContent = `${guests} guest${guests !== 1 ? 's' : ''}`;
-        document.getElementById('summaryFullTotal').textContent = `€${fullTotal}`;
-        document.getElementById('summaryDeposit').textContent = `€${deposit}`;
-        document.getElementById('summaryRemaining').textContent = `€${remaining}`;
+        document.getElementById('summaryGuests').textContent         = `${guests} guest${guests !== 1 ? 's' : ''}`;
+        document.getElementById('summaryFullTotal').textContent      = `€${fullTotal}`;
+        document.getElementById('summaryDeposit').textContent        = `€${deposit}`;
+        document.getElementById('summaryRemaining').textContent      = `€${remaining}`;
 
         const fixtureEl = document.getElementById('summaryFixture');
         if (selectedFixture) {
-            fixtureEl.textContent = `${selectedFixture.teams} · ${formatDate(selectedFixture.date)}`;
-            fixtureEl.style.color = '#374151';
+            fixtureEl.textContent  = `${selectedFixture.teams} · ${formatDate(selectedFixture.date)}`;
+            fixtureEl.style.color  = '#374151';
         } else {
-            fixtureEl.textContent = 'No fixture selected yet';
-            fixtureEl.style.color = '#9ca3af';
+            fixtureEl.textContent  = 'No fixture selected yet';
+            fixtureEl.style.color  = '#9ca3af';
         }
 
         updateSubmitButton();
@@ -541,11 +578,16 @@
 
     // ── STRIPE CHECKOUT ───────────────────────────────────────────────────────
     async function handleStripeCheckout() {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const date = document.getElementById('date').value;
-        const expRadio = document.querySelector('input[name="experience"]:checked');
-        const guests = parseInt(document.getElementById('guests').value, 10) || 1;
+        const name      = document.getElementById('name').value.trim();
+        const email     = document.getElementById('email').value.trim();
+        const phone     = document.getElementById('phone').value.trim();
+        const date      = document.getElementById('date').value;
+        const expRadio  = document.querySelector('input[name="experience"]:checked');
+        const guests    = parseInt(document.getElementById('guests').value, 10) || 1;
+        const notes     = document.getElementById('requests').value.trim();
+        const fixture   = selectedFixture
+            ? `${selectedFixture.teams} at ${selectedFixture.venue}`
+            : 'TBC';
 
         if (!name || !email || !date || !expRadio) {
             alert('Please fill in all required fields before paying.');
@@ -557,33 +599,31 @@
         btn.classList.add('loading');
         btn.innerHTML = `<div class="spinner"></div> Redirecting to payment…`;
 
-        // Also submit to Google Form as backup record
-        try {
-            const formData = new FormData();
-            formData.append(FIELDS.name, name);
-            formData.append(FIELDS.email, email);
-            formData.append(FIELDS.phone, document.getElementById('phone').value);
-            formData.append(FIELDS.experience, expRadio.value);
-            formData.append(FIELDS.date, date);
-            formData.append(FIELDS.guests, String(guests));
-            formData.append(FIELDS.requests, `Fixture: ${selectedFixture ? selectedFixture.teams + ' at ' + selectedFixture.venue : 'TBC'} | Notes: ${document.getElementById('requests').value}`);
-            formData.append(FIELDS.partner, 'Ireland');
-            fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData }).catch(() => {});
-        } catch (e) { /* non-critical */ }
-
-        // Create Stripe Checkout session
         try {
             const response = await fetch(API_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    packageName: expRadio.value,
+                    packageName:    expRadio.value,
                     pricePerPerson: selectedPrice,
                     guests,
-                    fixture: selectedFixture ? `${selectedFixture.teams} at ${selectedFixture.venue}` : null,
+                    fixture,
                     date,
                     name,
                     email,
+                    phone,
+                    notes,
+                    // ✅ Alle boekingsdata als URL-parameters meegeven voor Google Form submit op success-pagina
+                    successParams: {
+                        name,
+                        email,
+                        phone,
+                        experience: expRadio.value,
+                        date,
+                        guests:     String(guests),
+                        fixture,
+                        notes,
+                    }
                 }),
             });
 
@@ -593,7 +633,7 @@
                 throw new Error(data.error || 'Could not create payment session.');
             }
 
-            // Redirect to Stripe Checkout
+            // Redirect naar Stripe Checkout
             window.location.href = data.url;
 
         } catch (err) {
