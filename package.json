@@ -2,8 +2,7 @@
   "name": "beyond-the-pitch-booking",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'No build step needed'"
+    "build": "mkdir -p public && cp booking.html public/index.html"
   },
   "dependencies": {
     "stripe": "^14.0.0"
