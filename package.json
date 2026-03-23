@@ -1,11 +1,7 @@
 {
-  "name": "mijn-booking-site",
+  "name": "beyond-the-pitch-booking",
   "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "build": "mkdir -p public && cp index.html public/"
-  },
   "dependencies": {
-    "stripe": "^14.21.0"
+    "stripe": "^14.0.0"
   }
 }
