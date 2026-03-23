@@ -775,10 +775,12 @@
     const DEPOSIT_PER_PERSON = 50;
     const API_ENDPOINT = '/api/create-checkout';
 
-    // Alleen publishable key in frontend
-    const STRIPE_PUBLISHABLE_KEY =
-        window.STRIPE_PUBLISHABLE_KEY ||
-        'pk_test_51TBEHGDRHGvAcw7gaL33ni8a0tHSN65E6eRzAhF4TzygTTnBn7qCW1WZ4mekXmu5BcXiaOQjIISyWDFsrVoaUx7B00ZQ3ncAJD'
+    // ============================================================
+    // 👇 PLAK HIER JE STRIPE PUBLISHABLE KEY (begint met pk_test_)
+    // Te vinden op: dashboard.stripe.com → Developers → API keys
+    // ============================================================
+    const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TBEHGDRHGvAcw7gaL33ni8a0tHSN65E6eRzAhF4TzygTTnBn7qCW1WZ4mekXmu5BcXiaOQjIISyWDFsrVoaUx7B00ZQ3ncAJD';
+    // ============================================================
 
     const FORM_ACTION =
         'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
@@ -852,16 +854,16 @@
     let stripe = null;
 
     window.addEventListener('DOMContentLoaded', async () => {
-        stripe = Stripe(STRIPE_PUBLISHABLE_KEY);pk_test_51TBEHWDGMPGpKjf0GEE2qGV4sQFzeRIGZ3g00Y8t3sKeNpEW6ElzplGhRrHjdiBdTN8grh5B2CZAjIwmDYM3B4Aa00bXJFJvVw
+        stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
         const params = new URLSearchParams(window.location.search);
 
-        document.getElementById('card-dublin').addEventListener('click', () => {
-            selectExperience(document.querySelector('#card-dublin input'));
+        document.querySelector('#card-dublin input').addEventListener('change', function() {
+            selectExperience(this);
         });
 
-        document.getElementById('card-kilkenny').addEventListener('click', () => {
-            selectExperience(document.querySelector('#card-kilkenny input'));
+        document.querySelector('#card-kilkenny input').addEventListener('change', function() {
+            selectExperience(this);
         });
 
         document.getElementById('showMoreBtn').addEventListener('click', toggleFullPanel);
