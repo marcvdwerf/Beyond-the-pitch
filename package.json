@@ -2,7 +2,7 @@
   "name": "beyond-the-pitch-booking",
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p public && cp booking.html public/index.html"
+    "build": "cp booking.html public/index.html || true"
   },
   "dependencies": {
     "stripe": "^14.0.0"
