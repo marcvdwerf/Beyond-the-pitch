@@ -1,96 +1,82 @@
 import Stripe from 'stripe';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
-    try {
-        const {
-            name,
-            email,
-            phone,
-            experience,
-            date,
-            guests,
-            requests,
-            fixture,
-            depositPerPerson,
-            packagePricePerPerson
-        } = req.body || {};
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-        if (!name || !email || !experience || !date || !fixture) {
-            return res.status(400).json({ error: 'Missing required booking fields.' });
-        }
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
 
-        const guestCount = Number(guests);
-        const deposit = Number(depositPerPerson || 50);
-        const packagePrice = Number(packagePricePerPerson || 0);
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-        if (!guestCount || guestCount < 4) {
-            return res.status(400).json({ error: 'Minimum number of guests is 4.' });
-        }
-        if (!deposit || deposit < 1) {
-            return res.status(400).json({ error: 'Invalid deposit amount.' });
-        }
+  const { packageName, pricePerPerson, guests, fixture, date, name, email } = req.body;
 
-        const appUrl = process.env.APP_URL || req.headers.origin;
-        const bookingPath = process.env.BOOKING_PATH || '/';
-        const successBase = `${appUrl}${bookingPath}`;
+  if (!packageName || !pricePerPerson || !guests || !name || !email) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
-        const successParams = new URLSearchParams({
-            name,
-            email,
-            phone: phone || '',
-            experience,
-            date,
-            guests: String(guestCount),
-            requests: requests || '',
-            fixture
-        });
+  const depositPerPerson = 50; // €50 p.p. deposit
+  const depositTotal = depositPerPerson * parseInt(guests, 10);
+  const fullPriceTotal = pricePerPerson * parseInt(guests, 10);
+  const remainingTotal = fullPriceTotal - depositTotal;
 
-        const session = await stripe.checkout.sessions.create({
-            mode: 'payment',
-            customer_email: email,
-            payment_method_types: ['card', 'ideal'],
-            billing_address_collection: 'auto',
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'eur',
-                        product_data: {
-                            name: `${experience} — Deposit`,
-                            description: fixture
-                        },
-                        unit_amount: deposit * 100
-                    },
-                    quantity: guestCount
-                }
-            ],
-            metadata: {
-                booking_name: name,
-                booking_email: email,
-                booking_phone: phone || '',
-                experience,
-                date,
-                guests: String(guestCount),
-                fixture,
-                requests: requests || '',
-                deposit_per_person: String(deposit),
-                package_price_per_person: String(packagePrice)
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card', 'ideal'], // iDEAL voor Nederlandse klanten
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: `Deposit — ${packageName}`,
+              description: fixture
+                ? `${guests} guest${guests > 1 ? 's' : ''} · ${fixture} · ${date}`
+                : `${guests} guest${guests > 1 ? 's' : ''} · ${date}`,
+              images: ['https://travelbeyondthepitch.com/images/beyond-the-pitch-grey.png'],
             },
-            success_url: `${successBase}?session_id={CHECKOUT_SESSION_ID}&${successParams.toString()}`,
-            cancel_url: `${successBase}?cancelled=true`,
-            locale: 'en',
-            allow_promotion_codes: false
-        });
+            unit_amount: depositTotal * 100, // Stripe werkt in centen
+          },
+          quantity: 1,
+        },
+      ],
+      customer_email: email,
+      metadata: {
+        customer_name: name,
+        package: packageName,
+        guests: String(guests),
+        fixture: fixture || 'TBC',
+        match_date: date || 'TBC',
+        deposit_per_person: String(depositPerPerson),
+        full_price_per_person: String(pricePerPerson),
+        remaining_amount: String(remainingTotal),
+        source: 'beyond-the-pitch-booking',
+      },
+      payment_intent_data: {
+        description: `Beyond the Pitch deposit — ${packageName} — ${name}`,
+        metadata: {
+          customer_name: name,
+          package: packageName,
+          fixture: fixture || 'TBC',
+          remaining_to_collect: String(remainingTotal),
+        },
+      },
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/booking?cancelled=true`,
+      locale: 'en',
+    });
 
-        return res.status(200).json({ id: session.id });
+    return res.status(200).json({ url: session.url, sessionId: session.id });
 
-    } catch (error) {
-        console.error('Stripe checkout creation failed:', error);
-        return res.status(500).json({
-            error: error.message || 'Unable to create Stripe checkout session.'
-        });
-    }
+  } catch (err) {
+    console.error('Stripe error:', err.message);
+    return res.status(500).json({ error: 'Failed to create payment session. Please try again.' });
+  }
 }
