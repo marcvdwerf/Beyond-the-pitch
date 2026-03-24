@@ -640,7 +640,6 @@
   imports needed.
   ══════════════════════════════════════════════════════════════════
 -->
-
 <!-- ══════════════════════════════════════════════════
      CHAMPIONSHIP SECTION - DARK zone
 ══════════════════════════════════════════════════ -->
@@ -658,65 +657,6 @@
       </p>
     </div>
     <div class="zone-divider" style="margin-bottom: 2.5rem;"></div>
-
-    <!-- Tab bar (matches existing .tab-bar style but inverted for dark bg) -->
-    <div style="
-      display: flex;
-      border-bottom: 1px solid var(--border-dark);
-      margin-bottom: 2.5rem;
-      gap: 0;
-    ">
-      <button
-        id="ctab-k"
-        onclick="cSwitchTab('k')"
-        style="
-          padding: 0.85rem 2rem;
-          background: none;
-          border: none;
-          border-bottom: 2px solid var(--gold-bright);
-          margin-bottom: -1px;
-          font-family: 'Inter', sans-serif;
-          font-weight: 700;
-          font-size: 0.9rem;
-          cursor: pointer;
-          color: #fff;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          letter-spacing: -0.01em;
-          transition: all 0.2s;
-        "
-      >
-        <!-- Castle icon -->
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21V11h6v10"/><path d="M3 7h18"/></svg>
-        Kilkenny experience
-      </button>
-      <button
-        id="ctab-d"
-        onclick="cSwitchTab('d')"
-        style="
-          padding: 0.85rem 2rem;
-          background: none;
-          border: none;
-          border-bottom: 2px solid transparent;
-          margin-bottom: -1px;
-          font-family: 'Inter', sans-serif;
-          font-weight: 700;
-          font-size: 0.9rem;
-          cursor: pointer;
-          color: rgba(255,255,255,0.35);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          letter-spacing: -0.01em;
-          transition: all 0.2s;
-        "
-      >
-        <!-- Globe icon -->
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        Dublin experience
-      </button>
-    </div>
 
     <!-- ── KILKENNY PANEL ── -->
     <div id="cpanel-k">
@@ -801,80 +741,6 @@
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <a href="/booking-page-ireland/" class="btn-gold" style="flex: 1; justify-content: center;">
               Book Kilkenny
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="mailto:thebeyondthepitch@gmail.com" class="btn-outline-white" style="flex: 1; justify-content: center;">Ask a question</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── DUBLIN PANEL ── -->
-    <div id="cpanel-d" style="display: none;">
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;" class="two-col">
-
-        <!-- LEFT: fixtures -->
-        <div>
-          <!-- Round 2 -->
-          <p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin-bottom: 0.75rem;">Round 2 · Sunday 26 April</p>
-          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 0.75rem; border-left: 2px solid #6fa8dc;">
-            <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
-              <div style="font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1;">26</div>
-              <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 2px;">Apr</div>
-            </div>
-            <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
-            <div style="flex: 1; min-width: 0;">
-              <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Dublin <span style="font-weight: 300; color: rgba(255,255,255,0.3); margin: 0 4px;">vs</span> Kildare</div>
-              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">Parnell Park, Dublin</div>
-            </div>
-            <div style="text-align: right; flex-shrink: 0;">
-              <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(111,168,220,0.12); color: #8bbae8; border: 1px solid rgba(111,168,220,0.25);">Home</span>
-              <div style="font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 4px;">15:00</div>
-            </div>
-          </div>
-
-          <!-- Final -->
-          <p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 1.25rem 0 0.75rem;">Leinster Final · Saturday 6 June</p>
-          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border: 1px solid rgba(201,162,39,0.4);">
-            <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
-              <div style="font-size: 1.5rem; font-weight: 900; color: var(--gold-bright); line-height: 1;">6</div>
-              <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,215,0,0.4); margin-top: 2px;">Jun</div>
-            </div>
-            <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
-            <div style="flex: 1; min-width: 0;">
-              <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Leinster Final</div>
-              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">Croke Park, Dublin</div>
-            </div>
-            <div style="text-align: right; flex-shrink: 0;">
-              <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(201,162,39,0.15); color: var(--gold-bright); border: 1px solid rgba(201,162,39,0.3);">★ Kick-off</span>
-              <div style="font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 4px;">18:00</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT: context + CTA -->
-        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-          <div>
-            <h3 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Dublin at home in Parnell Park</h3>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1.25rem;">
-              We offer one home fixture for the Dublin experience - Dublin vs Kildare at Parnell Park, the intimate home ground of the Dublin hurlers. No tourist crowds. Just the club, the community, and the game.
-            </p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.85; margin-bottom: 2rem;">
-              From there, it all leads to <strong style="color: var(--gold-bright);">6 June at Croke Park</strong> - the Leinster Final, and the kick-off moment for this whole project.
-            </p>
-
-            <!-- Warn box -->
-            <div class="warn-box" style="margin-bottom: 2rem;">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c47f1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <p><strong>Match access facilitated subject to availability.</strong> Confirmed 2 weeks prior. Full refund or alternative date if unavailable.</p>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <a href="/booking-page-ireland/" class="btn-gold" style="flex: 1; justify-content: center;">
-              Book Dublin
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a href="mailto:thebeyondthepitch@gmail.com" class="btn-outline-white" style="flex: 1; justify-content: center;">Ask a question</a>
