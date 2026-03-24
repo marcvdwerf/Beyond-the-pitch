@@ -440,6 +440,16 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
     <span>Explore experiences</span>
   </a>
+  <!-- ANNOUNCEMENT BAR -->
+<div style="background:#ffd700;padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:center;gap:0.9rem;">
+  <span style="width:6px;height:6px;background:#000;border-radius:50%;animation:ann-blink 1.4s ease-in-out infinite;flex-shrink:0;display:inline-block;"></span>
+  <span style="font-size:0.76rem;font-weight:800;color:#000;letter-spacing:0.07em;text-transform:uppercase;font-family:'Inter',system-ui,sans-serif;">Leinster Championship · Kilkenny · secure your spot! 30 March</span>
+  <span style="color:rgba(0,0,0,0.3);font-size:0.72rem;">—</span>
+  <a href="/gaelic-games/" style="font-size:0.74rem;font-weight:900;color:#000;text-decoration:none;border-bottom:1.5px solid rgba(0,0,0,0.35);padding-bottom:1px;white-space:nowrap;letter-spacing:0.04em;font-family:'Inter',system-ui,sans-serif;">Spots are limited — claim yours →</a>
+</div>
+<style>
+  @keyframes ann-blink{0%,100%{opacity:1}50%{opacity:0.2}}
+</style>
 
   <!-- ══ HEADER ══ -->
   <header class="header" id="header">
@@ -480,47 +490,101 @@
   <main id="main">
 
   <!-- ══════════════════════════════════════════════
-       ZONE 1 - DARK | Hero
-  ══════════════════════════════════════════════ -->
-  <section class="zone-dark hero-section" style="padding:9rem 1.5rem 5rem;">
-    <div style="max-width:1100px;margin:0 auto;">
-      <span class="section-label">Cultural Sports Experience</span>
-      <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+  <!-- ZONE 1 - DARK | Hero -->
+<section class="zone-dark hero-section" style="padding:9rem 1.5rem 5rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <span class="section-label">Cultural Sports Experience</span>
+    <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
 
-        <!-- Left: title + body + CTAs -->
-        <div>
-          <h1 style="font-size:clamp(3.5rem,8vw,6.5rem);font-weight:900;letter-spacing:-0.05em;line-height:0.92;color:#fff;margin-bottom:1.5rem;">
-            Sport.<br>
-            <span style="color:var(--gold-bright);">Culture.</span><br>
-            Experience.
-          </h1>
-          <div class="zone-divider"></div>
-          <p style="color:rgba(255,255,255,0.65);font-size:1.1rem;line-height:1.9;margin-top:2rem;margin-bottom:2rem;max-width:480px;">
-            We connect curious people with authentic sporting traditions - bringing them face to face with the communities, rituals and athletes that make local sport extraordinary.
-          </p>
-          <div class="hero-btns" style="display:flex;gap:1rem;flex-wrap:wrap;">
-            <a href="/experiences/" class="btn-gold">
-              See all experiences
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="/about/" class="btn-outline-white">About us</a>
+      <!-- Left -->
+      <div>
+        <h1 style="font-size:clamp(3.5rem,8vw,6.5rem);font-weight:900;letter-spacing:-0.05em;line-height:0.92;color:#fff;margin-bottom:1.5rem;">
+          Sport.<br>
+          <span style="color:var(--gold-bright);">Culture.</span><br>
+          Experience.
+        </h1>
+        <div class="zone-divider"></div>
+        <p style="color:rgba(255,255,255,0.6);font-size:1.05rem;line-height:1.9;margin-top:2rem;margin-bottom:2rem;max-width:440px;">
+          We connect curious people with authentic sporting traditions — face to face with the communities, rituals and athletes that make local sport extraordinary.<br><br>
+          <strong style="color:#fff;font-weight:700;">Next up: Leinster Championship, Kilkenny. 30 March.</strong>
+        </p>
+        <div class="hero-btns" style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="/gaelic-games/" class="btn-gold">
+            Secure your spot
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/about/" class="btn-outline-white">About us</a>
+        </div>
+      </div>
+
+      <!-- Right: countdown card -->
+      <div>
+        <div style="background:#181818;border:1px solid #262626;border-radius:16px;overflow:hidden;">
+          <!-- Header -->
+          <div style="padding:1.1rem 1.4rem;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.76rem;font-weight:800;color:#fff;letter-spacing:0.03em;">Leinster Championship 2026</span>
+            <span style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.7rem;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.22);border-radius:50px;font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-bright);">
+              <span style="width:5px;height:5px;background:var(--gold-bright);border-radius:50%;animation:ann-blink 1.4s ease-in-out infinite;display:inline-block;"></span>
+              Filling fast
+            </span>
+          </div>
+          <!-- Numbers -->
+          <div style="padding:1.4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0.65rem;">
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-days" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Days</span>
+            </div>
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-hours" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Hours</span>
+            </div>
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-mins" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Mins</span>
+            </div>
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-secs" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Secs</span>
+            </div>
+          </div>
+          <!-- Footer: scarcity + price -->
+          <div style="padding:0.9rem 1.4rem;border-top:1px solid #1e1e1e;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:0.55rem;">
+              <div style="width:72px;height:3px;background:#222;border-radius:2px;overflow:hidden;">
+                <div style="height:100%;width:75%;background:var(--gold-bright);border-radius:2px;"></div>
+              </div>
+              <span style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.35);">Limited spots remaining</span>
+            </div>
+            <span style="font-size:0.8rem;font-weight:800;color:#fff;">€120 <span style="font-size:0.68rem;font-weight:400;color:rgba(255,255,255,0.3);">p.p.</span></span>
+          </div>
+          <!-- Small group note -->
+          <div style="padding:0.75rem 1.4rem;border-top:1px solid #1a1a1a;display:flex;align-items:center;gap:0.55rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,215,0,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span style="font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.5;"><strong style="color:rgba(255,255,255,0.65);font-weight:700;">Small group only.</strong> Once we're full, we're full — no waitlist.</span>
           </div>
         </div>
-
-        <!-- Right: logo mark -->
-        <div class="hero-logo-col" style="display:flex;justify-content:center;align-items:center;">
-          <img
-            src="images/beyond-the-pitch-sport-experiences.png"
-            alt="Beyond the Pitch"
-            style="width:100%;max-width:340px;opacity:0.9;"
-          />
-        </div>
-
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-
+<!-- Countdown script — plak dit eenmalig voor </body> -->
+<script>
+  (function(){
+    var TARGET = new Date('2026-03-30T14:00:00');
+    function pad(n){return String(n).padStart(2,'0');}
+    function tick(){
+      var diff = TARGET - new Date();
+      if(diff<=0){['btp-days','btp-hours','btp-mins','btp-secs'].forEach(function(id){document.getElementById(id).textContent='00';});return;}
+      document.getElementById('btp-days').textContent=pad(Math.floor(diff/86400000));
+      document.getElementById('btp-hours').textContent=pad(Math.floor(diff%86400000/3600000));
+      document.getElementById('btp-mins').textContent=pad(Math.floor(diff%3600000/60000));
+      document.getElementById('btp-secs').textContent=pad(Math.floor(diff%60000/1000));
+    }
+    tick();setInterval(tick,1000);
+  })();
+</script>
   <!-- ══════════════════════════════════════════════
        ZONE 2 - OFF-WHITE | What we do (3 pillars)
   ══════════════════════════════════════════════ -->
