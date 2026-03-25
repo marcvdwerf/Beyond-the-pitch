@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Your Experience - Beyond the Pitch</title>
-    <script src="https://js.stripe.com/v3/"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -172,36 +171,56 @@
             background: white;
         }
 
-        .experience-grid {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .exp-card {
-            border: 2px solid #edf2f7;
-            border-radius: 16px;
-            padding: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
-            display: block;
-        }
-
-        .exp-card.selected {
-            border-color: var(--primary);
+        /* Kilkenny experience card — single card, displayed as info block */
+        .exp-info-card {
+            border: 2px solid var(--primary);
             background: rgba(5,150,105,0.05);
+            border-radius: 16px;
+            padding: 20px 22px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
         }
 
-        .exp-card input[type="radio"] {
-            position: absolute;
-            opacity: 0;
+        .exp-info-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
-        .price-tag {
-            float: right;
-            color: var(--primary);
+        .exp-info-body {}
+
+        .exp-info-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--secondary);
+        }
+
+        .exp-info-badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: var(--secondary);
+            font-size: 0.7rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin: 4px 0 8px;
+        }
+
+        .exp-info-desc {
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.65;
+        }
+
+        .exp-info-price {
+            margin-top: 10px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.95rem;
         }
 
         .fixture-section {
@@ -211,11 +230,6 @@
             border: 1px solid #e2e8f0;
             overflow: hidden;
             transition: opacity 0.3s;
-        }
-
-        .fixture-section.disabled {
-            opacity: 0.45;
-            pointer-events: none;
         }
 
         .fixture-hint {
@@ -253,13 +267,6 @@
             background: rgba(5,150,105,0.06);
         }
 
-        .fixture-card input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
         .fixture-badge {
             display: inline-flex;
             align-items: center;
@@ -275,11 +282,6 @@
         .badge-home {
             background: rgba(5,150,105,0.12);
             color: var(--secondary);
-        }
-
-        .badge-away {
-            background: #edf2f7;
-            color: #4a5568;
         }
 
         .fixture-info { flex: 1; }
@@ -358,7 +360,6 @@
             color: var(--primary);
         }
 
-        .show-more-btn.open svg { transform: rotate(180deg); }
         .show-more-btn svg { transition: transform 0.2s; }
 
         .full-fixture-panel {
@@ -371,7 +372,7 @@
 
         .filter-container {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 14px;
         }
@@ -423,7 +424,7 @@
             margin-top: 2px;
         }
 
-        .price-row.deposit-row {
+        .price-row.total-row {
             background: white;
             border-radius: 10px;
             padding: 10px 14px;
@@ -431,57 +432,18 @@
             border: 1.5px solid #6ee7b7;
         }
 
-        .price-row.deposit-row .price-row-label {
+        .price-row.total-row .price-row-label {
             font-weight: 700;
             color: #065f46;
         }
 
-        .price-row.deposit-row .price-row-value {
+        .price-row.total-row .price-row-value {
             font-weight: 800;
             color: var(--primary);
             font-size: 1.1rem;
         }
 
-        .deposit-explainer {
-            font-size: 0.78rem;
-            color: #6b7280;
-            margin-top: 10px;
-            line-height: 1.5;
-        }
-
-        .deposit-explainer strong { color: #374151; }
-
-        .disclaimer-box {
-            background: #fffbeb;
-            border: 1px solid #f6ad55;
-            border-left: 4px solid #ed8936;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 25px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .disclaimer-icon {
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        .disclaimer-text {
-            font-size: 0.82rem;
-            color: #7b5e3a;
-            line-height: 1.6;
-        }
-
-        .disclaimer-text strong {
-            color: #5c4a2a;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .btn-stripe {
+        .btn-submit {
             background: var(--primary);
             color: white;
             border: none;
@@ -498,28 +460,18 @@
             gap: 10px;
         }
 
-        .btn-stripe:hover:not(:disabled) {
+        .btn-submit:hover:not(:disabled) {
             background: var(--secondary);
             transform: translateY(-1px);
         }
 
-        .btn-stripe:disabled {
+        .btn-submit:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
-        .btn-stripe.loading { background: var(--secondary); }
-
-        .stripe-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 10px;
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
+        .btn-submit.loading { background: var(--secondary); }
 
         .spinner {
             width: 18px;
@@ -534,19 +486,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        .cancelled-notice {
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 24px;
-            font-size: 0.85rem;
-            color: #991b1b;
-            display: none;
-        }
-
-        .cancelled-notice.visible { display: block; }
 
         .error-box {
             background: #fff7ed;
@@ -589,19 +528,14 @@
         <div class="progress-bar">
             <div class="progress-step active" id="prog-1"><span class="step-num">1</span><span>Details</span></div>
             <div class="progress-sep"></div>
-            <div class="progress-step" id="prog-2"><span class="step-num">2</span><span>Experience</span></div>
+            <div class="progress-step" id="prog-2"><span class="step-num">2</span><span>Fixture</span></div>
             <div class="progress-sep"></div>
-            <div class="progress-step" id="prog-3"><span class="step-num">3</span><span>Fixture</span></div>
-            <div class="progress-sep"></div>
-            <div class="progress-step" id="prog-4"><span class="step-num">4</span><span>Deposit</span></div>
-        </div>
-
-        <div class="cancelled-notice" id="cancelledNotice">
-            Payment was cancelled — your details are still saved below. Ready when you are.
+            <div class="progress-step" id="prog-3"><span class="step-num">3</span><span>Confirm</span></div>
         </div>
 
         <div class="error-box" id="errorBox"></div>
 
+        <!-- Personal info -->
         <div class="section-title">1. Personal Information</div>
         <div class="form-grid">
             <div class="form-group">
@@ -618,34 +552,39 @@
             </div>
         </div>
 
-        <div class="section-title">2. Choose Your Experience</div>
-        <div class="experience-grid">
-            <label class="exp-card" id="card-dublin">
-                <input type="radio" name="experience" value="The Dublin Experience" data-price="120" data-filter="dublin-only" />
-                <span class="price-tag">from €120 p.p.</span>
-                <strong>The Dublin Experience</strong>
-                <span style="font-size:0.8rem;color:#718096;font-weight:400;">City Experience</span><br />
-                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">
-                    Your ultimate Dublin experience: join a hands-on hurling training session, explore the culture, and enjoy live match access at a top Dublin fixture.
-                </small>
-            </label>
-
-            <label class="exp-card" id="card-kilkenny">
-                <input type="radio" name="experience" value="The Kilkenny Experience - Premium" data-price="150" data-filter="kilkenny-home" />
-                <span class="price-tag">from €150 p.p.</span>
-                <strong>The Kilkenny Experience</strong>
-                <span style="font-size:0.8rem;color:#718096;font-weight:400;">Premium</span><br />
-                <small style="color:#4a5568;line-height:1.6;display:block;margin-top:6px;">
+        <!-- Experience — single option shown as info block -->
+        <div class="section-title">2. Your Experience</div>
+        <div class="exp-info-card">
+            <div class="exp-info-icon">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse cx="21" cy="22" rx="18" ry="12" stroke="#059669" stroke-width="2.2" fill="none"/>
+                  <ellipse cx="21" cy="22" rx="11" ry="6.5" stroke="#059669" stroke-width="1.4" fill="none" opacity="0.5"/>
+                  <circle cx="21" cy="22" r="1.5" fill="#059669" opacity="0.7"/>
+                  <path d="M3 22 Q3 12 21 10 Q39 12 39 22" stroke="#064e3b" stroke-width="2" fill="#d1fae5" opacity="0.6"/>
+                  <path d="M6 19 Q21 14 36 19" stroke="#059669" stroke-width="0.9" opacity="0.5" fill="none"/>
+                  <path d="M5 21 Q21 16 37 21" stroke="#059669" stroke-width="0.9" opacity="0.4" fill="none"/>
+                  <line x1="10" y1="19" x2="10" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
+                  <line x1="7.5" y1="13" x2="12.5" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
+                  <line x1="32" y1="19" x2="32" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
+                  <line x1="29.5" y1="13" x2="34.5" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="exp-info-body">
+                <div class="exp-info-title">The Kilkenny Experience</div>
+                <div class="exp-info-badge">Premium</div>
+                <div class="exp-info-desc">
                     Cultural pub presentation + hands-on training with James + live match ticket at Nowlan Park.
-                </small>
-            </label>
+                </div>
+                <div class="exp-info-price">from €120 p.p.</div>
+            </div>
         </div>
 
+        <!-- Fixture selection -->
         <div class="section-title">3. Select Match Fixture</div>
-        <div class="fixture-section disabled" id="fixtureSection">
-            <p class="fixture-hint" id="fixtureHint">Select an experience above to see available fixtures.</p>
+        <div class="fixture-section" id="fixtureSection">
+            <p class="fixture-hint" id="fixtureHint">Choose one of the upcoming Kilkenny home fixtures below.</p>
 
-            <div class="featured-fixtures" id="featuredFixtures" style="display:none;"></div>
+            <div class="featured-fixtures" id="featuredFixtures"></div>
 
             <div class="show-more-bar" id="showMoreBar" style="display:none;">
                 <button type="button" class="show-more-btn" id="showMoreBtn">
@@ -666,7 +605,6 @@
                             <option value="Football">Gaelic Football</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label>Month</label>
                         <select id="monthFilter">
@@ -674,15 +612,6 @@
                             <option value="apr">April</option>
                             <option value="may">May</option>
                             <option value="jun">June</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>City</label>
-                        <select id="cityFilter">
-                            <option value="all">Kilkenny + Dublin</option>
-                            <option value="Kilkenny">Kilkenny</option>
-                            <option value="Dublin">Dublin</option>
                         </select>
                     </div>
                 </div>
@@ -696,6 +625,7 @@
             </div>
         </div>
 
+        <!-- Trip details -->
         <div class="section-title">4. Trip Details</div>
         <div class="form-grid">
             <div class="form-group">
@@ -713,12 +643,13 @@
             <textarea id="requests" placeholder="Seating needs, dietary requirements, experience goals..." rows="3"></textarea>
         </div>
 
+        <!-- Price summary -->
         <div class="price-summary" id="priceSummary">
             <div class="price-summary-title">Booking summary</div>
             <div class="price-summary-rows">
                 <div class="price-row">
-                    <span class="price-row-label" id="summaryPackage">—</span>
-                    <span class="price-row-value" id="summaryPricePerPerson">—</span>
+                    <span class="price-row-label">The Kilkenny Experience – Premium</span>
+                    <span class="price-row-value">€120 p.p.</span>
                 </div>
                 <div class="price-row">
                     <span class="price-row-label" id="summaryGuests">—</span>
@@ -727,73 +658,74 @@
                 <div class="price-row">
                     <span class="price-row-label" id="summaryFixture" style="color:#9ca3af;font-size:0.85rem;">No fixture selected yet</span>
                 </div>
-                <div class="price-row subtotal">
-                    <span class="price-row-label" style="color:#6b7280;">Remaining after deposit</span>
-                    <span class="price-row-value" id="summaryRemaining" style="color:#6b7280;">—</span>
-                </div>
-                <div class="price-row deposit-row">
-                    <span class="price-row-label">Due today (deposit)</span>
-                    <span class="price-row-value" id="summaryDeposit">—</span>
+                <div class="price-row total-row">
+                    <span class="price-row-label">Total</span>
+                    <span class="price-row-value" id="summaryTotal">—</span>
                 </div>
             </div>
-            <p class="deposit-explainer">
-                <strong>How it works:</strong>
-                Pay the deposit today to secure your spot. We'll confirm your booking within 48h.
-                2 weeks before the experience, we'll send you a payment link for the remaining balance by email.
-            </p>
         </div>
 
-        <button type="button" class="btn-stripe" id="submitBtn" disabled>
-            Pay deposit to confirm booking
+        <div class="error-box" id="errorBox2"></div>
+
+        <button type="button" class="btn-submit" id="submitBtn" disabled>
+            Send booking request
         </button>
 
-        <div class="stripe-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M11.5 2h-9A1.5 1.5 0 001 3.5v7A1.5 1.5 0 002.5 12h9A1.5 1.5 0 0013 10.5v-7A1.5 1.5 0 0011.5 2z" stroke="#9ca3af" stroke-width="0.8"></path>
-                <path d="M1 5.5h12" stroke="#9ca3af" stroke-width="0.8"></path>
-            </svg>
-            Secured by Stripe · iDEAL, credit & debit card accepted
-        </div>
+        <p style="text-align:center;font-size:0.78rem;color:#9ca3af;margin-top:10px;">
+            We'll confirm your booking within 48 hours via email.
+        </p>
     </div>
 
+    <!-- Success screen -->
     <div id="successMessage">
-        <div style="font-size: 3rem; margin-bottom: 15px;">🍀</div>
-        <h2 style="color: var(--primary); margin-bottom: 12px; font-size: 1.8rem;">Booking confirmed!</h2>
+        <div style="margin-bottom: 18px; display:flex; justify-content:center;">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Left leaf -->
+              <ellipse cx="22" cy="32" rx="13" ry="9" fill="#059669" transform="rotate(-45 22 32)"/>
+              <!-- Right leaf -->
+              <ellipse cx="50" cy="32" rx="13" ry="9" fill="#059669" transform="rotate(45 50 32)"/>
+              <!-- Top leaf -->
+              <ellipse cx="36" cy="20" rx="9" ry="13" fill="#059669"/>
+              <!-- Bottom leaf -->
+              <ellipse cx="36" cy="42" rx="9" ry="13" fill="#059669"/>
+              <!-- Center circle -->
+              <circle cx="36" cy="32" r="7" fill="#064e3b"/>
+              <!-- Highlight dots on leaves -->
+              <circle cx="22" cy="28" r="2.5" fill="#34d399" opacity="0.6"/>
+              <circle cx="50" cy="28" r="2.5" fill="#34d399" opacity="0.6"/>
+              <circle cx="36" cy="17" r="2.5" fill="#34d399" opacity="0.6"/>
+              <!-- Stem -->
+              <path d="M36 49 Q38 56 34 62" stroke="#059669" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </svg>
+        </div>
+        <h2 style="color: var(--primary); margin-bottom: 12px; font-size: 1.8rem;">Booking request received!</h2>
         <p style="color: #4a5568; line-height: 1.7; max-width: 480px; margin: 0 auto 12px;">
-            Your deposit has been received. You'll get a confirmation email from Beyond the Pitch within 48 hours.
+            Thanks! We've received your booking request and will confirm within 48 hours.
         </p>
         <p style="color: #6b7280; font-size: 0.88rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6;">
-            The remaining balance will be requested once GAA match attendance is confirmed — typically 2 weeks before the match.
+            Keep an eye on your inbox — we'll reach out to finalise the details and payment.
         </p>
-        <button class="btn-stripe" onclick="window.location.href = window.location.pathname" style="max-width: 220px; margin: 0 auto;">
+        <button class="btn-submit" onclick="window.location.href = window.location.pathname" style="max-width: 220px; margin: 0 auto;">
             New booking
         </button>
     </div>
 </div>
 
 <script>
-    const DEPOSIT_PER_PERSON = 50;
-    const API_ENDPOINT = '/api/create-checkout';
-
-    // ============================================================
-    // 👇 PLAK HIER JE STRIPE PUBLISHABLE KEY (begint met pk_test_)
-    // Te vinden op: dashboard.stripe.com → Developers → API keys
-    // ============================================================
-    const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TBEHGDRHGvAcw7gaL33ni8a0tHSN65E6eRzAhF4TzygTTnBn7qCW1WZ4mekXmu5BcXiaOQjIISyWDFsrVoaUx7B00ZQ3ncAJD';
-    // ============================================================
+    const PRICE_PER_PERSON = 120;
 
     const FORM_ACTION =
         'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
 
     const FIELDS = {
-        name: 'entry.761572476',
-        email: 'entry.1144619265',
-        phone: 'entry.1213010877',
+        name:       'entry.761572476',
+        email:      'entry.1144619265',
+        phone:      'entry.1213010877',
         experience: 'entry.1446094233',
-        date: 'entry.301148404',
-        guests: 'entry.175134312',
-        requests: 'entry.184318357',
-        partner: 'entry.2094398847'
+        date:       'entry.301148404',
+        guests:     'entry.175134312',
+        requests:   'entry.184318357',
+        partner:    'entry.2094398847'
     };
 
     const MATCH_DATA = [
@@ -806,8 +738,7 @@
             sport: 'Hurling',
             month: 'apr',
             competition: 'Leinster SHC',
-            kilkennyHome: true,
-            isLeinster: true
+            kilkennyHome: true
         },
         {
             id: 'kk-kildare-2026-05-16',
@@ -818,60 +749,238 @@
             sport: 'Hurling',
             month: 'may',
             competition: 'Round 4',
-            kilkennyHome: true,
-            isLeinster: true
-        },
-        {
-            id: 'dub-kildare-2026-04-26',
-            date: '2026-04-26',
-            teams: 'Dublin vs Kildare',
-            venue: 'Parnell Park, Dublin',
-            city: 'Dublin',
-            sport: 'Football',
-            month: 'apr',
-            competition: 'Leinster SFC',
-            kilkennyHome: false,
-            isLeinster: true
-        },
-        {
-            id: 'leinster-final-2026-06-06',
-            date: '2026-06-06',
-            teams: 'Leinster Final',
-            venue: 'Croke Park, Dublin',
-            city: 'Dublin',
-            sport: 'Football',
-            month: 'jun',
-            competition: 'Leinster Final',
-            kilkennyHome: false,
-            isLeinster: true
+            kilkennyHome: true
         }
     ];
 
-    let activeFilter = null;
     let selectedFixture = null;
-    let selectedPrice = 0;
-    let selectedExperience = '';
-    let stripe = null;
 
-    window.addEventListener('DOMContentLoaded', async () => {
-        stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+    function formatDate(dateStr) {
+        const d = new Date(dateStr + 'T12:00:00');
+        return d.toLocaleDateString('en-IE', {
+            weekday: 'short', day: 'numeric', month: 'long', year: 'numeric'
+        });
+    }
 
-        const params = new URLSearchParams(window.location.search);
+    function formatMoney(amount) {
+        return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
+    }
 
-        document.querySelector('#card-dublin input').addEventListener('change', function() {
-            selectExperience(this);
+    function showError(msg) {
+        ['errorBox', 'errorBox2'].forEach(id => {
+            const b = document.getElementById(id);
+            b.textContent = msg;
+            b.classList.add('visible');
+        });
+    }
+
+    function hideError() {
+        ['errorBox', 'errorBox2'].forEach(id => {
+            const b = document.getElementById(id);
+            b.textContent = '';
+            b.classList.remove('visible');
+        });
+    }
+
+    function updateProgress() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        const p1 = document.getElementById('prog-1');
+        const p2 = document.getElementById('prog-2');
+        const p3 = document.getElementById('prog-3');
+
+        [p1, p2, p3].forEach(p => p.classList.remove('active', 'done'));
+
+        if (name && email) {
+            p1.classList.add('done');
+            p2.classList.add('active');
+        } else {
+            p1.classList.add('active');
+            return;
+        }
+
+        if (selectedFixture) {
+            p2.classList.remove('active');
+            p2.classList.add('done');
+            p3.classList.add('active');
+        }
+    }
+
+    function renderFeatured() {
+        const container = document.getElementById('featuredFixtures');
+        container.innerHTML = '';
+
+        MATCH_DATA.forEach(m => {
+            const card = document.createElement('div');
+            card.className = 'fixture-card' + (selectedFixture?.id === m.id ? ' selected' : '');
+
+            card.innerHTML = `
+                <div class="fixture-info">
+                    <div class="fixture-teams">${m.teams}</div>
+                    <div class="fixture-meta">
+                        <span class="fixture-sport-tag">${m.sport}</span>
+                        &nbsp;·&nbsp; ${formatDate(m.date)}
+                        &nbsp;·&nbsp; ${m.venue}
+                        &nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>
+                    </div>
+                </div>
+                <div class="fixture-checkmark"></div>
+            `;
+
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedFixture = m;
+                document.getElementById('date').value = m.date;
+                document.getElementById('match-selector').value = m.id;
+                updateProgress();
+                updateSummary();
+                updateSubmitButton();
+                hideError();
+            });
+
+            container.appendChild(card);
         });
 
-        document.querySelector('#card-kilkenny input').addEventListener('change', function() {
-            selectExperience(this);
-        });
+        // Show "show more" only if there are more than shown
+        document.getElementById('showMoreBar').style.display = MATCH_DATA.length > 2 ? 'block' : 'none';
+    }
+
+    function buildFullMenu() {
+        const sport = document.getElementById('sportFilter').value;
+        const month = document.getElementById('monthFilter').value;
+        const selector = document.getElementById('match-selector');
+        selector.innerHTML = '<option value="">-- Choose a fixture --</option>';
+
+        MATCH_DATA
+            .filter(m => sport === 'all' || m.sport === sport)
+            .filter(m => month === 'all' || m.month === month)
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.textContent = `${formatDate(m.date)} — ${m.teams} — ${m.venue}`;
+                selector.appendChild(opt);
+            });
+
+        if (selectedFixture) selector.value = selectedFixture.id;
+    }
+
+    function toggleFullPanel() {
+        const panel = document.getElementById('fullFixturePanel');
+        const btn = document.getElementById('showMoreBtn');
+        const isOpen = panel.classList.toggle('open');
+        btn.innerHTML = isOpen
+            ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
+            : `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show all fixtures`;
+        if (isOpen) buildFullMenu();
+    }
+
+    function updateSummary() {
+        const summary = document.getElementById('priceSummary');
+        const guests = Math.max(4, Number(document.getElementById('guests').value) || 4);
+        document.getElementById('guests').value = guests;
+
+        const total = PRICE_PER_PERSON * guests;
+        document.getElementById('summaryGuests').textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
+        document.getElementById('summaryFullTotal').textContent = formatMoney(total);
+        document.getElementById('summaryTotal').textContent = formatMoney(total);
+
+        if (selectedFixture) {
+            document.getElementById('summaryFixture').textContent =
+                `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
+        } else {
+            document.getElementById('summaryFixture').textContent = 'No fixture selected yet';
+        }
+
+        summary.classList.add('visible');
+    }
+
+    function updateSubmitButton() {
+        const name  = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const date  = document.getElementById('date').value;
+        const guests = Number(document.getElementById('guests').value) || 0;
+
+        const ready = !!name && !!email && !!date && !!selectedFixture && guests >= 4;
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = !ready;
+    }
+
+    function validate() {
+        if (!document.getElementById('name').value.trim()) return 'Please enter your full name.';
+        if (!document.getElementById('email').value.trim()) return 'Please enter your email address.';
+        if (!selectedFixture) return 'Please choose a fixture.';
+        if (!document.getElementById('date').value) return 'Please confirm the selected date.';
+        if ((Number(document.getElementById('guests').value) || 0) < 4) return 'Minimum number of guests is 4.';
+        return '';
+    }
+
+    async function handleSubmit() {
+        hideError();
+        const err = validate();
+        if (err) { showError(err); return; }
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.innerHTML = `<span class="spinner"></span> Sending...`;
+
+        const fixtureText = selectedFixture
+            ? `${selectedFixture.teams} — ${selectedFixture.venue} — ${formatDate(selectedFixture.date)}`
+            : '';
+        const userRequests = document.getElementById('requests').value.trim();
+        const combinedNotes = userRequests
+            ? `Fixture: ${fixtureText}\n\nSpecial requests: ${userRequests}`
+            : `Fixture: ${fixtureText}`;
+
+        const formData = new FormData();
+        formData.append(FIELDS.name,       document.getElementById('name').value.trim());
+        formData.append(FIELDS.email,      document.getElementById('email').value.trim());
+        formData.append(FIELDS.phone,      document.getElementById('phone').value.trim());
+        formData.append(FIELDS.experience, 'The Kilkenny Experience - Premium');
+        formData.append(FIELDS.date,       document.getElementById('date').value);
+        formData.append(FIELDS.guests,     document.getElementById('guests').value);
+        formData.append(FIELDS.requests,   combinedNotes);
+        formData.append(FIELDS.partner,    'Ireland');
+
+        try {
+            await fetch(FORM_ACTION, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            });
+        } catch (e) {
+            // no-cors means we always get an opaque response; continue to success
+            console.warn('Form submit note:', e);
+        }
+
+        // Show success regardless (no-cors fetch always appears to fail/succeed opaquely)
+        document.getElementById('bookingForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        renderFeatured();
+        updateSummary();
+        updateSubmitButton();
 
         document.getElementById('showMoreBtn').addEventListener('click', toggleFullPanel);
         document.getElementById('sportFilter').addEventListener('change', buildFullMenu);
         document.getElementById('monthFilter').addEventListener('change', buildFullMenu);
-        document.getElementById('cityFilter').addEventListener('change', buildFullMenu);
-        document.getElementById('match-selector').addEventListener('change', onFullSelectorChange);
-        document.getElementById('submitBtn').addEventListener('click', handleStripeCheckout);
+
+        document.getElementById('match-selector').addEventListener('change', function() {
+            const m = MATCH_DATA.find(x => x.id === this.value);
+            if (!m) return;
+            selectedFixture = m;
+            document.getElementById('date').value = m.date;
+            document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
+            renderFeatured();
+            updateProgress();
+            updateSummary();
+            updateSubmitButton();
+        });
 
         ['name', 'email', 'phone', 'date', 'guests', 'requests'].forEach(id => {
             document.getElementById(id).addEventListener('input', () => {
@@ -882,425 +991,10 @@
             });
         });
 
-        if (params.get('cancelled') === 'true') {
-            document.getElementById('cancelledNotice').classList.add('visible');
-            const cleaned = window.location.pathname;
-            window.history.replaceState({}, '', cleaned);
-        }
-
-        if (params.get('session_id')) {
-            document.getElementById('bookingForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            await submitToGoogleFormOnce(params);
-        }
+        document.getElementById('submitBtn').addEventListener('click', handleSubmit);
 
         updateProgress();
-        updateSummary();
-        updateSubmitButton();
     });
-
-    function showError(message) {
-        const box = document.getElementById('errorBox');
-        box.textContent = message;
-        box.classList.add('visible');
-    }
-
-    function hideError() {
-        const box = document.getElementById('errorBox');
-        box.textContent = '';
-        box.classList.remove('visible');
-    }
-
-    function formatDate(dateStr) {
-        const d = new Date(dateStr + 'T12:00:00');
-        return d.toLocaleDateString('en-IE', {
-            weekday: 'short',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    }
-
-    function formatMoney(amount) {
-        return new Intl.NumberFormat('nl-NL', {
-            style: 'currency',
-            currency: 'EUR'
-        }).format(amount);
-    }
-
-    function getFilteredMatches() {
-        const sport = document.getElementById('sportFilter')?.value || 'all';
-        const month = document.getElementById('monthFilter')?.value || 'all';
-        const city = document.getElementById('cityFilter')?.value || 'all';
-
-        return MATCH_DATA
-            .filter(m => m.isLeinster)
-            .filter(m => {
-                if (activeFilter === 'kilkenny-home') return m.kilkennyHome;
-                if (activeFilter === 'dublin-only') return m.city === 'Dublin';
-                return true;
-            })
-            .filter(m => sport === 'all' || m.sport === sport)
-            .filter(m => month === 'all' || m.month === month)
-            .filter(m => city === 'all' || m.city === city)
-            .sort((a, b) => new Date(a.date) - new Date(b.date));
-    }
-
-    function updateProgress() {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-
-        const p1 = document.getElementById('prog-1');
-        const p2 = document.getElementById('prog-2');
-        const p3 = document.getElementById('prog-3');
-        const p4 = document.getElementById('prog-4');
-
-        p1.classList.remove('active', 'done');
-        p2.classList.remove('active', 'done');
-        p3.classList.remove('active', 'done');
-        p4.classList.remove('active', 'done');
-
-        if (name && email) {
-            p1.classList.add('done');
-            p2.classList.add('active');
-        } else {
-            p1.classList.add('active');
-            return;
-        }
-
-        if (selectedExperience) {
-            p2.classList.remove('active');
-            p2.classList.add('done');
-            p3.classList.add('active');
-        }
-
-        if (selectedFixture) {
-            p3.classList.remove('active');
-            p3.classList.add('done');
-            p4.classList.add('active');
-        }
-    }
-
-    function selectExperience(input) {
-        hideError();
-
-        document.querySelectorAll('.exp-card').forEach(card => card.classList.remove('selected'));
-        input.closest('.exp-card').classList.add('selected');
-        input.checked = true;
-
-        activeFilter = input.dataset.filter;
-        selectedPrice = Number(input.dataset.price);
-        selectedExperience = input.value;
-
-        selectedFixture = null;
-        document.getElementById('date').value = '';
-        document.getElementById('match-selector').value = '';
-
-        const fixtureSection = document.getElementById('fixtureSection');
-        fixtureSection.classList.remove('disabled');
-
-        if (activeFilter === 'dublin-only') {
-            document.getElementById('fixtureHint').textContent =
-                'Dublin Experience: only selected Leinster fixtures in Dublin are shown.';
-            document.getElementById('cityFilter').value = 'Dublin';
-        } else if (activeFilter === 'kilkenny-home') {
-            document.getElementById('fixtureHint').textContent =
-                'Kilkenny Premium: only Kilkenny home fixtures at Nowlan Park are shown.';
-            document.getElementById('cityFilter').value = 'Kilkenny';
-        } else {
-            document.getElementById('fixtureHint').textContent =
-                'Select a fixture from the available Leinster matches.';
-            document.getElementById('cityFilter').value = 'all';
-        }
-
-        renderFeatured();
-        buildFullMenu();
-
-        document.getElementById('showMoreBar').style.display = 'block';
-
-        updateProgress();
-        updateSummary();
-        updateSubmitButton();
-    }
-
-    function renderFeatured() {
-        const container = document.getElementById('featuredFixtures');
-        const matches = getFilteredMatches();
-        container.innerHTML = '';
-
-        matches.slice(0, 4).forEach(m => {
-            const card = document.createElement('label');
-            card.className = 'fixture-card' + (selectedFixture?.id === m.id ? ' selected' : '');
-
-            const badgeClass = m.kilkennyHome ? 'badge-home' : 'badge-away';
-            const badgeLabel = m.kilkennyHome ? '★ Home' : m.city;
-
-            card.innerHTML = `
-                <input type="radio" name="fixture" value="${m.id}">
-                <div class="fixture-info">
-                    <div class="fixture-teams">${m.teams}</div>
-                    <div class="fixture-meta">
-                        <span class="fixture-sport-tag">${m.sport}</span>
-                        &nbsp;·&nbsp; ${formatDate(m.date)}
-                        &nbsp;·&nbsp; ${m.venue}
-                        &nbsp;·&nbsp; <span class="${badgeClass} fixture-badge">${badgeLabel}</span>
-                    </div>
-                </div>
-                <div class="fixture-checkmark"></div>
-            `;
-
-            card.addEventListener('click', () => {
-                document.querySelectorAll('.fixture-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-
-                selectedFixture = m;
-                document.getElementById('date').value = m.date;
-                document.getElementById('match-selector').value = m.id;
-
-                updateProgress();
-                updateSummary();
-                updateSubmitButton();
-            });
-
-            container.appendChild(card);
-        });
-
-        container.style.display = matches.length ? 'grid' : 'none';
-    }
-
-    function toggleFullPanel() {
-        const panel = document.getElementById('fullFixturePanel');
-        const btn = document.getElementById('showMoreBtn');
-        const isOpen = panel.classList.toggle('open');
-
-        btn.classList.toggle('open', isOpen);
-        btn.innerHTML = isOpen
-            ? `
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                Show fewer
-              `
-            : `
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                Show all fixtures
-              `;
-
-        if (isOpen) buildFullMenu();
-    }
-
-    function buildFullMenu() {
-        const selector = document.getElementById('match-selector');
-        selector.innerHTML = '<option value="">-- Choose a fixture --</option>';
-
-        if (!activeFilter) return;
-
-        const matches = getFilteredMatches();
-
-        matches.forEach(m => {
-            const option = document.createElement('option');
-            option.value = m.id;
-            option.textContent = `${formatDate(m.date)} — ${m.teams} — ${m.venue}`;
-            selector.appendChild(option);
-        });
-
-        if (selectedFixture) selector.value = selectedFixture.id;
-    }
-
-    function onFullSelectorChange() {
-        const selector = document.getElementById('match-selector');
-        const selectedId = selector.value;
-        if (!selectedId) return;
-
-        const match = MATCH_DATA.find(m => m.id === selectedId);
-        if (!match) return;
-
-        selectedFixture = match;
-        document.getElementById('date').value = match.date;
-
-        document.querySelectorAll('.fixture-card').forEach(card => {
-            const input = card.querySelector('input[type="radio"]');
-            card.classList.toggle('selected', input?.value === match.id);
-        });
-
-        updateProgress();
-        updateSummary();
-        updateSubmitButton();
-    }
-
-    function updateSummary() {
-        const summary = document.getElementById('priceSummary');
-        const guests = Math.max(4, Number(document.getElementById('guests').value) || 4);
-
-        document.getElementById('guests').value = guests;
-
-        if (!selectedPrice || !selectedExperience) {
-            summary.classList.remove('visible');
-            return;
-        }
-
-        const fullTotal = selectedPrice * guests;
-        const deposit = DEPOSIT_PER_PERSON * guests;
-        const remaining = Math.max(fullTotal - deposit, 0);
-
-        document.getElementById('summaryPackage').textContent = selectedExperience;
-        document.getElementById('summaryPricePerPerson').textContent = `${formatMoney(selectedPrice)} p.p.`;
-        document.getElementById('summaryGuests').textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
-        document.getElementById('summaryFullTotal').textContent = formatMoney(fullTotal);
-        document.getElementById('summaryDeposit').textContent = formatMoney(deposit);
-        document.getElementById('summaryRemaining').textContent = formatMoney(remaining);
-
-        if (selectedFixture) {
-            document.getElementById('summaryFixture').textContent =
-                `${selectedFixture.teams} — ${formatDate(selectedFixture.date)} — ${selectedFixture.venue}`;
-        } else {
-            document.getElementById('summaryFixture').textContent = 'No fixture selected yet';
-        }
-
-        summary.classList.add('visible');
-    }
-
-    function updateSubmitButton() {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const date = document.getElementById('date').value;
-        const guests = Number(document.getElementById('guests').value) || 0;
-
-        const ready =
-            !!name &&
-            !!email &&
-            !!date &&
-            !!selectedExperience &&
-            !!selectedFixture &&
-            selectedPrice > 0 &&
-            guests >= 4;
-
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = !ready;
-
-        if (ready) {
-            const deposit = DEPOSIT_PER_PERSON * guests;
-            btn.textContent = `Pay ${formatMoney(deposit)} deposit to confirm booking`;
-        } else {
-            btn.textContent = 'Pay deposit to confirm booking';
-        }
-    }
-
-    function validateForm() {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const date = document.getElementById('date').value;
-        const guests = Number(document.getElementById('guests').value) || 0;
-
-        if (!name) return 'Please enter your full name.';
-        if (!email) return 'Please enter your email address.';
-        if (!selectedExperience) return 'Please choose an experience.';
-        if (!selectedFixture) return 'Please choose a fixture.';
-        if (!date) return 'Please confirm the selected date.';
-        if (guests < 4) return 'Minimum number of guests is 4.';
-        if (!selectedPrice) return 'Package price is missing.';
-        return '';
-    }
-
-    async function submitToGoogleFormOnce(params) {
-        const sessionId = params.get('session_id');
-        if (!sessionId) return;
-
-        const storageKey = `gform-submitted-${sessionId}`;
-        if (sessionStorage.getItem(storageKey) === '1') return;
-
-        const formData = new FormData();
-
-        const fixtureText = params.get('fixture') || '';
-        const userRequests = params.get('requests') || '';
-        const combinedNotes = userRequests
-            ? `Fixture: ${fixtureText}\n\nSpecial requests: ${userRequests}`
-            : `Fixture: ${fixtureText}`;
-
-        formData.append(FIELDS.name, params.get('name') || '');
-        formData.append(FIELDS.email, params.get('email') || '');
-        formData.append(FIELDS.phone, params.get('phone') || '');
-        formData.append(FIELDS.experience, params.get('experience') || '');
-        formData.append(FIELDS.date, params.get('date') || '');
-        formData.append(FIELDS.guests, params.get('guests') || '');
-        formData.append(FIELDS.requests, combinedNotes);
-        formData.append(FIELDS.partner, 'Ireland');
-
-        try {
-            await fetch(FORM_ACTION, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            });
-            sessionStorage.setItem(storageKey, '1');
-        } catch (e) {
-            console.warn('Google Form submit failed silently:', e);
-        }
-    }
-
-    async function handleStripeCheckout() {
-        hideError();
-
-        const validationError = validateForm();
-        if (validationError) {
-            showError(validationError);
-            return;
-        }
-
-        const btn = document.getElementById('submitBtn');
-        const originalText = btn.innerHTML;
-        btn.disabled = true;
-        btn.classList.add('loading');
-        btn.innerHTML = `<span class="spinner"></span> Redirecting to secure payment...`;
-
-        const payload = {
-            name: document.getElementById('name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            experience: selectedExperience,
-            date: document.getElementById('date').value,
-            guests: Number(document.getElementById('guests').value) || 4,
-            requests: document.getElementById('requests').value.trim(),
-            fixture: selectedFixture
-                ? `${selectedFixture.teams} — ${selectedFixture.venue} — ${formatDate(selectedFixture.date)}`
-                : '',
-            depositPerPerson: DEPOSIT_PER_PERSON,
-            packagePricePerPerson: selectedPrice
-        };
-
-        try {
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to create checkout session.');
-            }
-
-            if (!data.id) {
-                throw new Error('Stripe session ID missing from response.');
-            }
-
-            const result = await stripe.redirectToCheckout({ sessionId: data.id });
-
-            if (result.error) {
-                throw new Error(result.error.message);
-            }
-        } catch (error) {
-            console.error(error);
-            showError(error.message || 'Something went wrong while starting payment.');
-            btn.disabled = false;
-            btn.classList.remove('loading');
-            btn.innerHTML = originalText;
-            updateSubmitButton();
-        }
-    }
 </script>
 </body>
 </html>
