@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Magic of the Leinster Hurling Championship | Beyond the Pitch</title>
+<title>The Magic of the Leinster Hurling Championship 2026 | Beyond the Pitch</title>
+<meta name="description" content="Everything you need to know about the 2026 Leinster Senior Hurling Championship - fixtures, format, competing counties, and how to experience it properly in Kilkenny with Beyond the Pitch.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -27,7 +28,6 @@
     overflow-x: hidden;
   }
 
-  /* ── HEADER ── */
   .site-header {
     background: var(--forest);
     padding: 18px 40px;
@@ -60,7 +60,6 @@
     border-radius: 2px;
   }
 
-  /* ── HERO ── */
   .hero {
     background: var(--forest);
     min-height: 88vh;
@@ -70,7 +69,6 @@
     overflow: hidden;
     padding: 80px 40px;
   }
-
   .hero::before {
     content: '';
     position: absolute;
@@ -80,8 +78,6 @@
       radial-gradient(ellipse 50% 70% at 80% 20%, rgba(45,90,61,0.6) 0%, transparent 60%);
     pointer-events: none;
   }
-
-  /* big decorative hurley silhouette */
   .hero-decor {
     position: absolute;
     right: -60px;
@@ -90,14 +86,12 @@
     width: 340px;
     opacity: 0.06;
   }
-
   .hero-inner {
     position: relative;
     z-index: 2;
     max-width: 820px;
     text-align: center;
   }
-
   .hero-label {
     display: inline-block;
     border: 1px solid var(--gold);
@@ -109,7 +103,6 @@
     margin-bottom: 32px;
     animation: fadeUp 0.8s ease both;
   }
-
   .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.8rem, 6vw, 5.2rem);
@@ -120,12 +113,7 @@
     margin-bottom: 28px;
     animation: fadeUp 0.9s 0.1s ease both;
   }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
+  .hero h1 em { font-style: italic; color: var(--gold); }
   .hero-sub {
     font-size: 1.08rem;
     color: rgba(245,240,232,0.7);
@@ -133,7 +121,6 @@
     margin: 0 auto 44px;
     animation: fadeUp 1s 0.2s ease both;
   }
-
   .hero-meta {
     display: flex;
     gap: 32px;
@@ -146,7 +133,6 @@
   }
   .hero-meta span::before { content: '- '; }
 
-  /* ── SCROLL HINT ── */
   .scroll-hint {
     position: absolute;
     bottom: 32px;
@@ -169,17 +155,13 @@
     animation: lineGrow 2s 1.8s ease both;
   }
 
-  /* ── LAYOUT ── */
   .content-wrapper {
     max-width: 780px;
     margin: 0 auto;
     padding: 0 32px;
   }
 
-  /* ── INTRO BLOCK ── */
-  .intro-block {
-    padding: 90px 0 60px;
-  }
+  .intro-block { padding: 90px 0 60px; }
   .intro-block .drop-cap::first-letter {
     font-family: 'Playfair Display', serif;
     font-size: 5.2rem;
@@ -196,7 +178,6 @@
     margin-bottom: 22px;
   }
 
-  /* ── PULL QUOTE ── */
   .pull-quote {
     border-left: 4px solid var(--gold);
     margin: 54px 0;
@@ -220,10 +201,7 @@
     font-style: normal;
   }
 
-  /* ── SECTION HEADINGS ── */
-  .section {
-    padding: 60px 0 40px;
-  }
+  .section { padding: 60px 0 40px; }
   .section-label {
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -247,7 +225,115 @@
     margin-bottom: 20px;
   }
 
-  /* ── FORMAT INFOGRAPHIC ── */
+  /* ── FIXTURES ── */
+  .fixtures-block {
+    margin: 48px 0;
+    border: 1px solid rgba(26,58,42,0.12);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .fixtures-header {
+    background: var(--forest);
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fixtures-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .fixtures-header span {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .fixture-row {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 22px 28px;
+    border-bottom: 1px solid rgba(26,58,42,0.08);
+    background: var(--cream);
+    transition: background 0.15s;
+  }
+  .fixture-row:last-of-type { border-bottom: none; }
+  .fixture-row:hover { background: var(--mist); }
+  .fixture-row.highlight { background: rgba(201,168,76,0.06); }
+  .fixture-date-block {
+    text-align: center;
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 3px;
+    padding: 10px 8px;
+    line-height: 1.2;
+  }
+  .fixture-date-block .day {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--gold);
+    display: block;
+  }
+  .fixture-date-block .month {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+  .fixture-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--forest);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .fixture-info .venue { font-size: 0.82rem; color: #666; margin-bottom: 2px; }
+  .fixture-info .round {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+  .fixture-time {
+    text-align: right;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--forest);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .fixture-time .badge {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .fixture-cta {
+    display: block;
+    text-align: center;
+    padding: 16px 28px;
+    background: var(--forest);
+    color: var(--gold);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .fixture-cta:hover { opacity: 0.8; }
+
+  /* ── FORMAT CARD ── */
   .format-card {
     background: var(--forest);
     color: var(--cream);
@@ -257,29 +343,13 @@
     position: relative;
     overflow: hidden;
   }
-  .format-card::after {
-    content: 'BOB O'KEEFFE CUP';
-    position: absolute;
-    bottom: -12px;
-    right: 20px;
-    font-family: 'Playfair Display', serif;
-    font-size: 4.5rem;
-    font-weight: 900;
-    color: rgba(201,168,76,0.07);
-    white-space: nowrap;
-  }
   .format-card h3 {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     color: var(--gold);
     margin-bottom: 32px;
   }
-  .format-steps {
-    display: grid;
-    gap: 24px;
-    position: relative;
-    z-index: 1;
-  }
+  .format-steps { display: grid; gap: 24px; position: relative; z-index: 1; }
   .format-step {
     display: grid;
     grid-template-columns: 56px 1fr;
@@ -311,7 +381,7 @@
     margin: 0;
   }
 
-  /* ── TEAMS GRID ── */
+  /* ── TEAMS ── */
   .teams-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -319,31 +389,17 @@
     margin: 44px 0;
     background: var(--gold);
   }
-  .team-card {
-    background: var(--cream);
-    padding: 28px 20px;
-    text-align: center;
-  }
-  .team-card .county-colour {
-    width: 36px;
-    height: 6px;
-    border-radius: 2px;
-    margin: 0 auto 14px;
-  }
+  .team-card { background: var(--cream); padding: 28px 20px; text-align: center; }
+  .team-card .county-colour { width: 36px; height: 6px; border-radius: 2px; margin: 0 auto 14px; }
   .team-card h4 {
     font-family: 'Playfair Display', serif;
     font-size: 1.05rem;
     color: var(--forest);
     margin-bottom: 8px;
   }
-  .team-card p {
-    font-size: 0.8rem;
-    color: #666;
-    line-height: 1.5;
-    margin: 0;
-  }
+  .team-card p { font-size: 0.8rem; color: #666; line-height: 1.5; margin: 0; }
 
-  /* ── STAT BAR ── */
+  /* ── STATS ── */
   .stat-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -351,11 +407,7 @@
     background: var(--forest);
     margin: 52px 0;
   }
-  .stat-box {
-    background: var(--mist);
-    padding: 30px 24px;
-    text-align: center;
-  }
+  .stat-box { background: var(--mist); padding: 30px 24px; text-align: center; }
   .stat-box .num {
     font-family: 'Playfair Display', serif;
     font-size: 2.8rem;
@@ -364,12 +416,7 @@
     line-height: 1;
     margin-bottom: 6px;
   }
-  .stat-box .label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #666;
-  }
+  .stat-box .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: #666; }
 
   /* ── DIVIDER ── */
   .divider {
@@ -386,35 +433,77 @@
     background: var(--gold);
     opacity: 0.4;
   }
-  .divider-icon {
-    font-size: 1.2rem;
-  }
+  .divider-icon { font-size: 1.2rem; }
 
-  /* ── SOURCES ── */
-  .sources-block {
-    background: var(--mist);
-    padding: 40px 48px;
-    margin: 60px 0;
-    border-top: 3px solid var(--forest);
+  /* ── VISIT GRID ── */
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--gold);
+    margin: 44px 0;
   }
-  .sources-block h3 {
+  .visit-item { background: var(--cream); padding: 30px 28px; }
+  .visit-item .vi-icon { font-size: 1.4rem; margin-bottom: 10px; }
+  .visit-item h4 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--forest);
-    margin-bottom: 18px;
+    margin-bottom: 8px;
   }
-  .sources-block ol {
-    padding-left: 20px;
-    font-size: 0.84rem;
-    color: #555;
-    line-height: 1.9;
+  .visit-item p { font-size: 0.86rem; color: #555; line-height: 1.6; margin: 0; }
+  .visit-item a { color: var(--moss); text-decoration: none; border-bottom: 1px solid rgba(45,90,61,0.3); }
+
+  /* ── FAQ ── */
+  .faq-block { margin: 48px 0; }
+  .faq-item { border-bottom: 1px solid rgba(26,58,42,0.15); padding: 20px 0; }
+  .faq-item:first-child { border-top: 1px solid rgba(26,58,42,0.15); }
+  .faq-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--forest);
+    font-weight: 700;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
   }
-  .sources-block a {
-    color: var(--moss);
+  .faq-q::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 300; flex-shrink: 0; }
+  .faq-a { font-size: 0.96rem; color: #444; line-height: 1.75; }
+
+  /* ── CTA ── */
+  .cta-banner {
+    background: var(--forest);
+    padding: 52px 48px;
+    margin: 56px 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  .cta-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .cta-banner p { font-size: 0.9rem; color: rgba(245,240,232,0.65); line-height: 1.6; margin: 0; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--forest);
+    padding: 14px 28px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 500;
     text-decoration: none;
-    border-bottom: 1px solid rgba(45,90,61,0.3);
+    white-space: nowrap;
+    transition: opacity 0.2s;
   }
-  .sources-block a:hover { border-bottom-color: var(--moss); }
+  .cta-btn:hover { opacity: 0.85; }
 
   /* ── FOOTER ── */
   .post-footer {
@@ -434,229 +523,162 @@
     font-weight: 700;
   }
 
-  /* ── PLAN YOUR VISIT ── */
-  .visit-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--gold);
-    margin: 44px 0;
-  }
-  .visit-item {
-    background: var(--cream);
-    padding: 30px 28px;
-  }
-  .visit-item .vi-icon {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-  }
-  .visit-item h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--forest);
-    margin-bottom: 8px;
-  }
-  .visit-item p {
-    font-size: 0.86rem;
-    color: #555;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .visit-item a {
-    color: var(--moss);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(45,90,61,0.3);
-  }
-
-  /* ── FAQ ── */
-  .faq-block {
-    margin: 48px 0;
-  }
-  .faq-item {
-    border-bottom: 1px solid rgba(26,58,42,0.15);
-    padding: 20px 0;
-  }
-  .faq-item:first-child { border-top: 1px solid rgba(26,58,42,0.15); }
-  .faq-q {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    color: var(--forest);
-    font-weight: 700;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-  }
-  .faq-q::after {
-    content: '+';
-    font-size: 1.4rem;
-    color: var(--gold);
-    font-weight: 300;
-    flex-shrink: 0;
-  }
-  .faq-a {
-    font-size: 0.96rem;
-    color: #444;
-    line-height: 1.75;
-  }
-
-  /* ── CTA BANNER ── */
-  .cta-banner {
-    background: var(--forest);
-    padding: 52px 48px;
-    margin: 56px 0;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 32px;
-    align-items: center;
-  }
-  .cta-banner h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--cream);
-    margin-bottom: 10px;
-  }
-  .cta-banner p {
-    font-size: 0.9rem;
-    color: rgba(245,240,232,0.65);
-    line-height: 1.6;
-    margin: 0;
-  }
-  .cta-btn {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--forest);
-    padding: 14px 28px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-weight: 500;
-    text-decoration: none;
-    white-space: nowrap;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  .cta-btn:hover { opacity: 0.85; }
-
-  @media (max-width: 640px) {
-    .visit-grid { grid-template-columns: 1fr; }
-    .cta-banner { grid-template-columns: 1fr; }
-  }
-
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from { opacity: 0; } to { opacity: 1; }
   }
   @keyframes lineGrow {
-    from { transform: scaleY(0); }
-    to   { transform: scaleY(1); }
+    from { transform: scaleY(0); } to { transform: scaleY(1); }
   }
 
   @media (max-width: 640px) {
     .teams-grid, .stat-row { grid-template-columns: 1fr 1fr; }
     .format-card { padding: 32px 24px; }
-    .sources-block { padding: 30px 24px; }
     .hero { min-height: 70vh; }
     .hero-meta { flex-direction: column; gap: 8px; }
+    .visit-grid { grid-template-columns: 1fr; }
+    .cta-banner { grid-template-columns: 1fr; }
+    .fixture-row { grid-template-columns: 60px 1fr; }
+    .fixture-time { display: none; }
   }
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "The Magic of the Leinster Hurling Championship",
-  "description": "A deep dive into the Leinster Senior Hurling Championship - its history, format, cultural significance, and what it means to the counties that compete.",
-  "author": {
-    "@type": "Organization",
-    "name": "Beyond the Pitch",
-    "url": "https://www.travelbeyondthepitch.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Beyond the Pitch",
-    "url": "https://www.travelbeyondthepitch.com"
-  },
+  "headline": "The Magic of the Leinster Hurling Championship 2026",
+  "description": "Everything you need to know about the 2026 Leinster Senior Hurling Championship - fixtures, format, competing counties, and how to experience it properly in Kilkenny with Beyond the Pitch.",
+  "author": { "@type": "Organization", "name": "Beyond the Pitch", "url": "https://www.travelbeyondthepitch.com" },
+  "publisher": { "@type": "Organization", "name": "Beyond the Pitch", "url": "https://www.travelbeyondthepitch.com" },
   "about": {
     "@type": "SportsEvent",
-    "name": "Leinster Senior Hurling Championship",
+    "name": "Leinster Senior Hurling Championship 2026",
     "sport": "Hurling",
-    "location": {
-      "@type": "Place",
-      "name": "Province of Leinster, Ireland"
-    }
+    "startDate": "2026-04-25",
+    "endDate": "2026-06-06",
+    "location": { "@type": "Place", "name": "Province of Leinster, Ireland" }
   },
-  "keywords": "Leinster hurling championship, GAA hurling Ireland, hurling championship format, things to do in Ireland, sports travel Ireland, Dublin football experiences, Bob O'Keeffe Cup, Kilkenny hurling, unique experiences Ireland"
+  "keywords": "Leinster hurling championship 2026, GAA hurling Ireland, hurling fixtures 2026, Kilkenny hurling 2026, Nowlan Park, Bob O'Keeffe Cup, things to do in Ireland, sports travel Ireland, hurling experience Kilkenny"
 }
 </script>
 </head>
 <body>
 
-<!-- SITE HEADER -->
 <header class="site-header">
   <a href="/gaelic-games/" style="text-decoration:none;"><div class="site-logo">Beyond <span>the Pitch</span></div></a>
   <a href="/blogs/" style="text-decoration:none;"><div class="header-tag">GAA · Hurling</div></a>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <!-- decorative hurley SVG -->
   <svg class="hero-decor" viewBox="0 0 120 600" fill="white" xmlns="http://www.w3.org/2000/svg">
     <rect x="52" y="0" width="16" height="480" rx="6"/>
     <ellipse cx="60" cy="520" rx="50" ry="70"/>
     <rect x="46" y="460" width="28" height="100" rx="4" fill="white"/>
   </svg>
-
   <div class="hero-inner">
-    <div class="hero-label">Beyond the Pitch - Feature</div>
+    <div class="hero-label">Beyond the Pitch - 2026 Season</div>
     <h1>The Magic of the<br><em>Leinster Championship</em></h1>
-    <p class="hero-sub">Why Ireland's oldest provincial hurling competition still sets hearts racing after more than 135 years</p>
+    <p class="hero-sub">Ireland's oldest provincial hurling competition. Six counties, five rounds, one cup - and three fixtures you can attend with us in Kilkenny.</p>
     <div class="hero-meta">
       <span>GAA Hurling</span>
       <span>Province of Leinster</span>
       <span>Est. 1888</span>
     </div>
   </div>
-
-  <div class="scroll-hint">
-    Scroll
-    <div class="scroll-line"></div>
-  </div>
+  <div class="scroll-hint">Scroll<div class="scroll-line"></div></div>
 </section>
 
-<!-- BODY -->
 <main>
   <div class="content-wrapper">
 
-    <!-- INTRO -->
     <div class="intro-block">
-      <p class="drop-cap">There is a moment every spring in Ireland - sometime between the last frost and the first swallows - when parish halls begin to buzz, county colours reappear on car windows, and the unmistakable crack of ash on leather drifts from training fields across the east of the country. The Leinster Senior Hurling Championship is about to begin, and with it comes a rush of anticipation that no amount of modern sports entertainment has ever quite managed to replicate.</p>
-      <p>For the uninitiated, hurling is a 3,000-year-old field game played with a curved wooden stick called a <em>hurley</em> and a small leather ball called a <em>sliotar</em>. It demands the hand-eye coordination of baseball, the physicality of rugby, and the endurance of distance running - all compressed into 70 furious minutes. Those who witness it for the first time rarely leave unaffected. The Leinster Championship is where some of the finest hurling in the world is contested, year after year, on pitches that carry the weight of entire communities.</p>
+      <p class="drop-cap">Every spring in Ireland, somewhere between the last frost and the first swallows, something shifts. Parish halls start buzzing. County colours go back on car windows. And from training fields across the east of the country comes that sound - ash on leather - that tells you the Leinster Senior Hurling Championship is about to start again.</p>
+      <p>If you have never seen hurling before, here is what you need to know: it is roughly 3,000 years old, played with a curved wooden stick called a <em>hurley</em> and a small leather ball called a <em>sliotar</em>, and it moves faster than almost anything else you will see on a field. The hand-eye coordination of baseball, the physicality of rugby, all compressed into 70 minutes. People who watch it for the first time tend to sit forward in their seats and not lean back.</p>
+      <p>The Leinster Championship is where some of the best hurling in the world happens, year after year, on grounds where the people in the stands have been coming since childhood.</p>
     </div>
 
-    <!-- PULL QUOTE -->
+    <!-- 2026 FIXTURES -->
+    <div class="section">
+      <div class="section-label">2026 Season</div>
+      <h2>Three Fixtures. One Experience.</h2>
+      <p>We are offering places at three Kilkenny fixtures this season - each one paired with our full local experience led by James. Tickets, training session, local guide. Two home games at UPMC Nowlan Park, and the Leinster Final at Croke Park if Kilkenny make it.</p>
+    </div>
+
+    <div class="fixtures-block">
+      <div class="fixtures-header">
+        <h3>2026 Leinster Championship - Our Fixtures</h3>
+        <span>Kilkenny</span>
+      </div>
+
+      <div class="fixture-row">
+        <div class="fixture-date-block">
+          <span class="day">25</span>
+          <span class="month">Apr</span>
+        </div>
+        <div class="fixture-info">
+          <h4>Kilkenny vs Wexford</h4>
+          <div class="venue">UPMC Nowlan Park, Kilkenny</div>
+          <div class="round">Round 2 · Friday 25 April</div>
+        </div>
+        <div class="fixture-time">
+          18:30
+          <span class="badge">Home</span>
+        </div>
+      </div>
+
+      <div class="fixture-row highlight">
+        <div class="fixture-date-block">
+          <span class="day">16</span>
+          <span class="month">May</span>
+        </div>
+        <div class="fixture-info">
+          <h4>Kilkenny vs Kildare</h4>
+          <div class="venue">UPMC Nowlan Park, Kilkenny</div>
+          <div class="round">Round 4 · Saturday 16 May</div>
+        </div>
+        <div class="fixture-time">
+          18:00
+          <span class="badge">Home</span>
+        </div>
+      </div>
+
+      <div class="fixture-row">
+        <div class="fixture-date-block">
+          <span class="day">6</span>
+          <span class="month">Jun</span>
+        </div>
+        <div class="fixture-info">
+          <h4>Leinster Final</h4>
+          <div class="venue">Croke Park, Dublin</div>
+          <div class="round">Leinster Final · Saturday 6 June</div>
+        </div>
+        <div class="fixture-time">
+          TBC
+          <span class="badge">★ Final</span>
+        </div>
+      </div>
+
+      <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank" class="fixture-cta">
+        Secure your place at one of these fixtures →
+      </a>
+    </div>
+
     <blockquote class="pull-quote">
-      <p>"The Leinster Championship is not just a tournament. It is a declaration - a statement of who you are, where you come from, and what your county is capable of."</p>
+      <p>"The Leinster Championship is not just a tournament. It is a statement - of who you are, where you come from, and what your county is capable of."</p>
       <cite>- Beyond the Pitch</cite>
     </blockquote>
 
-    <!-- HISTORY -->
     <div class="section">
       <div class="section-label">Origins</div>
       <h2>A Championship Born from a Cultural Revival</h2>
-      <p>The Leinster Senior Hurling Championship was established in 1888, just four years after the founding of the Gaelic Athletic Association (GAA) itself. The GAA had been created in 1884 in Thurles, County Tipperary, with the explicit aim of preserving and promoting Irish sports and culture at a time when British influence was overwhelming daily life. Inter-club contests in 1885 and 1886 had proven wildly popular, drawing huge crowds and generating fierce newspaper debate about which team in the country was truly the best - and so the decision was made to formalise things through provincial championships.</p>
-      <p>The inaugural Leinster Championship featured just a handful of counties - Kilkenny, Dublin, Kildare, and Laois among them. Over the following decades, the competition grew, shrank, and evolved, always reflecting the social and political currents of Irish life. The first Leinster final held at Croke Park took place in 1921, cementing that storied ground as the spiritual home of the championship.</p>
-      <p>The trophy that the victorious county captain lifts at the end of every Leinster final is the <strong>Bob O'Keeffe Cup</strong> - a magnificent piece of silverware standing over three feet tall, decorated with Celtic chase work drawn from the Book of Kells. It is named after Bob O'Keeffe, an All-Ireland medal winner with Laois in 1915 who later served as both Chairman of the Leinster Council and President of the GAA. The current cup has been presented since 2005, after the original - bought for £700 in 1949 - was retired to the GAA Museum.</p>
+      <p>The Leinster Senior Hurling Championship started in 1888 - four years after the GAA was founded in Thurles with the explicit goal of keeping Irish sport and culture alive at a time when British influence was pushing it out. The early inter-club contests in 1885 and 1886 drew big crowds and fierce newspaper debate about who was really the best, and so provincial championships were born.</p>
+      <p>That first Leinster final at Croke Park was in 1921. A hundred years later, Croke Park is still where the province's two best counties meet every June. The competition has grown, shrunk, and changed format multiple times - it has always reflected what was happening in Irish life more broadly.</p>
+      <p>The trophy is the <strong>Bob O'Keeffe Cup</strong> - over three feet of silverware decorated with Celtic knotwork from the Book of Kells. It is named after Bob O'Keeffe, an All-Ireland winner with Laois in 1915 who later became GAA President. The current cup has been presented since 2005. In Kilkenny, people know exactly what it looks like.</p>
     </div>
 
-    <!-- STATS -->
     <div class="stat-row">
       <div class="stat-box">
         <div class="num">1888</div>
@@ -668,19 +690,17 @@
       </div>
       <div class="stat-box">
         <div class="num">6</div>
-        <div class="label">Counties in Current Edition</div>
+        <div class="label">Counties in 2026</div>
       </div>
     </div>
 
-    <!-- HOW IT WORKS -->
     <div class="section">
       <div class="section-label">Tournament Structure</div>
-      <h2>How the Leinster Championship Works</h2>
-      <p>Since 2018, the Leinster Senior Hurling Championship has operated on a <strong>round-robin group stage</strong> format - a significant departure from the old straight knockout system that had defined provincial hurling for generations. Six counties compete, each playing every other team once across five rounds spread from April into late May.</p>
-      <p>It is a format that rewards consistency over a single barnstorming performance, and it has delivered some extraordinary drama: counties fighting relegation on the final day, unexpected upsets reshuffling the table in round three, and clashes between giants that feel like early-season All-Ireland finals.</p>
+      <h2>How the Championship Works</h2>
+      <p>Since 2018 it has been a round-robin group stage - six counties play each other once across five rounds from April into late May, then the top two meet in the Leinster Final at Croke Park in June.</p>
+      <p>What this format does is keep every game meaningful. There is no hiding a bad result and hoping for a good day next round. The county at the bottom gets relegated to the Joe McDonagh Cup. That threat is real, and it shows on the pitch - right through to the final round of games.</p>
     </div>
 
-    <!-- FORMAT CARD -->
     <div class="format-card">
       <h3>Championship Format at a Glance</h3>
       <div class="format-steps">
@@ -688,93 +708,88 @@
           <div class="step-num">1</div>
           <div class="step-content">
             <h4>Round Robin Group Stage (5 Rounds)</h4>
-            <p>All six counties play each other once. Matches run from April through late May, with home and away fixtures producing fierce local atmosphere across Leinster.</p>
+            <p>All six counties play each other once. April through late May, home and away, with the kind of local atmosphere that a neutral venue simply cannot replicate.</p>
           </div>
         </div>
         <div class="format-step">
           <div class="step-num">2</div>
           <div class="step-content">
             <h4>Leinster Final - Top 2 Counties</h4>
-            <p>The two highest-placed counties after the group stage meet at Croke Park in early June for the provincial decider. The winner lifts the Bob O'Keeffe Cup and advances directly to the All-Ireland semi-finals.</p>
+            <p>The two highest-placed counties meet at Croke Park in early June. The winner lifts the Bob O'Keeffe Cup and goes straight to the All-Ireland semi-finals.</p>
           </div>
         </div>
         <div class="format-step">
           <div class="step-num">3</div>
           <div class="step-content">
             <h4>All-Ireland Pathway for 3rd Place</h4>
-            <p>The third-placed county earns a spot in the All-Ireland preliminary quarter-finals, keeping their summer alive. The runner-up in the Leinster Final enters the All-Ireland quarter-finals.</p>
+            <p>Third place earns a spot in the All-Ireland preliminary quarter-finals. The runner-up goes into the quarter-finals. No one is done after June.</p>
           </div>
         </div>
         <div class="format-step">
           <div class="step-num">4</div>
           <div class="step-content">
             <h4>Relegation for the Bottom County</h4>
-            <p>The lowest-finishing county is relegated to the Joe McDonagh Cup for the following year - a brutal reality that ensures every game in the group stage carries genuine stakes for all involved.</p>
+            <p>Last place means the Joe McDonagh Cup next year. It is a brutal drop, and every team knows it going into the final round.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TEAMS -->
     <div class="section">
       <div class="section-label">The Competing Counties</div>
       <h2>Six Counties. Six Stories.</h2>
-      <p>One of the most compelling aspects of the Leinster Championship is the diversity of the counties that compete - from ancient powerhouses to ambitious newcomers who have clawed their way into the province's elite tier.</p>
+      <p>The 2026 Leinster Championship brings together counties with very different relationships to the game - from the county that has won it 77 times to one that is still proving it belongs at this level.</p>
     </div>
 
     <div class="teams-grid">
       <div class="team-card">
         <div class="county-colour" style="background: linear-gradient(90deg, #000 50%, #ffdd00 50%);"></div>
         <h4>Kilkenny</h4>
-        <p>The undisputed kings of the Leinster Championship, with 77 titles. The Cats set the standard every other county measures itself against.</p>
+        <p>77 Leinster titles. The standard every other county is measured against, whether they like it or not.</p>
       </div>
       <div class="team-card">
         <div class="county-colour" style="background: linear-gradient(90deg, #8B1A1A 50%, #ffffff 50%);"></div>
         <h4>Galway</h4>
-        <p>Though technically a Connacht county, Galway competes in Leinster and has injected intense, high-quality rivalry into the province.</p>
+        <p>Technically a Connacht county, competing in Leinster by agreement. They pushed Kilkenny to 3-22 to 1-20 in last year's final.</p>
       </div>
       <div class="team-card">
         <div class="county-colour" style="background: linear-gradient(90deg, #003893 50%, #ffffff 50%);"></div>
         <h4>Dublin</h4>
-        <p>The capital city brings urban flair and passionate support, with Parnell Park providing an intimidating home advantage.</p>
+        <p>Urban, well-resourced, and competitive. Parnell Park on a championship evening is not an easy place to visit.</p>
       </div>
       <div class="team-card">
         <div class="county-colour" style="background: linear-gradient(90deg, #6B2D8B 50%, #ffdd00 50%);"></div>
         <h4>Wexford</h4>
-        <p>The Model County has a rich hurling tradition and an electric home atmosphere in Wexford Park that can unsettle any visitor.</p>
+        <p>A county with real hurling roots and a home crowd in Wexford Park that makes itself heard. Ask anyone who has played there.</p>
       </div>
       <div class="team-card">
         <div class="county-colour" style="background: linear-gradient(90deg, #007A33 50%, #ffffff 50%);"></div>
         <h4>Offaly</h4>
-        <p>A county with proud hurling heritage, Offaly bring grit and unpredictability - and have a history of producing upsets against stronger counties.</p>
+        <p>Proud heritage, unpredictable on their day, and perfectly capable of beating someone they have no business beating.</p>
       </div>
       <div class="team-card">
         <div class="county-colour" style="background: linear-gradient(90deg, #FFFFFF 50%, #CC0000 50%); border: 1px solid #ddd;"></div>
         <h4>Kildare</h4>
-        <p>The Lilywhites bring fresh energy and ambition to the Leinster stage. Competing at this level is both a test and an opportunity for a county building its hurling identity.</p>
+        <p>The newest members of this group. Still building, still hungry - which makes them dangerous in a way that settled counties are not.</p>
       </div>
     </div>
 
     <div class="divider"><div class="divider-icon">✦</div></div>
 
-    <!-- WHAT IT MEANS -->
     <div class="section">
       <div class="section-label">Cultural Significance</div>
-      <h2>What the Championship Means to the Counties</h2>
-      <p>To understand what the Leinster Championship truly means, you have to understand that GAA hurling is not a professional sport. The players who line out in county colours every weekend have day jobs, families, and ordinary lives. They train through winter rain and summer heat for the privilege of representing their county - for nothing more than the honour itself. That context transforms every match into something profoundly communal.</p>
-      <p>For <strong>Kilkenny</strong>, the championship is almost a birthright - yet every year, the weight of expectation is immense. Seventy-seven Leinster titles create a legacy that demands to be honoured. TJ Reid holds the record for the most Leinster medals won by any individual player, with 14 - a staggering achievement that speaks to Kilkenny's sustained dominance.</p>
-      <p>For <strong>Galway</strong>, competing in Leinster rather than Connacht has been both a privilege and a gauntlet. Their inclusion has produced some of the most gripping encounters in recent championship history, including their appearance in the 2025 Leinster final, where they pushed Kilkenny hard before losing 3-22 to 1-20 at Croke Park.</p>
-      <p>For <strong>Wexford</strong>, <strong>Dublin</strong>, and <strong>Offaly</strong>, the Leinster Championship is an opportunity to forge identity. A good run through the province - beating Kilkenny on a May afternoon, for instance - becomes the stuff of county folklore, repeated for decades. And for <strong>Kildare</strong>, the championship represents hard-won progress: earning and keeping a place in Leinster's elite tier is itself an achievement for a county continuing to develop its hurling culture.</p>
-      <p>Relegation, too, carries enormous emotional weight. The threat of dropping to the Joe McDonagh Cup - a tier below - looms over every last-day fixture. Communities that have built their summers around championship Sunday are acutely aware of what it would mean to lose that status.</p>
+      <h2>What the Championship Actually Means</h2>
+      <p>Here is the thing that catches people off guard the first time they experience GAA hurling: none of these players are paid. They have jobs. They have families. They train through January and February in fields that are half-dark by 4pm, for the chance to wear their county jersey in front of their own people. No contracts, no transfer fees. Just the honour of it.</p>
+      <p>That context changes how you watch. When a Kilkenny player makes a block in the 68th minute of a match that decides the Leinster title, he is doing it for the same reason his grandfather did. TJ Reid won 14 Leinster medals over his career - 14 - and never earned a salary from hurling.</p>
+      <p>Galway pushed Kilkenny to the wire in last year's final. Wexford and Dublin both carry counties that live for these summer months. And for Kildare, just staying in this company is the story right now. Meanwhile, the county in last place on the final day drops to a different competition entirely. Everyone in the ground knows what is at stake. That is not something you can manufacture.</p>
     </div>
 
-    <!-- EXPERIENCE -->
     <div class="section">
-      <div class="section-label">The Experience</div>
-      <h2>Watching the Leinster Championship: What to Expect</h2>
-      <p>If you are visiting Ireland between April and June and have any interest in sport, culture, or simply watching something genuinely extraordinary, attending a Leinster Championship match should be near the top of your list. The round-robin format means there are multiple fixtures each weekend, spread across venues ranging from the intimate to the iconic - Croke Park in Dublin, with a capacity of over 82,000, remains the spiritual centrepiece of the entire competition.</p>
-      <p>The atmosphere inside a provincial championship ground on a warm May afternoon is unlike anything you will find in mainstream European sport. There are no ultra-wealthy owners, no agents, no advertising hoardings for global corporations. There is a pitch, two county teams, and somewhere between a few thousand and tens of thousands of supporters who have driven across the country to be there - many of them wearing jerseys they have owned for decades.</p>
-      <p>The pace of hurling itself can be startling for first-timers: the sliotar travels at speeds exceeding 150 km/h, players take it from the air with the hurley while running at full pace, and the scoreboard moves with a rapidity that makes cricket look leisurely. A single good passage of play can produce three or four scores in under a minute. By the time the Leinster final arrives at Croke Park in early June, the province's best have been forged through five rounds of battle - and what follows is typically one of the summer's finest sporting occasions.</p>
+      <div class="section-label">Watching It</div>
+      <h2>What to Expect at a Championship Match</h2>
+      <p>Go to a Leinster Championship match at Nowlan Park on a May evening and tell us afterwards that it was what you expected. It will not be. The sliotar travels at over 150 km/h. Players catch it one-handed while running at full pace. The scoreboard moves so quickly in a good passage of play that you lose count. Compared to this, most other field sports feel measured.</p>
+      <p>But it is not just the speed. It is the people around you - who grew up in Kilkenny, went to school with some of these players, and have been watching the Cats win and occasionally, painfully, lose, their whole lives. That is not something you find at a stadium with a corporate naming rights deal. Nowlan Park holds around 27,000. On a big match day, most of them know exactly what is at stake.</p>
+      <p>The Leinster Final at Croke Park in June is a different scale - 82,000 capacity, the best two counties in the province, the whole summer riding on it. If you can get there, you should.</p>
     </div>
 
     <blockquote class="pull-quote">
@@ -782,116 +797,102 @@
       <cite>- The Leinster Championship</cite>
     </blockquote>
 
-    <!-- CLOSING -->
-    <div class="section">
-      <div class="section-label">Final Thoughts</div>
-      <h2>A Tournament That Transcends Sport</h2>
-      <p>The Leinster Senior Hurling Championship has survived two world wars, a pandemic, decades of format changes, and the ever-shifting tides of Irish popular culture. It endures because it means something that no marketing team could manufacture: it is the lived expression of place, identity, and community.</p>
-      <p>Whether you watch it from the stands of Croke Park with 82,300 others, or from a low terrace wall in Wexford Park, you are participating in one of the oldest sporting traditions in the world - a tradition that has shaped the rhythms of Irish life for over 135 years. The Bob O'Keeffe Cup will be lifted in June by a county captain whose voice will crack with pride. His teammates will have given everything. The losing dressing room will be quiet for a long time.</p>
-      <p>That is the magic of the Leinster Championship. It has no equal.</p>
-    </div>
-
-    <!-- PLAN YOUR VISIT -->
     <div class="section">
       <div class="section-label">Plan Your Visit</div>
-      <h2>Everything You Need to Know Before You Go</h2>
-      <p>Attending a Leinster Championship match is one of the most authentic sporting experiences Ireland has to offer - and with the right preparation, it is entirely accessible for visiting sports fans. Here is what you need to know.</p>
+      <h2>Everything You Need to Know</h2>
+      <p>Three fixtures, one season, and a local experience that goes well beyond the match itself. Here is how it works.</p>
     </div>
 
     <div class="visit-grid">
       <div class="visit-item">
         <div class="vi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <h4>When Does It Take Place?</h4>
-        <p>The round-robin group stage runs from late April through late May, with the Leinster Final typically held on the first or second weekend of June at Croke Park in Dublin.</p>
+        <h4>When?</h4>
+        <p>25 April (vs Wexford, 18:30), 16 May (vs Kildare, 18:00), and the Leinster Final on 6 June at Croke Park.</p>
       </div>
       <div class="visit-item">
         <div class="vi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><ellipse cx="12" cy="12" rx="10" ry="6"/><path d="M2 12c0 4 4.5 8 10 8s10-4 10-8"/><path d="M12 6v12"/><path d="M2 12h20"/></svg></div>
-        <h4>Where Are the Matches Played?</h4>
-        <p>Venues vary by fixture - from Croke Park (Dublin, 82,000 capacity) to Wexford Park, Pearse Stadium (Galway), Nowlan Park (Kilkenny), and St Conleth's Park (Kildare). Each ground has its own unique character and atmosphere.</p>
+        <h4>Where?</h4>
+        <p>UPMC Nowlan Park in Kilkenny for the group games, Croke Park in Dublin for the final. Both are easy to reach from most of Ireland.</p>
       </div>
       <div class="visit-item">
         <div class="vi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M2 9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4V9z"/><line x1="9" y1="7" x2="9" y2="17"/></svg></div>
-        <h4>How Do I Experience the Championship?</h4>
-        <p>Beyond the Pitch offers a unique championship experience - including a hands-on professional GAA training session, so you can feel the real local atmosphere rather than the one of a passing visitor. <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank">Be part of our founding experience →</a></p>
+        <h4>The Experience</h4>
+        <p>Each fixture comes with our full Kilkenny day - cultural intro with James, skills session on the pitch, the match, and pub recommendations from someone who actually lives here. <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank">See what's included →</a></p>
       </div>
       <div class="visit-item">
         <div class="vi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><rect x="4" y="3" width="16" height="14" rx="3"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="9" y1="3" x2="9" y2="10"/><line x1="15" y1="3" x2="15" y2="10"/><path d="M7 17l-2 4"/><path d="M17 17l2 4"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
         <h4>Getting There</h4>
-        <p>Dublin is the easiest base. Croke Park is a 15-minute walk from Connolly Station. Kilkenny city is just 90 minutes by train from Dublin Heuston, making Nowlan Park one of the easiest away days in the championship. For other fixtures, hiring a car unlocks the full experience of the Irish countryside along the way.</p>
+        <p>Kilkenny is 90 minutes by direct train from Dublin Heuston. Nowlan Park is a short walk from the city centre. We recommend arriving the evening before - the city on match day is worth experiencing on its own.</p>
       </div>
       <div class="visit-item">
         <div class="vi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M5 11h12v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9z"/><path d="M5 7h14l-1 4H6L5 7z"/></svg></div>
-        <h4>The Matchday Atmosphere</h4>
-        <p>Arrive early. The pre-match atmosphere in the pubs and streets around GAA grounds is as much a part of the day as the hurling itself. County colours are everywhere - wear yours with pride.</p>
+        <h4>Matchday</h4>
+        <p>Arrive early. The pubs around Nowlan Park fill up fast and that is half the experience. County colours everywhere, conversations with people who have been watching the Cats their whole lives.</p>
       </div>
       <div class="visit-item">
         <div class="vi-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-        <h4>For First-Time Visitors</h4>
-        <p>Beyond the Pitch specialises in unique sports travel experiences in Ireland. We combine matchday attendance with behind-the-scenes access to Irish sporting culture - ideal for sports fans visiting from abroad.</p>
+        <h4>First Time?</h4>
+        <p>The experience is designed for people who know nothing about hurling. By the time James is finished with you, you will understand exactly what you are watching - and why it matters.</p>
       </div>
     </div>
 
-    <!-- CTA -->
     <div class="cta-banner">
       <div>
-        <h3>Experience the Leinster Championship with Local Experts</h3>
-        <p>Beyond the Pitch offers unique, highly rated sports travel experiences in Ireland - including matchday tours, local cultural insights, and behind-the-scenes access to Irish sporting life. Trusted by sports fans from across the world.</p>
+        <h3>Join Us for the 2026 Leinster Championship</h3>
+        <p>Three fixtures. Small groups. A local experience led by James - Kilkenny native, lifelong hurling man. This is not a tour. It is a proper day out in a county that takes hurling seriously.</p>
       </div>
-      <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank" class="cta-btn">Explore Experiences</a>
+      <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank" class="cta-btn">Secure Your Place</a>
     </div>
 
     <div class="divider"><div class="divider-icon">✦</div></div>
 
-    <!-- FAQ -->
     <div class="section">
       <div class="section-label">Frequently Asked Questions</div>
-      <h2>Your Hurling Questions, Answered</h2>
+      <h2>Your Questions, Answered</h2>
     </div>
 
     <div class="faq-block" itemscope itemtype="https://schema.org/FAQPage">
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <div class="faq-q" itemprop="name">What does the Beyond the Pitch Kilkenny experience include?</div>
         <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">The experience runs across three stages. It begins with a cultural introduction to hurling led by James - a Kilkenny native with a lifelong connection to the game. Depending on your preference, this takes place either in a traditional pub in the rural village of Freshford or in the players' dressing room just outside Nowlan Park. From there, you step onto the pitch yourself: local coaches guide you through the ground stroke, hand pass, solo run, and hand strike. The day concludes with attendance at a live Leinster Championship match, followed by matchday in Kilkenny's pubs - with James's personal recommendations to guide you.</div>
+          <div itemprop="text">Three parts. First, a cultural introduction to hurling with James - a Kilkenny native who has grown up with the game. This happens either in a traditional pub in Freshford village or in the players' dressing room just outside Nowlan Park, depending on what you prefer. Second, a skills session on the pitch: ground stroke, hand pass, solo run, hand strike - the real basics, taught by local coaches. Third, the match itself, followed by the rest of the evening in Kilkenny's pubs with James's recommendations to guide you.</div>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" itemprop="name">Who is James, and why does it matter that he's from Kilkenny?</div>
+        <div class="faq-q" itemprop="name">Who is James?</div>
         <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">James is your guide throughout the experience - a Kilkenny native who has grown up with hurling as part of daily life. He is not a tour guide in the conventional sense. He is someone who knows the game, knows the county, and knows what matchday in Kilkenny actually feels like from the inside. That local knowledge is what separates this from anything you will find on a standard travel itinerary. The stories, the context, and the pub recommendations all come from someone who genuinely lives it.</div>
+          <div itemprop="text">James is a Kilkenny native who has lived with hurling his whole life. He is not a professional tour guide - he is someone who knows the game, knows the county, and knows what matchday in Kilkenny actually feels like. The pub recommendations come from him. The context behind what you are watching comes from him. That local knowledge is the whole point.</div>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" itemprop="name">Do I need any experience of hurling or GAA to take part?</div>
+        <div class="faq-q" itemprop="name">Do I need to know anything about hurling to take part?</div>
         <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">None at all. The experience is built for international visitors, sports travellers, and anyone curious about Irish culture - not for people who already know the game. James's introduction covers everything from the history and rules to why hurling matters the way it does in Kilkenny. By the time you pick up a hurley on the pitch, you will already understand what you are holding and why it means something. And by the time you take your seat for the match, the game will feel personal in a way it simply cannot from a guidebook.</div>
+          <div itemprop="text">No. The experience is built for people who are coming to it fresh - curious about Irish culture, interested in sport, no background in GAA required. James covers the history, the rules, and why hurling matters the way it does in Kilkenny. By the time you pick up a hurley, you will already understand what you are holding. By the time the match starts, you will be watching it differently than you would have that morning.</div>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" itemprop="name">Where does the experience take place - the pub or the dressing room?</div>
+        <div class="faq-q" itemprop="name">The pub or the dressing room — which should I choose?</div>
         <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">That choice is yours. The cultural introduction can take place in a traditional Irish pub in the heart of Freshford - a rural Kilkenny village where hurling is woven into everyday life - or in the players' dressing room just outside Nowlan Park, the iconic home of the Kilkenny Cats. Both settings offer something distinct. The pub gives you the warmth and community feel of rural Ireland; the dressing room puts you inside the world of the players before you watch them compete. We are happy to advise on which suits your group best.</div>
+          <div itemprop="text">Both work well, they are just different. The pub in Freshford is a traditional Irish village local - warm, relaxed, the kind of place where hurling gets talked about the same way the weather does. The dressing room just outside Nowlan Park puts you inside the world of the players before you watch them compete. If you want community and warmth, the pub. If you want to feel the weight of the place, the dressing room. We are happy to help you decide.</div>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" itemprop="name">Why Kilkenny, and why does it matter where you watch hurling?</div>
+        <div class="faq-q" itemprop="name">Why does it matter where you watch hurling?</div>
         <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">Kilkenny is the spiritual home of hurling - 77 Leinster titles, more All-Ireland medals than any other county, and a culture so rooted in the game that it shapes how the county sees itself. Watching a Leinster Championship match at Nowlan Park surrounded by supporters who have followed the Cats their entire lives is a fundamentally different experience from watching hurling as a neutral in a large stadium. The emotion is real. The history is tangible. And with James guiding you through it, you feel it rather than just observe it.</div>
+          <div itemprop="text">Kilkenny has won the Leinster Championship 77 times. The people in the stands at Nowlan Park have been watching the Cats their whole lives - and their parents did before them. Watching hurling there, surrounded by that, is a different thing from watching it as a neutral in a large stadium. The emotion is not performed. The history is not explained. It is just there. James makes sure you feel it rather than just observe it.</div>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" itemprop="name">How do I book, and how quickly do places fill up?</div>
+        <div class="faq-q" itemprop="name">How do I book, and how many places are left?</div>
         <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">Full details and booking are available at <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank">The Kilkenny Experience</a>. We keep group sizes deliberately small - this is a local experience, not a coach tour, and the atmosphere depends on it. As a founding experience, early editions are filling quickly. If the Leinster Championship is part of your plans this spring or summer, we would recommend securing your place sooner rather than later.</div>
+          <div itemprop="text">Full details and booking at <a href="https://www.travelbeyondthepitch.com/gaelic-games/#championship" target="_blank">travelbeyondthepitch.com/gaelic-games/#championship</a>. Groups are kept small on purpose - this is a local experience, not a coach tour, and the size matters. The April fixture is coming up fast. If the 2026 Leinster Championship is on your radar, do not leave it too late.</div>
         </div>
       </div>
     </div>
 
-
-  </div><!-- /content-wrapper -->
+  </div>
 </main>
 
-<!-- FOOTER -->
 <footer class="post-footer">
   <strong>Beyond the Pitch</strong>
   Exploring the culture, passion and meaning behind sport - one match at a time.
