@@ -830,7 +830,8 @@
         date:       'entry.301148404',
         guests:     'entry.175134312',
         requests:   'entry.184318357',
-        partner:    'entry.2094398847'
+        partner:    'entry.2094398847',
+        discount:   'entry.467287763'
     };
 
     const MATCH_DATA = [
@@ -1140,6 +1141,7 @@
         formData.append(FIELDS.guests,     guests);
         formData.append(FIELDS.requests,   combinedNotes);
         formData.append(FIELDS.partner,    'Ireland');
+        formData.append(FIELDS.discount,   appliedDiscount ? appliedDiscount.code : '');
 
         try {
             await fetch(FORM_ACTION, {
