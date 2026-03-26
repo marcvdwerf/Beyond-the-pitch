@@ -171,7 +171,6 @@
             background: white;
         }
 
-        /* Kilkenny experience card — single card, displayed as info block */
         .exp-info-card {
             border: 2px solid var(--primary);
             background: rgba(5,150,105,0.05);
@@ -188,8 +187,6 @@
             flex-shrink: 0;
             margin-top: 2px;
         }
-
-        .exp-info-body {}
 
         .exp-info-title {
             font-weight: 800;
@@ -377,6 +374,94 @@
             margin-bottom: 14px;
         }
 
+        /* ── Discount code block ── */
+        .discount-block {
+            margin-bottom: 18px;
+        }
+
+        .discount-row {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .discount-row input {
+            flex: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .discount-row input::placeholder {
+            text-transform: none;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .btn-apply-code {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-apply-code:hover {
+            background: var(--primary);
+        }
+
+        .btn-apply-code:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .discount-feedback {
+            margin-top: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .discount-feedback.success {
+            display: flex;
+            color: #065f46;
+        }
+
+        .discount-feedback.error {
+            display: flex;
+            color: #b91c1c;
+        }
+
+        .discount-feedback-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+        }
+
+        .discount-feedback.success .discount-feedback-icon {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .discount-feedback.error .discount-feedback-icon {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* ── Price summary ── */
         .price-summary {
             background: linear-gradient(135deg, #f0fdf8 0%, #ecfdf5 100%);
             border: 2px solid #a7f3d0;
@@ -412,6 +497,7 @@
         }
 
         .price-row-label { color: #374151; }
+
         .price-row-value {
             font-weight: 600;
             color: var(--text);
@@ -443,6 +529,24 @@
             font-size: 1.1rem;
         }
 
+        /* Discount line in summary */
+        .price-row.discount-line .price-row-label {
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .price-row.discount-line .price-row-value {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .price-row.original-price .price-row-value {
+            text-decoration: line-through;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        /* ── Submit button ── */
         .btn-submit {
             background: var(--primary);
             color: white;
@@ -552,23 +656,9 @@
             </div>
         </div>
 
-        <!-- Experience — single option shown as info block -->
+        <!-- Experience -->
         <div class="section-title">2. Your Experience</div>
         <div class="exp-info-card">
-            <div class="exp-info-icon">
-                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <ellipse cx="21" cy="22" rx="18" ry="12" stroke="#059669" stroke-width="2.2" fill="none"/>
-                  <ellipse cx="21" cy="22" rx="11" ry="6.5" stroke="#059669" stroke-width="1.4" fill="none" opacity="0.5"/>
-                  <circle cx="21" cy="22" r="1.5" fill="#059669" opacity="0.7"/>
-                  <path d="M3 22 Q3 12 21 10 Q39 12 39 22" stroke="#064e3b" stroke-width="2" fill="#d1fae5" opacity="0.6"/>
-                  <path d="M6 19 Q21 14 36 19" stroke="#059669" stroke-width="0.9" opacity="0.5" fill="none"/>
-                  <path d="M5 21 Q21 16 37 21" stroke="#059669" stroke-width="0.9" opacity="0.4" fill="none"/>
-                  <line x1="10" y1="19" x2="10" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
-                  <line x1="7.5" y1="13" x2="12.5" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
-                  <line x1="32" y1="19" x2="32" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
-                  <line x1="29.5" y1="13" x2="34.5" y2="13" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round"/>
-                </svg>
-            </div>
             <div class="exp-info-body">
                 <div class="exp-info-title">The Kilkenny Experience</div>
                 <div class="exp-info-badge">Premium</div>
@@ -583,9 +673,7 @@
         <div class="section-title">3. Select Match Fixture</div>
         <div class="fixture-section" id="fixtureSection">
             <p class="fixture-hint" id="fixtureHint">Choose one of the upcoming Kilkenny home fixtures below.</p>
-
             <div class="featured-fixtures" id="featuredFixtures"></div>
-
             <div class="show-more-bar" id="showMoreBar" style="display:none;">
                 <button type="button" class="show-more-btn" id="showMoreBtn">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -594,7 +682,6 @@
                     Show all fixtures
                 </button>
             </div>
-
             <div class="full-fixture-panel" id="fullFixturePanel">
                 <div class="filter-container">
                     <div class="form-group">
@@ -615,7 +702,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>All available fixtures</label>
                     <select id="match-selector">
@@ -643,24 +729,42 @@
             <textarea id="requests" placeholder="Seating needs, dietary requirements, experience goals..." rows="3"></textarea>
         </div>
 
-        <!-- Price summary -->
+        <!-- Price summary + discount code -->
         <div class="price-summary" id="priceSummary">
             <div class="price-summary-title">Booking summary</div>
             <div class="price-summary-rows">
-                <div class="price-row">
+                <div class="price-row" id="rowBasePrice">
                     <span class="price-row-label">The Kilkenny Experience – Premium</span>
                     <span class="price-row-value">€120 p.p.</span>
                 </div>
-                <div class="price-row">
+                <div class="price-row" id="rowGuests">
                     <span class="price-row-label" id="summaryGuests">—</span>
-                    <span class="price-row-value" id="summaryFullTotal">—</span>
+                    <span class="price-row-value" id="summarySubtotal">—</span>
                 </div>
-                <div class="price-row">
+                <!-- Discount line (hidden until code applied) -->
+                <div class="price-row discount-line" id="rowDiscount" style="display:none;">
+                    <span class="price-row-label" id="discountLabel">—</span>
+                    <span class="price-row-value" id="discountValue">—</span>
+                </div>
+                <div class="price-row" id="rowFixture">
                     <span class="price-row-label" id="summaryFixture" style="color:#9ca3af;font-size:0.85rem;">No fixture selected yet</span>
                 </div>
                 <div class="price-row total-row">
                     <span class="price-row-label">Total</span>
                     <span class="price-row-value" id="summaryTotal">—</span>
+                </div>
+            </div>
+
+            <!-- Discount code input -->
+            <div style="margin-top: 18px; border-top: 1px dashed #6ee7b7; padding-top: 16px;">
+                <label style="font-size:0.8rem; font-weight:700; color:#065f46; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px; display:block;">Discount Code</label>
+                <div class="discount-row">
+                    <input type="text" id="discountInput" placeholder="Enter your code" autocomplete="off" />
+                    <button type="button" class="btn-apply-code" id="applyCodeBtn">Apply</button>
+                </div>
+                <div class="discount-feedback" id="discountFeedback">
+                    <span class="discount-feedback-icon" id="discountFeedbackIcon"></span>
+                    <span id="discountFeedbackText"></span>
                 </div>
             </div>
         </div>
@@ -680,21 +784,14 @@
     <div id="successMessage">
         <div style="margin-bottom: 18px; display:flex; justify-content:center;">
             <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Left leaf -->
               <ellipse cx="22" cy="32" rx="13" ry="9" fill="#059669" transform="rotate(-45 22 32)"/>
-              <!-- Right leaf -->
               <ellipse cx="50" cy="32" rx="13" ry="9" fill="#059669" transform="rotate(45 50 32)"/>
-              <!-- Top leaf -->
               <ellipse cx="36" cy="20" rx="9" ry="13" fill="#059669"/>
-              <!-- Bottom leaf -->
               <ellipse cx="36" cy="42" rx="9" ry="13" fill="#059669"/>
-              <!-- Center circle -->
               <circle cx="36" cy="32" r="7" fill="#064e3b"/>
-              <!-- Highlight dots on leaves -->
               <circle cx="22" cy="28" r="2.5" fill="#34d399" opacity="0.6"/>
               <circle cx="50" cy="28" r="2.5" fill="#34d399" opacity="0.6"/>
               <circle cx="36" cy="17" r="2.5" fill="#34d399" opacity="0.6"/>
-              <!-- Stem -->
               <path d="M36 49 Q38 56 34 62" stroke="#059669" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
         </div>
@@ -713,6 +810,14 @@
 
 <script>
     const PRICE_PER_PERSON = 120;
+
+    // ── Discount codes ──────────────────────────────────────────────
+    // To deactivate: set active to false, or remove the entry entirely.
+    // type: 'percent' or 'fixed'
+    // value: percentage (20 = 20%) or fixed euro amount
+    const DISCOUNT_CODES = {
+        'KILKENNYEXPERIENCE20': { type: 'percent', value: 20, label: 'Early Bird 20%', active: true }
+    };
 
     const FORM_ACTION =
         'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
@@ -754,7 +859,9 @@
     ];
 
     let selectedFixture = null;
+    let appliedDiscount = null; // { code, type, value, label }
 
+    // ── Helpers ─────────────────────────────────────────────────────
     function formatDate(dateStr) {
         const d = new Date(dateStr + 'T12:00:00');
         return d.toLocaleDateString('en-IE', {
@@ -766,6 +873,24 @@
         return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
     }
 
+    function getGuests() {
+        return Math.max(4, Number(document.getElementById('guests').value) || 4);
+    }
+
+    function calcTotals(guests) {
+        const subtotal = PRICE_PER_PERSON * guests;
+        let discount = 0;
+        if (appliedDiscount) {
+            if (appliedDiscount.type === 'percent') {
+                discount = subtotal * (appliedDiscount.value / 100);
+            } else {
+                discount = Math.min(appliedDiscount.value * guests, subtotal);
+            }
+        }
+        return { subtotal, discount, total: subtotal - discount };
+    }
+
+    // ── Errors ──────────────────────────────────────────────────────
     function showError(msg) {
         ['errorBox', 'errorBox2'].forEach(id => {
             const b = document.getElementById(id);
@@ -782,10 +907,10 @@
         });
     }
 
+    // ── Progress bar ─────────────────────────────────────────────────
     function updateProgress() {
-        const name = document.getElementById('name').value.trim();
+        const name  = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-
         const p1 = document.getElementById('prog-1');
         const p2 = document.getElementById('prog-2');
         const p3 = document.getElementById('prog-3');
@@ -807,6 +932,7 @@
         }
     }
 
+    // ── Fixture rendering ────────────────────────────────────────────
     function renderFeatured() {
         const container = document.getElementById('featuredFixtures');
         container.innerHTML = '';
@@ -843,7 +969,6 @@
             container.appendChild(card);
         });
 
-        // Show "show more" only if there are more than shown
         document.getElementById('showMoreBar').style.display = MATCH_DATA.length > 2 ? 'block' : 'none';
     }
 
@@ -869,7 +994,7 @@
 
     function toggleFullPanel() {
         const panel = document.getElementById('fullFixturePanel');
-        const btn = document.getElementById('showMoreBtn');
+        const btn   = document.getElementById('showMoreBtn');
         const isOpen = panel.classList.toggle('open');
         btn.innerHTML = isOpen
             ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
@@ -877,14 +1002,27 @@
         if (isOpen) buildFullMenu();
     }
 
+    // ── Price summary ────────────────────────────────────────────────
     function updateSummary() {
-        const summary = document.getElementById('priceSummary');
-        const guests = Math.max(4, Number(document.getElementById('guests').value) || 4);
+        const guests = getGuests();
         document.getElementById('guests').value = guests;
 
-        const total = PRICE_PER_PERSON * guests;
-        document.getElementById('summaryGuests').textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
-        document.getElementById('summaryFullTotal').textContent = formatMoney(total);
+        const { subtotal, discount, total } = calcTotals(guests);
+
+        document.getElementById('summaryGuests').textContent   = `${guests} guest${guests > 1 ? 's' : ''}`;
+        document.getElementById('summarySubtotal').textContent = formatMoney(subtotal);
+
+        // Discount line
+        const rowDiscount  = document.getElementById('rowDiscount');
+        if (appliedDiscount && discount > 0) {
+            const pct = appliedDiscount.type === 'percent' ? ` (${appliedDiscount.value}%)` : '';
+            document.getElementById('discountLabel').textContent = `${appliedDiscount.label}${pct}`;
+            document.getElementById('discountValue').textContent = `− ${formatMoney(discount)}`;
+            rowDiscount.style.display = 'flex';
+        } else {
+            rowDiscount.style.display = 'none';
+        }
+
         document.getElementById('summaryTotal').textContent = formatMoney(total);
 
         if (selectedFixture) {
@@ -894,29 +1032,76 @@
             document.getElementById('summaryFixture').textContent = 'No fixture selected yet';
         }
 
-        summary.classList.add('visible');
+        document.getElementById('priceSummary').classList.add('visible');
     }
 
+    // ── Discount code logic ──────────────────────────────────────────
+    function applyDiscountCode() {
+        const raw  = document.getElementById('discountInput').value.trim().toUpperCase();
+        const fb   = document.getElementById('discountFeedback');
+        const icon = document.getElementById('discountFeedbackIcon');
+        const text = document.getElementById('discountFeedbackText');
+
+        // Reset
+        fb.className = 'discount-feedback';
+
+        if (!raw) {
+            fb.classList.add('error');
+            icon.textContent = '✕';
+            text.textContent = 'Please enter a discount code.';
+            return;
+        }
+
+        const code = DISCOUNT_CODES[raw];
+
+        if (!code || !code.active) {
+            appliedDiscount = null;
+            fb.classList.add('error');
+            icon.textContent = '✕';
+            text.textContent = 'This code is not valid or has expired.';
+            updateSummary();
+            updateSubmitButton();
+            return;
+        }
+
+        appliedDiscount = { code: raw, ...code };
+
+        const guests   = getGuests();
+        const { discount } = calcTotals(guests);
+        const savings  = code.type === 'percent'
+            ? `${code.value}% off`
+            : `€${code.value} per person`;
+
+        fb.classList.add('success');
+        icon.textContent = '✓';
+        text.textContent = `Code applied! You save ${savings} (${formatMoney(discount)} total).`;
+
+        updateSummary();
+        updateSubmitButton();
+    }
+
+    // ── Submit button state ──────────────────────────────────────────
     function updateSubmitButton() {
-        const name  = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const date  = document.getElementById('date').value;
+        const name   = document.getElementById('name').value.trim();
+        const email  = document.getElementById('email').value.trim();
+        const date   = document.getElementById('date').value;
         const guests = Number(document.getElementById('guests').value) || 0;
 
         const ready = !!name && !!email && !!date && !!selectedFixture && guests >= 4;
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = !ready;
+        document.getElementById('submitBtn').disabled = !ready;
     }
 
+    // ── Validation ───────────────────────────────────────────────────
     function validate() {
-        if (!document.getElementById('name').value.trim()) return 'Please enter your full name.';
+        if (!document.getElementById('name').value.trim())  return 'Please enter your full name.';
         if (!document.getElementById('email').value.trim()) return 'Please enter your email address.';
-        if (!selectedFixture) return 'Please choose a fixture.';
-        if (!document.getElementById('date').value) return 'Please confirm the selected date.';
+        if (!selectedFixture)                               return 'Please choose a fixture.';
+        if (!document.getElementById('date').value)         return 'Please confirm the selected date.';
         if ((Number(document.getElementById('guests').value) || 0) < 4) return 'Minimum number of guests is 4.';
         return '';
     }
 
+    // ── Submit ───────────────────────────────────────────────────────
     async function handleSubmit() {
         hideError();
         const err = validate();
@@ -927,13 +1112,24 @@
         btn.classList.add('loading');
         btn.innerHTML = `<span class="spinner"></span> Sending...`;
 
+        const guests = getGuests();
+        const { subtotal, discount, total } = calcTotals(guests);
+
         const fixtureText = selectedFixture
             ? `${selectedFixture.teams} — ${selectedFixture.venue} — ${formatDate(selectedFixture.date)}`
             : '';
+
+        const discountText = appliedDiscount
+            ? `Discount code: ${appliedDiscount.code} (${appliedDiscount.label}) — saving ${formatMoney(discount)}`
+            : 'No discount code applied';
+
         const userRequests = document.getElementById('requests').value.trim();
-        const combinedNotes = userRequests
-            ? `Fixture: ${fixtureText}\n\nSpecial requests: ${userRequests}`
-            : `Fixture: ${fixtureText}`;
+        const combinedNotes = [
+            `Fixture: ${fixtureText}`,
+            discountText,
+            `Subtotal: ${formatMoney(subtotal)} | Total after discount: ${formatMoney(total)}`,
+            userRequests ? `Special requests: ${userRequests}` : ''
+        ].filter(Boolean).join('\n');
 
         const formData = new FormData();
         formData.append(FIELDS.name,       document.getElementById('name').value.trim());
@@ -941,7 +1137,7 @@
         formData.append(FIELDS.phone,      document.getElementById('phone').value.trim());
         formData.append(FIELDS.experience, 'The Kilkenny Experience - Premium');
         formData.append(FIELDS.date,       document.getElementById('date').value);
-        formData.append(FIELDS.guests,     document.getElementById('guests').value);
+        formData.append(FIELDS.guests,     guests);
         formData.append(FIELDS.requests,   combinedNotes);
         formData.append(FIELDS.partner,    'Ireland');
 
@@ -952,15 +1148,14 @@
                 body: formData
             });
         } catch (e) {
-            // no-cors means we always get an opaque response; continue to success
             console.warn('Form submit note:', e);
         }
 
-        // Show success regardless (no-cors fetch always appears to fail/succeed opaquely)
-        document.getElementById('bookingForm').style.display = 'none';
+        document.getElementById('bookingForm').style.display  = 'none';
         document.getElementById('successMessage').style.display = 'block';
     }
 
+    // ── Init ─────────────────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', () => {
         renderFeatured();
         updateSummary();
@@ -970,7 +1165,25 @@
         document.getElementById('sportFilter').addEventListener('change', buildFullMenu);
         document.getElementById('monthFilter').addEventListener('change', buildFullMenu);
 
-        document.getElementById('match-selector').addEventListener('change', function() {
+        document.getElementById('applyCodeBtn').addEventListener('click', applyDiscountCode);
+        document.getElementById('discountInput').addEventListener('keydown', e => {
+            if (e.key === 'Enter') applyDiscountCode();
+        });
+
+        // Re-run feedback when guest count changes (savings amount updates)
+        document.getElementById('guests').addEventListener('input', () => {
+            if (appliedDiscount) {
+                const guests = getGuests();
+                const { discount } = calcTotals(guests);
+                const savings = appliedDiscount.type === 'percent'
+                    ? `${appliedDiscount.value}%`
+                    : `€${appliedDiscount.value} per person`;
+                document.getElementById('discountFeedbackText').textContent =
+                    `Code applied! You save ${savings} (${formatMoney(discount)} total).`;
+            }
+        });
+
+        document.getElementById('match-selector').addEventListener('change', function () {
             const m = MATCH_DATA.find(x => x.id === this.value);
             if (!m) return;
             selectedFixture = m;
@@ -992,7 +1205,6 @@
         });
 
         document.getElementById('submitBtn').addEventListener('click', handleSubmit);
-
         updateProgress();
     });
 </script>
