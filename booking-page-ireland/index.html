@@ -1,4 +1,43 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Book Your Experience - Beyond the Pitch</title> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" /> <style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Your Experience - Beyond the Pitch</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <style>
+        :root {
+            --primary: #059669;
+            --secondary: #064e3b;
+            --text: #1f2937;
+            --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+        }
+
+        /* Voeg hier de rest van je CSS toe */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        window.addEventListener('load', () => { 
+            if (window.location.hash) { 
+                setTimeout(() => { 
+                    const el = document.querySelector(window.location.hash); 
+                    if (el) el.scrollIntoView({ behavior: 'smooth' }); 
+                }, 100); 
+            } 
+        });
+    </script>
+</body>
+</html>
         :root {
             --primary: #059669;
             --secondary: #064e3b;
