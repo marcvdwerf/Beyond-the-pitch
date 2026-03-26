@@ -14,7 +14,16 @@
             --primary: #059669;
             --secondary: #064e3b;
             --text: #1f2937;
+            --muted: #6b7280;
             --bg-gradient: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+            --border: #e5e7eb;
+            --border-soft: #edf2f7;
+            --surface: #f8fafc;
+            --danger: #b91c1c;
+            --danger-bg: #fff7ed;
+            --danger-border: #fdba74;
+            --success-bg: #d1fae5;
+            --success-text: #065f46;
         }
 
         * {
@@ -52,6 +61,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-1px);
         }
 
         .booking-container {
@@ -168,10 +181,10 @@
         select,
         textarea {
             padding: 14px;
-            border: 2px solid #edf2f7;
+            border: 2px solid var(--border-soft);
             border-radius: 12px;
             font-size: 1rem;
-            background: #f8fafc;
+            background: var(--surface);
             outline: none;
             transition: 0.2s;
             width: 100%;
@@ -182,6 +195,13 @@
         textarea:focus {
             border-color: var(--primary);
             background: white;
+        }
+
+        input.input-error,
+        select.input-error,
+        textarea.input-error {
+            border-color: #fca5a5;
+            background: #fff7f7;
         }
 
         .exp-info-card {
@@ -387,10 +407,6 @@
             margin-bottom: 14px;
         }
 
-        .discount-block {
-            margin-bottom: 18px;
-        }
-
         .discount-row {
             display: flex;
             gap: 10px;
@@ -444,12 +460,12 @@
 
         .discount-feedback.success {
             display: flex;
-            color: #065f46;
+            color: var(--success-text);
         }
 
         .discount-feedback.error {
             display: flex;
-            color: #b91c1c;
+            color: var(--danger);
         }
 
         .discount-feedback-icon {
@@ -464,13 +480,13 @@
         }
 
         .discount-feedback.success .discount-feedback-icon {
-            background: #d1fae5;
-            color: #065f46;
+            background: var(--success-bg);
+            color: var(--success-text);
         }
 
         .discount-feedback.error .discount-feedback-icon {
             background: #fee2e2;
-            color: #b91c1c;
+            color: var(--danger);
         }
 
         .price-summary {
@@ -657,8 +673,8 @@
         }
 
         .error-box {
-            background: #fff7ed;
-            border: 1px solid #fdba74;
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-border);
             color: #9a3412;
             border-radius: 12px;
             padding: 12px 14px;
@@ -677,6 +693,10 @@
             padding: 60px 30px;
         }
 
+        .hidden-helper {
+            display: none !important;
+        }
+
         @media (max-width: 700px) {
             .form-section {
                 padding: 24px 20px;
@@ -693,10 +713,17 @@
             .progress-sep {
                 min-width: 8px;
             }
+
+            .discount-row {
+                flex-direction: column;
+            }
+
+            .btn-apply-code {
+                min-height: 48px;
+            }
         }
     </style>
 </head>
-
 <body>
     <a href="/gaelic-games/" class="btn-back">← Back</a>
 
@@ -705,13 +732,11 @@
             <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 6px;">
                 Beyond the Pitch
             </h1>
-            <p style="font-weight: 500; opacity: 0.9;">
-                Official Experience Booking Portal
-            </p>
+            <p style="font-weight: 500; opacity: 0.9;">Official Experience Booking Portal</p>
         </div>
 
-        <div id="bookingForm" class="form-section">
-            <div class="progress-bar">
+        <form id="bookingForm" class="form-section" novalidate>
+            <div class="progress-bar" aria-label="Booking progress">
                 <div class="progress-step active" id="prog-1">
                     <span class="step-num">1</span>
                     <span>Details</span>
@@ -728,23 +753,28 @@
                 </div>
             </div>
 
-            <div class="error-box" id="errorBox"></div>
+            <div class="error-box" id="errorBox" role="alert" aria-live="polite"></div>
 
             <div class="section-title">1. Personal Information</div>
             <div class="form-grid">
                 <div class="form-group">
-                    <label>Full Name *</label>
-                    <input type="text" id="name" placeholder="Your full name" />
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" placeholder="Your full name" autocomplete="name" />
                 </div>
 
                 <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" id="email" placeholder="your@email.com" />
+                    <label for="email">Email Address *</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="your@email.com"
+                        autocomplete="email"
+                    />
                 </div>
 
                 <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" id="phone" placeholder="+31 6 ..." />
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+353 ..." autocomplete="tel" />
                 </div>
             </div>
 
@@ -787,7 +817,7 @@
                 <div class="full-fixture-panel" id="fullFixturePanel">
                     <div class="filter-container">
                         <div class="form-group">
-                            <label>Sport</label>
+                            <label for="sportFilter">Sport</label>
                             <select id="sportFilter">
                                 <option value="all">All Sports</option>
                                 <option value="Hurling">Hurling</option>
@@ -796,7 +826,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Month</label>
+                            <label for="monthFilter">Month</label>
                             <select id="monthFilter">
                                 <option value="all">All Months</option>
                                 <option value="apr">April</option>
@@ -807,7 +837,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>All available fixtures</label>
+                        <label for="match-selector">All available fixtures</label>
                         <select id="match-selector">
                             <option value="">-- Choose a fixture --</option>
                         </select>
@@ -818,18 +848,18 @@
             <div class="section-title">4. Trip Details</div>
             <div class="form-grid">
                 <div class="form-group">
-                    <label>Selected Date *</label>
+                    <label for="date">Selected Date *</label>
                     <input type="date" id="date" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Number of Guests (minimum 4) *</label>
+                    <label for="guests">Number of Guests (minimum 4) *</label>
                     <input type="number" id="guests" min="4" max="20" value="4" required />
                 </div>
             </div>
 
             <div class="form-group" style="margin-bottom: 25px;">
-                <label>Special Requests / Notes</label>
+                <label for="requests">Special Requests / Notes</label>
                 <textarea
                     id="requests"
                     placeholder="Seating needs, dietary requirements, experience goals..."
@@ -874,6 +904,7 @@
 
                 <div style="margin-top: 18px; border-top: 1px dashed #6ee7b7; padding-top: 16px;">
                     <label
+                        for="discountInput"
                         style="
                             font-size: 0.8rem;
                             font-weight: 700;
@@ -899,7 +930,7 @@
                         </button>
                     </div>
 
-                    <div class="discount-feedback" id="discountFeedback">
+                    <div class="discount-feedback" id="discountFeedback" aria-live="polite">
                         <span class="discount-feedback-icon" id="discountFeedbackIcon"></span>
                         <span id="discountFeedbackText"></span>
                     </div>
@@ -952,9 +983,7 @@
                 </div>
             </div>
 
-            <div class="error-box" id="errorBox2"></div>
-
-            <button type="button" class="btn-submit" id="submitBtn" disabled>
+            <button type="submit" class="btn-submit" id="submitBtn" disabled>
                 Send booking request
             </button>
 
@@ -968,9 +997,9 @@
             >
                 We'll confirm your booking within 48 hours via email.
             </p>
-        </div>
+        </form>
 
-        <div id="successMessage">
+        <div id="successMessage" aria-live="polite">
             <div style="margin-bottom: 18px; display: flex; justify-content: center;">
                 <svg
                     width="72"
@@ -1046,6 +1075,7 @@
 
             <button
                 class="btn-submit"
+                type="button"
                 onclick="window.location.href = window.location.pathname"
                 style="max-width: 220px; margin: 0 auto;"
             >
@@ -1055,7 +1085,9 @@
     </div>
 
     <script>
+        const EXPERIENCE_NAME = 'The Kilkenny Experience - Premium';
         const PRICE_PER_PERSON = 120;
+        const FEATURED_LIMIT = 2;
 
         const DISCOUNT_CODES = {
             KILKENNYEXPERIENCE20: {
@@ -1104,10 +1136,53 @@
                 competition: 'Round 4',
                 kilkennyHome: true
             }
-        ];
+        ].sort((a, b) => new Date(a.date) - new Date(b.date));
 
         let selectedFixture = null;
         let appliedDiscount = null;
+        let isSubmitting = false;
+
+        const els = {
+            form: document.getElementById('bookingForm'),
+            successMessage: document.getElementById('successMessage'),
+            errorBox: document.getElementById('errorBox'),
+
+            name: document.getElementById('name'),
+            email: document.getElementById('email'),
+            phone: document.getElementById('phone'),
+            date: document.getElementById('date'),
+            guests: document.getElementById('guests'),
+            requests: document.getElementById('requests'),
+
+            featuredFixtures: document.getElementById('featuredFixtures'),
+            showMoreBar: document.getElementById('showMoreBar'),
+            showMoreBtn: document.getElementById('showMoreBtn'),
+            fullFixturePanel: document.getElementById('fullFixturePanel'),
+            sportFilter: document.getElementById('sportFilter'),
+            monthFilter: document.getElementById('monthFilter'),
+            matchSelector: document.getElementById('match-selector'),
+
+            priceSummary: document.getElementById('priceSummary'),
+            summaryGuests: document.getElementById('summaryGuests'),
+            summarySubtotal: document.getElementById('summarySubtotal'),
+            summaryFixture: document.getElementById('summaryFixture'),
+            summaryTotal: document.getElementById('summaryTotal'),
+            rowDiscount: document.getElementById('rowDiscount'),
+            discountLabel: document.getElementById('discountLabel'),
+            discountValue: document.getElementById('discountValue'),
+
+            discountInput: document.getElementById('discountInput'),
+            applyCodeBtn: document.getElementById('applyCodeBtn'),
+            discountFeedback: document.getElementById('discountFeedback'),
+            discountFeedbackIcon: document.getElementById('discountFeedbackIcon'),
+            discountFeedbackText: document.getElementById('discountFeedbackText'),
+
+            submitBtn: document.getElementById('submitBtn'),
+
+            prog1: document.getElementById('prog-1'),
+            prog2: document.getElementById('prog-2'),
+            prog3: document.getElementById('prog-3')
+        };
 
         function formatDate(dateStr) {
             const d = new Date(dateStr + 'T12:00:00');
@@ -1120,14 +1195,32 @@
         }
 
         function formatMoney(amount) {
-            return new Intl.NumberFormat('nl-NL', {
+            return new Intl.NumberFormat('en-IE', {
                 style: 'currency',
                 currency: 'EUR'
             }).format(amount);
         }
 
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function clampGuests(value) {
+            const numeric = Number(value);
+
+            if (!Number.isFinite(numeric)) return 4;
+            if (numeric < 4) return 4;
+            if (numeric > 20) return 20;
+
+            return Math.floor(numeric);
+        }
+
         function getGuests() {
-            return Math.max(4, Number(document.getElementById('guests').value) || 4);
+            return clampGuests(els.guests.value);
+        }
+
+        function normalizeGuestsInput() {
+            els.guests.value = clampGuests(els.guests.value);
         }
 
         function calcTotals(guests) {
@@ -1149,120 +1242,124 @@
             };
         }
 
-        function showError(msg) {
-            ['errorBox', 'errorBox2'].forEach(id => {
-                const b = document.getElementById(id);
-                b.textContent = msg;
-                b.classList.add('visible');
+        function clearFieldErrors() {
+            [els.name, els.email, els.date, els.guests, els.matchSelector].forEach(el => {
+                el.classList.remove('input-error');
             });
+        }
+
+        function showError(message) {
+            els.errorBox.textContent = message;
+            els.errorBox.classList.add('visible');
         }
 
         function hideError() {
-            ['errorBox', 'errorBox2'].forEach(id => {
-                const b = document.getElementById(id);
-                b.textContent = '';
-                b.classList.remove('visible');
-            });
+            els.errorBox.textContent = '';
+            els.errorBox.classList.remove('visible');
+            clearFieldErrors();
+        }
+
+        function setFieldError(field, message) {
+            hideError();
+            if (field) {
+                field.classList.add('input-error');
+            }
+            showError(message);
         }
 
         function updateProgress() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const p1 = document.getElementById('prog-1');
-            const p2 = document.getElementById('prog-2');
-            const p3 = document.getElementById('prog-3');
+            const name = els.name.value.trim();
+            const email = els.email.value.trim();
 
-            [p1, p2, p3].forEach(p => p.classList.remove('active', 'done'));
+            [els.prog1, els.prog2, els.prog3].forEach(p => p.classList.remove('active', 'done'));
 
-            if (name && email) {
-                p1.classList.add('done');
-                p2.classList.add('active');
+            if (name && email && isValidEmail(email)) {
+                els.prog1.classList.add('done');
+                els.prog2.classList.add('active');
             } else {
-                p1.classList.add('active');
+                els.prog1.classList.add('active');
                 return;
             }
 
             if (selectedFixture) {
-                p2.classList.remove('active');
-                p2.classList.add('done');
-                p3.classList.add('active');
+                els.prog2.classList.remove('active');
+                els.prog2.classList.add('done');
+                els.prog3.classList.add('active');
             }
         }
 
-        function renderFeatured() {
-            const container = document.getElementById('featuredFixtures');
-            container.innerHTML = '';
+        function getFeaturedFixtures() {
+            return MATCH_DATA.slice(0, FEATURED_LIMIT);
+        }
 
-            MATCH_DATA.forEach(m => {
-                const card = document.createElement('div');
-                card.className =
-                    'fixture-card' + (selectedFixture?.id === m.id ? ' selected' : '');
+        function renderFeatured() {
+            const featured = getFeaturedFixtures();
+            els.featuredFixtures.innerHTML = '';
+
+            featured.forEach(match => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.className = 'fixture-card' + (selectedFixture?.id === match.id ? ' selected' : '');
 
                 card.innerHTML = `
                     <div class="fixture-info">
-                        <div class="fixture-teams">${m.teams}</div>
+                        <div class="fixture-teams">${match.teams}</div>
                         <div class="fixture-meta">
-                            <span class="fixture-sport-tag">${m.sport}</span>
-                            &nbsp;·&nbsp; ${formatDate(m.date)}
-                            &nbsp;·&nbsp; ${m.venue}
-                            &nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>
+                            <span class="fixture-sport-tag">${match.sport}</span>
+                            &nbsp;·&nbsp; ${formatDate(match.date)}
+                            &nbsp;·&nbsp; ${match.venue}
+                            ${match.kilkennyHome ? '&nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>' : ''}
                         </div>
                     </div>
-                    <div class="fixture-checkmark"></div>
+                    <div class="fixture-checkmark" aria-hidden="true"></div>
                 `;
 
                 card.addEventListener('click', () => {
-                    document
-                        .querySelectorAll('.fixture-card')
-                        .forEach(c => c.classList.remove('selected'));
-
-                    card.classList.add('selected');
-                    selectedFixture = m;
-                    document.getElementById('date').value = m.date;
-                    document.getElementById('match-selector').value = m.id;
-
-                    updateProgress();
-                    updateSummary();
-                    updateSubmitButton();
+                    selectFixtureById(match.id);
                     hideError();
                 });
 
-                container.appendChild(card);
+                els.featuredFixtures.appendChild(card);
             });
 
-            document.getElementById('showMoreBar').style.display =
-                MATCH_DATA.length > 2 ? 'block' : 'none';
+            els.showMoreBar.style.display = MATCH_DATA.length > FEATURED_LIMIT ? 'block' : 'none';
         }
 
         function buildFullMenu() {
-            const sport = document.getElementById('sportFilter').value;
-            const month = document.getElementById('monthFilter').value;
-            const selector = document.getElementById('match-selector');
+            const sport = els.sportFilter.value;
+            const month = els.monthFilter.value;
 
-            selector.innerHTML = '<option value="">-- Choose a fixture --</option>';
+            const filtered = MATCH_DATA
+                .filter(match => sport === 'all' || match.sport === sport)
+                .filter(match => month === 'all' || match.month === month);
 
-            MATCH_DATA
-                .filter(m => sport === 'all' || m.sport === sport)
-                .filter(m => month === 'all' || m.month === month)
-                .sort((a, b) => new Date(a.date) - new Date(b.date))
-                .forEach(m => {
-                    const opt = document.createElement('option');
-                    opt.value = m.id;
-                    opt.textContent = `${formatDate(m.date)} — ${m.teams} — ${m.venue}`;
-                    selector.appendChild(opt);
-                });
+            els.matchSelector.innerHTML = '<option value="">-- Choose a fixture --</option>';
 
-            if (selectedFixture) {
-                selector.value = selectedFixture.id;
+            if (!filtered.length) {
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.disabled = true;
+                opt.textContent = 'No fixtures available for the selected filters';
+                els.matchSelector.appendChild(opt);
+                return;
+            }
+
+            filtered.forEach(match => {
+                const opt = document.createElement('option');
+                opt.value = match.id;
+                opt.textContent = `${formatDate(match.date)} — ${match.teams} — ${match.venue}`;
+                els.matchSelector.appendChild(opt);
+            });
+
+            if (selectedFixture && filtered.some(match => match.id === selectedFixture.id)) {
+                els.matchSelector.value = selectedFixture.id;
             }
         }
 
         function toggleFullPanel() {
-            const panel = document.getElementById('fullFixturePanel');
-            const btn = document.getElementById('showMoreBtn');
-            const isOpen = panel.classList.toggle('open');
+            const isOpen = els.fullFixturePanel.classList.toggle('open');
 
-            btn.innerHTML = isOpen
+            els.showMoreBtn.innerHTML = isOpen
                 ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
                 : `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show all fixtures`;
 
@@ -1273,56 +1370,55 @@
 
         function updateSummary() {
             const guests = getGuests();
-            document.getElementById('guests').value = guests;
-
             const { subtotal, discount, total } = calcTotals(guests);
 
-            document.getElementById('summaryGuests').textContent =
-                `${guests} guest${guests > 1 ? 's' : ''}`;
-            document.getElementById('summarySubtotal').textContent = formatMoney(subtotal);
-
-            const rowDiscount = document.getElementById('rowDiscount');
-
-            if (appliedDiscount && discount > 0) {
-                const pct =
-                    appliedDiscount.type === 'percent'
-                        ? ` (${appliedDiscount.value}%)`
-                        : '';
-
-                document.getElementById('discountLabel').textContent =
-                    `${appliedDiscount.label}${pct}`;
-                document.getElementById('discountValue').textContent =
-                    `− ${formatMoney(discount)}`;
-                rowDiscount.style.display = 'flex';
-            } else {
-                rowDiscount.style.display = 'none';
-            }
-
-            document.getElementById('summaryTotal').textContent = formatMoney(total);
+            els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
+            els.summarySubtotal.textContent = formatMoney(subtotal);
+            els.summaryTotal.textContent = formatMoney(total);
 
             if (selectedFixture) {
-                document.getElementById('summaryFixture').textContent =
+                els.summaryFixture.textContent =
                     `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
+                els.summaryFixture.style.color = '#374151';
             } else {
-                document.getElementById('summaryFixture').textContent =
-                    'No fixture selected yet';
+                els.summaryFixture.textContent = 'No fixture selected yet';
+                els.summaryFixture.style.color = '#9ca3af';
             }
 
-            document.getElementById('priceSummary').classList.add('visible');
+            if (appliedDiscount && discount > 0) {
+                const pct = appliedDiscount.type === 'percent'
+                    ? ` (${appliedDiscount.value}%)`
+                    : '';
+
+                els.discountLabel.textContent = `${appliedDiscount.label}${pct}`;
+                els.discountValue.textContent = `− ${formatMoney(discount)}`;
+                els.rowDiscount.style.display = 'flex';
+            } else {
+                els.rowDiscount.style.display = 'none';
+            }
+
+            els.priceSummary.classList.add('visible');
+        }
+
+        function updateDiscountFeedback(type = '', message = '') {
+            els.discountFeedback.className = 'discount-feedback';
+
+            if (!type || !message) {
+                els.discountFeedbackIcon.textContent = '';
+                els.discountFeedbackText.textContent = '';
+                return;
+            }
+
+            els.discountFeedback.classList.add(type);
+            els.discountFeedbackIcon.textContent = type === 'success' ? '✓' : '✕';
+            els.discountFeedbackText.textContent = message;
         }
 
         function applyDiscountCode() {
-            const raw = document.getElementById('discountInput').value.trim().toUpperCase();
-            const fb = document.getElementById('discountFeedback');
-            const icon = document.getElementById('discountFeedbackIcon');
-            const text = document.getElementById('discountFeedbackText');
-
-            fb.className = 'discount-feedback';
+            const raw = els.discountInput.value.trim().toUpperCase();
 
             if (!raw) {
-                fb.classList.add('error');
-                icon.textContent = '✕';
-                text.textContent = 'Please enter a discount code.';
+                updateDiscountFeedback('error', 'Please enter a discount code.');
                 return;
             }
 
@@ -1330,79 +1426,185 @@
 
             if (!code || !code.active) {
                 appliedDiscount = null;
-                fb.classList.add('error');
-                icon.textContent = '✕';
-                text.textContent = 'This code is not valid or has expired.';
+                updateDiscountFeedback('error', 'This code is not valid or has expired.');
                 updateSummary();
                 updateSubmitButton();
                 return;
             }
 
-            appliedDiscount = { code: raw, ...code };
+            appliedDiscount = {
+                code: raw,
+                ...code
+            };
 
             const guests = getGuests();
             const { discount } = calcTotals(guests);
-            const savings =
-                code.type === 'percent'
-                    ? `${code.value}% off`
-                    : `€${code.value} per person`;
 
-            fb.classList.add('success');
-            icon.textContent = '✓';
-            text.textContent =
-                `Code applied! You save ${savings} (${formatMoney(discount)} total).`;
+            const savingsText = code.type === 'percent'
+                ? `${code.value}% off`
+                : `${formatMoney(code.value)} per person`;
+
+            updateDiscountFeedback(
+                'success',
+                `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`
+            );
 
             updateSummary();
             updateSubmitButton();
         }
 
-        function updateSubmitButton() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const date = document.getElementById('date').value;
-            const guests = Number(document.getElementById('guests').value) || 0;
+        function refreshAppliedDiscountMessage() {
+            if (!appliedDiscount) return;
 
-            const ready = !!name && !!email && !!date && !!selectedFixture && guests >= 4;
-            document.getElementById('submitBtn').disabled = !ready;
+            const guests = getGuests();
+            const { discount } = calcTotals(guests);
+
+            const savingsText = appliedDiscount.type === 'percent'
+                ? `${appliedDiscount.value}% off`
+                : `${formatMoney(appliedDiscount.value)} per person`;
+
+            updateDiscountFeedback(
+                'success',
+                `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`
+            );
         }
 
-        function validate() {
-            if (!document.getElementById('name').value.trim()) {
-                return 'Please enter your full name.';
+        function selectFixtureById(id) {
+            const match = MATCH_DATA.find(item => item.id === id);
+            if (!match) return false;
+
+            selectedFixture = match;
+            els.date.value = match.date;
+            els.matchSelector.value = match.id;
+
+            renderFeatured();
+            buildFullMenu();
+            updateProgress();
+            updateSummary();
+            updateSubmitButton();
+
+            return true;
+        }
+
+        function syncFixtureByDate(dateValue) {
+            const match = MATCH_DATA.find(item => item.date === dateValue);
+
+            if (!match) return false;
+
+            selectedFixture = match;
+            els.matchSelector.value = match.id;
+
+            renderFeatured();
+            buildFullMenu();
+            updateProgress();
+            updateSummary();
+            updateSubmitButton();
+
+            return true;
+        }
+
+        function updateSubmitButton() {
+            const name = els.name.value.trim();
+            const email = els.email.value.trim();
+            const date = els.date.value;
+            const guests = Number(els.guests.value);
+
+            const hasValidGuests = Number.isFinite(guests) && guests >= 4 && guests <= 20;
+            const dateMatchesFixture = selectedFixture ? date === selectedFixture.date : false;
+
+            const ready =
+                !!name &&
+                isValidEmail(email) &&
+                !!selectedFixture &&
+                !!date &&
+                hasValidGuests &&
+                dateMatchesFixture &&
+                !isSubmitting;
+
+            els.submitBtn.disabled = !ready;
+        }
+
+        function validateForm() {
+            clearFieldErrors();
+
+            const name = els.name.value.trim();
+            const email = els.email.value.trim();
+            const date = els.date.value;
+            const guests = Number(els.guests.value);
+
+            if (!name) {
+                setFieldError(els.name, 'Please enter your full name.');
+                return false;
             }
 
-            if (!document.getElementById('email').value.trim()) {
-                return 'Please enter your email address.';
+            if (!email) {
+                setFieldError(els.email, 'Please enter your email address.');
+                return false;
+            }
+
+            if (!isValidEmail(email)) {
+                setFieldError(els.email, 'Please enter a valid email address.');
+                return false;
             }
 
             if (!selectedFixture) {
-                return 'Please choose a fixture.';
+                setFieldError(els.matchSelector, 'Please choose a fixture.');
+                return false;
             }
 
-            if (!document.getElementById('date').value) {
-                return 'Please confirm the selected date.';
+            if (!date) {
+                setFieldError(els.date, 'Please confirm the selected date.');
+                return false;
             }
 
-            if ((Number(document.getElementById('guests').value) || 0) < 4) {
-                return 'Minimum number of guests is 4.';
+            if (date !== selectedFixture.date) {
+                setFieldError(
+                    els.date,
+                    'The selected date does not match the chosen fixture.'
+                );
+                return false;
             }
 
-            return '';
+            if (!Number.isFinite(guests) || guests < 4) {
+                setFieldError(els.guests, 'Minimum number of guests is 4.');
+                return false;
+            }
+
+            if (guests > 20) {
+                setFieldError(els.guests, 'Maximum number of guests is 20.');
+                return false;
+            }
+
+            hideError();
+            return true;
         }
 
-        async function handleSubmit() {
-            hideError();
+        function setSubmittingState(loading) {
+            isSubmitting = loading;
+            els.submitBtn.disabled = loading || els.submitBtn.disabled;
 
-            const err = validate();
-            if (err) {
-                showError(err);
-                return;
+            if (loading) {
+                els.submitBtn.classList.add('loading');
+                els.submitBtn.innerHTML = `<span class="spinner"></span> Sending...`;
+            } else {
+                els.submitBtn.classList.remove('loading');
+                els.submitBtn.textContent = 'Send booking request';
+                updateSubmitButton();
             }
+        }
 
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.classList.add('loading');
-            btn.innerHTML = `<span class="spinner"></span> Sending...`;
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            if (isSubmitting) return;
+
+            normalizeGuestsInput();
+            updateSummary();
+            updateSubmitButton();
+
+            if (!validateForm()) return;
+
+            setSubmittingState(true);
 
             const guests = getGuests();
             const { subtotal, discount, total } = calcTotals(guests);
@@ -1415,7 +1617,7 @@
                 ? `Discount code: ${appliedDiscount.code} (${appliedDiscount.label}) — saving ${formatMoney(discount)}`
                 : 'No discount code applied';
 
-            const userRequests = document.getElementById('requests').value.trim();
+            const userRequests = els.requests.value.trim();
 
             const combinedNotes = [
                 `Fixture: ${fixtureText}`,
@@ -1427,12 +1629,12 @@
                 .join('\n');
 
             const formData = new FormData();
-            formData.append(FIELDS.name, document.getElementById('name').value.trim());
-            formData.append(FIELDS.email, document.getElementById('email').value.trim());
-            formData.append(FIELDS.phone, document.getElementById('phone').value.trim());
-            formData.append(FIELDS.experience, 'The Kilkenny Experience - Premium');
-            formData.append(FIELDS.date, document.getElementById('date').value);
-            formData.append(FIELDS.guests, guests);
+            formData.append(FIELDS.name, els.name.value.trim());
+            formData.append(FIELDS.email, els.email.value.trim());
+            formData.append(FIELDS.phone, els.phone.value.trim());
+            formData.append(FIELDS.experience, EXPERIENCE_NAME);
+            formData.append(FIELDS.date, els.date.value);
+            formData.append(FIELDS.guests, String(guests));
             formData.append(FIELDS.requests, combinedNotes);
             formData.append(FIELDS.partner, 'Ireland');
             formData.append(FIELDS.discount, appliedDiscount ? appliedDiscount.code : '');
@@ -1443,74 +1645,105 @@
                     mode: 'no-cors',
                     body: formData
                 });
-            } catch (e) {
-                console.warn('Form submit note:', e);
-            }
 
-            document.getElementById('bookingForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
+                els.form.style.display = 'none';
+                els.successMessage.style.display = 'block';
+            } catch (error) {
+                showError(
+                    'We could not send your booking request right now. Please try again in a moment.'
+                );
+                setSubmittingState(false);
+            }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            renderFeatured();
-            updateSummary();
-            updateSubmitButton();
+        function handleDateChange() {
+            const dateValue = els.date.value;
 
-            document.getElementById('showMoreBtn').addEventListener('click', toggleFullPanel);
-            document.getElementById('sportFilter').addEventListener('change', buildFullMenu);
-            document.getElementById('monthFilter').addEventListener('change', buildFullMenu);
-
-            document.getElementById('applyCodeBtn').addEventListener('click', applyDiscountCode);
-            document.getElementById('discountInput').addEventListener('keydown', e => {
-                if (e.key === 'Enter') {
-                    applyDiscountCode();
-                }
-            });
-
-            document.getElementById('guests').addEventListener('input', () => {
-                if (appliedDiscount) {
-                    const guests = getGuests();
-                    const { discount } = calcTotals(guests);
-                    const savings =
-                        appliedDiscount.type === 'percent'
-                            ? `${appliedDiscount.value}%`
-                            : `€${appliedDiscount.value} per person`;
-
-                    document.getElementById('discountFeedbackText').textContent =
-                        `Code applied! You save ${savings} (${formatMoney(discount)} total).`;
-                }
-            });
-
-            document.getElementById('match-selector').addEventListener('change', function () {
-                const m = MATCH_DATA.find(x => x.id === this.value);
-                if (!m) {
-                    return;
-                }
-
-                selectedFixture = m;
-                document.getElementById('date').value = m.date;
-                document
-                    .querySelectorAll('.fixture-card')
-                    .forEach(c => c.classList.remove('selected'));
-
+            if (!dateValue) {
+                selectedFixture = null;
+                els.matchSelector.value = '';
                 renderFeatured();
                 updateProgress();
                 updateSummary();
                 updateSubmitButton();
+                return;
+            }
+
+            const matched = syncFixtureByDate(dateValue);
+
+            if (!matched && selectedFixture) {
+                els.date.value = selectedFixture.date;
+                setFieldError(
+                    els.date,
+                    'Please use the date that belongs to the selected fixture.'
+                );
+                updateSubmitButton();
+                return;
+            }
+
+            if (!matched) {
+                setFieldError(
+                    els.date,
+                    'Please choose a valid fixture first.'
+                );
+            } else {
+                hideError();
+            }
+        }
+
+        function initialize() {
+            renderFeatured();
+            buildFullMenu();
+            updateSummary();
+            updateSubmitButton();
+            updateProgress();
+
+            els.showMoreBtn.addEventListener('click', toggleFullPanel);
+            els.sportFilter.addEventListener('change', buildFullMenu);
+            els.monthFilter.addEventListener('change', buildFullMenu);
+
+            els.applyCodeBtn.addEventListener('click', applyDiscountCode);
+            els.discountInput.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    applyDiscountCode();
+                }
             });
 
-            ['name', 'email', 'phone', 'date', 'guests', 'requests'].forEach(id => {
-                document.getElementById(id).addEventListener('input', () => {
-                    updateProgress();
-                    updateSummary();
-                    updateSubmitButton();
+            els.matchSelector.addEventListener('change', function () {
+                if (!this.value) return;
+                selectFixtureById(this.value);
+                hideError();
+            });
+
+            els.date.addEventListener('change', handleDateChange);
+
+            [els.name, els.email, els.phone, els.requests].forEach(field => {
+                field.addEventListener('input', () => {
                     hideError();
+                    updateProgress();
+                    updateSubmitButton();
                 });
             });
 
-            document.getElementById('submitBtn').addEventListener('click', handleSubmit);
-            updateProgress();
-        });
+            els.guests.addEventListener('input', () => {
+                hideError();
+                updateSummary();
+                refreshAppliedDiscountMessage();
+                updateSubmitButton();
+            });
+
+            els.guests.addEventListener('blur', () => {
+                normalizeGuestsInput();
+                updateSummary();
+                refreshAppliedDiscountMessage();
+                updateSubmitButton();
+            });
+
+            els.form.addEventListener('submit', handleSubmit);
+        }
+
+        window.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
 </html>
