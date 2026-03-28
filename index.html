@@ -236,6 +236,7 @@
 .hero-section {
   position: relative;
   overflow: hidden;
+  min-height: 100svh;
 }
 .hero-video {
   position: absolute;
@@ -250,14 +251,15 @@
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* donkerder = beter leesbaar */
+  background: rgba(0, 0, 0, 0.55);
   z-index: 1;
 }
 .hero-section > .container-inner {
   position: relative;
   z-index: 2;
 }
-    /* ── SECTION COLOUR ZONES ── */
+
+/* ── SECTION COLOUR ZONES ── */
     .zone-dark { background: var(--dark); color: #fff; }
     .zone-dark h2, .zone-dark h3, .zone-dark h4 { color: #fff; }
     .zone-white { background: var(--white); color: var(--text-dark); }
@@ -442,8 +444,9 @@
     }
 
     @media (max-width: 600px) {
-      .hero-section { padding: 7rem 1.25rem 3.5rem !important; }
-      .hero-btns { flex-direction: column !important; }
+  .hero-section { padding: 7rem 1.25rem 3.5rem !important; min-height: 100svh; }
+  .hero-video { width: 100%; height: 100%; object-fit: cover; }
+  .hero-btns { flex-direction: column !important; }
       .hero-btns a { width: 100%; justify-content: center; }
       .hero-logo-col { order: -1; margin-bottom: 0 !important; }
       .hero-logo-col img { max-width: 110px !important; margin: 0 auto; display: block; opacity: 0.75 !important; }
