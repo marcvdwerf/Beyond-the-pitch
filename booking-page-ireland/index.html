@@ -857,15 +857,6 @@
                 </div>
             </div>
 
-            <div class="form-group" style="margin-bottom: 25px;">
-                <label for="requests">Special Requests / Notes</label>
-                <textarea
-                    id="requests"
-                    placeholder="Seating needs, dietary requirements, experience goals..."
-                    rows="3"
-                ></textarea>
-            </div>
-
             <div class="price-summary" id="priceSummary">
                 <div class="price-summary-title">Booking summary</div>
 
@@ -1635,6 +1626,7 @@
             formData.append(FIELDS.date, els.date.value);
             formData.append(FIELDS.guests, String(guests));
             formData.append(FIELDS.requests, combinedNotes);
+            formData.append(FIELDS.partner, 'Ireland');
             formData.append(FIELDS.discount, appliedDiscount ? appliedDiscount.code : '');
 
             try {
