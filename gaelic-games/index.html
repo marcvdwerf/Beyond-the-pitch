@@ -304,10 +304,6 @@
     details[open] summary { border-bottom: 1px solid var(--border-light); }
 
     /* ── GOOGLE TRANSLATE ── */
-    .goog-te-banner-frame.skiptranslate, .goog-te-gadget span, .goog-logo-link { display: none !important; }
-    body { top: 0px !important; }
-    .goog-te-gadget { font-size: 0 !important; }
-    .goog-te-combo {
       background-color: #000 !important; color: var(--gold-bright) !important;
       border: 1px solid #333 !important; padding: 5px 25px 5px 10px !important;
       border-radius: 4px !important; font-family: 'Inter', sans-serif !important;
@@ -464,7 +460,6 @@
         <a href="/experiences/" class="nav-link">Experiences</a>
         <a href="/about/" class="nav-link">About</a>
         <a href="/contact/" class="nav-link">Contact</a>
-        <div id="google_translate_element" class="ml-4"></div>
       </nav>
       <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -1333,34 +1328,6 @@ function cSwitchTab(loc) {
         kBtn.classList.remove('active');
       }
     }
-  </script>
-
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en', includedLanguages: 'en,nl',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-      }, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script>
-    const obs = new MutationObserver(() => {
-      document.querySelectorAll('.goog-te-combo').forEach(s => {
-        if (s.options.length > 0 && s.options[0].innerHTML !== 'EN / NL') s.options[0].innerHTML = 'EN / NL';
-      });
-    });
-    obs.observe(document.body, { childList: true, subtree: true });
- script>
-    window.addEventListener('load', () => { 
-      if (window.location.hash) { 
-        setTimeout(() => { 
-          const el = document.querySelector(window.location.hash); 
-          if (el) el.scrollIntoView({ behavior: 'smooth' }); 
-        }, 100); 
-      } 
-    });
   </script>
 </body>
 </html>
