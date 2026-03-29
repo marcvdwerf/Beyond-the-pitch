@@ -315,11 +315,14 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .two-col { display: block !important; }
-      .three-col { display: block !important; }
-      .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
-      .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
-    }
+  .two-col { display: block !important; }
+  .three-col { display: block !important; }
+  .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
+  .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
+}
+@media (max-width: 768px) {
+  .two-col { display: grid !important; grid-template-columns: 1fr !important; gap: 2rem !important; }
+}
     @media (max-width: 640px) {
       .hide-mobile { display: none !important; }
     }
