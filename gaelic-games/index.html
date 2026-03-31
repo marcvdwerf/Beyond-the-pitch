@@ -671,6 +671,37 @@
             <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.85; margin-bottom: 2rem;">
               Crown it on <strong style="color: var(--gold-bright);">6 June at Croke Park</strong> - with the Leinster Final.
             </p>
+            <!-- Founder discount countdown -->
+            <div style="margin-bottom:1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                <div>
+                  <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,215,0,0.6);margin-bottom:3px;">Founding offer</div>
+                  <div style="font-size:13px;color:rgba(255,255,255,0.5);">20% off — offer ends in</div>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <div style="text-align:center;">
+                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-days">00</div>
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Days</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-hrs">00</div>
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Hrs</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-min">00</div>
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Min</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-sec">00</div>
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Sec</div>
+                  </div>
+                </div>
+              </div>
+              <div onclick="fcCopy()" style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,215,0,0.07);border:1px dashed rgba(255,215,0,0.3);border-radius:8px;padding:10px 14px;cursor:pointer;">
+                <span style="font-family:monospace;font-size:13px;font-weight:700;color:#ffd700;letter-spacing:0.04em;">KILKENNYEXPERIENCE20</span>
+                <span id="fc-copy-label" style="font-size:11px;font-weight:700;color:rgba(255,215,0,0.5);text-transform:uppercase;letter-spacing:0.08em;">Copy code</span>
+              </div>
+            </div>
 
             <!-- Warn box -->
             <div class="warn-box" style="margin-bottom: 2rem;">
@@ -715,6 +746,32 @@ function cSwitchTab(loc) {
   dBtn.style.color            = loc === 'd' ? '#fff' : 'rgba(255,255,255,0.35)';
   dBtn.style.borderBottomColor = loc === 'd' ? 'var(--gold-bright)' : 'transparent';
 }
+  // Founder countdown
+    (function() {
+      var deadline = new Date('2026-04-25T18:30:00');
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+      function tick() {
+        var diff = deadline - Date.now();
+        if (diff < 0) diff = 0;
+        document.getElementById('fc-days').textContent = pad(Math.floor(diff / 86400000));
+        document.getElementById('fc-hrs').textContent  = pad(Math.floor((diff % 86400000) / 3600000));
+        document.getElementById('fc-min').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+        document.getElementById('fc-sec').textContent  = pad(Math.floor((diff % 60000) / 1000));
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    function fcCopy() {
+      navigator.clipboard.writeText('KILKENNYEXPERIENCE20').catch(function(){});
+      var lbl = document.getElementById('fc-copy-label');
+      lbl.textContent = 'Copied!';
+      lbl.style.color = '#4caf50';
+      setTimeout(function() {
+        lbl.textContent = 'Copy code';
+        lbl.style.color = 'rgba(255,215,0,0.5)';
+      }, 2000);
+    }
 </script>
 
   <!-- ══════════════════════════════════════════════════
