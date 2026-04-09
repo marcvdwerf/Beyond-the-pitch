@@ -1361,13 +1361,6 @@
     return { subtotal, discount, total: subtotal - discount };
 }
 
-            return {
-                subtotal,
-                discount,
-                total: subtotal - discount
-            };
-        }
-
         function clearFieldErrors() {
             [els.name, els.email, els.date, els.guests, els.matchSelector].forEach(el => {
                 el.classList.remove('input-error');
