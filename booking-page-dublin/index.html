@@ -1079,40 +1079,40 @@
         };
 
         const MATCH_DATA = [
-            {
-                id: 'dub-kerry-2026-05-24',
-                date: '2026-05-24',
-                teams: 'Dublin vs Kilkenny',
-                venue: 'Parnell park, Dublin',
-                city: 'Dublin',
-                sport: 'Hurling',
-                month: 'may',
-                competition: 'Leinster SFC',
-                dublinHome: true
-            },
-            {
-                id: 'dub-meath-2026-05-24',
-                date: '2026-06-06',
-                teams: 'Leinster final',
-                venue: 'Croke Park, Dublin',
-                city: 'Dublin',
-                sport: 'Hurling',
-                month: 'June',
-                competition: 'Leinster SFC',
-                dublinHome: true
-            },
-            {
-                id: 'dub-galway-2026-05-17',
-                date: '2026-05-17',
-                teams: 'Final Leinster Football',
-                venue: 'Croke Park, Dublin',
-                city: 'Dublin',
-                sport: 'Football',
-                month: 'may',
-                competition: 'Leinster SHC',
-                dublinHome: true
-            }
-        ].sort((a, b) => new Date(a.date) - new Date(b.date));
+    {
+        id: 'dub-kerry-2026-05-24',
+        date: '2026-05-24',
+        teams: 'Dublin vs Kilkenny',
+        venue: 'Parnell park, Dublin',
+        sport: 'Hurling',
+        month: 'may',
+        competition: 'Leinster SFC',
+        dublinHome: true,
+        price: 95          // ← standaardprijs
+    },
+    {
+        id: 'dub-meath-2026-05-24',
+        date: '2026-06-06',
+        teams: 'Leinster final',
+        venue: 'Croke Park, Dublin',
+        sport: 'Hurling',
+        month: 'june',
+        competition: 'Leinster SFC',
+        dublinHome: true,
+        price: 149         // ← premiumprijs (finale)
+    },
+    {
+        id: 'dub-galway-2026-05-17',
+        date: '2026-05-17',
+        teams: 'Final Leinster Football',
+        venue: 'Croke Park, Dublin',
+        sport: 'Football',
+        month: 'may',
+        competition: 'Leinster SHC',
+        dublinHome: true,
+        price: 119         // ← middenprijsklasse
+    }
+].sort((a, b) => new Date(a.date) - new Date(b.date));
 
         let selectedFixture = null;
         let appliedDiscount = null;
@@ -1179,17 +1179,18 @@
         function normalizeGuestsInput() { els.guests.value = clampGuests(els.guests.value); }
 
         function calcTotals(guests) {
-            const subtotal = PRICE_PER_PERSON * guests;
-            let discount = 0;
-            if (appliedDiscount) {
-                if (appliedDiscount.type === 'percent') {
-                    discount = subtotal * (appliedDiscount.value / 100);
-                } else {
-                    discount = Math.min(appliedDiscount.value * guests, subtotal);
-                }
-            }
-            return { subtotal, discount, total: subtotal - discount };
+    const pricePerPerson = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+    const subtotal = pricePerPerson * guests;
+    let discount = 0;
+    if (appliedDiscount) {
+        if (appliedDiscount.type === 'percent') {
+            discount = subtotal * (appliedDiscount.value / 100);
+        } else {
+            discount = Math.min(appliedDiscount.value * guests, subtotal);
         }
+    }
+    return { subtotal, discount, total: subtotal - discount, pricePerPerson };
+}
 
         function clearFieldErrors() {
             [els.name, els.email, els.date, els.guests, els.matchSelector].forEach(el => el.classList.remove('input-error'));
@@ -1238,17 +1239,18 @@
                 card.type = 'button';
                 card.className = 'fixture-card' + (selectedFixture?.id === match.id ? ' selected' : '');
                 card.innerHTML = `
-                    <div class="fixture-info">
-                        <div class="fixture-teams">${match.teams}</div>
-                        <div class="fixture-meta">
-                            <span class="fixture-sport-tag">${match.sport}</span>
-                            &nbsp;·&nbsp; ${formatDate(match.date)}
-                            &nbsp;·&nbsp; ${match.venue}
-                            ${match.dublinHome ? '&nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>' : ''}
-                        </div>
-                    </div>
-                    <div class="fixture-checkmark" aria-hidden="true"></div>
-                `;
+    <div class="fixture-info">
+        <div class="fixture-teams">${match.teams}</div>
+        <div class="fixture-meta">
+            <span class="fixture-sport-tag">${match.sport}</span>
+            &nbsp;·&nbsp; ${formatDate(match.date)}
+            &nbsp;·&nbsp; ${match.venue}
+            ${match.dublinHome ? '&nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>' : ''}
+        </div>
+    </div>
+    <div style="font-weight:800;color:var(--primary);font-size:0.95rem;flex-shrink:0;">€${match.price}<span style="font-size:0.7rem;font-weight:600;color:#6b7280"> p.p.</span></div>
+    <div class="fixture-checkmark" aria-hidden="true"></div>
+`;
                 card.addEventListener('click', () => { selectFixtureById(match.id); hideError(); });
                 els.featuredFixtures.appendChild(card);
             });
@@ -1289,11 +1291,21 @@
             if (isOpen) buildFullMenu();
         }
 
-        function updateSummary() {
-            const guests = getGuests();
-            const { subtotal, discount, total } = calcTotals(guests);
-            els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
-            els.summarySubtotal.textContent = formatMoney(subtotal);
+            function updateSummary() {
+    const guests = getGuests();
+    const { subtotal, discount, total } = calcTotals(guests);
+    els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
+    els.summarySubtotal.textContent = formatMoney(subtotal);
+
+    // ← HIER invoegen:
+    const priceLabel = document.querySelector('#rowBasePrice .price-row-value');
+    if (priceLabel) {
+        const pp = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+        priceLabel.textContent = `€${pp} p.p.`;
+    }
+
+    els.summaryTotal.textContent = formatMoney(total);
+    // ... rest van de functie
             els.summaryTotal.textContent = formatMoney(total);
             if (selectedFixture) {
                 els.summaryFixture.textContent = `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
