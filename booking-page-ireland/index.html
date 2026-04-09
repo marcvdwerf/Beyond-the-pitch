@@ -732,7 +732,7 @@
             <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 6px;">
                 Beyond the Pitch
             </h1>
-            <p style="font-weight: 500; opacity: 0.9;">Official Experience Booking Portal</p>
+            <p style="font-weight: 500; opacity: 0.9;">Booking request form · personal confirmation within 24–48 hours</p>
         </div>
 
         <form id="bookingForm" class="form-section" novalidate>
@@ -752,6 +752,113 @@
                     <span>Confirm</span>
                 </div>
             </div>
+            <div style="
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:28px;
+">
+    <div style="
+        font-size:0.78rem;
+        font-weight:800;
+        color:#059669;
+        text-transform:uppercase;
+        letter-spacing:1.2px;
+        margin-bottom:10px;
+    ">
+        Booking process
+    </div>
+
+    <h2 style="
+        font-size:1.45rem;
+        font-weight:800;
+        color:#1f2937;
+        margin-bottom:10px;
+        line-height:1.2;
+    ">
+        Reserve your place
+    </h2>
+
+    <p style="
+        color:#4b5563;
+        font-size:0.95rem;
+        line-height:1.7;
+        margin-bottom:18px;
+    ">
+        This is a <strong>booking request</strong>, not an instant confirmation. We personally confirm availability within <strong>24–48 hours</strong>.
+    </p>
+
+    <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+        gap:12px;
+        margin-bottom:18px;
+    ">
+        <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
+            <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 1</div>
+            <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">Send your request</div>
+            <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">
+                Fill in your details, preferred fixture and group size.
+            </p>
+        </div>
+
+        <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
+            <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 2</div>
+            <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">We check availability</div>
+            <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">
+                We check host availability, match access and the best fit for your selected date.
+            </p>
+        </div>
+
+        <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
+            <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 3</div>
+            <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">Receive your update</div>
+            <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">
+                You’ll receive an email with what is confirmed and the next step to finalise your booking.
+            </p>
+        </div>
+    </div>
+
+    <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    ">
+        <div style="
+            background:#ecfdf5;
+            border:1px solid #a7f3d0;
+            border-radius:12px;
+            padding:14px;
+        ">
+            <div style="font-size:0.92rem;font-weight:700;color:#065f46;margin-bottom:8px;">
+                Confirmed after your request
+            </div>
+            <ul style="margin:0;padding-left:18px;color:#4b5563;font-size:0.85rem;line-height:1.7;">
+                <li>We’ve received your request</li>
+                <li>Your preferred date is reviewed</li>
+                <li>You’ll get a response within 24–48 hours</li>
+            </ul>
+        </div>
+
+        <div style="
+            background:#fffbeb;
+            border:1px solid #fcd34d;
+            border-radius:12px;
+            padding:14px;
+        ">
+            <div style="font-size:0.92rem;font-weight:700;color:#92400e;margin-bottom:8px;">
+                Still subject to availability
+            </div>
+            <ul style="margin:0;padding-left:18px;color:#4b5563;font-size:0.85rem;line-height:1.7;">
+                <li>Match access / ticket availability</li>
+                <li>Final timing</li>
+                <li>Specific local arrangements</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 
             <div class="error-box" id="errorBox" role="alert" aria-live="polite"></div>
 
@@ -761,6 +868,8 @@
                     <label for="name">Full Name *</label>
                     <input type="text" id="name" placeholder="Your full name" autocomplete="name" />
                 </div>
+
+                
 
                 <div class="form-group">
                     <label for="email">Email Address *</label>
@@ -986,16 +1095,17 @@
                 Send booking request
             </button>
 
-            <p
-                style="
-                    text-align: center;
-                    font-size: 0.78rem;
-                    color: #9ca3af;
-                    margin-top: 10px;
-                "
-            >
-                We'll confirm your booking within 48 hours via email.
-            </p>
+           <p
+    style="
+        text-align: center;
+        font-size: 0.78rem;
+        color: #9ca3af;
+        margin-top: 10px;
+    "
+>
+    This is a booking request. We’ll confirm availability within 24–48 hours via email.
+</p>
+
         </form>
 
         <div id="successMessage" aria-live="polite">
