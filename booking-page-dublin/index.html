@@ -969,7 +969,13 @@
                 <div class="price-summary-rows">
                     <div class="price-row" id="rowBasePrice">
                         <span class="price-row-label">The Dublin Culture &amp; Heritage Experience</span>
-                        <span class="price-row-value">€95 p.p.</span>
+                        const basePriceEl = document.querySelector('#rowBasePrice .price-row-value');
+
+if (selectedFixture) {
+    basePriceEl.textContent = `${formatMoney(selectedFixture.price)} p.p.`;
+} else {
+    basePriceEl.textContent = `${formatMoney(PRICE_PER_PERSON)} p.p.`;
+}
                     </div>
                     <div class="price-row" id="rowGuests">
                         <span class="price-row-label" id="summaryGuests">-</span>
@@ -1079,40 +1085,41 @@
             discount: 'entry.467287763'
         };
 
-        const MATCH_DATA = [
-            {
-                id: 'dub-kerry-2026-05-24',
-                date: '2026-05-24',
-                teams: 'Dublin vs Kilkenny',
-                venue: 'Parnell park, Dublin',
-                city: 'Dublin',
-                sport: 'Hurling',
-                month: 'may',
-                competition: 'Leinster SFC',
-                dublinHome: true
-            },
-            {
-                id: 'dub-meath-2026-05-24',
-                date: '2026-06-06',
-                teams: 'Leinster final',
-                venue: 'Croke Park, Dublin',
-                city: 'Dublin',
-                sport: 'Hurling',
-                month: 'June',
-                competition: 'Leinster SFC',
-                dublinHome: true
-            },
-            {
-                id: 'dub-galway-2026-05-17',
-                date: '2026-05-17',
-                teams: 'Final Leinster Football',
-                venue: 'Croke Park, Dublin',
-                city: 'Dublin',
-                sport: 'Football',
-                month: 'may',
-                competition: 'Leinster SHC',
-                dublinHome: true
-            }
+      const MATCH_DATA = [
+    {
+        id: 'dub-kerry-2026-05-24',
+        date: '2026-05-24',
+        teams: 'Dublin vs Kilkenny',
+        venue: 'Parnell park, Dublin',
+        sport: 'Hurling',
+        month: 'may',
+        competition: 'Leinster SFC',
+        dublinHome: true,
+        price: 95 // standaard
+    },
+    {
+        id: 'dub-meath-2026-05-24',
+        date: '2026-06-06',
+        teams: 'Leinster final',
+        venue: 'Croke Park, Dublin',
+        sport: 'Hurling',
+        month: 'June',
+        competition: 'Leinster SFC',
+        dublinHome: true,
+        price: 139 // 👈 PREMIUM
+    },
+    {
+        id: 'dub-galway-2026-05-17',
+        date: '2026-05-17',
+        teams: 'Final Leinster Football',
+        venue: 'Croke Park, Dublin',
+        sport: 'Football',
+        month: 'may',
+        competition: 'Leinster SHC',
+        dublinHome: true,
+        price: 139 // 👈 PREMIUM
+    }
+];
         ].sort((a, b) => new Date(a.date) - new Date(b.date));
 
         let selectedFixture = null;
@@ -1180,7 +1187,8 @@
         function normalizeGuestsInput() { els.guests.value = clampGuests(els.guests.value); }
 
         function calcTotals(guests) {
-            const subtotal = PRICE_PER_PERSON * guests;
+           const pricePerPerson = selectedFixture?.price || PRICE_PER_PERSON;
+const subtotal = pricePerPerson * guests;
             let discount = 0;
             if (appliedDiscount) {
                 if (appliedDiscount.type === 'percent') {
