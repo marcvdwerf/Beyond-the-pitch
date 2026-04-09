@@ -934,7 +934,7 @@
                                 <option value="all">All Months</option>
                                 <option value="apr">April</option>
                                 <option value="may">May</option>
-                                <option value="jun">June</option>
+                                <option value="jun">Jun</option>
                             </select>
                         </div>
                     </div>
@@ -967,9 +967,10 @@
             <div class="price-summary" id="priceSummary">
                 <div class="price-summary-title">Booking summary</div>
                 <div class="price-summary-rows">
-                    <div class="price-row" id="rowBasePrice">
-                        <span class="price-row-label">The Dublin Culture &amp; Heritage Experience</span>
-                        const basePriceEl = document.querySelector('#rowBasePrice .price-row-value');
+                   <div class="price-row" id="rowBasePrice">
+    <span class="price-row-label">The Dublin Culture & Heritage Experience</span>
+    <span class="price-row-value">€95 p.p.</span>
+</div>
 
 if (selectedFixture) {
     basePriceEl.textContent = `${formatMoney(selectedFixture.price)} p.p.`;
@@ -1085,7 +1086,7 @@ if (selectedFixture) {
             discount: 'entry.467287763'
         };
 
-      const MATCH_DATA = [
+    const MATCH_DATA = [
     {
         id: 'dub-kerry-2026-05-24',
         date: '2026-05-24',
@@ -1095,7 +1096,7 @@ if (selectedFixture) {
         month: 'may',
         competition: 'Leinster SFC',
         dublinHome: true,
-        price: 95 // standaard
+        price: 95
     },
     {
         id: 'dub-meath-2026-05-24',
@@ -1103,10 +1104,10 @@ if (selectedFixture) {
         teams: 'Leinster final',
         venue: 'Croke Park, Dublin',
         sport: 'Hurling',
-        month: 'June',
+        month: 'jun',
         competition: 'Leinster SFC',
         dublinHome: true,
-        price: 139 // 👈 PREMIUM
+        price: 139
     },
     {
         id: 'dub-galway-2026-05-17',
@@ -1117,11 +1118,9 @@ if (selectedFixture) {
         month: 'may',
         competition: 'Leinster SHC',
         dublinHome: true,
-        price: 139 // 👈 PREMIUM
+        price: 139
     }
-];
-        ].sort((a, b) => new Date(a.date) - new Date(b.date));
-
+].sort((a, b) => new Date(a.date) - new Date(b.date));
         let selectedFixture = null;
         let appliedDiscount = null;
         let isSubmitting = false;
