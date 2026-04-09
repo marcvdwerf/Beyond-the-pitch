@@ -1236,29 +1236,31 @@
         };
 
         const MATCH_DATA = [
-            {
-                id: 'kk-wexford-2026-04-25',
-                date: '2026-04-25',
-                teams: 'Kilkenny vs Wexford',
-                venue: 'UPMC Nowlan Park, Kilkenny',
-                city: 'Kilkenny',
-                sport: 'Hurling',
-                month: 'apr',
-                competition: 'Leinster SHC',
-                kilkennyHome: true
-            },
-            {
-                id: 'kk-kildare-2026-05-16',
-                date: '2026-05-16',
-                teams: 'Kilkenny vs Kildare',
-                venue: 'UPMC Nowlan Park, Kilkenny',
-                city: 'Kilkenny',
-                sport: 'Hurling',
-                month: 'may',
-                competition: 'Round 4',
-                kilkennyHome: true
-            }
-        ].sort((a, b) => new Date(a.date) - new Date(b.date));
+    {
+        id: 'kk-wexford-2026-04-25',
+        date: '2026-04-25',
+        teams: 'Kilkenny vs Wexford',
+        venue: 'UPMC Nowlan Park, Kilkenny',
+        city: 'Kilkenny',
+        sport: 'Hurling',
+        month: 'apr',
+        competition: 'Leinster SHC',
+        kilkennyHome: true,
+        price: 95          // ← standaardprijs
+    },
+    {
+        id: 'kk-kildare-2026-05-16',
+        date: '2026-05-16',
+        teams: 'Kilkenny vs Kildare',
+        venue: 'UPMC Nowlan Park, Kilkenny',
+        city: 'Kilkenny',
+        sport: 'Hurling',
+        month: 'may',
+        competition: 'Round 4',
+        kilkennyHome: true,
+        price: 95         // ← of een andere prijs naar keuze
+    }
+].sort((a, b) => new Date(a.date) - new Date(b.date));
 
         let selectedFixture = null;
         let appliedDiscount = null;
@@ -1345,17 +1347,19 @@
             els.guests.value = clampGuests(els.guests.value);
         }
 
-        function calcTotals(guests) {
-            const subtotal = PRICE_PER_PERSON * guests;
-            let discount = 0;
-
-            if (appliedDiscount) {
-                if (appliedDiscount.type === 'percent') {
-                    discount = subtotal * (appliedDiscount.value / 100);
-                } else {
-                    discount = Math.min(appliedDiscount.value * guests, subtotal);
-                }
-            }
+       function calcTotals(guests) {
+    const pricePerPerson = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+    const subtotal = pricePerPerson * guests;
+    let discount = 0;
+    if (appliedDiscount) {
+        if (appliedDiscount.type === 'percent') {
+            discount = subtotal * (appliedDiscount.value / 100);
+        } else {
+            discount = Math.min(appliedDiscount.value * guests, subtotal);
+        }
+    }
+    return { subtotal, discount, total: subtotal - discount };
+}
 
             return {
                 subtotal,
@@ -1433,7 +1437,8 @@
                             ${match.kilkennyHome ? '&nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>' : ''}
                         </div>
                     </div>
-                    <div class="fixture-checkmark" aria-hidden="true"></div>
+                   <div style="font-weight:800;color:var(--primary);font-size:0.95rem;flex-shrink:0;">€${match.price}<span style="font-size:0.7rem;font-weight:600;color:#6b7280"> p.p.</span></div>
+<div class="fixture-checkmark" aria-hidden="true"></div>
                 `;
 
                 card.addEventListener('click', () => {
@@ -1491,37 +1496,39 @@
         }
 
         function updateSummary() {
-            const guests = getGuests();
-            const { subtotal, discount, total } = calcTotals(guests);
+    const guests = getGuests();
+    const { subtotal, discount, total } = calcTotals(guests);
 
-            els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
-            els.summarySubtotal.textContent = formatMoney(subtotal);
-            els.summaryTotal.textContent = formatMoney(total);
+    els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
+    els.summarySubtotal.textContent = formatMoney(subtotal);
 
-            if (selectedFixture) {
-                els.summaryFixture.textContent =
-                    `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
-                els.summaryFixture.style.color = '#374151';
-            } else {
-                els.summaryFixture.textContent = 'No fixture selected yet';
-                els.summaryFixture.style.color = '#9ca3af';
-            }
+    const priceLabel = document.querySelector('#rowBasePrice .price-row-value');
+    if (priceLabel) {
+        const pp = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+        priceLabel.textContent = `€${pp} p.p.`;
+    }
 
-            if (appliedDiscount && discount > 0) {
-                const pct = appliedDiscount.type === 'percent'
-                    ? ` (${appliedDiscount.value}%)`
-                    : '';
+    els.summaryTotal.textContent = formatMoney(total);
 
-                els.discountLabel.textContent = `${appliedDiscount.label}${pct}`;
-                els.discountValue.textContent = `− ${formatMoney(discount)}`;
-                els.rowDiscount.style.display = 'flex';
-            } else {
-                els.rowDiscount.style.display = 'none';
-            }
+    if (selectedFixture) {
+        els.summaryFixture.textContent = `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
+        els.summaryFixture.style.color = '#374151';
+    } else {
+        els.summaryFixture.textContent = 'No fixture selected yet';
+        els.summaryFixture.style.color = '#9ca3af';
+    }
 
-            els.priceSummary.classList.add('visible');
-        }
+    if (appliedDiscount && discount > 0) {
+        const pct = appliedDiscount.type === 'percent' ? ` (${appliedDiscount.value}%)` : '';
+        els.discountLabel.textContent = `${appliedDiscount.label}${pct}`;
+        els.discountValue.textContent = `− ${formatMoney(discount)}`;
+        els.rowDiscount.style.display = 'flex';
+    } else {
+        els.rowDiscount.style.display = 'none';
+    }
 
+    els.priceSummary.classList.add('visible');
+}
         function updateDiscountFeedback(type = '', message = '') {
             els.discountFeedback.className = 'discount-feedback';
 
