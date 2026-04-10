@@ -134,14 +134,14 @@
     <div class="text-center mb-16">
       <p class="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3">Get on the pitch</p>
       <h2 class="btp-title text-4xl md:text-6xl mb-4 text-white italic">Upcoming <span class="text-gold">Events</span></h2>
-      <p class="text-gray-500 text-sm italic max-w-xl mx-auto">Sessions, socials & match days. Sign up with your name — no account needed.</p>
+      <p class="text-gray-500 text-sm italic max-w-xl mx-auto">Sessions, socials & match days. Sign up with your name </p>
     </div>
     <div class="flex justify-center mb-12">
       <div class="flex gap-0 border-b border-gray-800 text-[10px] font-black uppercase tracking-widest">
         <button onclick="filterEvents('all')" data-tab="all" class="evt-tab px-5 pb-3 text-gold border-b-2 border-gold transition-colors">All</button>
-        <button onclick="filterEvents('session')" data-tab="session" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">⚽ Sessions</button>
-        <button onclick="filterEvents('social')" data-tab="social" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">🍺 Social</button>
-        <button onclick="filterEvents('match')" data-tab="match" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">🏆 Match Days</button>
+        <button onclick="filterEvents('session')" data-tab="session" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Sessions</button>
+        <button onclick="filterEvents('social')" data-tab="social" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors"> Social</button>
+        <button onclick="filterEvents('match')" data-tab="match" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Match Days</button>
       </div>
     </div>
     <div id="events-grid" class="grid md:grid-cols-3 gap-6"></div>
@@ -268,8 +268,8 @@
 
   let events = [
     { id:'e1', type:'session', title:'Social Pitch Session', dateLabel:'Sunday 4 May', dateSort:'2026-05-04', time:'14:00 – 16:00', location:'Herbert Park, Dublin 4', max:20, players:[], desc:'Our inaugural session. Touch rules, zero contact, max craic. All levels welcome.' },
-    { id:'e2', type:'social',  title:'Pub Meet-Up — April', dateLabel:'Saturday 26 April', dateSort:'2026-04-26', time:'20:00 – Late', location:"Mulligan's, Dublin 2", max:40, players:['Marc','Finn','Sophie'], desc:'Monthly pub social. New faces, old stories, cold pints.' },
-    { id:'e3', type:'match',   title:'GAA Match Day — Dublin vs Kerry', dateLabel:'Sunday 20 April', dateSort:'2026-04-20', time:'15:00 – 18:00', location:'Croke Park, Dublin 3', max:16, players:['Tom','Aisling','Niall'], desc:'Group trip to Croke Park. Sign up to secure your seat.' },
+    { id:'e2', type:'social',  title:'Pub Meet-Up - April', dateLabel:'Saturday 26 April', dateSort:'2026-04-26', time:'20:00 – Late', location:"Mulligan's, Dublin 2", max:40, players:['Marc','Finn','Sophie'], desc:'Monthly pub social. New faces, old stories, cold pints.' },
+    { id:'e3', type:'match',   title:'GAA Match Day - Dublin vs Kerry', dateLabel:'Sunday 20 April', dateSort:'2026-04-20', time:'15:00 – 18:00', location:'Croke Park, Dublin 3', max:16, players:['Tom','Aisling','Niall'], desc:'Group trip to Croke Park. Sign up to secure your seat.' },
     { id:'e4', type:'session', title:'Evening Kick-About', dateLabel:'Tuesday 29 April', dateSort:'2026-04-29', time:'19:00 – 21:00', location:'Markievicz Park, Dublin 8', max:14, players:[], desc:'Midweek session under the lights. Beginners especially welcome.' },
   ];
 
@@ -299,16 +299,16 @@
             <span style="display:inline-block;padding:2px 8px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;background:${b.bg};color:${b.color};">${b.label}</span>
             <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:${full?'#ef4444':'#169b62'};">● ${full?'FULL':left+' left'}</span>
           </div>
-          <h3 style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.15rem;color:#fff;margin:0 0 1rem;line-height:1.1;">${ev.title}</h3>
+          <h3 style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.25rem;color:#fff;margin:0 0 1rem;line-height:1.1;">${ev.title}</h3>
           <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:1rem;">
-            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#444;">📅 ${ev.dateLabel}</span>
-            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#444;">🕓 ${ev.time}</span>
-            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#444;">📍 ${ev.location}</span>
+            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;">📅 ${ev.dateLabel}</span>
+            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;">🕓 ${ev.time}</span>
+            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;">📍 ${ev.location}</span>
           </div>
-          ${ev.desc?`<p style="color:#333;font-size:.75rem;font-style:italic;margin-bottom:1rem;line-height:1.6;">${ev.desc}</p>`:''}
+          ${ev.desc?`<p style="color:#555;font-size:.75rem;font-style:italic;margin-bottom:1rem;line-height:1.6;">${ev.desc}</p>`:''}
           <div style="margin-top:auto;">
             <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:4px;">
-              <span style="color:#222;">Players</span><span style="color:#444;">${taken}/${ev.max}</span>
+              <span style="color:#444;">Participants</span><span style="color:#777;">${taken}/${ev.max}</span>
             </div>
             <div style="height:3px;background:#111;overflow:hidden;margin-bottom:1rem;">
               <div style="height:100%;background:${barCol};width:${pct}%;transition:width .4s;"></div>
@@ -351,7 +351,7 @@
     document.getElementById('m-spots-bar').style.width = pct + '%';
     document.getElementById('m-players').innerHTML = taken > 0
       ? `<p style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#333;margin-bottom:.5rem;">Signed up (${taken})</p><div style="display:flex;flex-wrap:wrap;gap:6px;">${ev.players.map((p,i)=>`<span style="background:#111;border:1px solid #1a1a1a;padding:2px 8px;font-size:9px;font-weight:700;color:#777;"><span style="color:#ffd700;font-weight:900;">${i+1}</span> ${p}</span>`).join('')}</div>`
-      : `<p style="font-size:9px;font-style:italic;color:#222;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;">No one yet — be the first.</p>`;
+      : `<p style="font-size:9px;font-style:italic;color:#222;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;">No one yet - be the first.</p>`;
     document.getElementById('m-name').value = '';
     document.getElementById('m-form').style.display    = full ? 'none' : 'block';
     document.getElementById('m-full').style.display    = full ? 'block' : 'none';
