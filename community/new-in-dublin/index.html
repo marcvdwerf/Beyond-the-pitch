@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -38,9 +38,56 @@
       .text-outline { -webkit-text-stroke: 1px #444; color: transparent; }
     }
   </style>
+
+  <style>
+    /* ── Modal scrollbar ── */
+    #signup-modal ::-webkit-scrollbar { width: 4px; }
+    #signup-modal ::-webkit-scrollbar-track { background: #000; }
+    #signup-modal ::-webkit-scrollbar-thumb { background: #222; }
+
+    /* ── Player name list ── */
+    .player-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .45rem 0;
+      border-bottom: 1px solid #111;
+    }
+    .player-row:last-child { border-bottom: none; }
+    .player-num {
+      font-size: 9px; font-weight: 900; color: #ffd700;
+      min-width: 18px; text-align: right; font-style: italic;
+    }
+    .player-name {
+      font-size: .78rem; font-weight: 700; color: #aaa;
+      text-transform: uppercase; letter-spacing: .05em;
+      flex: 1;
+    }
+    .player-new {
+      font-size: 8px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: .1em; color: #169b62; padding: 1px 6px;
+      border: 1px solid #169b62;
+    }
+
+    /* ── Spot dots ── */
+    .spot-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: inline-block; flex-shrink: 0;
+    }
+
+    /* ── Slide-in animation ── */
+    @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .slide-up { animation: slideUp .35s ease forwards; }
+
+    /* ── WhatsApp icon ── */
+    .wa-icon { width:18px; height:18px; fill: currentColor; flex-shrink:0; }
+  </style>
 </head>
 <body class="bg-black text-white antialiased">
 
+  <!-- ════════════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════════════ -->
   <header class="p-6 flex justify-between items-center border-b border-gray-900 sticky top-0 bg-black/90 backdrop-blur-md z-50">
     <a href="/gaelic-games/" class="btp-title text-xl text-white hover:text-gold transition-colors">Beyond the Pitch<span class="text-gold">.</span></a>
     <div class="hidden md:block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 italic">Dublin Collective // Launch Phase</div>
@@ -48,10 +95,12 @@
   </header>
 
   <main>
+
+    <!-- ════════════════════════════════════════════════
+         HERO
+    ════════════════════════════════════════════════ -->
     <section class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden">
-      <div class="absolute inset-0 z-0 opacity-30">
-      </div>
-      
+      <div class="absolute inset-0 z-0 opacity-30"></div>
       <div class="relative z-10 max-w-5xl mt-12">
         <span class="inline-block bg-gold text-black px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-6">New in Town?</span>
         <h1 class="btp-title text-5xl md:text-[7rem] leading-[0.9] mb-8 italic">
@@ -62,12 +111,18 @@
           <span class="text-white block mt-2">No experience. No pressure. Just Dublin.</span>
         </p>
         <div class="flex flex-col md:flex-row justify-center gap-4">
-          <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-whatsapp">Join the WhatsApp community</a>
+          <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-whatsapp">
+            <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Join the WhatsApp community
+          </a>
           <a href="#roadmap" class="btn-primary">View Launch Roadmap</a>
         </div>
       </div>
     </section>
 
+    <!-- ════════════════════════════════════════════════
+         THE DUBLIN WAY
+    ════════════════════════════════════════════════ -->
     <section class="py-24 bg-white text-black px-6">
       <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         <div>
@@ -89,91 +144,76 @@
       </div>
     </section>
 
-    <<section class="py-20 bg-black px-6">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="btp-title text-3xl md:text-5xl mb-12 text-center italic text-white">
-      Frequently <span class="text-gold">Asked</span> Questions
-    </h2>
-
-    <div class="space-y-10">
-
-      <!-- FAQ Item -->
-      <div class="card-btp">
-        <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">
-          When & Where?
-        </h3>
-        <p class="text-gray-400 text-sm italic">
-          Sessions will take place at Dublin's most famous en big GAA club Na Fianna
-        </p>
-      </div>
-
-      <!-- FAQ Item -->
-      <div class="card-btp">
-        <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">
-          What's Included?
-        </h3>
-        <p class="text-gray-400 text-sm italic">
-          Two casual pitch sessions per month, a monthly pub meet‑up, WhatsApp community, access to GAA match trips, and cultural outings to help make Ireland your new home.
-        </p>
-      </div>
-
-      <!-- FAQ Item -->
-      <div class="card-btp">
-        <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">
-          Equipment Needed?
-        </h3>
-        <p class="text-gray-400 text-sm italic">
-          None. All equipment is provided. Just bring trainers and weather‑appropriate gear.
-        </p>
-      </div>
-
-      <!-- FAQ Item -->
-      <div class="card-btp">
-        <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">
-          Skill Level?
-        </h3>
-        <p class="text-gray-400 text-sm italic">
-          Absolute beginners welcome. We start with touch versions — zero contact, maximum craic.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-    <section class="py-20 bg-panel border-y border-gray-900 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="btp-title text-3xl md:text-5xl mb-6 italic text-white">Work <span class="text-gold">&</span> Play.</h2>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed italic">
-            Looking to help your international team feel truly at home in Dublin? We organize small-scale, authentic Gaelic sports and cultural experiences that transform colleagues into a local community. Not your standard teambuilding, but a real connection to the Irish soul.
-          </p>
-          <a href="mailto:thebeyondthepitch@gmail.com" class="text-[10px] font-black uppercase tracking-[0.3em] text-gold hover:text-white transition-all border-b border-gold pb-1 italic">
-            Inquire about an event for your company →
-          </a>
+    <!-- ════════════════════════════════════════════════
+         FAQ
+    ════════════════════════════════════════════════ -->
+    <section class="py-20 bg-black px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="btp-title text-3xl md:text-5xl mb-12 text-center italic text-white">
+          Frequently <span class="text-gold">Asked</span> Questions
+        </h2>
+        <div class="space-y-10">
+          <div class="card-btp">
+            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">When & Where?</h3>
+            <p class="text-gray-400 text-sm italic">Sessions will take place at Dublin's most famous and big GAA club Na Fianna.</p>
+          </div>
+          <div class="card-btp">
+            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">What's Included?</h3>
+            <p class="text-gray-400 text-sm italic">Two casual pitch sessions per month, a monthly pub meet‑up, WhatsApp community, access to GAA match trips, and cultural outings to help make Ireland your new home.</p>
+          </div>
+          <div class="card-btp">
+            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">Equipment Needed?</h3>
+            <p class="text-gray-400 text-sm italic">None. All equipment is provided. Just bring trainers and weather‑appropriate gear.</p>
+          </div>
+          <div class="card-btp">
+            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">Skill Level?</h3>
+            <p class="text-gray-400 text-sm italic">Absolute beginners welcome. We start with touch versions — zero contact, maximum craic.</p>
+          </div>
         </div>
-    </section>
-    <!-- EVENTS SECTION -->
-<section id="events" class="py-24 bg-black px-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <p class="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3">Get on the pitch</p>
-      <h2 class="btp-title text-4xl md:text-6xl mb-4 text-white italic">Upcoming <span class="text-gold">Events</span></h2>
-      <p class="text-gray-500 text-sm italic max-w-xl mx-auto">Sessions, socials & match days. Sign up with your name </p>
-    </div>
-    <div class="flex justify-center mb-12">
-      <div class="flex gap-0 border-b border-gray-800 text-[10px] font-black uppercase tracking-widest">
-        <button onclick="filterEvents('all')" data-tab="all" class="evt-tab px-5 pb-3 text-gold border-b-2 border-gold transition-colors">All</button>
-        <button onclick="filterEvents('session')" data-tab="session" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Sessions</button>
-        <button onclick="filterEvents('social')" data-tab="social" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors"> Social</button>
-        <button onclick="filterEvents('match')" data-tab="match" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Match Days</button>
       </div>
-    </div>
-    <div id="events-grid" class="grid md:grid-cols-3 gap-6"></div>
-    <p id="events-empty" class="hidden text-center text-gray-700 italic text-sm py-16 uppercase tracking-widest font-black">No events in this category yet.</p>
-  </div>
-</section>
+    </section>
 
+    <!-- ════════════════════════════════════════════════
+         WORK & PLAY
+    ════════════════════════════════════════════════ -->
+    <section class="py-20 bg-panel border-y border-gray-900 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="btp-title text-3xl md:text-5xl mb-6 italic text-white">Work <span class="text-gold">&</span> Play.</h2>
+        <p class="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed italic">
+          Looking to help your international team feel truly at home in Dublin? We organize small-scale, authentic Gaelic sports and cultural experiences that transform colleagues into a local community. Not your standard teambuilding, but a real connection to the Irish soul.
+        </p>
+        <a href="mailto:hello@beyondthepitch.ie" class="text-[10px] font-black uppercase tracking-[0.3em] text-gold hover:text-white transition-all border-b border-gold pb-1 italic">
+          Inquire about an event for your company →
+        </a>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════
+         EVENTS
+    ════════════════════════════════════════════════ -->
+    <section id="events" class="py-24 bg-black px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3">Get on the pitch</p>
+          <h2 class="btp-title text-4xl md:text-6xl mb-4 text-white italic">Upcoming <span class="text-gold">Events</span></h2>
+          <p class="text-gray-500 text-sm italic max-w-xl mx-auto">Sessions, socials & match days. Sign up with your name.</p>
+        </div>
+        <div class="flex justify-center mb-12">
+          <div class="flex gap-0 border-b border-gray-800 text-[10px] font-black uppercase tracking-widest">
+            <button onclick="filterEvents('all')"     data-tab="all"     class="evt-tab px-5 pb-3 text-gold    border-b-2 border-gold        transition-colors">All</button>
+            <button onclick="filterEvents('session')" data-tab="session" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Sessions</button>
+            <button onclick="filterEvents('social')"  data-tab="social"  class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Social</button>
+            <button onclick="filterEvents('match')"   data-tab="match"   class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Match Days</button>
+          </div>
+        </div>
+        <div id="events-grid" class="grid md:grid-cols-3 gap-6"></div>
+        <p id="events-empty" class="hidden text-center text-gray-700 italic text-sm py-16 uppercase tracking-widest font-black">No events in this category yet.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════
+         ROADMAP
+    ════════════════════════════════════════════════ -->
     <section id="roadmap" class="py-24 bg-black px-6">
       <div class="max-w-6xl mx-auto text-center mb-16">
         <h2 class="btp-title text-4xl md:text-6xl mb-4 text-white italic">Launch <span class="text-gold">Sequence</span></h2>
@@ -187,20 +227,23 @@
           <p class="text-gray-500 text-sm italic">We are onboarding our founding 20 members via WhatsApp through February. This group votes on our first pub meet-up (late april) and first pitch session (early May).</p>
         </div>
         <div class="p-8 border border-gray-800 bg-black/40 opacity-60">
-          <div class="text-4xl font-black mb-4 italic text-outline text-gray-800 text-outline">02.</div>
+          <div class="text-4xl font-black mb-4 italic text-outline text-gray-800">02.</div>
           <h3 class="btp-title text-xl mb-4 text-gray-400">The First Whistle</h3>
           <p class="text-gray-500 text-sm italic">Our inaugural "Social Pitch" session. Basics of the game, zero contact, followed by Clubhouse drinks.</p>
         </div>
         <div class="p-8 border border-gray-800 bg-black/40 opacity-60">
-          <div class="text-4xl font-black mb-4 italic text-outline text-gray-800 text-outline">03.</div>
+          <div class="text-4xl font-black mb-4 italic text-outline text-gray-800">03.</div>
           <h3 class="btp-title text-xl mb-4 text-gray-400">The Full Loop</h3>
           <p class="text-gray-500 text-sm italic">2 pitch sessions per month (Sundays 2-4pm), monthly pub social, access to GAA matches, and a permanent community of friends in the heart of Dublin.</p>
         </div>
       </div>
     </section>
 
+    <!-- ════════════════════════════════════════════════
+         JOIN / VALUE EXCHANGE
+    ════════════════════════════════════════════════ -->
     <section id="join" class="py-24 px-6 max-w-6xl mx-auto">
-      <h2 class="btp-title text-4xl mb-16 text-center italic text-gold italic">The Value Exchange</h2>
+      <h2 class="btp-title text-4xl mb-16 text-center italic text-gold">The Value Exchange</h2>
       <div class="grid md:grid-cols-2 gap-8">
         <div class="card-btp">
           <h3 class="btp-title text-2xl mb-2 text-white italic">The Player</h3>
@@ -227,124 +270,187 @@
       </div>
     </section>
 
+    <!-- ════════════════════════════════════════════════
+         FINAL CTA
+    ════════════════════════════════════════════════ -->
     <section class="py-40 px-6 text-center border-t border-gray-900">
       <h2 class="btp-title text-5xl md:text-[9rem] mb-12 leading-none text-white italic">The Pitch <br><span class="text-gold text-outline underline italic decoration-1 underline-offset-8">Awaits.</span></h2>
       <div class="flex flex-col items-center gap-4">
-        <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-whatsapp scale-125 italic font-black">Join the Founding 20</a>
+        <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-whatsapp scale-125 italic font-black">
+          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Join the Founding 20
+        </a>
         <p class="text-gray-600 text-[10px] uppercase font-bold tracking-widest mt-12 italic">Phase 01: Community Onboarding Now</p>
       </div>
     </section>
   </main>
 
+  <!-- ════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════ -->
   <footer class="p-12 border-t border-gray-900 text-center text-gray-700 text-[10px] font-black uppercase tracking-[0.3em] italic">
     &copy; 2026 Beyond the Pitch. No Labels. One Pitch. One Dublin.
   </footer>
-  <!-- SIGN-UP MODAL -->
-<div id="signup-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)closeModal()">
-  <div style="background:#0a0a0a;border:1px solid #222;width:100%;max-width:380px;max-height:90vh;overflow-y:auto;position:relative;">
-    <div style="height:3px;background:#ffd700;width:100%;"></div>
-    <div style="padding:2rem;">
-      <button onclick="closeModal()" style="position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;color:#555;font-size:1.1rem;font-weight:900;cursor:pointer;">✕</button>
-      <div id="m-badge" style="display:inline-block;padding:2px 8px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.75rem;background:#ffd700;color:#000;">Session</div>
-      <h3 id="m-title" style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.4rem;color:#fff;margin:0 0 .5rem;"></h3>
-      <div style="margin:.75rem 0 1.25rem;display:flex;flex-direction:column;gap:.25rem;">
-        <p id="m-date" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
-        <p id="m-time" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
-        <p id="m-loc"  style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
-      </div>
-      <div style="margin-bottom:1.25rem;">
-        <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:4px;">
-          <span style="color:#333;">Players</span><span id="m-spots-label" style="color:#ffd700;">0/10</span>
-        </div>
-        <div style="height:3px;background:#1c1c1c;overflow:hidden;">
-          <div id="m-spots-bar" style="height:100%;background:#ffd700;width:0%;transition:width .4s;"></div>
-        </div>
-      </div>
-      <div id="m-players" style="margin-bottom:1.5rem;"></div>
-      <div id="m-form">
-        <label style="display:block;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:#444;margin-bottom:.5rem;">Your name</label>
-        <input id="m-name" type="text" placeholder="e.g. Ciarán Murphy" style="width:100%;box-sizing:border-box;background:#000;border:1px solid #222;color:#fff;padding:.75rem 1rem;font-size:.875rem;font-weight:700;margin-bottom:1rem;outline:none;font-family:inherit;" onfocus="this.style.borderColor='#ffd700'" onblur="this.style.borderColor='#222'" />
-        <button onclick="signUp()" style="width:100%;background:#ffd700;color:#000;font-weight:900;text-transform:uppercase;padding:1rem;font-size:.75rem;letter-spacing:.15em;border:none;cursor:pointer;font-family:inherit;">⚽ Sign Me Up</button>
-        <p style="font-size:9px;color:#222;text-align:center;margin-top:.75rem;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">No account. No spam.</p>
-      </div>
-      <div id="m-success" style="display:none;text-align:center;padding:1.5rem 0;">
-        <div style="font-size:3rem;margin-bottom:1rem;">🎉</div>
-        <p style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.25rem;color:#ffd700;">You're in!</p>
-        <p style="color:#555;font-size:.875rem;margin-top:.5rem;font-style:italic;">See you on the pitch.</p>
-        <button onclick="closeModal()" style="margin-top:1.5rem;background:#fff;color:#000;padding:.75rem 1.5rem;font-weight:900;text-transform:uppercase;font-size:.7rem;letter-spacing:.15em;border:none;cursor:pointer;font-family:inherit;">Back to events</button>
-      </div>
-      <div id="m-full" style="display:none;text-align:center;padding:1.5rem 0;">
-        <p style="font-weight:900;text-transform:uppercase;letter-spacing:.15em;font-size:.875rem;color:#ef4444;">This event is full.</p>
-        <p style="color:#444;font-size:.75rem;margin-top:.5rem;font-style:italic;">Join the WhatsApp to grab a spot when one opens.</p>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- EVENTS SCRIPT -->
-<script>
+  <!-- ════════════════════════════════════════════════
+       SIGN-UP MODAL  (potjevoetballen-style CTA)
+  ════════════════════════════════════════════════ -->
+  <div id="signup-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);z-index:200;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto;" onclick="if(event.target===this)closeModal()">
+    <div style="background:#0a0a0a;border:1px solid #222;width:100%;max-width:420px;margin:2rem auto;position:relative;">
+
+      <!-- Accent bar (colour set by JS) -->
+      <div id="m-accent-bar" style="height:3px;background:#ffd700;"></div>
+
+      <div style="padding:2rem;">
+        <!-- Close -->
+        <button onclick="closeModal()" style="position:absolute;top:1.25rem;right:1.5rem;background:none;border:none;color:#444;font-size:1.1rem;font-weight:900;cursor:pointer;line-height:1;">✕</button>
+
+        <!-- Badge -->
+        <div id="m-badge" style="display:inline-block;padding:3px 10px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.85rem;background:#ffd700;color:#000;">Session</div>
+
+        <!-- Title -->
+        <h3 id="m-title" style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.5rem;color:#fff;margin:0 0 1.25rem;line-height:1.05;padding-right:1.5rem;"></h3>
+
+        <!-- Meta: date / time / location -->
+        <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.5rem;">
+          <p id="m-date" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
+          <p id="m-time" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
+          <p id="m-loc"  style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
+        </div>
+
+        <!-- Progress bar -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.35rem;">
+            <span style="color:#333;">Players</span>
+            <span id="m-spots-label" style="color:#ffd700;">0/10</span>
+          </div>
+          <div style="height:3px;background:#1c1c1c;overflow:hidden;margin-bottom:.5rem;">
+            <div id="m-spots-bar" style="height:100%;background:#ffd700;width:0%;transition:width .4s;"></div>
+          </div>
+          <!-- Spot dots row -->
+          <div id="m-dot-row" style="display:flex;gap:5px;flex-wrap:wrap;margin-top:.5rem;"></div>
+        </div>
+
+        <!-- ── SIGNED-UP LIST ── -->
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:#2a2a2a;margin:0 0 .6rem;">Signed up</p>
+          <div id="m-player-list" style="border-top:1px solid #111;"></div>
+          <div id="m-no-players" style="font-size:9px;font-style:italic;color:#1e1e1e;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.6rem 0;border-top:1px solid #111;">No one yet — be the first.</div>
+        </div>
+
+        <!-- ── SIGN-UP FORM ── -->
+        <div id="m-form">
+          <label style="display:block;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:#333;margin-bottom:.5rem;">Your name</label>
+          <input id="m-name" type="text" placeholder="e.g. Ciarán Murphy"
+            style="width:100%;box-sizing:border-box;background:#000;border:1px solid #222;color:#fff;padding:.75rem 1rem;font-size:.875rem;font-weight:700;margin-bottom:.75rem;outline:none;font-family:inherit;transition:border-color .2s;"
+            onfocus="this.style.borderColor='#ffd700'" onblur="this.style.borderColor='#222'"
+            onkeydown="if(event.key==='Enter')signUp()" />
+          <button onclick="signUp()" style="width:100%;background:#ffd700;color:#000;font-weight:900;text-transform:uppercase;padding:1rem;font-size:.72rem;letter-spacing:.15em;border:none;cursor:pointer;font-family:inherit;transition:all .2s;" onmouseenter="this.style.background='#fff'" onmouseleave="this.style.background='#ffd700'">⚽ Sign Me Up</button>
+          <p style="font-size:9px;color:#1e1e1e;text-align:center;margin-top:.65rem;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">No account. No spam.</p>
+        </div>
+
+        <!-- ── SUCCESS ── -->
+        <div id="m-success" style="display:none;text-align:center;padding:1.5rem 0;">
+          <div style="font-size:2.5rem;margin-bottom:.75rem;">🎉</div>
+          <p style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.3rem;color:#ffd700;margin:0 0 .4rem;">You're In!</p>
+          <p style="color:#555;font-size:.8rem;font-style:italic;">See you on the pitch.</p>
+          <button onclick="closeModal()" style="margin-top:1.25rem;background:#fff;color:#000;padding:.7rem 1.5rem;font-weight:900;text-transform:uppercase;font-size:.7rem;letter-spacing:.15em;border:none;cursor:pointer;font-family:inherit;">← Back to events</button>
+        </div>
+
+        <!-- ── FULL ── -->
+        <div id="m-full" style="display:none;text-align:center;padding:1.5rem 0;border-top:1px solid #111;">
+          <p style="font-weight:900;text-transform:uppercase;letter-spacing:.15em;font-size:.85rem;color:#ef4444;margin:0 0 .4rem;">This event is full.</p>
+          <p style="color:#333;font-size:.75rem;font-style:italic;margin:0;">Join the WhatsApp to grab a spot when one opens.</p>
+        </div>
+
+        <!-- ── WHATSAPP ── -->
+        <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank"
+          style="margin-top:1.25rem;background:#25D366;color:#fff;font-weight:900;text-transform:uppercase;font-size:.7rem;letter-spacing:.15em;padding:.85rem 1rem;display:flex;align-items:center;justify-content:center;gap:.5rem;text-decoration:none;transition:filter .2s;"
+          onmouseenter="this.style.filter='brightness(1.1)'" onmouseleave="this.style.filter='brightness(1)'">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Join WhatsApp community
+        </a>
+
+      </div><!-- /padding -->
+    </div><!-- /modal inner -->
+  </div><!-- /modal -->
+
+
+  <!-- ════════════════════════════════════════════════
+       EVENTS SCRIPT
+  ════════════════════════════════════════════════ -->
+  <script>
   const STORE_KEY = 'btp_events_v2';
   const BADGES = {
     session: { label: '⚽ Session',   bg: '#ffd700', color: '#000' },
     social:  { label: '🍺 Social',    bg: '#169b62', color: '#fff' },
     match:   { label: '🏆 Match Day', bg: '#fff',    color: '#000' },
   };
-  const ACCENT = { session: '#ffd700', social: '#169b62', match: '#fff' };
+  const ACCENT = { session: '#ffd700', social: '#169b62', match: '#ffffff' };
 
   let events = [
-    { id:'e1', type:'session', title:'Social Pitch Session', dateLabel:'monday till friday', dateSort:'2026-05-04', time:'10:00 – 11:00', location:'Na Fianna GAA Club, Dublin', max:20, players:[], desc:'Our inaugural session. Touch rules, cultural deepdive, max craic. All levels welcome.' },
-    { id:'e2', type:'social',  title:'Pub Meet-Up - April', dateLabel:'Saturday 26 April', dateSort:'2026-04-26', time:'20:00 – Late', location:"Mulligan's, Dublin 2", max:40, players:['Marc','Finn','Sophie'], desc:'Monthly pub social. New faces, old stories, cold pints.' },
-    { id:'e3', type:'match',   title:'GAA Match Day - Dublin vs Kerry', dateLabel:'Sunday 20 April', dateSort:'2026-04-20', time:'15:00 – 18:00', location:'Croke Park, Dublin 3', max:16, players:['Tom','Aisling','Niall'], desc:'Group trip to Croke Park. Sign up to secure your seat.' },
-    { id:'e4', type:'session', title:'Evening Kick-About', dateLabel:'Tuesday 29 April', dateSort:'2026-04-29', time:'19:00 – 21:00', location:'Markievicz Park, Dublin 8', max:14, players:[], desc:'Midweek session under the lights. Beginners especially welcome.' },
+    { id:'e1', type:'session', title:'Social Pitch Session',          dateLabel:'Monday – Friday',    dateSort:'2026-05-04', time:'10:00 – 11:00', location:'Na Fianna GAA Club, Dublin',  max:20, players:[],                        desc:'Our inaugural session. Touch rules, cultural deepdive, max craic. All levels welcome.' },
+    { id:'e2', type:'social',  title:'Pub Meet-Up — April',           dateLabel:'Saturday 26 April',  dateSort:'2026-04-26', time:'20:00 – Late',   location:"Mulligan's, Dublin 2",        max:40, players:['Marc','Finn','Sophie'],   desc:'Monthly pub social. New faces, old stories, cold pints.' },
+    { id:'e3', type:'match',   title:'GAA Match Day — Dublin vs Kerry',dateLabel:'Sunday 20 April',   dateSort:'2026-04-20', time:'15:00 – 18:00',  location:'Croke Park, Dublin 3',        max:16, players:['Tom','Aisling','Niall'],  desc:'Group trip to Croke Park. Sign up to secure your seat.' },
+    { id:'e4', type:'session', title:'Evening Kick-About',             dateLabel:'Tuesday 29 April',   dateSort:'2026-04-29', time:'19:00 – 21:00',  location:'Markievicz Park, Dublin 8',   max:14, players:[],                        desc:'Midweek session under the lights. Beginners especially welcome.' },
   ];
 
   let activeFilter = 'all', currentId = null;
   try { const s = sessionStorage.getItem(STORE_KEY); if(s) events = JSON.parse(s); } catch(e){}
   function save() { try { sessionStorage.setItem(STORE_KEY, JSON.stringify(events)); } catch(e){} }
 
+  // ── Event Cards ─────────────────────────────────────────────────────────────
   function render() {
     const grid  = document.getElementById('events-grid');
     const empty = document.getElementById('events-empty');
     const list  = activeFilter === 'all' ? events : events.filter(e => e.type === activeFilter);
-    if (!list.length) { grid.innerHTML = ''; empty.style.display='block'; return; }
+    if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
     empty.style.display = 'none';
+
     grid.innerHTML = list.map(ev => {
-      const b = BADGES[ev.type] || BADGES.session;
-      const taken = ev.players.length, left = ev.max - taken;
-      const pct = Math.min(100, (taken/ev.max)*100), full = left <= 0;
-      const barCol = pct >= 80 ? '#ef4444' : '#ffd700';
-      const avatars = taken > 0 ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1rem;">
-        ${ev.players.slice(0,7).map(p=>`<div style="width:24px;height:24px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#ffd700;text-transform:uppercase;">${p[0]}</div>`).join('')}
-        ${taken>7?`<div style="width:24px;height:24px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#444;">+${taken-7}</div>`:''}
-      </div>` : '';
-      return `<div onclick="openModal('${ev.id}')" style="background:#0a0a0a;border:1px solid #1a1a1a;cursor:pointer;display:flex;flex-direction:column;transition:border-color .3s;" onmouseenter="this.style.borderColor='#ffd700'" onmouseleave="this.style.borderColor='#1a1a1a'">
-        <div style="height:3px;background:${ACCENT[ev.type]};"></div>
-        <div style="padding:1.5rem;display:flex;flex-direction:column;flex:1;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;">
-            <span style="display:inline-block;padding:2px 8px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;background:${b.bg};color:${b.color};">${b.label}</span>
-            <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:${full?'#ef4444':'#169b62'};">● ${full?'FULL':left+' left'}</span>
-          </div>
-          <h3 style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.25rem;color:#fff;margin:0 0 1rem;line-height:1.1;">${ev.title}</h3>
-          <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:1rem;">
-            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;">📅 ${ev.dateLabel}</span>
-            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;">🕓 ${ev.time}</span>
-            <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;">📍 ${ev.location}</span>
-          </div>
-          ${ev.desc?`<p style="color:#555;font-size:.75rem;font-style:italic;margin-bottom:1rem;line-height:1.6;">${ev.desc}</p>`:''}
-          <div style="margin-top:auto;">
-            <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:4px;">
-              <span style="color:#444;">Participants</span><span style="color:#777;">${taken}/${ev.max}</span>
+      const b     = BADGES[ev.type] || BADGES.session;
+      const taken = ev.players.length, left = ev.max - taken, full = left <= 0;
+      const pct   = Math.min(100, (taken / ev.max) * 100);
+      const barCol= pct >= 80 ? '#ef4444' : ACCENT[ev.type];
+
+      // Avatar initials (max 6) + overflow count
+      const avatarHtml = taken > 0 ? `
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.75rem;">
+          ${ev.players.slice(0,6).map(p => `
+            <div title="${p}" style="width:26px;height:26px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#ffd700;text-transform:uppercase;">${p[0]}</div>
+          `).join('')}
+          ${taken > 6 ? `<div style="width:26px;height:26px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#444;">+${taken-6}</div>` : ''}
+        </div>` : '';
+
+      return `
+        <div onclick="openModal('${ev.id}')" style="background:#0a0a0a;border:1px solid #1a1a1a;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s;" onmouseenter="this.style.borderColor='${ACCENT[ev.type]}'" onmouseleave="this.style.borderColor='#1a1a1a'">
+          <div style="height:3px;background:${ACCENT[ev.type]};"></div>
+          <div style="padding:1.5rem;display:flex;flex-direction:column;flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;">
+              <span style="display:inline-block;padding:2px 8px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;background:${b.bg};color:${b.color};">${b.label}</span>
+              <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:${full?'#ef4444':'#169b62'};">● ${full ? 'FULL' : left + ' left'}</span>
             </div>
-            <div style="height:3px;background:#111;overflow:hidden;margin-bottom:1rem;">
-              <div style="height:100%;background:${barCol};width:${pct}%;transition:width .4s;"></div>
+            <h3 style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.2rem;color:#fff;margin:0 0 .85rem;line-height:1.1;">${ev.title}</h3>
+            <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:.85rem;">
+              <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;">📅 ${ev.dateLabel}</span>
+              <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;">🕓 ${ev.time}</span>
+              <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;">📍 ${ev.location}</span>
             </div>
-            ${avatars}
-            <div style="border-top:1px solid #111;padding-top:1rem;">
-              <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:${full?'#222':'#ffd700'};">${full?'Event full':'Sign up →'}</span>
+            ${ev.desc ? `<p style="color:#444;font-size:.72rem;font-style:italic;margin-bottom:.85rem;line-height:1.6;">${ev.desc}</p>` : ''}
+            <div style="margin-top:auto;">
+              <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:4px;">
+                <span style="color:#333;">Players</span><span style="color:#666;">${taken}/${ev.max}</span>
+              </div>
+              <div style="height:3px;background:#111;overflow:hidden;margin-bottom:.85rem;">
+                <div style="height:100%;background:${barCol};width:${pct}%;transition:width .4s;"></div>
+              </div>
+              ${avatarHtml}
+              <div style="border-top:1px solid #111;padding-top:.85rem;">
+                <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:${full ? '#222' : ACCENT[ev.type]};">${full ? 'Event full' : 'Sign up →'}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>`;
+        </div>`;
     }).join('');
   }
 
@@ -358,31 +464,81 @@
     render();
   }
 
+  // ── Modal helpers ────────────────────────────────────────────────────────────
+  function renderModalPlayers(ev) {
+    const list   = document.getElementById('m-player-list');
+    const noOne  = document.getElementById('m-no-players');
+    const taken  = ev.players.length, full = taken >= ev.max;
+    const pct    = Math.min(100, (taken / ev.max) * 100);
+    const barCol = pct >= 80 ? '#ef4444' : ACCENT[ev.type];
+
+    // Progress
+    document.getElementById('m-spots-label').textContent = `${taken}/${ev.max}`;
+    document.getElementById('m-spots-bar').style.width   = pct + '%';
+    document.getElementById('m-spots-bar').style.background = barCol;
+
+    // Dot row (filled vs empty spots)
+    const dotRow = document.getElementById('m-dot-row');
+    dotRow.innerHTML = Array.from({length: ev.max}, (_, i) => {
+      const filled = i < taken;
+      return `<div class="spot-dot" style="background:${filled ? ACCENT[ev.type] : '#1a1a1a'};border:1px solid ${filled ? 'transparent' : '#2a2a2a'};"></div>`;
+    }).join('');
+
+    // Named list
+    if (taken > 0) {
+      noOne.style.display = 'none';
+      list.innerHTML = ev.players.map((p, i) => `
+        <div class="player-row slide-up" style="animation-delay:${i * 0.04}s;">
+          <span class="player-num">${i + 1}</span>
+          <span class="player-name">${p}</span>
+        </div>`).join('');
+    } else {
+      noOne.style.display = 'block';
+      list.innerHTML = '';
+    }
+
+    // Show/hide form vs full
+    document.getElementById('m-form').style.display = full ? 'none' : 'block';
+    document.getElementById('m-full').style.display = full ? 'block' : 'none';
+    document.getElementById('m-success').style.display = 'none';
+  }
+
+  // ── Open Modal ───────────────────────────────────────────────────────────────
   function openModal(id) {
     const ev = events.find(e => e.id === id);
     if (!ev) return;
     currentId = id;
+
     const b = BADGES[ev.type] || BADGES.session;
-    const taken = ev.players.length, left = ev.max - taken, full = left <= 0;
-    const pct = Math.min(100,(taken/ev.max)*100);
+    const accent = ACCENT[ev.type];
+
+    // Accent bar colour
+    document.getElementById('m-accent-bar').style.background = accent;
+
+    // Badge
     const badge = document.getElementById('m-badge');
-    badge.textContent = b.label;
-    badge.style.background = b.bg; badge.style.color = b.color;
+    badge.textContent      = b.label;
+    badge.style.background = b.bg;
+    badge.style.color      = b.color;
+
+    // Text fields
     document.getElementById('m-title').textContent = ev.title;
     document.getElementById('m-date').textContent  = '📅 ' + ev.dateLabel;
     document.getElementById('m-time').textContent  = '🕓 ' + ev.time;
     document.getElementById('m-loc').textContent   = '📍 ' + ev.location;
-    document.getElementById('m-spots-label').textContent = `${taken}/${ev.max}`;
-    document.getElementById('m-spots-bar').style.width = pct + '%';
-    document.getElementById('m-players').innerHTML = taken > 0
-      ? `<p style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#333;margin-bottom:.5rem;">Signed up (${taken})</p><div style="display:flex;flex-wrap:wrap;gap:6px;">${ev.players.map((p,i)=>`<span style="background:#111;border:1px solid #1a1a1a;padding:2px 8px;font-size:9px;font-weight:700;color:#777;"><span style="color:#ffd700;font-weight:900;">${i+1}</span> ${p}</span>`).join('')}</div>`
-      : `<p style="font-size:9px;font-style:italic;color:#222;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;">No one yet - be the first.</p>`;
-    document.getElementById('m-name').value = '';
-    document.getElementById('m-form').style.display    = full ? 'none' : 'block';
-    document.getElementById('m-full').style.display    = full ? 'block' : 'none';
-    document.getElementById('m-success').style.display = 'none';
+
+    // Name input
+    document.getElementById('m-name').value       = '';
+    document.getElementById('m-name').placeholder = 'e.g. Ciarán Murphy';
+    document.getElementById('m-name').style.borderColor = '#222';
+
+    // Player list + progress
+    renderModalPlayers(ev);
+
+    // Open
     const modal = document.getElementById('signup-modal');
     modal.style.display = 'flex';
+    modal.scrollTop = 0;
     document.body.style.overflow = 'hidden';
   }
 
@@ -391,25 +547,51 @@
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+  // ── Sign Up ──────────────────────────────────────────────────────────────────
   function signUp() {
     const nameEl = document.getElementById('m-name');
-    const name = nameEl.value.trim();
-    if (!name) { nameEl.style.borderColor='#ef4444'; nameEl.placeholder='Enter your name first!'; return; }
+    const name   = nameEl.value.trim();
+    if (!name) {
+      nameEl.style.borderColor = '#ef4444';
+      nameEl.placeholder = 'Enter your name first!';
+      return;
+    }
     nameEl.style.borderColor = '#222';
     const ev = events.find(e => e.id === currentId);
     if (!ev) return;
-    if (ev.players.map(p=>p.toLowerCase()).includes(name.toLowerCase())) {
-      nameEl.value = ''; nameEl.placeholder = "You're already signed up!"; return;
+    if (ev.players.map(p => p.toLowerCase()).includes(name.toLowerCase())) {
+      nameEl.value = '';
+      nameEl.placeholder = "You're already signed up!";
+      return;
     }
-    ev.players.push(name); save(); render();
+
+    ev.players.push(name);
+    save();
+    render(); // update cards in background
+
+    // Update modal: re-render player list + progress
+    renderModalPlayers(ev);
+
+    // Show newly added name with highlight
+    const rows = document.querySelectorAll('#m-player-list .player-row');
+    const lastRow = rows[rows.length - 1];
+    if (lastRow) {
+      const badge = document.createElement('span');
+      badge.className = 'player-new';
+      badge.textContent = 'New';
+      lastRow.appendChild(badge);
+    }
+
+    // Show success block
     document.getElementById('m-form').style.display    = 'none';
     document.getElementById('m-success').style.display = 'block';
   }
 
+  // ── Init ─────────────────────────────────────────────────────────────────────
   render();
-</script>
+  </script>
 
 </body>
 </html>
