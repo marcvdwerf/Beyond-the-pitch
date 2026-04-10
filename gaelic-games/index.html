@@ -582,33 +582,48 @@
   ══════════════════════════════════════════════════════════════════
 -->
 <!-- ══════════════════════════════════════════════════
-     CHAMPIONSHIP SECTION - DARK zone
+     CHAMPIONSHIP SECTION — Kilkenny + Dublin side-by-side
+     Vervangt de bestaande #championship sectie volledig.
 ══════════════════════════════════════════════════ -->
 <section class="zone-dark" id="championship" style="padding: 6rem 1.5rem;">
   <div style="max-width: 1100px; margin: 0 auto;">
 
     <!-- Section header -->
-    <span class="section-label">Leinster Hurling Championship 2026</span>
+    <span class="section-label">Leinster Championship 2026</span>
     <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 0.75rem;">
       <h2 style="font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;">
-        The Kilkenny Experience: <span style="color: var(--gold-bright);">Choose your Matchday</span>
+        Choose your <span style="color: var(--gold-bright);">Matchday</span>
       </h2>
       <p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; max-width: 340px; line-height: 1.7; text-align: right;">
-    Be part of our founding experience - feel the real local atmosphere, not the one of a passing visitor.
+        Be part of our founding experience - feel the real local atmosphere, not the one of a passing visitor.
       </p>
     </div>
     <div class="zone-divider" style="margin-bottom: 2.5rem;"></div>
 
-    <!-- ── KILKENNY PANEL ── -->
-    <div id="cpanel-k">
+    <!-- ══ SIDE-BY-SIDE CARDS ══ -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;" class="two-col">
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;" class="two-col">
+      <!-- ────────────────────────────
+           KILKENNY CARD
+      ──────────────────────────── -->
+      <div style="background: var(--dark-panel); border: 1px solid var(--border-dark); border-top: 3px solid var(--gold-bright); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;">
 
-        <!-- LEFT: fixtures -->
-        <div>
-          <!-- Round 2 -->
-          <p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin-bottom: 0.75rem;">Round 2 · Saturday 25 April</p>
-          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 0.75rem; border-left: 2px solid var(--gold-bright);">
+        <!-- Header -->
+        <div style="padding: 1.5rem 1.5rem 1.25rem;">
+          <p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--gold-bright); margin-bottom: 8px;">Kilkenny · Hurling</p>
+          <h3 style="font-size: 1.2rem; font-weight: 900; letter-spacing: -0.03em; color: #fff; line-height: 1.15; margin-bottom: 8px;">The Kilkenny Cats at home</h3>
+          <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin: 0;">
+            UPMC Nowlan Park — where locals fill the stands, where the noise is real, and where hurling is not a tourist attraction but a way of life.
+          </p>
+        </div>
+
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
+
+        <!-- Fixtures -->
+        <div style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 8px;">
+
+          <p style="font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 0 0 4px;">Round 2 · Saturday 25 April</p>
+          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border-left: 2px solid var(--gold-bright); margin-bottom: 0.5rem;">
             <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
               <div style="font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1;">25</div>
               <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 2px;">Apr</div>
@@ -616,17 +631,16 @@
             <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
             <div style="flex: 1; min-width: 0;">
               <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Kilkenny <span style="font-weight: 300; color: rgba(255,255,255,0.3); margin: 0 4px;">vs</span> Wexford</div>
-              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">UPMC Nowlan Park, Kilkenny</div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">UPMC Nowlan Park · 18:30</div>
             </div>
             <div style="text-align: right; flex-shrink: 0;">
               <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(255,215,0,0.1); color: var(--gold-bright); border: 1px solid rgba(255,215,0,0.2);">Home</span>
-              <div style="font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 4px;">18:30</div>
+              <div style="font-size: 0.7rem; font-weight: 800; color: rgba(255,215,0,0.7); margin-top: 4px;">€95 p.p.</div>
             </div>
           </div>
 
-          <!-- Round 4 -->
-          <p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 1.25rem 0 0.75rem;">Round 4 · Saturday 16 May</p>
-          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 0.75rem; border-left: 2px solid var(--gold-bright);">
+          <p style="font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 0.5rem 0 4px;">Round 4 · Saturday 16 May</p>
+          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border-left: 2px solid var(--gold-bright); margin-bottom: 0.5rem;">
             <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
               <div style="font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1;">16</div>
               <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 2px;">May</div>
@@ -634,134 +648,47 @@
             <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
             <div style="flex: 1; min-width: 0;">
               <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Kilkenny <span style="font-weight: 300; color: rgba(255,255,255,0.3); margin: 0 4px;">vs</span> Kildare</div>
-              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">UPMC Nowlan Park, Kilkenny</div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">UPMC Nowlan Park · 18:00</div>
             </div>
             <div style="text-align: right; flex-shrink: 0;">
               <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(255,215,0,0.1); color: var(--gold-bright); border: 1px solid rgba(255,215,0,0.2);">Home</span>
+              <div style="font-size: 0.7rem; font-weight: 800; color: rgba(255,215,0,0.7); margin-top: 4px;">€95 p.p.</div>
+            </div>
+          </div>
+
+          <p style="font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 0.5rem 0 4px;">Leinster Final · Saturday 6 June</p>
+          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border: 1px solid rgba(201,162,39,0.4);">
+            <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
+              <div style="font-size: 1.5rem; font-weight: 900; color: var(--gold-bright); line-height: 1;">6</div>
+              <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,215,0,0.4); margin-top: 2px;">Jun</div>
+            </div>
+            <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Leinster Final</div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">Croke Park, Dublin</div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(201,162,39,0.15); color: var(--gold-bright); border: 1px solid rgba(201,162,39,0.3);">★ Final</span>
               <div style="font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 4px;">18:00</div>
             </div>
           </div>
+        </div>
 
-    <!-- Final -->
-<p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 1.25rem 0 0.75rem;">
-  Leinster Final · Saturday 6 June (later available)
-</p>
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
 
-<div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border: 1px solid rgba(201,162,39,0.4);">
-  <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
-    <div style="font-size: 1.5rem; font-weight: 900; color: var(--gold-bright); line-height: 1;">6</div>
-    <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,215,0,0.4); margin-top: 2px;">Jun</div>
-  </div>
-
-  <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
-
-  <div style="flex: 1; min-width: 0;">
-    <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Leinster Final</div>
-    <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">Croke Park, Dublin</div>
-  </div>
-
-  <div style="text-align: right; flex-shrink: 0;">
-    <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(201,162,39,0.15); color: var(--gold-bright); border: 1px solid rgba(201,162,39,0.3);">
-      ★ Kick-off
-    </span>
-    <div style="font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 4px;">18:00</div>
-  </div>
-</div>
-
-<!-- Can't make these dates? WhatsApp availability check -->
-<div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.08);">
-  <p style="font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-bottom: 0.75rem; line-height: 1.6;">
-    Can't make these dates? Send us a message and we'll check what's available for you.
-  </p>
-
- <a href="#"
-   onclick="btpOpenWhatsApp(event)"
-   style="
-     display: inline-flex;
-     align-items: center;
-     gap: 10px;
-     font-size: 0.9rem;
-     font-weight: 800;
-     color: #fff;
-     background: linear-gradient(135deg, #25D366 0%, #1ebe5d 100%);
-     border: 1px solid rgba(37,211,102,0.55);
-     border-radius: 12px;
-     padding: 12px 18px;
-     text-decoration: none;
-     box-shadow: 0 10px 24px rgba(37,211,102,0.22), 0 0 0 1px rgba(255,255,255,0.04) inset;
-     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-   "
-   onmouseover="
-     this.style.transform='translateY(-2px)';
-     this.style.boxShadow='0 14px 30px rgba(37,211,102,0.32), 0 0 0 1px rgba(255,255,255,0.08) inset';
-   "
-   onmouseout="
-     this.style.transform='translateY(0)';
-     this.style.boxShadow='0 10px 24px rgba(37,211,102,0.22), 0 0 0 1px rgba(255,255,255,0.04) inset';
-   ">
-
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-
-  Check availability via WhatsApp
-</a>
-
-</div>
-
-</div> <!-- sluit LEFT: fixtures -->
-
-<!-- RIGHT: context + CTA -->
-<div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-          <div>
-            <h3 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; letter-spacing: -0.02em;">The Kilkenny Cats at home</h3>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.85; margin-bottom: 1.25rem;">
-              These are the first fixtures we offer in Kilkenny - both played at UPMC Nowlan Park, the home ground of Ireland's most decorated hurling county. This is where locals fill the stands, where the noise is real, and where hurling is not a tourist attraction but a way of life.
-            </p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.85; margin-bottom: 2rem;">
-              Crown it on <strong style="color: var(--gold-bright);">6 June at Croke Park</strong> - with the Leinster Final.
-            </p>
-            <!-- Founder discount countdown -->
-            <div style="margin-bottom:1.5rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                <div>
-                  <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,215,0,0.6);margin-bottom:3px;">Founding offer</div>
-                  <div style="font-size:13px;color:rgba(255,255,255,0.5);">20% off </div>
-                </div>
-                <div style="display:flex;gap:6px;">
-                  <div style="text-align:center;">
-                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-days">00</div>
-                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Days</div>
-                  </div>
-                  <div style="text-align:center;">
-                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-hrs">00</div>
-                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Hrs</div>
-                  </div>
-                  <div style="text-align:center;">
-                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-min">00</div>
-                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Min</div>
-                  </div>
-                  <div style="text-align:center;">
-                    <div style="background:#111;border:1px solid #2a2a2a;border-radius:8px;padding:10px 8px 8px;font-size:22px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;" id="fc-sec">00</div>
-                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.25);margin-top:5px;">Sec</div>
-                  </div>
-                </div>
-              </div>
-              <div onclick="fcCopy()" style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,215,0,0.07);border:1px dashed rgba(255,215,0,0.3);border-radius:8px;padding:10px 14px;cursor:pointer;">
-                <span style="font-family:monospace;font-size:13px;font-weight:700;color:#ffd700;letter-spacing:0.04em;">KILKENNYEXPERIENCE20</span>
-                <span id="fc-copy-label" style="font-size:11px;font-weight:700;color:rgba(255,215,0,0.5);text-transform:uppercase;letter-spacing:0.08em;">Copy code</span>
-              </div>
-            </div>
-
-            <!-- Warn box -->
-            <div class="warn-box" style="margin-bottom: 2rem;">
-              <p><strong>Match access is checked personally for your selected date.</strong> 
-Within 24–48 hours we’ll confirm what is available immediately and what remains subject to final match availability. 
-If match access cannot be arranged, we’ll offer an alternative or a full refund in line with our policy.</p>
-
-            </div>
+        <!-- Warn box — ORIGINEEL BEHOUDEN -->
+        <div style="padding: 1.25rem 1.5rem;">
+          <div class="warn-box">
+            <p><strong>Match access is checked personally for your selected date.</strong>
+              Within 24–48 hours we'll confirm what is available immediately and what remains subject to final match availability.
+              If match access cannot be arranged, we'll offer an alternative or a full refund in line with our policy.</p>
           </div>
+        </div>
 
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
+
+        <!-- CTA -->
+        <div style="padding: 1.25rem 1.5rem 1.5rem; margin-top: auto;">
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <a href="/booking-page-ireland/" class="btn-gold" style="flex: 1; justify-content: center;">
               Secure your spot
@@ -771,12 +698,128 @@ If match access cannot be arranged, we’ll offer an alternative or a full refun
           </div>
         </div>
 
-      </div>
-    </div>
+      </div><!-- end Kilkenny card -->
+
+
+      <!-- ────────────────────────────
+           DUBLIN CARD
+      ──────────────────────────── -->
+      <div style="background: var(--dark-panel); border: 1px solid var(--border-dark); border-top: 3px solid #4a90d9; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;">
+
+        <!-- Header -->
+        <div style="padding: 1.5rem 1.5rem 1.25rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <p style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: #4a90d9; margin: 0;">Dublin · Football &amp; Hurling</p>
+            <span style="font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 6px; background: rgba(74,144,217,0.12); color: #4a90d9; border: 1px solid rgba(74,144,217,0.2);">New</span>
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 900; letter-spacing: -0.03em; color: #fff; line-height: 1.15; margin-bottom: 8px;">Dublin at Croke Park<br>&amp; Parnell Park</h3>
+          <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin: 0;">
+            Two sports, two iconic Dublin venues. From the Leinster Football Final to a local hurling derby - experience Gaelic Games the Dublin way.
+          </p>
+        </div>
+
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
+
+        <!-- Fixtures -->
+        <div style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 8px;">
+
+          <p style="font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 0 0 4px;">Leinster Football Final · Sunday 17 May</p>
+          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border: 1px solid rgba(74,144,217,0.3); margin-bottom: 0.5rem;">
+            <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
+              <div style="font-size: 1.5rem; font-weight: 900; color: #4a90d9; line-height: 1;">17</div>
+              <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(74,144,217,0.5); margin-top: 2px;">May</div>
+            </div>
+            <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Leinster Football Final</div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">Croke Park, Dublin</div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(74,144,217,0.12); color: #4a90d9; border: 1px solid rgba(74,144,217,0.25);">★ Final</span>
+              <div style="font-size: 0.7rem; font-weight: 800; color: #4a90d9; margin-top: 4px;">€119 p.p.</div>
+            </div>
+          </div>
+
+          <p style="font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin: 0.5rem 0 4px;">Hurling · Sunday 24 May</p>
+          <div class="d-card" style="display: flex; align-items: center; gap: 1.25rem; border-left: 2px solid #4a90d9; margin-bottom: 0.5rem;">
+            <div style="text-align: center; min-width: 38px; flex-shrink: 0;">
+              <div style="font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1;">24</div>
+              <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-top: 2px;">May</div>
+            </div>
+            <div style="width: 1px; height: 36px; background: var(--border-dark); flex-shrink: 0;"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Dublin <span style="font-weight: 300; color: rgba(255,255,255,0.3); margin: 0 4px;">vs</span> Kilkenny</div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 2px;">Parnell Park, Dublin</div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: rgba(74,144,217,0.12); color: #4a90d9; border: 1px solid rgba(74,144,217,0.25);">Home</span>
+              <div style="font-size: 0.7rem; font-weight: 800; color: rgba(255,255,255,0.5); margin-top: 4px;">€95 p.p.</div>
+            </div>
+          </div>
+
+          <!-- More coming -->
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: rgba(74,144,217,0.04); border: 1px dashed rgba(74,144,217,0.2);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4a90d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.5);">More fixtures coming soon</div>
+              <div style="font-size: 0.72rem; color: rgba(255,255,255,0.25); margin-top: 1px;">Schedule updates throughout summer</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
+
+        <!-- WhatsApp — ORIGINEEL BEHOUDEN -->
+        <div style="padding: 1.25rem 1.5rem;">
+          <p style="font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-bottom: 0.75rem; line-height: 1.6;">
+            Can't make these dates? Send us a message and we'll check what's available for you.
+          </p>
+          <a href="#"
+            onclick="btpOpenWhatsApp(event)"
+            style="display: inline-flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, #25D366 0%, #1ebe5d 100%); border: 1px solid rgba(37,211,102,0.55); border-radius: 12px; padding: 12px 18px; text-decoration: none; box-shadow: 0 10px 24px rgba(37,211,102,0.22), 0 0 0 1px rgba(255,255,255,0.04) inset; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 30px rgba(37,211,102,0.32), 0 0 0 1px rgba(255,255,255,0.08) inset';"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 24px rgba(37,211,102,0.22), 0 0 0 1px rgba(255,255,255,0.04) inset';">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Check availability via WhatsApp
+          </a>
+        </div>
+
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
+
+        <!-- Warn box Dublin -->
+        <div style="padding: 1.25rem 1.5rem;">
+          <div class="warn-box">
+            <p><strong>Match access is checked personally for your selected date.</strong>
+              Within 24–48 hours we'll confirm what is available immediately and what remains subject to final match availability.
+              If match access cannot be arranged, we'll offer an alternative or a full refund in line with our policy.</p>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: var(--border-dark); margin: 0 1.5rem;"></div>
+
+        <!-- CTA -->
+        <div style="padding: 1.25rem 1.5rem 1.5rem; margin-top: auto;">
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="/booking-page-dublin/" style="flex: 1; justify-content: center; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.95rem 2rem; background: #4a90d9; color: #fff; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; transition: all 0.2s;">
+              Secure your spot
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="mailto:thebeyondthepitch@gmail.com" class="btn-outline-white" style="flex: 1; justify-content: center;">Ask a question</a>
+          </div>
+        </div>
+
+      </div><!-- end Dublin card -->
+
+    </div><!-- end grid -->
+
+    <p style="font-size: 0.72rem; color: rgba(255,255,255,0.2); text-align: center; margin-top: 1.25rem; line-height: 1.6;">
+      Match access facilitated subject to availability · Confirmed within 24–48 hours
+    </p>
 
   </div>
 </section>
-
 <!--
   ══ JAVASCRIPT ══
   Add this inside the existing <script> block at the bottom of your page,
