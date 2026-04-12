@@ -1,597 +1,1194 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
   <title>Meet People in Dublin Through Gaelic Games | Beyond the Pitch</title>
-  <meta name="description" content="New to Dublin? Meet locals and fellow internationals through Gaelic Games. No experience needed - just show up. Sessions, socials and match days across the city.">
+  <meta name="description" content="New to Dublin? Meet locals and fellow internationals through Gaelic Games. Beginner-friendly sessions, socials and match days. No experience needed." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0b0b0b" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://travelbeyondthepitch.com/community/dublin/" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            gold: '#ffd700',
-            green: '#169b62',
-            panel: '#0a0a0a',
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Beyond the Pitch" />
+  <meta property="og:title" content="Meet People in Dublin Through Gaelic Games" />
+  <meta property="og:description" content="A Dublin community for internationals and locals who want to connect through Gaelic Games, socials and match days." />
+  <meta property="og:url" content="https://travelbeyondthepitch.com/community/dublin/" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg" />
+  <meta property="og:image:alt" content="People socialising in Dublin with Beyond the Pitch" />
+  <meta property="og:locale" content="en_IE" />
 
-  <style type="text/tailwindcss">
-    @layer components {
-      .btp-title { @apply font-[900] uppercase italic tracking-tighter; }
-      .btn-primary { @apply bg-white text-black px-8 py-4 font-black uppercase transition-all hover:bg-gold hover:-translate-y-1 inline-block; }
-      .btn-whatsapp { @apply bg-[#25D366] text-white px-8 py-4 font-black uppercase flex items-center justify-center gap-3 transition-all hover:brightness-110 hover:-translate-y-1; }
-      .card-btp { @apply bg-panel border-l-4 border-gold p-8 transition-all hover:border-green; }
-      .text-outline { -webkit-text-stroke: 1px #444; color: transparent; }
-    }
-  </style>
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Meet People in Dublin Through Gaelic Games" />
+  <meta name="twitter:description" content="Beginner-friendly Gaelic Games sessions, socials and match days for internationals and locals in Dublin." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg" />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- SEO / Language -->
+  <link rel="alternate" hreflang="en" href="https://travelbeyondthepitch.com/community/dublin/" />
+  <link rel="alternate" hreflang="x-default" href="https://travelbeyondthepitch.com/community/dublin/" />
 
   <style>
-    /* ── Modal scrollbar ── */
-    #signup-modal ::-webkit-scrollbar { width: 4px; }
-    #signup-modal ::-webkit-scrollbar-track { background: #000; }
-    #signup-modal ::-webkit-scrollbar-thumb { background: #222; }
+    :root {
+      --bg: #0b0b0b;
+      --panel: #111111;
+      --panel-2: #171717;
+      --text: #f4f4f4;
+      --muted: #b7b7b7;
+      --soft: #8a8a8a;
+      --line: #222222;
+      --gold: #f3c623;
+      --green: #169b62;
+      --red: #ef4444;
+      --white: #ffffff;
+      --max: 1180px;
+      --radius: 18px;
+      --shadow: 0 12px 30px rgba(0,0,0,.22);
+    }
 
-    /* ── Player name list ── */
-    .player-row {
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    img { max-width: 100%; display: block; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--gold);
+      color: #000;
+      padding: 12px 16px;
+      z-index: 999;
+      font-weight: 800;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--gold);
+    }
+
+    .headline {
+      margin: 0;
+      font-size: clamp(2.6rem, 6vw, 5.8rem);
+      line-height: .95;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .headline span { color: var(--gold); }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 4.6vw, 3.8rem);
+      line-height: .96;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .section-title span { color: var(--gold); }
+
+    .lead {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .muted { color: var(--muted); }
+    .soft { color: var(--soft); }
+
+    .grid { display: grid; gap: 24px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-gold { border-color: rgba(243,198,35,.25); }
+    .card-green { border-color: rgba(22,155,98,.32); }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: .2s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+    }
+    .btn-primary:hover {
+      filter: brightness(1.03);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,.42);
+      background: rgba(255,255,255,.03);
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: rgba(11,11,11,.82);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .site-header__inner {
+      min-height: 76px;
       display: flex;
       align-items: center;
-      gap: .6rem;
-      padding: .45rem 0;
-      border-bottom: 1px solid #111;
-    }
-    .player-row:last-child { border-bottom: none; }
-    .player-num {
-      font-size: 9px; font-weight: 900; color: #ffd700;
-      min-width: 18px; text-align: right; font-style: italic;
-    }
-    .player-name {
-      font-size: .78rem; font-weight: 700; color: #aaa;
-      text-transform: uppercase; letter-spacing: .05em;
-      flex: 1;
-    }
-    .player-new {
-      font-size: 8px; font-weight: 900; text-transform: uppercase;
-      letter-spacing: .1em; color: #169b62; padding: 1px 6px;
-      border: 1px solid #169b62;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    /* ── Spot dots ── */
-    .spot-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      display: inline-block; flex-shrink: 0;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      font-style: italic;
+      font-size: 1.15rem;
     }
 
-    /* ── Slide-in animation ── */
-    @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-    .slide-up { animation: slideUp .35s ease forwards; }
+    .brand span { color: var(--gold); }
 
-    /* ── WhatsApp icon ── */
-    .wa-icon { width:18px; height:18px; fill: currentColor; flex-shrink:0; }
+    .header-meta {
+      font-size: 12px;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 84px 0 56px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.78)),
+        radial-gradient(circle at 20% 20%, rgba(243,198,35,.09), transparent 35%),
+        radial-gradient(circle at 80% 30%, rgba(22,155,98,.08), transparent 30%),
+        var(--bg);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero-copy p {
+      margin: 0 0 22px;
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      font-size: .95rem;
+      color: var(--soft);
+    }
+
+    .hero-visual {
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-visual__img {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #000;
+    }
+
+    .hero-visual__img img {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      object-fit: cover;
+    }
+
+    .proof-strip {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: #0f0f0f;
+    }
+
+    .proof-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .proof-item {
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: .95rem;
+      background: rgba(255,255,255,.02);
+    }
+
+    .proof-item strong {
+      display: block;
+      color: var(--white);
+      font-size: .9rem;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    section {
+      padding: 84px 0;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .steps {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .step:first-child { border-top: 0; }
+
+    .step-num {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(243,198,35,.12);
+      color: var(--gold);
+      font-weight: 900;
+      border: 1px solid rgba(243,198,35,.25);
+    }
+
+    .step h3, .event-card h3, .faq-item h3, .mini-title {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .visual-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .visual-stack figure {
+      margin: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #000;
+    }
+
+    .visual-stack img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    .visual-stack figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: .95rem;
+      background: rgba(255,255,255,.02);
+    }
+
+    .events-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .event-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .event-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .tag-session { background: rgba(243,198,35,.14); color: var(--gold); }
+    .tag-social { background: rgba(22,155,98,.14); color: #86e0b8; }
+    .tag-match { background: rgba(255,255,255,.10); color: #fff; }
+
+    .event-meta {
+      display: grid;
+      gap: 8px;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .event-meta strong { color: var(--white); }
+
+    .event-cta {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .expect-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .expect {
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .expect:first-child { border-top: 0; }
+
+    .form-wrap {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .form-panel {
+      position: sticky;
+      top: 100px;
+    }
+
+    .form-note {
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .contact-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 52px;
+      background: #0d0d0d;
+      border: 1px solid #2a2a2a;
+      color: var(--white);
+      border-radius: 14px;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(243,198,35,.75);
+      box-shadow: 0 0 0 4px rgba(243,198,35,.12);
+    }
+
+    .checkbox {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .checkbox input {
+      margin-top: 4px;
+      accent-color: var(--gold);
+    }
+
+    .micro {
+      font-size: .86rem;
+      color: var(--soft);
+    }
+
+    .faq {
+      display: grid;
+      gap: 16px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .faq-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .b2b {
+      background: linear-gradient(180deg, rgba(243,198,35,.05), rgba(255,255,255,.01));
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .final-cta {
+      text-align: center;
+      padding: 96px 0;
+    }
+
+    .final-cta .headline {
+      margin-bottom: 18px;
+      font-size: clamp(2.6rem, 7vw, 6rem);
+    }
+
+    footer {
+      padding: 30px 0 60px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: var(--soft);
+      font-size: .92rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .split,
+      .form-wrap,
+      .grid-3,
+      .grid-2,
+      .proof-list,
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .site-header__inner {
+        align-items: flex-start;
+        padding: 14px 0;
+        flex-direction: column;
+      }
+
+      .form-panel {
+        position: static;
+      }
+
+      .events-header {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .hero-visual__img img {
+        min-height: 260px;
+      }
+    }
   </style>
-</head>
-<body class="bg-black text-white antialiased">
 
-  <!-- ════════════════════════════════════════════════
-       HEADER
-  ════════════════════════════════════════════════ -->
-  <header class="p-6 flex justify-between items-center border-b border-gray-900 sticky top-0 bg-black/90 backdrop-blur-md z-50">
-    <a href="/gaelic-games/" class="btp-title text-xl text-white hover:text-gold transition-colors">Beyond the Pitch<span class="text-gold">.</span></a>
-    <div class="hidden md:block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 italic">Dublin Collective // Launch Phase</div>
-    <a href="#join" class="text-xs font-black border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition">Join Tribe</a>
+  <!-- Structured data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Beyond the Pitch",
+    "url":"https://travelbeyondthepitch.com/",
+    "description":"Beyond the Pitch creates small-group sport and culture experiences, using sport as a gateway to local culture, community and authentic access.",
+    "email":"hello@beyondthepitch.ie"
+  }
+  </script>
+
+  <!-- Structured data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Do I need experience to join?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No. Most people join as complete beginners. Sessions are designed to be beginner-friendly, social and welcoming."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Can I come on my own?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Yes. Many people do. This community is designed for newcomers, internationals and locals who want to meet people in a low-pressure way."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What happens after I register interest?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"You receive details about the next suitable session, social or match day, plus updates on upcoming community activity in Dublin."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What should I bring?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Bring trainers, comfortable clothes and something suitable for Dublin weather. Equipment is provided unless stated otherwise."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="https://travelbeyondthepitch.com/" aria-label="Beyond the Pitch home">
+        Beyond the Pitch<span>.</span>
+      </a>
+
+      <div class="header-meta">Dublin Community / Gaelic Games / Launch Phase</div>
+
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="#events">Upcoming events</a>
+        <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
+      </div>
+    </div>
   </header>
 
-  <main>
+  <main id="main-content">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">New in Dublin? Start here.</div>
+          <h1 class="headline" id="hero-title">
+            Meet People in Dublin Through <span>Gaelic Games</span>
+          </h1>
+          <p class="lead">
+            Beyond the Pitch is a Dublin community for internationals and locals who want to connect through sport, culture and shared experiences. Join a beginner-friendly Gaelic Games session, a pub social, or a match day — and get to know Dublin through the people who live it.
+          </p>
+          <p class="hero-note">
+            No experience needed. You can come on your own. We make the first step easy.
+          </p>
 
-    <!-- ════════════════════════════════════════════════
-         HERO
-    ════════════════════════════════════════════════ -->
-    <section class="relative min-h-[85vh] flex items-center justify-center text-center px-6 overflow-hidden">
-      <div class="absolute inset-0 z-0 opacity-30"></div>
-      <div class="relative z-10 max-w-5xl mt-12">
-        <span class="inline-block bg-gold text-black px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-6">New in Town?</span>
-        <h1 class="btp-title text-5xl md:text-[7rem] leading-[0.9] mb-8 italic">
-          Meet People in Dublin Through <br><span class="text-gold">Gaelic Games.</span>
-        </h1>
-        <p class="text-lg md:text-xl text-gray-400 mb-10 font-medium max-w-2xl mx-auto leading-relaxed text-balance">
-          Beyond the Pitch is a Dublin community for internationals and locals who want to connect through sport. We run Gaelic Games sessions, monthly socials, and match-day trips across the city. No experience needed - just the curiosity to try something genuinely Irish.
-          <span class="text-white block mt-2">No experience. No pressure. Just Dublin.</span>
-        </p>
-        <div class="flex flex-col md:flex-row justify-center gap-4">
-          <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-whatsapp">
-            <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Join the WhatsApp community
-          </a>
-          <a href="#roadmap" class="btn-primary">View Launch Roadmap</a>
+          <div class="btn-row" style="margin-top:28px;">
+            <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
+            <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer" aria-label="Join the WhatsApp community">
+              Join WhatsApp community
+            </a>
+          </div>
         </div>
+
+        <aside class="hero-visual" aria-label="Community visuals">
+          <div class="hero-visual__img">
+            <!-- TODO: host locally on your own domain/CDN in production -->
+            <img
+              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg"
+              alt="People connecting in Dublin through Beyond the Pitch"
+              loading="eager"
+              width="1200"
+              height="900"
+            />
+          </div>
+        </aside>
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
-         THE DUBLIN WAY
-    ════════════════════════════════════════════════ -->
-    <section class="py-24 bg-white text-black px-6">
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <!-- TRUST / PROOF -->
+    <div class="proof-strip" aria-label="Community benefits">
+      <div class="container">
+        <div class="proof-list">
+          <div class="proof-item">
+            <strong>Beginner-friendly</strong>
+            No Gaelic Games experience required.
+          </div>
+          <div class="proof-item">
+            <strong>Small-group feel</strong>
+            Built for real connection, not crowd volume.
+          </div>
+          <div class="proof-item">
+            <strong>Internationals + locals</strong>
+            A social mix that helps Dublin feel smaller.
+          </div>
+          <div class="proof-item">
+            <strong>Sport as cultural access</strong>
+            More than exercise — a way into the city.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section aria-labelledby="how-title">
+      <div class="container split">
         <div>
-          <h2 class="btp-title text-5xl md:text-7xl mb-8 leading-none italic">The <span class="text-green text-outline">-</span> <br>Dublin Way.</h2>
-          <div class="space-y-6 text-lg text-gray-700">
-            <p class="font-bold italic">Authentic integration doesn't happen at a networking event. It happens on the pitch.</p>
-            <p>Beyond the Pitch is opening the field for <strong>anyone calling Dublin home.</strong> We don't do formal introductions; we use the grit of Hurling and the soul of Gaelic Football to turn strangers into friends.</p>
-            <p>Whether you've been here three days or thirty years: when the ball is thrown in, we are one collective.</p>
+          <div class="eyebrow">How it works</div>
+          <h2 class="section-title" id="how-title">A better way to <span>arrive in Dublin</span></h2>
+          <p class="lead">
+            This is not a networking night and not a traditional sports club. We use Gaelic Games as a natural, local way to help people meet — on the pitch, around the city, and through shared match-day moments.
+          </p>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">01</div>
+              <div>
+                <h3>Register interest</h3>
+                <p class="muted">Tell us whether you're looking for a session, a social, a match day, or all three.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">02</div>
+              <div>
+                <h3>Join a first event</h3>
+                <p class="muted">Come to a beginner-friendly session or social. You can arrive solo — many people do.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">03</div>
+              <div>
+                <h3>Stay connected</h3>
+                <p class="muted">If it feels like your kind of crowd, stay in the loop through WhatsApp and future community invites.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="aspect-square bg-black grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden shadow-2xl">
-             <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg" class="w-full h-full object-cover" alt="Pub Culture">
-          </div>
-          <div class="aspect-square bg-gold mt-12 overflow-hidden shadow-2xl">
-             <img src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/mattashefflin.jpg" class="w-full h-full object-cover mix-blend-multiply" alt="Teamwork">
+
+        <div class="visual-stack">
+          <figure>
+            <!-- TODO: host locally on your own domain/CDN in production -->
+            <img
+              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/mattashefflin.jpg"
+              alt="Gaelic Games action connected to local culture in Ireland"
+              loading="lazy"
+              width="1200"
+              height="900"
+            />
+            <figcaption>
+              Gaelic Games are not just a sport format here — they are a social language. That makes them a strong gateway to local culture.
+            </figcaption>
+          </figure>
+
+          <div class="card card-gold">
+            <p class="mini-title">Who this is for</p>
+            <p class="muted" style="margin:0;">
+              New arrivals in Dublin, culturally curious travellers staying longer, internationally minded locals, and anyone who wants a more grounded way to meet people.
+            </p>
+            <div class="pill-list">
+              <span class="pill">New in Dublin</span>
+              <span class="pill">Beginners welcome</span>
+              <span class="pill">Come solo</span>
+              <span class="pill">Culture through sport</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
-         FAQ
-    ════════════════════════════════════════════════ -->
-    <section class="py-20 bg-black px-6">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="btp-title text-3xl md:text-5xl mb-12 text-center italic text-white">
-          Frequently <span class="text-gold">Asked</span> Questions
-        </h2>
-        <div class="space-y-10">
-          <div class="card-btp">
-            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">When & Where?</h3>
-            <p class="text-gray-400 text-sm italic">Sessions will take place at Dublin's most famous and big GAA club Na Fianna.</p>
+    <!-- EVENTS -->
+    <section id="events" aria-labelledby="events-title">
+      <div class="container">
+        <div class="events-header">
+          <div>
+            <div class="eyebrow">Confirmed upcoming activity</div>
+            <h2 class="section-title" id="events-title">Upcoming <span>events</span></h2>
           </div>
-          <div class="card-btp">
-            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">What's Included?</h3>
-            <p class="text-gray-400 text-sm italic">We offer a range of events you can sign up for, such as casual pitch sessions, pub meet-ups, and cultural outings. You can also join our WhatsApp community and, when available, take part in GAA match trips. It’s a great way to meet new people in Dublin through Gaelic games experiences, including training sessions, social gatherings, attending sports events, and exploring the city together.</p>
+          <p class="muted" style="max-width:520px; margin:0;">
+            Only publish confirmed events here. Keep this section factual and current. If a date is provisional, label it clearly before going live.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card event-card card-gold">
+            <div class="event-tag tag-social">Social</div>
+            <h3>Pub Meet-Up — April</h3>
+            <div class="event-meta">
+              <div><strong>Date:</strong> Sunday 26 April 2026</div>
+              <div><strong>Time:</strong> 20:00 – late</div>
+              <div><strong>Location:</strong> Mulligan's, Dublin 2</div>
+              <div><strong>Format:</strong> First-timers welcome / relaxed social</div>
+            </div>
+            <p class="muted">
+              A low-pressure first entry point for people who want to meet the community before joining a session.
+            </p>
+            <div class="event-cta">
+              <a class="btn btn-secondary" href="#reserve">Register interest</a>
+            </div>
+          </article>
+
+          <article class="card event-card">
+            <div class="event-tag tag-session">Session</div>
+            <h3>Evening Kick-About</h3>
+            <div class="event-meta">
+              <div><strong>Date:</strong> Wednesday 29 April 2026</div>
+              <div><strong>Time:</strong> 19:00 – 21:00</div>
+              <div><strong>Location:</strong> Markievicz Park, Dublin 8</div>
+              <div><strong>Format:</strong> Beginner-friendly / touch version</div>
+            </div>
+            <p class="muted">
+              A relaxed midweek introduction to Gaelic Games. Ideal if you want to try the sport without pressure.
+            </p>
+            <div class="event-cta">
+              <a class="btn btn-secondary" href="#reserve">Reserve your spot</a>
+            </div>
+          </article>
+
+          <article class="card event-card">
+            <div class="event-tag tag-match">Match Day</div>
+            <h3>GAA Match Day — Dublin vs Kilkenny</h3>
+            <div class="event-meta">
+              <div><strong>Date:</strong> Sunday 24 May 2026</div>
+              <div><strong>Time:</strong> 15:00 – 18:00</div>
+              <div><strong>Location:</strong> Croke Park, Dublin 3</div>
+              <div><strong>Format:</strong> Group outing / cultural context included</div>
+            </div>
+            <p class="muted">
+              Watch the game with context, shared atmosphere and a group experience that makes the sport more accessible.
+            </p>
+            <div class="event-cta">
+              <a class="btn btn-secondary" href="#reserve">Register interest</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT TO EXPECT -->
+    <section aria-labelledby="expect-title">
+      <div class="container split">
+        <div>
+          <div class="eyebrow">What to expect</div>
+          <h2 class="section-title" id="expect-title">Your first time should feel <span>easy</span></h2>
+          <p class="lead">
+            The biggest friction point is usually not sport — it’s uncertainty. So we make the first experience clear and welcoming.
+          </p>
+        </div>
+
+        <div class="expect-list">
+          <div class="expect">
+            <h3>No experience required</h3>
+            <p class="muted">Most first-timers have never played before. Sessions are adapted for beginners.</p>
           </div>
-          <div class="card-btp">
-            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">Equipment Needed?</h3>
-            <p class="text-gray-400 text-sm italic">None. All equipment is provided. Just bring trainers and weather‑appropriate gear.</p>
+
+          <div class="expect">
+            <h3>You can come alone</h3>
+            <p class="muted">A lot of people do. This is designed to help newcomers meet people without awkward formality.</p>
           </div>
-          <div class="card-btp">
-            <h3 class="font-black text-gold mb-3 text-sm uppercase tracking-wider">Skill Level?</h3>
-            <p class="text-gray-400 text-sm italic">Absolute beginners welcome. We start with touch versions - zero contact, maximum craic.</p>
+
+          <div class="expect">
+            <h3>Bring trainers and weather-ready clothes</h3>
+            <p class="muted">We keep logistics simple. If anything specific is needed, we’ll tell you in advance.</p>
+          </div>
+
+          <div class="expect">
+            <h3>It’s social before it’s serious</h3>
+            <p class="muted">The goal is connection first, performance second. That is what makes the format work.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════
-         WORK & PLAY
-    ════════════════════════════════════════════════ -->
-    <section class="py-20 bg-panel border-y border-gray-900 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="btp-title text-3xl md:text-5xl mb-6 italic text-white">Work <span class="text-gold">&</span> Play.</h2>
-        <p class="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed italic">
-          Looking to help your international team feel truly at home in Dublin? We organize small-scale, authentic Gaelic sports and cultural experiences that transform colleagues into a local community. Not your standard teambuilding, but a real connection to the Irish soul.
+    <!-- RESERVE / LEAD CAPTURE -->
+    <section id="reserve" aria-labelledby="reserve-title">
+      <div class="container form-wrap">
+        <aside class="form-panel card card-gold">
+          <div class="eyebrow">Primary conversion</div>
+          <h2 class="section-title" id="reserve-title">Reserve your spot or <span>register interest</span></h2>
+          <p class="form-note">
+            Use this form to join the next suitable session, social or match day. If you are not ready to pick an event yet, you can still tell us what you’re interested in.
+          </p>
+
+          <div class="contact-list">
+            <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">
+              WhatsApp community →
+            </a>
+            <a href="mailto:hello@beyondthepitch.ie?subject=Dublin%20Community%20Interest">
+              hello@beyondthepitch.ie →
+            </a>
+          </div>
+
+          <p class="micro" style="margin-top:18px;">
+            Recommendation: connect this form to Tally, HubSpot, Airtable or your CRM so every lead is stored and followed up properly.
+          </p>
+        </aside>
+
+        <div class="card">
+          <!-- TODO: Replace action with your real endpoint or form provider URL -->
+          <form action="/community-interest/submit" method="post" novalidate>
+            <input type="hidden" name="source_page" value="dublin-community-page" />
+            <input type="hidden" name="utm_source" id="utm_source" value="" />
+            <input type="hidden" name="utm_medium" id="utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" id="utm_campaign" value="" />
+            <input type="hidden" name="utm_content" id="utm_content" value="" />
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="name">Full name *</label>
+                <input id="name" name="name" type="text" autocomplete="name" required placeholder="e.g. Ciarán Murphy" />
+              </div>
+
+              <div class="field">
+                <label for="email">Email address *</label>
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="phone">Phone / WhatsApp</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+353..." />
+              </div>
+
+              <div class="field">
+                <label for="profile">You are *</label>
+                <select id="profile" name="profile" required>
+                  <option value="">Please choose</option>
+                  <option value="international-new-in-dublin">An international new in Dublin</option>
+                  <option value="international-settled-in-dublin">An international already living in Dublin</option>
+                  <option value="local-dubliner">A local Dubliner</option>
+                  <option value="visitor">A visitor staying in Dublin</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="interest">Main interest *</label>
+                <select id="interest" name="interest" required>
+                  <option value="">Please choose</option>
+                  <option value="session">Gaelic Games session</option>
+                  <option value="social">Pub social</option>
+                  <option value="match-day">Match day</option>
+                  <option value="all-three">All of the above</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="experience">Gaelic Games experience</label>
+                <select id="experience" name="experience">
+                  <option value="">Please choose</option>
+                  <option value="none">None</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="played-before">Played before</option>
+                  <option value="regular-player">Regular player</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="message">Anything useful for us to know?</label>
+              <textarea id="message" name="message" placeholder="For example: I’m new in Dublin, I’ll probably come alone, I’m more interested in the social first, etc."></textarea>
+            </div>
+
+            <label class="checkbox">
+              <input type="checkbox" name="consent" required />
+              <span>I agree that Beyond the Pitch may contact me about community events, sessions and relevant updates. *</span>
+            </label>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" type="submit">Submit interest</button>
+              <a class="btn btn-secondary" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">Prefer WhatsApp</a>
+            </div>
+
+            <p class="micro">
+              Tip: after submit, redirect to a thank-you page with a WhatsApp CTA and event confirmation next step.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMBERSHIP -->
+    <section aria-labelledby="membership-title">
+      <div class="container">
+        <div class="card card-green">
+          <div class="split">
+            <div>
+              <div class="eyebrow">Membership</div>
+              <h2 class="section-title" id="membership-title">Founding membership <span>opening soon</span></h2>
+              <p class="lead" style="max-width:640px;">
+                We’re building the first layer of the Dublin collective through early sessions, socials and match days. If you want first access to founding membership, register your interest above.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="mini-title">Planned member benefits</h3>
+              <div class="pill-list">
+                <span class="pill">Regular social pitch sessions</span>
+                <span class="pill">Monthly social gatherings</span>
+                <span class="pill">Priority access to match days</span>
+                <span class="pill">Closer local community in Dublin</span>
+              </div>
+              <p class="micro" style="margin-top:18px;">
+                TODO: if membership is already live, replace this block with exact pricing, billing frequency, what is included, and cancellation terms.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section aria-labelledby="faq-title">
+      <div class="container">
+        <div class="eyebrow">FAQ</div>
+        <h2 class="section-title" id="faq-title">Questions people ask <span>before joining</span></h2>
+
+        <div class="faq">
+          <article class="faq-item">
+            <h3>Do I need experience to join?</h3>
+            <p>No. Most people join as complete beginners. Sessions are designed to be social, welcoming and beginner-friendly.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>Can I come on my own?</h3>
+            <p>Yes. Many people do. This community is built for newcomers, internationals and locals who want to meet people in a low-pressure way.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>Where do sessions happen?</h3>
+            <p>Usually at a confirmed Dublin location such as Na Fianna or another suitable pitch. Exact details are shared before the event.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>What happens after I register interest?</h3>
+            <p>You’ll hear from us with the next suitable session, social or match-day update, plus relevant community information.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2B -->
+    <section class="b2b" aria-labelledby="b2b-title">
+      <div class="container split">
+        <div>
+          <div class="eyebrow">For teams and partners</div>
+          <h2 class="section-title" id="b2b-title">Help international teams feel <span>more local</span></h2>
+          <p class="lead" style="max-width:700px;">
+            We create small-group Gaelic Games and cultural experiences that help international teams build local connection in Dublin. Better than generic team-building; closer to how belonging actually works.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="mini-title">Good fit for</h3>
+          <div class="pill-list">
+            <span class="pill">HR & People teams</span>
+            <span class="pill">Relocation partners</span>
+            <span class="pill">International onboarding</span>
+            <span class="pill">Culture-led offsites</span>
+          </div>
+
+          <div class="btn-row" style="margin-top:22px;">
+            <a class="btn btn-primary" href="mailto:hello@beyondthepitch.ie?subject=B2B%20Dublin%20Community%20Experience">Enquire about a team event</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="container">
+        <div class="eyebrow">Dublin community</div>
+        <h2 class="headline" id="final-title">Start with one <span>session</span></h2>
+        <p class="lead" style="margin-inline:auto;">
+          You do not need to know the sport. You do not need to know anyone. You just need a reason to show up.
         </p>
-        <a href="mailto:hello@beyondthepitch.ie" class="text-[10px] font-black uppercase tracking-[0.3em] text-gold hover:text-white transition-all border-b border-gold pb-1 italic">
-          Inquire about an event for your company →
-        </a>
-      </div>
-    </section>
 
-    <!-- ════════════════════════════════════════════════
-         EVENTS
-    ════════════════════════════════════════════════ -->
-    <section id="events" class="py-24 bg-black px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <p class="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3">Get on the pitch</p>
-          <h2 class="btp-title text-4xl md:text-6xl mb-4 text-white italic">Upcoming <span class="text-gold">Events</span></h2>
-          <p class="text-gray-500 text-sm italic max-w-xl mx-auto">Sessions, socials & match days. Sign up with your name.</p>
+        <div class="btn-row" style="justify-content:center; margin-top:28px;">
+          <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
+          <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">Join WhatsApp community</a>
         </div>
-        <div class="flex justify-center mb-12">
-          <div class="flex gap-0 border-b border-gray-800 text-[10px] font-black uppercase tracking-widest">
-            <button onclick="filterEvents('all')"     data-tab="all"     class="evt-tab px-5 pb-3 text-gold    border-b-2 border-gold        transition-colors">All</button>
-            <button onclick="filterEvents('session')" data-tab="session" class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Sessions</button>
-            <button onclick="filterEvents('social')"  data-tab="social"  class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Social</button>
-            <button onclick="filterEvents('match')"   data-tab="match"   class="evt-tab px-5 pb-3 text-gray-600 border-b-2 border-transparent hover:text-gray-400 transition-colors">Match Days</button>
-          </div>
-        </div>
-        <div id="events-grid" class="grid md:grid-cols-3 gap-6"></div>
-        <p id="events-empty" class="hidden text-center text-gray-700 italic text-sm py-16 uppercase tracking-widest font-black">No events in this category yet.</p>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════
-         ROADMAP
-    ════════════════════════════════════════════════ -->
-    <section id="roadmap" class="py-24 bg-black px-6">
-      <div class="max-w-6xl mx-auto text-center mb-16">
-        <h2 class="btp-title text-4xl md:text-6xl mb-4 text-white italic">Launch <span class="text-gold">Sequence</span></h2>
-        <p class="text-gray-500 uppercase tracking-[0.3em] font-bold text-[10px]">Building the collective in real-time</p>
-      </div>
-      <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-left">
-        <div class="p-8 border border-gold bg-panel relative">
-          <div class="absolute -top-3 left-6 bg-gold text-black px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic">Phase 01: Active</div>
-          <div class="text-4xl font-black mb-4 italic text-outline">01.</div>
-          <h3 class="btp-title text-xl mb-4 text-white">The Tribe Gathering</h3>
-          <p class="text-gray-500 text-sm italic">We are onboarding our founding 20 members via WhatsApp through February. This group votes on our first pub meet-up (late april) and first pitch session (early May).</p>
-        </div>
-        <div class="p-8 border border-gray-800 bg-black/40 opacity-60">
-          <div class="text-4xl font-black mb-4 italic text-outline text-gray-800">02.</div>
-          <h3 class="btp-title text-xl mb-4 text-gray-400">The First Whistle</h3>
-          <p class="text-gray-500 text-sm italic">Our inaugural "Social Pitch" session. Basics of the game, zero contact, followed by Clubhouse drinks.</p>
-        </div>
-        <div class="p-8 border border-gray-800 bg-black/40 opacity-60">
-          <div class="text-4xl font-black mb-4 italic text-outline text-gray-800">03.</div>
-          <h3 class="btp-title text-xl mb-4 text-gray-400">The Full Loop</h3>
-          <p class="text-gray-500 text-sm italic">2 pitch sessions per month (Sundays 2-4pm), monthly pub social, access to GAA matches, and a permanent community of friends in the heart of Dublin.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════
-         JOIN / VALUE EXCHANGE
-    ════════════════════════════════════════════════ -->
-    <section id="join" class="py-24 px-6 max-w-6xl mx-auto">
-      <h2 class="btp-title text-4xl mb-16 text-center italic text-gold">The Value Exchange</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="card-btp">
-          <h3 class="btp-title text-2xl mb-2 text-white italic">The Player</h3>
-          <p class="text-gray-400 text-sm mb-6 uppercase tracking-widest font-bold">€20 / Month (Founding Rate)</p>
-          <p class="text-gray-300 mb-8 text-sm italic">€20/month gets you 2 casual pitch sessions, monthly pub meet-ups, WhatsApp tribe access, and discounted GAA match tickets (tickets sold separately).</p>
-          <ul class="text-[10px] space-y-3 text-gray-500 font-black uppercase mb-8 italic">
-            <li>✓ Social Pitch Access</li>
-            <li>✓ Private WhatsApp Tribe</li>
-            <li>✓ Priority Match Tickets</li>
-          </ul>
-          <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-primary w-full text-center py-4 text-xs tracking-widest italic">Register Interest</a>
-        </div>
-        <div class="card-btp !border-green">
-          <h3 class="btp-title text-2xl mb-2 text-green italic">The Captain</h3>
-          <p class="text-gray-400 text-sm mb-6 uppercase tracking-widest font-bold">Contribution: Local Pride</p>
-          <p class="text-gray-300 mb-8 text-sm text-balance italic">Dublin native? Commit 2-4 hours per month: help welcome newcomers, share local spots, and co-host one social event per quarter. Pure pride, zero fees.</p>
-          <ul class="text-[10px] space-y-3 text-gray-500 font-black uppercase mb-8 italic">
-            <li>✓ Mentor New Players</li>
-            <li>✓ Lead Social Meet-ups</li>
-            <li>✓ Zero Financial Fee</li>
-          </ul>
-          <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="block w-full py-4 border border-green text-green text-center font-black uppercase text-[10px] tracking-widest hover:bg-green hover:text-white transition italic">Apply to Lead</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════
-         FINAL CTA
-    ════════════════════════════════════════════════ -->
-    <section class="py-40 px-6 text-center border-t border-gray-900">
-      <h2 class="btp-title text-5xl md:text-[9rem] mb-12 leading-none text-white italic">The Pitch <br><span class="text-gold text-outline underline italic decoration-1 underline-offset-8">Awaits.</span></h2>
-      <div class="flex flex-col items-center gap-4">
-        <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" class="btn-whatsapp scale-125 italic font-black">
-          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Join the Founding 20
-        </a>
-        <p class="text-gray-600 text-[10px] uppercase font-bold tracking-widest mt-12 italic">Phase 01: Community Onboarding Now</p>
       </div>
     </section>
   </main>
 
-  <!-- ════════════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════════════ -->
-  <footer class="p-12 border-t border-gray-900 text-center text-gray-700 text-[10px] font-black uppercase tracking-[0.3em] italic">
-    &copy; 2026 Beyond the Pitch. No Labels. One Pitch. One Dublin.
+  <footer>
+    <div class="container footer-row">
+      <div>© <span id="year">2026</span> Beyond the Pitch</div>
+      <div>Sport as a gateway to culture, community and local access.</div>
+    </div>
   </footer>
 
-  <!-- ════════════════════════════════════════════════
-       SIGN-UP MODAL  (potjevoetballen-style CTA)
-  ════════════════════════════════════════════════ -->
-  <div id="signup-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);z-index:200;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto;" onclick="if(event.target===this)closeModal()">
-    <div style="background:#0a0a0a;border:1px solid #222;width:100%;max-width:420px;margin:2rem auto;position:relative;">
-
-      <!-- Accent bar (colour set by JS) -->
-      <div id="m-accent-bar" style="height:3px;background:#ffd700;"></div>
-
-      <div style="padding:2rem;">
-        <!-- Close -->
-        <button onclick="closeModal()" style="position:absolute;top:1.25rem;right:1.5rem;background:none;border:none;color:#444;font-size:1.1rem;font-weight:900;cursor:pointer;line-height:1;">✕</button>
-
-        <!-- Badge -->
-        <div id="m-badge" style="display:inline-block;padding:3px 10px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.85rem;background:#ffd700;color:#000;">Session</div>
-
-        <!-- Title -->
-        <h3 id="m-title" style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.5rem;color:#fff;margin:0 0 1.25rem;line-height:1.05;padding-right:1.5rem;"></h3>
-
-        <!-- Meta: date / time / location -->
-        <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.5rem;">
-          <p id="m-date" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
-          <p id="m-time" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
-          <p id="m-loc"  style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;margin:0;"></p>
-        </div>
-
-        <!-- Progress bar -->
-        <div style="margin-bottom:1.5rem;">
-          <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.35rem;">
-            <span style="color:#333;">Players</span>
-            <span id="m-spots-label" style="color:#ffd700;">0/10</span>
-          </div>
-          <div style="height:3px;background:#1c1c1c;overflow:hidden;margin-bottom:.5rem;">
-            <div id="m-spots-bar" style="height:100%;background:#ffd700;width:0%;transition:width .4s;"></div>
-          </div>
-          <!-- Spot dots row -->
-          <div id="m-dot-row" style="display:flex;gap:5px;flex-wrap:wrap;margin-top:.5rem;"></div>
-        </div>
-
-        <!-- ── SIGNED-UP LIST ── -->
-        <div style="margin-bottom:1.5rem;">
-          <p style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:#2a2a2a;margin:0 0 .6rem;">Signed up</p>
-          <div id="m-player-list" style="border-top:1px solid #111;"></div>
-          <div id="m-no-players" style="font-size:9px;font-style:italic;color:#1e1e1e;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.6rem 0;border-top:1px solid #111;">No one yet — be the first.</div>
-        </div>
-
-        <!-- ── SIGN-UP FORM ── -->
-        <div id="m-form">
-          <label style="display:block;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:#333;margin-bottom:.5rem;">Your name</label>
-          <input id="m-name" type="text" placeholder="e.g. Ciarán Murphy"
-            style="width:100%;box-sizing:border-box;background:#000;border:1px solid #222;color:#fff;padding:.75rem 1rem;font-size:.875rem;font-weight:700;margin-bottom:.75rem;outline:none;font-family:inherit;transition:border-color .2s;"
-            onfocus="this.style.borderColor='#ffd700'" onblur="this.style.borderColor='#222'"
-            onkeydown="if(event.key==='Enter')signUp()" />
-          <button onclick="signUp()" style="width:100%;background:#ffd700;color:#000;font-weight:900;text-transform:uppercase;padding:1rem;font-size:.72rem;letter-spacing:.15em;border:none;cursor:pointer;font-family:inherit;transition:all .2s;" onmouseenter="this.style.background='#fff'" onmouseleave="this.style.background='#ffd700'">⚽ Sign Me Up</button>
-          <p style="font-size:9px;color:#1e1e1e;text-align:center;margin-top:.65rem;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">No account. No spam.</p>
-        </div>
-
-        <!-- ── SUCCESS ── -->
-        <div id="m-success" style="display:none;text-align:center;padding:1.5rem 0;">
-          <div style="font-size:2.5rem;margin-bottom:.75rem;">🎉</div>
-          <p style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.3rem;color:#ffd700;margin:0 0 .4rem;">You're In!</p>
-          <p style="color:#555;font-size:.8rem;font-style:italic;">See you on the pitch.</p>
-          <button onclick="closeModal()" style="margin-top:1.25rem;background:#fff;color:#000;padding:.7rem 1.5rem;font-weight:900;text-transform:uppercase;font-size:.7rem;letter-spacing:.15em;border:none;cursor:pointer;font-family:inherit;">← Back to events</button>
-        </div>
-
-        <!-- ── FULL ── -->
-        <div id="m-full" style="display:none;text-align:center;padding:1.5rem 0;border-top:1px solid #111;">
-          <p style="font-weight:900;text-transform:uppercase;letter-spacing:.15em;font-size:.85rem;color:#ef4444;margin:0 0 .4rem;">This event is full.</p>
-          <p style="color:#333;font-size:.75rem;font-style:italic;margin:0;">Join the WhatsApp to grab a spot when one opens.</p>
-        </div>
-
-        <!-- ── WHATSAPP ── -->
-        <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank"
-          style="margin-top:1.25rem;background:#25D366;color:#fff;font-weight:900;text-transform:uppercase;font-size:.7rem;letter-spacing:.15em;padding:.85rem 1rem;display:flex;align-items:center;justify-content:center;gap:.5rem;text-decoration:none;transition:filter .2s;"
-          onmouseenter="this.style.filter='brightness(1.1)'" onmouseleave="this.style.filter='brightness(1)'">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Join WhatsApp community
-        </a>
-
-      </div><!-- /padding -->
-    </div><!-- /modal inner -->
-  </div><!-- /modal -->
-
-
-  <!-- ════════════════════════════════════════════════
-       EVENTS SCRIPT
-  ════════════════════════════════════════════════ -->
   <script>
-  const STORE_KEY = 'btp_events_v2';
-  const BADGES = {
-    session: { label: ' Session',   bg: '#ffd700', color: '#000' },
-    social:  { label: ' Social',    bg: '#169b62', color: '#fff' },
-    match:   { label: ' Match Day', bg: '#fff',    color: '#000' },
-  };
-  const ACCENT = { session: '#ffd700', social: '#169b62', match: '#ffffff' };
+    document.documentElement.classList.remove('no-js');
 
-  let events = [
-    { id:'e1', type:'session', title:'Social Pitch Session',          dateLabel:'Monday – Friday',    dateSort:'2026-05-04', time:'10:00 – 11:00', location:'Na Fianna GAA Club, Dublin',  max:20, players:[],                        desc:'Our inaugural session. Touch rules, cultural deepdive, max craic. All levels welcome.' },
-    { id:'e2', type:'social',  title:'Pub Meet-Up — April',           dateLabel:'Saturday 26 April',  dateSort:'2026-04-26', time:'20:00 – Late',   location:"Mulligan's, Dublin 2",        max:40, players:['','',''],   desc:'Monthly pub social. New faces, old stories, cold pints.' },
-    { id:'e3', type:'match',   title:'GAA Match Day — Dublin vs Kilkenny',dateLabel:'Sunday 24 May',   dateSort:'2026-04-20', time:'15:00 – 18:00',  location:'Croke Park, Dublin 3',        max:16, players:['','',''],  desc:'Learn about the game, play it yourself and make group trip to Croke Park..' },
-    { id:'e4', type:'session', title:'Evening Kick-About',             dateLabel:'Tuesday 29 April',   dateSort:'2026-04-29', time:'19:00 – 21:00',  location:'Markievicz Park, Dublin 8',   max:14, players:[],                        desc:'Midweek session under the lights. Beginners especially welcome.' },
-  ];
+    // Auto-fill year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  let activeFilter = 'all', currentId = null;
-  try { const s = sessionStorage.getItem(STORE_KEY); if(s) events = JSON.parse(s); } catch(e){}
-  function save() { try { sessionStorage.setItem(STORE_KEY, JSON.stringify(events)); } catch(e){} }
+    // Capture UTM parameters for lead attribution
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
 
-  // ── Event Cards ─────────────────────────────────────────────────────────────
-  function render() {
-    const grid  = document.getElementById('events-grid');
-    const empty = document.getElementById('events-empty');
-    const list  = activeFilter === 'all' ? events : events.filter(e => e.type === activeFilter);
-    if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
-    empty.style.display = 'none';
-
-    grid.innerHTML = list.map(ev => {
-      const b     = BADGES[ev.type] || BADGES.session;
-      const taken = ev.players.length, left = ev.max - taken, full = left <= 0;
-      const pct   = Math.min(100, (taken / ev.max) * 100);
-      const barCol= pct >= 80 ? '#ef4444' : ACCENT[ev.type];
-
-      // Avatar initials (max 6) + overflow count
-      const avatarHtml = taken > 0 ? `
-        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.75rem;">
-          ${ev.players.slice(0,6).map(p => `
-            <div title="${p}" style="width:26px;height:26px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#ffd700;text-transform:uppercase;">${p[0]}</div>
-          `).join('')}
-          ${taken > 6 ? `<div style="width:26px;height:26px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#444;">+${taken-6}</div>` : ''}
-        </div>` : '';
-
-      return `
-        <div onclick="openModal('${ev.id}')" style="background:#0a0a0a;border:1px solid #1a1a1a;cursor:pointer;display:flex;flex-direction:column;transition:border-color .25s;" onmouseenter="this.style.borderColor='${ACCENT[ev.type]}'" onmouseleave="this.style.borderColor='#1a1a1a'">
-          <div style="height:3px;background:${ACCENT[ev.type]};"></div>
-          <div style="padding:1.5rem;display:flex;flex-direction:column;flex:1;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;">
-              <span style="display:inline-block;padding:2px 8px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;background:${b.bg};color:${b.color};">${b.label}</span>
-              <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:${full?'#ef4444':'#169b62'};">● ${full ? 'FULL' : left + ' left'}</span>
-            </div>
-            <h3 style="font-weight:900;text-transform:uppercase;font-style:italic;letter-spacing:-.03em;font-size:1.2rem;color:#fff;margin:0 0 .85rem;line-height:1.1;">${ev.title}</h3>
-            <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:.85rem;">
-              <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;">📅 ${ev.dateLabel}</span>
-              <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;">🕓 ${ev.time}</span>
-              <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#555;">📍 ${ev.location}</span>
-            </div>
-            ${ev.desc ? `<p style="color:#444;font-size:.72rem;font-style:italic;margin-bottom:.85rem;line-height:1.6;">${ev.desc}</p>` : ''}
-            <div style="margin-top:auto;">
-              <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;margin-bottom:4px;">
-                <span style="color:#333;">Players</span><span style="color:#666;">${taken}/${ev.max}</span>
-              </div>
-              <div style="height:3px;background:#111;overflow:hidden;margin-bottom:.85rem;">
-                <div style="height:100%;background:${barCol};width:${pct}%;transition:width .4s;"></div>
-              </div>
-              ${avatarHtml}
-              <div style="border-top:1px solid #111;padding-top:.85rem;">
-                <span style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:${full ? '#222' : ACCENT[ev.type]};">${full ? 'Event full' : 'Sign up →'}</span>
-              </div>
-            </div>
-          </div>
-        </div>`;
-    }).join('');
-  }
-
-  function filterEvents(tab) {
-    activeFilter = tab;
-    document.querySelectorAll('.evt-tab').forEach(b => {
-      const on = b.dataset.tab === tab;
-      b.style.color = on ? '#ffd700' : '#4b5563';
-      b.style.borderBottomColor = on ? '#ffd700' : 'transparent';
-    });
-    render();
-  }
-
-  // ── Modal helpers ────────────────────────────────────────────────────────────
-  function renderModalPlayers(ev) {
-    const list   = document.getElementById('m-player-list');
-    const noOne  = document.getElementById('m-no-players');
-    const taken  = ev.players.length, full = taken >= ev.max;
-    const pct    = Math.min(100, (taken / ev.max) * 100);
-    const barCol = pct >= 80 ? '#ef4444' : ACCENT[ev.type];
-
-    // Progress
-    document.getElementById('m-spots-label').textContent = `${taken}/${ev.max}`;
-    document.getElementById('m-spots-bar').style.width   = pct + '%';
-    document.getElementById('m-spots-bar').style.background = barCol;
-
-    // Dot row (filled vs empty spots)
-    const dotRow = document.getElementById('m-dot-row');
-    dotRow.innerHTML = Array.from({length: ev.max}, (_, i) => {
-      const filled = i < taken;
-      return `<div class="spot-dot" style="background:${filled ? ACCENT[ev.type] : '#1a1a1a'};border:1px solid ${filled ? 'transparent' : '#2a2a2a'};"></div>`;
-    }).join('');
-
-    // Named list
-    if (taken > 0) {
-      noOne.style.display = 'none';
-      list.innerHTML = ev.players.map((p, i) => `
-        <div class="player-row slide-up" style="animation-delay:${i * 0.04}s;">
-          <span class="player-num">${i + 1}</span>
-          <span class="player-name">${p}</span>
-        </div>`).join('');
-    } else {
-      noOne.style.display = 'block';
-      list.innerHTML = '';
-    }
-
-    // Show/hide form vs full
-    document.getElementById('m-form').style.display = full ? 'none' : 'block';
-    document.getElementById('m-full').style.display = full ? 'block' : 'none';
-    document.getElementById('m-success').style.display = 'none';
-  }
-
-  // ── Open Modal ───────────────────────────────────────────────────────────────
-  function openModal(id) {
-    const ev = events.find(e => e.id === id);
-    if (!ev) return;
-    currentId = id;
-
-    const b = BADGES[ev.type] || BADGES.session;
-    const accent = ACCENT[ev.type];
-
-    // Accent bar colour
-    document.getElementById('m-accent-bar').style.background = accent;
-
-    // Badge
-    const badge = document.getElementById('m-badge');
-    badge.textContent      = b.label;
-    badge.style.background = b.bg;
-    badge.style.color      = b.color;
-
-    // Text fields
-    document.getElementById('m-title').textContent = ev.title;
-    document.getElementById('m-date').textContent  = '📅 ' + ev.dateLabel;
-    document.getElementById('m-time').textContent  = '🕓 ' + ev.time;
-    document.getElementById('m-loc').textContent   = '📍 ' + ev.location;
-
-    // Name input
-    document.getElementById('m-name').value       = '';
-    document.getElementById('m-name').placeholder = 'e.g. Ciarán Murphy';
-    document.getElementById('m-name').style.borderColor = '#222';
-
-    // Player list + progress
-    renderModalPlayers(ev);
-
-    // Open
-    const modal = document.getElementById('signup-modal');
-    modal.style.display = 'flex';
-    modal.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    document.getElementById('signup-modal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-  // ── Sign Up ──────────────────────────────────────────────────────────────────
-  function signUp() {
-    const nameEl = document.getElementById('m-name');
-    const name   = nameEl.value.trim();
-    if (!name) {
-      nameEl.style.borderColor = '#ef4444';
-      nameEl.placeholder = 'Enter your name first!';
-      return;
-    }
-    nameEl.style.borderColor = '#222';
-    const ev = events.find(e => e.id === currentId);
-    if (!ev) return;
-    if (ev.players.map(p => p.toLowerCase()).includes(name.toLowerCase())) {
-      nameEl.value = '';
-      nameEl.placeholder = "You're already signed up!";
-      return;
-    }
-
-    ev.players.push(name);
-    save();
-    render(); // update cards in background
-
-    // Update modal: re-render player list + progress
-    renderModalPlayers(ev);
-
-    // Show newly added name with highlight
-    const rows = document.querySelectorAll('#m-player-list .player-row');
-    const lastRow = rows[rows.length - 1];
-    if (lastRow) {
-      const badge = document.createElement('span');
-      badge.className = 'player-new';
-      badge.textContent = 'New';
-      lastRow.appendChild(badge);
-    }
-
-    // Show success block
-    document.getElementById('m-form').style.display    = 'none';
-    document.getElementById('m-success').style.display = 'block';
-  }
-
-  // ── Init ─────────────────────────────────────────────────────────────────────
-  render();
+      utmFields.forEach(function(field) {
+        const el = document.getElementById(field);
+        if (el && params.get(field)) {
+          el.value = params.get(field);
+        }
+      });
+    })();
   </script>
-
 </body>
 </html>
