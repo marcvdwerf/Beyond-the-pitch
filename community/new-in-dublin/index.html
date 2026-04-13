@@ -611,6 +611,18 @@
       border: 0;
     }
 
+    /* Success message styling */
+    .form-success {
+      display: none;
+      padding: 24px;
+      border: 1px solid rgba(22,155,98,.4);
+      border-radius: var(--radius);
+      background: rgba(22,155,98,.08);
+      color: #86e0b8;
+      text-align: center;
+      font-weight: 600;
+    }
+
     @media (max-width: 980px) {
       .hero-grid,
       .split,
@@ -741,7 +753,6 @@
 
         <aside class="hero-visual" aria-label="Community visuals">
           <div class="hero-visual__img">
-            <!-- TODO: host locally on your own domain/CDN in production -->
             <img
               src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg"
               alt="People connecting in Dublin through Beyond the Pitch"
@@ -817,7 +828,6 @@
 
         <div class="visual-stack">
           <figure>
-            <!-- TODO: host locally on your own domain/CDN in production -->
             <img
               src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/mattashefflin.jpg"
               alt="Gaelic Games action connected to local culture in Ireland"
@@ -921,7 +931,7 @@
           <div class="eyebrow">What to expect</div>
           <h2 class="section-title" id="expect-title">Your first time should feel <span>easy</span></h2>
           <p class="lead">
-            The biggest friction point is usually not sport - it’s uncertainty. So we make the first experience clear and welcoming.
+            The biggest friction point is usually not sport - it's uncertainty. So we make the first experience clear and welcoming.
           </p>
         </div>
 
@@ -938,11 +948,11 @@
 
           <div class="expect">
             <h3>Bring trainers and weather-ready clothes</h3>
-            <p class="muted">We keep logistics simple. If anything specific is needed, we’ll tell you in advance.</p>
+            <p class="muted">We keep logistics simple. If anything specific is needed, we'll tell you in advance.</p>
           </div>
 
           <div class="expect">
-            <h3>It’s social before it’s serious</h3>
+            <h3>It's social before it's serious</h3>
             <p class="muted">The goal is connection first, performance second. That is what makes the format work.</p>
           </div>
         </div>
@@ -956,7 +966,7 @@
           <div class="eyebrow">Primary conversion</div>
           <h2 class="section-title" id="reserve-title">Reserve your spot or <span>register interest</span></h2>
           <p class="form-note">
-            Use this form to join the next suitable session, social or match day. If you are not ready to pick an event yet, you can still tell us what you’re interested in.
+            Use this form to join the next suitable session, social or match day. If you are not ready to pick an event yet, you can still tell us what you're interested in.
           </p>
 
           <div class="contact-list">
@@ -964,18 +974,25 @@
               WhatsApp community →
             </a>
             <a href="mailto:thebeyondthepitch@gmail.com?subject=Dublin%20Community%20Interest">
-             thebeyondthepitch.com →
+             thebeyondthepitch@gmail.com →
             </a>
           </div>
-
-          <p class="micro" style="margin-top:18px;">
-           
-          </p>
         </aside>
 
         <div class="card">
-          <!-- TODO: Replace action with your real endpoint or form provider URL -->
-          <form action="/community-interest/submit" method="post" novalidate>
+          <!-- ✅ Formspree endpoint connected -->
+          <form
+            id="community-form"
+            action="https://formspree.io/f/mbdqrnjq"
+            method="POST"
+          >
+            <!-- Formspree: redirect after successful submit -->
+            <input type="hidden" name="_next" value="https://travelbeyondthepitch.com/community/dublin/?submitted=true" />
+            <!-- Formspree: custom subject line in your inbox -->
+            <input type="hidden" name="_subject" value="New community interest – Beyond the Pitch Dublin" />
+            <!-- Honeypot spam protection -->
+            <input type="text" name="_gotcha" style="display:none" />
+
             <input type="hidden" name="source_page" value="dublin-community-page" />
             <input type="hidden" name="utm_source" id="utm_source" value="" />
             <input type="hidden" name="utm_medium" id="utm_medium" value="" />
@@ -1039,7 +1056,7 @@
 
             <div class="field">
               <label for="message">Anything useful for us to know?</label>
-              <textarea id="message" name="message" placeholder="For example: I’m new in Dublin, I’ll probably come alone, I’m more interested in the social first, etc."></textarea>
+              <textarea id="message" name="message" placeholder="For example: I'm new in Dublin, I'll probably come alone, I'm more interested in the social first, etc."></textarea>
             </div>
 
             <label class="checkbox">
@@ -1052,9 +1069,10 @@
               <a class="btn btn-secondary" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">Prefer WhatsApp</a>
             </div>
 
-            <p class="micro">
-              
-            </p>
+            <!-- Inline success message (shown via JS after AJAX submit) -->
+            <div class="form-success" id="form-success" role="alert">
+              ✅ Thanks — we'll be in touch about the next session, social or match day.
+            </div>
           </form>
         </div>
       </div>
@@ -1069,7 +1087,7 @@
               <div class="eyebrow">Membership</div>
               <h2 class="section-title" id="membership-title">Founding membership <span>opening soon</span></h2>
               <p class="lead" style="max-width:640px;">
-                We’re building the first layer of the Dublin collective through early sessions, socials and match days. If you want first access to founding membership, register your interest above.
+                We're building the first layer of the Dublin collective through early sessions, socials and match days. If you want first access to founding membership, register your interest above.
               </p>
             </div>
 
@@ -1081,9 +1099,6 @@
                 <span class="pill">Priority access to match days</span>
                 <span class="pill">Closer local community in Dublin</span>
               </div>
-              <p class="micro" style="margin-top:18px;">
-                
-              </p>
             </div>
           </div>
         </div>
@@ -1114,7 +1129,7 @@
 
           <article class="faq-item">
             <h3>What happens after I register interest?</h3>
-            <p>You’ll hear from us with the next suitable session, social or match-day update, plus relevant community information.</p>
+            <p>You'll hear from us with the next suitable session, social or match-day update, plus relevant community information.</p>
           </article>
         </div>
       </div>
@@ -1181,7 +1196,6 @@
     (function () {
       const params = new URLSearchParams(window.location.search);
       const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-
       utmFields.forEach(function(field) {
         const el = document.getElementById(field);
         if (el && params.get(field)) {
@@ -1189,6 +1203,39 @@
         }
       });
     })();
+
+    // AJAX submit to Formspree (keeps user on page, shows inline success)
+    const form = document.getElementById('community-form');
+    const successMsg = document.getElementById('form-success');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          successMsg.style.display = 'block';
+          submitBtn.style.display = 'none';
+        } else {
+          submitBtn.textContent = 'Something went wrong — try again';
+          submitBtn.disabled = false;
+        }
+      } catch (err) {
+        submitBtn.textContent = 'Network error — try again';
+        submitBtn.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
