@@ -10,10 +10,8 @@
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0b0b0b" />
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://travelbeyondthepitch.com/community/dublin/" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Beyond the Pitch" />
   <meta property="og:title" content="Meet People in Dublin Through Gaelic Games" />
@@ -23,18 +21,15 @@
   <meta property="og:image:alt" content="People socialising in Dublin with Beyond the Pitch" />
   <meta property="og:locale" content="en_IE" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Meet People in Dublin Through Gaelic Games" />
   <meta name="twitter:description" content="Beginner-friendly Gaelic Games sessions, socials and match days for internationals and locals in Dublin." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg" />
 
-  <!-- Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <!-- SEO / Language -->
   <link rel="alternate" hreflang="en" href="https://travelbeyondthepitch.com/community/dublin/" />
   <link rel="alternate" hreflang="x-default" href="https://travelbeyondthepitch.com/community/dublin/" />
 
@@ -175,9 +170,7 @@
       background: var(--gold);
       color: #000;
     }
-    .btn-primary:hover {
-      filter: brightness(1.03);
-    }
+    .btn-primary:hover { filter: brightness(1.03); }
 
     .btn-secondary {
       background: transparent;
@@ -194,6 +187,7 @@
       color: #fff;
     }
 
+    /* ── SITE HEADER ── */
     .site-header {
       position: sticky;
       top: 0;
@@ -231,23 +225,36 @@
       font-weight: 700;
     }
 
+    /* ── VIDEO HERO ── */
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 84px 0 56px;
+      padding: 8rem 1.5rem 6rem;
       border-bottom: 1px solid rgba(255,255,255,.06);
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.78)),
-        radial-gradient(circle at 20% 20%, rgba(243,198,35,.09), transparent 35%),
-        radial-gradient(circle at 80% 30%, rgba(22,155,98,.08), transparent 30%),
-        var(--bg);
+      color: #fff;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 34px;
-      align-items: center;
+    .hero__video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.62);
+      z-index: 1;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+      margin: 0 auto;
     }
 
     .hero-copy p {
@@ -257,28 +264,10 @@
     .hero-note {
       margin-top: 16px;
       font-size: .95rem;
-      color: var(--soft);
+      color: rgba(255,255,255,.55);
     }
 
-    .hero-visual {
-      display: grid;
-      gap: 16px;
-    }
-
-    .hero-visual__img {
-      overflow: hidden;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: #000;
-    }
-
-    .hero-visual__img img {
-      width: 100%;
-      height: 100%;
-      min-height: 380px;
-      object-fit: cover;
-    }
-
+    /* ── PROOF STRIP ── */
     .proof-strip {
       padding: 18px 0;
       border-bottom: 1px solid rgba(255,255,255,.06);
@@ -309,9 +298,7 @@
       letter-spacing: .08em;
     }
 
-    section {
-      padding: 84px 0;
-    }
+    section { padding: 84px 0; }
 
     .split {
       display: grid;
@@ -320,11 +307,7 @@
       align-items: start;
     }
 
-    .steps {
-      display: grid;
-      gap: 18px;
-      margin-top: 28px;
-    }
+    .steps { display: grid; gap: 18px; margin-top: 28px; }
 
     .step {
       display: grid;
@@ -356,10 +339,7 @@
       letter-spacing: -0.02em;
     }
 
-    .visual-stack {
-      display: grid;
-      gap: 16px;
-    }
+    .visual-stack { display: grid; gap: 16px; }
 
     .visual-stack figure {
       margin: 0;
@@ -409,16 +389,10 @@
     }
 
     .tag-session { background: rgba(243,198,35,.14); color: var(--gold); }
-    .tag-social { background: rgba(22,155,98,.14); color: #86e0b8; }
-    .tag-match { background: rgba(255,255,255,.10); color: #fff; }
+    .tag-social  { background: rgba(22,155,98,.14);  color: #86e0b8; }
+    .tag-match   { background: rgba(255,255,255,.10); color: #fff; }
 
-    .event-meta {
-      display: grid;
-      gap: 8px;
-      font-size: .95rem;
-      color: var(--muted);
-    }
-
+    .event-meta { display: grid; gap: 8px; font-size: .95rem; color: var(--muted); }
     .event-meta strong { color: var(--white); }
 
     .event-cta {
@@ -427,12 +401,7 @@
       border-top: 1px solid rgba(255,255,255,.07);
     }
 
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 
     .pill {
       display: inline-flex;
@@ -444,16 +413,12 @@
       font-size: .92rem;
     }
 
-    .expect-list {
-      display: grid;
-      gap: 16px;
-    }
+    .expect-list { display: grid; gap: 16px; }
 
     .expect {
       padding: 18px 0;
       border-top: 1px solid rgba(255,255,255,.08);
     }
-
     .expect:first-child { border-top: 0; }
 
     .form-wrap {
@@ -463,21 +428,10 @@
       align-items: start;
     }
 
-    .form-panel {
-      position: sticky;
-      top: 100px;
-    }
+    .form-panel { position: sticky; top: 100px; }
+    .form-note { font-size: .95rem; color: var(--muted); }
 
-    .form-note {
-      font-size: .95rem;
-      color: var(--muted);
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 20px;
-    }
+    .contact-list { display: grid; gap: 14px; margin-top: 20px; }
 
     .contact-list a {
       display: inline-flex;
@@ -486,27 +440,13 @@
       color: var(--muted);
     }
 
-    form {
-      display: grid;
-      gap: 16px;
-    }
+    form { display: grid; gap: 16px; }
 
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    .field {
-      display: grid;
-      gap: 8px;
-    }
+    .field { display: grid; gap: 8px; }
 
-    .field label {
-      font-size: .92rem;
-      font-weight: 700;
-      color: var(--white);
-    }
+    .field label { font-size: .92rem; font-weight: 700; color: var(--white); }
 
     .field input,
     .field select,
@@ -522,10 +462,7 @@
       transition: border-color .2s ease, box-shadow .2s ease;
     }
 
-    .field textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
+    .field textarea { min-height: 130px; resize: vertical; }
 
     .field input:focus,
     .field select:focus,
@@ -542,20 +479,11 @@
       font-size: .95rem;
     }
 
-    .checkbox input {
-      margin-top: 4px;
-      accent-color: var(--gold);
-    }
+    .checkbox input { margin-top: 4px; accent-color: var(--gold); }
 
-    .micro {
-      font-size: .86rem;
-      color: var(--soft);
-    }
+    .micro { font-size: .86rem; color: var(--soft); }
 
-    .faq {
-      display: grid;
-      gap: 16px;
-    }
+    .faq { display: grid; gap: 16px; }
 
     .faq-item {
       border: 1px solid rgba(255,255,255,.08);
@@ -564,10 +492,7 @@
       background: rgba(255,255,255,.02);
     }
 
-    .faq-item p {
-      margin: 0;
-      color: var(--muted);
-    }
+    .faq-item p { margin: 0; color: var(--muted); }
 
     .b2b {
       background: linear-gradient(180deg, rgba(243,198,35,.05), rgba(255,255,255,.01));
@@ -575,10 +500,7 @@
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
 
-    .final-cta {
-      text-align: center;
-      padding: 96px 0;
-    }
+    .final-cta { text-align: center; padding: 96px 0; }
 
     .final-cta .headline {
       margin-bottom: 18px;
@@ -601,17 +523,14 @@
 
     .sr-only {
       position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
       overflow: hidden;
       clip: rect(0,0,0,0);
       white-space: nowrap;
       border: 0;
     }
 
-    /* Success message styling */
     .form-success {
       display: none;
       padding: 24px;
@@ -630,9 +549,7 @@
       .grid-3,
       .grid-2,
       .proof-list,
-      .field-grid {
-        grid-template-columns: 1fr;
-      }
+      .field-grid { grid-template-columns: 1fr; }
 
       .site-header__inner {
         align-items: flex-start;
@@ -640,22 +557,17 @@
         flex-direction: column;
       }
 
-      .form-panel {
-        position: static;
-      }
+      .form-panel { position: static; }
 
       .events-header {
         align-items: start;
         flex-direction: column;
       }
 
-      .hero-visual__img img {
-        min-height: 260px;
-      }
+      .hero { padding: 6rem 1.5rem 4rem; }
     }
   </style>
 
-  <!-- Structured data: Organization -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -667,44 +579,15 @@
   }
   </script>
 
-  <!-- Structured data: FAQ -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"Do I need experience to join?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"No. Most people join as complete beginners. Sessions are designed to be beginner-friendly, social and welcoming."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"Can I come on my own?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Yes. Many people do. This community is designed for newcomers, internationals and locals who want to meet people in a low-pressure way."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"What happens after I register interest?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"You receive details about the next suitable session, social or match day, plus updates on upcoming community activity in Dublin."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"What should I bring?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Bring trainers, comfortable clothes and something suitable for Dublin weather. Equipment is provided unless stated otherwise."
-        }
-      }
+      {"@type":"Question","name":"Do I need experience to join?","acceptedAnswer":{"@type":"Answer","text":"No. Most people join as complete beginners. Sessions are designed to be beginner-friendly, social and welcoming."}},
+      {"@type":"Question","name":"Can I come on my own?","acceptedAnswer":{"@type":"Answer","text":"Yes. Many people do. This community is designed for newcomers, internationals and locals who want to meet people in a low-pressure way."}},
+      {"@type":"Question","name":"What happens after I register interest?","acceptedAnswer":{"@type":"Answer","text":"You receive details about the next suitable session, social or match day, plus updates on upcoming community activity in Dublin."}},
+      {"@type":"Question","name":"What should I bring?","acceptedAnswer":{"@type":"Answer","text":"Bring trainers, comfortable clothes and something suitable for Dublin weather. Equipment is provided unless stated otherwise."}}
     ]
   }
   </script>
@@ -717,9 +600,7 @@
       <a class="brand" href="https://travelbeyondthepitch.com/" aria-label="Beyond the Pitch home">
         Beyond the Pitch<span>.</span>
       </a>
-
       <div class="header-meta">Dublin Community / Gaelic Games / Launch Phase</div>
-
       <div class="btn-row">
         <a class="btn btn-secondary" href="#events">Upcoming events</a>
         <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
@@ -728,40 +609,31 @@
   </header>
 
   <main id="main-content">
-    <!-- HERO -->
+
+    <!-- ── VIDEO HERO ── -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">New in Dublin? Start here.</div>
-          <h1 class="headline" id="hero-title">
-            Meet People in Dublin Through <span>Gaelic Games</span>
-          </h1>
-          <p class="lead">
-            Beyond the Pitch is a Dublin community for internationals and locals who want to connect through sport, culture and shared experiences. Join a beginner-friendly Gaelic Games session, a pub social, or a match day - and get to know Dublin through the people who live it.
-          </p>
-          <p class="hero-note">
-            No experience needed. You can come on your own. We make the first step easy.
-          </p>
+      <video class="hero__video" autoplay muted loop playsinline>
+        <source src="/hello-dublin.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__overlay"></div>
 
-          <div class="btn-row" style="margin-top:28px;">
-            <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
-            <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer" aria-label="Join the WhatsApp community">
-              Join WhatsApp community
-            </a>
-          </div>
+      <div class="hero__inner">
+        <div class="eyebrow">New in Dublin? Start here.</div>
+        <h1 class="headline" id="hero-title" style="margin: 16px 0 24px;">
+          Meet People in Dublin Through <span>Gaelic Games</span>
+        </h1>
+        <p class="lead" style="color: rgba(255,255,255,0.75); margin-bottom: 8px;">
+          Beyond the Pitch is a Dublin community for internationals and locals who want to connect through sport, culture and shared experiences. Join a beginner-friendly Gaelic Games session, a pub social, or a match day - and get to know Dublin through the people who live it.
+        </p>
+        <p class="hero-note">
+          No experience needed. You can come on your own. We make the first step easy.
+        </p>
+        <div class="btn-row" style="margin-top: 32px;">
+          <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
+          <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer" aria-label="Join the WhatsApp community">
+            Join WhatsApp community
+          </a>
         </div>
-
-        <aside class="hero-visual" aria-label="Community visuals">
-          <div class="hero-visual__img">
-            <img
-              src="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/templebar.jpg"
-              alt="People connecting in Dublin through Beyond the Pitch"
-              loading="eager"
-              width="1200"
-              height="900"
-            />
-          </div>
-        </aside>
       </div>
     </section>
 
@@ -798,7 +670,6 @@
           <p class="lead">
             This is not a networking night and not a traditional sports club. We use Gaelic Games as a natural, local way to help people meet - on the pitch, around the city, and through shared match-day moments.
           </p>
-
           <div class="steps">
             <div class="step">
               <div class="step-num">01</div>
@@ -807,7 +678,6 @@
                 <p class="muted">Tell us whether you're looking for a session, a social, a match day, or all three.</p>
               </div>
             </div>
-
             <div class="step">
               <div class="step-num">02</div>
               <div>
@@ -815,7 +685,6 @@
                 <p class="muted">Come to a beginner-friendly session or social. You can arrive solo - many people do.</p>
               </div>
             </div>
-
             <div class="step">
               <div class="step-num">03</div>
               <div>
@@ -879,9 +748,7 @@
               <div><strong>Location:</strong> Mulligan's, Dublin 2</div>
               <div><strong>Format:</strong> First-timers welcome / relaxed social</div>
             </div>
-            <p class="muted">
-              A low-pressure first entry point for people who want to meet the community before joining a session.
-            </p>
+            <p class="muted">A low-pressure first entry point for people who want to meet the community before joining a session.</p>
             <div class="event-cta">
               <a class="btn btn-secondary" href="#reserve">Register interest</a>
             </div>
@@ -896,9 +763,7 @@
               <div><strong>Location:</strong> Na Fianna, Dublin 8</div>
               <div><strong>Format:</strong> Beginner-friendly / touch version</div>
             </div>
-            <p class="muted">
-              A relaxed midweek introduction to Gaelic Games. Ideal if you want to try the sport without pressure and want to meet locals
-            </p>
+            <p class="muted">A relaxed midweek introduction to Gaelic Games. Ideal if you want to try the sport without pressure and want to meet locals.</p>
             <div class="event-cta">
               <a class="btn btn-secondary" href="#reserve">Reserve your spot</a>
             </div>
@@ -913,9 +778,7 @@
               <div><strong>Location:</strong> Croke Park, Dublin 3</div>
               <div><strong>Format:</strong> Group outing / cultural context included</div>
             </div>
-            <p class="muted">
-              Watch the game with context, shared atmosphere and a group experience that makes the sport more accessible.
-            </p>
+            <p class="muted">Watch the game with context, shared atmosphere and a group experience that makes the sport more accessible.</p>
             <div class="event-cta">
               <a class="btn btn-secondary" href="#reserve">Register interest</a>
             </div>
@@ -934,23 +797,19 @@
             The biggest friction point is usually not sport - it's uncertainty. So we make the first experience clear and welcoming.
           </p>
         </div>
-
         <div class="expect-list">
           <div class="expect">
             <h3>No experience required</h3>
             <p class="muted">Most first-timers have never played before. Sessions are adapted for beginners.</p>
           </div>
-
           <div class="expect">
             <h3>You can come alone</h3>
             <p class="muted">A lot of people do. This is designed to help newcomers meet people without awkward formality.</p>
           </div>
-
           <div class="expect">
             <h3>Bring trainers and weather-ready clothes</h3>
             <p class="muted">We keep logistics simple. If anything specific is needed, we'll tell you in advance.</p>
           </div>
-
           <div class="expect">
             <h3>It's social before it's serious</h3>
             <p class="muted">The goal is connection first, performance second. That is what makes the format work.</p>
@@ -968,31 +827,17 @@
           <p class="form-note">
             Use this form to join the next suitable session, social or match day. If you are not ready to pick an event yet, you can still tell us what you're interested in.
           </p>
-
           <div class="contact-list">
-            <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">
-              WhatsApp community →
-            </a>
-            <a href="mailto:thebeyondthepitch@gmail.com?subject=Dublin%20Community%20Interest">
-             thebeyondthepitch@gmail.com →
-            </a>
+            <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">WhatsApp community →</a>
+            <a href="mailto:thebeyondthepitch@gmail.com?subject=Dublin%20Community%20Interest">thebeyondthepitch@gmail.com →</a>
           </div>
         </aside>
 
         <div class="card">
-          <!-- ✅ Formspree endpoint connected -->
-          <form
-            id="community-form"
-            action="https://formspree.io/f/mbdqrnjq"
-            method="POST"
-          >
-            <!-- Formspree: redirect after successful submit -->
+          <form id="community-form" action="https://formspree.io/f/mbdqrnjq" method="POST">
             <input type="hidden" name="_next" value="https://travelbeyondthepitch.com/community/dublin/?submitted=true" />
-            <!-- Formspree: custom subject line in your inbox -->
             <input type="hidden" name="_subject" value="New community interest – Beyond the Pitch Dublin" />
-            <!-- Honeypot spam protection -->
             <input type="text" name="_gotcha" style="display:none" />
-
             <input type="hidden" name="source_page" value="dublin-community-page" />
             <input type="hidden" name="utm_source" id="utm_source" value="" />
             <input type="hidden" name="utm_medium" id="utm_medium" value="" />
@@ -1004,7 +849,6 @@
                 <label for="name">Full name *</label>
                 <input id="name" name="name" type="text" autocomplete="name" required placeholder="e.g. Ciarán Murphy" />
               </div>
-
               <div class="field">
                 <label for="email">Email address *</label>
                 <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
@@ -1016,7 +860,6 @@
                 <label for="phone">Phone / WhatsApp</label>
                 <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+353..." />
               </div>
-
               <div class="field">
                 <label for="profile">You are *</label>
                 <select id="profile" name="profile" required>
@@ -1041,7 +884,6 @@
                   <option value="all-three">All of the above</option>
                 </select>
               </div>
-
               <div class="field">
                 <label for="experience">Gaelic Games experience</label>
                 <select id="experience" name="experience">
@@ -1069,7 +911,6 @@
               <a class="btn btn-secondary" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">Prefer WhatsApp</a>
             </div>
 
-            <!-- Inline success message (shown via JS after AJAX submit) -->
             <div class="form-success" id="form-success" role="alert">
               ✅ Thanks — we'll be in touch about the next session, social or match day.
             </div>
@@ -1090,7 +931,6 @@
                 We're building the first layer of the Dublin collective through early sessions, socials and match days. If you want first access to founding membership, register your interest above.
               </p>
             </div>
-
             <div>
               <h3 class="mini-title">Planned member benefits</h3>
               <div class="pill-list">
@@ -1110,23 +950,19 @@
       <div class="container">
         <div class="eyebrow">FAQ</div>
         <h2 class="section-title" id="faq-title">Questions people ask <span>before joining</span></h2>
-
         <div class="faq">
           <article class="faq-item">
             <h3>Do I need experience to join?</h3>
             <p>No. Most people join as complete beginners. Sessions are designed to be social, welcoming and beginner-friendly.</p>
           </article>
-
           <article class="faq-item">
             <h3>Can I come on my own?</h3>
             <p>Yes. Many people do. This community is built for newcomers, internationals and locals who want to meet people in a low-pressure way.</p>
           </article>
-
           <article class="faq-item">
             <h3>Where do sessions happen?</h3>
             <p>Usually at a confirmed Dublin location such as Na Fianna or another suitable pitch. Exact details are shared before the event.</p>
           </article>
-
           <article class="faq-item">
             <h3>What happens after I register interest?</h3>
             <p>You'll hear from us with the next suitable session, social or match-day update, plus relevant community information.</p>
@@ -1145,7 +981,6 @@
             We create small-group Gaelic Games and cultural experiences that help international teams build local connection in Dublin. Better than generic team-building; closer to how belonging actually works.
           </p>
         </div>
-
         <div class="card">
           <h3 class="mini-title">Good fit for</h3>
           <div class="pill-list">
@@ -1154,7 +989,6 @@
             <span class="pill">International onboarding</span>
             <span class="pill">Culture-led offsites</span>
           </div>
-
           <div class="btn-row" style="margin-top:22px;">
             <a class="btn btn-primary" href="mailto:thebeyondthepitch@gmail.com?subject=B2B%20Dublin%20Community%20Experience">Enquire about a team event</a>
           </div>
@@ -1170,7 +1004,6 @@
         <p class="lead" style="margin-inline:auto;">
           You do not need to know the sport. You do not need to know anyone. You just need a reason to show up.
         </p>
-
         <div class="btn-row" style="justify-content:center; margin-top:28px;">
           <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
           <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer">Join WhatsApp community</a>
@@ -1188,29 +1021,21 @@
 
   <script>
     document.documentElement.classList.remove('no-js');
-
-    // Auto-fill year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Capture UTM parameters for lead attribution
     (function () {
       const params = new URLSearchParams(window.location.search);
-      const utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-      utmFields.forEach(function(field) {
+      ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(field) {
         const el = document.getElementById(field);
-        if (el && params.get(field)) {
-          el.value = params.get(field);
-        }
+        if (el && params.get(field)) el.value = params.get(field);
       });
     })();
 
-    // AJAX submit to Formspree (keeps user on page, shows inline success)
     const form = document.getElementById('community-form');
     const successMsg = document.getElementById('form-success');
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-
       const data = new FormData(form);
       const submitBtn = form.querySelector('button[type="submit"]');
       submitBtn.textContent = 'Sending…';
@@ -1222,7 +1047,6 @@
           body: data,
           headers: { 'Accept': 'application/json' }
         });
-
         if (response.ok) {
           form.reset();
           successMsg.style.display = 'block';
