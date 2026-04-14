@@ -63,7 +63,7 @@
       text-rendering: optimizeLegibility;
     }
 
-    img { max-width: 100%; display: block; height: auto; }
+    img, video { max-width: 100%; display: block; height: auto; }
     a { color: inherit; text-decoration: none; }
     button, input, select, textarea { font: inherit; }
 
@@ -225,16 +225,26 @@
       font-weight: 700;
     }
 
-    /* ── VIDEO HERO ── */
+    /* ── VIDEO HERO FIX ── */
     .hero {
       position: relative;
       overflow: hidden;
-      min-height: 90vh;
+      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       align-items: center;
       padding: 8rem 1.5rem 6rem;
       border-bottom: 1px solid rgba(255,255,255,.06);
       color: #fff;
+      background: #000;
+      isolation: isolate;
+    }
+
+    .hero__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #000;
     }
 
     .hero__video {
@@ -242,16 +252,24 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center center;
       z-index: 0;
+      background: #000;
     }
 
     .hero__overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.62);
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,0.46) 0%,
+          rgba(0,0,0,0.52) 35%,
+          rgba(0,0,0,0.62) 100%
+        );
       z-index: 1;
+      pointer-events: none;
     }
 
     .hero__inner {
@@ -262,6 +280,10 @@
       margin: 0 auto;
     }
 
+    .hero-copy {
+      max-width: 760px;
+    }
+
     .hero-copy p {
       margin: 0 0 22px;
     }
@@ -269,7 +291,7 @@
     .hero-note {
       margin-top: 16px;
       font-size: .95rem;
-      color: rgba(255,255,255,.55);
+      color: rgba(255,255,255,.70);
     }
 
     /* ── PROOF STRIP ── */
@@ -553,7 +575,9 @@
       .grid-3,
       .grid-2,
       .proof-list,
-      .field-grid { grid-template-columns: 1fr; }
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
 
       .site-header__inner {
         align-items: flex-start;
@@ -570,8 +594,54 @@
 
       .hero {
         min-height: 100svh;
-        padding: 6rem 1.5rem 4rem;
+        padding: 6.5rem 1rem 3rem;
         align-items: flex-end;
+      }
+
+      .hero__inner {
+        width: 100%;
+      }
+
+      .hero-copy {
+        max-width: 100%;
+      }
+
+      .btn-row {
+        gap: 12px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .headline {
+        font-size: clamp(2.2rem, 10vw, 4rem);
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 20px, var(--max));
+      }
+
+      section {
+        padding: 64px 0;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .hero {
+        padding: 6.5rem 0.75rem 2.5rem;
+      }
+
+      .hero-note {
+        font-size: 0.92rem;
       }
     }
   </style>
@@ -618,29 +688,33 @@
 
   <main id="main-content">
 
-    <!-- ── VIDEO HERO ── -->
+    <!-- VIDEO HERO -->
     <section class="hero" aria-labelledby="hero-title">
-      <video class="hero__video" autoplay muted loop playsinline>
-        <source src="/hello-dublin.mp4" type="video/mp4" />
-      </video>
-      <div class="hero__overlay"></div>
+      <div class="hero__media" aria-hidden="true">
+        <video class="hero__video" autoplay muted loop playsinline preload="metadata">
+          <source src="/kilkenny-pitch-and-wall.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__overlay"></div>
+      </div>
 
       <div class="hero__inner">
-        <div class="eyebrow">New in Dublin? Start here.</div>
-        <h1 class="headline" id="hero-title" style="margin: 16px 0 24px;">
-          Meet People in Dublin Through <span>Gaelic Games</span>
-        </h1>
-        <p class="lead" style="color: rgba(255,255,255,0.75); margin-bottom: 8px;">
-          Beyond the Pitch is a Dublin community for internationals and locals who want to connect through sport, culture and shared experiences. Join a beginner-friendly Gaelic Games session, a pub social, or a match day - and get to know Dublin through the people who live it.
-        </p>
-        <p class="hero-note">
-          No experience needed. You can come on your own. We make the first step easy.
-        </p>
-        <div class="btn-row" style="margin-top: 32px;">
-          <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
-          <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer" aria-label="Join the WhatsApp community">
-            Join WhatsApp community
-          </a>
+        <div class="hero-copy">
+          <div class="eyebrow">New in Dublin? Start here.</div>
+          <h1 class="headline" id="hero-title" style="margin: 16px 0 24px;">
+            Meet People in Dublin Through <span>Gaelic Games</span>
+          </h1>
+          <p class="lead" style="color: rgba(255,255,255,0.78); margin-bottom: 8px;">
+            Beyond the Pitch is a Dublin community for internationals and locals who want to connect through sport, culture and shared experiences. Join a beginner-friendly Gaelic Games session, a pub social, or a match day - and get to know Dublin through the people who live it.
+          </p>
+          <p class="hero-note">
+            No experience needed. You can come on your own. We make the first step easy.
+          </p>
+          <div class="btn-row" style="margin-top: 32px;">
+            <a class="btn btn-primary" href="#reserve">Reserve your spot</a>
+            <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank" rel="noopener noreferrer" aria-label="Join the WhatsApp community">
+              Join WhatsApp community
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1055,6 +1129,7 @@
           body: data,
           headers: { 'Accept': 'application/json' }
         });
+
         if (response.ok) {
           form.reset();
           successMsg.style.display = 'block';
