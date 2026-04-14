@@ -252,10 +252,21 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      /* Veranderd van 'contain' naar 'cover' voor schermvullend effect */
+      object-fit: cover; 
+      /* Standaard gecentreerd */
       object-position: center center;
       z-index: 0;
       background: #000;
+    }
+
+    /* Specifieke optimalisatie voor mobiel */
+    @media (max-width: 980px) {
+      .hero__video {
+        /* Indien nodig: pas 'center center' aan naar bijv. '70% center' 
+           als de focus van de video meer naar rechts ligt */
+        object-position: center center; 
+      }
     }
 
     .hero__overlay {
