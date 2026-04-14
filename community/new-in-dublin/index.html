@@ -229,6 +229,9 @@
     .hero {
       position: relative;
       overflow: hidden;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
       padding: 8rem 1.5rem 6rem;
       border-bottom: 1px solid rgba(255,255,255,.06);
       color: #fff;
@@ -240,6 +243,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       z-index: 0;
     }
 
@@ -254,6 +258,7 @@
       position: relative;
       z-index: 2;
       max-width: var(--max);
+      width: 100%;
       margin: 0 auto;
     }
 
@@ -543,7 +548,6 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid,
       .split,
       .form-wrap,
       .grid-3,
@@ -564,7 +568,11 @@
         flex-direction: column;
       }
 
-      .hero { padding: 6rem 1.5rem 4rem; }
+      .hero {
+        min-height: 100svh;
+        padding: 6rem 1.5rem 4rem;
+        align-items: flex-end;
+      }
     }
   </style>
 
@@ -613,7 +621,7 @@
     <!-- ── VIDEO HERO ── -->
     <section class="hero" aria-labelledby="hero-title">
       <video class="hero__video" autoplay muted loop playsinline>
-        <source src="/hello-dublin.mp4" type="video/mp4" />
+        <source src="/kilkenny-pitch-and-wall.mp4" type="video/mp4" />
       </video>
       <div class="hero__overlay"></div>
 
