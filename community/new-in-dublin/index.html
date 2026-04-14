@@ -252,20 +252,19 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      /* Veranderd van 'contain' naar 'cover' voor schermvullend effect */
       object-fit: cover; 
-      /* Standaard gecentreerd */
-      object-position: center center;
+      /* Forceer de focus naar de bovenkant van de video */
+      object-position: center top; 
       z-index: 0;
       background: #000;
     }
 
-    /* Specifieke optimalisatie voor mobiel */
+    /* Optimalisatie specifiek voor mobiel */
     @media (max-width: 980px) {
       .hero__video {
-        /* Indien nodig: pas 'center center' aan naar bijv. '70% center' 
-           als de focus van de video meer naar rechts ligt */
-        object-position: center center; 
+        /* Op mobiel is verticaal snijden het agressiefst, 
+           hier houden we de focus strak op de bovenkant */
+        object-position: center 0%; 
       }
     }
 
