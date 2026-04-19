@@ -1,937 +1,1086 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beyond the Pitch -Prague Ice Hockey Experience</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prague Ice Hockey Experience | History Tour + Hall of Fame | Beyond the Pitch</title>
+  <meta name="description" content="Walk Prague with a local guide, uncover the political history behind Czech hockey, visit the Czech Hockey Hall of Fame, and add a live match in season." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; }
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #fff; line-height: 1.6; }
 
-  :root {
-    --red: #c0392b;
-    --red-b: #e84545;
-    --red-dim: rgba(192,57,43,0.12);
-    --gold: #c9a227;
-    --dark: #0f0f0f;
-    --panel: #181818;
-    --border: rgba(255,255,255,0.08);
-    --w: #fff;
-    --ice: #dde8f0;
-  }
+    :root {
+      --bg: #0f0f0f;
+      --panel: #171717;
+      --panel-2: #1d1d1d;
+      --panel-3: #232323;
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.68);
+      --soft: rgba(255,255,255,0.38);
+      --border: rgba(255,255,255,0.08);
+      --red: #e84545;
+      --red-dark: #c0392b;
+      --red-dim: rgba(232,69,69,0.09);
+      --sand: #f4f1ec;
+      --ink: #1a1a1a;
+      --ink-soft: #575757;
+      --radius: 14px;
+      --shadow: 0 16px 40px rgba(0,0,0,0.28);
+      --container: 1120px;
+    }
 
-  .page { background: var(--dark); color: #fff; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    .page { background: var(--bg); }
 
-  /* HERO */
-  .hero {
-    padding: 5rem 2rem 4rem;
-    background: var(--dark);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 50% 60%, rgba(192,57,43,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-bottom: 1.5rem;
-  }
-  .hero-title {
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    font-weight: 500;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    color: #fff;
-    margin-bottom: 0.2rem;
-  }
-  .hero-title span { color: var(--red-b); }
-  .hero-sub {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.45);
-    margin: 1.5rem auto 0;
-    max-width: 480px;
-    line-height: 1.75;
-    font-style: italic;
-  }
-  .hero-divider {
-    width: 40px; height: 3px;
-    background: var(--red-b);
-    margin: 1.75rem auto;
-    border-radius: 2px;
-  }
-  .hero-ctas { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
-  .btn-red {
-    background: var(--red-b); color: #fff;
-    padding: 0.85rem 1.75rem; border-radius: 8px;
-    font-weight: 500; font-size: 0.9rem;
-    text-decoration: none; border: none; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 0.4rem;
-  }
-  .btn-ghost {
-    background: transparent; color: rgba(255,255,255,0.65);
-    padding: 0.85rem 1.75rem; border-radius: 8px;
-    font-weight: 500; font-size: 0.9rem;
-    border: 1px solid rgba(255,255,255,0.15); cursor: pointer;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
-  }
+    .container {
+      width: min(var(--container), calc(100% - 2rem));
+      margin: 0 auto;
+    }
 
-  /* STATS ROW */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 12px;
-    overflow: hidden;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-  .stat-cell {
-    background: rgba(255,255,255,0.03);
-    padding: 1.25rem 1rem;
-    text-align: center;
-  }
-  .stat-num {
-    font-size: 2rem;
-    font-weight: 500;
-    color: var(--red-b);
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.3);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-top: 0.35rem;
-  }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      margin: -1px; padding: 0; overflow: hidden;
+      clip: rect(0,0,0,0); border: 0; white-space: nowrap;
+    }
 
-  /* STRIP */
-  .info-strip {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .strip-cell { padding: 1.25rem 1.5rem; background: var(--dark); }
-  .strip-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.25); margin-bottom: 0.3rem; }
-  .strip-val { font-size: 0.9rem; font-weight: 500; color: #fff; }
-  .strip-val.red { color: var(--red-b); }
+    .eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.34);
+      margin-bottom: 0.9rem;
+    }
 
-  /* INTRO */
-  .intro { background: #f5f3ef; padding: 3.5rem 2rem; }
-  .intro-inner { max-width: 680px; margin: 0 auto; }
-  .intro-inner p { font-size: 1rem; color: #4a4a4a; line-height: 1.95; margin-bottom: 1.25rem; }
-  .intro-inner p strong { color: #1a1a1a; }
-  .intro-note { font-size: 0.85rem; color: #999; border-top: 1px solid rgba(0,0,0,0.07); padding-top: 1rem; margin-top: 0.5rem; line-height: 1.7; }
+    .section { padding: 5rem 0; }
 
-  /* TIMELINE SECTION */
-  .timeline-section { background: var(--dark); padding: 5rem 1.5rem; }
-  .section-eyebrow {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.22em;
-    text-transform: uppercase; color: rgba(255,255,255,0.25);
-    margin-bottom: 0.75rem;
-  }
-  .section-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 500; letter-spacing: -0.03em;
-    line-height: 1.02; color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .section-title span { color: var(--red-b); }
-  .red-bar { width: 36px; height: 3px; background: var(--red-b); border-radius: 2px; margin-bottom: 1rem; }
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.02; letter-spacing: -0.04em;
+      font-weight: 600; color: #fff; margin-bottom: 0.8rem;
+    }
+    .section-title span { color: var(--red); }
 
-  /* TIMELINE UI */
-  .tl-layout { display: grid; grid-template-columns: 200px 1fr; gap: 0; max-width: 900px; margin: 3rem auto 0; }
+    .section-lead {
+      max-width: 680px; color: var(--muted);
+      font-size: 1rem; line-height: 1.85;
+    }
 
-  .tl-nav {
-    border-right: 1px solid rgba(255,255,255,0.07);
-    padding-right: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .tl-stop {
-    padding: 0.9rem 1.25rem;
-    cursor: pointer;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    border-left: 2px solid transparent;
-    transition: all 0.2s;
-    position: relative;
-  }
-  .tl-stop.active {
-    border-left-color: var(--red-b);
-    background: rgba(232,69,69,0.06);
-  }
-  .tl-stop:hover:not(.active) { background: rgba(255,255,255,0.03); }
-  .stop-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    flex-shrink: 0; margin-top: 4px;
-    transition: background 0.2s;
-  }
-  .tl-stop.active .stop-dot { background: var(--red-b); }
-  .stop-meta {}
-  .stop-year {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-    margin-bottom: 0.15rem;
-    transition: color 0.2s;
-  }
-  .tl-stop.active .stop-year { color: var(--red-b); }
-  .stop-name {
-    font-size: 0.8rem; font-weight: 500;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.4;
-    transition: color 0.2s;
-  }
-  .tl-stop.active .stop-name { color: #fff; }
+    .red-bar {
+      width: 40px; height: 3px; background: var(--red);
+      border-radius: 999px; margin-bottom: 1.25rem;
+    }
 
-  .tl-panel {
-    padding: 0 0 0 2.5rem;
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-  }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.55rem; text-decoration: none; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem; padding: 0.95rem 1.35rem;
+      transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent;
+    }
 
-  .tl-slide { display: none; }
-  .tl-slide.active {
-    display: flex;
-    flex-direction: column;
-    animation: fadeSlide 0.35s ease;
-  }
+    .btn-primary { background: var(--red); color: #fff; box-shadow: 0 10px 30px rgba(232,69,69,0.22); }
+    .btn-primary:hover { background: #f05151; transform: translateY(-1px); }
 
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+    .btn-secondary {
+      background: transparent; color: rgba(255,255,255,0.8);
+      border-color: rgba(255,255,255,0.16);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); color: #fff; }
 
-  .slide-num {
-    font-size: 4rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.06);
-    letter-spacing: -0.04em;
-    line-height: 1;
-    margin-bottom: -0.5rem;
-  }
-  .slide-location {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--red-b);
-    margin-bottom: 0.5rem;
-  }
-  .slide-title {
-    font-size: 1.4rem; font-weight: 500;
-    letter-spacing: -0.02em; line-height: 1.2;
-    color: #fff; margin-bottom: 1.25rem;
-  }
-  .slide-body {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.9;
-    flex: 1;
-  }
-  .slide-body strong { color: rgba(255,255,255,0.8); }
-  .slide-note {
-    margin-top: 1.25rem;
-    padding: 0.85rem 1rem;
-    border-radius: 8px;
-    background: rgba(232,69,69,0.07);
-    border-left: 2px solid var(--red-b);
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
-    font-style: italic;
-    line-height: 1.7;
-  }
-  .slide-final-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--red-b);
-    background: rgba(232,69,69,0.1);
-    border: 1px solid rgba(232,69,69,0.25);
-    border-radius: 6px;
-    padding: 0.35rem 0.75rem;
-    margin-top: 1.25rem;
-  }
+    .btn-block { width: 100%; }
 
-  .tl-controls {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 2rem;
-    align-items: center;
-    padding-left: 2.5rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .tl-btn {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.6);
-    padding: 0.55rem 1.1rem;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .tl-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-  .tl-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-  .tl-progress {
-    flex: 1;
-    height: 2px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .tl-progress-fill {
-    height: 100%;
-    background: var(--red-b);
-    border-radius: 2px;
-    transition: width 0.3s ease;
-  }
-  .tl-counter {
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    min-width: 36px;
-    text-align: right;
-  }
+    /* ── HERO ── */
+    .hero {
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 35%, rgba(232,69,69,0.18) 0%, transparent 65%),
+        linear-gradient(180deg, #111 0%, #0f0f0f 100%);
+      padding: 5.5rem 0 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
 
-  /* MOBILE TIMELINE */
-  @media (max-width: 640px) {
-    .tl-layout { grid-template-columns: 1fr; }
-    .tl-nav { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 0; padding-right: 0; }
-    .tl-stop { padding: 0.65rem 0.85rem; border-left: none; border-bottom: 2px solid transparent; white-space: nowrap; flex-direction: column; gap: 0.2rem; }
-    .tl-stop.active { border-bottom-color: var(--red-b); border-left: none; }
-    .stop-dot { display: none; }
-    .tl-panel { padding: 2rem 0 0; }
-    .tl-controls { padding-left: 0; }
-  }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      gap: 2rem; align-items: end;
+    }
 
-  /* KAMIL */
-  .kamil-section { background: #f5f3ef; padding: 4rem 2rem; }
-  .kamil-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 4rem; align-items: center; }
-  .kamil-avatar {
-    width: 240px; height: 280px;
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(0,0,0,0.08);
-    flex-shrink: 0;
-  }
-  .kamil-avatar-inner { text-align: center; }
-  .kamil-initial {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: var(--red-b); color: #fff;
-    font-size: 1.6rem; font-weight: 500;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 0.75rem;
-  }
-  .kamil-avatar-note { font-size: 11px; color: rgba(255,255,255,0.3); }
-  .kamil-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.3); margin-bottom: 0.75rem; }
-  .kamil-name { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 500; letter-spacing: -0.03em; color: #1a1a1a; margin-bottom: 0.5rem; line-height: 1.1; }
-  .kamil-bar { width: 36px; height: 3px; background: var(--red); border-radius: 2px; margin-bottom: 1.5rem; }
-  .kamil-quote {
-    border-left: 3px solid var(--red);
-    padding-left: 1.25rem;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 1.25rem;
-  }
-  .kamil-bio { font-size: 0.9rem; color: #666; line-height: 1.85; }
-  .kamil-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
-  .tag {
-    font-size: 11px; font-weight: 500;
-    padding: 0.35rem 0.75rem;
-    border-radius: 6px;
-    background: rgba(0,0,0,0.05);
-    color: #555;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+    .hero-title {
+      font-size: clamp(2.9rem, 7.4vw, 6.2rem);
+      font-weight: 700; line-height: 0.94; letter-spacing: -0.05em; margin-bottom: 0.8rem;
+    }
+    .hero-title span { color: var(--red); }
 
-  @media (max-width: 640px) {
-    .kamil-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .kamil-avatar { width: 100%; height: 160px; }
-  }
+    .hero-sub { color: rgba(255,255,255,0.82); font-size: 1.08rem; line-height: 1.9; max-width: 720px; margin-bottom: 1.1rem; }
+    .hero-micro { color: rgba(255,255,255,0.58); font-size: 0.94rem; line-height: 1.8; margin-bottom: 1.6rem; }
 
-  /* PRICING */
-  .pricing-section { background: var(--dark); padding: 4rem 2rem; }
-  .pricing-inner { max-width: 900px; margin: 0 auto; }
-  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
-  @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .hero-cta-row { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 1.5rem; }
 
-  .price-card {
-    background: #181818;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .price-card.featured { border-color: rgba(232,69,69,0.4); border-top: 3px solid var(--red-b); }
-  .price-head { padding: 1.75rem 1.75rem 1.25rem; }
-  .price-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.4rem; }
-  .price-tag.red { color: var(--red-b); }
-  .price-name { font-size: 1.2rem; font-weight: 500; color: #fff; letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.25; }
-  .price-desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.75; margin-bottom: 1.25rem; }
-  .price-num { font-size: 2.75rem; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: #fff; }
-  .price-num.red { color: var(--red-b); }
-  .price-per { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-left: 0.25rem; }
-  .price-incl { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 0.35rem; }
-  .price-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0 1.75rem; }
-  .price-features { padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.6rem; }
-  .feat {
-    display: flex; align-items: flex-start; gap: 0.6rem;
-    font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.5;
-  }
-  .feat-dot { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
-  .price-footer { padding: 1.25rem 1.75rem 1.75rem; margin-top: auto; }
-  .warn-mini {
-    font-size: 0.75rem; color: rgba(255,255,255,0.35);
-    background: rgba(232,69,69,0.07);
-    border-left: 2px solid var(--red);
-    border-radius: 0 6px 6px 0;
-    padding: 0.7rem 0.85rem;
-    line-height: 1.65;
-    margin-bottom: 1rem;
-  }
-  .btn-block-red {
-    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-    width: 100%; padding: 0.85rem;
-    background: var(--red-b); color: #fff;
-    border-radius: 8px; font-weight: 500; font-size: 0.88rem;
-    text-decoration: none; border: none; cursor: pointer;
-  }
-  .btn-block-ghost {
-    display: flex; align-items: center; justify-content: center;
-    width: 100%; padding: 0.85rem;
-    background: transparent; color: rgba(255,255,255,0.55);
-    border-radius: 8px; font-weight: 500; font-size: 0.88rem;
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.12);
-  }
+    .trust-pills { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      border-radius: 999px; padding: 0.6rem 0.9rem;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.72); font-size: 0.82rem; font-weight: 500;
+    }
 
-  /* GETTING THERE */
-  .travel-section { background: var(--dark); padding: 0 2rem 4rem; }
-  .travel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 2.5rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .travel-cell { background: var(--dark); padding: 1.5rem 1.5rem; }
-  .travel-icon { color: var(--red-b); margin-bottom: 0.85rem; }
-  .travel-head { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 0.35rem; }
-  .travel-main { font-size: 0.9rem; font-weight: 500; color: #fff; margin-bottom: 0.4rem; }
-  .travel-detail { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
-  .travel-note {
-    max-width: 900px; margin: 1.25rem auto 0;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 10px;
-    padding: 1.25rem 1.5rem;
-    display: flex; gap: 1rem; align-items: flex-start;
-  }
-  .travel-note-text { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.8; }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 100%);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+      padding: 1.35rem; box-shadow: var(--shadow); align-self: stretch;
+    }
 
-  /* FAQ */
-  .faq-section { background: #fff; padding: 4rem 2rem; }
-  .faq-inner { max-width: 720px; margin: 0 auto; }
-  .faq-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.25); margin-bottom: 0.75rem; }
-  .faq-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 0.5rem; }
-  .faq-bar { width: 36px; height: 3px; background: var(--red); border-radius: 2px; margin-bottom: 2.5rem; }
-  details { border-bottom: 1px solid rgba(0,0,0,0.07); }
-  summary {
-    padding: 1.1rem 0;
-    cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-    list-style: none;
-    font-size: 0.95rem; font-weight: 500; color: #1a1a1a;
-  }
-  summary::-webkit-details-marker { display: none; }
-  .faq-icon { color: var(--red); font-size: 1.25rem; flex-shrink: 0; transition: transform 0.25s; }
-  details[open] .faq-icon { transform: rotate(45deg); }
-  .faq-answer { font-size: 0.875rem; color: #555; line-height: 1.85; padding-bottom: 1.1rem; }
+    .hero-card-top { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 
-  /* FINAL CTA */
-  .cta-section {
-    background: var(--dark);
-    padding: 6rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-section::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 55% 60% at 50% 50%, rgba(192,57,43,0.13) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .cta-inner { max-width: 560px; margin: 0 auto; position: relative; }
-  .cta-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 0.75rem; }
-  .cta-title { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 500; letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 0.2rem; }
-  .cta-title span { color: var(--red-b); }
-  .cta-sub { font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.4); line-height: 1.8; margin: 1.75rem auto; max-width: 420px; }
-  .cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .mini-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.34); margin-bottom: 0.35rem;
+    }
+    .mini-value { font-size: 0.96rem; color: #fff; font-weight: 600; line-height: 1.4; }
 
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-</style>
+    .hero-card-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; margin-top: 1rem;
+    }
+    .hero-card-cell { background: rgba(255,255,255,0.03); padding: 1rem; }
+
+    .hero-card-note {
+      margin-top: 1rem; background: rgba(232,69,69,0.08);
+      border-left: 2px solid var(--red); border-radius: 0 10px 10px 0;
+      padding: 0.85rem 0.95rem; color: rgba(255,255,255,0.66);
+      font-size: 0.83rem; line-height: 1.75;
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-section {
+      background: #111; border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .trust-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 1px; background: rgba(255,255,255,0.06);
+    }
+    .trust-cell { background: #111; padding: 1.25rem 1rem; }
+    .trust-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 0.35rem;
+    }
+    .trust-value { font-size: 0.9rem; font-weight: 600; line-height: 1.5; color: #fff; }
+    .trust-value.red { color: var(--red); }
+
+    /* ── INTRO ── */
+    .intro-section { background: var(--sand); color: var(--ink); }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 2rem; align-items: start;
+    }
+    .intro-copy p { color: var(--ink-soft); font-size: 1rem; line-height: 1.95; margin-bottom: 1.05rem; }
+    .intro-copy p strong { color: var(--ink); }
+
+    .intro-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px; padding: 1.3rem;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.06);
+    }
+    .check-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
+    .check-item { display: flex; gap: 0.7rem; align-items: flex-start; color: #525252; font-size: 0.9rem; line-height: 1.7; }
+    .check-icon {
+      width: 18px; height: 18px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(232,69,69,0.1); color: var(--red); flex-shrink: 0;
+      margin-top: 2px; font-size: 12px; font-weight: 700;
+    }
+    .intro-note {
+      margin-top: 1rem; padding-top: 1rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      color: #7a7a7a; font-size: 0.84rem; line-height: 1.75;
+    }
+
+    /* ── HOW BOOKING WORKS ── */
+    .steps-grid {
+      margin-top: 2rem; display: grid;
+      grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    .step-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; }
+    .step-num { font-size: 2rem; font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: rgba(255,255,255,0.08); margin-bottom: 0.4rem; }
+    .step-title { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.35; }
+    .step-text { color: var(--muted); font-size: 0.9rem; line-height: 1.8; }
+
+    .reassure-banner {
+      margin-top: 1.25rem; background: rgba(232,69,69,0.08);
+      border: 1px solid rgba(232,69,69,0.14); border-left: 3px solid var(--red);
+      border-radius: 14px; padding: 1rem 1.1rem;
+      color: rgba(255,255,255,0.76); font-size: 0.9rem; line-height: 1.8;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section { background: var(--bg); }
+    .tl-layout {
+      display: grid; grid-template-columns: 240px 1fr; gap: 0;
+      max-width: 980px; margin: 2.5rem auto 0;
+      border: 1px solid rgba(255,255,255,0.06); border-radius: 18px;
+      overflow: hidden; background: rgba(255,255,255,0.02);
+    }
+
+    .tl-nav {
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .tl-stop {
+      padding: 1rem 1.1rem; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      border-left: 3px solid transparent;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .tl-stop.active { border-left-color: var(--red); background: rgba(232,69,69,0.06); }
+    .tl-stop:hover:not(.active) { background: rgba(255,255,255,0.03); }
+
+    .stop-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 6px; background: rgba(255,255,255,0.16); flex-shrink: 0; }
+    .tl-stop.active .stop-dot { background: var(--red); }
+    .stop-year { color: rgba(255,255,255,0.28); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.15rem; }
+    .tl-stop.active .stop-year { color: var(--red); }
+    .stop-name { color: rgba(255,255,255,0.68); font-size: 0.86rem; font-weight: 600; line-height: 1.45; }
+
+    .tl-panel { padding: 2rem; min-height: 460px; }
+    .tl-slide { display: none; }
+    .tl-slide.active { display: block; animation: fadeSlide 0.3s ease; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-num { font-size: 4rem; line-height: 0.95; font-weight: 700; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); margin-bottom: 0.25rem; }
+    .slide-location { color: var(--red); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.55rem; }
+    .slide-title { font-size: 1.55rem; line-height: 1.15; letter-spacing: -0.03em; font-weight: 600; margin-bottom: 1rem; color: #fff; max-width: 740px; }
+    .slide-body { color: var(--muted); font-size: 0.95rem; line-height: 1.95; max-width: 760px; }
+    .slide-body strong { color: rgba(255,255,255,0.92); }
+    .slide-note {
+      margin-top: 1.2rem; border-left: 2px solid var(--red);
+      background: rgba(232,69,69,0.07); padding: 0.85rem 1rem;
+      border-radius: 0 10px 10px 0; color: rgba(255,255,255,0.66);
+      font-size: 0.84rem; line-height: 1.75; max-width: 680px;
+    }
+    .slide-badge {
+      display: inline-flex; gap: 0.45rem; align-items: center; margin-top: 1.2rem;
+      color: var(--red); border: 1px solid rgba(232,69,69,0.24);
+      background: rgba(232,69,69,0.08); border-radius: 999px;
+      padding: 0.45rem 0.8rem; font-size: 0.78rem; font-weight: 600;
+    }
+
+    .tl-controls {
+      display: flex; gap: 0.85rem; align-items: center;
+      max-width: 980px; margin: 1rem auto 0; padding: 0 0.5rem;
+    }
+    .tl-btn {
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600; padding: 0.65rem 1rem; cursor: pointer;
+    }
+    .tl-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .tl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .tl-progress { flex: 1; height: 3px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .tl-progress-fill { height: 100%; background: var(--red); width: 12.5%; transition: width 0.25s ease; }
+    .tl-counter { min-width: 44px; text-align: right; color: rgba(255,255,255,0.34); font-size: 0.8rem; font-weight: 600; }
+
+    /* ── GUIDE ── */
+    .guide-section { background: var(--sand); color: var(--ink); }
+    .guide-grid { display: grid; grid-template-columns: 300px 1fr; gap: 3rem; align-items: center; }
+
+    .guide-photo {
+      border-radius: 18px; background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+      min-height: 360px; border: 1px solid rgba(0,0,0,0.06);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+    }
+    .guide-photo-inner { text-align: center; color: rgba(255,255,255,0.65); padding: 1rem; }
+    .guide-initial {
+      width: 76px; height: 76px; border-radius: 50%; background: var(--red); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 2rem; margin: 0 auto 0.9rem;
+    }
+
+    .guide-copy p { color: #565656; font-size: 0.98rem; line-height: 1.95; margin-bottom: 1rem; }
+    .guide-quote { margin: 1.2rem 0; border-left: 3px solid var(--red-dark); padding-left: 1.1rem; color: #4f4f4f; font-style: italic; font-size: 1.04rem; line-height: 1.85; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem; }
+    .tag {
+      font-size: 0.76rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #595959; padding: 0.48rem 0.75rem; border-radius: 999px;
+      background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .fit-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 2rem; }
+    .fit-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; min-height: 180px; }
+    .fit-card h3 { font-size: 1rem; line-height: 1.35; margin-bottom: 0.55rem; color: #fff; }
+    .fit-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.8; }
+    .fit-note { margin-top: 1.25rem; color: rgba(255,255,255,0.62); font-size: 0.92rem; line-height: 1.8; max-width: 760px; }
+
+    /* ── PRICING ── */
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2.4rem; }
+
+    .price-card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      display: flex; flex-direction: column; min-height: 100%;
+    }
+    .price-card.featured { border-color: rgba(232,69,69,0.36); box-shadow: 0 22px 50px rgba(232,69,69,0.08); }
+
+    .price-head { padding: 1.6rem 1.6rem 1.2rem; }
+    .price-kicker { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 0.65rem; }
+    .price-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.34); }
+    .price-badge { font-size: 11px; font-weight: 700; border-radius: 999px; padding: 0.35rem 0.65rem; color: var(--red); border: 1px solid rgba(232,69,69,0.28); background: rgba(232,69,69,0.09); white-space: nowrap; }
+    .price-title { font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.03em; font-weight: 600; margin-bottom: 0.45rem; color: #fff; }
+    .price-best { color: rgba(255,255,255,0.62); font-size: 0.84rem; line-height: 1.75; margin-bottom: 1rem; }
+    .price-desc { color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.82; margin-bottom: 1.1rem; }
+    .price-line { display: flex; align-items: baseline; gap: 0.3rem; margin-bottom: 0.35rem; }
+    .price-num { font-size: 3rem; line-height: 1; letter-spacing: -0.05em; font-weight: 700; color: #fff; }
+    .price-card.featured .price-num { color: var(--red); }
+    .price-per { color: rgba(255,255,255,0.36); font-size: 0.85rem; font-weight: 500; }
+    .price-incl { color: rgba(255,255,255,0.28); font-size: 0.77rem; line-height: 1.65; }
+    .price-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0 1.6rem; }
+
+    .price-body { padding: 1.2rem 1.6rem 1.4rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+
+    .feature-list { display: flex; flex-direction: column; gap: 0.72rem; }
+    .feature-item { display: flex; align-items: flex-start; gap: 0.65rem; color: rgba(255,255,255,0.74); font-size: 0.88rem; line-height: 1.75; }
+    .feature-dot {
+      width: 16px; height: 16px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(232,69,69,0.1); color: var(--red); font-size: 11px;
+      flex-shrink: 0; margin-top: 3px;
+    }
+
+    .warn-box {
+      background: rgba(232,69,69,0.07); border-left: 2px solid var(--red);
+      border-radius: 0 10px 10px 0; padding: 0.85rem 0.95rem;
+      color: rgba(255,255,255,0.66); font-size: 0.82rem; line-height: 1.75;
+    }
+
+    .price-actions { margin-top: auto; display: grid; gap: 0.7rem; }
+    .fine-print { margin-top: 1.2rem; text-align: center; color: rgba(255,255,255,0.28); font-size: 0.78rem; line-height: 1.75; }
+
+    /* ── INCLUDED / NOT INCLUDED ── */
+    .include-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .include-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1.2rem; }
+    .include-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.85rem; color: #fff; }
+    .include-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .include-card li { color: rgba(255,255,255,0.72); font-size: 0.88rem; line-height: 1.75; position: relative; padding-left: 1.2rem; }
+    .include-card li::before { content: "•"; position: absolute; left: 0; top: 0; font-weight: 700; }
+    .include-card.yes li::before { color: var(--red); }
+    .include-card.no li::before { color: rgba(255,255,255,0.22); }
+    .include-card.no li { color: rgba(255,255,255,0.38); }
+
+    /* ── FAQ ── */
+    .faq-section { background: #fff; color: var(--ink); }
+    .faq-inner { max-width: 820px; margin: 0 auto; }
+    .faq-inner .section-title { color: var(--ink); }
+    .faq-inner .eyebrow { color: rgba(0,0,0,0.3); }
+    .faq-inner .red-bar { background: var(--red-dark); }
+
+    details { border-bottom: 1px solid rgba(0,0,0,0.08); }
+    summary {
+      cursor: pointer; list-style: none; display: flex;
+      align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1.05rem 0; font-size: 0.98rem; font-weight: 600;
+      line-height: 1.5; color: #1e1e1e;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .faq-icon { flex-shrink: 0; color: var(--red-dark); font-size: 1.3rem; transition: transform 0.2s ease; }
+    details[open] .faq-icon { transform: rotate(45deg); }
+    .faq-answer { padding-bottom: 1rem; color: #5c5c5c; font-size: 0.92rem; line-height: 1.9; max-width: 740px; }
+
+    /* ── ENQUIRY ── */
+    .enquiry-section {
+      background: var(--bg);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .enquiry-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 1.5rem; align-items: start;
+    }
+
+    .enquiry-info {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px; padding: 1.4rem;
+    }
+    .enquiry-info p { color: var(--muted); font-size: 0.95rem; line-height: 1.85; margin-bottom: 1rem; }
+
+    .mini-points { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1rem; }
+    .mini-point { color: rgba(255,255,255,0.72); font-size: 0.88rem; line-height: 1.75; display: flex; gap: 0.65rem; align-items: flex-start; }
+    .mini-point strong { color: #fff; }
+
+    .form-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 100%);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+      padding: 1.4rem; box-shadow: var(--shadow);
+    }
+
+    .form-title { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 1.25rem; line-height: 1.3; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.38rem; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label { color: rgba(255,255,255,0.78); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; }
+
+    input, select, textarea {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      color: #fff; font-family: inherit; font-size: 0.93rem;
+      padding: 0.9rem 0.95rem; outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      -webkit-appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.34); }
+    input:focus, select:focus, textarea:focus { border-color: rgba(232,69,69,0.5); background: rgba(255,255,255,0.06); }
+    select option { background: #1a1a1a; color: #fff; }
+    textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit-row { margin-top: 1rem; }
+    .form-help { margin-top: 0.75rem; color: rgba(255,255,255,0.36); font-size: 0.78rem; line-height: 1.7; }
+
+    .form-success {
+      display: none; text-align: center; padding: 2rem 1rem;
+      color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8;
+    }
+    .form-success-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+    /* ── FINAL CTA ── */
+    .cta-section {
+      position: relative; overflow: hidden; text-align: center; padding: 6rem 0;
+      background:
+        radial-gradient(ellipse 55% 60% at 50% 50%, rgba(232,69,69,0.13) 0%, transparent 70%),
+        linear-gradient(180deg, #111 0%, #0f0f0f 100%);
+    }
+    .cta-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
+
+    .cta-title { font-size: clamp(2.4rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.05em; font-weight: 700; margin-bottom: 0.8rem; }
+    .cta-title span { color: var(--red); }
+    .cta-sub { color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.9; max-width: 560px; margin: 0 auto 1.8rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.85rem; justify-content: center; }
+    .cta-micro { margin-top: 1rem; color: rgba(255,255,255,0.42); font-size: 0.82rem; line-height: 1.75; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1080px) {
+      .fit-grid { grid-template-columns: repeat(3, 1fr); }
+      .trust-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-grid, .intro-grid, .guide-grid, .enquiry-grid { grid-template-columns: 1fr; }
+      .hero-card { max-width: 560px; }
+    }
+
+    @media (max-width: 820px) {
+      .steps-grid, .pricing-grid, .include-grid, .form-grid { grid-template-columns: 1fr; }
+      .tl-layout { grid-template-columns: 1fr; }
+      .tl-nav { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .tl-stop { min-width: 150px; border-left: none; border-bottom: 3px solid transparent; }
+      .tl-stop.active { border-left: none; border-bottom-color: var(--red); }
+      .stop-dot { display: none; }
+      .tl-panel { min-height: auto; }
+      .fit-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .section { padding: 4rem 0; }
+      .hero { padding: 4.5rem 0 2.5rem; }
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+      .fit-grid { grid-template-columns: 1fr; }
+      .tl-controls { padding: 0; }
+      .btn { width: 100%; }
+      .hero-cta-row, .cta-row { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="page">
-
-  <h2 class="sr-only">Beyond the Pitch -Prague ice hockey and history experience</h2>
+  <h1 class="sr-only">Beyond the Pitch Prague Ice Hockey Experience</h1>
 
   <!-- HERO -->
-  <div class="hero">
-    <p class="hero-eyebrow">Prague · Cultural Sports Experience</p>
-    <h1 class="hero-title">Triumph<br><span>&amp; Tragedy</span></h1>
-    <div class="hero-divider"></div>
-    <p class="hero-sub">Walk the old city. Understand a nation. Watch them play.</p>
-    <div style="height:1.75rem"></div>
-    <div class="hero-ctas">
-      <a href="#pricing" class="btn-red">
-        Check availability
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#timeline" class="btn-ghost">See the route</a>
-    </div>
-    <div class="stats-row">
-      <div class="stat-cell">
-        <div class="stat-num">12×</div>
-        <div class="stat-label">World titles</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">1998</div>
-        <div class="stat-label">Olympic gold</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">3×</div>
-        <div class="stat-label">Hat-trick</div>
-      </div>
-    </div>
-  </div>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Prague · Cultural Sports Experience</p>
+        <h2 class="hero-title">Prague Ice Hockey <span>Experience</span></h2>
+        <p class="hero-sub">Walk the old city with a local guide, uncover the political history behind Czech hockey, and finish at the Czech Hockey Hall of Fame — with the option to add a live match in season.</p>
+        <p class="hero-micro">A different way to understand Prague: through the sport that carried pride, memory, defiance and national identity.</p>
 
-  <!-- INFO STRIP -->
-  <div class="info-strip">
-    <div class="strip-cell">
-      <div class="strip-label">Where</div>
-      <div class="strip-val">Prague old city → O2 Arena</div>
+        <div class="hero-cta-row">
+          <a href="#enquire" class="btn btn-primary">
+            Request your date
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#route" class="btn btn-secondary">See the route</a>
+        </div>
+
+        <div class="trust-pills">
+          <span class="pill">Small groups only</span>
+          <span class="pill">No hockey knowledge needed</span>
+          <span class="pill">Personal booking review in 24–48 hours</span>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Experience snapshot">
+        <div class="hero-card-top">
+          <div>
+            <div class="mini-label">Format</div>
+            <div class="mini-value">Walking tour + Hall of Fame<br>+ optional live match in season</div>
+          </div>
+        </div>
+        <div class="hero-card-grid">
+          <div class="hero-card-cell">
+            <div class="mini-label">Duration</div>
+            <div class="mini-value">Approx. 2 hrs walking + Hall of Fame visit</div>
+          </div>
+          <div class="hero-card-cell">
+            <div class="mini-label">From</div>
+            <div class="mini-value" style="color: var(--red);">€35 p.p.</div>
+          </div>
+          <div class="hero-card-cell">
+            <div class="mini-label">Works best for</div>
+            <div class="mini-value">Curious travellers, sports fans, history-minded visitors</div>
+          </div>
+          <div class="hero-card-cell">
+            <div class="mini-label">Booking style</div>
+            <div class="mini-value">Checked personally before confirmation</div>
+          </div>
+        </div>
+        <div class="hero-card-note">This is not a generic city tour and not a museum talk. It is a story-led cultural experience built around the sport that helped a country express itself.</div>
+      </aside>
     </div>
-    <div class="strip-cell">
-      <div class="strip-label">Getting there</div>
-      <div class="strip-val">Direct flights, trains &amp; buses from across Europe</div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust-section">
+    <div class="container trust-grid">
+      <div class="trust-cell">
+        <div class="trust-label">Where</div>
+        <div class="trust-value">Prague old city + Czech Hockey Hall of Fame</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-label">Duration</div>
+        <div class="trust-value">Approx. 2 hours walking + museum visit</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-label">Seasonal option</div>
+        <div class="trust-value">Add a live Czech ice hockey match in season</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-label">Knowledge needed</div>
+        <div class="trust-value">None — beginners welcome</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-label">Booking style</div>
+        <div class="trust-value">Personally reviewed within 24–48 hrs</div>
+      </div>
+      <div class="trust-cell">
+        <div class="trust-label">From</div>
+        <div class="trust-value red">€35 per person</div>
+      </div>
     </div>
-    <div class="strip-cell">
-      <div class="strip-label">Duration</div>
-      <div class="strip-val">~2 hrs walking + match</div>
-    </div>
-    <div class="strip-cell">
-      <div class="strip-label">From</div>
-      <div class="strip-val red">€35 p.p.</div>
-    </div>
-  </div>
+  </section>
 
   <!-- INTRO -->
-  <div class="intro">
-    <div class="intro-inner">
-      <p>Most people come to Prague for the castle. The Charles Bridge. A few cold beers in a cellar bar. All of that is real -but it's the surface.</p>
-      <p>Beneath the cobblestones is a city that has been occupied, silenced, and rebuilt -<strong>twice in one century</strong>. And somewhere in the middle of all of it, a sport became a weapon. Not a metaphor for one. An actual weapon -a way for a small country to look a superpower in the eye and refuse to look away.</p>
-      <p>Walk the old city with <strong>Kamil</strong> -a Prague local and world traveller -through the exact streets where it happened. Hear things that don't make the guidebooks. And then, if you're here in season, end the evening exactly where the story ends: watching Czechs play ice hockey live.</p>
-      <p class="intro-note">No prior knowledge needed. Groups from 2 people. Prague is one of Europe's most connected cities -direct flights from London, Amsterdam, Berlin, Paris and beyond. A natural stop on any Europe trip.</p>
-    </div>
-  </div>
+  <section class="section intro-section">
+    <div class="container intro-grid">
+      <div class="intro-copy">
+        <p class="eyebrow" style="color: rgba(0,0,0,0.34);">Why this experience exists</p>
+        <h2 class="section-title" style="color: var(--ink);">More than a city tour.<br><span style="color: var(--red-dark);">More than a match.</span></h2>
+        <div class="red-bar"></div>
+        <p>Most people come to Prague for the landmarks. This experience takes you underneath them.</p>
+        <p>You walk the city with <strong>Kamil</strong>, a Prague local, using ice hockey as the thread that makes Czech history feel human: independence, occupation, propaganda, resistance, memory and national pride.</p>
+        <p>This is not a generic walking tour and not a museum audio guide. It is a story-led cultural experience built around the sport that came to mean far more than sport.</p>
+        <p>If you visit during the season, you can extend the experience with a live Czech ice hockey match. Outside the season, the walking route and Hall of Fame still stand fully on their own.</p>
+      </div>
 
-  <!-- TIMELINE -->
-  <div class="timeline-section" id="timeline">
-    <div style="max-width:900px;margin:0 auto;">
-      <p class="section-eyebrow">The walking route</p>
+      <aside class="intro-card">
+        <div class="mini-label" style="color: rgba(0,0,0,0.32);">What makes it different</div>
+        <div class="mini-value" style="color: #1a1a1a; margin-bottom: 0.5rem;">A local guide, a real historical thread, and a format built for curious outsiders</div>
+        <div class="check-list">
+          <div class="check-item"><span class="check-icon">✓</span><span>No prior hockey knowledge needed</span></div>
+          <div class="check-item"><span class="check-icon">✓</span><span>Designed for visitors who want more than sightseeing</span></div>
+          <div class="check-item"><span class="check-icon">✓</span><span>Works year-round, with an upgraded live-match version in season</span></div>
+          <div class="check-item"><span class="check-icon">✓</span><span>Small-group feel, with personal booking confirmation</span></div>
+        </div>
+        <p class="intro-note">You do not need to "follow hockey" to get the experience. The route is designed to make the history vivid, clear and accessible.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- HOW BOOKING WORKS -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">How booking works</p>
+      <h2 class="section-title">Not instant checkout.<br><span>Personally checked.</span></h2>
+      <div class="red-bar"></div>
+      <p class="section-lead">We do not run this on autopilot. Every request is checked properly before it is confirmed, so you know what is realistically available for your dates.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3 class="step-title">Send your preferred date</h3>
+          <p class="step-text">Tell us your date, group size, and whether you want the walking experience only or the live match version.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3 class="step-title">We check availability personally</h3>
+          <p class="step-text">Within 24–48 hours we confirm guide availability and, where relevant, what match access is realistically possible for your dates.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3 class="step-title">You receive the best-fit option</h3>
+          <p class="step-text">If the live match version is not suitable for your date, we offer the walking + Hall of Fame version or the closest available alternative.</p>
+        </div>
+      </div>
+
+      <div class="reassure-banner">
+        <strong>Clear before confirmed.</strong> We review requests properly, explain the best available format for your date, and only then move to final confirmation.
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTE / TIMELINE -->
+  <section class="section timeline-section" id="route">
+    <div class="container">
+      <p class="eyebrow">The route</p>
       <h2 class="section-title">Eight stops.<br><span>One country's story.</span></h2>
       <div class="red-bar"></div>
-      <p style="font-size:0.875rem;color:rgba(255,255,255,0.35);line-height:1.8;max-width:500px;">Kamil doesn't recite dates. He walks you to the exact corners where history was made -and tells you what it felt like to live it.</p>
+      <p class="section-lead">This is not a checklist of monuments. Kamil walks you through the moments, streets and symbols that help Czech hockey make sense: why it mattered, who it represented, and what people projected onto it in the hardest decades of the 20th century.</p>
+      <p class="section-lead" style="margin-top: 0.7rem; color: rgba(255,255,255,0.52);">You do not need to memorise dates. The route is designed to make the history feel clear, vivid and accessible.</p>
     </div>
 
     <div class="tl-layout" id="tlLayout">
-      <!-- NAV -->
       <div class="tl-nav" id="tlNav">
-        <div class="tl-stop active" onclick="goTo(0)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1918</div>
-            <div class="stop-name">National Theatre</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(1)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1938</div>
-            <div class="stop-name">Žofín Island</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(2)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1950</div>
-            <div class="stop-name">Zlatá Hospůdka</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(3)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1975</div>
-            <div class="stop-name">Myslíkova Street</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(4)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">Palace</div>
-            <div class="stop-name">Lucerna</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(5)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1968–69</div>
-            <div class="stop-name">Wenceslas Square</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(6)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1989</div>
-            <div class="stop-name">Politických Vězňů</div>
-          </div>
-        </div>
-        <div class="tl-stop" onclick="goTo(7)">
-          <div class="stop-dot"></div>
-          <div class="stop-meta">
-            <div class="stop-year">1998–01</div>
-            <div class="stop-name">Hall of Fame</div>
-          </div>
-        </div>
+        <div class="tl-stop active" onclick="goTo(0)"><div class="stop-dot"></div><div><div class="stop-year">1918</div><div class="stop-name">National Theatre</div></div></div>
+        <div class="tl-stop" onclick="goTo(1)"><div class="stop-dot"></div><div><div class="stop-year">1938</div><div class="stop-name">Žofín Island</div></div></div>
+        <div class="tl-stop" onclick="goTo(2)"><div class="stop-dot"></div><div><div class="stop-year">1950</div><div class="stop-name">Zlatá Hospůdka</div></div></div>
+        <div class="tl-stop" onclick="goTo(3)"><div class="stop-dot"></div><div><div class="stop-year">1975</div><div class="stop-name">Myslíkova Street</div></div></div>
+        <div class="tl-stop" onclick="goTo(4)"><div class="stop-dot"></div><div><div class="stop-year">Lucerna</div><div class="stop-name">Palace</div></div></div>
+        <div class="tl-stop" onclick="goTo(5)"><div class="stop-dot"></div><div><div class="stop-year">1968–69</div><div class="stop-name">Wenceslas Square</div></div></div>
+        <div class="tl-stop" onclick="goTo(6)"><div class="stop-dot"></div><div><div class="stop-year">1989</div><div class="stop-name">Politických Vězňů</div></div></div>
+        <div class="tl-stop" onclick="goTo(7)"><div class="stop-dot"></div><div><div class="stop-year">1998–01</div><div class="stop-name">Hall of Fame</div></div></div>
       </div>
 
-      <!-- PANELS -->
       <div class="tl-panel">
         <div class="tl-slide active" id="slide-0">
           <div class="slide-num">01</div>
           <p class="slide-location">National Theatre Courtyard</p>
-          <h3 class="slide-title">A nation is born -and picks up a stick</h3>
-          <p class="slide-body">1918. Czechoslovakia declares independence after centuries of Habsburg rule. Within a generation, ice hockey is everywhere -in frozen ponds, schoolyards, the national psyche. This is where Kamil explains <strong>why a sport becomes more than a sport</strong>, and what it costs a country when that sport is taken away.</p>
+          <h3 class="slide-title">A nation is born — and a sport starts to matter</h3>
+          <p class="slide-body">In 1918, Czechoslovakia becomes independent after centuries of Habsburg rule. Within a generation, ice hockey moves from pastime to national symbol. This is where Kamil explains why a sport can become part of how a country sees itself — and what it means when that symbol is later controlled, threatened or taken away.</p>
         </div>
         <div class="tl-slide" id="slide-1">
           <div class="slide-num">02</div>
           <p class="slide-location">Žofín River Island</p>
-          <h3 class="slide-title">The first rink -playing the Nazis on ice</h3>
-          <p class="slide-body">Prague's original hockey stadium stood on this island. In 1938, Czechoslovakia faced Nazi Germany in a match that was never just about sport. <strong>Violent, politically loaded</strong>, played in front of a country that knew what was coming. Months later, they were gone -occupied without a shot fired. The rink outlasted the republic.</p>
+          <h3 class="slide-title">The first rink — and a match that carried political weight</h3>
+          <p class="slide-body">Prague's original hockey stadium stood here. In the late 1930s, hockey was already entangled with a Europe sliding into fear and confrontation. Kamil uses this stop to show how public sport can become a stage for something much bigger than entertainment — especially when a country knows what may be coming next.</p>
         </div>
         <div class="tl-slide" id="slide-2">
           <div class="slide-num">03</div>
           <p class="slide-location">Zlatá Hospůdka</p>
-          <h3 class="slide-title">The night they arrested the champions</h3>
-          <p class="slide-body">1950. The communists have been in power for two years. The national hockey team -<strong>Olympic medalists, world champions</strong> -are arrested by the secret police and sentenced to decades in prison and forced labour. No trial. No reason given. A generation of talent wiped out overnight. The Soviet machine now had a clear path to dominance. Kamil pauses here. This is the heaviest stop on the route.</p>
-          <div class="slide-note">A small Czech beer here, if you want one. About €2. Some stories are easier with something in your hand.</div>
+          <h3 class="slide-title">When the state turned on its own champions</h3>
+          <p class="slide-body">In 1950, members of the national hockey team — medalists, champions, public figures — were arrested by the communist regime and sentenced to prison and forced labour. This is one of the heaviest moments in the route, and one of the clearest examples of what happens when power decides that even sport must submit.</p>
+          <div class="slide-note">This is the emotional centre of the walk: the point where hockey stops looking like a pastime and starts looking like a public language the regime wanted to control.</div>
         </div>
         <div class="tl-slide" id="slide-3">
           <div class="slide-num">04</div>
           <p class="slide-location">Myslíkova Street</p>
-          <h3 class="slide-title">When the state turned sport into a show</h3>
-          <p class="slide-body">Under communism, sport became propaganda. The Spartakiáda -mass gymnastic displays performed by <strong>hundreds of thousands</strong> -were not voluntary. Kamil's own father took part in 1975. Standing in a field with 180,000 others, moving in perfect unison, whether he wanted to or not. A personal story, in a country full of them.</p>
+          <h3 class="slide-title">When sport became performance for the state</h3>
+          <p class="slide-body">Under communism, public movement, mass display and organised sport became propaganda tools as well as leisure. At this stop, Kamil connects personal stories to national choreography: how bodies, crowds and ritual were used to express obedience, spectacle and social order.</p>
         </div>
         <div class="tl-slide" id="slide-4">
           <div class="slide-num">05</div>
           <p class="slide-location">Lucerna Palace</p>
-          <h3 class="slide-title">The palace that was almost a hockey arena</h3>
-          <p class="slide-body">One of Prague's great what-ifs. Lucerna was originally designed as an ice hockey stadium. It became something else entirely. Kamil takes you inside -a brief break, a drink if you want one, and <strong>the kind of detail that only a local knows to tell you</strong>. Not every stop needs to be heavy.</p>
+          <h3 class="slide-title">A Prague what-if — and a breath in the middle of the route</h3>
+          <p class="slide-body">Lucerna carries one of those details visitors rarely hear: it was once imagined as something closer to a hockey arena than the cultural venue people know today. It offers a lighter, more local kind of insight — the kind of stop that reminds you this route is a conversation, not a lecture.</p>
         </div>
         <div class="tl-slide" id="slide-5">
           <div class="slide-num">06</div>
           <p class="slide-location">Wenceslas Square</p>
-          <h3 class="slide-title">Tanks, then goals -1968 invasion and the 1969 riots</h3>
-          <p class="slide-body">In August 1968, Soviet tanks rolled into this square. Then, eight months later, Czechoslovakia beat the USSR at ice hockey. Twice. The crowd that spilled onto this square wasn't celebrating a sport. They were <strong>reclaiming something that had been taken from them</strong>. The riots that followed led to direct political changes. A hockey match that rewrote the country.</p>
+          <h3 class="slide-title">Tanks, then goals — and what a victory can unlock</h3>
+          <p class="slide-body">After the Soviet-led invasion of 1968, hockey became charged in a way outsiders can easily miss. Victories over the USSR were not experienced as simple sporting results. Here, Kamil shows how a match can absorb anger, hope and public feeling — and how quickly celebration can turn political.</p>
         </div>
         <div class="tl-slide" id="slide-6">
           <div class="slide-num">07</div>
           <p class="slide-location">Politických Vězňů Street</p>
-          <h3 class="slide-title">The Velvet Revolution -and the end of a shared country</h3>
-          <p class="slide-body">The current Communist Party headquarters sits here -still operating, still on this street. Kamil explains the <strong>Velvet Revolution of 1989</strong>: how a country said enough, peacefully, and meant it. And then how Czechoslovakia split into two nations -two flags, two stories, two hockey teams. The shared chapter was over.</p>
+          <h3 class="slide-title">The Velvet Revolution — and the end of one shared chapter</h3>
+          <p class="slide-body">The late 1980s reshape the country. Kamil explains how the Velvet Revolution changed public life, and how the later split of Czechoslovakia created two nations, two identities and two hockey stories. By now, the route has moved from control and fear toward self-definition and memory.</p>
         </div>
         <div class="tl-slide" id="slide-7">
           <div class="slide-num">08</div>
-          <p class="slide-location">Czech Ice Hockey Hall of Fame</p>
-          <h3 class="slide-title">1998. Nagano. The goal that stopped a country.</h3>
-          <p class="slide-body">You've walked the whole story. Now you see where it ends. The Hall of Fame is interactive, fully English, built around the moments that defined Czech hockey: the <strong>1998 Olympic Gold in Nagano</strong>, the Golden Hat-Trick of 1999, 2000, and 2001. Hašek. Jágr. The trophies are real. The footage is right in front of you. By this point, you'll understand exactly why it all mattered.</p>
-          <div class="slide-final-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            Entry included in tour price
+          <p class="slide-location">Czech Hockey Hall of Fame</p>
+          <h3 class="slide-title">Nagano, memory and the moments that still live</h3>
+          <p class="slide-body">The route ends where pride becomes tangible. The Hall of Fame brings together the players, trophies, footage and objects that carried Czech hockey into public memory — including the moments that made the country stop, look up and believe again. By this point, the exhibits make sense in a deeper way.</p>
+          <div class="slide-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Hall of Fame entry included in both versions
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CONTROLS -->
     <div class="tl-controls">
       <button class="tl-btn" id="btnPrev" onclick="step(-1)" disabled>← Prev</button>
-      <div class="tl-progress">
-        <div class="tl-progress-fill" id="progressFill" style="width:12.5%"></div>
-      </div>
+      <div class="tl-progress"><div class="tl-progress-fill" id="progressFill"></div></div>
       <button class="tl-btn" id="btnNext" onclick="step(1)">Next →</button>
-      <span class="tl-counter" id="tl-counter">1 / 8</span>
+      <span class="tl-counter" id="tlCounter">1 / 8</span>
     </div>
-  </div>
+  </section>
 
-  <!-- KAMIL -->
-  <div class="kamil-section">
-    <div class="kamil-inner">
-      <div class="kamil-avatar">
-        <div class="kamil-avatar-inner">
-          <div class="kamil-initial">K</div>
-          <div class="kamil-avatar-note">Photo coming soon</div>
+  <!-- GUIDE -->
+  <section class="section guide-section">
+    <div class="container guide-grid">
+      <div class="guide-photo" aria-label="Guide photo placeholder">
+        <div class="guide-photo-inner">
+          <div class="guide-initial">K</div>
+          <div style="font-size: 0.82rem;">Photo coming soon</div>
         </div>
       </div>
-      <div>
-        <p class="kamil-eyebrow">Your Prague guide</p>
-        <h2 class="kamil-name">Meet Kamil.<br>Local. Traveller. Storyteller.</h2>
-        <div class="kamil-bar"></div>
-        <blockquote class="kamil-quote">"I've travelled a lot. And the thing I keep finding -in every country, every culture -is that if you want to understand a place, you look at what they play. Not what they tell you about themselves. What they play."</blockquote>
-        <p class="kamil-bio">Kamil grew up in Prague. He's also spent years outside it -which is precisely why he can show it to you with fresh eyes and deep roots at the same time. He doesn't do scripted tours. He walks these streets like it's a conversation.</p>
-        <div class="kamil-tags">
-          <span class="tag">Prague native</span>
-          <span class="tag">World traveller</span>
-          <span class="tag">Czech history</span>
-          <span class="tag">Fully English</span>
+      <div class="guide-copy">
+        <p class="eyebrow" style="color: rgba(0,0,0,0.34);">Your guide in Prague</p>
+        <h2 class="section-title" style="color: var(--ink);">Meet Kamil — local, thoughtful,<br><span style="color: var(--red-dark);">and deeply at home in this story</span></h2>
+        <div class="red-bar"></div>
+        <p>Kamil grew up in Prague and knows how to explain the city in a way that feels personal rather than performative. He does not guide from a script. He uses conversation, place and lived context to help visitors understand why hockey means what it does here.</p>
+        <blockquote class="guide-quote">"If you want to understand a place, don't just look at what it celebrates. Look at what it plays, what it remembers, and what people carry with them."</blockquote>
+        <p>This is a small-group format designed for curious outsiders: people who want to feel the city more clearly, not simply tick it off.</p>
+        <div class="tag-row">
+          <span class="tag">Prague local</span>
+          <span class="tag">Fully in English</span>
+          <span class="tag">Small-group format</span>
+          <span class="tag">Story-led experience</span>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Who this is for</p>
+      <h2 class="section-title">A strong fit if you want Prague<br><span>to feel real</span></h2>
+      <div class="red-bar"></div>
+      <p class="section-lead">This experience works best for people who want depth, atmosphere and a genuine local thread — not just another set of landmarks.</p>
+
+      <div class="fit-grid">
+        <div class="fit-card">
+          <h3>Curious travellers</h3>
+          <p>People who want more than sightseeing and enjoy understanding a place through culture, memory and local meaning.</p>
+        </div>
+        <div class="fit-card">
+          <h3>Sports fans with range</h3>
+          <p>Visitors who love sport, but also care about context, history, identity and why a crowd feels the way it does.</p>
+        </div>
+        <div class="fit-card">
+          <h3>History-minded visitors</h3>
+          <p>You do not need to know hockey already. If you enjoy cities, politics and stories told well, this still lands.</p>
+        </div>
+        <div class="fit-card">
+          <h3>Couples, friends & small groups</h3>
+          <p>Ideal for people looking for something more memorable than a standard Prague walking tour.</p>
+        </div>
+        <div class="fit-card">
+          <h3>Europe-trip travellers</h3>
+          <p>Strong as a half-day or evening anchor if Prague is part of a wider trip through Europe.</p>
+        </div>
+      </div>
+
+      <p class="fit-note">If you want a fast highlights-only tour with no historical depth, this probably is not the right format — and that is exactly the point.</p>
+    </div>
+  </section>
 
   <!-- PRICING -->
-  <div class="pricing-section" id="pricing">
-    <div class="pricing-inner">
-      <p class="section-eyebrow">Choose your experience</p>
-      <h2 class="section-title">Tour &amp; <span>match</span> versions</h2>
+  <section class="section" id="pricing">
+    <div class="container">
+      <p class="eyebrow">Choose your version</p>
+      <h2 class="section-title">Two ways in.<br><span>One strong story.</span></h2>
       <div class="red-bar"></div>
+      <p class="section-lead">Both versions are built around the same walking route and Hall of Fame finish. The difference is whether you want the year-round story-led format or the fullest possible live-match atmosphere in season.</p>
 
       <div class="pricing-grid">
-        <!-- Version A -->
-        <div class="price-card">
+        <!-- VERSION A -->
+        <article class="price-card">
           <div class="price-head">
-            <p class="price-tag">Version A · Year-round</p>
-            <h3 class="price-name">Walking tour<br>+ Hall of Fame</h3>
-            <p class="price-desc">The full history on foot. Eight stops through the old city with Kamil, ending at the Czech Ice Hockey Hall of Fame. The story stands completely on its own.</p>
-            <div>
-              <span class="price-num">€35</span><span class="price-per">per person</span>
+            <div class="price-kicker">
+              <p class="price-tag">Year-round</p>
             </div>
-            <p class="price-incl">Includes Hall of Fame entry (€10) + Kamil's guide fee</p>
+            <h3 class="price-title">Walking tour +<br>Hall of Fame</h3>
+            <p class="price-best">Best for history-first visitors, off-season trips, and anyone who wants the full story without depending on fixture schedules.</p>
+            <p class="price-desc">A story-led walking experience through Prague with Kamil, ending at the Czech Hockey Hall of Fame. A complete cultural experience in its own right.</p>
+            <div class="price-line">
+              <span class="price-num">€35</span>
+              <span class="price-per">per person</span>
+            </div>
+            <p class="price-incl">Includes guide fee + Hall of Fame entry (€10 value)</p>
           </div>
           <div class="price-divider"></div>
-          <div class="price-features">
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Full 8-stop walking route through Prague's old city
+          <div class="price-body">
+            <div class="feature-list">
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Full story-led walking route through central Prague</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Czech Hockey Hall of Fame entry included</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Kamil as your guide throughout</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Works year-round, no match required</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>No prior hockey knowledge needed</span></div>
             </div>
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Czech Ice Hockey Hall of Fame entry included
-            </div>
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Kamil as your personal guide
-            </div>
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Available year-round -no match required
+            <div class="price-actions">
+              <a href="#enquire" class="btn btn-secondary btn-block">Request this version</a>
             </div>
           </div>
-          <div class="price-footer">
-            <a href="mailto:thebeyondthepitch@gmail.com?subject=Prague%20Tour%20Only%20Booking" class="btn-block-ghost">Book this version</a>
-          </div>
-        </div>
+        </article>
 
-        <!-- Version B -->
-        <div class="price-card featured">
+        <!-- VERSION B -->
+        <article class="price-card featured">
           <div class="price-head">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-              <p class="price-tag red">Version B · Sep–Apr</p>
-              <span style="font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;background:rgba(232,69,69,0.15);color:#e84545;border:1px solid rgba(232,69,69,0.3);">★ Full experience</span>
+            <div class="price-kicker">
+              <p class="price-tag">Seasonal full experience</p>
+              <span class="price-badge">Most complete version</span>
             </div>
-            <h3 class="price-name">Tour + Hall of Fame<br>+ live match</h3>
-            <p class="price-desc">You've walked the history. Now watch it live -at the O2 Arena, in a crowd that grew up on this game. The full arc, from 1918 to tonight.</p>
-            <div>
-              <span class="price-num red">€48–50</span><span class="price-per">per person</span>
+            <h3 class="price-title">Walking tour + Hall of Fame<br>+ live match</h3>
+            <p class="price-best">Best for visitors who want the fullest possible Czech hockey atmosphere during the September–April season.</p>
+            <p class="price-desc">Walk the city, understand the history, visit the Hall of Fame, and finish with a live Czech ice hockey match when a suitable fixture is available for your dates.</p>
+            <div class="price-line">
+              <span class="price-num">€48–50</span>
+              <span class="price-per">per person</span>
             </div>
-            <p class="price-incl">Hall of Fame (€10) + match ticket (€12–15) + Kamil's guide fee</p>
+            <p class="price-incl">Includes guide fee + Hall of Fame entry + match ticket (Sparta Praha or HC Slavia Praha)</p>
           </div>
-          <div class="price-divider" style="background:rgba(232,69,69,0.15)"></div>
-          <div class="price-features">
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Everything in Version A
+          <div class="price-divider"></div>
+          <div class="price-body">
+            <div class="feature-list">
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Everything in the year-round version</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Seat at a live Czech Extraliga match</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Direct metro from Hall of Fame to O2 Arena (10 min)</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Booking confirmed personally once match suitability is verified</span></div>
+              <div class="feature-item"><span class="feature-dot">✓</span><span>Full refund or alternative if no suitable match is available</span></div>
             </div>
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Seat at a live Extraliga match -Sparta Praha or HC Slavia Praha
-            </div>
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Direct metro from Hall of Fame to O2 Arena (10 min)
-            </div>
-            <div class="feat">
-              <svg class="feat-dot" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="rgba(255,255,255,0.12)" stroke-width="0.75"/><path d="M4 7.5l2 2 4-4" stroke="#e84545" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Season: September – April
+            <div class="warn-box">Match access is confirmed personally within 24–48 hours of your request. If no suitable fixture is available for your dates, we offer Version A or the closest alternative — no pressure, no obligation.</div>
+            <div class="price-actions">
+              <a href="#enquire" class="btn btn-primary btn-block">
+                Request this version
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </div>
           </div>
-          <div class="price-footer">
-            <div class="warn-mini">Match access confirmed personally within 24–48 hours. Full refund or alternative if unavailable.</div>
-            <a href="mailto:thebeyondthepitch@gmail.com?subject=Prague%20Tour%20Match%20Booking" class="btn-block-red">
-              Secure your spot
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
+        </article>
       </div>
 
-      <p style="font-size:11px;color:rgba(255,255,255,0.2);text-align:center;margin-top:1.25rem;">Minimum 2 people · Maximum ~25 · Groups of 30+ not accepted</p>
+      <p class="fine-print">Minimum 2 people · Maximum ~25 · Groups of 30+ not accepted · Prices include all guide and entry costs listed above</p>
     </div>
-  </div>
+  </section>
 
-  <!-- GETTING THERE -->
-  <div class="travel-section">
-    <div style="max-width:900px;margin:0 auto;">
-      <p class="section-eyebrow">Getting to Prague</p>
-      <h2 class="section-title">Central Europe's<br><span>best-connected city</span></h2>
+  <!-- INCLUDED / NOT INCLUDED -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <p class="eyebrow">What's covered</p>
+      <h2 class="section-title">Included &amp; <span>not included</span></h2>
       <div class="red-bar"></div>
-      <p style="font-size:0.875rem;color:rgba(255,255,255,0.35);line-height:1.8;max-width:500px;">Wherever you're coming from, Prague is closer than you think -and easier to reach than most cities this interesting.</p>
-    </div>
-    <div class="travel-grid">
-      <div class="travel-cell">
-        <div class="travel-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.87 10.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+
+      <div class="include-grid">
+        <div class="include-card yes">
+          <h3>✓ &nbsp;What's included</h3>
+          <ul>
+            <li>Kamil's personal guide fee for the full walking route</li>
+            <li>Czech Hockey Hall of Fame entry in both versions</li>
+            <li>Live match ticket in Version B (when available)</li>
+            <li>Personal booking review with clear availability response within 24–48 hrs</li>
+            <li>Metro directions from Hall of Fame to O2 Arena (Version B)</li>
+            <li>Full refund or alternative if no suitable match is available</li>
+          </ul>
         </div>
-        <div class="travel-head">By plane</div>
-        <div class="travel-main">Direct flights from across Europe</div>
-        <div class="travel-detail">London, Amsterdam, Berlin, Paris, Barcelona, Vienna and more. Often under 2 hours. Airport is 30 min from city centre.</div>
-      </div>
-      <div class="travel-cell">
-        <div class="travel-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <div class="include-card no">
+          <h3>✗ &nbsp;Not included</h3>
+          <ul>
+            <li>Travel to Prague (flights, trains, buses)</li>
+            <li>Hotel or accommodation in Prague</li>
+            <li>Meals, drinks or food during the route</li>
+            <li>Public transport within Prague (metro tickets are inexpensive and easy to buy)</li>
+            <li>Travel insurance</li>
+            <li>Tips (entirely optional)</li>
+          </ul>
         </div>
-        <div class="travel-head">By train</div>
-        <div class="travel-main">Scenic and direct from Germany, Austria, Poland</div>
-        <div class="travel-detail">Vienna in 4 hrs. Berlin under 5. Munich under 4. Main station is a 10-min walk from the old city -step off the train and you're already in it.</div>
-      </div>
-      <div class="travel-cell">
-        <div class="travel-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3m-4 9h8l-1.5-4.5H13V8"/><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/></svg>
-        </div>
-        <div class="travel-head">By car</div>
-        <div class="travel-main">A natural stop on any Europe road trip</div>
-        <div class="travel-detail">Munich 3.5 hrs, Vienna 3 hrs, Dresden 2 hrs. Add Prague to your European route -it fits naturally.</div>
       </div>
     </div>
-    <div class="travel-note">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-b)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      <p class="travel-note-text">Already on a Europe trip? Prague is the kind of city people add to an itinerary and then wonder why they didn't plan for longer. A weekend is enough to do the tour. A few days is enough to fall for the place. We're happy to suggest where to stay while you're there.</p>
-    </div>
-  </div>
+  </section>
 
   <!-- FAQ -->
-  <div class="faq-section">
-    <div class="faq-inner">
-      <p class="faq-eyebrow">Frequently asked questions</p>
-      <h2 class="faq-title">Good to know</h2>
-      <div class="faq-bar"></div>
+  <section class="section faq-section">
+    <div class="faq-inner container">
+      <p class="eyebrow">Frequently asked questions</p>
+      <h2 class="section-title">Good to know</h2>
+      <div class="red-bar"></div>
 
       <details>
         <summary>Do I need to know anything about ice hockey before I join? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Nothing at all. Most people who join this tour have never watched a hockey match in their lives. That's fine -the sport makes sense once you understand the context. Kamil builds the whole thing from the ground up.</p>
+        <p class="faq-answer">Nothing at all. Most people who join this tour have never watched a hockey match in their lives. That's fine — the sport makes sense once you understand the context. Kamil builds the whole thing from the ground up, and the historical thread works even if you've never followed hockey.</p>
       </details>
+
       <details>
         <summary>When is the hockey season? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">The Czech Extraliga runs September through April. Match tickets for Sparta Praha or HC Slavia Praha are included in the Version B price. Outside of season, Version A - the walking tour and Hall of Fame -runs year-round and is a complete experience in its own right.</p>
+        <p class="faq-answer">The Czech Extraliga runs September through April. Match tickets for Sparta Praha or HC Slavia Praha are included in the Version B price when a suitable fixture is available for your dates. Outside of season, Version A — the walking tour and Hall of Fame — runs year-round and is a complete experience in its own right.</p>
       </details>
+
       <details>
         <summary>How does the booking process work? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Send us your preferred date, group size, and which version interests you. We review each request personally within 24–48 hours, confirm Kamil's availability and match access where relevant, then send you next steps to finalise. We don't take bookings on autopilot -everything is checked before it's confirmed.</p>
+        <p class="faq-answer">Use the enquiry form below or email us directly. Tell us your preferred date, group size, and which version interests you. We review each request personally within 24–48 hours, confirm Kamil's availability and match access where relevant, then send you next steps to finalise. We don't take bookings on autopilot — everything is checked before it's confirmed.</p>
       </details>
+
+      <details>
+        <summary>What if no match is available for my dates? <span class="faq-icon">+</span></summary>
+        <p class="faq-answer">We'll tell you clearly, suggest the closest alternative dates if they work for you, or offer Version A — the walking tour and Hall of Fame — as a fully independent option. You won't be pushed into something unsuitable. If none of the alternatives work, there's no charge.</p>
+      </details>
+
       <details>
         <summary>Is the history heavy? Is it appropriate for all ages? <span class="faq-icon">+</span></summary>
         <p class="faq-answer">The history is real and Kamil doesn't sanitise it. The Nazi occupation and communist arrests are central to the story. He presents it with honesty and human perspective, not shock. Teens and adults will find it compelling. Younger children are welcome with some parental context around the heavier moments.</p>
       </details>
+
       <details>
         <summary>How is this different from a regular Prague walking tour? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Most Prague tours take you to the same five landmarks and call it history. This one uses sport as the thread -and sport turns out to be the most honest way to understand a culture. You'll stand on Wenceslas Square and actually understand what happened there. That's a different kind of tour.</p>
+        <p class="faq-answer">Most Prague tours take you to the same five landmarks and call it history. This one uses sport as the thread — and sport turns out to be the most honest way to understand a culture. You'll stand on Wenceslas Square and actually understand what happened there. That's a different kind of tour.</p>
       </details>
+
+      <details>
+        <summary>How many people can join? <span class="faq-icon">+</span></summary>
+        <p class="faq-answer">Groups from 2 people up to around 25. We do not accept groups of 30 or more — the format doesn't work at that scale. If you're planning a larger group trip to Prague, get in touch and we can discuss what's realistic.</p>
+      </details>
+
       <details>
         <summary>What if I'm visiting Prague as part of a longer Europe trip? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Prague is one of Europe's most accessible cities -direct trains from Berlin, Vienna, and Munich; direct flights from London, Amsterdam, Paris, and most major hubs. The tour works perfectly as a two-hour add-on to an evening in the city. If you can be in Prague for a weekend, you have more than enough time.</p>
+        <p class="faq-answer">Prague is one of Europe's most accessible cities — direct trains from Berlin, Vienna and Munich; direct flights from London, Amsterdam, Paris and most major hubs. The tour works perfectly as a 2–3 hour block within a Europe trip. If you can be in Prague for a weekend, you have more than enough time for this and everything else the city offers.</p>
+      </details>
+
+      <details>
+        <summary>Can I book for a solo traveller? <span class="faq-icon">+</span></summary>
+        <p class="faq-answer">The minimum group size is 2 people. If you're travelling solo, get in touch anyway — occasionally we can match solo travellers with other small groups on the same date. We'll let you know what's possible.</p>
       </details>
     </div>
-  </div>
+  </section>
 
-  <!-- FINAL CTA -->
-  <div class="cta-section">
-    <div class="cta-inner">
-      <p class="cta-eyebrow">Small groups only · Prague, Czech Republic</p>
-      <h2 class="cta-title">You'll leave Prague<br><span>knowing it.</span></h2>
-      <p class="cta-sub">Not the postcards. Not the highlights reel. The thing underneath -the stubbornness, the humour, the refusal to give in. The sport that made it visible.</p>
-      <div class="cta-btns">
-        <a href="mailto:thebeyondthepitch@gmail.com?subject=Prague%20Ice%20Hockey%20Tour%20Enquiry" class="btn-red">Secure your spot</a>
-        <a href="mailto:thebeyondthepitch@gmail.com" class="btn-ghost">Ask a question</a>
+  <!-- ENQUIRY FORM -->
+  <section class="section enquiry-section" id="enquire">
+    <div class="container enquiry-grid">
+      <div class="enquiry-info">
+        <p class="eyebrow">Make an enquiry</p>
+        <h2 class="section-title" style="font-size: clamp(1.6rem, 3.5vw, 2.4rem);">Tell us your dates.<br><span>We'll do the rest.</span></h2>
+        <div class="red-bar"></div>
+        <p>Every request is reviewed personally. We check Kamil's availability, verify match options where relevant, and get back to you within 24–48 hours with a clear answer — not an automated confirmation.</p>
+
+        <div class="mini-points">
+          <div class="mini-point">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.87 10.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l.91-.91"/></svg>
+            <span><strong>Personal response within 24–48 hours</strong><br>Not a bot. An actual human checking your request.</span>
+          </div>
+          <div class="mini-point">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <span><strong>No obligation until confirmed</strong><br>Enquiring doesn't commit you to anything.</span>
+          </div>
+          <div class="mini-point">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span><strong>Honest about availability</strong><br>If a date doesn't work, we'll say so clearly and suggest alternatives.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-title">Request availability →</div>
+        <form id="enquiryForm" onsubmit="handleSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" name="fname" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="date">Preferred date</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="groupsize">Group size</label>
+              <select id="groupsize" name="groupsize" required>
+                <option value="" disabled selected>Select size</option>
+                <option value="2">2 people</option>
+                <option value="3-4">3–4 people</option>
+                <option value="5-8">5–8 people</option>
+                <option value="9-15">9–15 people</option>
+                <option value="16-25">16–25 people</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="version">Which version interests you?</label>
+              <select id="version" name="version" required>
+                <option value="" disabled selected>Select a version</option>
+                <option value="a">Version A — Walking tour + Hall of Fame (year-round, €35 p.p.)</option>
+                <option value="b">Version B — Tour + Hall of Fame + live match (seasonal, €48–50 p.p.)</option>
+                <option value="unsure">Not sure yet — happy to be advised</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Anything else we should know? (optional)</label>
+              <textarea id="message" name="message" placeholder="Travel context, alternative dates, questions..."></textarea>
+            </div>
+          </div>
+          <div class="form-submit-row">
+            <button type="submit" class="btn btn-primary btn-block">
+              Send your request
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <p class="form-help">We respond personally within 24–48 hours. Your information is not shared with third parties.</p>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✓</div>
+          <strong style="display:block;color:#fff;margin-bottom:0.4rem;">Request received.</strong>
+          We'll get back to you within 24–48 hours with a clear answer on availability and next steps.
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-</div>
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <div class="cta-inner container">
+      <p class="eyebrow">Small groups only · Prague, Czech Republic</p>
+      <h2 class="cta-title">You'll leave Prague<br><span>knowing it.</span></h2>
+      <p class="cta-sub">Not the postcards. Not the highlights reel. The thing underneath — the stubbornness, the humour, the refusal to give in. The sport that made it visible.</p>
+      <div class="cta-row">
+        <a href="#enquire" class="btn btn-primary">
+          Request your date
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:thebeyondthepitch@gmail.com" class="btn btn-secondary">Ask a question instead</a>
+      </div>
+      <p class="cta-micro">From €35 per person · Minimum 2 people · Personally confirmed within 24–48 hours</p>
+    </div>
+  </section>
+
+</div><!-- .page -->
 
 <script>
+  // ── Timeline ──
   let current = 0;
   const total = 8;
 
   function goTo(i) {
     document.getElementById('slide-' + current).classList.remove('active');
     document.querySelectorAll('.tl-stop')[current].classList.remove('active');
-
     current = i;
-
     document.getElementById('slide-' + current).classList.add('active');
     document.querySelectorAll('.tl-stop')[current].classList.add('active');
-
     document.getElementById('progressFill').style.width = ((current + 1) / total * 100) + '%';
-    document.getElementById('tl-counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('tlCounter').textContent = (current + 1) + ' / ' + total;
     document.getElementById('btnPrev').disabled = current === 0;
     document.getElementById('btnNext').disabled = current === total - 1;
-
     const stop = document.querySelectorAll('.tl-stop')[current];
     const nav = document.getElementById('tlNav');
     if (nav.scrollHeight > nav.clientHeight) {
@@ -942,6 +1091,34 @@
   }
 
   function step(dir) { goTo(Math.max(0, Math.min(total - 1, current + dir))); }
+
+  // initialise progress bar
+  document.getElementById('progressFill').style.width = (1 / total * 100) + '%';
+
+  // ── Enquiry form ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('enquiryForm');
+    const success = document.getElementById('formSuccess');
+
+    const subject = encodeURIComponent('Prague Ice Hockey Tour Enquiry');
+    const fname = document.getElementById('fname').value;
+    const email = document.getElementById('email').value;
+    const date = document.getElementById('date').value;
+    const groupsize = document.getElementById('groupsize').value;
+    const version = document.getElementById('version').value;
+    const message = document.getElementById('message').value;
+
+    const body = encodeURIComponent(
+      `Name: ${fname}\nEmail: ${email}\nPreferred date: ${date}\nGroup size: ${groupsize}\nVersion: ${version}\n\nAdditional info:\n${message}`
+    );
+
+    window.location.href = `mailto:thebeyondthepitch@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show success state
+    form.style.display = 'none';
+    success.style.display = 'block';
+  }
 </script>
 
 </body>
