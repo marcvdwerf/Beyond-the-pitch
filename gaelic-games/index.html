@@ -826,32 +826,7 @@ function cSwitchTab(loc) {
   dBtn.style.color            = loc === 'd' ? '#fff' : 'rgba(255,255,255,0.35)';
   dBtn.style.borderBottomColor = loc === 'd' ? 'var(--gold-bright)' : 'transparent';
 }
-  // Founder countdown
-    (function() {
-      var deadline = new Date('2026-04-25T18:30:00');
-      function pad(n) { return n < 10 ? '0' + n : '' + n; }
-      function tick() {
-        var diff = deadline - Date.now();
-        if (diff < 0) diff = 0;
-        document.getElementById('fc-days').textContent = pad(Math.floor(diff / 86400000));
-        document.getElementById('fc-hrs').textContent  = pad(Math.floor((diff % 86400000) / 3600000));
-        document.getElementById('fc-min').textContent  = pad(Math.floor((diff % 3600000) / 60000));
-        document.getElementById('fc-sec').textContent  = pad(Math.floor((diff % 60000) / 1000));
-      }
-      tick();
-      setInterval(tick, 1000);
-    })();
-
-    function fcCopy() {
-      navigator.clipboard.writeText('KILKENNYEXPERIENCE20').catch(function(){});
-      var lbl = document.getElementById('fc-copy-label');
-      lbl.textContent = 'Copied!';
-      lbl.style.color = '#4caf50';
-      setTimeout(function() {
-        lbl.textContent = 'Copy code';
-        lbl.style.color = 'rgba(255,215,0,0.5)';
-      }, 2000);
-    }
+ 
 </script>
 
   <section style="background:#f7f6f3;padding:4rem 1.5rem;">
