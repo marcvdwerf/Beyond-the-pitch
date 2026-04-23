@@ -548,6 +548,74 @@
         </div>
       </div>
 
+      <!-- Right: countdown card -->
+      <div class="hero-countdown-card">
+        <div style="background:#181818;border:1px solid #262626;border-radius:16px;overflow:hidden;">
+          <!-- Header -->
+          <div style="padding:1.1rem 1.4rem;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.76rem;font-weight:800;color:#fff;letter-spacing:0.03em;">Leinster Championship 2026: The Kilkenny Experience</span>
+            <span style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.7rem;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.22);border-radius:50px;font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-bright);">
+              <span style="width:5px;height:5px;background:var(--gold-bright);border-radius:50%;animation:ann-blink 1.4s ease-in-out infinite;display:inline-block;"></span>
+              Filling fast
+            </span>
+          </div>
+          <!-- Numbers -->
+          <div style="padding:1.4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0.65rem;">
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-days" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Days</span>
+            </div>
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-hours" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Hours</span>
+            </div>
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-mins" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Mins</span>
+            </div>
+            <div style="background:#111;border:1px solid #242424;border-top:2px solid var(--gold-bright);border-radius:10px;padding:1.1rem 0.4rem 0.9rem;text-align:center;">
+              <span id="btp-secs" style="font-size:2.1rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;display:block;font-variant-numeric:tabular-nums;">--</span>
+              <span style="font-size:0.53rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.2);margin-top:0.4rem;display:block;">Secs</span>
+            </div>
+          </div>
+          <!-- Footer: scarcity + price -->
+          <div style="padding:0.9rem 1.4rem;border-top:1px solid #1e1e1e;display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:0.55rem;">
+              <div style="width:72px;height:3px;background:#222;border-radius:2px;overflow:hidden;">
+                <div style="height:100%;width:75%;background:var(--gold-bright);border-radius:2px;"></div>
+              </div>
+              <span style="font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.35);">Limited spots remaining</span>
+            </div>
+            <span style="font-size:0.8rem;font-weight:800;color:#fff;">€95 <span style="font-size:0.68rem;font-weight:400;color:rgba(255,255,255,0.3);">p.p.</span></span>
+          </div>
+          <!-- Small group note -->
+          <div style="padding:0.75rem 1.4rem;border-top:1px solid #1a1a1a;display:flex;align-items:center;gap:0.55rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,215,0,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span style="font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.5;"><strong style="color:rgba(255,255,255,0.65);font-weight:700;">Be part of our founding experience.</strong> First groups receive reduced pricing. Once we're full, we're full - no waitlist.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Countdown script — plak dit eenmalig voor </body> -->
+<script>
+  (function(){
+    var TARGET = new Date('2026-04-25T18:30:00');
+    function pad(n){return String(n).padStart(2,'0');}
+    function tick(){
+      var diff = TARGET - new Date();
+      if(diff<=0){['btp-days','btp-hours','btp-mins','btp-secs'].forEach(function(id){document.getElementById(id).textContent='00';});return;}
+      document.getElementById('btp-days').textContent=pad(Math.floor(diff/86400000));
+      document.getElementById('btp-hours').textContent=pad(Math.floor(diff%86400000/3600000));
+      document.getElementById('btp-mins').textContent=pad(Math.floor(diff%3600000/60000));
+      document.getElementById('btp-secs').textContent=pad(Math.floor(diff%60000/1000));
+    }
+    tick();setInterval(tick,1000);
+  })();
+</script>
   <!-- ══════════════════════════════════════════════
        ZONE 2 - OFF-WHITE | What we do (3 pillars)
   ══════════════════════════════════════════════ -->
