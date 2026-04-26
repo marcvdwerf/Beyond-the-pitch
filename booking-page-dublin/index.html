@@ -247,7 +247,6 @@
             font-size: 0.95rem;
         }
 
-        /* Experience steps */
         .experience-steps {
             display: grid;
             gap: 12px;
@@ -452,7 +451,7 @@
 
         .filter-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 12px;
             margin-bottom: 14px;
         }
@@ -741,6 +740,51 @@
             padding: 60px 30px;
         }
 
+        .price-range-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+
+        .price-range-title {
+            font-weight: 700;
+            color: #0369a1;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .price-range-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .price-range-note {
+            font-size: 0.78rem;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* TBC fixture note styling */
+        .fixture-tbc-note {
+            font-size: 0.72rem;
+            color: #b45309;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 5px;
+            padding: 2px 6px;
+            display: inline-block;
+            margin-top: 3px;
+        }
+
         @media (max-width: 700px) {
             .form-section { padding: 24px 20px; }
             .filter-container { grid-template-columns: 1fr; }
@@ -849,36 +893,34 @@
             <div class="section-title">2. Your Experience</div>
             <div class="exp-info-card">
                 <div class="exp-info-body">
-                    <div class="exp-info-title">The Dublin Culture & Heritage Experience</div>
-                    <div class="exp-info-badge">Culture & Heritage</div>
+                    <div class="exp-info-title">The Dublin Culture &amp; Heritage Experience</div>
+                    <div class="exp-info-badge">Culture &amp; Heritage</div>
                     <div class="exp-info-desc">
                         Step into the heart of Dublin's GAA culture at Na Fianna GAA Club. Learn the origins of Gaelic Games, take to the pitch with experienced coaches, and finish with entry to a live Gaelic Games match - following in the footsteps of local supporters.
                     </div>
                     <div class="exp-info-price">from €95 p.p.</div>
                 </div>
             </div>
+
             <div class="price-range-box">
-    <div class="price-range-title">Pricing overview</div>
+                <div class="price-range-title">Pricing overview</div>
+                <ul class="price-range-list">
+                    <li>✔ From €95 – standard fixtures</li>
+                    <li>✔ €119–149 – premium matches &amp; finals</li>
+                    <li>✔ €149+ – All Ireland finals &amp; high demand games</li>
+                </ul>
+                <div class="price-range-note">
+                    Final price depends on the selected match — no surprises before confirmation.
+                </div>
+            </div>
 
-    <ul class="price-range-list">
-        <li>✔ From €95 – standard fixtures</li>
-        <li>✔ €119–149 – premium matches</li>
-        <li>✔ €149+ – high demand games</li>
-    </ul>
-
-    <div class="price-range-note">
-        Final price depends on the selected match — no surprises before confirmation.
-    </div>
-</div>
-
-            <!-- Experience Steps -->
             <div class="section-title" style="margin-top: 0;">What's included</div>
             <div class="experience-steps">
                 <div class="exp-step-card">
                     <div class="exp-step-num">1</div>
                     <div>
                         <div class="exp-step-sub">Na Fianna GAA Club, Dublin</div>
-                        <div class="exp-step-title">Culture & History</div>
+                        <div class="exp-step-title">Culture &amp; History</div>
                         <div class="exp-step-desc">The experience kicks off at the grounds of Na Fianna, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and why these sports hold such a central place in Irish culture.</div>
                     </div>
                 </div>
@@ -903,7 +945,7 @@
             <div class="section-title">3. Select Match Fixture</div>
             <div class="fixture-section" id="fixtureSection">
                 <p class="fixture-hint" id="fixtureHint">
-                    Choose one of the upcoming Dublin home fixtures below.
+                    Choose one of the upcoming fixtures below. Highlighted dates feature Croke Park or Dublin home games.
                 </p>
 
                 <div class="featured-fixtures" id="featuredFixtures"></div>
@@ -925,15 +967,28 @@
                                 <option value="all">All Sports</option>
                                 <option value="Hurling">Hurling</option>
                                 <option value="Football">Gaelic Football</option>
+                                <option value="Camogie">Camogie</option>
+                                <option value="Ladies Football">Ladies Football</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="monthFilter">Month</label>
                             <select id="monthFilter">
                                 <option value="all">All Months</option>
-                                <option value="apr">April</option>
                                 <option value="may">May</option>
-                                <option value="jun">June</option>
+                                <option value="june">June</option>
+                                <option value="july">July</option>
+                                <option value="august">August</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="venueFilter">Venue</label>
+                            <select id="venueFilter">
+                                <option value="all">All Venues</option>
+                                <option value="croke">Croke Park</option>
+                                <option value="parnell">Parnell Park</option>
+                                <option value="semple">Semple Stadium</option>
+                                <option value="other">Other venues</option>
                             </select>
                         </div>
                     </div>
@@ -1052,7 +1107,7 @@
     <script>
         const EXPERIENCE_NAME = 'The Dublin Culture & Heritage Experience';
         const PRICE_PER_PERSON = 95;
-        const FEATURED_LIMIT = 2;
+        const FEATURED_LIMIT = 3;
 
         const DISCOUNT_CODES = {
             DUBLINEXPERIENCE20: {
@@ -1078,41 +1133,336 @@
             discount: 'entry.467287763'
         };
 
+        // Venue filter helper
+        function getVenueCategory(venue) {
+            const v = venue.toLowerCase();
+            if (v.includes('croke')) return 'croke';
+            if (v.includes('parnell')) return 'parnell';
+            if (v.includes('semple')) return 'semple';
+            return 'other';
+        }
+
         const MATCH_DATA = [
-    {
-        id: 'dub-kerry-2026-05-24',
-        date: '2026-05-24',
-        teams: 'Dublin vs Kilkenny',
-        venue: 'Parnell park, Dublin',
-        sport: 'Hurling',
-        month: 'may',
-        competition: 'Leinster SFC',
-        dublinHome: true,
-        price: 95          // ← standaardprijs
-    },
-    {
-        id: 'dub-meath-2026-05-24',
-        date: '2026-06-06',
-        teams: 'Leinster final',
-        venue: 'Croke Park, Dublin',
-        sport: 'Hurling',
-        month: 'june',
-        competition: 'Leinster SFC',
-        dublinHome: true,
-        price: 149         // ← premiumprijs (finale)
-    },
-    {
-        id: 'dub-galway-2026-05-17',
-        date: '2026-05-17',
-        teams: 'Final Leinster Football',
-        venue: 'Croke Park, Dublin',
-        sport: 'Football',
-        month: 'may',
-        competition: 'Leinster SHC',
-        dublinHome: true,
-        price: 119         // ← middenprijsklasse
-    }
-].sort((a, b) => new Date(a.date) - new Date(b.date));
+            // ── MAY 2 ──
+            {
+                id: 'lein-sfc-hf1-2026-05-02',
+                date: '2026-05-02',
+                teams: 'Leinster SFC – Halve finale',
+                venue: 'Laois Hire O\'Moore Park, Portlaoise',
+                sport: 'Football',
+                month: 'may',
+                competition: 'Leinster SFC',
+                dublinHome: false,
+                price: 95
+            },
+            // ── MAY 3 ──
+            {
+                id: 'lein-sfc-hf2-2026-05-03',
+                date: '2026-05-03',
+                teams: 'Leinster SFC – Halve finale',
+                venue: 'Glenisk O\'Connor Park, Tullamore',
+                sport: 'Football',
+                month: 'may',
+                competition: 'Leinster SFC',
+                dublinHome: false,
+                price: 95
+            },
+            // ── MAY 9 ──
+            {
+                id: 'lein-shc-kil-gal-2026-05-09',
+                date: '2026-05-09',
+                teams: 'Kildare v Galway',
+                venue: 'Cedral St Conleths Park, Newbridge',
+                sport: 'Hurling',
+                month: 'may',
+                competition: 'Leinster SHC',
+                time: '15:30',
+                dublinHome: false,
+                price: 95
+            },
+            // ── MAY 10 ──
+            {
+                id: 'lein-shc-off-kil-2026-05-10',
+                date: '2026-05-10',
+                teams: 'Offaly v Kilkenny',
+                venue: 'Glenisk O\'Connor Park, Tullamore',
+                sport: 'Hurling',
+                month: 'may',
+                competition: 'Leinster SHC',
+                time: '15:00',
+                dublinHome: false,
+                price: 95
+            },
+            // ── MAY 16 ──
+            {
+                id: 'mun-shc-tip-cla-2026-05-16',
+                date: '2026-05-16',
+                teams: 'Tipperary v Clare',
+                venue: 'FBD Semple Stadium, Thurles',
+                sport: 'Hurling',
+                month: 'may',
+                competition: 'Munster SHC',
+                time: '19:00',
+                dublinHome: false,
+                price: 95
+            },
+            // ── MAY 17 ──
+            {
+                id: 'lein-sfc-final-2026-05-17',
+                date: '2026-05-17',
+                teams: 'Leinster SFC – Finale',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'may',
+                competition: 'Leinster SFC',
+                time: '14:00',
+                dublinHome: true,
+                price: 119
+            },
+            // ── MAY 23 ──
+            {
+                id: 'ai-sfc-r1a-2026-05-23',
+                date: '2026-05-23',
+                teams: 'All Ireland SFC – Sam Maguire R1',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'may',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 119
+            },
+            // ── MAY 24 ──
+            {
+                id: 'lein-shc-dub-kil-2026-05-24',
+                date: '2026-05-24',
+                teams: 'Dublin v Kilkenny',
+                venue: 'Parnell Park, Dublin',
+                sport: 'Hurling',
+                month: 'may',
+                competition: 'Leinster SHC',
+                time: '14:00',
+                dublinHome: true,
+                price: 95
+            },
+            // ── MAY 30 ──
+            {
+                id: 'hurling-finales-2026-05-30',
+                date: '2026-05-30',
+                teams: 'Christy Ring / Nicky Rackard / Lory Meagher – Finales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Hurling',
+                month: 'may',
+                competition: 'Christy Ring Cup',
+                dublinHome: true,
+                price: 95
+            },
+            // ── MAY 31 ──
+            {
+                id: 'ai-sfc-r1b-2026-05-31',
+                date: '2026-05-31',
+                teams: 'All Ireland SFC – Sam Maguire R1',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'may',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 119
+            },
+            // ── JUNE 6 ──
+            {
+                id: 'joe-mcdonagh-final-2026-06-06',
+                date: '2026-06-06',
+                teams: 'Joe McDonagh Cup – Finale',
+                venue: 'Croke Park, Dublin',
+                sport: 'Hurling',
+                month: 'june',
+                competition: 'Joe McDonagh Cup',
+                time: '15:45',
+                dublinHome: true,
+                price: 119
+            },
+            {
+                id: 'lein-shc-final-2026-06-06',
+                date: '2026-06-06',
+                teams: 'Leinster SHC – Finale',
+                venue: 'Croke Park, Dublin',
+                sport: 'Hurling',
+                month: 'june',
+                competition: 'Leinster SHC',
+                time: '18:00',
+                dublinHome: true,
+                price: 149
+            },
+            // ── JUNE 13 ──
+            {
+                id: 'ai-sfc-r2a-2026-06-13',
+                date: '2026-06-13',
+                teams: 'All Ireland SFC – Sam Maguire R2',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'june',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 119
+            },
+            // ── JUNE 14 ──
+            {
+                id: 'ai-sfc-r2b-2026-06-14',
+                date: '2026-06-14',
+                teams: 'All Ireland SFC – Sam Maguire R2',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'june',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 119
+            },
+            // ── JUNE 20 ──
+            {
+                id: 'ai-sfc-r3a-2026-06-20',
+                date: '2026-06-20',
+                teams: 'All Ireland SFC – Sam Maguire R3',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'june',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 119
+            },
+            // ── JUNE 21 ──
+            {
+                id: 'tailteann-hf-2026-06-21',
+                date: '2026-06-21',
+                teams: 'Tailteann Cup – Halve finales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'june',
+                competition: 'Tailteann Cup',
+                dublinHome: true,
+                price: 95
+            },
+            // ── JUNE 27 ──
+            {
+                id: 'ai-sfc-qf1-2026-06-27',
+                date: '2026-06-27',
+                teams: 'All Ireland SFC – Kwartfinales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'june',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 149
+            },
+            // ── JUNE 28 ──
+            {
+                id: 'ai-sfc-qf2-2026-06-28',
+                date: '2026-06-28',
+                teams: 'All Ireland SFC – Kwartfinales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'june',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 149
+            },
+            // ── JULY 4 ──
+            {
+                id: 'ai-shc-hf1-2026-07-04',
+                date: '2026-07-04',
+                teams: 'All Ireland SHC – Halve finales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Hurling',
+                month: 'july',
+                competition: 'All Ireland SHC',
+                dublinHome: true,
+                price: 149
+            },
+            // ── JULY 5 ──
+            {
+                id: 'ai-shc-hf2-2026-07-05',
+                date: '2026-07-05',
+                teams: 'All Ireland SHC – Halve finales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Hurling',
+                month: 'july',
+                competition: 'All Ireland SHC',
+                dublinHome: true,
+                price: 149
+            },
+            // ── JULY 11 ──
+            {
+                id: 'ai-sfc-hf1-2026-07-11',
+                date: '2026-07-11',
+                teams: 'All Ireland SFC – Halve finales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'july',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 149
+            },
+            {
+                id: 'tailteann-final-2026-07-11',
+                date: '2026-07-11',
+                teams: 'Tailteann Cup – Finale',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'july',
+                competition: 'Tailteann Cup',
+                dublinHome: true,
+                price: 119
+            },
+            // ── JULY 12 ──
+            {
+                id: 'ai-sfc-hf2-2026-07-12',
+                date: '2026-07-12',
+                teams: 'All Ireland SFC – Halve finales',
+                venue: 'Croke Park, Dublin',
+                sport: 'Football',
+                month: 'july',
+                competition: 'All Ireland SFC',
+                dublinHome: true,
+                price: 149
+            },
+            // ── AUGUST 2 ──
+            {
+                id: 'lgfa-final-2026-08-02',
+                date: '2026-08-02',
+                teams: 'All Ireland Ladies Gaelic Football – Finale',
+                venue: 'Croke Park, Dublin',
+                sport: 'Ladies Football',
+                month: 'august',
+                competition: 'All Ireland LGFA',
+                dublinHome: true,
+                price: 119
+            },
+            // ── AUGUST 9 ──
+            {
+                id: 'camogie-final-2026-08-09',
+                date: '2026-08-09',
+                teams: 'All Ireland Ladies Camogie – Finale',
+                venue: 'Croke Park, Dublin',
+                sport: 'Camogie',
+                month: 'august',
+                competition: 'All Ireland Camogie',
+                dublinHome: true,
+                price: 119
+            }
+        ].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Pick featured: prioritise Croke Park + Dublin home + highest price
+        function getFeaturedFixtures() {
+            const crokeHome = MATCH_DATA.filter(m => m.dublinHome && getVenueCategory(m.venue) === 'croke');
+            const parnell = MATCH_DATA.filter(m => m.dublinHome && getVenueCategory(m.venue) === 'parnell');
+            const combined = [...parnell, ...crokeHome];
+            // deduplicate
+            const seen = new Set();
+            const deduped = [];
+            for (const m of combined) {
+                if (!seen.has(m.id)) { seen.add(m.id); deduped.push(m); }
+            }
+            return deduped.slice(0, FEATURED_LIMIT);
+        }
 
         let selectedFixture = null;
         let appliedDiscount = null;
@@ -1134,6 +1484,7 @@
             fullFixturePanel: document.getElementById('fullFixturePanel'),
             sportFilter: document.getElementById('sportFilter'),
             monthFilter: document.getElementById('monthFilter'),
+            venueFilter: document.getElementById('venueFilter'),
             matchSelector: document.getElementById('match-selector'),
             priceSummary: document.getElementById('priceSummary'),
             summaryGuests: document.getElementById('summaryGuests'),
@@ -1179,18 +1530,18 @@
         function normalizeGuestsInput() { els.guests.value = clampGuests(els.guests.value); }
 
         function calcTotals(guests) {
-    const pricePerPerson = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
-    const subtotal = pricePerPerson * guests;
-    let discount = 0;
-    if (appliedDiscount) {
-        if (appliedDiscount.type === 'percent') {
-            discount = subtotal * (appliedDiscount.value / 100);
-        } else {
-            discount = Math.min(appliedDiscount.value * guests, subtotal);
+            const pricePerPerson = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+            const subtotal = pricePerPerson * guests;
+            let discount = 0;
+            if (appliedDiscount) {
+                if (appliedDiscount.type === 'percent') {
+                    discount = subtotal * (appliedDiscount.value / 100);
+                } else {
+                    discount = Math.min(appliedDiscount.value * guests, subtotal);
+                }
+            }
+            return { subtotal, discount, total: subtotal - discount, pricePerPerson };
         }
-    }
-    return { subtotal, discount, total: subtotal - discount, pricePerPerson };
-}
 
         function clearFieldErrors() {
             [els.name, els.email, els.date, els.guests, els.matchSelector].forEach(el => el.classList.remove('input-error'));
@@ -1232,21 +1583,23 @@
         }
 
         function renderFeatured() {
-            const featured = MATCH_DATA.slice(0, FEATURED_LIMIT);
+            const featured = getFeaturedFixtures();
             els.featuredFixtures.innerHTML = '';
             featured.forEach(match => {
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = 'fixture-card' + (selectedFixture?.id === match.id ? ' selected' : '');
+                const timeStr = match.time ? ` · ${match.time}` : '';
                 card.innerHTML = `
     <div class="fixture-info">
         <div class="fixture-teams">${match.teams}</div>
         <div class="fixture-meta">
             <span class="fixture-sport-tag">${match.sport}</span>
-            &nbsp;·&nbsp; ${formatDate(match.date)}
+            &nbsp;·&nbsp; ${formatDate(match.date)}${timeStr}
             &nbsp;·&nbsp; ${match.venue}
             ${match.dublinHome ? '&nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>' : ''}
         </div>
+        <div style="font-size:0.72rem;color:#6b7280;margin-top:2px;">${match.competition}</div>
     </div>
     <div style="font-weight:800;color:var(--primary);font-size:0.95rem;flex-shrink:0;">€${match.price}<span style="font-size:0.7rem;font-weight:600;color:#6b7280"> p.p.</span></div>
     <div class="fixture-checkmark" aria-hidden="true"></div>
@@ -1260,9 +1613,11 @@
         function buildFullMenu() {
             const sport = els.sportFilter.value;
             const month = els.monthFilter.value;
+            const venue = els.venueFilter.value;
             const filtered = MATCH_DATA
                 .filter(m => sport === 'all' || m.sport === sport)
-                .filter(m => month === 'all' || m.month === month);
+                .filter(m => month === 'all' || m.month === month)
+                .filter(m => venue === 'all' || getVenueCategory(m.venue) === venue);
 
             els.matchSelector.innerHTML = '<option value="">-- Choose a fixture --</option>';
             if (!filtered.length) {
@@ -1275,7 +1630,8 @@
             filtered.forEach(match => {
                 const opt = document.createElement('option');
                 opt.value = match.id;
-                opt.textContent = `${formatDate(match.date)} — ${match.teams} — ${match.venue}`;
+                const timeStr = match.time ? ` (${match.time})` : '';
+                opt.textContent = `${formatDate(match.date)}${timeStr} — ${match.teams} — ${match.venue} — €${match.price} p.p.`;
                 els.matchSelector.appendChild(opt);
             });
             if (selectedFixture && filtered.some(m => m.id === selectedFixture.id)) {
@@ -1286,34 +1642,34 @@
         function toggleFullPanel() {
             const isOpen = els.fullFixturePanel.classList.toggle('open');
             els.showMoreBtn.innerHTML = isOpen
-                ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
+                ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 9l5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
                 : `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show all fixtures`;
             if (isOpen) buildFullMenu();
         }
 
-            function updateSummary() {
-    const guests = getGuests();
-    const { subtotal, discount, total } = calcTotals(guests);
-    els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
-    els.summarySubtotal.textContent = formatMoney(subtotal);
+        function updateSummary() {
+            const guests = getGuests();
+            const { subtotal, discount, total } = calcTotals(guests);
+            els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
+            els.summarySubtotal.textContent = formatMoney(subtotal);
 
-    // ← HIER invoegen:
-    const priceLabel = document.querySelector('#rowBasePrice .price-row-value');
-    if (priceLabel) {
-        const pp = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
-        priceLabel.textContent = `€${pp} p.p.`;
-    }
+            const priceLabel = document.querySelector('#rowBasePrice .price-row-value');
+            if (priceLabel) {
+                const pp = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+                priceLabel.textContent = `€${pp} p.p.`;
+            }
 
-    els.summaryTotal.textContent = formatMoney(total);
-    // ... rest van de functie
             els.summaryTotal.textContent = formatMoney(total);
+
             if (selectedFixture) {
-                els.summaryFixture.textContent = `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
+                const timeStr = selectedFixture.time ? ` · ${selectedFixture.time}` : '';
+                els.summaryFixture.textContent = `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}${timeStr}`;
                 els.summaryFixture.style.color = '#374151';
             } else {
                 els.summaryFixture.textContent = 'No fixture selected yet';
                 els.summaryFixture.style.color = '#9ca3af';
             }
+
             if (appliedDiscount && discount > 0) {
                 const pct = appliedDiscount.type === 'percent' ? ` (${appliedDiscount.value}%)` : '';
                 els.discountLabel.textContent = `${appliedDiscount.label}${pct}`;
@@ -1431,12 +1787,18 @@
 
             const guests = getGuests();
             const { subtotal, discount, total } = calcTotals(guests);
-            const fixtureText = selectedFixture ? `${selectedFixture.teams} — ${selectedFixture.venue} — ${formatDate(selectedFixture.date)}` : '';
-            const discountText = appliedDiscount ? `Discount code: ${appliedDiscount.code} (${appliedDiscount.label}) — saving ${formatMoney(discount)}` : 'No discount code applied';
+            const fixtureText = selectedFixture
+                ? `${selectedFixture.teams} — ${selectedFixture.venue} — ${formatDate(selectedFixture.date)}${selectedFixture.time ? ' ' + selectedFixture.time : ''}`
+                : '';
+            const discountText = appliedDiscount
+                ? `Discount code: ${appliedDiscount.code} (${appliedDiscount.label}) — saving ${formatMoney(discount)}`
+                : 'No discount code applied';
             const userRequests = els.requests.value.trim();
             const combinedNotes = [
                 `Fixture: ${fixtureText}`,
+                `Competition: ${selectedFixture ? selectedFixture.competition : ''}`,
                 discountText,
+                `Price per person: €${selectedFixture ? selectedFixture.price : PRICE_PER_PERSON}`,
                 `Subtotal: ${formatMoney(subtotal)} | Total after discount: ${formatMoney(total)}`,
                 userRequests ? `Special requests: ${userRequests}` : ''
             ].filter(Boolean).join('\n');
@@ -1484,6 +1846,7 @@
             els.showMoreBtn.addEventListener('click', toggleFullPanel);
             els.sportFilter.addEventListener('change', buildFullMenu);
             els.monthFilter.addEventListener('change', buildFullMenu);
+            els.venueFilter.addEventListener('change', buildFullMenu);
             els.applyCodeBtn.addEventListener('click', applyDiscountCode);
             els.discountInput.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); applyDiscountCode(); } });
             els.matchSelector.addEventListener('change', function () { if (!this.value) return; selectFixtureById(this.value); hideError(); });
