@@ -1718,13 +1718,14 @@
             updateDiscountFeedback('success', `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`);
         }
 
-        function selectFixtureById(id) {
+       function selectFixtureById(id) {
             const match = MATCH_DATA.find(item => item.id === id);
             if (!match) return false;
             selectedFixture = match;
             els.date.value = match.date;
             els.matchSelector.value = match.id;
             renderFeatured(); buildFullMenu(); updateProgress(); updateSummary(); updateSubmitButton();
+            trackFixtureSelect(match); // ← toegevoegd
             return true;
         }
 
@@ -1858,7 +1859,44 @@
             els.guests.addEventListener('blur', () => { normalizeGuestsInput(); updateSummary(); refreshAppliedDiscountMessage(); updateSubmitButton(); });
             els.form.addEventListener('submit', handleSubmit);
         }
+// ── BEYOND THE PITCH: GA4 Booking Page Tracking ──
 
+        // 1. Formulier inzending
+        els.form.addEventListener('submit', function() {
+          if (!validateForm()) return;
+          const guests = getGuests();
+          const { total } = calcTotals(guests);
+          gtag('event', 'form_submit', {
+            experience: 'dublin',
+            fixture: selectedFixture ? selectedFixture.teams : 'unknown',
+            fixture_date: selectedFixture ? selectedFixture.date : 'unknown',
+            guests: guests,
+            value: total,
+            currency: 'EUR',
+            discount_code: appliedDiscount ? appliedDiscount.code : 'none'
+          });
+        });
+
+        // 2. Fixture geselecteerd
+        function trackFixtureSelect(fixture) {
+          gtag('event', 'fixture_selected', {
+            experience: 'dublin',
+            fixture: fixture.teams,
+            fixture_date: fixture.date,
+            fixture_price: fixture.price,
+            venue: fixture.venue
+          });
+        }
+
+        // 3. Booking pagina view
+        gtag('event', 'experience_page_view', {
+          experience: 'dublin',
+          page_type: 'booking',
+          page_location: window.location.href
+        });
+
+        window.addEventListener('DOMContentLoaded', initialize);
+    </script>
         window.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
