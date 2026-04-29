@@ -1805,7 +1805,46 @@ function btpOpenWhatsApp(e) {
     menuClose.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
     document.querySelectorAll('.mobile-menu .nav-link').forEach(l => l.addEventListener('click', toggleMenu));
+// ── BEYOND THE PITCH: GA4 Event Tracking ──
 
+// 1. Booking knop clicks
+document.querySelectorAll('a[href*="booking-page"]').forEach(function(link) {
+  link.addEventListener('click', function() {
+    var destination = this.href.includes('dublin') ? 'dublin' : 'kilkenny';
+    gtag('event', 'cta_click', {
+      experience: destination,
+      cta_text: this.innerText.trim(),
+      page_location: window.location.href
+    });
+  });
+});
+
+// 2. WhatsApp clicks
+document.querySelectorAll('a[href*="wa.me"], a[onclick*="btpOpenWhatsApp"]').forEach(function(link) {
+  link.addEventListener('click', function() {
+    gtag('event', 'community_join', {
+      method: 'whatsapp',
+      page_location: window.location.href
+    });
+  });
+});
+
+// 3. Email clicks
+document.querySelectorAll('a[href^="mailto"]').forEach(function(link) {
+  link.addEventListener('click', function() {
+    gtag('event', 'cta_click', {
+      cta_type: 'email',
+      cta_text: this.innerText.trim(),
+      page_location: window.location.href
+    });
+  });
+});
+
+// 4. Experience pagina view
+gtag('event', 'experience_page_view', {
+  experience: 'gaelic-games',
+  page_location: window.location.href
+});
     // Header scroll
     window.addEventListener('scroll', () => {
       document.getElementById('header').classList.toggle('header-scrolled', window.scrollY > 50);
