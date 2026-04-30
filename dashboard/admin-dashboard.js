@@ -10,25 +10,57 @@ let allBookings = [];
 let packagePriceCache = {}; // { "PackageName||PartnerID": sellPrice }
 
 // --- PARTNER OPERATIONAL INFO ---
+// Vul hieronder per partner de operationele details in.
+// partnerId moet exact overeenkomen met de partnerID in je Google Sheet.
+// Je kunt meerdere locations toevoegen per partner.
 const partnerOperationalInfo = {
+
     dublin: {
-        partnerId: 'dublin',
-        partnerName: 'Dublin',
+        partnerId: 'Dublin',
+        partnerName: 'Dublin Experience',
         defaultLocationId: 'dublin-city',
         locations: [
             {
                 id: 'dublin-city',
                 label: 'Dublin',
-                venue: 'Dublin',
+                venue: '',                  // bijv. "St Anne's Park, Raheny"
+                address: '',               // bijv. "St Anne's Park, Raheny, Dublin 5"
+                contactName: '',           // naam lokale host/partner
+                contactPhone: '',          // bijv. "+353 87 123 4567"
+                contactEmail: '',          // bijv. "dublin@partner.ie"
+                bookingCutoffHours: 48,    // hoeveel uur van tevoren uiterlijk boeken
+                maxGroupSize: 12,          // maximale groepsgrootte
+                sessionSchedule: '',       // bijv. "Za & Zo, 10:00 en 14:00"
+                netRatePerPerson: 0,       // netto kostprijs per persoon (€)
+                notes: ''                  // vrije notities: seizoensregels, copyrestricties, etc.
+            }
+        ]
+    },
+
+    ireland: {
+        partnerId: 'Ireland',
+        partnerName: 'Ireland Experience',
+        defaultLocationId: 'ireland-kilkenny',
+        locations: [
+            {
+                id: 'ireland-kilkenny',
+                label: 'Kilkenny',
+                venue: '',
                 address: '',
                 contactName: '',
                 contactPhone: '',
                 contactEmail: '',
-                notes: 'Default locatie voor Dublin'
+                bookingCutoffHours: 48,
+                maxGroupSize: 12,
+                sessionSchedule: '',
+                netRatePerPerson: 0,
+                notes: ''
             }
         ]
     }
+
 };
+
 
 function normalizePartnerKey(value = '') {
     return String(value).trim().toLowerCase();
