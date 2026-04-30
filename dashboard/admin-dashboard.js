@@ -7,6 +7,7 @@ const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwo_jAnamlQ2h9HZ_
 
 let revenueChart = null;
 let allBookings = [];
+let packagePriceCache = {}; // { "PackageName||PartnerID": sellPrice }
 
 // --- PARTNER OPERATIONAL INFO ---
 const partnerOperationalInfo = {
@@ -341,9 +342,27 @@ async function loadAdminData() {
     }
 
     try {
-        const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' });
-        const data = await response.json();
+        const [bookingResponse, packageResponse] = await Promise.all([
+            fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' }),
+            fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`, { redirect: 'follow' })
+        ]);
+
+        const data = await bookingResponse.json();
         allBookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Experience"]) : [];
+
+        // Bouw een lookup: "Experience naam" → sell price
+        try {
+            const packages = await packageResponse.json();
+            packagePriceCache = {};
+            if (Array.isArray(packages)) {
+                packages.forEach(p => {
+                    const key = (p.PackageName || '').trim().toLowerCase();
+                    if (key) packagePriceCache[key] = parseFloat(p.SellPrice) || 0;
+                });
+            }
+        } catch (pkgErr) {
+            console.warn("Could not load package prices, falling back to €75/guest:", pkgErr);
+        }
 
         renderAdminTable(allBookings);
         updateAdminStats(allBookings);
@@ -636,8 +655,16 @@ function updateAdminStats(b) {
 
     const g = b.reduce((s, x) => s + (parseInt(x["Guests"]) || 0), 0);
 
+    // Revenue: gebruik echte SellPrice uit packages, anders fallback €75/gast
+    const revenue = b.reduce((sum, x) => {
+        const guests = parseInt(x["Guests"]) || 0;
+        const experienceKey = (x["Experience"] || '').trim().toLowerCase();
+        const pricePerPerson = packagePriceCache[experienceKey] || 75;
+        return sum + (guests * pricePerPerson);
+    }, 0);
+
     if (totalGuestsEl) totalGuestsEl.textContent = g;
-    if (totalRevenueEl) totalRevenueEl.textContent = `€${g * 75}`;
+    if (totalRevenueEl) totalRevenueEl.textContent = `€${revenue.toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
     if (activePartnersEl) activePartnersEl.textContent = new Set(b.map(x => x["Partner"])).size;
 }
 
@@ -676,7 +703,10 @@ function updateRevenueChart(bookings) {
         const d = new Date(b["Start Date"] || b["Date"]);
         if (isNaN(d)) return;
         const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        monthlyData[key] = (monthlyData[key] || 0) + (parseInt(b["Guests"]) || 0);
+        const guests = parseInt(b["Guests"]) || 0;
+        const experienceKey = (b["Experience"] || '').trim().toLowerCase();
+        const pricePerPerson = packagePriceCache[experienceKey] || 75;
+        monthlyData[key] = (monthlyData[key] || 0) + (guests * pricePerPerson);
     });
 
     const sortedKeys = Object.keys(monthlyData).sort();
@@ -691,7 +721,7 @@ function updateRevenueChart(bookings) {
         data: {
             labels: labels.length ? labels : ['No data'],
             datasets: [{
-                label: 'Guests per month',
+                label: 'Revenue (€)',
                 data: values.length ? values : [0],
                 borderColor: '#c5a059',
                 backgroundColor: 'rgba(197, 160, 89, 0.1)',
@@ -703,12 +733,20 @@ function updateRevenueChart(bookings) {
         options: {
             responsive: true,
             plugins: {
-                legend: { display: false }
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => `€${Math.round(ctx.parsed.y).toLocaleString('nl-NL')}`
+                    }
+                }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { color: '#94a3b8' }
+                    ticks: {
+                        color: '#94a3b8',
+                        callback: v => `€${Math.round(v).toLocaleString('nl-NL')}`
+                    }
                 },
                 x: {
                     ticks: { color: '#94a3b8' }
