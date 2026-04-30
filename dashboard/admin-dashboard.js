@@ -185,7 +185,7 @@ function populatePartnerInfoSelectors(defaultPartnerId = 'dublin') {
 function renderPartnerInfoFromSelection() {
     const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
     const locationSelect = document.getElementById('partnerInfoLocationSelect');
-    const container = document.getElementById('partnerInfoContainer');
+    const container = document.getElementById('partnerInfoContent');
 
     if (!partnerSelect || !locationSelect || !container) return;
 
@@ -215,48 +215,53 @@ function renderPartnerInfoFromSelection() {
         return;
     }
 
+    const tile = (icon, label, value, yellow = false) => `
+        <div style="padding:14px; border-radius:12px; background:${yellow ? '#fffbeb' : '#f8fafc'}; border:1px solid ${yellow ? '#fde68a' : '#e2e8f0'};">
+            <div style="font-size:0.75rem; color:#64748b; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <i class="${escapeHtml(icon)}" style="color:#c5a059; font-size:0.75rem;"></i>
+                ${escapeHtml(label)}
+            </div>
+            <div style="font-weight:700; color:#0f172a; font-size:0.9rem; line-height:1.5;">${value || '<span style="color:#94a3b8;">—</span>'}</div>
+        </div>`;
+
+    const cutoff  = selectedLocation.bookingCutoffHours ? `${selectedLocation.bookingCutoffHours} uur van tevoren` : '';
+    const maxGroup = selectedLocation.maxGroupSize      ? `Max. ${selectedLocation.maxGroupSize} gasten`            : '';
+    const netRate  = selectedLocation.netRatePerPerson  ? `€${selectedLocation.netRatePerPerson} p.p.`              : '';
+
     container.innerHTML = `
-        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px;">
+        <div style="border-radius:14px; overflow:hidden; border:1px solid #e2e8f0;">
+
+            <div style="background:#0f172a; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <div>
-                    <h3 style="margin:0; color:#0f172a;">${escapeHtml(partner.partnerName)}</h3>
-                    <p style="margin:6px 0 0; color:#64748b;">Operational partner information</p>
+                    <div style="font-weight:800; color:#fff; font-size:1rem;">${escapeHtml(partner.partnerName)}</div>
+                    <div style="color:#c5a059; font-size:0.8rem; margin-top:2px;">${escapeHtml(selectedLocation.label)}</div>
                 </div>
-                <span style="padding:6px 12px; border-radius:999px; background:#f8fafc; color:#475569; font-size:0.8rem; font-weight:600;">
-                    ${escapeHtml(selectedLocation.label)}
-                </span>
+                ${netRate ? `<span style="background:rgba(197,160,89,0.15); color:#c5a059; border:1px solid rgba(197,160,89,0.3); padding:5px 12px; border-radius:999px; font-size:0.8rem; font-weight:800;">${escapeHtml(netRate)} netto</span>` : ''}
             </div>
 
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px;">
-                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
-                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Venue</div>
-                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.venue || '-')}</div>
+            <div style="padding:16px; background:#fff;">
+
+                <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Locatie & contact</p>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:16px;">
+                    ${tile('fa-solid fa-location-dot', 'Venue', escapeHtml(selectedLocation.venue))}
+                    ${tile('fa-solid fa-map-pin', 'Adres', escapeHtml(selectedLocation.address))}
+                    ${tile('fa-solid fa-user', 'Contact', escapeHtml(selectedLocation.contactName))}
+                    ${tile('fa-solid fa-phone', 'Telefoon', escapeHtml(selectedLocation.contactPhone))}
+                    ${tile('fa-solid fa-envelope', 'E-mail', escapeHtml(selectedLocation.contactEmail))}
                 </div>
 
-                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
-                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Address</div>
-                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.address || '-')}</div>
+                <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Boekingsregels</p>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:16px;">
+                    ${tile('fa-solid fa-clock', 'Boekingsdeadline', escapeHtml(cutoff), true)}
+                    ${tile('fa-solid fa-users', 'Groepsgrootte', escapeHtml(maxGroup), true)}
+                    ${tile('fa-solid fa-calendar-days', 'Sessies', escapeHtml(selectedLocation.sessionSchedule), true)}
                 </div>
 
-                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
-                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Contact</div>
-                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.contactName || '-')}</div>
-                </div>
+                ${selectedLocation.notes ? `
+                <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Notities</p>
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px; color:#475569; font-size:0.88rem; line-height:1.6; white-space:pre-wrap;">${escapeHtml(selectedLocation.notes)}</div>
+                ` : ''}
 
-                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
-                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Phone</div>
-                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.contactPhone || '-')}</div>
-                </div>
-
-                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
-                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Email</div>
-                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.contactEmail || '-')}</div>
-                </div>
-
-                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
-                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Notes</div>
-                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.notes || '-')}</div>
-                </div>
             </div>
         </div>
     `;
