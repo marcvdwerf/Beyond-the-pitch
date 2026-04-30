@@ -10,6 +10,27 @@ if (window.location.pathname.includes('partner-dashboard.html') || window.locati
     }
 }
 
+/**
+ * Checks whether the logged-in user has the required role.
+ * Returns true if access is allowed, false (+ redirect) if not.
+ */
+window.checkAuth = function(requiredRole) {
+    const isAuthenticated = sessionStorage.getItem("isAuthenticated") === "true";
+    const userRole = sessionStorage.getItem("userRole");
+
+    if (!isAuthenticated) {
+        window.location.href = "index.html";
+        return false;
+    }
+
+    if (requiredRole && userRole !== requiredRole) {
+        window.location.href = userRole === "admin" ? "admin-dashboard.html" : "partner-dashboard.html";
+        return false;
+    }
+
+    return true;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll(".tab-btn");
     if (tabButtons.length > 0) {
