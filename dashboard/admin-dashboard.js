@@ -7,7 +7,8 @@ const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxUJXzfIJliGl-DqT
 
 let revenueChart = null;
 let allBookings = [];
-let packagePriceCache = {}; // { "PackageName||PartnerID": sellPrice }
+let packagePriceCache = {};      // { "PackageName": sellPrice }
+let partnerInfoFromSheet = null; // geladen vanuit PartnerInfo tab in Sheet
 
 // --- PARTNER OPERATIONAL INFO ---
 // Vul hieronder per partner de operationele details in.
@@ -70,6 +71,67 @@ Copy: sessiebeschrijving eerst ter goedkeuring voorleggen aan partner voor publi
 
 };
 
+
+// --- SHEET-GEBASEERDE PARTNER INFO ---
+// Haalt partner operationele info op uit de 'PartnerInfo' tab in Google Sheet.
+// Overschrijft de hardcoded partnerOperationalInfo zodra de Sheet geladen is.
+async function fetchPartnerInfoFromSheet() {
+    try {
+        const response = await fetch(`${SHEET_API_URL}?action=getPartnerInfo`, { redirect: 'follow' });
+        const rows = await response.json();
+
+        if (!Array.isArray(rows) || rows.length === 0) return;
+
+        // Groepeer rijen per PartnerID
+        const grouped = {};
+        rows.forEach(row => {
+            const pid = (row.PartnerID || '').trim();
+            if (!pid) return;
+            if (!grouped[pid]) grouped[pid] = [];
+            grouped[pid].push(row);
+        });
+
+        // Bouw partnerOperationalInfo opnieuw op vanuit Sheet data
+        Object.entries(grouped).forEach(([pid, locations]) => {
+            const key = pid.toLowerCase();
+            const existing = partnerOperationalInfo[key];
+
+            // Behoud sheetIds uit de hardcoded config als die er is
+            const sheetIds = existing?.sheetIds || [pid];
+
+            partnerOperationalInfo[key] = {
+                partnerId: pid,
+                partnerName: existing?.partnerName || pid,
+                sheetIds: sheetIds,
+                defaultLocationId: locations[0]?.LocationID || `${key}-main`,
+                locations: locations.map(row => ({
+                    id:                  row.LocationID      || `${key}-main`,
+                    label:               row.LocationLabel   || pid,
+                    venue:               row.Venue           || '',
+                    address:             row.Address         || '',
+                    contactName:         row.ContactName     || '',
+                    contactPhone:        row.ContactPhone    || '',
+                    contactEmail:        row.ContactEmail    || '',
+                    bookingCutoffHours:  row.BookingCutoffHours ? parseInt(row.BookingCutoffHours) : null,
+                    maxGroupSize:        row.MaxGroupSize        ? parseInt(row.MaxGroupSize)       : null,
+                    privateMinGroup:     row.PrivateMinGroup     ? parseInt(row.PrivateMinGroup)    : null,
+                    sessionSchedule:     row.SessionSchedule || '',
+                    netRatePerPerson:    row.NetRatePerPerson ? parseFloat(row.NetRatePerPerson) : null,
+                    notes:               row.Notes           || ''
+                }))
+            };
+        });
+
+        partnerInfoFromSheet = true;
+        console.log('PartnerInfo geladen vanuit Sheet:', Object.keys(grouped));
+
+        // Herrender het paneel als dat open is
+        renderPartnerInfoFromSelection();
+
+    } catch (e) {
+        console.warn('PartnerInfo Sheet niet bereikbaar, hardcoded data wordt gebruikt:', e);
+    }
+}
 
 function normalizePartnerKey(value = '') {
     return String(value).trim().toLowerCase();
@@ -305,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     populatePartnerInfoSelectors('dublin');
     loadPartnerFilterOptions();
     loadAdminData();
+    fetchPartnerInfoFromSheet();
 
     // Automatisch elke 5 minuten verversen
     setInterval(loadAdminData, 5 * 60 * 1000);
@@ -369,6 +432,7 @@ window.showSection = (sId, el) => {
         loadPartnerList();
         initPartnerInfoEvents();
         populatePartnerInfoSelectors('dublin');
+        fetchPartnerInfoFromSheet();
     }
 
     if (sId === 'packages') {
