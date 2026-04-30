@@ -1,6 +1,6 @@
 /**
  * Beyond the Pitch - Master Admin Dashboard Logic
- * Versie: 3.2
+ * Versie: 3.3
  */
 
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwo_jAnamlQ2h9HZ_0imBBURqILeJZn71WQy_svoGQZ7fFM9agCmSZS9t34AThXccN0gw/exec';
@@ -8,16 +8,245 @@ const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwo_jAnamlQ2h9HZ_
 let revenueChart = null;
 let allBookings = [];
 
+// --- PARTNER OPERATIONAL INFO ---
+const partnerOperationalInfo = {
+    dublin: {
+        partnerId: 'dublin',
+        partnerName: 'Dublin',
+        defaultLocationId: 'dublin-city',
+        locations: [
+            {
+                id: 'dublin-city',
+                label: 'Dublin',
+                venue: 'Dublin',
+                address: '',
+                contactName: '',
+                contactPhone: '',
+                contactEmail: '',
+                notes: 'Default locatie voor Dublin'
+            }
+        ]
+    }
+};
+
+function normalizePartnerKey(value = '') {
+    return String(value).trim().toLowerCase();
+}
+
+function escapeHtml(value = '') {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    }[char]));
+}
+
+function getPartnerOperationalEntry(partnerId = '') {
+    const normalized = normalizePartnerKey(partnerId);
+    return Object.values(partnerOperationalInfo).find(entry =>
+        normalizePartnerKey(entry.partnerId) === normalized ||
+        normalizePartnerKey(entry.partnerName) === normalized
+    ) || null;
+}
+
+function ensurePartnerOperationalEntry(partnerId = '', partnerName = '') {
+    const key = normalizePartnerKey(partnerId || partnerName);
+    if (!key) return null;
+
+    if (!partnerOperationalInfo[key]) {
+        const displayName = partnerName || partnerId || key;
+        partnerOperationalInfo[key] = {
+            partnerId: partnerId || key,
+            partnerName: displayName,
+            defaultLocationId: `${key}-main`,
+            locations: [
+                {
+                    id: `${key}-main`,
+                    label: displayName,
+                    venue: displayName,
+                    address: '',
+                    contactName: '',
+                    contactPhone: '',
+                    contactEmail: '',
+                    notes: 'Nog geen operationele info ingevuld.'
+                }
+            ]
+        };
+    } else {
+        if (partnerId && !partnerOperationalInfo[key].partnerId) {
+            partnerOperationalInfo[key].partnerId = partnerId;
+        }
+        if (partnerName && (!partnerOperationalInfo[key].partnerName || partnerOperationalInfo[key].partnerName === partnerOperationalInfo[key].partnerId)) {
+            partnerOperationalInfo[key].partnerName = partnerName;
+        }
+    }
+
+    return partnerOperationalInfo[key];
+}
+
+function initPartnerInfoEvents() {
+    const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
+    const locationSelect = document.getElementById('partnerInfoLocationSelect');
+
+    if (partnerSelect && !partnerSelect.dataset.bound) {
+        partnerSelect.addEventListener('change', () => {
+            populatePartnerInfoSelectors(partnerSelect.value);
+        });
+        partnerSelect.dataset.bound = 'true';
+    }
+
+    if (locationSelect && !locationSelect.dataset.bound) {
+        locationSelect.addEventListener('change', () => {
+            renderPartnerInfoFromSelection();
+        });
+        locationSelect.dataset.bound = 'true';
+    }
+}
+
+function populatePartnerInfoSelectors(defaultPartnerId = 'dublin') {
+    const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
+    const locationSelect = document.getElementById('partnerInfoLocationSelect');
+
+    if (!partnerSelect || !locationSelect) return;
+
+    const partnerEntries = Object.values(partnerOperationalInfo);
+    if (!partnerEntries.length) {
+        partnerSelect.innerHTML = '<option value="">No partners</option>';
+        locationSelect.innerHTML = '<option value="">No locations</option>';
+        renderPartnerInfoFromSelection();
+        return;
+    }
+
+    partnerSelect.innerHTML = partnerEntries.map(entry => `
+        <option value="${escapeHtml(entry.partnerId)}">${escapeHtml(entry.partnerName)}</option>
+    `).join('');
+
+    let selectedPartner = getPartnerOperationalEntry(defaultPartnerId);
+
+    if (!selectedPartner) {
+        selectedPartner =
+            getPartnerOperationalEntry(partnerSelect.value) ||
+            getPartnerOperationalEntry('dublin') ||
+            partnerEntries[0];
+    }
+
+    partnerSelect.value = selectedPartner.partnerId;
+
+    const locations = Array.isArray(selectedPartner.locations) ? selectedPartner.locations : [];
+
+    locationSelect.innerHTML = locations.length
+        ? locations.map(loc => `
+            <option value="${escapeHtml(loc.id)}">${escapeHtml(loc.label)}</option>
+        `).join('')
+        : '<option value="">No locations</option>';
+
+    if (locations.length) {
+        locationSelect.value = selectedPartner.defaultLocationId || locations[0].id;
+    }
+
+    renderPartnerInfoFromSelection();
+}
+
+function renderPartnerInfoFromSelection() {
+    const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
+    const locationSelect = document.getElementById('partnerInfoLocationSelect');
+    const container = document.getElementById('partnerInfoContainer');
+
+    if (!partnerSelect || !locationSelect || !container) return;
+
+    const partner = getPartnerOperationalEntry(partnerSelect.value);
+
+    if (!partner) {
+        container.innerHTML = `
+            <div style="padding:16px; border:1px solid #e2e8f0; border-radius:12px; background:#fff;">
+                <strong style="color:#0f172a;">No partner info found.</strong>
+            </div>
+        `;
+        return;
+    }
+
+    const locations = Array.isArray(partner.locations) ? partner.locations : [];
+    const selectedLocation =
+        locations.find(loc => loc.id === locationSelect.value) ||
+        locations.find(loc => loc.id === partner.defaultLocationId) ||
+        locations[0];
+
+    if (!selectedLocation) {
+        container.innerHTML = `
+            <div style="padding:16px; border:1px solid #e2e8f0; border-radius:12px; background:#fff;">
+                <strong style="color:#0f172a;">No location info available.</strong>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px;">
+                <div>
+                    <h3 style="margin:0; color:#0f172a;">${escapeHtml(partner.partnerName)}</h3>
+                    <p style="margin:6px 0 0; color:#64748b;">Operational partner information</p>
+                </div>
+                <span style="padding:6px 12px; border-radius:999px; background:#f8fafc; color:#475569; font-size:0.8rem; font-weight:600;">
+                    ${escapeHtml(selectedLocation.label)}
+                </span>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px;">
+                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
+                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Venue</div>
+                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.venue || '-')}</div>
+                </div>
+
+                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
+                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Address</div>
+                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.address || '-')}</div>
+                </div>
+
+                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
+                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Contact</div>
+                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.contactName || '-')}</div>
+                </div>
+
+                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
+                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Phone</div>
+                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.contactPhone || '-')}</div>
+                </div>
+
+                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
+                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Email</div>
+                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.contactEmail || '-')}</div>
+                </div>
+
+                <div style="padding:14px; border-radius:12px; background:#f8fafc;">
+                    <div style="font-size:0.78rem; color:#64748b; margin-bottom:6px;">Notes</div>
+                    <div style="font-weight:700; color:#0f172a;">${escapeHtml(selectedLocation.notes || '-')}</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.checkAuth === "function") {
         if (!window.checkAuth('admin')) return;
     }
 
-    document.getElementById('currentDateDisplay').textContent = new Date().toLocaleDateString('en-GB', {
-        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-    });
+    const currentDateDisplay = document.getElementById('currentDateDisplay');
+    if (currentDateDisplay) {
+        currentDateDisplay.textContent = new Date().toLocaleDateString('en-GB', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
 
     initCalendar();
+    initPartnerInfoEvents();
+    populatePartnerInfoSelectors('dublin');
     loadPartnerFilterOptions();
     loadAdminData();
 
@@ -31,18 +260,20 @@ async function loadPartnerFilterOptions() {
         const partners = await response.json();
         if (!partners || !partners.length) return;
 
-        const select = document.getElementById('partnerFilter');
-        if (!select) return;
+        partners.forEach(p => ensurePartnerOperationalEntry(p.partnerID, p.name));
 
-        const current = select.value;
-        select.innerHTML = `<option value="all">Global View</option>`;
-        partners.forEach(p => {
-            const opt = document.createElement('option');
-            opt.value = p.partnerID;
-            opt.textContent = p.name || p.partnerID;
-            select.appendChild(opt);
-        });
-        select.value = current;
+        const select = document.getElementById('partnerFilter');
+        if (select) {
+            const current = select.value;
+            select.innerHTML = `<option value="all">Global View</option>`;
+            partners.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.partnerID;
+                opt.textContent = p.name || p.partnerID;
+                select.appendChild(opt);
+            });
+            select.value = current || 'all';
+        }
 
         const pkgSelect = document.getElementById('pkg_partnerid');
         if (pkgSelect) {
@@ -54,6 +285,9 @@ async function loadPartnerFilterOptions() {
                 pkgSelect.appendChild(opt);
             });
         }
+
+        const currentPartnerInfoValue = document.getElementById('partnerInfoPartnerSelect')?.value || 'dublin';
+        populatePartnerInfoSelectors(currentPartnerInfoValue);
     } catch (e) {
         console.error("Could not load partner filter:", e);
     }
@@ -75,11 +309,22 @@ window.showSection = (sId, el) => {
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     if (el) el.classList.add('active');
 
-    if (sId === 'partners') loadPartnerList();
-    if (sId === 'packages') loadPackageList();
+    if (sId === 'partners') {
+        loadPartnerList();
+        initPartnerInfoEvents();
+        populatePartnerInfoSelectors('dublin');
+    }
+
+    if (sId === 'packages') {
+        loadPackageList();
+    }
+
     if (sId === 'overview') {
         setTimeout(() => {
-            if (window.calendar) { window.calendar.updateSize(); window.calendar.render(); }
+            if (window.calendar) {
+                window.calendar.updateSize();
+                window.calendar.render();
+            }
             if (revenueChart) revenueChart.update();
         }, 150);
     }
@@ -88,8 +333,12 @@ window.showSection = (sId, el) => {
 // --- DATA LADEN ---
 async function loadAdminData() {
     const syncBtn = document.getElementById('syncBtn');
-    const filterValue = document.getElementById('partnerFilter').value;
-    if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
+    const filterEl = document.getElementById('partnerFilter');
+    const filterValue = filterEl ? filterEl.value : 'all';
+
+    if (syncBtn) {
+        syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
+    }
 
     try {
         const response = await fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' });
@@ -100,14 +349,20 @@ async function loadAdminData() {
         updateAdminStats(allBookings);
         populateAdminCalendar(allBookings);
         updateRevenueChart(allBookings);
-
-    } catch (e) { console.error("Sync error:", e); }
-    finally { if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data'; }
+    } catch (e) {
+        console.error("Sync error:", e);
+    } finally {
+        if (syncBtn) {
+            syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data';
+        }
+    }
 }
 
 // --- TABEL ---
 function renderAdminTable(bookings) {
     const container = document.getElementById('adminTableContainer');
+    if (!container) return;
+
     if (!bookings.length) {
         container.innerHTML = "<p style='padding:20px; color:#64748b;'>No bookings found.</p>";
         return;
@@ -135,7 +390,7 @@ function renderAdminTable(bookings) {
         const index = allBookings.indexOf(b);
         const d = new Date(b["Start Date"] || b["Date"]);
         const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
-        const rawDate   = b["Start Date"] || b["Date"] || "";
+        const rawDate = b["Start Date"] || b["Date"] || "";
         const rawStatus = b["Status"] || "Pending";
         const name = (b["Full Name"] || "Guest").replace(/'/g, "\\'");
 
@@ -149,9 +404,9 @@ function renderAdminTable(bookings) {
                 <td>
                     <select onchange="updateBookingStatus('${name}', '${rawDate}', this.value, this)"
                         style="padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; font-size:0.8rem; font-weight:600; cursor:pointer;
-                        background:${rawStatus.toLowerCase() === 'confirmed' ? '#dcfce7' : '#fef3c7'};
-                        color:${rawStatus.toLowerCase() === 'confirmed' ? '#166534' : '#92400e'};">
-                        <option value="Pending"   ${rawStatus === 'Pending'   ? 'selected' : ''}>Pending</option>
+                        background:${rawStatus.toLowerCase() === 'confirmed' ? '#dcfce7' : rawStatus.toLowerCase() === 'cancelled' ? '#fee2e2' : '#fef3c7'};
+                        color:${rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e'};">
+                        <option value="Pending" ${rawStatus === 'Pending' ? 'selected' : ''}>Pending</option>
                         <option value="Confirmed" ${rawStatus === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
                         <option value="Cancelled" ${rawStatus === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
                     </select>
@@ -160,23 +415,34 @@ function renderAdminTable(bookings) {
     });
 
     container.innerHTML = html + '</tbody></table>';
-
 }
 
 // --- STATUS UPDATE ---
 async function updateBookingStatus(name, date, newStatus, selectEl) {
-    selectEl.style.background = newStatus === 'Confirmed' ? '#dcfce7' : newStatus === 'Cancelled' ? '#fee2e2' : '#fef3c7';
-    selectEl.style.color      = newStatus === 'Confirmed' ? '#166534' : newStatus === 'Cancelled' ? '#991b1b' : '#92400e';
+    if (selectEl) {
+        selectEl.style.background = newStatus === 'Confirmed'
+            ? '#dcfce7'
+            : newStatus === 'Cancelled'
+                ? '#fee2e2'
+                : '#fef3c7';
+
+        selectEl.style.color = newStatus === 'Confirmed'
+            ? '#166534'
+            : newStatus === 'Cancelled'
+                ? '#991b1b'
+                : '#92400e';
+    }
 
     try {
         const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(date)}&status=${encodeURIComponent(newStatus)}`, { redirect: 'follow' });
         const text = await response.text();
+
         try {
             const result = JSON.parse(text);
             if (result.status !== "success") {
                 console.warn("Status update warning:", result.message);
             }
-        } catch(parseErr) {
+        } catch (parseErr) {
             console.log("Status updated (redirect response)");
         }
     } catch (e) {
@@ -189,18 +455,33 @@ window.openBookingModal = function(index) {
     const b = allBookings[index];
     if (b) showAdminBookingModal(b);
 };
+
 function showAdminBookingModal(b) {
     const existing = document.getElementById('adminBookingModal');
     if (existing) existing.remove();
 
-    const rawStatus   = b["Status"] || "Pending";
-    const statusColor = rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e';
-    const statusBg    = rawStatus.toLowerCase() === 'confirmed' ? '#dcfce7' : rawStatus.toLowerCase() === 'cancelled' ? '#fee2e2' : '#fef3c7';
+    const rawStatus = b["Status"] || "Pending";
+    const statusColor = rawStatus.toLowerCase() === 'confirmed'
+        ? '#166534'
+        : rawStatus.toLowerCase() === 'cancelled'
+            ? '#991b1b'
+            : '#92400e';
+
+    const statusBg = rawStatus.toLowerCase() === 'confirmed'
+        ? '#dcfce7'
+        : rawStatus.toLowerCase() === 'cancelled'
+            ? '#fee2e2'
+            : '#fef3c7';
 
     const d = new Date(b["Start Date"] || b["Date"]);
-    const dateStr = !isNaN(d) ? d.toLocaleDateString('en-GB', {
-        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-    }) : "-";
+    const dateStr = !isNaN(d)
+        ? d.toLocaleDateString('en-GB', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        })
+        : "-";
 
     const modal = document.createElement('div');
     modal.id = 'adminBookingModal';
@@ -253,18 +534,25 @@ function showAdminBookingModal(b) {
             </div>
         </div>`;
 
-    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    modal.addEventListener('click', e => {
+        if (e.target === modal) modal.remove();
+    });
+
     document.body.appendChild(modal);
 }
 
 // --- EXPORT ---
 window.exportBookingsToCSV = function() {
     if (!allBookings.length) return alert("No data to export.");
+
     const headers = ["Partner", "Full Name", "Email Address", "Phone Number", "Experience", "Start Date", "Guests", "Special Requests"];
     const csvContent = [
         headers.join(","),
-        ...allBookings.map(row => headers.map(h => `"${(row[h] || "").toString().replace(/"/g, '""')}"`).join(","))
+        ...allBookings.map(row =>
+            headers.map(h => `"${(row[h] || "").toString().replace(/"/g, '""')}"`).join(",")
+        )
     ].join("\n");
+
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -273,18 +561,25 @@ window.exportBookingsToCSV = function() {
 };
 
 window.calculateSellPrice = () => {
-    const net  = parseFloat(document.getElementById('pkg_net').value)  || 0;
-    const comm = parseFloat(document.getElementById('pkg_comm').value) || 0;
-    document.getElementById('pkg_sell').value = (net * (1 + comm / 100)).toFixed(2);
+    const net = parseFloat(document.getElementById('pkg_net')?.value) || 0;
+    const comm = parseFloat(document.getElementById('pkg_comm')?.value) || 0;
+    const sellInput = document.getElementById('pkg_sell');
+    if (sellInput) {
+        sellInput.value = (net * (1 + comm / 100)).toFixed(2);
+    }
 };
 
 // --- PACKAGES ---
 async function loadPackageList() {
     const container = document.getElementById('packagesTableContainer');
+    if (!container) return;
+
     container.innerHTML = "Loading...";
+
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`);
         const pkgs = await r.json();
+
         let h = `<table class="admin-table"><thead><tr><th>Partner</th><th>Package</th><th>Net</th><th>Sell</th><th>Profit</th><th>Action</th></tr></thead><tbody>`;
         pkgs.forEach(p => {
             const n = parseFloat(p.NetPrice) || 0;
@@ -298,47 +593,70 @@ async function loadPackageList() {
                 <td><button class="btn-delete" onclick="deletePackage('${p.PackageName}','${p.PartnerID}')"><i class="fa-solid fa-trash"></i></button></td>
             </tr>`;
         });
+
         container.innerHTML = h + "</tbody></table>";
-    } catch (e) { container.innerHTML = "Error loading packages."; }
+    } catch (e) {
+        container.innerHTML = "Error loading packages.";
+    }
 }
 
 async function deletePackage(name, partner) {
     if (!confirm(`Delete ${name}?`)) return;
+
     try {
         await fetch(`${SHEET_API_URL}?action=deletePackage&name=${encodeURIComponent(name)}&partnerID=${encodeURIComponent(partner)}`, { redirect: 'follow' });
         loadPackageList();
-    } catch (e) { loadPackageList(); }
+    } catch (e) {
+        loadPackageList();
+    }
 }
 
 async function submitNewPackage() {
-    const pID  = document.getElementById('pkg_partnerid').value;
-    const name = document.getElementById('pkg_name').value;
-    const net  = document.getElementById('pkg_net').value;
-    const sell = document.getElementById('pkg_sell').value;
+    const pID = document.getElementById('pkg_partnerid')?.value;
+    const name = document.getElementById('pkg_name')?.value;
+    const net = document.getElementById('pkg_net')?.value;
+    const sell = document.getElementById('pkg_sell')?.value;
+
     await fetch(`${SHEET_API_URL}?action=addPackage&partnerID=${encodeURIComponent(pID)}&name=${encodeURIComponent(name)}&net=${net}&sell=${sell}`, { redirect: 'follow' });
-    document.getElementById('addPackageForm').style.display = 'none';
+
+    const form = document.getElementById('addPackageForm');
+    if (form) form.style.display = 'none';
+
     loadPackageList();
 }
 
 // --- STATS & CHARTS ---
 function updateAdminStats(b) {
-    document.getElementById('totalBookings').textContent = b.length;
+    const totalBookingsEl = document.getElementById('totalBookings');
+    const totalGuestsEl = document.getElementById('totalGuests');
+    const totalRevenueEl = document.getElementById('totalRevenue');
+    const activePartnersEl = document.getElementById('activePartners');
+
+    if (totalBookingsEl) totalBookingsEl.textContent = b.length;
+
     const g = b.reduce((s, x) => s + (parseInt(x["Guests"]) || 0), 0);
-    document.getElementById('totalGuests').textContent = g;
-    document.getElementById('totalRevenue').textContent = `€${g * 75}`;
-    document.getElementById('activePartners').textContent = new Set(b.map(x => x["Partner"])).size;
+
+    if (totalGuestsEl) totalGuestsEl.textContent = g;
+    if (totalRevenueEl) totalRevenueEl.textContent = `€${g * 75}`;
+    if (activePartnersEl) activePartnersEl.textContent = new Set(b.map(x => x["Partner"])).size;
 }
 
 function initCalendar() {
-    window.calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+    const calendarEl = document.getElementById('calendar');
+    if (!calendarEl || typeof FullCalendar === 'undefined') return;
+
+    window.calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         headerToolbar: { left: 'prev,next', center: 'title', right: 'today' },
         eventColor: '#c5a059'
     });
+
     window.calendar.render();
 }
 
 function populateAdminCalendar(b) {
+    if (!window.calendar) return;
+
     window.calendar.removeAllEvents();
     window.calendar.addEventSource(b.map(x => ({
         title: `[${x.Partner}] ${x["Full Name"]}`,
@@ -349,9 +667,10 @@ function populateAdminCalendar(b) {
 
 function updateRevenueChart(bookings) {
     const ctx = document.getElementById('revenueChart');
+    if (!ctx || typeof Chart === 'undefined') return;
+
     if (revenueChart) revenueChart.destroy();
 
-    // Groepeer boekingen per maand
     const monthlyData = {};
     bookings.forEach(b => {
         const d = new Date(b["Start Date"] || b["Date"]);
@@ -383,41 +702,88 @@ function updateRevenueChart(bookings) {
         },
         options: {
             responsive: true,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, ticks: { color: '#94a3b8' } }, x: { ticks: { color: '#94a3b8' } } }
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    ticks: { color: '#94a3b8' }
+                }
+            }
         }
     });
 }
+
 // --- PARTNERS ---
 async function loadPartnerList() {
     const c = document.getElementById('partnersTableContainer');
+    if (!c) return;
+
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPartners`);
         const p = await r.json();
+
+        p.forEach(x => ensurePartnerOperationalEntry(x.partnerID, x.name));
+
         let h = `<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>ID</th></tr></thead><tbody>`;
-        p.forEach(x => h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td>${x.partnerID}</td></tr>`);
+        p.forEach(x => {
+            h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td>${x.partnerID}</td></tr>`;
+        });
+
         c.innerHTML = h + "</tbody></table>";
-    } catch (e) { c.innerHTML = "Error."; }
+
+        const currentPartner = document.getElementById('partnerInfoPartnerSelect')?.value || 'dublin';
+        populatePartnerInfoSelectors(currentPartner);
+    } catch (e) {
+        c.innerHTML = "Error.";
+    }
 }
 
 async function submitNewPartner() {
-    const n  = document.getElementById('p_name').value;
-    const e  = document.getElementById('p_user').value;
-    const p  = document.getElementById('p_pass').value;
-    const id = document.getElementById('p_id').value;
+    const n = document.getElementById('p_name')?.value;
+    const e = document.getElementById('p_user')?.value;
+    const p = document.getElementById('p_pass')?.value;
+    const id = document.getElementById('p_id')?.value;
+
     if (!n || !e || !p || !id) return alert("Fill in all fields.");
+
     await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(n)}&user=${encodeURIComponent(e)}&pass=${encodeURIComponent(p)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
-    document.getElementById('addPartnerForm').style.display = 'none';
+
+    ensurePartnerOperationalEntry(id, n);
+
+    const form = document.getElementById('addPartnerForm');
+    if (form) form.style.display = 'none';
+
     loadPartnerList();
     loadPartnerFilterOptions();
+    populatePartnerInfoSelectors(id);
+
     alert(`Partner "${n}" successfully added!`);
 }
 
 window.toggleSidebar = function() {
-    document.querySelector('.sidebar').classList.toggle('open');
-    document.querySelector('.sidebar-overlay').classList.toggle('open');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
 };
 
-window.logout          = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
-window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
-window.togglePackageForm = () => { const f = document.getElementById('addPackageForm'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; };
+window.logout = () => {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+};
+
+window.togglePartnerForm = () => {
+    const f = document.getElementById('addPartnerForm');
+    if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
+};
+
+window.togglePackageForm = () => {
+    const f = document.getElementById('addPackageForm');
+    if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
+};
