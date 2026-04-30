@@ -18,21 +18,29 @@ const partnerOperationalInfo = {
     dublin: {
         partnerId: 'Dublin',
         partnerName: 'Dublin Experience',
+        sheetIds: ['Dublin', 'dublin', 'Dublin Experience', 'Na Fianna'],
         defaultLocationId: 'dublin-city',
         locations: [
             {
                 id: 'dublin-city',
                 label: 'Dublin',
-                venue: '',                  // bijv. "St Anne's Park, Raheny"
-                address: '',               // bijv. "St Anne's Park, Raheny, Dublin 5"
-                contactName: '',           // naam lokale host/partner
-                contactPhone: '',          // bijv. "+353 87 123 4567"
-                contactEmail: '',          // bijv. "dublin@partner.ie"
-                bookingCutoffHours: 48,    // hoeveel uur van tevoren uiterlijk boeken
-                maxGroupSize: 12,          // maximale groepsgrootte
-                sessionSchedule: '',       // bijv. "Za & Zo, 10:00 en 14:00"
-                netRatePerPerson: 0,       // netto kostprijs per persoon (€)
-                notes: ''                  // vrije notities: seizoensregels, copyrestricties, etc.
+                venue: 'Na Fianna GAA Club',
+                address: 'St Mobhi Rd, Drumcondra, Dublin 9',
+                contactName: '',
+                contactPhone: '',
+                contactEmail: '',
+                bookingCutoffHours: 24,
+                maxGroupSize: null,
+                sessionSchedule: 'Publieke sessies: ma-vr 10:00, za 11:00. Zomer: ook Galway ma-za 11:00.',
+                netRatePerPerson: 39.50,
+                privateMinGroup: 10,
+                notes: 'Boekingsdeadline: min. 24u van tevoren, meer notice is beter.
+
+Publieke & private sessies hebben dezelfde basisstructuur (introductie + veld). Private groepen kunnen worden aangepast: meer sport of competitief element mogelijk.
+
+Private sessies: min. 10 personen (Dublin & Galway). Belfast en Cork: alleen groepsboeking (min. 10), geen dagelijkse publieke sessie.
+
+Copy: sessiebeschrijving eerst ter goedkeuring voorleggen aan partner voor publicatie. Niet overpromisen.'
             }
         ]
     },
@@ -40,6 +48,7 @@ const partnerOperationalInfo = {
     ireland: {
         partnerId: 'Ireland',
         partnerName: 'Ireland Experience',
+        sheetIds: ['Ireland', 'ireland', 'Ireland Experience', 'Hurling Tours Ireland'],  // voeg hier elke naam toe die in je sheet kan staan
         defaultLocationId: 'ireland-kilkenny',
         locations: [
             {
@@ -78,10 +87,17 @@ function escapeHtml(value = '') {
 
 function getPartnerOperationalEntry(partnerId = '') {
     const normalized = normalizePartnerKey(partnerId);
-    return Object.values(partnerOperationalInfo).find(entry =>
-        normalizePartnerKey(entry.partnerId) === normalized ||
-        normalizePartnerKey(entry.partnerName) === normalized
-    ) || null;
+    if (!normalized) return null;
+    return Object.values(partnerOperationalInfo).find(entry => {
+        // Match op partnerId of partnerName
+        if (normalizePartnerKey(entry.partnerId) === normalized) return true;
+        if (normalizePartnerKey(entry.partnerName) === normalized) return true;
+        // Match op alle sheetIds — voeg hier waarden toe als de sheet-naam wijzigt
+        if (Array.isArray(entry.sheetIds)) {
+            return entry.sheetIds.some(id => normalizePartnerKey(id) === normalized);
+        }
+        return false;
+    }) || null;
 }
 
 function ensurePartnerOperationalEntry(partnerId = '', partnerName = '') {
@@ -224,9 +240,10 @@ function renderPartnerInfoFromSelection() {
             <div style="font-weight:700; color:#0f172a; font-size:0.9rem; line-height:1.5;">${value || '<span style="color:#94a3b8;">—</span>'}</div>
         </div>`;
 
-    const cutoff  = selectedLocation.bookingCutoffHours ? `${selectedLocation.bookingCutoffHours} uur van tevoren` : '';
-    const maxGroup = selectedLocation.maxGroupSize      ? `Max. ${selectedLocation.maxGroupSize} gasten`            : '';
-    const netRate  = selectedLocation.netRatePerPerson  ? `€${selectedLocation.netRatePerPerson} p.p.`              : '';
+    const cutoff    = selectedLocation.bookingCutoffHours ? `${selectedLocation.bookingCutoffHours} uur van tevoren` : '';
+    const maxGroup  = selectedLocation.maxGroupSize      ? `Max. ${selectedLocation.maxGroupSize} gasten`            : '';
+    const netRate   = selectedLocation.netRatePerPerson  ? `€${selectedLocation.netRatePerPerson} p.p.`              : '';
+    const privMin   = selectedLocation.privateMinGroup   ? `Min. ${selectedLocation.privateMinGroup} personen`        : '';
 
     container.innerHTML = `
         <div style="border-radius:14px; overflow:hidden; border:1px solid #e2e8f0;">
@@ -253,8 +270,9 @@ function renderPartnerInfoFromSelection() {
                 <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Boekingsregels</p>
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:16px;">
                     ${tile('fa-solid fa-clock', 'Boekingsdeadline', escapeHtml(cutoff), true)}
-                    ${tile('fa-solid fa-users', 'Groepsgrootte', escapeHtml(maxGroup), true)}
-                    ${tile('fa-solid fa-calendar-days', 'Sessies', escapeHtml(selectedLocation.sessionSchedule), true)}
+                    ${tile('fa-solid fa-users', 'Max. groep (publiek)', escapeHtml(maxGroup), true)}
+                    ${tile('fa-solid fa-user-group', 'Min. privé groep', escapeHtml(privMin), true)}
+                    ${tile('fa-solid fa-calendar-days', 'Sessietijden', escapeHtml(selectedLocation.sessionSchedule), true)}
                 </div>
 
                 ${selectedLocation.notes ? `
