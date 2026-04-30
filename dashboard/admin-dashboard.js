@@ -35,13 +35,7 @@ const partnerOperationalInfo = {
                 sessionSchedule: 'Publieke sessies: ma-vr 10:00, za 11:00. Zomer: ook Galway ma-za 11:00.',
                 netRatePerPerson: 39.50,
                 privateMinGroup: 10,
-                notes: 'Boekingsdeadline: min. 24u van tevoren, meer notice is beter.
-
-Publieke & private sessies hebben dezelfde basisstructuur (introductie + veld). Private groepen kunnen worden aangepast: meer sport of competitief element mogelijk.
-
-Private sessies: min. 10 personen (Dublin & Galway). Belfast en Cork: alleen groepsboeking (min. 10), geen dagelijkse publieke sessie.
-
-Copy: sessiebeschrijving eerst ter goedkeuring voorleggen aan partner voor publicatie. Niet overpromisen.'
+                notes: 'Boekingsdeadline: min. 24u van tevoren, meer notice is beter.\n\nPublieke & private sessies hebben dezelfde basisstructuur (introductie + veld). Private groepen kunnen worden aangepast: meer sport of competitief element mogelijk.\n\nPrivate sessies: min. 10 personen (Dublin & Galway). Belfast en Cork: alleen groepsboeking (min. 10), geen dagelijkse publieke sessie.\n\nCopy: sessiebeschrijving eerst ter goedkeuring voorleggen aan partner voor publicatie. Niet overpromisen.'
             }
         ]
     },
