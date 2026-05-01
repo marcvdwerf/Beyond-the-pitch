@@ -1893,13 +1893,50 @@
             venue: fixture.venue
           });
         }
+// ── BEYOND THE PITCH: GA4 Booking Page Tracking ──
 
-        // 3. Booking pagina view
-        gtag('event', 'experience_page_view', {
-          experience: 'kilkenny',
-          page_type: 'booking',
-          page_location: window.location.href
+        // 2. Fixture geselecteerd (moet vóór initialize staan)
+        function trackFixtureSelect(fixture) {
+            if (typeof gtag === 'undefined') return;
+            gtag('event', 'fixture_selected', {
+                experience: 'kilkenny',
+                fixture: fixture.teams,
+                fixture_date: fixture.date,
+                fixture_price: fixture.price,
+                venue: fixture.venue
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            initialize();
+
+            // 1. Formulier inzending
+            els.form.addEventListener('submit', function() {
+                if (!validateForm()) return;
+                if (typeof gtag === 'undefined') return;
+                const guests = getGuests();
+                const { total } = calcTotals(guests);
+                gtag('event', 'form_submit', {
+                    experience: 'kilkenny',
+                    fixture: selectedFixture ? selectedFixture.teams : 'unknown',
+                    fixture_date: selectedFixture ? selectedFixture.date : 'unknown',
+                    guests: guests,
+                    value: total,
+                    currency: 'EUR',
+                    discount_code: appliedDiscount ? appliedDiscount.code : 'none'
+                });
+            });
+
+            // 3. Booking pagina view
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'experience_page_view', {
+                    experience: 'kilkenny',
+                    page_type: 'booking',
+                    page_location: window.location.href
+                });
+            }
         });
+     
 
         window.addEventListener('DOMContentLoaded', initialize);
     </script>
