@@ -1725,7 +1725,7 @@
             els.date.value = match.date;
             els.matchSelector.value = match.id;
             renderFeatured(); buildFullMenu(); updateProgress(); updateSummary(); updateSubmitButton();
-            trackFixtureSelect(match); // ← toegevoegd
+            if (typeof trackFixtureSelect === 'function') trackFixtureSelect(match);
             return true;
         }
 
@@ -1889,11 +1889,13 @@
         }
 
         // 3. Booking pagina view
-        gtag('event', 'experience_page_view', {
-          experience: 'dublin',
-          page_type: 'booking',
-          page_location: window.location.href
-        });
+       try {
+  gtag('event', 'experience_page_view', {
+    experience: 'dublin',
+    page_type: 'booking',
+    page_location: window.location.href
+  });
+} catch(e) {}
 
     
         window.addEventListener('DOMContentLoaded', initialize);
