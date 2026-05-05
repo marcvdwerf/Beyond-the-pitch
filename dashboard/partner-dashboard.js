@@ -64,6 +64,8 @@ async function loadPackages() {
     try {
         const response = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=${encodeURIComponent(pID)}`, { redirect: 'follow' });
         const packages = await response.json();
+        console.log("PACKAGES RAW:", packages);
+console.log("FIRST ITEM:", packages?.[0]);
 
         if (!packages || packages.length === 0) {
             pkgGrid.innerHTML = "<p>No packages assigned to your account yet.</p>";
