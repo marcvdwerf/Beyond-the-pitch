@@ -22,8 +22,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  const depositPerPerson = 50; // €50 p.p. deposit
-  const depositTotal = depositPerPerson * parseInt(guests, 10);
+ const depositTotal = pricePerPerson * parseInt(guests, 10);
   const fullPriceTotal = pricePerPerson * parseInt(guests, 10);
   const remainingTotal = fullPriceTotal - depositTotal;
 
@@ -36,7 +35,7 @@ export default async function handler(req, res) {
           price_data: {
             currency: 'eur',
             product_data: {
-              name: `Deposit — ${packageName}`,
+              name: `${packageName}`,
               description: fixture
                 ? `${guests} guest${guests > 1 ? 's' : ''} · ${fixture} · ${date}`
                 : `${guests} guest${guests > 1 ? 's' : ''} · ${date}`,
@@ -60,7 +59,7 @@ export default async function handler(req, res) {
         source: 'beyond-the-pitch-booking',
       },
       payment_intent_data: {
-        description: `Beyond the Pitch deposit — ${packageName} — ${name}`,
+       description: `Beyond the Pitch — ${packageName} — ${name}`,
         metadata: {
           customer_name: name,
           package: packageName,
