@@ -19,16 +19,18 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const {
-    packageName,
-    description,
-    pricePerPerson,
-    guests,
-    partner,
-    date,
-    name,
-    email
-  } = req.body;
+ const {
+  packageName,
+  description,
+  packageCode,        // ← NEW
+  pricePerPerson,
+  guests,
+  partner,
+  date,
+  name,
+  email
+} = req.body;
+
 
   const guestCount = parseInt(guests, 10) || 1;
   const unitAmount = toCents(pricePerPerson);
@@ -61,17 +63,19 @@ export default async function handler(req, res) {
           quantity: guestCount,
         },
       ],
-      metadata: {
-        customer_name: name,
-        customer_email: email,
-        partner: partner || '',
-        package_name: packageName,
-        package_description: description || '',
-        guests: String(guestCount),
-        match_date: date || '',
-        full_price_per_person: String(Number(String(pricePerPerson).replace(',', '.'))),
-        source: 'beyond-the-pitch-booking',
-      },
+     metadata: {
+  customer_name: name,
+  customer_email: email,
+  partner: partner || '',
+  package_name: packageName,
+  package_code: packageCode || '',     // ← NEW
+  package_description: description || '',
+  guests: String(guestCount),
+  match_date: date || '',
+  full_price_per_person: String(Number(String(pricePerPerson).replace(',', '.'))),
+  source: 'beyond-the-pitch-booking',
+},
+
       payment_intent_data: {
         description: `Beyond the Pitch — ${packageName} — ${name}`,
         metadata: {
