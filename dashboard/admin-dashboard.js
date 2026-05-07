@@ -3,7 +3,7 @@
  * Versie: 3.3
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwjFrusDC5ESzUoG0HENGan3xrzsWSLCAeSlDDerL8DLUL6GBjdu7SYS4aLV2cQOaZghA/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxbf7UMLSEZ1Xx4sg2mQv7zv3xCZXvG8j45khco_X_Rq-gv6bobgarBlSQTOqad4vR5sA/exec';
 
 let revenueChart = null;
 let allBookings = [];
