@@ -71,7 +71,17 @@ const partnerOperationalInfo = {
 // Overschrijft de hardcoded partnerOperationalInfo zodra de Sheet geladen is.
 async function fetchPartnerInfoFromSheet() {
     try {
-        const response = await fetch(`${SHEET_API_URL}?action=getPartnerInfo`, { redirect: 'follow' });
+        // Converteer datum naar yyyy-MM-dd formaat
+let formattedDate = date;
+if (date && date.includes('-')) {
+    const parts = date.split('-');
+    if (parts.length === 3 && parts[0].length <= 2) {
+        // dd-M-yyyy of d-M-yyyy → yyyy-MM-dd
+        formattedDate = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+    }
+}
+
+const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(formattedDate)}&status=${encodeURIComponent(newStatus)}`, { redirect: 'follow' });
         const rows = await response.json();
 
         if (!Array.isArray(rows) || rows.length === 0) return;
