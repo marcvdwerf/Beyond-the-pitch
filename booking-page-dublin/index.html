@@ -1122,16 +1122,17 @@
     'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse';
 
         const FIELDS = {
-            name: 'entry.761572476',
-            email: 'entry.1144619265',
-            phone: 'entry.1213010877',
-            experience: 'entry.1446094233',
-            date: 'entry.301148404',
-            guests: 'entry.175134312',
-            requests: 'entry.184318357',
-            partner: 'entry.2094398847',
-            discount: 'entry.467287763'
-        };
+    name: 'entry.761572476',
+    email: 'entry.1144619265',
+    phone: 'entry.1213010877',
+    experience: 'entry.1446094233',
+    date: 'entry.301148404',
+    guests: 'entry.175134312',
+    requests: 'entry.184318357',
+    partner: 'entry.2094398847',
+    discount: 'entry.467287763',
+    packageCode: 'entry.924755547'  // ← nieuw
+};
 
         // Venue filter helper
         function getVenueCategory(venue) {
@@ -1813,6 +1814,15 @@
             formData.append(FIELDS.guests, String(guests));
             formData.append(FIELDS.requests, combinedNotes);
             formData.append(FIELDS.partner, 'Dublin');
+
+// Automatische PackageCode op basis van fixture prijs
+let packageCode = 'DUB-STD';
+if (selectedFixture) {
+    if (selectedFixture.price >= 149) packageCode = 'DUB-HDG';
+    else if (selectedFixture.price >= 119) packageCode = 'DUB-PRM';
+    else packageCode = 'DUB-STD';
+}
+formData.append(FIELDS.packageCode, packageCode);
             formData.append(FIELDS.discount, appliedDiscount ? appliedDiscount.code : '');
 
             try {
