@@ -473,7 +473,8 @@
       <a href="/" class="logo">Beyond the Pitch</a>
       <nav class="hidden md:flex items-center gap-8">
         <a href="/" class="nav-link">Home</a>
-        <a href="/experiences/" class="nav-link">Experiences</a>
+        <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('kilkenny'),100)" class="nav-link">Kilkenny</a>
+<a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('dublin'),100)" class="nav-link">Dublin</a>
         <a href="/about/" class="nav-link">About</a>
         <a href="/contact/" class="nav-link">Contact</a>
       </nav>
@@ -568,6 +569,60 @@
       </div>
     </div>
   </section>
+  <section class="zone-dark" style="padding:0 1.5rem 5rem;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <span class="section-label">Our experiences</span>
+    <h2 style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.04em;margin-bottom:0.5rem;">
+      Two locations. One culture.
+    </h2>
+    <div class="zone-divider" style="margin-bottom:2rem;"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;" class="two-col">
+
+      <!-- Kilkenny -->
+      <div style="background:var(--dark-panel);border:1px solid var(--border-dark);border-top:3px solid var(--gold-bright);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;">
+        <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:var(--gold-bright);margin:0;">Kilkenny · Hurling</p>
+        <h3 style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em;color:#fff;line-height:1.15;margin:0;">The Kilkenny Experience</h3>
+        <p style="font-size:0.875rem;color:rgba(255,255,255,0.5);line-height:1.75;margin:0;">
+          Learn the ancient sport from a Kilkenny native, train on the pitch, and watch a live match from the stands alongside real fans.
+        </p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span style="font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,215,0,0.1);color:var(--gold-bright);border:1px solid rgba(255,215,0,0.2);">From €95 p.p.</span>
+          <span style="font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.1);">Min. 4 people</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:auto;">
+          <a href="#experiences" onclick="switchTab('kilkenny')" class="btn-gold" style="justify-content:center;font-size:0.85rem;padding:0.75rem 1rem;">
+            See experience →
+          </a>
+          <a href="#championship" class="btn-outline-white" style="justify-content:center;font-size:0.85rem;padding:0.75rem 1rem;">Fixtures</a>
+        </div>
+      </div>
+
+      <!-- Dublin -->
+      <div style="background:var(--dark-panel);border:1px solid var(--border-dark);border-top:3px solid #4a90d9;border-radius:14px;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:#4a90d9;margin:0;">Dublin · Football & Hurling</p>
+          <span style="font-size:0.62rem;font-weight:700;padding:3px 9px;border-radius:6px;background:rgba(74,144,217,0.12);color:#4a90d9;border:1px solid rgba(74,144,217,0.2);">New</span>
+        </div>
+        <h3 style="font-size:1.25rem;font-weight:900;letter-spacing:-0.03em;color:#fff;line-height:1.15;margin:0;">The Dublin Experience</h3>
+        <p style="font-size:0.875rem;color:rgba(255,255,255,0.5);line-height:1.75;margin:0;">
+          Gaelic Football, Hurling and Handball at Na Fianna GAA - then into Croke Park or Parnell Park for a live matchday.
+        </p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span style="font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(74,144,217,0.1);color:#4a90d9;border:1px solid rgba(74,144,217,0.2);">From €95 p.p.</span>
+          <span style="font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.1);">Solo welcome</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:auto;">
+          <a href="#experiences" onclick="switchTab('dublin')" style="flex:1;justify-content:center;display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;background:#4a90d9;color:#fff;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.85rem;">
+            See experience →
+          </a>
+          <a href="#championship" class="btn-outline-white" style="justify-content:center;font-size:0.85rem;padding:0.75rem 1rem;">Fixtures</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
     <!--
   ══════════════════════════════════════════════════════════════════
   BEYOND THE PITCH - Our upcoming favorites 2026 · Matchday Section
