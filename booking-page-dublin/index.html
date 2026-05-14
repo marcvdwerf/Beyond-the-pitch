@@ -799,67 +799,30 @@
     <a href="/gaelic-games/" class="btn-back">← Back</a>
 
     <div class="booking-container">
-      <div class="header" style="
-    background: #1a202c;
-    color: white;
-    padding: 0;
-    text-align: left;
-    background-image: url('https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?auto=format&fit=crop&w=1200&q=80');
-    background-size: cover;
-    background-position: center 30%;
-    position: relative;
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-">
-    <div style="
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.82) 100%);
-    "></div>
-
-    <div style="position: relative; z-index: 2; padding: 28px 32px 30px;">
-        <div style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px;">
-            Beyond the Pitch · Booking request
+        <div class="header">
+            <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 6px;">
+                Beyond the Pitch
+            </h1>
+            <p style="font-weight: 500; opacity: 0.9;">Booking request form · personal confirmation within 24–48 hours</p>
         </div>
 
-        <h1 style="font-size: 1.7rem; font-weight: 800; margin-bottom: 14px; line-height: 1.2; color: white;">
-            The Dublin Culture &amp; Heritage Experience
-        </h1>
-
-        <div id="headerContext" style="
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 10px;
-            padding: 10px 16px;
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.9);
-            flex-wrap: wrap;
-            margin-bottom: 14px;
-        ">
-            <span style="font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.5);">You're booking</span>
-            <span id="headerFixtureName">Choose a fixture below ↓</span>
-            <span id="headerFixtureDate" style="display:none; color:rgba(255,255,255,0.6);">·</span>
-            <span id="headerFixtureDateText" style="display:none;"></span>
-            <span id="headerFixturePrice" style="display:none; font-weight:700; color:white;">·</span>
-            <span id="headerFixturePriceText" style="display:none; font-weight:700; color:white;"></span>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 10px;">
-            <div style="width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.45); background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:white; flex-shrink:0;">J</div>
-            <span style="font-size:0.82rem; color:rgba(255,255,255,0.7);">Your local guide: <strong style="color:rgba(255,255,255,0.95); font-weight:700;">James, Dublin native &amp; GAA club member</strong></span>
-        </div>
-
-        <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); display:flex; align-items:center; gap:6px;">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3.5l2 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-            Personal confirmation within 24–48 hours · no payment today
-        </div>
-    </div>
-</div>
+        <form id="bookingForm" class="form-section" novalidate>
+            <div class="progress-bar" aria-label="Booking progress">
+                <div class="progress-step active" id="prog-1">
+                    <span class="step-num">1</span>
+                    <span>Details</span>
+                </div>
+                <div class="progress-sep"></div>
+                <div class="progress-step" id="prog-2">
+                    <span class="step-num">2</span>
+                    <span>Fixture</span>
+                </div>
+                <div class="progress-sep"></div>
+                <div class="progress-step" id="prog-3">
+                    <span class="step-num">3</span>
+                    <span>Confirm</span>
+                </div>
+            </div>
 
             <!-- Booking Process Info -->
             <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:24px;margin-bottom:28px;">
@@ -1755,29 +1718,17 @@
             const savingsText = appliedDiscount.type === 'percent' ? `${appliedDiscount.value}% off` : `${formatMoney(appliedDiscount.value)} per person`;
             updateDiscountFeedback('success', `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`);
         }
-       
-        function selectFixtureById(id) {
-    const match = MATCH_DATA.find(item => item.id === id);
-    if (!match) return false;
-    selectedFixture = match;
-    els.date.value = match.date;
-    els.matchSelector.value = match.id;
-    renderFeatured(); buildFullMenu(); updateProgress(); updateSummary(); updateSubmitButton();
-    // Update header context pill
-    const hn = document.getElementById('headerFixtureName');
-    const hd = document.getElementById('headerFixtureDate');
-    const hdt = document.getElementById('headerFixtureDateText');
-    const hp = document.getElementById('headerFixturePrice');
-    const hpt = document.getElementById('headerFixturePriceText');
-    if (hn && match) {
-        hn.textContent = match.teams;
-        hdt.textContent = formatDate(match.date);
-        hpt.textContent = `€${match.price} p.p.`;
-        [hd, hdt, hp, hpt].forEach(el => el.style.display = '');
-    }
-    if (typeof trackFixtureSelect === 'function') trackFixtureSelect(match);
-    return true;
-}
+
+       function selectFixtureById(id) {
+            const match = MATCH_DATA.find(item => item.id === id);
+            if (!match) return false;
+            selectedFixture = match;
+            els.date.value = match.date;
+            els.matchSelector.value = match.id;
+            renderFeatured(); buildFullMenu(); updateProgress(); updateSummary(); updateSubmitButton();
+            if (typeof trackFixtureSelect === 'function') trackFixtureSelect(match);
+            return true;
+        }
 
         function syncFixtureByDate(dateValue) {
             const match = MATCH_DATA.find(item => item.date === dateValue);
