@@ -1122,18 +1122,18 @@
     'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse';
 
   const FIELDS = {
-    name: 'entry.761572476',
-    email: 'entry.1144619265',
-    phone: 'entry.1213010877',
-    experience: 'entry.1446094233',
-    date: 'entry.301148404',
-    guests: 'entry.175134312',
-    requests: 'entry.184318357',
-    partner: 'entry.2094398847',
-    discount: 'entry.467287763',
+    name:        'entry.761572476',
+    email:       'entry.1144619265',
+    phone:       'entry.1213010877',
+    experience:  'entry.1446094233',
+    date:        'entry.301148404',
+    guests:      'entry.175134312',
+    requests:    'entry.2094398847',   // ← was foute ID; dit is "Special Requests"
     packageCode: 'entry.924755547',
-    fixture: 'entry.857468506'   // ← nieuw
+    fixture:     'entry.857468506'
+    // partner & discount verwijderd: die velden bestaan niet in het Form
 };
+
 
         // Venue filter helper
         function getVenueCategory(venue) {
@@ -1825,7 +1825,6 @@ if (selectedFixture) {
     else packageCode = 'DUB-STD';
 }
 formData.append(FIELDS.packageCode, packageCode);
-            formData.append(FIELDS.discount, appliedDiscount ? appliedDiscount.code : '');
 
             try {
                 await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData });
