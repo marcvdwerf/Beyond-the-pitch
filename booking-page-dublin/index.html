@@ -1810,10 +1810,7 @@
             formData.append(FIELDS.email, els.email.value.trim());
             formData.append(FIELDS.phone, els.phone.value.trim());
             formData.append(FIELDS.experience, EXPERIENCE_NAME);
-            const fixtureLabel = selectedFixture
-    ? `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`
-    : els.date.value;
-formData.append(FIELDS.date, fixtureLabel);
+            formData.append(FIELDS.date, els.date.value);
             formData.append(FIELDS.guests, String(guests));
             formData.append(FIELDS.requests, combinedNotes);
             formData.append(FIELDS.partner, 'Dublin');
