@@ -191,7 +191,6 @@
       background: var(--bg);
     }
 
-    /* Atmospheric grain overlay */
     .hero::before {
       content: '';
       position: absolute; inset: 0;
@@ -201,7 +200,6 @@
       pointer-events: none;
     }
 
-    /* Large number watermark */
     .hero-watermark {
       position: absolute; right: -2rem; top: 50%;
       transform: translateY(-50%);
@@ -267,7 +265,7 @@
     }
     .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
 
-    /* Hero card */
+    /* Hero card — updated to show both versions clearly */
     .hero-card {
       background: linear-gradient(160deg, var(--surface-2), var(--surface));
       border: 1px solid var(--border-2);
@@ -282,7 +280,7 @@
       background: linear-gradient(90deg, transparent, rgba(201,48,42,0.4), transparent);
     }
     .hero-card-head {
-      padding: 1.5rem 1.5rem 1.2rem;
+      padding: 1.25rem 1.5rem 1rem;
       border-bottom: 1px solid var(--border);
     }
     .hero-card-label {
@@ -292,19 +290,38 @@
       margin-bottom: 0.4rem;
     }
     .hero-card-value { font-size: 0.9rem; font-weight: 600; line-height: 1.5; }
-    .hero-card-price {
-      font-family: var(--font-display);
-      font-size: 2.4rem; font-weight: 900;
-      color: var(--red); line-height: 1;
+
+    /* Two-version pricing split in hero card */
+    .hero-card-versions {
+      display: flex; flex-direction: column; gap: 0;
     }
-    .hero-card-price-note { font-size: 0.78rem; color: var(--soft); margin-top: 0.25rem; }
+    .hero-card-version {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .hero-card-version:last-child { border-bottom: none; }
+    .hero-card-version-label {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--muted); line-height: 1.4;
+    }
+    .hero-card-version-sub {
+      font-size: 0.73rem; color: var(--soft); margin-top: 0.15rem;
+    }
+    .hero-card-version-price {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 900;
+      line-height: 1; white-space: nowrap; flex-shrink: 0;
+    }
+    .hero-card-version-price-dim { color: var(--text); }
+    .hero-card-version-price-red { color: var(--red); }
 
     .hero-card-grid {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 1px; background: var(--border);
     }
     .hero-card-cell {
-      background: var(--surface); padding: 1rem;
+      background: var(--surface); padding: 0.9rem 1rem;
     }
 
     .hero-card-note {
@@ -338,6 +355,29 @@
     }
     .trust-cell-value { font-size: 0.86rem; font-weight: 600; line-height: 1.5; }
     .trust-cell-value-red { color: var(--red); }
+
+    /* ─── SIGNAL STRIP (new trust signals below trust bar) ─── */
+    .signal-strip {
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .signal-strip-inner {
+      display: flex; flex-wrap: wrap; gap: 0;
+      justify-content: center;
+    }
+    .signal-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 1rem 1.75rem;
+      border-right: 1px solid var(--border);
+      color: rgba(240,237,232,0.65);
+      font-size: 0.84rem; font-weight: 500;
+    }
+    .signal-item:last-child { border-right: none; }
+    .signal-icon { font-size: 1rem; flex-shrink: 0; }
+    @media (max-width: 768px) {
+      .signal-item { border-right: none; border-bottom: 1px solid var(--border); width: 100%; }
+      .signal-item:last-child { border-bottom: none; }
+    }
 
     /* ─── KAMIL HERO SECTION ─── */
     .kamil-section {
@@ -376,7 +416,6 @@
       font-size: 0.8rem;
     }
 
-    /* Atmospheric lines overlay on photo */
     .kamil-visual::after {
       content: '';
       position: absolute; inset: 0;
@@ -467,6 +506,20 @@
       font-style: italic;
     }
 
+    /* ─── SOLO CALLOUT ─── */
+    .solo-callout {
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-left: 3px solid var(--red);
+      border-radius: 0 12px 12px 0;
+      padding: 0.9rem 1.2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-top: 1.5rem;
+      color: rgba(240,237,232,0.7);
+      font-size: 0.88rem; line-height: 1.7;
+    }
+    .solo-callout strong { color: var(--text); }
+
     /* ─── ATMOSPHERE STRIP (mood words) ─── */
     .mood-strip {
       background: var(--red);
@@ -508,7 +561,6 @@
       position: relative;
     }
 
-    /* Train map / Europe diagram */
     .train-map-card {
       background: var(--surface-2);
       border: 1px solid var(--border-2);
@@ -519,7 +571,7 @@
     .train-map-title {
       font-family: var(--font-mono);
       font-size: 9px; letter-spacing: 0.18em;
-      text-transform: uppercase;   color: rgba(240,237,232,0.65);
+      text-transform: uppercase; color: rgba(240,237,232,0.65);
       margin-bottom: 1.25rem;
     }
 
@@ -605,6 +657,10 @@
     .tl-stop:hover:not(.active) { background: rgba(240,237,232,0.02); }
     .tl-stop.active { border-left-color: var(--red); background: var(--red-dim); }
 
+    /* Hidden stops for collapse feature */
+    .tl-stop.hidden-stop { display: none; }
+    .tl-stop.hidden-stop.revealed { display: flex; }
+
     .stop-dot {
       width: 7px; height: 7px; border-radius: 50%;
       background: var(--border-2); flex-shrink: 0; margin-top: 5px;
@@ -621,6 +677,19 @@
     .tl-stop.active .stop-year { color: rgba(201,48,42,0.7); }
     .stop-name { font-size: 0.83rem; font-weight: 600; color: var(--muted); line-height: 1.35; }
     .tl-stop.active .stop-name { color: var(--text); }
+
+    /* Show more button in nav */
+    .tl-show-more {
+      padding: 0.75rem 1.1rem;
+      cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
+      color: var(--red); font-size: 0.78rem; font-weight: 600;
+      border: none; background: none; font-family: var(--font-body);
+      width: 100%; text-align: left;
+      border-top: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .tl-show-more:hover { background: var(--red-dim); }
+    .tl-show-more.hidden { display: none; }
 
     .tl-content { flex: 1; padding: 2.5rem; }
     .tl-slide { display: none; animation: fadeUp 0.3s ease; }
@@ -954,6 +1023,48 @@
     .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
     .cta-micro { margin-top: 1.25rem; color: var(--soft); font-size: 0.8rem; line-height: 1.7; }
 
+    /* ─── STICKY MOBILE BOTTOM BAR ─── */
+    .sticky-bar {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 190;
+      background: rgba(11,11,12,0.96);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-2);
+      padding: 0.85rem 1.25rem;
+      align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .sticky-bar-left {
+      display: flex; flex-direction: column;
+    }
+    .sticky-bar-from {
+      font-family: var(--font-mono);
+      font-size: 9px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--soft);
+    }
+    .sticky-bar-price {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 900;
+      color: var(--red); line-height: 1;
+    }
+    .sticky-bar-sub {
+      font-size: 0.72rem; color: var(--soft); margin-top: 0.1rem;
+    }
+    .sticky-bar-btn {
+      flex-shrink: 0;
+      background: var(--red); color: #fff;
+      font-family: var(--font-body); font-weight: 600;
+      font-size: 0.88rem; padding: 0.75rem 1.25rem;
+      border-radius: 10px; border: none; cursor: pointer;
+      white-space: nowrap; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      box-shadow: 0 4px 16px rgba(201,48,42,0.35);
+    }
+    @media (max-width: 768px) {
+      .sticky-bar { display: flex; }
+      body { padding-bottom: 80px; }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: #070708;
@@ -1019,6 +1130,8 @@
       .fit-grid { grid-template-columns: 1fr 1fr; }
       nav.nav-links { display: none; }
       .hamburger { display: flex; }
+      .tl-show-more { display: none !important; }
+      .tl-stop.hidden-stop { display: flex !important; }
     }
 
     @media (max-width: 540px) {
@@ -1034,6 +1147,19 @@
 <body>
 
 <a href="#main" class="skip-link">Skip to content</a>
+
+<!-- STICKY MOBILE BOTTOM BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar-left">
+    <span class="sticky-bar-from">From</span>
+    <span class="sticky-bar-price">€42</span>
+    <span class="sticky-bar-sub">per person · Prague</span>
+  </div>
+  <a href="#enquire" class="sticky-bar-btn">
+    Request your date
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
 
 <!-- HEADER -->
 <header class="header" id="header">
@@ -1087,7 +1213,7 @@
           <span style="display:block;font-size:0.52em;color:rgba(240,237,232,0.55);font-style:normal;margin-top:0.3em;letter-spacing:-0.02em;">Prague through ice hockey.</span>
         </h2>
 
-        <p class="hero-body">Walk Prague with Kamil -a local -and uncover the political history woven into Czech hockey: independence, occupation, resistance, national pride. End at the Czech Hockey Hall of Fame. Add a live match in season.</p>
+        <p class="hero-body">Two hours through Prague with Kamil — a local — using ice hockey to read a country that used sport to say what it could not otherwise say. Ends at the Czech Hockey Hall of Fame. Add a live Extraliga match September–April.</p>
         <p class="hero-micro">This is not a city tour. It is a story-led experience built around the sport that helped a country say what it could not otherwise say.</p>
 
         <div class="hero-cta-row">
@@ -1095,24 +1221,38 @@
             Request your date
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a href="#route" class="btn btn-ghost">See the route</a>
+          <a href="#versions" class="btn btn-ghost">See pricing</a>
         </div>
 
         <div class="hero-pills">
           <span class="pill"><span class="pill-dot"></span>Small groups only</span>
           <span class="pill"><span class="pill-dot"></span>No hockey knowledge needed</span>
-          <span class="pill"><span class="pill-dot"></span>Response within 24–48 hours</span>
+          <span class="pill"><span class="pill-dot"></span>Personally reviewed, not auto-confirmed</span>
           <span class="pill"><span class="pill-dot"></span>Easy to reach by train</span>
         </div>
       </div>
 
+      <!-- HERO CARD — two-version pricing split -->
       <aside class="hero-card" aria-label="Experience at a glance">
         <div class="hero-card-head">
-          <div class="hero-card-label">Experience type</div>
-          <div class="hero-card-value" style="margin-bottom:1rem;">Walking tour + Czech Hockey Hall of Fame + optional live match in season</div>
-          <div class="hero-card-label">From</div>
-          <div class="hero-card-price">€42</div>
-          <div class="hero-card-price-note">per person · Hall of Fame included</div>
+          <div class="hero-card-label">Two versions — choose at booking</div>
+          <div class="hero-card-value" style="margin-bottom:0.15rem;">Walking tour + Czech Hockey Hall of Fame</div>
+        </div>
+        <div class="hero-card-versions">
+          <div class="hero-card-version">
+            <div>
+              <div class="hero-card-version-label">Walking tour + Hall of Fame</div>
+              <div class="hero-card-version-sub">Year-round · Hall of Fame entry included</div>
+            </div>
+            <div class="hero-card-version-price hero-card-version-price-dim">€42<span style="font-size:0.75rem;font-family:var(--font-body);font-weight:400;color:var(--soft);"> p.p.</span></div>
+          </div>
+          <div class="hero-card-version">
+            <div>
+              <div class="hero-card-version-label">+ Live Czech Extraliga match</div>
+              <div class="hero-card-version-sub">September–April · match ticket included</div>
+            </div>
+            <div class="hero-card-version-price hero-card-version-price-red">€69<span style="font-size:0.75rem;font-family:var(--font-body);font-weight:400;color:var(--soft);"> p.p.</span></div>
+          </div>
         </div>
         <div class="hero-card-grid">
           <div class="hero-card-cell">
@@ -1121,11 +1261,11 @@
           </div>
           <div class="hero-card-cell">
             <div class="hero-card-label">Works best for</div>
-            <div class="hero-card-value" style="font-size:0.86rem;">Curious travellers, history-minded visitors, Europe-trippers</div>
+            <div class="hero-card-value" style="font-size:0.86rem;">Curious travellers, history-minded visitors</div>
           </div>
           <div class="hero-card-cell">
-            <div class="hero-card-label">Season (live match)</div>
-            <div class="hero-card-value" style="font-size:0.86rem;">September – April</div>
+            <div class="hero-card-label">Knowledge needed</div>
+            <div class="hero-card-value" style="font-size:0.86rem;">None — beginners welcome</div>
           </div>
           <div class="hero-card-cell">
             <div class="hero-card-label">Booking style</div>
@@ -1133,7 +1273,7 @@
           </div>
         </div>
         <div class="hero-card-note">
-          This is not a museum audio guide and not a generic walking tour. It is a country's story, told through its sport, by someone who knows where the feeling lives.
+          Guide fee and Hall of Fame entry (€10 value) included in both versions.
         </div>
       </aside>
     </div>
@@ -1161,17 +1301,41 @@
         </div>
         <div class="trust-cell">
           <div class="trust-cell-label">Booking</div>
-          <div class="trust-cell-value">Personally reviewed within 24–48 hrs</div>
+          <div class="trust-cell-value">Personally reviewed &amp; confirmed</div>
         </div>
         <div class="trust-cell">
           <div class="trust-cell-label">From</div>
-          <div class="trust-cell-value trust-cell-value-red">€35 per person</div>
+          <div class="trust-cell-value trust-cell-value-red">€42 per person</div>
         </div>
       </div>
     </div>
   </section>
 
- <!-- KAMIL SECTION - emotional anchor -->
+  <!-- SIGNAL STRIP — concrete trust signals -->
+  <div class="signal-strip" aria-label="Why book with Beyond the Pitch">
+    <div class="container">
+      <div class="signal-strip-inner">
+        <div class="signal-item">
+          <span class="signal-icon">🇨🇿</span>
+          <span>Local guide, born and raised in Prague</span>
+        </div>
+        <div class="signal-item">
+          <span class="signal-icon">🎟️</span>
+          <span>Hall of Fame entry included in both versions</span>
+        </div>
+        <div class="signal-item">
+          <span class="signal-icon">💬</span>
+          <span>Reviewed personally — no autopilot bookings</span>
+        </div>
+        <div class="signal-item">
+          <span class="signal-icon">↩️</span>
+          <span>Full refund if no suitable match is available</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- KAMIL SECTION -->
 <section class="kamil-section" aria-label="Meet your guide Kamil">
   <div class="kamil-layout">
     <div class="kamil-visual" style="background-image: url('images/kamil.jpg'); background-size: cover; background-position: center 30%;">
@@ -1185,8 +1349,8 @@
         <blockquote class="kamil-quote-big">
           If you want to understand a place, don't just look at what it celebrates. Look at what it plays, what it remembers, and what people carry with them.
         </blockquote>
-        <p class="kamil-body">Kamil grew up in Prague and knows the city beyond the usual sights. For him, it’s a place where history still shapes everyday life - in the streets, in the arenas, and in the conversations people have over a beer after the game.</p>
-        <p class="kamil-body">He doesn’t follow a script or give rehearsed stories. Instead, he uses the city itself and the people in it to show why hockey matters so much here - and how it became something bigger than just sport.</p>
+        <p class="kamil-body">Kamil grew up in Prague and knows the city beyond the usual sights. For him, it's a place where history still shapes everyday life - in the streets, in the arenas, and in the conversations people have over a beer after the game.</p>
+        <p class="kamil-body">He doesn't follow a script or give rehearsed stories. Instead, he uses the city itself and the people in it to show why hockey matters so much here - and how it became something bigger than just sport.</p>
         <div class="kamil-tags">
           <span class="kamil-tag">Prague local</span>
           <span class="kamil-tag">Fully in English</span>
@@ -1213,7 +1377,6 @@
       <span class="mood-word">Beer halls</span><span class="mood-sep">·</span>
       <span class="mood-word">Scarves and chants</span><span class="mood-sep">·</span>
       <span class="mood-word">Central European winter</span><span class="mood-sep">·</span>
-      <!-- duplicate for seamless loop -->
       <span class="mood-word">Post-communist Prague</span><span class="mood-sep">·</span>
       <span class="mood-word">Hockey Prague</span><span class="mood-sep">·</span>
       <span class="mood-word">Underground Prague</span><span class="mood-sep">·</span>
@@ -1245,9 +1408,15 @@
 
         <p>You walk the city with <strong>Kamil</strong>, using ice hockey as the thread that makes Czech history feel human: independence, occupation, propaganda, resistance, memory and national pride. The sport and the history are not two separate things. They never were.</p>
 
-        <p>This isn’t a standard walking tour or a museum-style audio guide. It’s a cultural experience built around stories, history, and conversation - for people who want to leave Prague with a real understanding of the city, not just a list of places they’ve seen.</p>
+        <p>This isn't a standard walking tour or a museum-style audio guide. It's a cultural experience built around stories, history, and conversation - for people who want to leave Prague with a real understanding of the city, not just a list of places they've seen.</p>
 
         <p>If you are visiting during the season (September–April), you can extend the experience with a live Czech Extraliga match. Outside the season, the walking route and Hall of Fame still stand on their own as a complete experience.</p>
+
+        <!-- SOLO CALLOUT — moved from deep in FAQ -->
+        <div class="solo-callout">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span><strong>Travelling solo?</strong> Get in touch — we regularly pair single guests with other small groups on the same date.</span>
+        </div>
       </div>
 
       <aside class="intro-card">
@@ -1256,13 +1425,13 @@
           <div style="font-size:0.88rem;font-weight:600;line-height:1.5;">A local guide, a real historical thread, and a format built for curious outsiders</div>
         </div>
         <div class="check-list">
-          <div class="check-item"><span class="check-mark">✓</span><span class="check-text">No prior hockey knowledge needed -the history makes the sport make sense, not the other way around</span></div>
+          <div class="check-item"><span class="check-mark">✓</span><span class="check-text">No prior hockey knowledge needed — the history makes the sport make sense, not the other way around</span></div>
           <div class="check-item"><span class="check-mark">✓</span><span class="check-text">Designed for visitors who want more than a checklist of monuments</span></div>
           <div class="check-item"><span class="check-mark">✓</span><span class="check-text">Works year-round; upgraded to a live-match version in season</span></div>
-          <div class="check-item"><span class="check-mark">✓</span><span class="check-text">Small groups, personally confirmed -not auto-booked</span></div>
+          <div class="check-item"><span class="check-mark">✓</span><span class="check-text">Small groups, confirmed only after personal review</span></div>
           <div class="check-item"><span class="check-mark">✓</span><span class="check-text">Sport and history are woven together, not separated into different sections</span></div>
         </div>
-        <div class="intro-card-note">You do not need to "follow hockey" to get this experience. The route is designed to make the history vivid, clear and accessible -whether or not you know the offside rule.</div>
+        <div class="intro-card-note">You do not need to "follow hockey" to get this experience. The route is designed to make the history vivid, clear and accessible — whether or not you know the offside rule.</div>
       </aside>
     </div>
   </section>
@@ -1278,7 +1447,7 @@
         <p class="lead">Prague sits at the geographic heart of Europe. You can step off a train from Berlin, Vienna, Budapest or Krakow and be inside one of the continent's most atmospheric cities in a matter of hours.</p>
 
         <div class="train-pull">
-          <strong>This is what a European away trip was always supposed to feel like.</strong> Different country, different history, different sport -connected by rail and a shared Central European restlessness that never quite goes away.
+          <strong>This is what a European away trip was always supposed to feel like.</strong> Different country, different history, different sport — connected by rail and a shared Central European restlessness that never quite goes away.
         </div>
 
         <p style="color:var(--muted);font-size:0.92rem;line-height:1.85;margin-top:1.5rem;">The experience works perfectly as a two- or three-hour anchor in a longer European trip. You do not need to build an itinerary around it. It fits into the one you already have.</p>
@@ -1349,7 +1518,7 @@
       <p class="eyebrow">The route</p>
       <h2 class="section-title">Eight stops.<br><em>One country's story.</em></h2>
       <div class="rule" style="margin-top:1.25rem;"></div>
-      <p class="lead">This is not a checklist of monuments. Kamil walks you through the moments, streets and symbols that help Czech hockey make sense -why it mattered, who it represented, and what people projected onto it in the hardest decades of the 20th century.</p>
+      <p class="lead">This is not a checklist of monuments. Kamil walks you through the moments, streets and symbols that help Czech hockey make sense — why it mattered, who it represented, and what people projected onto it in the hardest decades of the 20th century.</p>
       <p style="color:rgba(240,237,232,0.35);font-size:0.88rem;margin-top:0.75rem;">You do not need to memorise dates. The route is designed to make the history feel clear, vivid and close.</p>
     </div>
 
@@ -1360,31 +1529,36 @@
             <div class="tl-stop active" onclick="goTo(0)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1918</div><div class="stop-name">National Theatre</div></div></div>
             <div class="tl-stop" onclick="goTo(1)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1938</div><div class="stop-name">Žofín Island</div></div></div>
             <div class="tl-stop" onclick="goTo(2)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950</div><div class="stop-name">Zlatá Hospůdka</div></div></div>
-            <div class="tl-stop" onclick="goTo(3)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950s</div><div class="stop-name">Myslíkova Street</div></div></div>
-            <div class="tl-stop" onclick="goTo(4)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">Interlude</div><div class="stop-name">Lucerna Palace</div></div></div>
-            <div class="tl-stop" onclick="goTo(5)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1968–69</div><div class="stop-name">Wenceslas Square</div></div></div>
-            <div class="tl-stop" onclick="goTo(6)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1989</div><div class="stop-name">Politických Vězňů</div></div></div>
-            <div class="tl-stop" onclick="goTo(7)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1998–01</div><div class="stop-name">Hall of Fame</div></div></div>
+            <!-- Stops 4–8 hidden by default on desktop, shown via "Show all" button -->
+            <div class="tl-stop hidden-stop" onclick="goTo(3)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950s</div><div class="stop-name">Myslíkova Street</div></div></div>
+            <div class="tl-stop hidden-stop" onclick="goTo(4)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">Interlude</div><div class="stop-name">Lucerna Palace</div></div></div>
+            <div class="tl-stop hidden-stop" onclick="goTo(5)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1968–69</div><div class="stop-name">Wenceslas Square</div></div></div>
+            <div class="tl-stop hidden-stop" onclick="goTo(6)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1989</div><div class="stop-name">Politických Vězňů</div></div></div>
+            <div class="tl-stop hidden-stop" onclick="goTo(7)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1998–01</div><div class="stop-name">Hall of Fame</div></div></div>
+            <button class="tl-show-more" id="tlShowMore" onclick="revealAllStops()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+              Show all 8 stops
+            </button>
           </nav>
 
           <div class="tl-content">
             <div class="tl-slide active" id="slide-0">
               <div class="slide-num" aria-hidden="true">01</div>
               <p class="slide-loc">National Theatre Courtyard</p>
-              <h3 class="slide-title">A nation is born -and a sport starts to matter</h3>
-              <p class="slide-body">In 1918, Czechoslovakia becomes independent after centuries of Habsburg rule. Within a generation, ice hockey moves from pastime to national symbol. This is where Kamil explains <strong>why a sport can become part of how a country sees itself</strong> -and what happens when that symbol is later threatened or taken away.</p>
+              <h3 class="slide-title">A nation is born — and a sport starts to matter</h3>
+              <p class="slide-body">In 1918, Czechoslovakia becomes independent after centuries of Habsburg rule. Within a generation, ice hockey moves from pastime to national symbol. This is where Kamil explains <strong>why a sport can become part of how a country sees itself</strong> — and what happens when that symbol is later threatened or taken away.</p>
             </div>
             <div class="tl-slide" id="slide-1">
               <div class="slide-num" aria-hidden="true">02</div>
               <p class="slide-loc">Žofín River Island</p>
-              <h3 class="slide-title">The first rink -and a match that already carried weight</h3>
-              <p class="slide-body">Prague's original hockey stadium stood here. In the late 1930s, hockey was already entangled with a Europe sliding into fear and confrontation. Kamil uses this stop to show <strong>how public sport becomes a stage for something much bigger than entertainment</strong> -especially when a country senses what may be coming next.</p>
+              <h3 class="slide-title">The first rink — and a match that already carried weight</h3>
+              <p class="slide-body">Prague's original hockey stadium stood here. In the late 1930s, hockey was already entangled with a Europe sliding into fear and confrontation. Kamil uses this stop to show <strong>how public sport becomes a stage for something much bigger than entertainment</strong> — especially when a country senses what may be coming next.</p>
             </div>
             <div class="tl-slide" id="slide-2">
               <div class="slide-num" aria-hidden="true">03</div>
               <p class="slide-loc">Zlatá Hospůdka</p>
               <h3 class="slide-title">When the state turned on its own champions</h3>
-              <p class="slide-body">In 1950, members of the national hockey team -medalists, champions, public figures -were arrested by the communist regime and sentenced to prison and forced labour. <strong>This is the emotional centre of the walk.</strong> The point where hockey stops looking like a pastime and starts looking like a public language the regime needed to control.</p>
+              <p class="slide-body">In 1950, members of the national hockey team — medalists, champions, public figures — were arrested by the communist regime and sentenced to prison and forced labour. <strong>This is the emotional centre of the walk.</strong> The point where hockey stops looking like a pastime and starts looking like a public language the regime needed to control.</p>
               <div class="slide-note">One of the clearest examples of what happens when power decides that even sport must submit. Kamil tells it without spectacle. That is what makes it stay with you.</div>
             </div>
             <div class="tl-slide" id="slide-3">
@@ -1396,26 +1570,26 @@
             <div class="tl-slide" id="slide-4">
               <div class="slide-num" aria-hidden="true">05</div>
               <p class="slide-loc">Lucerna Palace</p>
-              <h3 class="slide-title">A Prague what-if -and a breath between the heavier stops</h3>
-              <p class="slide-body">Lucerna carries one of those details visitors rarely hear: it was once imagined as something closer to a hockey venue than the cultural palace people know today. It offers a lighter, more local kind of insight -<strong>the kind of stop that reminds you this route is a conversation, not a lecture.</strong></p>
+              <h3 class="slide-title">A Prague what-if — and a breath between the heavier stops</h3>
+              <p class="slide-body">Lucerna carries one of those details visitors rarely hear: it was once imagined as something closer to a hockey venue than the cultural palace people know today. It offers a lighter, more local kind of insight — <strong>the kind of stop that reminds you this route is a conversation, not a lecture.</strong></p>
             </div>
             <div class="tl-slide" id="slide-5">
               <div class="slide-num" aria-hidden="true">06</div>
               <p class="slide-loc">Wenceslas Square</p>
               <h3 class="slide-title">Tanks in 1968. Goals in 1969. What a victory can unlock.</h3>
-              <p class="slide-body">After the Soviet-led invasion of 1968, hockey became charged in a way outsiders can easily miss. Victories over the USSR were not experienced as simple sporting results. <strong>Here, Kamil shows how a match can absorb anger, hope and collective feeling</strong> -and how quickly celebration turns political when the context is this raw.</p>
+              <p class="slide-body">After the Soviet-led invasion of 1968, hockey became charged in a way outsiders can easily miss. Victories over the USSR were not experienced as simple sporting results. <strong>Here, Kamil shows how a match can absorb anger, hope and collective feeling</strong> — and how quickly celebration turns political when the context is this raw.</p>
             </div>
             <div class="tl-slide" id="slide-6">
               <div class="slide-num" aria-hidden="true">07</div>
               <p class="slide-loc">Politických Vězňů Street</p>
-              <h3 class="slide-title">The Velvet Revolution -and the end of one shared chapter</h3>
+              <h3 class="slide-title">The Velvet Revolution — and the end of one shared chapter</h3>
               <p class="slide-body">The late 1980s reshape the country. Kamil explains how the Velvet Revolution changed public life, and how the later split of Czechoslovakia created two nations, two identities and two hockey stories. <strong>By now, the route has moved from fear and control toward self-definition and memory.</strong></p>
             </div>
             <div class="tl-slide" id="slide-7">
               <div class="slide-num" aria-hidden="true">08</div>
               <p class="slide-loc">Czech Hockey Hall of Fame</p>
               <h3 class="slide-title">Nagano, memory, and the moments that still live</h3>
-              <p class="slide-body">The route ends where pride becomes tangible. The Hall of Fame brings together the players, trophies, footage and objects that carried Czech hockey into public memory -including the moments that made the country stop, look up and believe again. <strong>By this point, the exhibits make sense in a way they wouldn't have two hours earlier.</strong></p>
+              <p class="slide-body">The route ends where pride becomes tangible. The Hall of Fame brings together the players, trophies, footage and objects that carried Czech hockey into public memory — including the moments that made the country stop, look up and believe again. <strong>By this point, the exhibits make sense in a way they wouldn't have two hours earlier.</strong></p>
               <div class="slide-badge">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 Hall of Fame entry included in both versions
@@ -1434,13 +1608,13 @@
     </div>
   </section>
 
-  <!-- BOOKING STEPS -->
+  <!-- BOOKING STEPS — reframed as guest protection, not delay -->
   <section class="section steps-section">
     <div class="container">
       <p class="eyebrow">How booking works</p>
-      <h2 class="section-title">Not instant checkout.<br><em>Personally checked.</em></h2>
+      <h2 class="section-title">Checked before confirmed.<br><em>Not sold before checked.</em></h2>
       <div class="rule" style="margin-top:1.25rem;"></div>
-      <p class="lead">We do not run this on autopilot. Every request is reviewed before it is confirmed, so you know what is realistically available for your dates -and what is not.</p>
+      <p class="lead">We confirm Kamil's real availability and — for the match version — verify which fixtures actually work for your dates. You get one honest answer instead of an automated booking that may not hold up.</p>
 
       <div class="steps-grid">
         <div class="step-card">
@@ -1451,7 +1625,7 @@
         <div class="step-card" style="border-left:1px solid var(--border);border-right:1px solid var(--border);">
           <div class="step-num" aria-hidden="true">02</div>
           <h3 class="step-title">We check availability personally</h3>
-          <p class="step-body">Within 24–48 hours, we confirm Kamil's availability and -where relevant -verify what match access is realistically possible for your dates.</p>
+          <p class="step-body">We confirm Kamil's availability and — where relevant — verify what match access is realistically possible for your dates. You get a clear answer within 24–48 hours.</p>
         </div>
         <div class="step-card">
           <div class="step-num" aria-hidden="true">03</div>
@@ -1461,7 +1635,7 @@
       </div>
 
       <div class="steps-note">
-        <strong>Clear before confirmed.</strong> We review requests properly, explain the best available format for your specific dates, and only then move to final confirmation. If nothing works, there is no charge.
+        <strong>No charge if nothing works.</strong> We review requests properly, explain the best available format for your specific dates, and only then move to final confirmation. If none of the alternatives suit you, there is no charge.
       </div>
     </div>
   </section>
@@ -1472,7 +1646,7 @@
       <p class="eyebrow">Who this is for</p>
       <h2 class="section-title">A strong fit if you want Prague<br>to feel <em>real.</em></h2>
       <div class="rule" style="margin-top:1.25rem;"></div>
-      <p class="lead">This experience works best for people who want depth, atmosphere and a genuine local thread -not just another set of landmarks with a tour guide's commentary.</p>
+      <p class="lead">This experience works best for people who want depth, atmosphere and a genuine local thread — not just another set of landmarks with a tour guide's commentary.</p>
 
       <div class="fit-grid">
         <div class="fit-card">
@@ -1483,7 +1657,7 @@
         <div class="fit-card">
           <div class="fit-card-num">02</div>
           <h3>Sports fans with range</h3>
-          <p>Visitors who love sport, but also care about context, history and identity -and why a crowd feels the way it does.</p>
+          <p>Visitors who love sport, but also care about context, history and identity — and why a crowd feels the way it does.</p>
         </div>
         <div class="fit-card">
           <div class="fit-card-num">03</div>
@@ -1498,16 +1672,16 @@
         <div class="fit-card">
           <div class="fit-card-num">05</div>
           <h3>Europe-trip travellers</h3>
-          <p>Strong as a half-day anchor if Prague is part of a wider European journey -by train or otherwise.</p>
+          <p>Strong as a half-day anchor if Prague is part of a wider European journey — by train or otherwise.</p>
         </div>
       </div>
 
-      <p class="fit-note">If you want a fast highlights-only tour with no historical depth, this probably isn't the right format -and that's exactly the point.</p>
+      <p class="fit-note">If you want a fast highlights-only tour with no historical depth, this probably isn't the right format — and that's exactly the point.</p>
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section class="section pricing-section" id="pricing">
+  <!-- PRICING — with symmetric CTAs on both versions -->
+  <section class="section pricing-section" id="versions">
     <div class="container">
       <p class="eyebrow">Choose your version</p>
       <h2 class="section-title">Two ways in.<br><em>One strong story.</em></h2>
@@ -1540,7 +1714,10 @@
               <div class="feature-item"><span class="feature-mark">✓</span><span>Complete cultural experience in its own right</span></div>
             </div>
             <div class="price-actions">
-              <a href="#enquire" class="btn btn-ghost btn-block">Request this version</a>
+              <a href="#enquire?version=a" class="btn btn-ghost btn-block" onclick="preselectVersion('a')">
+                Request the year-round version
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </div>
           </div>
         </article>
@@ -1554,7 +1731,7 @@
               <span class="price-badge">Most complete</span>
             </div>
             <h3 class="price-title">Walking tour + Hall of Fame<br>+ live match</h3>
-            <p class="price-sub">Best for visitors who want the fullest possible Czech hockey atmosphere during the season -history, context, and then the real thing.</p>
+            <p class="price-sub">Best for visitors who want the fullest possible Czech hockey atmosphere during the season — history, context, and then the real thing.</p>
             <div class="price-amount">
               <span class="price-num price-num-red">€69</span>
               <span class="price-per">per person</span>
@@ -1567,13 +1744,13 @@
               <div class="feature-item"><span class="feature-mark">✓</span><span>Everything in the year-round version</span></div>
               <div class="feature-item"><span class="feature-mark">✓</span><span>Seat at a live Czech Extraliga match</span></div>
               <div class="feature-item"><span class="feature-mark">✓</span><span>Direct metro from Hall of Fame to O2 Arena (~10 min)</span></div>
-              <div class="feature-item"><span class="feature-mark">✓</span><span>Booking confirmed personally once match suitability is verified</span></div>
+              <div class="feature-item"><span class="feature-mark">✓</span><span>Availability confirmed personally once match suitability is verified</span></div>
               <div class="feature-item"><span class="feature-mark">✓</span><span>Full refund or alternative if no suitable match is available</span></div>
             </div>
-            <div class="warn-box">Match access is confirmed personally within 24–48 hours of your request. If no suitable fixture is available for your dates, we offer Version A or the closest alternative -no pressure, no obligation.</div>
+            <div class="warn-box">Match access is confirmed personally within 24–48 hours of your request. If no suitable fixture is available for your dates, we offer Version A or the closest alternative — no pressure, no obligation.</div>
             <div class="price-actions">
-              <a href="#enquire" class="btn btn-primary btn-block">
-                Request this version
+              <a href="#enquire?version=b" class="btn btn-primary btn-block" onclick="preselectVersion('b')">
+                Request the match version
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </div>
@@ -1581,7 +1758,7 @@
         </article>
       </div>
 
-      <p class="fine-print">Minimum 2 people · Maximum ~25 · Groups of 30+ not accepted · All guide and entry costs listed above are included in the price</p>
+      <p class="fine-print">Minimum 2 people · Maximum ~25 · Groups of 30+ not accepted · All guide and entry costs listed above are included in the price · Travelling solo? <a href="#enquire" style="color:var(--red);text-decoration:underline;" onclick="preselectVersion('unsure')">Get in touch</a> — we often pair solo guests with other small groups.</p>
     </div>
   </section>
 
@@ -1599,7 +1776,7 @@
             <li>Kamil's guide fee for the full walking route</li>
             <li>Czech Hockey Hall of Fame entry in both versions</li>
             <li>Live match ticket in Version B (when available)</li>
-            <li>Personal booking review with clear availability response within 24–48 hrs</li>
+            <li>Personal booking review with clear availability response</li>
             <li>Metro directions from Hall of Fame to O2 Arena (Version B)</li>
             <li>Full refund or alternative if no suitable match is available</li>
           </ul>
@@ -1628,15 +1805,15 @@
 
       <details open>
         <summary>Do I need to know anything about ice hockey before I join? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Nothing at all. Most people who join have never watched a hockey match in their lives -that is fine. The sport makes sense once you understand the context. Kamil builds the whole thing from the ground up, and the historical thread works whether or not you have ever followed hockey.</p>
+        <p class="faq-answer">Nothing at all. Most people who join have never watched a hockey match in their lives — that is fine. The sport makes sense once you understand the context. Kamil builds the whole thing from the ground up, and the historical thread works whether or not you have ever followed hockey.</p>
       </details>
       <details>
         <summary>When is the hockey season? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">The Czech Extraliga runs September through April. Match tickets for Sparta Praha or HC Slavia Praha are included in Version B when a suitable fixture is available for your dates. Outside of season, Version A -the walking tour and Hall of Fame -runs year-round and is a complete experience in its own right.</p>
+        <p class="faq-answer">The Czech Extraliga runs September through April. Match tickets for Sparta Praha or HC Slavia Praha are included in Version B when a suitable fixture is available for your dates. Outside of season, Version A — the walking tour and Hall of Fame — runs year-round and is a complete experience in its own right.</p>
       </details>
       <details>
         <summary>How does the booking process work? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Use the enquiry form below or email us directly. Tell us your preferred date, group size, and which version interests you. We review each request personally within 24–48 hours, confirm Kamil's availability and match access where relevant, then send you the next steps to finalise. We don't take bookings on autopilot -everything is checked before it's confirmed.</p>
+        <p class="faq-answer">Use the enquiry form below or email us directly. Tell us your preferred date, group size, and which version interests you. We review each request personally, confirm Kamil's availability and match access where relevant, then send you the next steps to finalise. We check everything before confirming — you get a clear answer within 24–48 hours.</p>
       </details>
       <details>
         <summary>What if no match is available for my dates? <span class="faq-icon">+</span></summary>
@@ -1648,19 +1825,19 @@
       </details>
       <details>
         <summary>How is this different from a regular Prague walking tour? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Most Prague tours take you to the same five landmarks and call it history. This one uses sport as the thread -and sport turns out to be the most honest way to understand a culture. You'll stand on Wenceslas Square and actually understand what happened there. That is a different kind of tour.</p>
+        <p class="faq-answer">Most Prague tours take you to the same five landmarks and call it history. This one uses sport as the thread — and sport turns out to be the most honest way to understand a culture. You'll stand on Wenceslas Square and actually understand what happened there. That is a different kind of tour.</p>
       </details>
       <details>
         <summary>How many people can join? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Groups from 2 people up to around 25. We do not accept groups of 30 or more -the format doesn't work at that scale. If you're planning a larger group trip to Prague, get in touch and we can discuss what's realistic.</p>
+        <p class="faq-answer">Groups from 2 people up to around 25. We do not accept groups of 30 or more — the format doesn't work at that scale. If you're planning a larger group trip to Prague, get in touch and we can discuss what's realistic.</p>
       </details>
       <details>
         <summary>What if I'm visiting Prague as part of a longer Europe trip? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">Prague is one of Europe's most accessible cities -direct trains from Berlin, Vienna, Munich and Budapest; direct flights from London, Amsterdam, Paris and most major hubs. The tour works perfectly as a two- to three-hour block within a Europe trip. If you can be in Prague for a weekend, you have more than enough time for this and everything else the city offers.</p>
+        <p class="faq-answer">Prague is one of Europe's most accessible cities — direct trains from Berlin, Vienna, Munich and Budapest; direct flights from London, Amsterdam, Paris and most major hubs. The tour works perfectly as a two- to three-hour block within a Europe trip. If you can be in Prague for a weekend, you have more than enough time for this and everything else the city offers.</p>
       </details>
       <details>
         <summary>Can I book for a solo traveller? <span class="faq-icon">+</span></summary>
-        <p class="faq-answer">The minimum group size is 2 people. If you're travelling solo, get in touch anyway -occasionally we can match solo travellers with other small groups on the same date. We'll let you know what's possible.</p>
+        <p class="faq-answer">The minimum group size is 2 people, but solo travellers are welcome to get in touch. We regularly pair single guests with other small groups on the same date. Contact us and we'll let you know what's possible for your dates.</p>
       </details>
     </div>
   </section>
@@ -1672,7 +1849,7 @@
         <p class="eyebrow">Make an enquiry</p>
         <h2 class="section-title" style="font-size:clamp(1.7rem,3.5vw,2.5rem);">Tell us your dates.<br><em>We'll do the rest.</em></h2>
         <div class="rule" style="margin-top:1.25rem;"></div>
-        <p>Every request is reviewed personally. We check Kamil's availability, verify match options where relevant, and get back to you within 24–48 hours with a clear answer -not an automated confirmation.</p>
+        <p>Every request is reviewed personally. We check Kamil's availability, verify match options where relevant, and get back to you with a clear answer — not an automated confirmation.</p>
 
         <div class="mini-points">
           <div class="mini-point">
@@ -1710,6 +1887,7 @@
               <label for="groupsize">Group size</label>
               <select id="groupsize" name="groupsize" required>
                 <option value="" disabled selected>Select size</option>
+                <option value="solo">Solo — I'd like to be paired with a group</option>
                 <option value="2">2 people</option>
                 <option value="3-4">3–4 people</option>
                 <option value="5-8">5–8 people</option>
@@ -1721,9 +1899,9 @@
               <label for="version">Which version interests you?</label>
               <select id="version" name="version" required>
                 <option value="" disabled selected>Select a version</option>
-                <option value="a">Version A -Walking tour + Hall of Fame (year-round, €42 p.p.)</option>
-                <option value="b">Version B -Tour + Hall of Fame + live match (seasonal, €48–50 p.p.)</option>
-                <option value="unsure">Not sure yet -happy to be advised</option>
+                <option value="a">Version A — Walking tour + Hall of Fame (year-round, €42 p.p.)</option>
+                <option value="b">Version B — Tour + Hall of Fame + live match (seasonal, €69 p.p.)</option>
+                <option value="unsure">Not sure yet — happy to be advised</option>
               </select>
             </div>
             <div class="form-group full">
@@ -1753,7 +1931,7 @@
     <div class="cta-inner container">
       <p class="eyebrow">Small groups only · Prague, Czech Republic</p>
       <h2 class="cta-title">You'll leave Prague<br><em>knowing it.</em></h2>
-      <p class="cta-body">Not the postcards. Not the highlights reel. The thing underneath -the stubbornness, the humour, the refusal to give in. The sport that made it visible.</p>
+      <p class="cta-body">Not the postcards. Not the highlights reel. The thing underneath — the stubbornness, the humour, the refusal to give in. The sport that made it visible.</p>
       <div class="cta-row">
         <a href="#enquire" class="btn btn-primary">
           Request your date
@@ -1779,6 +1957,7 @@
             <a href="/" class="footer-link">Home</a>
             <a href="/experiences/" class="footer-link">Experiences</a>
             <a href="/gaelic-games/" class="footer-link">Gaelic Games</a>
+            <a href="/prague/" class="footer-link">Prague Ice Hockey</a>
             <a href="/about/" class="footer-link">About Us</a>
             <a href="/contact/" class="footer-link">Contact</a>
           </div>
@@ -1810,6 +1989,19 @@
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ── Sticky bar visibility (show after 30% scroll, hide near enquire)
+  const stickyBar = document.getElementById('stickyBar');
+  window.addEventListener('scroll', () => {
+    const scrollPct = window.scrollY / document.body.scrollHeight;
+    const enquireEl = document.getElementById('enquire');
+    const enquireTop = enquireEl ? enquireEl.getBoundingClientRect().top : 9999;
+    if (scrollPct > 0.3 && enquireTop > 120) {
+      stickyBar.style.display = 'flex';
+    } else {
+      stickyBar.style.display = 'none';
+    }
   });
 
   // ── Mobile menu
@@ -1850,10 +2042,23 @@
     // scroll nav item into view
     const stop = document.querySelectorAll('.tl-stop')[current];
     stop.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    // Auto-reveal hidden stops when navigating to them
+    if (stop.classList.contains('hidden-stop') && !stop.classList.contains('revealed')) {
+      revealAllStops();
+    }
   }
 
   function step(dir) {
     goTo(Math.max(0, Math.min(total - 1, current + dir)));
+  }
+
+  // ── Show all stops (desktop collapse feature)
+  function revealAllStops() {
+    document.querySelectorAll('.tl-stop.hidden-stop').forEach(el => {
+      el.classList.add('revealed');
+    });
+    const btn = document.getElementById('tlShowMore');
+    if (btn) btn.classList.add('hidden');
   }
 
   // init progress
@@ -1865,6 +2070,14 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); }
     });
   });
+
+  // ── Version preselect from pricing cards
+  function preselectVersion(val) {
+    setTimeout(() => {
+      const sel = document.getElementById('version');
+      if (sel) sel.value = val;
+    }, 300);
+  }
 
   // ── Form
   function handleSubmit(e) {
