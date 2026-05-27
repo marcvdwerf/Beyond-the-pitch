@@ -694,10 +694,19 @@
   position: absolute;
   inset: 0;
 
-  background-size: cover;
-  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  background: none;
   z-index: 0;
+}
+    .route-stop-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
   /* FIX: betere beeldkwaliteit */
   filter: brightness(1.12) contrast(1.05) saturate(1.05);
@@ -1623,7 +1632,9 @@
 
     <!-- STOP 01 -->
     <section class="route-stop" id="stop-1">
-      <div class="route-stop-bg" style="background-image:url('images/national-theatre-prague.jpeg');"></div>
+      <div class="route-stop-bg">
+  <img src="images/national-theatre-prague.jpeg" alt="">
+</div>
       <div class="route-stop-inner">
         <div class="route-stop-content">
           <div class="route-stop-num">STOP 01 / 08</div>
