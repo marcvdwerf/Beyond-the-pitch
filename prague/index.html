@@ -205,6 +205,9 @@
     /* ═══════════════════════════════════════════════════════════
        HERO - Full-bleed cinematic, Ocean Cleanup style
        ═══════════════════════════════════════════════════════════ */
+   /* ═══════════════════════════════════════════════════════════
+       HERO - Full-bleed cinematic, Ocean Cleanup style
+       ═══════════════════════════════════════════════════════════ */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -221,12 +224,14 @@
       background-position: center;
       z-index: 0;
     }
+    
+    /* WIJZIGING: Overlay minder donker gemaakt in het midden voor betere zichtbaarheid van de foto */
     .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
       background:
-        linear-gradient(180deg, rgba(10,10,11,0.4) 0%, rgba(10,10,11,0.2) 30%, rgba(10,10,11,0.85) 75%, var(--bg) 100%),
-        radial-gradient(ellipse 60% 80% at 20% 100%, rgba(201,48,42,0.18) 0%, transparent 60%);
+        linear-gradient(180deg, rgba(10,10,11,0.2) 0%, rgba(10,10,11,0.05) 25%, rgba(10,10,11,0.7) 70%, var(--bg) 100%),
+        radial-gradient(ellipse 60% 80% at 20% 100%, rgba(201,48,42,0.12) 0%, transparent 60%);
     }
 
     .hero-content {
@@ -268,11 +273,11 @@
 
     .hero-cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
 
+    /* WIJZIGING: Blur weggehaald en achtergrond dekkend gemaakt tegen de rode waas */
     .hero-meta-strip {
       position: absolute; bottom: 0; left: 0; right: 0;
       z-index: 3;
-      background: rgba(10,10,11,0.6);
-      backdrop-filter: blur(12px);
+      background: var(--bg-deep);
       border-top: 1px solid rgba(255,255,255,0.08);
     }
     .hero-meta-inner {
