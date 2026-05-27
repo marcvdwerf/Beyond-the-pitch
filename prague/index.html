@@ -206,16 +206,19 @@
        HERO - Full-bleed cinematic, Ocean Cleanup style
        ═══════════════════════════════════════════════════════════ */
    /* ═══════════════════════════════════════════════════════════
-       HERO - Full-bleed cinematic, Ocean Cleanup style
+       HERO - Full-bleed cinematic, 
        ═══════════════════════════════════════════════════════════ */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex; align-items: flex-end;
-      padding: 8rem 0 4rem;
-      overflow: hidden;
-      background: var(--bg-deep);
-    }
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+
+  padding: 10rem 0 180px;
+
+  overflow: hidden;
+  background: var(--bg-deep);
+}
 
     .hero-bg {
       position: absolute; inset: 0;
@@ -226,18 +229,33 @@
     }
     
     /* WIJZIGING: Overlay minder donker gemaakt in het midden voor betere zichtbaarheid van de foto */
-    .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(180deg, rgba(10,10,11,0.2) 0%, rgba(10,10,11,0.05) 25%, rgba(10,10,11,0.7) 70%, var(--bg) 100%),
-        radial-gradient(ellipse 60% 80% at 20% 100%, rgba(201,48,42,0.12) 0%, transparent 60%);
-    }
+   .hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 
-    .hero-content {
-      position: relative; z-index: 2;
-      width: 100%;
-    }
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10,10,11,0.15) 0%,
+      rgba(10,10,11,0.08) 30%,
+      rgba(10,10,11,0.45) 72%,
+      rgba(10,10,11,0.82) 100%
+    ),
+    radial-gradient(
+      ellipse 60% 80% at 20% 100%,
+      rgba(201,48,42,0.08) 0%,
+      transparent 65%
+    );
+}
+
+   .hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+
+  padding-bottom: 2rem;
+}
 
     .hero-pretitle {
       display: flex; align-items: center; gap: 0.85rem;
@@ -275,11 +293,18 @@
 
     /* WIJZIGING: Blur weggehaald en achtergrond dekkend gemaakt tegen de rode waas */
     .hero-meta-strip {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      z-index: 3;
-      background: var(--bg-deep);
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 3;
+
+  min-height: 120px;
+
+  background: var(--bg-deep);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
     .hero-meta-inner {
       max-width: var(--max); margin: 0 auto;
       padding: 0 1.5rem;
