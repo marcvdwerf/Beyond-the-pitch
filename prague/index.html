@@ -1512,101 +1512,175 @@
     </div>
   </section>
 
-  <!-- ROUTE / TIMELINE -->
-  <section class="section timeline-section" id="route">
-    <div class="container">
-      <p class="eyebrow">The route</p>
-      <h2 class="section-title">Eight stops.<br><em>One country's story.</em></h2>
-      <div class="rule" style="margin-top:1.25rem;"></div>
-      <p class="lead">This is not a checklist of monuments. Kamil walks you through the moments, streets and symbols that help Czech hockey make sense - why it mattered, who it represented, and what people projected onto it in the hardest decades of the 20th century.</p>
-      <p style="color:rgba(240,237,232,0.35);font-size:0.88rem;margin-top:0.75rem;">You do not need to memorise dates. The route is designed to make the history feel clear, vivid and close.</p>
-    </div>
+ <!-- ROUTE / TIMELINE -->
+<section class="section timeline-section" id="route">
+  <div class="container">
+    <p class="eyebrow">The route</p>
+    <h2 class="section-title">Eight stops.<br><em>One country's story.</em></h2>
+    <div class="rule" style="margin-top:1.25rem;"></div>
+    <p class="lead">This is not a checklist of monuments. Kamil walks you through the moments, streets and symbols that help Czech hockey make sense - why it mattered, who it represented, and what people projected onto it in the hardest decades of the 20th century.</p>
+    <p style="color:rgba(240,237,232,0.35);font-size:0.88rem;margin-top:0.75rem;">You do not need to memorise dates. The route is designed to make the history feel clear, vivid and close.</p>
+  </div>
 
-    <div class="container" style="margin-top:2rem;">
-      <div class="tl-wrap">
-        <div class="tl-layout-inner">
-          <nav class="tl-nav" id="tlNav" aria-label="Route stops">
-            <div class="tl-stop active" onclick="goTo(0)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1918</div><div class="stop-name">National Theatre</div></div></div>
-            <div class="tl-stop" onclick="goTo(1)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1938</div><div class="stop-name">Žofín Island</div></div></div>
-            <div class="tl-stop" onclick="goTo(2)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950</div><div class="stop-name">Zlatá Hospůdka</div></div></div>
-            <!-- Stops 4–8 hidden by default on desktop, shown via "Show all" button -->
-            <div class="tl-stop hidden-stop" onclick="goTo(3)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950s</div><div class="stop-name">Myslíkova Street</div></div></div>
-            <div class="tl-stop hidden-stop" onclick="goTo(4)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">Interlude</div><div class="stop-name">Lucerna Palace</div></div></div>
-            <div class="tl-stop hidden-stop" onclick="goTo(5)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1968–69</div><div class="stop-name">Wenceslas Square</div></div></div>
-            <div class="tl-stop hidden-stop" onclick="goTo(6)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1989</div><div class="stop-name">Politických Vězňů</div></div></div>
-            <div class="tl-stop hidden-stop" onclick="goTo(7)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1998–01</div><div class="stop-name">Hall of Fame</div></div></div>
-            <button class="tl-show-more" id="tlShowMore" onclick="revealAllStops()">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-              Show all 8 stops
-            </button>
-          </nav>
+  <div class="container" style="margin-top:2rem;">
+    <div class="tl-wrap">
+      <div class="tl-layout-inner">
+        <nav class="tl-nav" id="tlNav" aria-label="Route stops">
+          <div class="tl-stop active" onclick="goTo(0)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1918</div><div class="stop-name">National Theatre</div></div></div>
+          <div class="tl-stop" onclick="goTo(1)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1938</div><div class="stop-name">Žofín Island</div></div></div>
+          <div class="tl-stop" onclick="goTo(2)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950</div><div class="stop-name">Zlatá Hospůdka</div></div></div>
+          <div class="tl-stop hidden-stop" onclick="goTo(3)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1950s</div><div class="stop-name">Myslíkova Street</div></div></div>
+          <div class="tl-stop hidden-stop" onclick="goTo(4)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">Interlude</div><div class="stop-name">Lucerna Palace</div></div></div>
+          <div class="tl-stop hidden-stop" onclick="goTo(5)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1968–69</div><div class="stop-name">Wenceslas Square</div></div></div>
+          <div class="tl-stop hidden-stop" onclick="goTo(6)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1989</div><div class="stop-name">Politických Vězňů</div></div></div>
+          <div class="tl-stop hidden-stop" onclick="goTo(7)" role="button" tabindex="0"><div class="stop-dot"></div><div class="stop-meta"><div class="stop-year">1998–01</div><div class="stop-name">Hall of Fame</div></div></div>
+          <button class="tl-show-more" id="tlShowMore" onclick="revealAllStops()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Show all 8 stops
+          </button>
+        </nav>
 
-          <div class="tl-content">
-            <div class="tl-slide active" id="slide-0">
-              <div class="slide-num" aria-hidden="true">01</div>
-              <p class="slide-loc">National Theatre Courtyard</p>
-              <h3 class="slide-title">A nation is born - and a sport starts to matter</h3>
-              <p class="slide-body">In 1918, Czechoslovakia becomes independent after centuries of Habsburg rule. Within a generation, ice hockey moves from pastime to national symbol. This is where Kamil explains <strong>why a sport can become part of how a country sees itself</strong> - and what happens when that symbol is later threatened or taken away.</p>
+        <div class="tl-content">
+
+          <!-- STOP 01 -->
+          <div class="tl-slide active" id="slide-0">
+            <div class="slide-num" aria-hidden="true">01</div>
+            <!-- Foto: images/national-theatre.jpg -->
+            <div class="slide-img">
+              <img src="images/national-theatre.jpg" alt="National Theatre Prague" onerror="this.parentElement.innerHTML='📷 images/national-theatre.jpg'">
             </div>
-            <div class="tl-slide" id="slide-1">
-              <div class="slide-num" aria-hidden="true">02</div>
-              <p class="slide-loc">Žofín River Island</p>
-              <h3 class="slide-title">The first rink - and a match that already carried weight</h3>
-              <p class="slide-body">Prague's original hockey stadium stood here. In the late 1930s, hockey was already entangled with a Europe sliding into fear and confrontation. Kamil uses this stop to show <strong>how public sport becomes a stage for something much bigger than entertainment</strong> - especially when a country senses what may be coming next.</p>
+            <p class="slide-loc">National Theatre Courtyard</p>
+            <h3 class="slide-title">A nation is born - and a sport starts to matter</h3>
+            <p class="slide-body">In 1918, Czechoslovakia becomes independent after centuries of Habsburg rule. Within a generation, ice hockey moves from pastime to national symbol. This is where Kamil explains <strong>why a sport can become part of how a country sees itself</strong> - and what happens when that symbol is later threatened or taken away.</p>
+          </div>
+
+          <!-- STOP 02 -->
+          <div class="tl-slide" id="slide-1">
+            <div class="slide-num" aria-hidden="true">02</div>
+            <!-- Foto: images/zofin-island.jpg -->
+            <div class="slide-img">
+              <img src="images/zofin-island.jpg" alt="Žofín River Island" onerror="this.parentElement.innerHTML='📷 images/zofin-island.jpg'">
             </div>
-            <div class="tl-slide" id="slide-2">
-              <div class="slide-num" aria-hidden="true">03</div>
-              <p class="slide-loc">Zlatá Hospůdka</p>
-              <h3 class="slide-title">When the state turned on its own champions</h3>
-              <p class="slide-body">In 1950, members of the national hockey team - medalists, champions, public figures - were arrested by the communist regime and sentenced to prison and forced labour. <strong>This is the emotional centre of the walk.</strong> The point where hockey stops looking like a pastime and starts looking like a public language the regime needed to control.</p>
-              <div class="slide-note">One of the clearest examples of what happens when power decides that even sport must submit. Kamil tells it without spectacle. That is what makes it stay with you.</div>
+            <p class="slide-loc">Žofín River Island</p>
+            <h3 class="slide-title">The first rink - and a match that already carried weight</h3>
+            <p class="slide-body">Prague's original hockey stadium stood here. In the late 1930s, hockey was already entangled with a Europe sliding into fear and confrontation. Kamil uses this stop to show <strong>how public sport becomes a stage for something much bigger than entertainment</strong> - especially when a country senses what may be coming next.</p>
+          </div>
+
+          <!-- STOP 03 -->
+          <div class="tl-slide" id="slide-2">
+            <div class="slide-num" aria-hidden="true">03</div>
+            <!-- Foto: images/zlata-hospudka.jpg -->
+            <div class="slide-img">
+              <img src="images/zlata-hospudka.jpg" alt="Zlatá Hospůdka" onerror="this.parentElement.innerHTML='📷 images/zlata-hospudka.jpg'">
             </div>
-            <div class="tl-slide" id="slide-3">
-              <div class="slide-num" aria-hidden="true">04</div>
-              <p class="slide-loc">Myslíkova Street</p>
-              <h3 class="slide-title">When sport became performance for the state</h3>
-              <p class="slide-body">Under communism, public movement, mass display and organised sport became propaganda tools as well as leisure. At this stop, Kamil connects personal stories to national choreography: <strong>how bodies, crowds and ritual were used to express obedience, spectacle and social order.</strong> And how ordinary people moved within that.</p>
+            <p class="slide-loc">Zlatá Hospůdka</p>
+            <h3 class="slide-title">When the state turned on its own champions</h3>
+            <p class="slide-body">In 1950, members of the national hockey team - medalists, champions, public figures - were arrested by the communist regime and sentenced to prison and forced labour. <strong>This is the emotional centre of the walk.</strong> The point where hockey stops looking like a pastime and starts looking like a public language the regime needed to control.</p>
+            <div class="slide-note">One of the clearest examples of what happens when power decides that even sport must submit. Kamil tells it without spectacle. That is what makes it stay with you.</div>
+          </div>
+
+          <!-- STOP 04 -->
+          <div class="tl-slide" id="slide-3">
+            <div class="slide-num" aria-hidden="true">04</div>
+            <!-- Foto: images/myslíkova-street.jpg -->
+            <div class="slide-img">
+              <img src="images/myslikova-street.jpg" alt="Myslíkova Street" onerror="this.parentElement.innerHTML='📷 images/myslikova-street.jpg'">
             </div>
-            <div class="tl-slide" id="slide-4">
-              <div class="slide-num" aria-hidden="true">05</div>
-              <p class="slide-loc">Lucerna Palace</p>
-              <h3 class="slide-title">A Prague what-if - and a breath between the heavier stops</h3>
-              <p class="slide-body">Lucerna carries one of those details visitors rarely hear: it was once imagined as something closer to a hockey venue than the cultural palace people know today. It offers a lighter, more local kind of insight - <strong>the kind of stop that reminds you this route is a conversation, not a lecture.</strong></p>
+            <p class="slide-loc">Myslíkova Street</p>
+            <h3 class="slide-title">When sport became performance for the state</h3>
+            <p class="slide-body">Under communism, public movement, mass display and organised sport became propaganda tools as well as leisure. At this stop, Kamil connects personal stories to national choreography: <strong>how bodies, crowds and ritual were used to express obedience, spectacle and social order.</strong> And how ordinary people moved within that.</p>
+          </div>
+
+          <!-- STOP 05 -->
+          <div class="tl-slide" id="slide-4">
+            <div class="slide-num" aria-hidden="true">05</div>
+            <!-- Foto: images/lucerna-palace.jpg -->
+            <div class="slide-img">
+              <img src="images/lucerna-palace.jpg" alt="Lucerna Palace" onerror="this.parentElement.innerHTML='📷 images/lucerna-palace.jpg'">
             </div>
-            <div class="tl-slide" id="slide-5">
-              <div class="slide-num" aria-hidden="true">06</div>
-              <p class="slide-loc">Wenceslas Square</p>
-              <h3 class="slide-title">Tanks in 1968. Goals in 1969. What a victory can unlock.</h3>
-              <p class="slide-body">After the Soviet-led invasion of 1968, hockey became charged in a way outsiders can easily miss. Victories over the USSR were not experienced as simple sporting results. <strong>Here, Kamil shows how a match can absorb anger, hope and collective feeling</strong> - and how quickly celebration turns political when the context is this raw.</p>
+            <p class="slide-loc">Lucerna Palace</p>
+            <h3 class="slide-title">A Prague what-if - and a breath between the heavier stops</h3>
+            <p class="slide-body">Lucerna carries one of those details visitors rarely hear: it was once imagined as something closer to a hockey venue than the cultural palace people know today. It offers a lighter, more local kind of insight - <strong>the kind of stop that reminds you this route is a conversation, not a lecture.</strong></p>
+          </div>
+
+          <!-- STOP 06 -->
+          <div class="tl-slide" id="slide-5">
+            <div class="slide-num" aria-hidden="true">06</div>
+            <!-- Foto: images/wenceslas-square.jpg -->
+            <div class="slide-img">
+              <img src="images/wenceslas-square.jpg" alt="Wenceslas Square" onerror="this.parentElement.innerHTML='📷 images/wenceslas-square.jpg'">
             </div>
-            <div class="tl-slide" id="slide-6">
-              <div class="slide-num" aria-hidden="true">07</div>
-              <p class="slide-loc">Politických Vězňů Street</p>
-              <h3 class="slide-title">The Velvet Revolution - and the end of one shared chapter</h3>
-              <p class="slide-body">The late 1980s reshape the country. Kamil explains how the Velvet Revolution changed public life, and how the later split of Czechoslovakia created two nations, two identities and two hockey stories. <strong>By now, the route has moved from fear and control toward self-definition and memory.</strong></p>
+            <p class="slide-loc">Wenceslas Square</p>
+            <h3 class="slide-title">Tanks in 1968. Goals in 1969. What a victory can unlock.</h3>
+            <p class="slide-body">After the Soviet-led invasion of 1968, hockey became charged in a way outsiders can easily miss. Victories over the USSR were not experienced as simple sporting results. <strong>Here, Kamil shows how a match can absorb anger, hope and collective feeling</strong> - and how quickly celebration turns political when the context is this raw.</p>
+          </div>
+
+          <!-- STOP 07 -->
+          <div class="tl-slide" id="slide-6">
+            <div class="slide-num" aria-hidden="true">07</div>
+            <!-- Foto: images/politickych-veznu.jpg -->
+            <div class="slide-img">
+              <img src="images/politickych-veznu.jpg" alt="Politických Vězňů Street" onerror="this.parentElement.innerHTML='📷 images/politickych-veznu.jpg'">
             </div>
-            <div class="tl-slide" id="slide-7">
-              <div class="slide-num" aria-hidden="true">08</div>
-              <p class="slide-loc">Czech Hockey Hall of Fame</p>
-              <h3 class="slide-title">Nagano, memory, and the moments that still live</h3>
-              <p class="slide-body">The route ends where pride becomes tangible. The Hall of Fame brings together the players, trophies, footage and objects that carried Czech hockey into public memory - including the moments that made the country stop, look up and believe again. <strong>By this point, the exhibits make sense in a way they wouldn't have two hours earlier.</strong></p>
-              <div class="slide-badge">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                Hall of Fame entry included in both versions
-              </div>
+            <p class="slide-loc">Politických Vězňů Street</p>
+            <h3 class="slide-title">The Velvet Revolution - and the end of one shared chapter</h3>
+            <p class="slide-body">The late 1980s reshape the country. Kamil explains how the Velvet Revolution changed public life, and how the later split of Czechoslovakia created two nations, two identities and two hockey stories. <strong>By now, the route has moved from fear and control toward self-definition and memory.</strong></p>
+          </div>
+
+          <!-- STOP 08 -->
+          <div class="tl-slide" id="slide-7">
+            <div class="slide-num" aria-hidden="true">08</div>
+            <!-- Foto: images/hall-of-fame.jpg -->
+            <div class="slide-img">
+              <img src="images/hall-of-fame.jpg" alt="Czech Hockey Hall of Fame" onerror="this.parentElement.innerHTML='📷 images/hall-of-fame.jpg'">
+            </div>
+            <p class="slide-loc">Czech Hockey Hall of Fame</p>
+            <h3 class="slide-title">Nagano, memory, and the moments that still live</h3>
+            <p class="slide-body">The route ends where pride becomes tangible. The Hall of Fame brings together the players, trophies, footage and objects that carried Czech hockey into public memory - including the moments that made the country stop, look up and believe again. <strong>By this point, the exhibits make sense in a way they wouldn't have two hours earlier.</strong></p>
+            <div class="slide-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Hall of Fame entry included in both versions
             </div>
           </div>
-        </div>
 
-        <div class="tl-controls">
-          <button class="tl-btn" id="btnPrev" onclick="step(-1)" disabled>← Prev</button>
-          <div class="tl-progress"><div class="tl-fill" id="tlFill"></div></div>
-          <button class="tl-btn" id="btnNext" onclick="step(1)">Next →</button>
-          <span class="tl-count" id="tlCount">1 / 8</span>
-        </div>
+        </div><!-- /.tl-content -->
+      </div><!-- /.tl-layout-inner -->
+
+      <div class="tl-controls">
+        <button class="tl-btn" id="btnPrev" onclick="step(-1)" disabled>← Prev</button>
+        <div class="tl-progress"><div class="tl-fill" id="tlFill"></div></div>
+        <button class="tl-btn" id="btnNext" onclick="step(1)">Next →</button>
+        <span class="tl-count" id="tlCount">1 / 8</span>
       </div>
-    </div>
-  </section>
+
+    </div><!-- /.tl-wrap -->
+  </div><!-- /.container -->
+</section>
+
+<!-- CSS voor de foto's — voeg dit toe aan je bestaande stylesheet -->
+<style>
+.slide-img {
+  width: 100%;
+  height: 260px;
+  margin-bottom: 1.25rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(240,237,232,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(240,237,232,0.25);
+  font-size: 0.8rem;
+  font-family: monospace;
+  border: 1px dashed rgba(240,237,232,0.12);
+}
+.slide-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+</style>
 
   <!-- BOOKING STEPS - reframed as guest protection, not delay -->
   <section class="section steps-section">
