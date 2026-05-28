@@ -283,16 +283,31 @@
 
     .hero-cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
 
-    .hero-meta-strip {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 3;
-      min-height: 120px;
-      background: var(--bg-deep);
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
+   .hero-meta-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  min-height: 120px;
+  background: var(--bg-deep);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding-bottom: 0;
+    min-height: auto;
+  }
+  .hero-meta-strip {
+    position: static;
+    min-height: auto;
+  }
+  .hero-meta-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
     .hero-meta-inner {
       max-width: var(--max); margin: 0 auto;
       padding: 0 1.5rem;
@@ -671,15 +686,16 @@
     }
 
     /* BACKGROUND IMAGE - cover, sharp, fills section */
-    .route-stop-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      z-index: 0;
-      transform: scale(1.02); /* tiny scale to avoid edge artifacts */
-    }
+   .route-stop-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  transform: scale(1); /* verwijder de scale die blur veroorzaakt */
+  image-rendering: crisp-edges;
+}
 
     /* OVERLAY for legibility */
     .route-stop-bg::after {
@@ -1229,7 +1245,11 @@
       .fit-grid { grid-template-columns: 1fr; }
 
       /* Hero adjustments */
-      .hero { padding: 6rem 0 0; min-height: auto; }
+      .hero {
+  padding: 6rem 0 0;
+  min-height: auto;
+  display: block; /* voorkomt dat meta-strip naast hero zweeft */
+}
       .hero-title { font-size: clamp(2.6rem, 13vw, 4rem); margin-bottom: 1.5rem; }
       .hero-statement { font-size: 1.05rem; margin-bottom: 2rem; }
       .hero-pretitle { margin-bottom: 1.5rem; }
