@@ -444,6 +444,16 @@ Very few visitors ever get this close.",
       .exp-card img { height: 200px; }
       .footer-grid { grid-template-columns: 1fr 1fr !important; }
     }
+    @media (max-width: 900px) {
+  #experiences .three-col-exp {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 600px) {
+  #experiences .three-col-exp {
+    grid-template-columns: 1fr !important;
+  }
+}
 
   @media (max-width: 600px) {
   .hero-section { padding: 5.5rem 1.25rem 2.5rem !important; min-height: 100svh; }
@@ -489,7 +499,7 @@ Very few visitors ever get this close.",
 
   <div class="mobile-overlay" id="mobileOverlay"></div>
   <nav class="mobile-menu" id="mobileMenuPanel" aria-label="Mobile navigation">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
+  <div class="three-col-exp" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
       <button class="hamburger" id="menuClose" aria-label="Close menu">
         <span style="transform:rotate(45deg) translateY(7px)"></span>
         <span style="opacity:0"></span>
@@ -613,13 +623,12 @@ Very few visitors ever get this close.",
       <span class="section-label">Our Experiences</span>
       <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:4rem;">
         <div>
-          <h2 class="section-heading">Two experiences.<br><span style="color:var(--gold-bright);">Both unforgettable.</span></h2>
+         <h2 class="section-heading">Three experiences.<br><span style="color:var(--gold-bright);">One promise.</span></h2>
           <div class="zone-divider"></div>
         </div>
         <div>
           <p style="color:rgba(255,255,255,0.55);font-size:1rem;line-height:1.9;">
-            We currently host experiences in Ireland and Mongolia. Each is built around a sporting tradition that runs deep - and a local expert who has spent their life inside it.
-          </p>
+  Ireland, Czech Republic, Mongolia. Each built around a sporting tradition that runs deep — and a local guide who has spent their life inside it.</p>
         </div>
       </div>
 
