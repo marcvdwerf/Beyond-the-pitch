@@ -467,7 +467,33 @@ Very few visitors ever get this close.",
       .faq-two-col > * { margin-bottom: 2rem; }
       .footer-grid { grid-template-columns: 1fr !important; }
     }
-
+.exp-slider {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+  cursor: grab;
+}
+.exp-slider:active { cursor: grabbing; }
+.exp-slider::-webkit-scrollbar { display: none; }
+.exp-slider-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.exp-slider-btn:hover { background: rgba(255,255,255,0.18); }
+.exp-left  { left: -20px; }
+.exp-right { right: -20px; }
     ::selection { background: var(--gold-bright); color: #000; }
   </style>
 </head>
@@ -632,9 +658,11 @@ Very few visitors ever get this close.",
         </div>
       </div>
 
-      <!-- Experience cards -->
-      <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-
+     <!-- Experience cards -->
+<div style="position:relative;">
+<button class="exp-slider-btn exp-left">&#8592;</button>
+<button class="exp-slider-btn exp-right">&#8594;</button>
+<div class="exp-slider">
         <!-- Gaelic Games — primary, bookable -->
         <article class="exp-card" style="border-color:rgba(255,215,0,0.25);">
           <a href="/gaelic-games/" style="text-decoration:none;display:block;">
@@ -940,6 +968,18 @@ From the fields of Kilkenny to the roar of a Dublin crowd - train with locals wh
 </style>
 
 <script>
+  const expSlider = document.querySelector('.exp-slider');
+document.querySelector('.exp-left').addEventListener('click', () => {
+  expSlider.scrollBy({ left: -380, behavior: 'smooth' });
+});
+document.querySelector('.exp-right').addEventListener('click', () => {
+  expSlider.scrollBy({ left: 380, behavior: 'smooth' });
+});
+let isDown = false, startX, scrollLeft;
+expSlider.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - expSlider.offsetLeft; scrollLeft = expSlider.scrollLeft; });
+expSlider.addEventListener('mouseleave', () => isDown = false);
+expSlider.addEventListener('mouseup', () => isDown = false);
+expSlider.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); expSlider.scrollLeft = scrollLeft - (e.pageX - expSlider.offsetLeft - startX) * 1.5; });
 const slider = document.querySelector('.testimonial-slider');
 const btnLeft = document.querySelector('.slider-btn.left');
 const btnRight = document.querySelector('.slider-btn.right');
