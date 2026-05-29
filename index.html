@@ -524,8 +524,8 @@ Very few visitors ever get this close.",
   </header>
 
   <div class="mobile-overlay" id="mobileOverlay"></div>
-  <nav class="mobile-menu" id="mobileMenuPanel" aria-label="Mobile navigation">
-  <div class="three-col-exp" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+ <nav class="mobile-menu" id="mobileMenuPanel" aria-label="Mobile navigation">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
       <button class="hamburger" id="menuClose" aria-label="Close menu">
         <span style="transform:rotate(45deg) translateY(7px)"></span>
         <span style="opacity:0"></span>
@@ -664,7 +664,7 @@ Very few visitors ever get this close.",
 <button class="exp-slider-btn exp-right">&#8594;</button>
 <div class="exp-slider">
         <!-- Gaelic Games — primary, bookable -->
-        <article class="exp-card" style="border-color:rgba(255,215,0,0.25);">
+        <article class="exp-card" style="min-width:340px;max-width:360px;flex:0 0 auto;border-color:rgba(255,215,0,0.25);">
           <a href="/gaelic-games/" style="text-decoration:none;display:block;">
             <div style="position:relative;">
               <img src="images/hurling-kilkenny.JPG" alt="Hurling match in Kilkenny, Ireland" loading="lazy" />
@@ -723,7 +723,7 @@ From the fields of Kilkenny to the roar of a Dublin crowd - train with locals wh
   </article>
 
         <!-- Naadam — demoted teaser -->
-        <article style="border-radius:14px;overflow:hidden;border:1px solid var(--border-dark);background:var(--dark-panel);">
+        <article style="min-width:340px;max-width:360px;flex:0 0 auto;border-radius:14px;overflow:hidden;border:1px solid var(--border-dark);background:var(--dark-panel);">
           <div style="position:relative;overflow:hidden;">
             <img src="naadam/images/naadam-festival-horse-racing-mongolia.jpg" alt="Naadam Festival Mongolia" loading="lazy" style="width:100%;height:260px;object-fit:cover;display:block;filter:brightness(0.4) grayscale(0.3);" />
             <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;">
@@ -750,7 +750,8 @@ From the fields of Kilkenny to the roar of a Dublin crowd - train with locals wh
           </div>
         </article>
 
-      </div>
+   </div>
+</div>
     </div>
   </section>
 
