@@ -108,13 +108,8 @@
             color: #9ca3af;
         }
 
-        .progress-step.active {
-            color: var(--primary);
-        }
-
-        .progress-step.done {
-            color: #6b7280;
-        }
+        .progress-step.active { color: var(--primary); }
+        .progress-step.done   { color: #6b7280; }
 
         .step-num {
             width: 24px;
@@ -129,15 +124,8 @@
             flex-shrink: 0;
         }
 
-        .progress-step.active .step-num {
-            background: var(--primary);
-            color: white;
-        }
-
-        .progress-step.done .step-num {
-            background: #d1fae5;
-            color: var(--secondary);
-        }
+        .progress-step.active .step-num { background: var(--primary); color: white; }
+        .progress-step.done   .step-num { background: #d1fae5; color: var(--secondary); }
 
         .progress-sep {
             flex: 1;
@@ -165,10 +153,7 @@
             margin-bottom: 25px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+        .form-group { display: flex; flex-direction: column; }
 
         label {
             font-weight: 600;
@@ -177,9 +162,7 @@
             color: #4a5568;
         }
 
-        input,
-        select,
-        textarea {
+        input, select, textarea {
             padding: 14px;
             border: 2px solid var(--border-soft);
             border-radius: 12px;
@@ -190,18 +173,42 @@
             width: 100%;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             border-color: var(--primary);
             background: white;
         }
 
-        input.input-error,
-        select.input-error,
-        textarea.input-error {
+        input.input-error, select.input-error, textarea.input-error {
             border-color: #fca5a5;
             background: #fff7f7;
+        }
+
+        /* ── Season notice banner ── */
+        .season-notice {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef9c3 100%);
+            border: 1.5px solid #fcd34d;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .season-notice-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .season-notice-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #92400e;
+            margin-bottom: 4px;
+        }
+        .season-notice-text {
+            font-size: 0.82rem;
+            color: #78350f;
+            line-height: 1.6;
         }
 
         .exp-info-card {
@@ -215,11 +222,7 @@
             gap: 16px;
         }
 
-        .exp-info-title {
-            font-weight: 800;
-            font-size: 1.05rem;
-            color: var(--secondary);
-        }
+        .exp-info-title  { font-weight: 800; font-size: 1.05rem; color: var(--secondary); }
 
         .exp-info-badge {
             display: inline-block;
@@ -234,17 +237,37 @@
             margin: 4px 0 8px;
         }
 
-        .exp-info-desc {
-            font-size: 0.85rem;
-            color: #4a5568;
-            line-height: 1.65;
-        }
+        .exp-info-desc  { font-size: 0.85rem; color: #4a5568; line-height: 1.65; }
+        .exp-info-price { margin-top: 10px; font-weight: 700; color: var(--primary); font-size: 0.95rem; }
 
-        .exp-info-price {
-            margin-top: 10px;
-            font-weight: 700;
+        .price-range-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+        .price-range-title {
+            font-weight: 800;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: var(--primary);
-            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        .price-range-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .price-range-note {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            font-style: italic;
         }
 
         .fixture-section {
@@ -263,11 +286,7 @@
             padding: 14px 20px 0;
         }
 
-        .featured-fixtures {
-            padding: 16px 20px;
-            display: grid;
-            gap: 10px;
-        }
+        .featured-fixtures { padding: 16px 20px; display: grid; gap: 10px; }
 
         .fixture-card {
             border: 2px solid #e2e8f0;
@@ -279,17 +298,17 @@
             align-items: center;
             gap: 14px;
             background: white;
+            width: 100%;
+            text-align: left;
         }
 
-        .fixture-card:hover {
-            border-color: #a7d9c5;
-            background: #f0fdf8;
-        }
+        .fixture-card:hover    { border-color: #a7d9c5; background: #f0fdf8; }
+        .fixture-card.selected { border-color: var(--primary); background: rgba(5, 150, 105, 0.06); }
 
-        .fixture-card.selected {
-            border-color: var(--primary);
-            background: rgba(5, 150, 105, 0.06);
-        }
+        /* Premium / high-demand highlight */
+        .fixture-card.premium  { border-color: #fcd34d; background: #fffbeb; }
+        .fixture-card.premium:hover    { border-color: #f59e0b; background: #fef9c3; }
+        .fixture-card.premium.selected { border-color: #d97706; background: rgba(245,158,11,0.08); }
 
         .fixture-badge {
             display: inline-flex;
@@ -303,27 +322,13 @@
             flex-shrink: 0;
         }
 
-        .badge-home {
-            background: rgba(5, 150, 105, 0.12);
-            color: var(--secondary);
-        }
+        .badge-home    { background: rgba(5, 150, 105, 0.12); color: var(--secondary); }
+        .badge-premium { background: #fef3c7; color: #92400e; }
+        .badge-high    { background: #fee2e2; color: #991b1b; }
 
-        .fixture-info {
-            flex: 1;
-        }
-
-        .fixture-teams {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text);
-            line-height: 1.3;
-        }
-
-        .fixture-meta {
-            font-size: 0.78rem;
-            color: #718096;
-            margin-top: 3px;
-        }
+        .fixture-info { flex: 1; }
+        .fixture-teams { font-weight: 700; font-size: 0.95rem; color: var(--text); line-height: 1.3; }
+        .fixture-meta  { font-size: 0.78rem; color: #718096; margin-top: 3px; }
 
         .fixture-sport-tag {
             font-size: 0.72rem;
@@ -362,9 +367,7 @@
             display: block;
         }
 
-        .show-more-bar {
-            border-top: 1px solid #e2e8f0;
-        }
+        .show-more-bar { border-top: 1px solid #e2e8f0; }
 
         .show-more-btn {
             width: 100%;
@@ -381,14 +384,8 @@
             transition: background 0.15s;
         }
 
-        .show-more-btn:hover {
-            background: #f0fdf8;
-            color: var(--primary);
-        }
-
-        .show-more-btn svg {
-            transition: transform 0.2s;
-        }
+        .show-more-btn:hover { background: #f0fdf8; color: var(--primary); }
+        .show-more-btn svg   { transition: transform 0.2s; }
 
         .full-fixture-panel {
             display: none;
@@ -396,9 +393,7 @@
             border-top: 1px solid #edf2f7;
         }
 
-        .full-fixture-panel.open {
-            display: block;
-        }
+        .full-fixture-panel.open { display: block; }
 
         .filter-container {
             display: grid;
@@ -440,14 +435,8 @@
             flex-shrink: 0;
         }
 
-        .btn-apply-code:hover {
-            background: var(--primary);
-        }
-
-        .btn-apply-code:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .btn-apply-code:hover     { background: var(--primary); }
+        .btn-apply-code:disabled  { opacity: 0.5; cursor: not-allowed; }
 
         .discount-feedback {
             margin-top: 8px;
@@ -458,15 +447,8 @@
             gap: 6px;
         }
 
-        .discount-feedback.success {
-            display: flex;
-            color: var(--success-text);
-        }
-
-        .discount-feedback.error {
-            display: flex;
-            color: var(--danger);
-        }
+        .discount-feedback.success { display: flex; color: var(--success-text); }
+        .discount-feedback.error   { display: flex; color: var(--danger); }
 
         .discount-feedback-icon {
             width: 18px;
@@ -479,15 +461,8 @@
             font-size: 0.7rem;
         }
 
-        .discount-feedback.success .discount-feedback-icon {
-            background: var(--success-bg);
-            color: var(--success-text);
-        }
-
-        .discount-feedback.error .discount-feedback-icon {
-            background: #fee2e2;
-            color: var(--danger);
-        }
+        .discount-feedback.success .discount-feedback-icon { background: var(--success-bg); color: var(--success-text); }
+        .discount-feedback.error   .discount-feedback-icon { background: #fee2e2; color: var(--danger); }
 
         .price-summary {
             background: linear-gradient(135deg, #f0fdf8 0%, #ecfdf5 100%);
@@ -498,9 +473,7 @@
             display: none;
         }
 
-        .price-summary.visible {
-            display: block;
-        }
+        .price-summary.visible { display: block; }
 
         .price-summary-title {
             font-size: 0.75rem;
@@ -511,11 +484,7 @@
             margin-bottom: 14px;
         }
 
-        .price-summary-rows {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .price-summary-rows { display: flex; flex-direction: column; gap: 8px; }
 
         .price-row {
             display: flex;
@@ -525,15 +494,8 @@
             gap: 10px;
         }
 
-        .price-row-label {
-            color: #374151;
-        }
-
-        .price-row-value {
-            font-weight: 600;
-            color: var(--text);
-            text-align: right;
-        }
+        .price-row-label { color: #374151; }
+        .price-row-value { font-weight: 600; color: var(--text); text-align: right; }
 
         .price-row.total-row {
             background: white;
@@ -543,26 +505,10 @@
             border: 1.5px solid #6ee7b7;
         }
 
-        .price-row.total-row .price-row-label {
-            font-weight: 700;
-            color: #065f46;
-        }
-
-        .price-row.total-row .price-row-value {
-            font-weight: 800;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .price-row.discount-line .price-row-label {
-            color: #065f46;
-            font-weight: 600;
-        }
-
-        .price-row.discount-line .price-row-value {
-            color: #059669;
-            font-weight: 700;
-        }
+        .price-row.total-row .price-row-label  { font-weight: 700; color: #065f46; }
+        .price-row.total-row .price-row-value  { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+        .price-row.discount-line .price-row-label { color: #065f46; font-weight: 600; }
+        .price-row.discount-line .price-row-value { color: #059669; font-weight: 700; }
 
         .payment-disclaimer {
             display: flex;
@@ -587,27 +533,10 @@
             flex-shrink: 0;
         }
 
-        .payment-disclaimer-body {
-            flex: 1;
-            min-width: 180px;
-        }
-
-        .payment-disclaimer-title {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 2px;
-        }
-
-        .payment-disclaimer-steps {
-            font-size: 0.73rem;
-            color: #6b7280;
-            line-height: 1.5;
-        }
-
-        .payment-disclaimer-steps strong {
-            color: #374151;
-        }
+        .payment-disclaimer-body    { flex: 1; min-width: 180px; }
+        .payment-disclaimer-title   { font-size: 0.78rem; font-weight: 700; color: #1f2937; margin-bottom: 2px; }
+        .payment-disclaimer-steps   { font-size: 0.73rem; color: #6b7280; line-height: 1.5; }
+        .payment-disclaimer-steps strong { color: #374151; }
 
         .stripe-badge {
             display: inline-flex;
@@ -641,20 +570,9 @@
             gap: 10px;
         }
 
-        .btn-submit:hover:not(:disabled) {
-            background: var(--secondary);
-            transform: translateY(-1px);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-submit.loading {
-            background: var(--secondary);
-        }
+        .btn-submit:hover:not(:disabled) { background: var(--secondary); transform: translateY(-1px); }
+        .btn-submit:disabled             { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-submit.loading              { background: var(--secondary); }
 
         .spinner {
             width: 18px;
@@ -666,11 +584,7 @@
             flex-shrink: 0;
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .error-box {
             background: var(--danger-bg);
@@ -683,44 +597,17 @@
             font-size: 0.9rem;
         }
 
-        .error-box.visible {
-            display: block;
-        }
+        .error-box.visible { display: block; }
 
-        #successMessage {
-            display: none;
-            text-align: center;
-            padding: 60px 30px;
-        }
-
-        .hidden-helper {
-            display: none !important;
-        }
+        #successMessage { display: none; text-align: center; padding: 60px 30px; }
 
         @media (max-width: 700px) {
-            .form-section {
-                padding: 24px 20px;
-            }
-
-            .filter-container {
-                grid-template-columns: 1fr;
-            }
-
-            .progress-step span:not(.step-num) {
-                display: none;
-            }
-
-            .progress-sep {
-                min-width: 8px;
-            }
-
-            .discount-row {
-                flex-direction: column;
-            }
-
-            .btn-apply-code {
-                min-height: 48px;
-            }
+            .form-section { padding: 24px 20px; }
+            .filter-container { grid-template-columns: 1fr; }
+            .progress-step span:not(.step-num) { display: none; }
+            .progress-sep { min-width: 8px; }
+            .discount-row { flex-direction: column; }
+            .btn-apply-code { min-height: 48px; }
         }
     </style>
 </head>
@@ -729,212 +616,136 @@
 
     <div class="booking-container">
         <div class="header">
-            <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 6px;">
-                Beyond the Pitch
-            </h1>
+            <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 6px;">Beyond the Pitch</h1>
             <p style="font-weight: 500; opacity: 0.9;">Booking request form · personal confirmation within 24–48 hours</p>
         </div>
 
         <form id="bookingForm" class="form-section" novalidate>
+
             <div class="progress-bar" aria-label="Booking progress">
                 <div class="progress-step active" id="prog-1">
-                    <span class="step-num">1</span>
-                    <span>Details</span>
+                    <span class="step-num">1</span><span>Details</span>
                 </div>
                 <div class="progress-sep"></div>
                 <div class="progress-step" id="prog-2">
-                    <span class="step-num">2</span>
-                    <span>Fixture</span>
+                    <span class="step-num">2</span><span>Fixture</span>
                 </div>
                 <div class="progress-sep"></div>
                 <div class="progress-step" id="prog-3">
-                    <span class="step-num">3</span>
-                    <span>Confirm</span>
+                    <span class="step-num">3</span><span>Confirm</span>
                 </div>
             </div>
-            <div style="
-    background:#f8fafc;
-    border:1px solid #e5e7eb;
-    border-radius:16px;
-    padding:24px;
-    margin-bottom:28px;
-">
-    <div style="
-        font-size:0.78rem;
-        font-weight:800;
-        color:#059669;
-        text-transform:uppercase;
-        letter-spacing:1.2px;
-        margin-bottom:10px;
-    ">
-        Booking process
-    </div>
 
-    <h2 style="
-        font-size:1.45rem;
-        font-weight:800;
-        color:#1f2937;
-        margin-bottom:10px;
-        line-height:1.2;
-    ">
-        Reserve your place
-    </h2>
-
-    <p style="
-        color:#4b5563;
-        font-size:0.95rem;
-        line-height:1.7;
-        margin-bottom:18px;
-    ">
-        This is a <strong>booking request</strong>, not an instant confirmation. We personally confirm availability within <strong>24–48 hours</strong>.
-    </p>
-
-    <div style="
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-        gap:12px;
-        margin-bottom:18px;
-    ">
-        <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
-            <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 1</div>
-            <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">Send your request</div>
-            <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">
-                Fill in your details, preferred fixture and group size.
-            </p>
-        </div>
-
-        <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
-            <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 2</div>
-            <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">We check availability</div>
-            <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">
-                We check host availability, match access and the best fit for your selected date.
-            </p>
-        </div>
-
-        <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
-            <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 3</div>
-            <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">Receive your update</div>
-            <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">
-                You’ll receive an email with what is confirmed and the next step to finalise your booking.
-            </p>
-        </div>
-    </div>
-
-    <div style="
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:12px;
-    ">
-        <div style="
-            background:#ecfdf5;
-            border:1px solid #a7f3d0;
-            border-radius:12px;
-            padding:14px;
-        ">
-            <div style="font-size:0.92rem;font-weight:700;color:#065f46;margin-bottom:8px;">
-                Confirmed after your request
+            <!-- Booking process explainer -->
+            <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:24px;margin-bottom:28px;">
+                <div style="font-size:0.78rem;font-weight:800;color:#059669;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;">Booking process</div>
+                <h2 style="font-size:1.45rem;font-weight:800;color:#1f2937;margin-bottom:10px;line-height:1.2;">Reserve your place</h2>
+                <p style="color:#4b5563;font-size:0.95rem;line-height:1.7;margin-bottom:18px;">
+                    This is a <strong>booking request</strong>, not an instant confirmation. We personally confirm availability within <strong>24–48 hours</strong>.
+                </p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px;">
+                    <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
+                        <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 1</div>
+                        <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">Send your request</div>
+                        <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">Fill in your details, preferred fixture and group size.</p>
+                    </div>
+                    <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
+                        <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 2</div>
+                        <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">We check availability</div>
+                        <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">We check host availability, match access and the best fit for your selected date.</p>
+                    </div>
+                    <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;">
+                        <div style="font-size:0.72rem;font-weight:800;color:#059669;text-transform:uppercase;margin-bottom:6px;">Step 3</div>
+                        <div style="font-size:0.95rem;font-weight:700;color:#1f2937;margin-bottom:6px;">Receive your update</div>
+                        <p style="font-size:0.85rem;color:#6b7280;line-height:1.6;margin:0;">You'll receive an email with what is confirmed and the next step to finalise your booking.</p>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:14px;">
+                        <div style="font-size:0.92rem;font-weight:700;color:#065f46;margin-bottom:8px;">Confirmed after your request</div>
+                        <ul style="margin:0;padding-left:18px;color:#4b5563;font-size:0.85rem;line-height:1.7;">
+                            <li>We've received your request</li>
+                            <li>Your preferred date is reviewed</li>
+                            <li>You'll get a response within 24–48 hours</li>
+                        </ul>
+                    </div>
+                    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:14px;">
+                        <div style="font-size:0.92rem;font-weight:700;color:#92400e;margin-bottom:8px;">Still subject to availability</div>
+                        <ul style="margin:0;padding-left:18px;color:#4b5563;font-size:0.85rem;line-height:1.7;">
+                            <li>Match access</li>
+                            <li>Final timing</li>
+                            <li>Specific local arrangements</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <ul style="margin:0;padding-left:18px;color:#4b5563;font-size:0.85rem;line-height:1.7;">
-                <li>We’ve received your request</li>
-                <li>Your preferred date is reviewed</li>
-                <li>You’ll get a response within 24–48 hours</li>
-            </ul>
-        </div>
 
-        <div style="
-            background:#fffbeb;
-            border:1px solid #fcd34d;
-            border-radius:12px;
-            padding:14px;
-        ">
-            <div style="font-size:0.92rem;font-weight:700;color:#92400e;margin-bottom:8px;">
-                Still subject to availability
+            <!-- Season notice -->
+            <div class="season-notice">
+                <div class="season-notice-icon"></div>
+                <div>
+                    <div class="season-notice-title">2026 Championship season - what's next</div>
+                    <div class="season-notice-text">
+                        Kilkenny's 2026 Leinster campaign has concluded. The Kilkenny Experience continues - coaching session in Kilkenny followed by a live All-Ireland championship fixture. Available dates run from June through August, covering hurling, football and camogie. <strong></strong>  Fixtures marked <em>TBC</em> depend on venue confirmation; we'll keep you posted.
+                    </div>
+                </div>
             </div>
-            <ul style="margin:0;padding-left:18px;color:#4b5563;font-size:0.85rem;line-height:1.7;">
-                <li>Match access</li>
-                <li>Final timing</li>
-                <li>Specific local arrangements</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
 
             <div class="error-box" id="errorBox" role="alert" aria-live="polite"></div>
 
+            <!-- 1. Personal Information -->
             <div class="section-title">1. Personal Information</div>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="name">Full Name *</label>
                     <input type="text" id="name" placeholder="Your full name" autocomplete="name" />
                 </div>
-
-                
-
                 <div class="form-group">
                     <label for="email">Email Address *</label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="your@email.com"
-                        autocomplete="email"
-                    />
+                    <input type="email" id="email" placeholder="your@email.com" autocomplete="email" />
                 </div>
-
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" placeholder="+353 ..." autocomplete="tel" />
                 </div>
             </div>
 
+            <!-- 2. Experience -->
             <div class="section-title">2. Your Experience</div>
             <div class="exp-info-card">
                 <div class="exp-info-body">
                     <div class="exp-info-title">The Kilkenny Experience</div>
                     <div class="exp-info-badge">Premium</div>
                     <div class="exp-info-desc">
-                        Choose your start in Freshford or Kilkenny, learn the core skills on the pitch with local coaches, and finish with entry to a live GAA hurling match at Nowlan park
+                        Choose your start in Freshford or Kilkenny, learn the core skills on the pitch with local coaches, and finish with entry to a live GAA hurling match — now including All-Ireland championship fixtures.
                     </div>
                     <div class="exp-info-price">from €95 p.p.</div>
                 </div>
             </div>
+
             <div class="price-range-box">
-    <div class="price-range-title">Pricing overview</div>
+                <div class="price-range-title">Pricing overview</div>
+                <ul class="price-range-list">
+                    <li>✔ €95 p.p. — standard championship fixtures (football, Tailteann Cup, camogie)</li>
+                    <li>✔ €119 p.p. — Leinster SHC Final &amp; All-Ireland SHC Quarter-Finals</li>
+                    <li>✔ €129 p.p. — All-Ireland SHC Semi-Finals</li>
+                </ul>
+                <div class="price-range-note">All-Ireland finals are not available — tickets for those matches cannot be arranged. Final price confirmed before payment, no surprises.</div>
+            </div>
 
-    <ul class="price-range-list">
-        <li>✔ From €95 - standard fixtures</li>
-        <li>✔ €119–149 - premium matches</li>
-        <li>✔ €149+ - high demand games</li>
-    </ul>
-
-    <div class="price-range-note">
-        Final price depends on the selected match - no surprises before confirmation.
-    </div>
-</div>
-
+            <!-- 3. Select Fixture -->
             <div class="section-title">3. Select Match Fixture</div>
             <div class="fixture-section" id="fixtureSection">
-                <p class="fixture-hint" id="fixtureHint">
-                    Choose one of the upcoming Kilkenny home fixtures below.
-                </p>
-
+                <p class="fixture-hint" id="fixtureHint">Select your preferred fixture below. Coaching session takes place in Kilkenny; match venue may vary. Fixtures marked TBC depend on venue confirmation.</p>
                 <div class="featured-fixtures" id="featuredFixtures"></div>
-
                 <div class="show-more-bar" id="showMoreBar" style="display: none;">
                     <button type="button" class="show-more-btn" id="showMoreBtn">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                            <path
-                                d="M2 5l5 5 5-5"
-                                stroke="currentColor"
-                                stroke-width="1.8"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            ></path>
+                            <path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                         Show all fixtures
                     </button>
                 </div>
-
                 <div class="full-fixture-panel" id="fullFixturePanel">
                     <div class="filter-container">
                         <div class="form-group">
@@ -945,18 +756,16 @@
                                 <option value="Football">Gaelic Football</option>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label for="monthFilter">Month</label>
                             <select id="monthFilter">
                                 <option value="all">All Months</option>
-                                <option value="apr">April</option>
-                                <option value="may">May</option>
                                 <option value="jun">June</option>
+                                <option value="jul">July</option>
+                                <option value="aug">August</option>
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="match-selector">All available fixtures</label>
                         <select id="match-selector">
@@ -966,13 +775,13 @@
                 </div>
             </div>
 
+            <!-- 4. Trip Details -->
             <div class="section-title">4. Trip Details</div>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="date">Selected Date *</label>
                     <input type="date" id="date" required />
                 </div>
-
                 <div class="form-group">
                     <label for="guests">Number of Guests (minimum 4) *</label>
                     <input type="number" id="guests" min="4" max="20" value="4" required />
@@ -981,42 +790,28 @@
 
             <div class="form-group" style="margin-bottom: 25px;">
                 <label for="requests">Special Requests / Notes</label>
-                <textarea
-                    id="requests"
-                    placeholder="Seating needs, dietary requirements, experience goals..."
-                    rows="3"
-                ></textarea>
+                <textarea id="requests" placeholder="Seating needs, dietary requirements, experience goals..." rows="3"></textarea>
             </div>
 
+            <!-- Price summary -->
             <div class="price-summary" id="priceSummary">
                 <div class="price-summary-title">Booking summary</div>
-
                 <div class="price-summary-rows">
                     <div class="price-row" id="rowBasePrice">
                         <span class="price-row-label">The Kilkenny Experience – Premium</span>
                         <span class="price-row-value">€95 p.p.</span>
                     </div>
-
                     <div class="price-row" id="rowGuests">
                         <span class="price-row-label" id="summaryGuests">—</span>
                         <span class="price-row-value" id="summarySubtotal">—</span>
                     </div>
-
                     <div class="price-row discount-line" id="rowDiscount" style="display: none;">
                         <span class="price-row-label" id="discountLabel">—</span>
                         <span class="price-row-value" id="discountValue">—</span>
                     </div>
-
                     <div class="price-row" id="rowFixture">
-                        <span
-                            class="price-row-label"
-                            id="summaryFixture"
-                            style="color: #9ca3af; font-size: 0.85rem;"
-                        >
-                            No fixture selected yet
-                        </span>
+                        <span class="price-row-label" id="summaryFixture" style="color:#9ca3af;font-size:0.85rem;">No fixture selected yet</span>
                     </div>
-
                     <div class="price-row total-row">
                         <span class="price-row-label">Total</span>
                         <span class="price-row-value" id="summaryTotal">—</span>
@@ -1024,33 +819,13 @@
                 </div>
 
                 <div style="margin-top: 18px; border-top: 1px dashed #6ee7b7; padding-top: 16px;">
-                    <label
-                        for="discountInput"
-                        style="
-                            font-size: 0.8rem;
-                            font-weight: 700;
-                            color: #065f46;
-                            letter-spacing: 0.05em;
-                            text-transform: uppercase;
-                            margin-bottom: 8px;
-                            display: block;
-                        "
-                    >
+                    <label for="discountInput" style="font-size:0.8rem;font-weight:700;color:#065f46;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;display:block;">
                         Discount Code
                     </label>
-
                     <div class="discount-row">
-                        <input
-                            type="text"
-                            id="discountInput"
-                            placeholder="Enter your code"
-                            autocomplete="off"
-                        />
-                        <button type="button" class="btn-apply-code" id="applyCodeBtn">
-                            Apply
-                        </button>
+                        <input type="text" id="discountInput" placeholder="Enter your code" autocomplete="off" />
+                        <button type="button" class="btn-apply-code" id="applyCodeBtn">Apply</button>
                     </div>
-
                     <div class="discount-feedback" id="discountFeedback" aria-live="polite">
                         <span class="discount-feedback-icon" id="discountFeedbackIcon"></span>
                         <span id="discountFeedbackText"></span>
@@ -1061,44 +836,21 @@
             <div class="payment-disclaimer">
                 <div class="payment-disclaimer-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <rect
-                            x="2"
-                            y="5"
-                            width="20"
-                            height="14"
-                            rx="3"
-                            stroke="white"
-                            stroke-width="1.8"
-                        />
-                        <path d="M2 10h20" stroke="white" stroke-width="1.8" />
-                        <path
-                            d="M6 15h4"
-                            stroke="white"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                        />
+                        <rect x="2" y="5" width="20" height="14" rx="3" stroke="white" stroke-width="1.8"/>
+                        <path d="M2 10h20" stroke="white" stroke-width="1.8"/>
+                        <path d="M6 15h4" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
                     </svg>
                 </div>
-
                 <div class="payment-disclaimer-body">
-                    <div class="payment-disclaimer-title">
-                        Secure payment via Stripe · 2-step billing
-                    </div>
+                    <div class="payment-disclaimer-title">Secure payment via Stripe · 2-step billing</div>
                     <div class="payment-disclaimer-steps">
-                        <strong>Step 1:</strong> Reserve your experience now - confirmation within
-                        24–48 hours &nbsp;·&nbsp;
+                        <strong>Step 1:</strong> Reserve your experience now — confirmation within 24–48 hours &nbsp;·&nbsp;
                         <strong>Step 2:</strong> The balance will be invoiced upon confirmation
                     </div>
                 </div>
-
                 <div class="stripe-badge">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M12 2L3 7v10l9 5 9-5V7L12 2z"
-                            stroke="#635bff"
-                            stroke-width="2"
-                            stroke-linejoin="round"
-                        />
+                        <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="#635bff" stroke-width="2" stroke-linejoin="round"/>
                     </svg>
                     SSL encrypted
                 </div>
@@ -1108,108 +860,43 @@
                 Send booking request
             </button>
 
-           <p
-    style="
-        text-align: center;
-        font-size: 0.78rem;
-        color: #9ca3af;
-        margin-top: 10px;
-    "
->
-    This is a booking request. We’ll confirm availability within 24–48 hours via email.
-</p>
+            <p style="text-align:center;font-size:0.78rem;color:#9ca3af;margin-top:10px;">
+                This is a booking request. We'll confirm availability within 24–48 hours via email.
+            </p>
 
         </form>
 
         <div id="successMessage" aria-live="polite">
             <div style="margin-bottom: 18px; display: flex; justify-content: center;">
-                <svg
-                    width="72"
-                    height="72"
-                    viewBox="0 0 72 72"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <ellipse
-                        cx="22"
-                        cy="32"
-                        rx="13"
-                        ry="9"
-                        fill="#059669"
-                        transform="rotate(-45 22 32)"
-                    />
-                    <ellipse
-                        cx="50"
-                        cy="32"
-                        rx="13"
-                        ry="9"
-                        fill="#059669"
-                        transform="rotate(45 50 32)"
-                    />
-                    <ellipse cx="36" cy="20" rx="9" ry="13" fill="#059669" />
-                    <ellipse cx="36" cy="42" rx="9" ry="13" fill="#059669" />
-                    <circle cx="36" cy="32" r="7" fill="#064e3b" />
-                    <circle cx="22" cy="28" r="2.5" fill="#34d399" opacity="0.6" />
-                    <circle cx="50" cy="28" r="2.5" fill="#34d399" opacity="0.6" />
-                    <circle cx="36" cy="17" r="2.5" fill="#34d399" opacity="0.6" />
-                    <path
-                        d="M36 49 Q38 56 34 62"
-                        stroke="#059669"
-                        stroke-width="2.5"
-                        stroke-linecap="round"
-                        fill="none"
-                    />
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="22" cy="32" rx="13" ry="9" fill="#059669" transform="rotate(-45 22 32)"/>
+                    <ellipse cx="50" cy="32" rx="13" ry="9" fill="#059669" transform="rotate(45 50 32)"/>
+                    <ellipse cx="36" cy="20" rx="9" ry="13" fill="#059669"/>
+                    <ellipse cx="36" cy="42" rx="9" ry="13" fill="#059669"/>
+                    <circle cx="36" cy="32" r="7" fill="#064e3b"/>
+                    <circle cx="22" cy="28" r="2.5" fill="#34d399" opacity="0.6"/>
+                    <circle cx="50" cy="28" r="2.5" fill="#34d399" opacity="0.6"/>
+                    <circle cx="36" cy="17" r="2.5" fill="#34d399" opacity="0.6"/>
+                    <path d="M36 49 Q38 56 34 62" stroke="#059669" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                 </svg>
             </div>
-
-            <h2
-                style="
-                    color: var(--primary);
-                    margin-bottom: 12px;
-                    font-size: 1.8rem;
-                "
-            >
-                Booking request received!
-            </h2>
-
-            <p
-                style="
-                    color: #4a5568;
-                    line-height: 1.7;
-                    max-width: 480px;
-                    margin: 0 auto 12px;
-                "
-            >
+            <h2 style="color: var(--primary); margin-bottom: 12px; font-size: 1.8rem;">Booking request received!</h2>
+            <p style="color: #4a5568; line-height: 1.7; max-width: 480px; margin: 0 auto 12px;">
                 Thanks! We've received your booking request and will confirm within 48 hours.
             </p>
-
-            <p
-                style="
-                    color: #6b7280;
-                    font-size: 0.88rem;
-                    max-width: 440px;
-                    margin: 0 auto 28px;
-                    line-height: 1.6;
-                "
-            >
-                Keep an eye on your inbox - we'll reach out to finalise the details and payment.
+            <p style="color: #6b7280; font-size: 0.88rem; max-width: 440px; margin: 0 auto 28px; line-height: 1.6;">
+                Keep an eye on your inbox — we'll reach out to finalise the details and payment.
             </p>
-
-            <button
-                class="btn-submit"
-                type="button"
-                onclick="window.location.href = window.location.pathname"
-                style="max-width: 220px; margin: 0 auto;"
-            >
+            <button class="btn-submit" type="button" onclick="window.location.href = window.location.pathname" style="max-width: 220px; margin: 0 auto;">
                 New booking
             </button>
         </div>
     </div>
 
     <script>
-        const EXPERIENCE_NAME = 'The Kilkenny Experience - Premium';
+        const EXPERIENCE_NAME  = 'The Kilkenny Experience - Premium';
         const PRICE_PER_PERSON = 95;
-        const FEATURED_LIMIT = 2;
+        const FEATURED_LIMIT   = 4;
 
         const DISCOUNT_CODES = {
             KILKENNYEXPERIENCE20: {
@@ -1224,105 +911,374 @@
             'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse';
 
         const FIELDS = {
-            name: 'entry.761572476',
-            email: 'entry.1144619265',
-            phone: 'entry.1213010877',
+            name:       'entry.761572476',
+            email:      'entry.1144619265',
+            phone:      'entry.1213010877',
             experience: 'entry.1446094233',
-            date: 'entry.301148404',
-            guests: 'entry.175134312',
-            requests: 'entry.184318357',
-            partner: 'entry.2094398847',
-            discount: 'entry.467287763'
+            date:       'entry.301148404',
+            guests:     'entry.175134312',
+            requests:   'entry.184318357',
+            partner:    'entry.2094398847',
+            discount:   'entry.467287763'
         };
 
+        // ── Fixture data — updated 1 June 2026 ──
+        // All-Ireland championship fixtures paired with the Kilkenny coaching experience.
+        // Note: All-Ireland finals (SHC, SFC, Ladies, Camogie) are NOT bookable — tickets
+        // cannot be arranged. TBC venue fixtures are included but flagged accordingly.
         const MATCH_DATA = [
-    {
-        id: 'kk-wexford-2026-04-25',
-        date: '2026-04-25',
-        teams: 'Kilkenny vs Wexford',
-        venue: 'UPMC Nowlan Park, Kilkenny',
-        city: 'Kilkenny',
-        sport: 'Hurling',
-        month: 'apr',
-        competition: 'Leinster SHC',
-        kilkennyHome: true,
-        price: 95          // ← standaardprijs
-    },
-    {
-        id: 'kk-kildare-2026-05-16',
-        date: '2026-05-16',
-        teams: 'Kilkenny vs Kildare',
-        venue: 'UPMC Nowlan Park, Kilkenny',
-        city: 'Kilkenny',
-        sport: 'Hurling',
-        month: 'may',
-        competition: 'Round 4',
-        kilkennyHome: true,
-        price: 95         // ← of een andere prijs naar keuze
-    }
-].sort((a, b) => new Date(a.date) - new Date(b.date));
+            // ── 6 June ──
+            {
+                id:           'joe-mcdonagh-final-jun06-2026',
+                date:         '2026-06-06',
+                teams:        'Joe McDonagh Cup Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Hurling',
+                month:        'jun',
+                competition:  'Joe McDonagh Cup Final',
+                kilkennyHome: false,
+                featured:     true,
+                tier:         'standard',
+                price:        95,
+                note:         '15:45 kick-off · double-header day at Croke Park'
+            },
+            {
+                id:           'leinster-shc-final-jun06-2026',
+                date:         '2026-06-06',
+                teams:        'Leinster SHC Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Hurling',
+                month:        'jun',
+                competition:  'Leinster SHC Final',
+                kilkennyHome: false,
+                featured:     true,
+                tier:         'premium',
+                price:        119,
+                note:         '18:00 kick-off · showpiece Leinster decider'
+            },
+            // ── 13–14 June ──
+            {
+                id:           'aishc-prelim-qf-jun13-2026',
+                date:         '2026-06-13',
+                teams:        'All-Ireland SHC Preliminary Quarter-Final',
+                venue:        'TBC — venue to be confirmed',
+                city:         'TBC',
+                sport:        'Hurling',
+                month:        'jun',
+                competition:  'All-Ireland SHC Preliminary QF',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95,
+                note:         'Venue TBC — we monitor for a suitable location'
+            },
+            {
+                id:           'aishc-prelim-qf-jun14-2026',
+                date:         '2026-06-14',
+                teams:        'All-Ireland SHC Preliminary Quarter-Final',
+                venue:        'TBC — venue to be confirmed',
+                city:         'TBC',
+                sport:        'Hurling',
+                month:        'jun',
+                competition:  'All-Ireland SHC Preliminary QF',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95,
+                note:         'Venue TBC — we monitor for a suitable location'
+            },
+            {
+                id:           'aisfc-r2-jun13-2026',
+                date:         '2026-06-13',
+                teams:        'All-Ireland SFC — Sam Maguire Round 2',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'All-Ireland SFC Round 2',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95,
+                note:         'Group A & B fixtures'
+            },
+            {
+                id:           'aisfc-r2-jun14-2026',
+                date:         '2026-06-14',
+                teams:        'All-Ireland SFC — Sam Maguire Round 2',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'All-Ireland SFC Round 2',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95,
+                note:         'Group A & B fixtures'
+            },
+            // ── 20–21 June ──
+            {
+                id:           'aishc-qf-jun20-2026',
+                date:         '2026-06-20',
+                teams:        'All-Ireland SHC Quarter-Final',
+                venue:        'TBC — possible Nowlan Park or similar',
+                city:         'TBC',
+                sport:        'Hurling',
+                month:        'jun',
+                competition:  'All-Ireland SHC Quarter-Final',
+                kilkennyHome: false,
+                featured:     true,
+                tier:         'premium',
+                price:        119,
+                note:         'Could be at Nowlan Park — we are monitoring closely'
+            },
+            {
+                id:           'aishc-qf-jun21-2026',
+                date:         '2026-06-21',
+                teams:        'All-Ireland SHC Quarter-Final',
+                venue:        'TBC — possible Nowlan Park or similar',
+                city:         'TBC',
+                sport:        'Hurling',
+                month:        'jun',
+                competition:  'All-Ireland SHC Quarter-Final',
+                kilkennyHome: false,
+                featured:     true,
+                tier:         'premium',
+                price:        119,
+                note:         'Could be at Nowlan Park — we are monitoring closely'
+            },
+            {
+                id:           'aisfc-r3-jun20-2026',
+                date:         '2026-06-20',
+                teams:        'All-Ireland SFC — Sam Maguire Round 3',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'All-Ireland SFC Round 3',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            {
+                id:           'aisfc-r3-jun21-2026',
+                date:         '2026-06-21',
+                teams:        'All-Ireland SFC — Sam Maguire Round 3',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'All-Ireland SFC Round 3',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            {
+                id:           'tailteann-sf-jun20-2026',
+                date:         '2026-06-20',
+                teams:        'Tailteann Cup Semi-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'Tailteann Cup SF',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            // ── 27–28 June ──
+            {
+                id:           'aisfc-qf-jun27-2026',
+                date:         '2026-06-27',
+                teams:        'All-Ireland SFC — Quarter-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'All-Ireland SFC QF',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            {
+                id:           'aisfc-qf-jun28-2026',
+                date:         '2026-06-28',
+                teams:        'All-Ireland SFC — Quarter-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jun',
+                competition:  'All-Ireland SFC QF',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            // ── 4–5 July ──
+            {
+                id:           'aishc-sf-jul04-2026',
+                date:         '2026-07-04',
+                teams:        'All-Ireland SHC Semi-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Hurling',
+                month:        'jul',
+                competition:  'All-Ireland SHC Semi-Final',
+                kilkennyHome: false,
+                featured:     true,
+                tier:         'premium',
+                price:        129
+            },
+            {
+                id:           'aishc-sf-jul05-2026',
+                date:         '2026-07-05',
+                teams:        'All-Ireland SHC Semi-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Hurling',
+                month:        'jul',
+                competition:  'All-Ireland SHC Semi-Final',
+                kilkennyHome: false,
+                featured:     true,
+                tier:         'premium',
+                price:        129
+            },
+            // ── 11–12 July ──
+            {
+                id:           'aisfc-sf-jul11-2026',
+                date:         '2026-07-11',
+                teams:        'All-Ireland SFC — Semi-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jul',
+                competition:  'All-Ireland SFC Semi-Final',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            {
+                id:           'tailteann-final-jul11-2026',
+                date:         '2026-07-11',
+                teams:        'Tailteann Cup Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jul',
+                competition:  'Tailteann Cup Final',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            {
+                id:           'aisfc-sf-jul12-2026',
+                date:         '2026-07-12',
+                teams:        'All-Ireland SFC — Semi-Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'jul',
+                competition:  'All-Ireland SFC Semi-Final',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            // ── 2 August ──
+            {
+                id:           'lgfa-final-aug02-2026',
+                date:         '2026-08-02',
+                teams:        'All-Ireland Ladies Gaelic Football Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Football',
+                month:        'aug',
+                competition:  'All-Ireland LGFA Final',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            },
+            // ── 9 August ──
+            {
+                id:           'camogie-final-aug09-2026',
+                date:         '2026-08-09',
+                teams:        'All-Ireland Camogie Final',
+                venue:        'Croke Park',
+                city:         'Dublin',
+                sport:        'Hurling',
+                month:        'aug',
+                competition:  'All-Ireland Camogie Final',
+                kilkennyHome: false,
+                featured:     false,
+                tier:         'standard',
+                price:        95
+            }
+        ].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        let selectedFixture = null;
-        let appliedDiscount = null;
-        let isSubmitting = false;
+        let selectedFixture  = null;
+        let appliedDiscount  = null;
+        let isSubmitting     = false;
 
         const els = {
-            form: document.getElementById('bookingForm'),
-            successMessage: document.getElementById('successMessage'),
-            errorBox: document.getElementById('errorBox'),
+            form:            document.getElementById('bookingForm'),
+            successMessage:  document.getElementById('successMessage'),
+            errorBox:        document.getElementById('errorBox'),
 
-            name: document.getElementById('name'),
-            email: document.getElementById('email'),
-            phone: document.getElementById('phone'),
-            date: document.getElementById('date'),
-            guests: document.getElementById('guests'),
-            requests: document.getElementById('requests'),
+            name:            document.getElementById('name'),
+            email:           document.getElementById('email'),
+            phone:           document.getElementById('phone'),
+            date:            document.getElementById('date'),
+            guests:          document.getElementById('guests'),
+            requests:        document.getElementById('requests'),
 
             featuredFixtures: document.getElementById('featuredFixtures'),
-            showMoreBar: document.getElementById('showMoreBar'),
-            showMoreBtn: document.getElementById('showMoreBtn'),
+            showMoreBar:      document.getElementById('showMoreBar'),
+            showMoreBtn:      document.getElementById('showMoreBtn'),
             fullFixturePanel: document.getElementById('fullFixturePanel'),
-            sportFilter: document.getElementById('sportFilter'),
-            monthFilter: document.getElementById('monthFilter'),
-            matchSelector: document.getElementById('match-selector'),
+            sportFilter:      document.getElementById('sportFilter'),
+            monthFilter:      document.getElementById('monthFilter'),
+            matchSelector:    document.getElementById('match-selector'),
 
-            priceSummary: document.getElementById('priceSummary'),
-            summaryGuests: document.getElementById('summaryGuests'),
+            priceSummary:    document.getElementById('priceSummary'),
+            summaryGuests:   document.getElementById('summaryGuests'),
             summarySubtotal: document.getElementById('summarySubtotal'),
-            summaryFixture: document.getElementById('summaryFixture'),
-            summaryTotal: document.getElementById('summaryTotal'),
-            rowDiscount: document.getElementById('rowDiscount'),
-            discountLabel: document.getElementById('discountLabel'),
-            discountValue: document.getElementById('discountValue'),
+            summaryFixture:  document.getElementById('summaryFixture'),
+            summaryTotal:    document.getElementById('summaryTotal'),
+            rowDiscount:     document.getElementById('rowDiscount'),
+            discountLabel:   document.getElementById('discountLabel'),
+            discountValue:   document.getElementById('discountValue'),
 
-            discountInput: document.getElementById('discountInput'),
-            applyCodeBtn: document.getElementById('applyCodeBtn'),
-            discountFeedback: document.getElementById('discountFeedback'),
+            discountInput:        document.getElementById('discountInput'),
+            applyCodeBtn:         document.getElementById('applyCodeBtn'),
+            discountFeedback:     document.getElementById('discountFeedback'),
             discountFeedbackIcon: document.getElementById('discountFeedbackIcon'),
             discountFeedbackText: document.getElementById('discountFeedbackText'),
 
             submitBtn: document.getElementById('submitBtn'),
-
-            prog1: document.getElementById('prog-1'),
-            prog2: document.getElementById('prog-2'),
-            prog3: document.getElementById('prog-3')
+            prog1:     document.getElementById('prog-1'),
+            prog2:     document.getElementById('prog-2'),
+            prog3:     document.getElementById('prog-3')
         };
 
         function formatDate(dateStr) {
             const d = new Date(dateStr + 'T12:00:00');
             return d.toLocaleDateString('en-IE', {
-                weekday: 'short',
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
+                weekday: 'short', day: 'numeric', month: 'long', year: 'numeric'
             });
         }
 
         function formatMoney(amount) {
-            return new Intl.NumberFormat('en-IE', {
-                style: 'currency',
-                currency: 'EUR'
-            }).format(amount);
+            return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(amount);
         }
 
         function isValidEmail(email) {
@@ -1330,36 +1286,29 @@
         }
 
         function clampGuests(value) {
-            const numeric = Number(value);
-
-            if (!Number.isFinite(numeric)) return 4;
-            if (numeric < 4) return 4;
-            if (numeric > 20) return 20;
-
-            return Math.floor(numeric);
+            const n = Number(value);
+            if (!Number.isFinite(n)) return 4;
+            if (n < 4)  return 4;
+            if (n > 20) return 20;
+            return Math.floor(n);
         }
 
-        function getGuests() {
-            return clampGuests(els.guests.value);
-        }
+        function getGuests()           { return clampGuests(els.guests.value); }
+        function normalizeGuestsInput(){ els.guests.value = clampGuests(els.guests.value); }
 
-        function normalizeGuestsInput() {
-            els.guests.value = clampGuests(els.guests.value);
+        function calcTotals(guests) {
+            const pricePerPerson = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+            const subtotal = pricePerPerson * guests;
+            let discount = 0;
+            if (appliedDiscount) {
+                if (appliedDiscount.type === 'percent') {
+                    discount = subtotal * (appliedDiscount.value / 100);
+                } else {
+                    discount = Math.min(appliedDiscount.value * guests, subtotal);
+                }
+            }
+            return { subtotal, discount, total: subtotal - discount };
         }
-
-       function calcTotals(guests) {
-    const pricePerPerson = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
-    const subtotal = pricePerPerson * guests;
-    let discount = 0;
-    if (appliedDiscount) {
-        if (appliedDiscount.type === 'percent') {
-            discount = subtotal * (appliedDiscount.value / 100);
-        } else {
-            discount = Math.min(appliedDiscount.value * guests, subtotal);
-        }
-    }
-    return { subtotal, discount, total: subtotal - discount };
-}
 
         function clearFieldErrors() {
             [els.name, els.email, els.date, els.guests, els.matchSelector].forEach(el => {
@@ -1380,14 +1329,12 @@
 
         function setFieldError(field, message) {
             hideError();
-            if (field) {
-                field.classList.add('input-error');
-            }
+            if (field) field.classList.add('input-error');
             showError(message);
         }
 
         function updateProgress() {
-            const name = els.name.value.trim();
+            const name  = els.name.value.trim();
             const email = els.email.value.trim();
 
             [els.prog1, els.prog2, els.prog3].forEach(p => p.classList.remove('active', 'done'));
@@ -1407,31 +1354,44 @@
             }
         }
 
-        function getFeaturedFixtures() {
-            return MATCH_DATA.slice(0, FEATURED_LIMIT);
-        }
-
         function renderFeatured() {
-            const featured = getFeaturedFixtures();
+            const featured = MATCH_DATA.filter(m => m.featured).slice(0, FEATURED_LIMIT);
             els.featuredFixtures.innerHTML = '';
 
             featured.forEach(match => {
+                const isPremium  = match.tier === 'premium';
+                const isHighDemand = match.tier === 'high';
+
                 const card = document.createElement('button');
                 card.type = 'button';
-                card.className = 'fixture-card' + (selectedFixture?.id === match.id ? ' selected' : '');
+
+                let cls = 'fixture-card';
+                if (isPremium)    cls += ' premium';
+                if (isHighDemand) cls += ' premium'; // same warm style
+                if (selectedFixture?.id === match.id) cls += ' selected';
+                card.className = cls;
+
+                const badgeHtml = isHighDemand
+                    ? '<span class="fixture-badge badge-high">🔥 High demand</span>'
+                    : isPremium
+                    ? '<span class="fixture-badge badge-premium">★ Featured</span>'
+                    : '';
 
                 card.innerHTML = `
                     <div class="fixture-info">
-                        <div class="fixture-teams">${match.teams}</div>
+                        <div class="fixture-teams">${match.teams} ${badgeHtml}</div>
                         <div class="fixture-meta">
                             <span class="fixture-sport-tag">${match.sport}</span>
                             &nbsp;·&nbsp; ${formatDate(match.date)}
                             &nbsp;·&nbsp; ${match.venue}
-                            ${match.kilkennyHome ? '&nbsp;·&nbsp; <span class="badge-home fixture-badge">★ Home</span>' : ''}
+                            &nbsp;·&nbsp; ${match.competition}
+                            ${match.note ? `<br><span style="font-style:italic;color:#9ca3af;font-size:0.73rem;">${match.note}</span>` : ''}
                         </div>
                     </div>
-                   <div style="font-weight:800;color:var(--primary);font-size:0.95rem;flex-shrink:0;">€${match.price}<span style="font-size:0.7rem;font-weight:600;color:#6b7280"> p.p.</span></div>
-<div class="fixture-checkmark" aria-hidden="true"></div>
+                    <div style="font-weight:800;color:var(--primary);font-size:0.95rem;flex-shrink:0;">
+                        €${match.price}<span style="font-size:0.7rem;font-weight:600;color:#6b7280"> p.p.</span>
+                    </div>
+                    <div class="fixture-checkmark" aria-hidden="true"></div>
                 `;
 
                 card.addEventListener('click', () => {
@@ -1442,7 +1402,7 @@
                 els.featuredFixtures.appendChild(card);
             });
 
-            els.showMoreBar.style.display = MATCH_DATA.length > FEATURED_LIMIT ? 'block' : 'none';
+            els.showMoreBar.style.display = 'block';
         }
 
         function buildFullMenu() {
@@ -1450,8 +1410,8 @@
             const month = els.monthFilter.value;
 
             const filtered = MATCH_DATA
-                .filter(match => sport === 'all' || match.sport === sport)
-                .filter(match => month === 'all' || match.month === month);
+                .filter(m => sport === 'all' || m.sport === sport)
+                .filter(m => month === 'all' || m.month === month);
 
             els.matchSelector.innerHTML = '<option value="">-- Choose a fixture --</option>';
 
@@ -1467,85 +1427,75 @@
             filtered.forEach(match => {
                 const opt = document.createElement('option');
                 opt.value = match.id;
-                opt.textContent = `${formatDate(match.date)} — ${match.teams} — ${match.venue}`;
+                opt.textContent = `${formatDate(match.date)} — ${match.teams} (€${match.price} p.p.)`;
                 els.matchSelector.appendChild(opt);
             });
 
-            if (selectedFixture && filtered.some(match => match.id === selectedFixture.id)) {
+            if (selectedFixture && filtered.some(m => m.id === selectedFixture.id)) {
                 els.matchSelector.value = selectedFixture.id;
             }
         }
 
         function toggleFullPanel() {
             const isOpen = els.fullFixturePanel.classList.toggle('open');
-
             els.showMoreBtn.innerHTML = isOpen
-                ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
+                ? `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 9l5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show fewer`
                 : `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg> Show all fixtures`;
-
-            if (isOpen) {
-                buildFullMenu();
-            }
+            if (isOpen) buildFullMenu();
         }
 
         function updateSummary() {
-    const guests = getGuests();
-    const { subtotal, discount, total } = calcTotals(guests);
+            const guests = getGuests();
+            const { subtotal, discount, total } = calcTotals(guests);
 
-    els.summaryGuests.textContent = `${guests} guest${guests > 1 ? 's' : ''}`;
-    els.summarySubtotal.textContent = formatMoney(subtotal);
+            els.summaryGuests.textContent   = `${guests} guest${guests > 1 ? 's' : ''}`;
+            els.summarySubtotal.textContent = formatMoney(subtotal);
 
-    const priceLabel = document.querySelector('#rowBasePrice .price-row-value');
-    if (priceLabel) {
-        const pp = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
-        priceLabel.textContent = `€${pp} p.p.`;
-    }
+            const priceLabel = document.querySelector('#rowBasePrice .price-row-value');
+            if (priceLabel) {
+                const pp = selectedFixture ? selectedFixture.price : PRICE_PER_PERSON;
+                priceLabel.textContent = `€${pp} p.p.`;
+            }
 
-    els.summaryTotal.textContent = formatMoney(total);
+            els.summaryTotal.textContent = formatMoney(total);
 
-    if (selectedFixture) {
-        els.summaryFixture.textContent = `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
-        els.summaryFixture.style.color = '#374151';
-    } else {
-        els.summaryFixture.textContent = 'No fixture selected yet';
-        els.summaryFixture.style.color = '#9ca3af';
-    }
+            if (selectedFixture) {
+                els.summaryFixture.textContent = `${selectedFixture.teams} — ${formatDate(selectedFixture.date)}`;
+                els.summaryFixture.style.color = '#374151';
+            } else {
+                els.summaryFixture.textContent = 'No fixture selected yet';
+                els.summaryFixture.style.color = '#9ca3af';
+            }
 
-    if (appliedDiscount && discount > 0) {
-        const pct = appliedDiscount.type === 'percent' ? ` (${appliedDiscount.value}%)` : '';
-        els.discountLabel.textContent = `${appliedDiscount.label}${pct}`;
-        els.discountValue.textContent = `− ${formatMoney(discount)}`;
-        els.rowDiscount.style.display = 'flex';
-    } else {
-        els.rowDiscount.style.display = 'none';
-    }
+            if (appliedDiscount && discount > 0) {
+                const pct = appliedDiscount.type === 'percent' ? ` (${appliedDiscount.value}%)` : '';
+                els.discountLabel.textContent = `${appliedDiscount.label}${pct}`;
+                els.discountValue.textContent = `− ${formatMoney(discount)}`;
+                els.rowDiscount.style.display = 'flex';
+            } else {
+                els.rowDiscount.style.display = 'none';
+            }
 
-    els.priceSummary.classList.add('visible');
-}
+            els.priceSummary.classList.add('visible');
+        }
+
         function updateDiscountFeedback(type = '', message = '') {
             els.discountFeedback.className = 'discount-feedback';
-
             if (!type || !message) {
                 els.discountFeedbackIcon.textContent = '';
                 els.discountFeedbackText.textContent = '';
                 return;
             }
-
             els.discountFeedback.classList.add(type);
             els.discountFeedbackIcon.textContent = type === 'success' ? '✓' : '✕';
             els.discountFeedbackText.textContent = message;
         }
 
         function applyDiscountCode() {
-            const raw = els.discountInput.value.trim().toUpperCase();
-
-            if (!raw) {
-                updateDiscountFeedback('error', 'Please enter a discount code.');
-                return;
-            }
+            const raw  = els.discountInput.value.trim().toUpperCase();
+            if (!raw) { updateDiscountFeedback('error', 'Please enter a discount code.'); return; }
 
             const code = DISCOUNT_CODES[raw];
-
             if (!code || !code.active) {
                 appliedDiscount = null;
                 updateDiscountFeedback('error', 'This code is not valid or has expired.');
@@ -1554,49 +1504,46 @@
                 return;
             }
 
-            appliedDiscount = {
-                code: raw,
-                ...code
-            };
+            appliedDiscount = { code: raw, ...code };
 
             const guests = getGuests();
             const { discount } = calcTotals(guests);
-
             const savingsText = code.type === 'percent'
                 ? `${code.value}% off`
                 : `${formatMoney(code.value)} per person`;
 
-            updateDiscountFeedback(
-                'success',
-                `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`
-            );
-
+            updateDiscountFeedback('success', `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`);
             updateSummary();
             updateSubmitButton();
         }
 
         function refreshAppliedDiscountMessage() {
             if (!appliedDiscount) return;
-
             const guests = getGuests();
             const { discount } = calcTotals(guests);
-
             const savingsText = appliedDiscount.type === 'percent'
                 ? `${appliedDiscount.value}% off`
                 : `${formatMoney(appliedDiscount.value)} per person`;
-
-            updateDiscountFeedback(
-                'success',
-                `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`
-            );
+            updateDiscountFeedback('success', `Code applied! You save ${savingsText} (${formatMoney(discount)} total).`);
         }
 
-       function selectFixtureById(id) {
+        function trackFixtureSelect(fixture) {
+            if (typeof gtag === 'undefined') return;
+            gtag('event', 'fixture_selected', {
+                experience:    'kilkenny',
+                fixture:       fixture.teams,
+                fixture_date:  fixture.date,
+                fixture_price: fixture.price,
+                venue:         fixture.venue
+            });
+        }
+
+        function selectFixtureById(id) {
             const match = MATCH_DATA.find(item => item.id === id);
             if (!match) return false;
 
             selectedFixture = match;
-            els.date.value = match.date;
+            els.date.value  = match.date;
             els.matchSelector.value = match.id;
 
             renderFeatured();
@@ -1604,14 +1551,12 @@
             updateProgress();
             updateSummary();
             updateSubmitButton();
-            trackFixtureSelect(match); // ← toegevoegd
-
+            trackFixtureSelect(match);
             return true;
         }
 
         function syncFixtureByDate(dateValue) {
             const match = MATCH_DATA.find(item => item.date === dateValue);
-
             if (!match) return false;
 
             selectedFixture = match;
@@ -1622,18 +1567,17 @@
             updateProgress();
             updateSummary();
             updateSubmitButton();
-
             return true;
         }
 
         function updateSubmitButton() {
-            const name = els.name.value.trim();
-            const email = els.email.value.trim();
-            const date = els.date.value;
+            const name   = els.name.value.trim();
+            const email  = els.email.value.trim();
+            const date   = els.date.value;
             const guests = Number(els.guests.value);
 
-            const hasValidGuests = Number.isFinite(guests) && guests >= 4 && guests <= 20;
-            const dateMatchesFixture = selectedFixture ? date === selectedFixture.date : false;
+            const hasValidGuests      = Number.isFinite(guests) && guests >= 4 && guests <= 20;
+            const dateMatchesFixture  = selectedFixture ? date === selectedFixture.date : false;
 
             const ready =
                 !!name &&
@@ -1650,49 +1594,24 @@
         function validateForm() {
             clearFieldErrors();
 
-            const name = els.name.value.trim();
-            const email = els.email.value.trim();
-            const date = els.date.value;
+            const name   = els.name.value.trim();
+            const email  = els.email.value.trim();
+            const date   = els.date.value;
             const guests = Number(els.guests.value);
 
-            if (!name) {
-                setFieldError(els.name, 'Please enter your full name.');
-                return false;
-            }
-
-            if (!email) {
-                setFieldError(els.email, 'Please enter your email address.');
-                return false;
-            }
-
-            if (!isValidEmail(email)) {
-                setFieldError(els.email, 'Please enter a valid email address.');
-                return false;
-            }
-
-            if (!selectedFixture) {
-                setFieldError(els.matchSelector, 'Please choose a fixture.');
-                return false;
-            }
-
-            if (!date) {
-                setFieldError(els.date, 'Please confirm the selected date.');
-                return false;
-            }
-
+            if (!name)                { setFieldError(els.name,  'Please enter your full name.');       return false; }
+            if (!email)               { setFieldError(els.email, 'Please enter your email address.');   return false; }
+            if (!isValidEmail(email)) { setFieldError(els.email, 'Please enter a valid email address.'); return false; }
+            if (!selectedFixture)     { setFieldError(els.matchSelector, 'Please choose a fixture.');   return false; }
+            if (!date)                { setFieldError(els.date,  'Please confirm the selected date.');  return false; }
             if (date !== selectedFixture.date) {
-                setFieldError(
-                    els.date,
-                    'The selected date does not match the chosen fixture.'
-                );
+                setFieldError(els.date, 'The selected date does not match the chosen fixture.');
                 return false;
             }
-
             if (!Number.isFinite(guests) || guests < 4) {
                 setFieldError(els.guests, 'Minimum number of guests is 4.');
                 return false;
             }
-
             if (guests > 20) {
                 setFieldError(els.guests, 'Maximum number of guests is 20.');
                 return false;
@@ -1704,7 +1623,7 @@
 
         function setSubmittingState(loading) {
             isSubmitting = loading;
-            els.submitBtn.disabled = loading || els.submitBtn.disabled;
+            els.submitBtn.disabled = loading;
 
             if (loading) {
                 els.submitBtn.classList.add('loading');
@@ -1718,7 +1637,6 @@
 
         async function handleSubmit(event) {
             event.preventDefault();
-
             if (isSubmitting) return;
 
             normalizeGuestsInput();
@@ -1747,41 +1665,44 @@
                 discountText,
                 `Subtotal: ${formatMoney(subtotal)} | Total after discount: ${formatMoney(total)}`,
                 userRequests ? `Special requests: ${userRequests}` : ''
-            ]
-                .filter(Boolean)
-                .join('\n');
+            ].filter(Boolean).join('\n');
 
             const formData = new FormData();
-            formData.append(FIELDS.name, els.name.value.trim());
-            formData.append(FIELDS.email, els.email.value.trim());
-            formData.append(FIELDS.phone, els.phone.value.trim());
+            formData.append(FIELDS.name,       els.name.value.trim());
+            formData.append(FIELDS.email,      els.email.value.trim());
+            formData.append(FIELDS.phone,      els.phone.value.trim());
             formData.append(FIELDS.experience, EXPERIENCE_NAME);
-            formData.append(FIELDS.date, els.date.value);
-            formData.append(FIELDS.guests, String(guests));
-            formData.append(FIELDS.requests, combinedNotes);
-            formData.append(FIELDS.partner, 'Kilkenny');
-            formData.append(FIELDS.discount, appliedDiscount ? appliedDiscount.code : '');
+            formData.append(FIELDS.date,       els.date.value);
+            formData.append(FIELDS.guests,     String(guests));
+            formData.append(FIELDS.requests,   combinedNotes);
+            formData.append(FIELDS.partner,    'Kilkenny');
+            formData.append(FIELDS.discount,   appliedDiscount ? appliedDiscount.code : '');
+
+            // GA4 form submit event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    experience:    'kilkenny',
+                    fixture:       selectedFixture ? selectedFixture.teams : 'unknown',
+                    fixture_date:  selectedFixture ? selectedFixture.date  : 'unknown',
+                    guests,
+                    value:         total,
+                    currency:      'EUR',
+                    discount_code: appliedDiscount ? appliedDiscount.code : 'none'
+                });
+            }
 
             try {
-                await fetch(FORM_ACTION, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
-                });
-
+                await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: formData });
                 els.form.style.display = 'none';
                 els.successMessage.style.display = 'block';
             } catch (error) {
-                showError(
-                    'We could not send your booking request right now. Please try again in a moment.'
-                );
+                showError('We could not send your booking request right now. Please try again in a moment.');
                 setSubmittingState(false);
             }
         }
 
         function handleDateChange() {
             const dateValue = els.date.value;
-
             if (!dateValue) {
                 selectedFixture = null;
                 els.matchSelector.value = '';
@@ -1796,19 +1717,13 @@
 
             if (!matched && selectedFixture) {
                 els.date.value = selectedFixture.date;
-                setFieldError(
-                    els.date,
-                    'Please use the date that belongs to the selected fixture.'
-                );
+                setFieldError(els.date, 'Please use the date that belongs to the selected fixture.');
                 updateSubmitButton();
                 return;
             }
 
             if (!matched) {
-                setFieldError(
-                    els.date,
-                    'Please choose a valid fixture first.'
-                );
+                setFieldError(els.date, 'Please choose a valid fixture first.');
             } else {
                 hideError();
             }
@@ -1826,11 +1741,8 @@
             els.monthFilter.addEventListener('change', buildFullMenu);
 
             els.applyCodeBtn.addEventListener('click', applyDiscountCode);
-            els.discountInput.addEventListener('keydown', event => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    applyDiscountCode();
-                }
+            els.discountInput.addEventListener('keydown', e => {
+                if (e.key === 'Enter') { e.preventDefault(); applyDiscountCode(); }
             });
 
             els.matchSelector.addEventListener('change', function () {
@@ -1864,79 +1776,16 @@
             });
 
             els.form.addEventListener('submit', handleSubmit);
-        }
-// ── BEYOND THE PITCH: GA4 Booking Page Tracking ──
 
-        // 1. Formulier inzending
-        els.form.addEventListener('submit', function() {
-          if (!validateForm()) return;
-          const guests = getGuests();
-          const { total } = calcTotals(guests);
-          gtag('event', 'form_submit', {
-            experience: 'kilkenny',
-            fixture: selectedFixture ? selectedFixture.teams : 'unknown',
-            fixture_date: selectedFixture ? selectedFixture.date : 'unknown',
-            guests: guests,
-            value: total,
-            currency: 'EUR',
-            discount_code: appliedDiscount ? appliedDiscount.code : 'none'
-          });
-        });
-
-        // 2. Fixture geselecteerd
-        function trackFixtureSelect(fixture) {
-          gtag('event', 'fixture_selected', {
-            experience: 'kilkenny',
-            fixture: fixture.teams,
-            fixture_date: fixture.date,
-            fixture_price: fixture.price,
-            venue: fixture.venue
-          });
-        }
-// ── BEYOND THE PITCH: GA4 Booking Page Tracking ──
-
-        // 2. Fixture geselecteerd (moet vóór initialize staan)
-        function trackFixtureSelect(fixture) {
-            if (typeof gtag === 'undefined') return;
-            gtag('event', 'fixture_selected', {
-                experience: 'kilkenny',
-                fixture: fixture.teams,
-                fixture_date: fixture.date,
-                fixture_price: fixture.price,
-                venue: fixture.venue
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            initialize();
-
-            // 1. Formulier inzending
-            els.form.addEventListener('submit', function() {
-                if (!validateForm()) return;
-                if (typeof gtag === 'undefined') return;
-                const guests = getGuests();
-                const { total } = calcTotals(guests);
-                gtag('event', 'form_submit', {
-                    experience: 'kilkenny',
-                    fixture: selectedFixture ? selectedFixture.teams : 'unknown',
-                    fixture_date: selectedFixture ? selectedFixture.date : 'unknown',
-                    guests: guests,
-                    value: total,
-                    currency: 'EUR',
-                    discount_code: appliedDiscount ? appliedDiscount.code : 'none'
-                });
-            });
-
-            // 3. Booking pagina view
+            // GA4 page view
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'experience_page_view', {
-                    experience: 'kilkenny',
-                    page_type: 'booking',
+                    experience:    'kilkenny',
+                    page_type:     'booking',
                     page_location: window.location.href
                 });
             }
-        });
-     
+        }
 
         window.addEventListener('DOMContentLoaded', initialize);
     </script>
