@@ -1088,7 +1088,7 @@
     </div>
   </footer>
 
-  <!-- COOKIE BANNER -->
+ <!-- COOKIE BANNER -->
   <div id="cb-overlay"></div>
   <div id="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie preferences">
     <div class="cb-bar"></div>
@@ -1101,12 +1101,29 @@
       <p class="cb-text">We use cookies to keep the platform running and - with your permission - to understand how visitors use our site (Google Analytics). Read more in our <a href="/privacy-policy/">Privacy Policy</a>.</p>
       <div id="cb-settings">
         <div class="cb-toggle-row">
-          <div class="cb-toggle-info"><div class="cb-toggle-label">Essential</div><div class="cb-toggle-desc">Security and session management. Always active.</div></div>
+          <div class="cb-toggle-info">
+            <div class="cb-toggle-label">Essential</div>
+            <div class="cb-toggle-desc">Security and session management. Always active.</div>
+          </div>
           <label class="cb-switch"><input type="checkbox" checked disabled /><span class="cb-switch-track"></span></label>
         </div>
         <div class="cb-toggle-row">
-          <div class="cb-toggle-info"><div
-                                        <script>
+          <div class="cb-toggle-info">
+            <div class="cb-toggle-label">Analytics</div>
+            <div class="cb-toggle-desc">Google Analytics — helps us understand how visitors use the site.</div>
+          </div>
+          <label class="cb-switch"><input type="checkbox" id="cb-analytics" /><span class="cb-switch-track"></span></label>
+        </div>
+      </div>
+      <div class="cb-actions">
+        <button class="cb-btn cb-btn-accept" id="cb-accept">Accept all</button>
+        <button class="cb-btn cb-btn-reject" id="cb-reject">Reject optional</button>
+        <button class="cb-btn cb-btn-settings" id="cb-settings-btn">Manage</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
     // ── Analytics event tracking ──
     document.addEventListener('click', function(e) {
       const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], a[href*="gaelic"], .floating-cta');
@@ -1128,7 +1145,7 @@
 
     // ── Mobile menu ──
     const menuToggle = document.getElementById('menuToggle');
-    const menuClose = document.getElementById('menuClose');
+    const menuClose  = document.getElementById('menuClose');
     const mobileMenu = document.getElementById('mobileMenuPanel');
     const mobileOverlay = document.getElementById('mobileOverlay');
 
@@ -1149,38 +1166,38 @@
 
     // ── Experience slider ──
     const expSlider = document.querySelector('.exp-slider');
-    const expLeft = document.querySelector('.exp-left');
-    const expRight = document.querySelector('.exp-right');
+    const expLeft   = document.querySelector('.exp-left');
+    const expRight  = document.querySelector('.exp-right');
 
     if (expLeft && expRight && expSlider) {
-      expLeft.addEventListener('click', () => expSlider.scrollBy({ left: -360, behavior: 'smooth' }));
-      expRight.addEventListener('click', () => expSlider.scrollBy({ left: 360, behavior: 'smooth' }));
+      expLeft.addEventListener('click',  () => expSlider.scrollBy({ left: -360, behavior: 'smooth' }));
+      expRight.addEventListener('click', () => expSlider.scrollBy({ left:  360, behavior: 'smooth' }));
     }
 
     // ── Testimonial slider ──
     const testSlider = document.querySelector('.testimonial-slider');
-    const testLeft = document.querySelector('.slider-btn.left');
-    const testRight = document.querySelector('.slider-btn.right');
+    const testLeft   = document.querySelector('.slider-btn.left');
+    const testRight  = document.querySelector('.slider-btn.right');
 
     if (testLeft && testRight && testSlider) {
-      testLeft.addEventListener('click', () => testSlider.scrollBy({ left: -340, behavior: 'smooth' }));
-      testRight.addEventListener('click', () => testSlider.scrollBy({ left: 340, behavior: 'smooth' }));
+      testLeft.addEventListener('click',  () => testSlider.scrollBy({ left: -340, behavior: 'smooth' }));
+      testRight.addEventListener('click', () => testSlider.scrollBy({ left:  340, behavior: 'smooth' }));
     }
 
     // ── Cookie banner ──
-    const COOKIE_KEY = 'btp_cookie_consent';
-    const banner = document.getElementById('cookie-banner');
-    const overlay = document.getElementById('cb-overlay');
-    const cbSettings = document.getElementById('cb-settings');
+    const COOKIE_KEY     = 'btp_cookie_consent';
+    const banner         = document.getElementById('cookie-banner');
+    const cbOverlay      = document.getElementById('cb-overlay');
+    const cbSettings     = document.getElementById('cb-settings');
     const analyticsToggle = document.getElementById('cb-analytics');
 
     function showBanner() {
       banner.classList.add('visible');
-      overlay.classList.add('visible');
+      cbOverlay.classList.add('visible');
     }
     function hideBanner() {
       banner.classList.remove('visible');
-      overlay.classList.remove('visible');
+      cbOverlay.classList.remove('visible');
     }
     function saveConsent(analytics) {
       localStorage.setItem(COOKIE_KEY, JSON.stringify({ analytics, ts: Date.now() }));
@@ -1193,7 +1210,7 @@
 
     document.getElementById('cb-accept')?.addEventListener('click', () => saveConsent(true));
     document.getElementById('cb-reject')?.addEventListener('click', () => saveConsent(false));
-    document.getElementById('cb-save')?.addEventListener('click', () => saveConsent(analyticsToggle?.checked || false));
+    document.getElementById('cb-save')?.addEventListener('click',   () => saveConsent(analyticsToggle?.checked || false));
     document.getElementById('cb-settings-btn')?.addEventListener('click', () => {
       cbSettings.classList.toggle('open');
     });
