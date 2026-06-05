@@ -1106,3 +1106,97 @@
         </div>
         <div class="cb-toggle-row">
           <div class="cb-toggle-info"><div
+                                        <script>
+    // ── Analytics event tracking ──
+    document.addEventListener('click', function(e) {
+      const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], a[href*="gaelic"], .floating-cta');
+      if (cta && typeof gtag !== 'undefined') {
+        gtag('event', 'cta_click', { event_category: 'engagement', event_label: cta.textContent.trim(), value: 1 });
+      }
+    });
+    let scrollTracked = false;
+    window.addEventListener('scroll', function() {
+      if (scrollTracked) return;
+      const pct = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+      if (pct > 75) {
+        scrollTracked = true;
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'scroll_depth', { event_category: 'engagement', event_label: '75%', value: 1 });
+        }
+      }
+    });
+
+    // ── Mobile menu ──
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobileMenuPanel');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function openMenu() {
+      mobileMenu.classList.add('active');
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    mobileOverlay.addEventListener('click', closeMenu);
+
+    // ── Experience slider ──
+    const expSlider = document.querySelector('.exp-slider');
+    const expLeft = document.querySelector('.exp-left');
+    const expRight = document.querySelector('.exp-right');
+
+    if (expLeft && expRight && expSlider) {
+      expLeft.addEventListener('click', () => expSlider.scrollBy({ left: -360, behavior: 'smooth' }));
+      expRight.addEventListener('click', () => expSlider.scrollBy({ left: 360, behavior: 'smooth' }));
+    }
+
+    // ── Testimonial slider ──
+    const testSlider = document.querySelector('.testimonial-slider');
+    const testLeft = document.querySelector('.slider-btn.left');
+    const testRight = document.querySelector('.slider-btn.right');
+
+    if (testLeft && testRight && testSlider) {
+      testLeft.addEventListener('click', () => testSlider.scrollBy({ left: -340, behavior: 'smooth' }));
+      testRight.addEventListener('click', () => testSlider.scrollBy({ left: 340, behavior: 'smooth' }));
+    }
+
+    // ── Cookie banner ──
+    const COOKIE_KEY = 'btp_cookie_consent';
+    const banner = document.getElementById('cookie-banner');
+    const overlay = document.getElementById('cb-overlay');
+    const cbSettings = document.getElementById('cb-settings');
+    const analyticsToggle = document.getElementById('cb-analytics');
+
+    function showBanner() {
+      banner.classList.add('visible');
+      overlay.classList.add('visible');
+    }
+    function hideBanner() {
+      banner.classList.remove('visible');
+      overlay.classList.remove('visible');
+    }
+    function saveConsent(analytics) {
+      localStorage.setItem(COOKIE_KEY, JSON.stringify({ analytics, ts: Date.now() }));
+      hideBanner();
+    }
+
+    if (!localStorage.getItem(COOKIE_KEY)) {
+      setTimeout(showBanner, 1200);
+    }
+
+    document.getElementById('cb-accept')?.addEventListener('click', () => saveConsent(true));
+    document.getElementById('cb-reject')?.addEventListener('click', () => saveConsent(false));
+    document.getElementById('cb-save')?.addEventListener('click', () => saveConsent(analyticsToggle?.checked || false));
+    document.getElementById('cb-settings-btn')?.addEventListener('click', () => {
+      cbSettings.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
