@@ -680,7 +680,7 @@
 
       <div class="form-card">
         <div class="form-title">Request availability →</div>
-        <form id="enquiryForm" onsubmit="handleSubmit(event)" novalidate>
+       <form id="enquiryForm" action="https://formspree.io/f/mrevbjol" method="POST" onsubmit="handleSubmit(event)" novalidate>
           <div class="form-grid">
             <div class="form-group">
               <label for="fname">First name</label>
@@ -822,24 +822,35 @@
     }, 250);
   }
 
-  function handleSubmit(e){
-    e.preventDefault();
-    const form = document.getElementById('enquiryForm');
-    const success = document.getElementById('formSuccess');
-    const subject = encodeURIComponent('Prague Ice Hockey Tour Enquiry');
-    const fname = document.getElementById('fname').value;
-    const email = document.getElementById('email').value;
-    const date = document.getElementById('date').value;
-    const groupsize = document.getElementById('groupsize').value;
-    const version = document.getElementById('version').value;
-    const message = document.getElementById('message').value;
-    const body = encodeURIComponent(
-      `Name: ${fname}\nEmail: ${email}\nPreferred date: ${date}\nGroup size: ${groupsize}\nVersion: ${version}\n\nAdditional info:\n${message}`
-    );
-    window.location.href = `mailto:info@travelbeyondthepitch.com?subject=${subject}&body=${body}`;
-    form.style.display = 'none';
-    success.style.display = 'block';
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('enquiryForm');
+  const success = document.getElementById('formSuccess');
+  const btn = form.querySelector('button[type="submit"]');
+
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mrevbjol', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    } else {
+      btn.textContent = 'Send your request →';
+      btn.disabled = false;
+      alert('Something went wrong. Please email us directly at info@travelbeyondthepitch.com');
+    }
+  } catch {
+    btn.textContent = 'Send your request →';
+    btn.disabled = false;
+    alert('Something went wrong. Please email us directly at info@travelbeyondthepitch.com');
   }
+}
 </script>
 </body>
 </html>
