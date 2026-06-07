@@ -99,19 +99,8 @@
     .card-front { 
       transform: rotateY(180deg); 
       background: linear-gradient(165deg, #1e1408 0%, #120d04 40%, #0c0805 100%);
-      border: 2px solid transparent;
-      background-clip: padding-box;
+      border: 3px solid var(--gold);
       position: relative;
-    }
-
-    /* Outer gold border via pseudo overlay */
-    .card-front::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 13px;
-      background: linear-gradient(145deg, #f0d060, #c9a84c 30%, #7a5c1a 60%, #c9a84c 80%, #f0d060);
-      z-index: -1;
     }
 
     /* Inner border line */
