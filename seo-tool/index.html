@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beyond the Pitch — Search Visibility Tool</title>
+<meta name="description" content="SEO, GEO en SEA prompt generator voor travelbeyondthepitch.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Plugins -->
+<!-- Marked.js: renders markdown output from AI als nette HTML -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!-- DOMPurify: sanitize gerenderde HTML tegen XSS -->
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+<!-- Highlight.js: syntax highlighting voor code-blokken in output -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/xml.min.js"></script>
+
 <style>
   :root {
     --black: #0a0a0a;
@@ -15,6 +29,7 @@
     --grey: #2a2a2a;
     --mid: #555;
     --amber: #e8a020;
+    --red: #ff6b6b;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,12 +43,11 @@
     overflow-x: hidden;
   }
 
-  /* Background texture */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: 
+    background:
       radial-gradient(ellipse 60% 40% at 80% 20%, rgba(45,106,45,0.12) 0%, transparent 60%),
       radial-gradient(ellipse 40% 60% at 10% 80%, rgba(184,255,60,0.04) 0%, transparent 50%);
     pointer-events: none;
@@ -43,7 +57,7 @@
   .wrapper {
     position: relative;
     z-index: 1;
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 48px 24px 80px;
   }
@@ -53,7 +67,7 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    margin-bottom: 56px;
+    margin-bottom: 32px;
     border-bottom: 1px solid rgba(184,255,60,0.15);
     padding-bottom: 32px;
   }
@@ -92,14 +106,82 @@
     text-transform: uppercase;
   }
 
+  /* Mode toggle */
+  .mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .mode-toggle-text { font-size: 13px; color: rgba(245,240,232,0.7); flex: 1; min-width: 240px; }
+  .mode-toggle-text strong { color: var(--lime); font-weight: 500; }
+
+  .switch-wrap { display: flex; align-items: center; gap: 12px; }
+  .switch-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--mid); }
+  .switch-label.active { color: var(--lime); }
+  .switch {
+    position: relative;
+    width: 46px;
+    height: 24px;
+    background: var(--grey);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .switch.on { background: var(--lime); }
+  .switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: var(--black);
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .switch.on::after { transform: translateX(22px); }
+
+  /* API config panel */
+  .api-config {
+    display: none;
+    background: rgba(232,160,32,0.06);
+    border: 1px solid rgba(232,160,32,0.25);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  .api-config.visible { display: block; }
+  .api-config h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--amber);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .api-config p { font-size: 12px; color: rgba(245,240,232,0.6); margin-bottom: 12px; line-height: 1.5; }
+  .api-config a { color: var(--amber); text-decoration: underline; }
+  .api-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .api-row { grid-template-columns: 1fr; } }
+
   /* Tab nav */
   .tab-nav {
     display: flex;
     gap: 4px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     border-bottom: 1px solid var(--grey);
-    padding-bottom: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
+  .tab-nav::-webkit-scrollbar { display: none; }
 
   .tab-btn {
     background: none;
@@ -115,22 +197,15 @@
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
     transition: all 0.2s;
+    white-space: nowrap;
   }
 
-  .tab-btn.active {
-    color: var(--lime);
-    border-bottom-color: var(--lime);
-  }
+  .tab-btn.active { color: var(--lime); border-bottom-color: var(--lime); }
+  .tab-btn:hover:not(.active) { color: var(--white); }
 
-  .tab-btn:hover:not(.active) {
-    color: var(--white);
-  }
-
-  /* Tab panels */
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* Section label */
   .section-label {
     font-size: 11px;
     text-transform: uppercase;
@@ -140,10 +215,7 @@
     font-weight: 500;
   }
 
-  /* Form elements */
-  .field-group {
-    margin-bottom: 28px;
-  }
+  .field-group { margin-bottom: 24px; }
 
   label {
     display: block;
@@ -153,7 +225,7 @@
     letter-spacing: 0.3px;
   }
 
-  select, input[type="text"], textarea {
+  select, input[type="text"], input[type="password"], textarea {
     width: 100%;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
@@ -178,27 +250,14 @@
 
   select option { background: #1a1a1a; }
 
-  select:focus, input:focus, textarea:focus {
-    border-color: rgba(184,255,60,0.5);
-  }
+  select:focus, input:focus, textarea:focus { border-color: rgba(184,255,60,0.5); }
 
-  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; font-family: 'DM Sans', sans-serif; }
 
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
 
-  /* Checkbox pills */
-  .pill-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-  }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 
   .pill-label {
     display: flex;
@@ -215,54 +274,53 @@
   }
 
   .pill-label:hover { border-color: rgba(184,255,60,0.4); }
-
   .pill-label input { display: none; }
-
   .pill-label.checked {
     background: rgba(184,255,60,0.12);
     border-color: var(--lime);
     color: var(--lime);
   }
 
-  /* Generate button */
-  .btn-generate {
-    width: 100%;
-    background: var(--lime);
-    color: var(--black);
+  /* Action buttons */
+  .button-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  @media (max-width: 560px) { .button-row { grid-template-columns: 1fr; } }
+
+  .btn {
     border: none;
     font-family: 'Bebas Neue', cursive;
-    font-size: 20px;
-    letter-spacing: 3px;
-    padding: 18px 32px;
+    font-size: 18px;
+    letter-spacing: 2.5px;
+    padding: 16px 24px;
     cursor: pointer;
-    margin-top: 36px;
     transition: all 0.2s;
     position: relative;
     overflow: hidden;
+    border-radius: 4px;
   }
-
-  .btn-generate::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: white;
-    opacity: 0;
-    transition: opacity 0.15s;
+  .btn-primary { background: var(--lime); color: var(--black); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--lime);
+    border: 1px solid rgba(184,255,60,0.5);
   }
-
-  .btn-generate:hover::after { opacity: 0.12; }
-  .btn-generate:active { transform: scale(0.99); }
-  .btn-generate:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-secondary:hover { background: rgba(184,255,60,0.08); }
+  .btn-primary:hover { box-shadow: 0 0 24px rgba(184,255,60,0.3); }
+  .btn:active { transform: scale(0.99); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
   /* Output */
   .output-box {
-    margin-top: 40px;
+    margin-top: 36px;
     border: 1px solid rgba(184,255,60,0.2);
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: hidden;
     display: none;
   }
-
   .output-box.visible { display: block; }
 
   .output-header {
@@ -272,6 +330,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .output-header span {
@@ -282,88 +342,187 @@
     font-weight: 500;
   }
 
-  .copy-btn {
+  .output-actions { display: flex; gap: 6px; }
+
+  .icon-btn {
     background: none;
     border: 1px solid rgba(184,255,60,0.3);
     color: var(--lime);
     font-family: 'DM Mono', monospace;
     font-size: 11px;
-    padding: 5px 12px;
+    padding: 5px 10px;
     cursor: pointer;
     border-radius: 3px;
     transition: all 0.2s;
     letter-spacing: 1px;
   }
-
-  .copy-btn:hover { background: rgba(184,255,60,0.1); }
+  .icon-btn:hover { background: rgba(184,255,60,0.1); }
 
   .output-content {
-    padding: 24px;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    line-height: 1.8;
-    color: rgba(245,240,232,0.85);
-    white-space: pre-wrap;
-    word-break: break-word;
-    max-height: 520px;
+    padding: 24px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.92);
+    max-height: 600px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--grey) transparent;
   }
 
-  /* Loading */
-  .loading-state {
-    padding: 40px;
-    text-align: center;
-    display: none;
+  /* Markdown styling inside output */
+  .output-content h1, .output-content h2, .output-content h3 {
+    font-family: 'Bebas Neue', cursive;
+    color: var(--lime);
+    letter-spacing: 1.5px;
+    margin: 24px 0 12px;
+    line-height: 1.2;
+  }
+  .output-content h1 { font-size: 22px; }
+  .output-content h2 { font-size: 18px; }
+  .output-content h3 { font-size: 15px; color: var(--white); }
+  .output-content p { margin: 0 0 12px; }
+  .output-content ul, .output-content ol { margin: 0 0 16px 24px; }
+  .output-content li { margin-bottom: 6px; }
+  .output-content strong { color: var(--lime); font-weight: 500; }
+  .output-content em { color: var(--amber); font-style: normal; }
+  .output-content code {
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--lime);
+  }
+  .output-content pre {
+    background: #0d0d0d;
+    border: 1px solid var(--grey);
+    border-radius: 4px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  .output-content pre code {
+    background: none;
+    padding: 0;
+    color: rgba(245,240,232,0.9);
+  }
+  .output-content hr {
+    border: none;
+    border-top: 1px solid rgba(184,255,60,0.15);
+    margin: 20px 0;
+  }
+  .output-content blockquote {
+    border-left: 2px solid var(--amber);
+    padding-left: 16px;
+    margin: 12px 0;
+    color: rgba(245,240,232,0.7);
+    font-style: italic;
+  }
+  .output-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .output-content th, .output-content td {
+    border: 1px solid var(--grey);
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .output-content th { background: rgba(184,255,60,0.06); color: var(--lime); }
+
+  /* Plain (prompt) view */
+  .output-content.plain {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
+  /* Loading */
+  .loading-state { padding: 40px; text-align: center; display: none; }
   .loading-state.visible { display: block; }
-
   .spinner {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border: 2px solid rgba(184,255,60,0.2);
     border-top-color: var(--lime);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin: 0 auto 16px;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-state p { font-size: 13px; color: var(--mid); letter-spacing: 0.5px; }
 
-  .loading-state p {
-    font-size: 13px;
-    color: var(--mid);
-    letter-spacing: 0.5px;
-  }
-
-  /* Highlight blocks in output */
-  .output-content .block-title {
-    color: var(--lime);
-    font-weight: 500;
-  }
-
-  /* Divider */
-  .divider {
-    height: 1px;
-    background: linear-gradient(to right, rgba(184,255,60,0.15), transparent);
-    margin: 32px 0;
-  }
-
-  /* Info callout */
+  /* Callout */
   .callout {
     background: rgba(232,160,32,0.06);
     border-left: 2px solid var(--amber);
     padding: 12px 16px;
     border-radius: 0 4px 4px 0;
     font-size: 13px;
-    color: rgba(245,240,232,0.6);
+    color: rgba(245,240,232,0.65);
     line-height: 1.6;
     margin-bottom: 24px;
   }
-
   .callout strong { color: var(--amber); font-weight: 500; }
+
+  /* History panel */
+  .history-panel {
+    margin-top: 32px;
+    border-top: 1px solid var(--grey);
+    padding-top: 24px;
+  }
+  .history-panel h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    margin-bottom: 14px;
+  }
+  .history-empty { font-size: 12px; color: var(--mid); font-style: italic; }
+  .history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .history-item:hover { border-color: rgba(184,255,60,0.4); }
+  .history-meta { color: var(--mid); font-family: 'DM Mono', monospace; font-size: 11px; }
+  .history-label { color: var(--white); flex: 1; margin-right: 12px; }
+  .history-del { color: var(--red); background: none; border: none; cursor: pointer; font-size: 14px; padding: 0 6px; }
+
+  /* Error message */
+  .error-banner {
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.4);
+    color: #ffb3b3;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--grey);
+    font-size: 11px;
+    color: var(--mid);
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .footer a { color: var(--lime); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -377,6 +536,49 @@
     </div>
   </div>
 
+  <!-- MODE TOGGLE -->
+  <div class="mode-toggle">
+    <div class="mode-toggle-text">
+      <strong>Modus:</strong> <span id="mode-text">Prompt genereren</span> — kopieer de prompt en plak in ChatGPT, Claude of Gemini.
+    </div>
+    <div class="switch-wrap">
+      <span class="switch-label active" id="label-prompt">Prompt</span>
+      <div class="switch" id="mode-switch"></div>
+      <span class="switch-label" id="label-ai">AI ingebouwd</span>
+    </div>
+  </div>
+
+  <!-- API CONFIG (zichtbaar in AI-modus) -->
+  <div class="api-config" id="api-config">
+    <h4>⚡ API Configuratie</h4>
+    <p>De ingebouwde AI-modus gebruikt jouw eigen API-key (lokaal opgeslagen in je browser, nooit naar onze server gestuurd). Aanbevolen: <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OpenRouter</a> (één key voor alle modellen, vanaf $5 saldo).</p>
+    <div class="api-row">
+      <div>
+        <label>Provider</label>
+        <select id="api-provider">
+          <option value="openrouter">OpenRouter (aanbevolen)</option>
+          <option value="anthropic">Anthropic direct</option>
+          <option value="openai">OpenAI direct</option>
+        </select>
+      </div>
+      <div>
+        <label>Model</label>
+        <select id="api-model">
+          <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+          <option value="anthropic/claude-3.7-sonnet">Claude 3.7 Sonnet</option>
+          <option value="openai/gpt-4o">GPT-4o</option>
+          <option value="openai/gpt-4o-mini">GPT-4o-mini (goedkoop)</option>
+          <option value="google/gemini-2.0-flash-exp">Gemini 2.0 Flash</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top: 10px;">
+      <label>API Key (begint met sk-...)</label>
+      <input type="password" id="api-key" placeholder="sk-or-v1-...">
+    </div>
+  </div>
+
+  <!-- TABS -->
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="seo">SEO</button>
     <button class="tab-btn" data-tab="geo">GEO</button>
@@ -425,6 +627,7 @@
         <label class="pill-label"><input type="checkbox" value="brief">Content brief</label>
         <label class="pill-label"><input type="checkbox" value="schema">Schema markup hints</label>
         <label class="pill-label"><input type="checkbox" value="internal">Interne linkstructuur</label>
+        <label class="pill-label"><input type="checkbox" value="eeat">E-E-A-T signalen</label>
       </div>
     </div>
 
@@ -433,7 +636,10 @@
       <textarea id="seo-context" placeholder="Bijv: 'de pagina richt zich op groepsreizen van 25-45 jaar, sportieve reizigers die authenticiteit zoeken'"></textarea>
     </div>
 
-    <button class="btn-generate" data-mode="seo">GENEREER SEO PROMPTS →</button>
+    <div class="button-row">
+      <button class="btn btn-secondary" data-action="preview" data-mode="seo">👁 PROMPT TONEN</button>
+      <button class="btn btn-primary" data-action="generate" data-mode="seo">GENEREER →</button>
+    </div>
   </div>
 
   <!-- GEO TAB -->
@@ -460,6 +666,7 @@
           <option value="perplexity">Perplexity</option>
           <option value="google-ai">Google AI Overviews</option>
           <option value="claude">Claude / Anthropic</option>
+          <option value="gemini">Google Gemini</option>
         </select>
       </div>
     </div>
@@ -472,6 +679,7 @@
         <label class="pill-label"><input type="checkbox" value="authority">Autoriteit-signalen</label>
         <label class="pill-label"><input type="checkbox" value="structured">Gestructureerde feiten</label>
         <label class="pill-label"><input type="checkbox" value="blog">Blog prompt (GEO-vriendelijk)</label>
+        <label class="pill-label"><input type="checkbox" value="llmstxt">llms.txt bestand</label>
       </div>
     </div>
 
@@ -480,7 +688,10 @@
       <input type="text" id="geo-query" placeholder="bijv: 'best unique sports experiences in Europe'">
     </div>
 
-    <button class="btn-generate" data-mode="geo">GENEREER GEO PROMPTS →</button>
+    <div class="button-row">
+      <button class="btn btn-secondary" data-action="preview" data-mode="geo">👁 PROMPT TONEN</button>
+      <button class="btn btn-primary" data-action="generate" data-mode="geo">GENEREER →</button>
+    </div>
   </div>
 
   <!-- SEA TAB -->
@@ -530,6 +741,27 @@
       </div>
     </div>
 
+    <div class="grid-2">
+      <div class="field-group">
+        <label>Campagnetype</label>
+        <select id="sea-campaign-type">
+          <option value="search">Search</option>
+          <option value="pmax">Performance Max</option>
+          <option value="demand">Demand Gen</option>
+          <option value="display">Display / Remarketing</option>
+          <option value="mix">Mix (aanbevolen)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Conversie-tracking aanwezig?</label>
+        <select id="sea-tracking">
+          <option value="yes">Ja, GA4 + conversies actief</option>
+          <option value="partial">Gedeeltelijk (alleen GA4)</option>
+          <option value="no">Nee, nog opzetten</option>
+        </select>
+      </div>
+    </div>
+
     <div class="field-group">
       <label>Type SEA-output</label>
       <div class="pill-group" id="sea-types">
@@ -537,11 +769,16 @@
         <label class="pill-label checked"><input type="checkbox" value="ads">Advertentieteksten (RSA)</label>
         <label class="pill-label"><input type="checkbox" value="structure">Campagne-structuur</label>
         <label class="pill-label"><input type="checkbox" value="negative">Negatieve zoekwoorden</label>
-        <label class="pill-label"><input type="checkbox" value="extensions">Ad extensions</label>
+        <label class="pill-label"><input type="checkbox" value="extensions">Ad assets (extensions)</label>
+        <label class="pill-label"><input type="checkbox" value="audience">Doelgroep / audience signals</label>
+        <label class="pill-label"><input type="checkbox" value="landing">Landing page audit punten</label>
       </div>
     </div>
 
-    <button class="btn-generate" data-mode="sea">GENEREER SEA PROMPTS →</button>
+    <div class="button-row">
+      <button class="btn btn-secondary" data-action="preview" data-mode="sea">👁 PROMPT TONEN</button>
+      <button class="btn btn-primary" data-action="generate" data-mode="sea">GENEREER →</button>
+    </div>
   </div>
 
   <!-- COMBINED TAB -->
@@ -586,34 +823,162 @@
       <textarea id="comb-context" placeholder="Bijv: 'we hebben momenteel geen Google Ads account, website staat live, we bloggen nog niet actief'"></textarea>
     </div>
 
-    <button class="btn-generate" data-mode="combined">GENEREER VOLLEDIGE STRATEGIE →</button>
+    <div class="button-row">
+      <button class="btn btn-secondary" data-action="preview" data-mode="combined">👁 PROMPT TONEN</button>
+      <button class="btn btn-primary" data-action="generate" data-mode="combined">GENEREER VOLLEDIGE STRATEGIE →</button>
+    </div>
   </div>
 
   <!-- Loading + Output -->
   <div class="loading-state" id="loading">
     <div class="spinner"></div>
-    <p>Prompts worden gegenereerd...</p>
+    <p id="loading-text">Output wordt gegenereerd...</p>
   </div>
 
   <div class="output-box" id="output-box">
     <div class="output-header">
       <span id="output-label">Output</span>
-      <button class="copy-btn" id="copy-btn">KOPIEER</button>
+      <div class="output-actions">
+        <button class="icon-btn" id="copy-btn">📋 KOPIEER</button>
+        <button class="icon-btn" id="download-btn">⬇ DOWNLOAD</button>
+        <button class="icon-btn" id="chatgpt-btn" style="display:none;">→ OPEN IN CHATGPT</button>
+      </div>
     </div>
     <div class="output-content" id="output-content"></div>
+  </div>
+
+  <div id="error-container"></div>
+
+  <!-- History panel -->
+  <div class="history-panel">
+    <h3>📜 Recente generaties</h3>
+    <div id="history-list">
+      <p class="history-empty">Nog geen geschiedenis. Generaties verschijnen hier automatisch.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    © Beyond the Pitch · <a href="https://travelbeyondthepitch.com" target="_blank">travelbeyondthepitch.com</a> · Tool werkt 100% lokaal in je browser
   </div>
 
 </div>
 
 <script>
-// Pill toggle
-document.querySelectorAll('.pill-label').forEach(label => {
-  label.addEventListener('click', () => {
-    label.classList.toggle('checked');
-  });
+/* ============================================================
+   STATE & CONSTANTS
+   ============================================================ */
+const STATE = {
+  mode: localStorage.getItem('btp_mode') || 'prompt', // 'prompt' or 'ai'
+  apiProvider: localStorage.getItem('btp_provider') || 'openrouter',
+  apiModel: localStorage.getItem('btp_model') || 'anthropic/claude-3.5-sonnet',
+  apiKey: localStorage.getItem('btp_apikey') || '',
+  lastOutput: '',
+  lastIsMarkdown: false,
+};
+
+const BRAND_CONTEXT = `Beyond the Pitch (travelbeyondthepitch.com) – een sport-cultuur ervaringsbedrijf dat kleine groepsreizen aanbiedt rondom authentieke lokale sportcultuur. Producten: Prague Ice Hockey Experience (lokale Tsjechische ijshockeycultuur, gids Kamil), Gaelic Games Kilkenny & Dublin (hurling/GAA cultuur, gids James), en Naadam Mongolia (coming soon). Doelgroep: cultureel nieuwsgierige, avontuurlijke reizigers van 28-55 jaar die sport als cultuurlens zien. Unique selling points: small-group, insider access, authentieke locals, geen toeristische bubbel.`;
+
+const SYSTEM_PROMPT = "Je bent een expert digital marketing strateeg gespecialiseerd in niche travel en sport-cultuurreizen. Schrijf altijd direct bruikbare, specifieke output. Geen uitleg vooraf — gewoon de output. Gebruik markdown met heldere koppen (##), bullets, tabellen waar nuttig en witruimte. Schrijf in de taal van de doelmarkt tenzij anders gevraagd. Geef concrete voorbeelden, geen vage adviezen.";
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  applyModeFromState();
+  loadApiSettings();
+  renderHistory();
+
+  // Configure marked
+  if (window.marked) {
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      headerIds: false,
+      mangle: false
+    });
+  }
+  // Configure highlight.js
+  if (window.hljs) {
+    hljs.registerLanguage('json', window.hljsJson || hljs.getLanguage('json'));
+  }
 });
 
-// Tab switching
+/* ============================================================
+   MODE SWITCH
+   ============================================================ */
+const modeSwitch = document.getElementById('mode-switch');
+modeSwitch.addEventListener('click', () => {
+  STATE.mode = STATE.mode === 'prompt' ? 'ai' : 'prompt';
+  localStorage.setItem('btp_mode', STATE.mode);
+  applyModeFromState();
+});
+
+function applyModeFromState() {
+  const sw = document.getElementById('mode-switch');
+  const lp = document.getElementById('label-prompt');
+  const la = document.getElementById('label-ai');
+  const apiConf = document.getElementById('api-config');
+  const modeText = document.getElementById('mode-text');
+  const cgptBtn = document.getElementById('chatgpt-btn');
+
+  if (STATE.mode === 'ai') {
+    sw.classList.add('on');
+    lp.classList.remove('active');
+    la.classList.add('active');
+    apiConf.classList.add('visible');
+    modeText.textContent = 'Ingebouwde AI (jouw API-key)';
+    cgptBtn.style.display = 'none';
+  } else {
+    sw.classList.remove('on');
+    lp.classList.add('active');
+    la.classList.remove('active');
+    apiConf.classList.remove('visible');
+    modeText.textContent = 'Prompt genereren (gratis, kopieer naar ChatGPT/Claude)';
+  }
+
+  // Update button labels
+  document.querySelectorAll('[data-action="generate"]').forEach(b => {
+    const mode = b.dataset.mode;
+    const labels = {
+      seo: STATE.mode === 'ai' ? 'GENEREER SEO →' : 'BOUW SEO PROMPT →',
+      geo: STATE.mode === 'ai' ? 'GENEREER GEO →' : 'BOUW GEO PROMPT →',
+      sea: STATE.mode === 'ai' ? 'GENEREER SEA →' : 'BOUW SEA PROMPT →',
+      combined: STATE.mode === 'ai' ? 'GENEREER STRATEGIE →' : 'BOUW VOLLEDIGE PROMPT →'
+    };
+    b.textContent = labels[mode];
+  });
+}
+
+/* ============================================================
+   API SETTINGS
+   ============================================================ */
+function loadApiSettings() {
+  document.getElementById('api-provider').value = STATE.apiProvider;
+  document.getElementById('api-model').value = STATE.apiModel;
+  document.getElementById('api-key').value = STATE.apiKey;
+}
+
+['api-provider', 'api-model', 'api-key'].forEach(id => {
+  document.getElementById(id).addEventListener('change', saveApiSettings);
+  document.getElementById(id).addEventListener('blur', saveApiSettings);
+});
+
+function saveApiSettings() {
+  STATE.apiProvider = document.getElementById('api-provider').value;
+  STATE.apiModel = document.getElementById('api-model').value;
+  STATE.apiKey = document.getElementById('api-key').value.trim();
+  localStorage.setItem('btp_provider', STATE.apiProvider);
+  localStorage.setItem('btp_model', STATE.apiModel);
+  localStorage.setItem('btp_apikey', STATE.apiKey);
+}
+
+/* ============================================================
+   PILL TOGGLES & TABS
+   ============================================================ */
+document.querySelectorAll('.pill-label').forEach(label => {
+  label.addEventListener('click', () => label.classList.toggle('checked'));
+});
+
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const tab = btn.dataset.tab;
@@ -622,37 +987,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     document.getElementById('tab-' + tab).classList.add('active');
     document.getElementById('output-box').classList.remove('visible');
+    document.getElementById('error-container').innerHTML = '';
   });
 });
 
-// Copy button
-document.getElementById('copy-btn').addEventListener('click', () => {
-  const text = document.getElementById('output-content').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copy-btn');
-    btn.textContent = 'GEKOPIEERD ✓';
-    setTimeout(() => btn.textContent = 'KOPIEER', 2000);
-  });
-});
-
-// Gather checked pills
+/* ============================================================
+   HELPERS
+   ============================================================ */
 function getChecked(groupId) {
   return Array.from(document.querySelectorAll(`#${groupId} .pill-label.checked input`))
     .map(i => i.value).join(', ');
 }
 
-// Build prompts
-function buildPrompt(mode) {
-  const brand = `Beyond the Pitch (travelbeyondthepitch.com) – een sport-cultuur ervaringsbedrijf dat kleine groepsreizen aanbiedt rondom authentieke lokale sportcultuur. Producten: Prague Ice Hockey Experience (lokale Tsjechische ijshockeycultuur, gids Kamil), Gaelic Games Kilkenny & Dublin (hurling/GAA cultuur, gids James), en Naadam Mongolia (coming soon). Doelgroep: cultureel nieuwsgierige, avontuurlijke reizigers van 28-55 jaar die sport als cultuurlens zien. Unique selling points: small-group, insider access, authentieke locals, geen toeristische bubbel.`;
+function getSelectLabel(id) {
+  const el = document.getElementById(id);
+  if (!el) return '';
+  return el.options[el.selectedIndex].text;
+}
 
+/* ============================================================
+   PROMPT BUILDERS
+   ============================================================ */
+function buildPrompt(mode) {
   if (mode === 'seo') {
-    const product = document.getElementById('seo-product').value;
-    const market = document.getElementById('seo-market').value;
-    const types = getChecked('seo-types');
+    const product = getSelectLabel('seo-product');
+    const market = getSelectLabel('seo-market');
+    const types = getChecked('seo-types') || 'Keyword clusters, Meta title & description';
     const context = document.getElementById('seo-context').value;
     return `Je bent een expert SEO-strateeg gespecialiseerd in niche travel en sport-cultuurreizen.
 
-MERK: ${brand}
+MERK: ${BRAND_CONTEXT}
 
 PRODUCT FOCUS: ${product}
 DOELMARKT / TAAL: ${market}
@@ -664,29 +1028,31 @@ INSTRUCTIES:
 2. Focus op search intent: wat zoekt iemand die dit soort reis overweegt?
 3. Verwerk de volgende elementen waar gevraagd:
 
-KEYWORD CLUSTERS: Geef 3-4 clusters met elk 5-8 zoekwoorden. Onderscheid: (a) informatief/oriënterend, (b) transactioneel/boekingsgericht, (c) long-tail niche. Geef voor elk zoekwoord een inschatting van moeilijkheidsgraad (laag/middel/hoog) en intent.
+**KEYWORD CLUSTERS**: Geef 3-4 clusters met elk 5-8 zoekwoorden. Onderscheid: (a) informatief/oriënterend, (b) transactioneel/boekingsgericht, (c) long-tail niche. Geef voor elk zoekwoord een inschatting van moeilijkheidsgraad (laag/middel/hoog), geschat zoekvolume, en intent. Presenteer als markdown-tabel.
 
-META TITLE & DESCRIPTION: Schrijf 3 varianten van de meta title (max 60 tekens) en meta description (max 155 tekens). Verwerk primair zoekwoord, USP en call-to-action. Schrijf in de taal van de doelmarkt.
+**META TITLE & DESCRIPTION**: Schrijf 3 varianten van de meta title (max 60 tekens) en meta description (max 155 tekens). Verwerk primair zoekwoord, USP en call-to-action. Schrijf in de taal van de doelmarkt. Toon tekenaantal per variant.
 
-H1/H2 STRUCTUUR: Stel een complete pagina-structuur voor met H1, minimaal 4 H2's en bijbehorende subvragen die als H3 kunnen dienen. Onderbouw waarom elke sectie bijdraagt aan SEO én conversie.
+**H1/H2 STRUCTUUR**: Stel een complete pagina-structuur voor met H1, minimaal 4 H2's en bijbehorende subvragen die als H3 kunnen dienen. Onderbouw waarom elke sectie bijdraagt aan SEO én conversie.
 
-CONTENT BRIEF: Geef een content brief van 300-400 woorden voor een kerntekst. Beschrijf: doel, invalshoek, tone of voice, te behandelen onderwerpen, interne links, en één concrete storytelling-hook om de pagina onderscheidend te maken.
+**CONTENT BRIEF**: Geef een content brief van 300-400 woorden voor een kerntekst. Beschrijf: doel, invalshoek, tone of voice, te behandelen onderwerpen, interne links, en één concrete storytelling-hook om de pagina onderscheidend te maken.
 
-SCHEMA MARKUP: Welke structured data types zijn het meest relevant (TouristAttraction, Event, FAQPage, Review)? Geef concrete voorbeeldvelden.
+**SCHEMA MARKUP**: Welke structured data types zijn het meest relevant (TouristAttraction, Event, FAQPage, Review, Product)? Geef een concreet JSON-LD voorbeeld in een code block.
 
-INTERNE LINKSTRUCTUUR: Stel 5-8 interne links voor met ankertekst en bestemming. Hoe verbindt deze pagina zich logisch aan de rest van de site?
+**INTERNE LINKSTRUCTUUR**: Stel 5-8 interne links voor met ankertekst en bestemming. Hoe verbindt deze pagina zich logisch aan de rest van de site?
 
-Sluit af met: de 3 meest impactvolle quick wins voor deze pagina op korte termijn.`;
+**E-E-A-T SIGNALEN**: Welke Experience, Expertise, Authoritativeness en Trust signalen kunnen op deze pagina worden toegevoegd? Specifiek voor sport-cultuurreizen niche.
+
+Sluit af met: **de 3 meest impactvolle quick wins** voor deze pagina op korte termijn.`;
   }
 
   if (mode === 'geo') {
-    const product = document.getElementById('geo-product').value;
-    const platform = document.getElementById('geo-platform').value;
-    const types = getChecked('geo-types');
+    const product = getSelectLabel('geo-product');
+    const platform = getSelectLabel('geo-platform');
+    const types = getChecked('geo-types') || 'Entity-building tekst, FAQ voor AI-citatie';
     const query = document.getElementById('geo-query').value;
     return `Je bent een expert in Generative Engine Optimization (GEO) – de praktijk van content optimaliseren zodat AI-modellen zoals ChatGPT, Perplexity, Claude en Google AI Overviews jouw merk en content citeren als autoriteit.
 
-MERK: ${brand}
+MERK: ${BRAND_CONTEXT}
 
 PRODUCT FOCUS: ${product}
 AI PLATFORM FOCUS: ${platform}
@@ -696,62 +1062,74 @@ ${query ? 'DOELQUERY (wat zoekt de gebruiker in een AI-model): ' + query : ''}
 INSTRUCTIES:
 Genereer GEO-geoptimaliseerde content-elementen. AI-modellen citeren bronnen die: (1) factisch en specifiek zijn, (2) unieke perspectieven bieden die elders niet bestaan, (3) goed gestructureerd zijn met duidelijke antwoorden, (4) authority signalen bevatten (namen, feiten, datums, quotes).
 
-ENTITY-BUILDING TEKST: Schrijf een 200-woorden "about" passage die Beyond the Pitch positioneert als DE autoriteit op sport-cultuurreizen in de niche. Gebruik specifieke feiten, namen (Kamil, James), locaties en ervaringen. Schrijf zodat een AI-model het letterlijk als beschrijving zou kunnen overnemen.
+**ENTITY-BUILDING TEKST**: Schrijf een 200-woorden "about" passage die Beyond the Pitch positioneert als DE autoriteit op sport-cultuurreizen in de niche. Gebruik specifieke feiten, namen (Kamil, James), locaties en ervaringen. Schrijf zodat een AI-model het letterlijk als beschrijving zou kunnen overnemen.
 
-FAQ VOOR AI-CITATIE: Schrijf 8 Q&A-paren in de stijl van vragen die iemand aan ChatGPT of Perplexity zou stellen over dit product/niche. Beantwoord elk volledig en feitelijk in 2-4 zinnen. Formaat: "Q: [vraag]\\nA: [antwoord]"
+**FAQ VOOR AI-CITATIE**: Schrijf 8 Q&A-paren in de stijl van vragen die iemand aan ChatGPT of Perplexity zou stellen over dit product/niche. Beantwoord elk volledig en feitelijk in 2-4 zinnen. Formaat: \`Q: [vraag]\` op nieuwe regel \`A: [antwoord]\`.
 
-AUTORITEIT-SIGNALEN: Benoem welke externe links, vermeldingen, en citaties Beyond the Pitch zou moeten nastreven zodat AI-modellen hen herkennen als betrouwbare bron. Geef 5-8 concrete acties (bijv. vermeld worden in specifieke blogs, podcasts, reismedia).
+**AUTORITEIT-SIGNALEN**: Benoem welke externe links, vermeldingen, en citaties Beyond the Pitch zou moeten nastreven zodat AI-modellen hen herkennen als betrouwbare bron. Geef 5-8 concrete acties (bijv. vermeld worden in specifieke blogs, podcasts, reismedia).
 
-GESTRUCTUREERDE FEITEN: Maak een "fact sheet" van 15-20 specifieke, citeerbare feiten over het product. Feiten die zo concreet zijn dat een AI ze als snippet zou kunnen gebruiken.
+**GESTRUCTUREERDE FEITEN**: Maak een "fact sheet" van 15-20 specifieke, citeerbare feiten over het product. Feiten die zo concreet zijn dat een AI ze als snippet zou kunnen gebruiken. Presenteer als bullet list.
 
-BLOG PROMPT (GEO): Schrijf een volledige blog-prompt voor een artikel dat optimaal scoort in AI-antwoorden. Inclusief: titel, invalshoek, te behandelen vragen, te verwerken feiten/statistieken, interne links, en de optimale lengte.`;
+**BLOG PROMPT (GEO)**: Schrijf een volledige blog-prompt voor een artikel dat optimaal scoort in AI-antwoorden. Inclusief: titel, invalshoek, te behandelen vragen, te verwerken feiten/statistieken, interne links, en de optimale lengte.
+
+**LLMS.TXT BESTAND**: Genereer een complete \`llms.txt\` bestand (nieuwe 2025 standaard) voor travelbeyondthepitch.com – het bestand dat AI-crawlers vertelt welke content prioriteit heeft. Volg de officiële spec van llmstxt.org. Lever als code block.
+
+Sluit af met: **de 3 belangrijkste GEO-acties** die deze maand uitgevoerd moeten worden.`;
   }
 
   if (mode === 'sea') {
-    const product = document.getElementById('sea-product').value;
-    const market = document.getElementById('sea-market').value;
-    const budget = document.getElementById('sea-budget').value;
-    const goal = document.getElementById('sea-goal').value;
-    const types = getChecked('sea-types');
+    const product = getSelectLabel('sea-product');
+    const market = getSelectLabel('sea-market');
+    const budget = getSelectLabel('sea-budget');
+    const goal = getSelectLabel('sea-goal');
+    const campaignType = getSelectLabel('sea-campaign-type');
+    const tracking = getSelectLabel('sea-tracking');
+    const types = getChecked('sea-types') || 'Zoekwoorden + match types, Advertentieteksten (RSA)';
     return `Je bent een Google Ads specialist met ervaring in niche travel en experience-marketing.
 
-MERK: ${brand}
+MERK: ${BRAND_CONTEXT}
 
 PRODUCT FOCUS: ${product}
 DOELMARKT: ${market}
 BUDGET: ${budget}
 PRIMAIRE DOEL: ${goal}
+CAMPAGNETYPE: ${campaignType}
+CONVERSIE TRACKING STATUS: ${tracking}
 GEWENSTE OUTPUT: ${types}
 
 INSTRUCTIES:
-Bouw een complete Google Ads set-up voor dit product en deze markt.
+Bouw een complete Google Ads set-up voor dit product en deze markt. Houd rekening met het gekozen campagnetype en de tracking-status (als tracking ontbreekt: begin daarmee).
 
-CAMPAGNE-STRUCTUUR: Stel een campagnestructuur voor (campagnes > ad groups > ads). Hoeveel campagnes? Welke thematische opdeling per ad group? Waarom?
+**CAMPAGNE-STRUCTUUR**: Stel een campagnestructuur voor (campagnes > ad groups > ads). Hoeveel campagnes? Welke thematische opdeling per ad group? Waarom? Geef een markdown-tree of tabel.
 
-ZOEKWOORDEN + MATCH TYPES: Geef per ad group 8-12 zoekwoorden met match types (broad match modifier, phrase match, exact match). Categoriseer in: branded, generiek/categorie, long-tail intentie, concurrenten (voorzichtig). Schrijf in de taal van de doelmarkt.
+**ZOEKWOORDEN + MATCH TYPES**: Geef per ad group 8-12 zoekwoorden met match types (broad, phrase, exact). Categoriseer in: branded, generiek/categorie, long-tail intentie, concurrenten (voorzichtig). Schrijf in de taal van de doelmarkt. Presenteer in tabel.
 
-ADVERTENTIETEKSTEN (RSA): Schrijf voor de belangrijkste ad group een Responsive Search Ad met:
-- 15 headlines (max 30 tekens elk)
-- 4 descriptions (max 90 tekens elk)
+**ADVERTENTIETEKSTEN (RSA)**: Schrijf voor de belangrijkste ad group een Responsive Search Ad met:
+- 15 headlines (max 30 tekens elk) — toon tekenaantal
+- 4 descriptions (max 90 tekens elk) — toon tekenaantal
 Verwerk USPs van Beyond the Pitch: small group, insider access, local guides, authentic sport culture.
 
-NEGATIEVE ZOEKWOORDEN: Geef een lijst van 15-25 negatieve zoekwoorden om irrelevant verkeer te weren. Denk aan: gratis, stadium tours, FIFA, mainstream toerisme.
+**NEGATIEVE ZOEKWOORDEN**: Geef een lijst van 15-25 negatieve zoekwoorden om irrelevant verkeer te weren. Denk aan: gratis, stadium tours, FIFA, mainstream toerisme, jobs, etc.
 
-AD EXTENSIONS: Welke extensies zijn prioriteit? Geef kant-en-klare teksten voor: Sitelinks (4x), Callouts (6x), Structured Snippets. Optioneel: Promotion extension als er een deal is.
+**AD ASSETS (extensions)**: Geef kant-en-klare teksten voor: Sitelinks (4x), Callouts (6x), Structured Snippets, Image assets (5 beschrijvingen), eventueel Promotion asset.
 
-BIEDSTRATEGIE: Welke biedstrategie past bij het doel en budget? Waarom? Wat is een realistisch CPC-doel?
+**DOELGROEP / AUDIENCE SIGNALS**: Welke audience segments, in-market signals en custom segments zijn geschikt? Geef concrete namen die in Google Ads UI bestaan.
 
-Sluit af met: de 3 grootste valkuilen bij Google Ads voor dit type niche travel product.`;
+**LANDING PAGE AUDIT**: Geef 6-10 concrete punten waarop de landing page geoptimaliseerd moet worden voor Quality Score en conversie.
+
+**BIEDSTRATEGIE**: Welke biedstrategie past bij het doel en budget? Waarom? Wat is een realistisch CPC-doel en geschatte CTR-benchmark voor deze niche?
+
+Sluit af met: **de 3 grootste valkuilen** bij Google Ads voor dit type niche travel product, en hoe ze te voorkomen.`;
   }
 
   if (mode === 'combined') {
-    const product = document.getElementById('comb-product').value;
-    const market = document.getElementById('comb-market').value;
-    const timing = document.getElementById('comb-timing').value;
+    const product = getSelectLabel('comb-product');
+    const market = getSelectLabel('comb-market');
+    const timing = getSelectLabel('comb-timing');
     const context = document.getElementById('comb-context').value;
     return `Je bent een senior digital marketing strateeg gespecialiseerd in niche travel en sport-cultuur experiences. Maak een complete, geïntegreerde Search Visibility Strategie.
 
-MERK: ${brand}
+MERK: ${BRAND_CONTEXT}
 
 PRODUCT FOCUS: ${product}
 PRIORITEITSMARKT: ${market}
@@ -760,78 +1138,325 @@ ${context ? 'CONTEXT: ' + context : ''}
 
 LEVER EEN VOLLEDIGE STRATEGIE MET DE VOLGENDE ONDERDELEN:
 
-━━━ DEEL 1: SEO FUNDAMENT ━━━
+## DEEL 1: SEO FUNDAMENT
 - Top 3 prioriteitspagina's om mee te beginnen
-- Keyword-strategie: 3 clusters (informatief, transactioneel, niche long-tail)
-- Meta-teksten voor de belangrijkste pagina
-- Content kalender: 6 blogtitels voor de komende 3 maanden
+- Keyword-strategie: 3 clusters (informatief, transactioneel, niche long-tail) — als tabel
+- Meta-teksten voor de belangrijkste pagina (3 varianten)
+- Content kalender: 6 blogtitels voor de komende 3 maanden — als tabel met titel, doel-keyword, publicatiemaand
+- Technische SEO checklist: 5 punten
 
-━━━ DEEL 2: GEO (AI SEARCH) ━━━
+## DEEL 2: GEO (AI SEARCH)
 - 5 vragen die iemand aan ChatGPT/Perplexity stelt over dit product, + de ideale antwoorden
 - Entity-building aanbevelingen: wat moet er over BtP op het web staan?
 - 1 concrete blog-prompt die maximaal kans maakt op AI-citatie
+- Aanbeveling voor llms.txt en schema markup
 
-━━━ DEEL 3: SEA (BETAALD) ━━━
+## DEEL 3: SEA (BETAALD)
 - Aanbevolen campagnestructuur voor dit budget
-- Top 10 zoekwoorden om mee te starten
+- Top 10 zoekwoorden om mee te starten — als tabel
 - 5 headlines en 2 descriptions voor de eerste advertentie
 - Advies over wanneer te starten en hoe te testen
+- Conversion tracking checklist
 
-━━━ DEEL 4: INTEGRATIE & PRIORITERING ━━━
+## DEEL 4: INTEGRATIE & PRIORITERING
 - Hoe versterken SEO, GEO en SEA elkaar in dit geval?
-- 30-60-90 dagen actieplan: wat doe je wanneer?
+- 30-60-90 dagen actieplan: wat doe je wanneer? Geef als tabel.
 - Meetbare KPIs per kanaal
-- De 3 dingen die de grootste impact hebben als BtP ze als eerste aanpakt
+- **De 3 dingen die de grootste impact hebben als BtP ze als eerste aanpakt**
 
-Schrijf concreet en actionable. Geen vage adviezen. Geef voorbeelden die direct bruikbaar zijn voor travelbeyondthepitch.com.`;
+Schrijf concreet en actionable. Geen vage adviezen. Geef voorbeelden die direct bruikbaar zijn voor travelbeyondthepitch.com. Gebruik markdown-tabellen waar het overzicht oplevert.`;
   }
 }
 
-// Generate buttons
-document.querySelectorAll('.btn-generate').forEach(btn => {
+/* ============================================================
+   BUTTON HANDLERS
+   ============================================================ */
+document.querySelectorAll('[data-action="preview"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const prompt = buildPrompt(btn.dataset.mode);
+    showOutput(prompt, false, 'Prompt (kopieer naar ChatGPT/Claude)');
+    addToHistory(btn.dataset.mode, 'preview', prompt);
+  });
+});
+
+document.querySelectorAll('[data-action="generate"]').forEach(btn => {
   btn.addEventListener('click', async () => {
     const mode = btn.dataset.mode;
     const prompt = buildPrompt(mode);
 
-    const outputBox = document.getElementById('output-box');
-    const loading = document.getElementById('loading');
-    const outputContent = document.getElementById('output-content');
-    const outputLabel = document.getElementById('output-label');
-
-    outputBox.classList.remove('visible');
-    loading.classList.add('visible');
-    btn.disabled = true;
-
-    const modeLabels = { seo: 'SEO Output', geo: 'GEO Output', sea: 'SEA Output', combined: 'Volledige Strategie' };
-    outputLabel.textContent = modeLabels[mode] || 'Output';
-
-    try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: "Je bent een expert digital marketing strateeg gespecialiseerd in niche travel. Schrijf altijd direct bruikbare, specifieke output. Geen uitleg over wat je gaat doen — gewoon de output. Gebruik heldere kopjes, witruimte en concrete voorbeelden. Schrijf in de taal van de doelmarkt tenzij anders gevraagd.",
-          messages: [{ role: "user", content: prompt }]
-        })
-      });
-
-      const data = await response.json();
-      const text = data.content?.map(c => c.text || '').join('') || 'Geen output ontvangen.';
-
-      outputContent.textContent = text;
-      loading.classList.remove('visible');
-      outputBox.classList.add('visible');
-    } catch (err) {
-      outputContent.textContent = 'Er ging iets mis: ' + err.message;
-      loading.classList.remove('visible');
-      outputBox.classList.add('visible');
+    if (STATE.mode === 'prompt') {
+      // Just show the prompt
+      showOutput(prompt, false, 'Prompt — klaar om te kopiëren');
+      addToHistory(mode, 'prompt', prompt);
+      return;
     }
 
-    btn.disabled = false;
+    // AI mode: call API
+    if (!STATE.apiKey) {
+      showError('API key ontbreekt. Vul je API key in onder "API Configuratie" of schakel terug naar Prompt-modus.');
+      return;
+    }
+
+    await callAI(prompt, mode, btn);
   });
+});
+
+/* ============================================================
+   AI CALL (OpenRouter / Anthropic / OpenAI)
+   ============================================================ */
+async function callAI(prompt, mode, btn) {
+  const loading = document.getElementById('loading');
+  const outputBox = document.getElementById('output-box');
+  const errorContainer = document.getElementById('error-container');
+
+  outputBox.classList.remove('visible');
+  errorContainer.innerHTML = '';
+  loading.classList.add('visible');
+  document.getElementById('loading-text').textContent = 'AI denkt na...';
+  btn.disabled = true;
+
+  try {
+    let endpoint, headers, body;
+
+    if (STATE.apiProvider === 'openrouter') {
+      endpoint = 'https://openrouter.ai/api/v1/chat/completions';
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${STATE.apiKey}`,
+        'HTTP-Referer': window.location.href,
+        'X-Title': 'Beyond the Pitch Search Tool'
+      };
+      body = {
+        model: STATE.apiModel,
+        max_tokens: 4000,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: prompt }
+        ]
+      };
+    } else if (STATE.apiProvider === 'anthropic') {
+      endpoint = 'https://api.anthropic.com/v1/messages';
+      headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': STATE.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      };
+      const anthropicModel = STATE.apiModel.includes('claude') ? STATE.apiModel.replace('anthropic/', '') : 'claude-3-5-sonnet-20241022';
+      body = {
+        model: anthropicModel,
+        max_tokens: 4000,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: prompt }]
+      };
+    } else if (STATE.apiProvider === 'openai') {
+      endpoint = 'https://api.openai.com/v1/chat/completions';
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${STATE.apiKey}`
+      };
+      const openaiModel = STATE.apiModel.includes('gpt') ? STATE.apiModel.replace('openai/', '') : 'gpt-4o';
+      body = {
+        model: openaiModel,
+        max_tokens: 4000,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: prompt }
+        ]
+      };
+    }
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`API ${response.status}: ${errText.substring(0, 300)}`);
+    }
+
+    const data = await response.json();
+    let text = '';
+    if (data.content && Array.isArray(data.content)) {
+      // Anthropic
+      text = data.content.map(c => c.text || '').join('');
+    } else if (data.choices && data.choices[0]) {
+      // OpenAI / OpenRouter
+      text = data.choices[0].message?.content || '';
+    }
+
+    if (!text) text = 'Geen output ontvangen. Volledige response: ' + JSON.stringify(data).substring(0, 500);
+
+    const modeLabels = { seo: 'SEO Output', geo: 'GEO Output', sea: 'SEA Output', combined: 'Volledige Strategie' };
+    showOutput(text, true, modeLabels[mode] || 'Output');
+    addToHistory(mode, 'ai', text);
+
+  } catch (err) {
+    showError('Er ging iets mis met de API call: ' + err.message + '\n\nTip: controleer je API key en provider, of schakel naar Prompt-modus en plak de prompt handmatig in ChatGPT/Claude.');
+  } finally {
+    loading.classList.remove('visible');
+    btn.disabled = false;
+  }
+}
+
+/* ============================================================
+   OUTPUT RENDERING
+   ============================================================ */
+function showOutput(text, renderMarkdown, label) {
+  STATE.lastOutput = text;
+  STATE.lastIsMarkdown = renderMarkdown;
+
+  const outputBox = document.getElementById('output-box');
+  const outputContent = document.getElementById('output-content');
+  const outputLabel = document.getElementById('output-label');
+  const cgptBtn = document.getElementById('chatgpt-btn');
+
+  outputLabel.textContent = label;
+
+  if (renderMarkdown && window.marked && window.DOMPurify) {
+    outputContent.classList.remove('plain');
+    const rawHtml = marked.parse(text);
+    outputContent.innerHTML = DOMPurify.sanitize(rawHtml);
+    // Syntax highlight code blocks
+    if (window.hljs) {
+      outputContent.querySelectorAll('pre code').forEach(block => {
+        try { hljs.highlightElement(block); } catch (e) {}
+      });
+    }
+    cgptBtn.style.display = 'none';
+  } else {
+    outputContent.classList.add('plain');
+    outputContent.textContent = text;
+    // Show "Open in ChatGPT" button when displaying a raw prompt
+    cgptBtn.style.display = 'inline-block';
+  }
+
+  outputBox.classList.add('visible');
+  outputBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showError(msg) {
+  document.getElementById('error-container').innerHTML =
+    `<div class="error-banner">⚠ ${escapeHtml(msg)}</div>`;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ============================================================
+   COPY / DOWNLOAD / OPEN IN CHATGPT
+   ============================================================ */
+document.getElementById('copy-btn').addEventListener('click', () => {
+  navigator.clipboard.writeText(STATE.lastOutput).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ GEKOPIEERD';
+    setTimeout(() => btn.textContent = '📋 KOPIEER', 2000);
+  });
+});
+
+document.getElementById('download-btn').addEventListener('click', () => {
+  const ext = STATE.lastIsMarkdown ? 'md' : 'txt';
+  const blob = new Blob([STATE.lastOutput], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 16);
+  a.href = url;
+  a.download = `btp-search-${ts}.${ext}`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('chatgpt-btn').addEventListener('click', () => {
+  // Open ChatGPT with prompt pre-filled (URL has a length limit, so we copy + open)
+  navigator.clipboard.writeText(STATE.lastOutput).then(() => {
+    window.open('https://chat.openai.com/', '_blank');
+    const btn = document.getElementById('chatgpt-btn');
+    btn.textContent = '✓ GEKOPIEERD — PLAK IN CHATGPT';
+    setTimeout(() => btn.textContent = '→ OPEN IN CHATGPT', 2500);
+  });
+});
+
+/* ============================================================
+   HISTORY (localStorage)
+   ============================================================ */
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('btp_history') || '[]'); }
+  catch { return []; }
+}
+
+function addToHistory(mode, type, content) {
+  const history = getHistory();
+  history.unshift({
+    id: Date.now(),
+    mode,
+    type, // 'prompt', 'preview', 'ai'
+    time: new Date().toISOString(),
+    snippet: content.slice(0, 80),
+    content
+  });
+  // Keep only last 10
+  if (history.length > 10) history.length = 10;
+  localStorage.setItem('btp_history', JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  const history = getHistory();
+  if (history.length === 0) {
+    list.innerHTML = '<p class="history-empty">Nog geen geschiedenis. Generaties verschijnen hier automatisch.</p>';
+    return;
+  }
+  list.innerHTML = history.map(h => {
+    const d = new Date(h.time);
+    const timeStr = d.toLocaleString('nl-NL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    const typeIcon = h.type === 'ai' ? '🤖' : '📝';
+    return `
+      <div class="history-item" data-id="${h.id}">
+        <span class="history-meta">${typeIcon} ${h.mode.toUpperCase()} · ${timeStr}</span>
+        <span class="history-label">${escapeHtml(h.snippet)}…</span>
+        <button class="history-del" data-del="${h.id}" title="Verwijderen">✕</button>
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.history-item').forEach(item => {
+    item.addEventListener('click', e => {
+      if (e.target.classList.contains('history-del')) return;
+      const id = parseInt(item.dataset.id);
+      const entry = getHistory().find(h => h.id === id);
+      if (entry) {
+        showOutput(entry.content, entry.type === 'ai', `Geschiedenis · ${entry.mode.toUpperCase()}`);
+      }
+    });
+  });
+
+  list.querySelectorAll('.history-del').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = parseInt(btn.dataset.del);
+      const filtered = getHistory().filter(h => h.id !== id);
+      localStorage.setItem('btp_history', JSON.stringify(filtered));
+      renderHistory();
+    });
+  });
+}
+
+/* ============================================================
+   KEYBOARD SHORTCUTS
+   ============================================================ */
+document.addEventListener('keydown', e => {
+  // Cmd/Ctrl + Enter = generate on current tab
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    const activeTab = document.querySelector('.tab-panel.active');
+    if (activeTab) {
+      const genBtn = activeTab.querySelector('[data-action="generate"]');
+      if (genBtn) genBtn.click();
+    }
+  }
 });
 </script>
 </body>
-</html>
