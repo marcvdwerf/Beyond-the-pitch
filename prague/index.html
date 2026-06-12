@@ -442,6 +442,291 @@
       </div>
     </div>
   </section>
+  <!-- ============================================================
+     TESTIMONIALS SECTION — insert after .kamil section
+     Includes screenshot thumbnails with lightbox on click.
+     Image filenames expected in same folder as the HTML file:
+       testimonial-esperanza.jpeg
+       testimonial2.png
+       testimonial3.jpeg
+       testimonial4.jpeg
+     ============================================================ -->
+
+<style>
+  /* ── Testimonials ── */
+  .testimonials {
+    background: var(--bg-2);
+  }
+
+  .tcarousel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .tslide {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tslide-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .tslide-stars {
+    font-size: 1rem;
+    letter-spacing: .05em;
+    color: var(--red-2);
+  }
+
+  /* Thumbnail — the clickable screenshot badge */
+  .tslide-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line-2);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: opacity .2s, transform .2s;
+    position: relative;
+  }
+
+  .tslide-thumb:hover {
+    opacity: .85;
+    transform: scale(1.04);
+  }
+
+  .tslide-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    display: block;
+  }
+
+  /* Small magnifier hint on thumbnail */
+  .tslide-thumb::after {
+    content: "⤢";
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    font-size: 10px;
+    color: rgba(255,255,255,.7);
+    line-height: 1;
+  }
+
+  .tslide-quote {
+    color: var(--muted);
+    font-size: .94rem;
+    line-height: 1.82;
+    flex: 1;
+  }
+
+  .tslide-divider {
+    height: 1px;
+    background: var(--line);
+  }
+
+  .tslide-author {
+    display: flex;
+    flex-direction: column;
+    gap: .18rem;
+  }
+
+  .tslide-name {
+    font-weight: 800;
+    font-size: .95rem;
+    color: var(--text);
+  }
+
+  .tslide-meta {
+    font-size: .8rem;
+    color: var(--soft);
+  }
+
+  /* ── Lightbox ── */
+  .t-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: rgba(0, 0, 0, .82);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    cursor: pointer;
+  }
+
+  .t-lightbox.open {
+    display: flex;
+  }
+
+  .t-lightbox-inner {
+    position: relative;
+    max-width: 540px;
+    width: 100%;
+    cursor: default;
+    animation: lbIn .18s ease;
+  }
+
+  @keyframes lbIn {
+    from { opacity: 0; transform: scale(.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .t-lightbox-inner img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.5);
+    display: block;
+  }
+
+  .t-lightbox-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .15s;
+  }
+
+  .t-lightbox-close:hover {
+    background: var(--bg-3);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tcarousel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="section testimonials" id="reviews">
+  <div class="container">
+
+    <span class="eyebrow">What people say about Kamil</span>
+    <h2 class="display-md">Straight from the<br><em>people who were there.</em></h2>
+
+    <div class="tcarousel">
+
+      <!-- 1 · Esperanza -->
+      <div class="tslide">
+        <div class="tslide-top">
+          <div class="tslide-stars">⭐⭐⭐⭐⭐</div>
+          <div class="tslide-thumb" onclick="openLightbox('images/testimonial-esperanza.jpeg')" role="button" aria-label="View full review screenshot">
+            <img src="images/testimonial-esperanza.jpeg" alt="Review by Esperanza" loading="lazy">
+          </div>
+        </div>
+        <p class="tslide-quote">"Kamil's tour was absolutely brilliant. As someone who has taken walking tours on every continent, I can confidently say this was one of the most memorable. His skills are better than those of many university professors I've had. I feel truly lucky to have had this learning experience."</p>
+        <div class="tslide-divider"></div>
+        <div class="tslide-author">
+          <span class="tslide-name">Esperanza</span>
+          <span class="tslide-meta">Miami Beach · The Prague Experience</span>
+        </div>
+      </div>
+
+      <!-- 2 · Asaf -->
+      <div class="tslide">
+        <div class="tslide-top">
+          <div class="tslide-stars">⭐⭐⭐⭐⭐</div>
+          <div class="tslide-thumb" onclick="openLightbox('images/testimonial2.png')" role="button" aria-label="View full review screenshot">
+            <img src="images/testimonial2.png" alt="Review by Asaf Zuarez" loading="lazy">
+          </div>
+        </div>
+        <p class="tslide-quote">"Embarking on the walking tour with Kamil was an unforgettable journey back in time. His passion for the topic was infectious, and his ability to bring the stories to life left a lasting impression on everyone in the group."</p>
+        <div class="tslide-divider"></div>
+        <div class="tslide-author">
+          <span class="tslide-name">Asaf Zuarez</span>
+          <span class="tslide-meta">Local Guide · 194 reviews · The Prague Experience</span>
+        </div>
+      </div>
+
+      <!-- 3 · Kirstie -->
+      <div class="tslide">
+        <div class="tslide-top">
+          <div class="tslide-stars">⭐⭐⭐⭐⭐</div>
+          <div class="tslide-thumb" onclick="openLightbox('images/testimonial3.jpeg')" role="button" aria-label="View full review screenshot">
+            <img src="images/testimonial3.jpeg" alt="Review by Kirstie" loading="lazy">
+          </div>
+        </div>
+        <p class="tslide-quote">"Kamil was a fantastic guide — knowledgeable, engaging, and with a clear passion for Czech Republic, its people and its history. You'll come away feeling a deep solidarity, respect and love for the Czech people and their culture."</p>
+        <div class="tslide-divider"></div>
+        <div class="tslide-author">
+          <span class="tslide-name">Kirstie</span>
+          <span class="tslide-meta">Haugesund · The Prague Experience</span>
+        </div>
+      </div>
+
+      <!-- 4 · Daniel -->
+      <div class="tslide">
+        <div class="tslide-top">
+          <div class="tslide-stars">⭐⭐⭐⭐⭐</div>
+          <div class="tslide-thumb" onclick="openLightbox('images/testimonial4.jpeg')" role="button" aria-label="View full review screenshot">
+            <img src="images/testimonial4.jpeg" alt="Review by Daniel" loading="lazy">
+          </div>
+        </div>
+        <p class="tslide-quote">"He. Was. AMAZING. He has an obvious passion for this tour and captivated us with his stories and facts. We spoke to him afterwards to tell him how impressed we were. You have a gem in your team — make sure you treat him well."</p>
+        <div class="tslide-divider"></div>
+        <div class="tslide-author">
+          <span class="tslide-name">Daniel</span>
+          <span class="tslide-meta">The Prague Experience</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── LIGHTBOX ── -->
+<div class="t-lightbox" id="tLightbox" onclick="closeLightbox(event)">
+  <div class="t-lightbox-inner">
+    <button class="t-lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+    <img id="tLightboxImg" src="" alt="Full review screenshot">
+  </div>
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('tLightboxImg').src = src;
+    document.getElementById('tLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    // Close on backdrop click or close button; ignore clicks inside the image
+    if (e && e.target.closest('.t-lightbox-inner') && !e.target.closest('.t-lightbox-close')) return;
+    document.getElementById('tLightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
   <!-- WHY BOOK -->
   <section class="section why-book">
