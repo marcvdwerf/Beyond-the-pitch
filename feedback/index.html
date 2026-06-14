@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beyond the Pitch — Share Your Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f1a10;
+    font-family: 'Inter', sans-serif;
+    color: #e8e2d4;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .email-wrap { max-width: 560px; width: 100%; }
+
+  .header {
+    text-align: center;
+    padding-bottom: 36px;
+    border-bottom: 1px solid #2a3d2b;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 28px;
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 5vw, 36px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #f0ead8;
+    margin-bottom: 14px;
+  }
+
+  .header h1 em { font-style: italic; color: #c9a84c; }
+
+  .header p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #9aab8e;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .form-body {
+    padding: 36px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .question-block {
+    border-left: 2px solid #2a3d2b;
+    padding-left: 20px;
+    transition: border-color 0.3s;
+  }
+
+  .question-block.answered { border-color: #c9a84c; }
+
+  .question-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6e8066;
+    margin-bottom: 6px;
+  }
+
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #e8e2d4;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .stars { display: flex; gap: 6px; }
+
+  .star {
+    width: 36px; height: 36px;
+    cursor: pointer; background: none; border: none; padding: 0;
+    transition: transform 0.15s;
+  }
+  .star:hover { transform: scale(1.15); }
+  .star svg { width: 100%; height: 100%; }
+  .star .bg { fill: #1e2e1f; }
+  .star .fg { fill: transparent; transition: fill 0.2s; }
+  .star .border { fill: #3a4e3b; transition: fill 0.2s; }
+  .star.active .fg, .star.active .border { fill: #c9a84c; }
+  .star.hover-active .fg, .star.hover-active .border { fill: #e0c06a; }
+
+  .star-caption {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #6e8066;
+    height: 14px;
+    font-style: italic;
+  }
+
+  .nps-row { display: flex; gap: 5px; flex-wrap: wrap; }
+
+  .nps-btn {
+    width: 40px; height: 40px;
+    border: 1px solid #2a3d2b;
+    background: #1a2a1b;
+    border-radius: 4px;
+    color: #6e8066;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.12s;
+  }
+
+  .nps-btn:hover { background: #243526; border-color: #c9a84c55; color: #e8e2d4; transform: translateY(-1px); }
+  .nps-btn.active { background: #c9a84c; border-color: #c9a84c; color: #0f1a10; font-weight: 500; }
+
+  .nps-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 10px;
+    color: #3e5040;
+  }
+
+  textarea {
+    background: #1a2a1b;
+    border: 1px solid #2a3d2b;
+    border-radius: 4px;
+    color: #e8e2d4;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    padding: 12px 14px;
+    resize: vertical;
+    min-height: 72px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  textarea:focus { border-color: #c9a84c55; }
+  textarea::placeholder { color: #3e5040; }
+
+  .field-sub {
+    font-size: 11px;
+    color: #6e8066;
+    font-style: italic;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* Toggle checkbox (consent + interest) */
+  .toggle-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 11px 14px;
+    border: 1px solid #2a3d2b;
+    border-radius: 4px;
+    background: #1a2a1b;
+    transition: border-color 0.2s, background 0.2s;
+    user-select: none;
+  }
+
+  .toggle-item:hover { border-color: #c9a84c44; background: #1e2e1f; }
+  .toggle-item.checked { border-color: #c9a84c66; background: #1e2e1f; }
+
+  .toggle-item input[type="checkbox"] {
+    appearance: none;
+    width: 16px; height: 16px;
+    border: 1px solid #3a4e3b;
+    border-radius: 3px;
+    background: #0f1a10;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .toggle-item input[type="checkbox"]:checked {
+    background: #c9a84c;
+    border-color: #c9a84c;
+  }
+
+  .toggle-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px; top: 1px;
+    width: 5px; height: 9px;
+    border: 2px solid #0f1a10;
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+
+  .toggle-item span {
+    font-size: 13px;
+    color: #c8c0ae;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .toggle-item .badge {
+    margin-left: auto;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6e8066;
+    background: #243526;
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+
+  /* Consent block styling */
+  .consent-wrap {
+    background: #141f14;
+    border: 1px solid #2a3d2b;
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .consent-intro {
+    font-size: 12px;
+    color: #6e8066;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .divider { width: 40px; height: 1px; background: #c9a84c44; }
+
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: #c9a84c;
+    border: none;
+    border-radius: 3px;
+    color: #0f1a10;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-submit:hover { background: #dbb95a; transform: translateY(-1px); }
+  .btn-submit:disabled { background: #2a3d2b; color: #3e5040; cursor: not-allowed; transform: none; }
+
+  .google-panel {
+    display: none;
+    background: #1a2a1b;
+    border: 1px solid #2a3d2b;
+    border-radius: 6px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .google-panel.visible { display: block; animation: fadeIn 0.5s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .google-panel .panel-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 10px;
+  }
+
+  .google-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #f0ead8;
+    margin-bottom: 8px;
+  }
+
+  .google-panel p {
+    font-size: 13px;
+    font-weight: 300;
+    color: #9aab8e;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .btn-google {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 12px 22px;
+    color: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+
+  .btn-google:hover { box-shadow: 0 4px 16px #c9a84c33; transform: translateY(-1px); }
+  .btn-google svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .thankyou { display: none; text-align: center; padding: 48px 0; }
+  .thankyou.visible { display: block; animation: fadeIn 0.5s ease; }
+
+  .thankyou .check {
+    width: 52px; height: 52px;
+    background: #1a2a1b;
+    border: 1px solid #c9a84c55;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .thankyou h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #f0ead8;
+    margin-bottom: 10px;
+  }
+
+  .thankyou p {
+    font-size: 14px;
+    font-weight: 300;
+    color: #9aab8e;
+    line-height: 1.7;
+  }
+
+  .footer { padding-top: 32px; border-top: 1px solid #1e2e1f; text-align: center; }
+  .footer p { font-size: 11px; color: #3e5040; line-height: 1.7; }
+  .footer a { color: #6e8066; text-decoration: none; }
+  .footer a:hover { color: #c9a84c; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <div class="header">
+    <div class="logo">Beyond the Pitch</div>
+    <div class="header-eyebrow">Your feedback</div>
+    <h1>How was your<br><em>experience?</em></h1>
+    <p>Five quick questions. No fluff, just what we actually need to keep this worth doing.</p>
+  </div>
+
+  <div id="form-container">
+    <div class="form-body">
+
+      <div class="question-block" id="block-0">
+        <div class="question-label">01 — The experience</div>
+        <div class="question-text">How would you rate the overall experience?</div>
+        <div class="stars" data-q="0"></div>
+        <div class="star-caption" id="caption-0"></div>
+      </div>
+
+      <div class="question-block" id="block-1">
+        <div class="question-label">02 — Your guide</div>
+        <div class="question-text">How was your local guide or trainer?</div>
+        <div class="stars" data-q="1"></div>
+        <div class="star-caption" id="caption-1"></div>
+      </div>
+
+      <div class="question-block" id="block-2">
+        <div class="question-label">03 — Value</div>
+        <div class="question-text">Did it feel worth your time and investment?</div>
+        <div class="stars" data-q="2"></div>
+        <div class="star-caption" id="caption-2"></div>
+      </div>
+
+      <div class="question-block" id="block-nps">
+        <div class="question-label">04 — Recommendation</div>
+        <div class="question-text">How likely are you to recommend Beyond the Pitch to a friend?</div>
+        <div class="nps-row" id="nps-row"></div>
+        <div class="nps-labels">
+          <span>Not likely at all</span>
+          <span>Absolutely</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="question-block answered" id="block-moment">
+        <div class="question-label">05 — Your highlight</div>
+        <div class="question-text">What was your favourite moment?</div>
+        <span class="field-sub">Optional. These quotes sometimes end up on the site, with your permission.</span>
+        <textarea id="moment-text" placeholder="The moment that stuck with me was…" rows="3"></textarea>
+
+        <div style="margin-top: 14px;">
+          <div class="consent-wrap">
+            <div class="consent-intro">If you'd like, we may use your words on our website or social channels. You can change your mind at any time.</div>
+            <label class="toggle-item checked" id="consent-label">
+              <input type="checkbox" id="consent-checkbox" checked />
+              <span>Yes, Beyond the Pitch may quote me on this</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="question-block answered" id="block-interest">
+        <div class="question-label">06 — What's next?</div>
+        <div class="question-text">Any of these on your radar?</div>
+        <span class="field-sub">Optional. We'll keep you posted on the ones you pick.</span>
+        <div class="checkbox-group">
+          <label class="toggle-item" id="ci-dublin">
+            <input type="checkbox" name="interest" value="dublin" />
+            <span>Gaelic Games, Dublin</span>
+            <span class="badge">Available</span>
+          </label>
+          <label class="toggle-item" id="ci-kilkenny">
+            <input type="checkbox" name="interest" value="kilkenny" />
+            <span>Hurling, Kilkenny</span>
+            <span class="badge">Available</span>
+          </label>
+          <label class="toggle-item" id="ci-mongolia">
+            <input type="checkbox" name="interest" value="mongolia" />
+            <span>Naadam, Mongolia</span>
+            <span class="badge">Coming soon</span>
+          </label>
+          <label class="toggle-item" id="ci-prague">
+            <input type="checkbox" name="interest" value="prague" />
+            <span>Ice Hockey, Prague</span>
+            <span class="badge">Available</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn-submit" id="btn-submit" disabled onclick="submitForm()">Send feedback</button>
+      </div>
+
+    </div>
+
+    <div class="google-panel" id="google-panel">
+      <div class="panel-eyebrow">One more thing</div>
+      <h3>Would you share this on Google?</h3>
+      <p>Reviews help other curious travellers find us, and they mean more than any ad we could run.</p>
+      <a class="btn-google" href="YOUR_GOOGLE_REVIEW_LINK" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Leave a Google review
+      </a>
+    </div>
+  </div>
+
+  <div class="thankyou" id="thankyou">
+    <div class="check">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2>Thank you.</h2>
+    <p>We read every response. It shapes every experience we design next.</p>
+  </div>
+
+  <div class="footer">
+    <p>
+      Beyond the Pitch &nbsp;·&nbsp; <a href="https://travelbeyondthepitch.com">travelbeyondthepitch.com</a><br>
+      <a href="#">Unsubscribe</a> &nbsp;·&nbsp; You're receiving this because you booked an experience with us.
+    </p>
+  </div>
+
+</div>
+
+<script>
+const STAR_LABELS = ['','Not what I hoped for','Could be better','Good experience','Really enjoyed it','Absolutely loved it'];
+const ratings = [0, 0, 0];
+let npsScore = null;
+
+function buildStars() {
+  document.querySelectorAll('.stars').forEach(container => {
+    const q = parseInt(container.dataset.q);
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'star';
+      btn.setAttribute('aria-label', `${i} star${i>1?'s':''}`);
+      btn.dataset.val = i;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="bg" points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+        <polygon class="border" points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+        <polygon class="fg" points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+      </svg>`;
+      btn.addEventListener('click', () => setRating(q, i));
+      btn.addEventListener('mouseenter', () => hoverStars(q, i));
+      btn.addEventListener('mouseleave', () => unhoverStars(q));
+      container.appendChild(btn);
+    }
+  });
+}
+
+function buildNPS() {
+  const row = document.getElementById('nps-row');
+  for (let i = 0; i <= 10; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'nps-btn';
+    btn.textContent = i;
+    btn.addEventListener('click', () => {
+      npsScore = i;
+      document.querySelectorAll('.nps-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
+      document.getElementById('block-nps').classList.add('answered');
+      checkCanSubmit();
+    });
+    row.appendChild(btn);
+  }
+}
+
+function getStars(q) {
+  return document.querySelector(`.stars[data-q="${q}"]`).querySelectorAll('.star');
+}
+
+function hoverStars(q, val) {
+  getStars(q).forEach((s, i) => { s.classList.remove('hover-active'); if (i < val) s.classList.add('hover-active'); });
+  document.getElementById(`caption-${q}`).textContent = STAR_LABELS[val];
+}
+
+function unhoverStars(q) {
+  getStars(q).forEach(s => s.classList.remove('hover-active'));
+  document.getElementById(`caption-${q}`).textContent = ratings[q] ? STAR_LABELS[ratings[q]] : '';
+}
+
+function setRating(q, val) {
+  ratings[q] = val;
+  getStars(q).forEach((s, i) => s.classList.toggle('active', i < val));
+  document.getElementById(`caption-${q}`).textContent = STAR_LABELS[val];
+  document.getElementById(`block-${q}`).classList.add('answered');
+  checkCanSubmit();
+}
+
+// Checkbox toggle visual state
+document.addEventListener('change', e => {
+  if (e.target.type === 'checkbox') {
+    const label = e.target.closest('label');
+    if (label) label.classList.toggle('checked', e.target.checked);
+  }
+});
+
+// Pre-check consent on load
+document.addEventListener('DOMContentLoaded', () => {
+  const cl = document.getElementById('consent-label');
+  if (cl) cl.classList.add('checked');
+});
+
+function checkCanSubmit() {
+  const allRated = ratings.every(r => r > 0) && npsScore !== null;
+  document.getElementById('btn-submit').disabled = !allRated;
+}
+
+function submitForm() {
+  const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+  const moment = document.getElementById('moment-text').value.trim();
+  const consent = document.getElementById('consent-checkbox').checked;
+  const interests = [...document.querySelectorAll('input[name="interest"]:checked')].map(i => i.value);
+
+  // POST this payload to your webhook
+  const payload = { ratings, avg, npsScore, moment, consent, interests };
+  console.log('Submission:', payload);
+
+  if (avg >= 4 || npsScore >= 8) {
+    document.getElementById('google-panel').classList.add('visible');
+    document.getElementById('google-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => {
+      document.querySelector('.form-body').style.display = 'none';
+      document.getElementById('thankyou').classList.add('visible');
+    }, 600);
+  } else {
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('thankyou').classList.add('visible');
+    document.getElementById('thankyou').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+buildStars();
+buildNPS();
+</script>
+</body>
+</html>
