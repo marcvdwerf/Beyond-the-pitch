@@ -72,12 +72,18 @@
   }
 
   .question-block {
-    border-left: 2px solid #2a3d2b;
-    padding-left: 20px;
-    transition: border-color 0.3s;
+    background: #162018;
+    border: 1px solid #253727;
+    border-left: 3px solid #2a3d2b;
+    border-radius: 6px;
+    padding: 20px 22px;
+    transition: border-left-color 0.3s, box-shadow 0.3s;
   }
 
-  .question-block.answered { border-color: #c9a84c; }
+  .question-block.answered {
+    border-left-color: #c9a84c;
+    box-shadow: 0 2px 16px #00000040;
+  }
 
   .question-label {
     font-size: 11px;
@@ -576,19 +582,18 @@ function checkCanSubmit() {
   document.getElementById('btn-submit').disabled = !allRated;
 }
 
-function submitForm() {
+async function submitForm() {
   const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
   const moment = document.getElementById('moment-text').value.trim();
   const consent = document.getElementById('consent-checkbox').checked;
   const interests = [...document.querySelectorAll('input[name="interest"]:checked')].map(i => i.value);
 
-  // POST this payload to your webhook
   const payload = { ratings, avg, npsScore, moment, consent, interests };
   await fetch('https://hook.eu1.make.com/kqv51xmevgd43c4kmbww0oqg93it9svi', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(payload)
-});
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
 
   if (avg >= 4 || npsScore >= 8) {
     document.getElementById('google-panel').classList.add('visible');
