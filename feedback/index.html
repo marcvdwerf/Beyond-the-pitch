@@ -584,7 +584,11 @@ function submitForm() {
 
   // POST this payload to your webhook
   const payload = { ratings, avg, npsScore, moment, consent, interests };
-  console.log('Submission:', payload);
+  await fetch('https://hook.eu1.make.com/kqv51xmevgd43c4kmbww0oqg93it9svi', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload)
+});
 
   if (avg >= 4 || npsScore >= 8) {
     document.getElementById('google-panel').classList.add('visible');
