@@ -243,21 +243,20 @@
   // ── IMPORTANT: replace entry IDs with your actual Dublin Google Form entry IDs ──
   const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse';
   const FIELDS = {
-    name:          'entry.761572476',
-    email:         'entry.1144619265',
-    phone:         'entry.1213010877',
-    experience:    'entry.1446094233',
-    date:          'entry.301148404',
-    guests:        'entry.175134312',
-    requests:      'entry.2094398847',
-    packageCode:   'entry.924755547',
-    fixture:       'entry.857468506',
-    // ── NEW FIELDS — add these to your Dublin Google Form and paste entry IDs ──
-    country:       'entry.COUNTRY_ID',      // Country of residence
-    source:        'entry.SOURCE_ID',       // How did you hear about us
-    pricePerPerson:'entry.PRICE_PP_ID',     // Price per person (number)
-    totalPrice:    'entry.TOTAL_PRICE_ID',  // Total price (number)
-    competition:   'entry.COMPETITION_ID',  // Competition name
+    name:          'entry.761572476',   // Full Name
+    email:         'entry.1144619265',  // Email Address
+    phone:         'entry.1213010877',  // Phone Number
+    experience:    'entry.1446094233',  // Choose Your Experience
+    date:          'entry.301148404',   // Start Date
+    guests:        'entry.175134312',   // Number of Guests
+    requests:      'entry.2094398847',  // Special Requests
+    packageCode:   'entry.924755547',   // Package Code
+    fixture:       'entry.857468506',   // Fixture
+    partner:       'entry.979778576',   // Partner / Location
+    discount:      'entry.1437425214',  // Discount Code
+    country:       'entry.757548239',   // Country of residence
+    source:        'entry.6981604',     // How did you hear about us?
+    pricePerPerson:'entry.689601628',   // Price per person
   };
 
   const MATCHES = [
@@ -415,17 +414,15 @@
     fd.append(FIELDS.phone,          els.phone.value.trim());
     fd.append(FIELDS.experience,     'The Dublin Culture & Heritage Experience');
     fd.append(FIELDS.date,           selectedFixture.date);
-    fd.append(FIELDS.fixture,        `${selectedFixture.teams} — ${selectedFixture.venue}`);
+    fd.append(FIELDS.fixture,        `${selectedFixture.teams} — ${selectedFixture.venue} — ${fmtDate(selectedFixture.date)}`);
     fd.append(FIELDS.guests,         String(g));
     fd.append(FIELDS.packageCode,    packageCode);
+    fd.append(FIELDS.partner,        'Dublin');
     fd.append(FIELDS.country,        els.country.value.trim());
     fd.append(FIELDS.source,         els.source.value);
     fd.append(FIELDS.pricePerPerson, String(pp));
-    fd.append(FIELDS.totalPrice,     String(total));
-    fd.append(FIELDS.competition,    selectedFixture.competition);
-    // Special requests stays clean — only actual guest notes
+    fd.append(FIELDS.discount,       appliedDiscount ? appliedDiscount.code : '');
     fd.append(FIELDS.requests,       [discountText, guestNotes].filter(Boolean).join('\n'));
-
     try {
       await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: fd });
       try { gtag('event', 'form_submit', { experience: 'dublin', fixture: selectedFixture.teams, guests: g, value: total, currency: 'EUR' }); } catch(e){}
