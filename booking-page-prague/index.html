@@ -282,22 +282,23 @@
   };
 
   // ── IMPORTANT: Create a new Google Form for Prague and paste entry IDs below ──
-  const FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_PRAGUE_FORM_ID/formResponse';
+  const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSewFWGL3Ycb_5SUtCXfjh3tKP4qRG8fjb053KUI__iucl2Byg/formResponse';
   const FIELDS = {
-    name:          'entry.NAME_ID',
-    email:         'entry.EMAIL_ID',
-    phone:         'entry.PHONE_ID',
-    experience:    'entry.EXPERIENCE_ID',
-    date:          'entry.DATE_ID',
-    guests:        'entry.GUESTS_ID',
-    requests:      'entry.REQUESTS_ID',
-    partner:       'entry.PARTNER_ID',
-    country:       'entry.COUNTRY_ID',
-    source:        'entry.SOURCE_ID',
-    version:       'entry.VERSION_ID',       // A or B
-    fixture:       'entry.FIXTURE_ID',       // match name if B selected
-    pricePerPerson:'entry.PRICE_PP_ID',
-    packageCode:   'entry.PACKAGECODE_ID',
+    name:          'entry.761572476',   // Full Name
+    email:         'entry.1144619265',  // Email Address
+    phone:         'entry.1213010877',  // Phone Number
+    experience:    'entry.1446094233',  // Choose Your Experience
+    date:          'entry.301148404',   // Start Date
+    guests:        'entry.175134312',   // Number of Guests
+    requests:      'entry.2094398847',  // Special Requests
+    packageCode:   'entry.924755547',   // Package Code
+    fixture:       'entry.857468506',   // Fixture
+    partner:       'entry.979778576',   // Partner / Location
+    discount:      'entry.1437425214',  // Discount Code
+    country:       'entry.757548239',   // Country of residence
+    source:        'entry.6981604',     // How did you hear about us?
+    pricePerPerson:'entry.689601628',   // Price per person
+    version:       'entry.199160968',   // Version (A or B)
   };
 
   // ── HC SLAVIA PRAGUE home fixtures ──
@@ -510,8 +511,8 @@
     fd.append(FIELDS.fixture,        fixtureText);
     fd.append(FIELDS.pricePerPerson, String(pp));
     fd.append(FIELDS.packageCode,    packageCode);
+    fd.append(FIELDS.discount,       appliedDiscount ? appliedDiscount.code : '');
     fd.append(FIELDS.requests,       [discountText, guestNotes].filter(Boolean).join('\n'));
-
     try {
       await fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:fd});
       try { gtag('event','form_submit',{experience:'prague',version:selectedVersion,guests:els.guests.value,value:pp,currency:'EUR'}); } catch(e){}
