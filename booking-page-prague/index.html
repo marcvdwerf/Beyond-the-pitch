@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book – Prague Ice Hockey Experience · Beyond the Pitch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent:       #b91c1c;
+      --accent-dark:  #7f1d1d;
+      --accent-light: #fef2f2;
+      --accent-mid:   #fecaca;
+      --gold:         #d97706;
+      --border:       #e5e7eb;
+      --surface:      #f8fafc;
+      --text:         #111827;
+      --muted:        #6b7280;
+      --warn-bg:      #fffbeb;
+      --warn:         #92400e;
+      --radius:       14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(160deg, #1c1917 0%, #44403c 100%);
+      min-height: 100vh;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 28px 16px 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .back-link { position: fixed; top: 16px; left: 16px; background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s; z-index: 10; }
+    .back-link:hover { background: rgba(255,255,255,0.22); }
+    .card { background: #fff; border-radius: 20px; width: 100%; max-width: 660px; box-shadow: 0 32px 64px rgba(0,0,0,0.45); overflow: hidden; margin-top: 20px; }
+    .card-header { background: #0c0a09; padding: 32px 36px 28px; display: flex; flex-direction: column; gap: 4px; }
+    .card-header .eyebrow { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.35); }
+    .card-header h1 { font-size: 1.45rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; line-height: 1.15; }
+    .card-header .sub { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .what-included { margin-top: 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 16px; font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .what-included strong { color: rgba(255,255,255,0.85); }
+    .card-body { padding: 32px 36px; display: flex; flex-direction: column; gap: 28px; }
+    .section-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 12px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 0.82rem; font-weight: 600; color: #374151; }
+    .field input, .field select, .field textarea { padding: 13px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.95rem; font-family: inherit; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.15s, background 0.15s; width: 100%; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: #fff; }
+    .field-hint { font-size: 0.72rem; color: var(--muted); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* ── VERSION PICKER ── */
+    .version-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .version-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.15s; background: #fff; position: relative; }
+    .version-card:hover { border-color: #fca5a5; background: var(--accent-light); }
+    .version-card.active { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 3px rgba(185,28,28,0.1); }
+    .version-card.featured { border-color: var(--gold); }
+    .version-card.featured:hover { background: #fffbeb; }
+    .version-card.featured.active { border-color: var(--gold); background: #fffbeb; box-shadow: 0 0 0 3px rgba(217,119,6,0.12); }
+    .version-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #fff; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+    .version-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d1d5db; display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-bottom: 10px; }
+    .version-card.active .version-radio { border-color: var(--accent); background: var(--accent); }
+    .version-card.featured.active .version-radio { border-color: var(--gold); background: var(--gold); }
+    .version-card.active .version-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+    .version-title { font-size: 0.88rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .version-price { font-size: 1.1rem; font-weight: 900; color: var(--accent); margin-bottom: 8px; }
+    .version-card.featured .version-price { color: var(--gold); }
+    .version-includes { font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
+    .version-season { font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+
+    /* ── MONTH PICKER ── */
+    .month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .month-btn { padding: 11px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface); cursor: pointer; text-align: center; transition: all 0.15s; font-family: inherit; }
+    .month-btn:hover { border-color: #fca5a5; background: var(--accent-light); }
+    .month-btn.active { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 3px rgba(185,28,28,0.1); }
+    .month-btn .m-name { display: block; font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .month-btn .m-count { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    .month-btn.active .m-name, .month-btn.active .m-count { color: var(--accent); }
+
+    /* ── FIXTURE LIST ── */
+    .fixture-list { display: flex; flex-direction: column; gap: 8px; }
+    .fixture-item { border: 1.5px solid var(--border); border-radius: 10px; padding: 13px 15px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 12px; background: #fff; }
+    .fixture-item:hover { border-color: #fca5a5; background: var(--accent-light); }
+    .fixture-item.active { border-color: var(--accent); background: var(--accent-light); }
+    .fixture-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d1d5db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .fixture-item.active .fixture-radio { border-color: var(--accent); background: var(--accent); }
+    .fixture-item.active .fixture-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+    .fixture-info { flex: 1; min-width: 0; }
+    .fixture-name { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .fixture-meta { font-size: 0.75rem; color: var(--muted); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 10px; }
+    .fixture-club { display: inline-block; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; }
+    .club-slavia { background: #fee2e2; color: #991b1b; }
+    .club-sparta { background: #fce7f3; color: #9d174d; }
+    .fixture-price { font-size: 0.95rem; font-weight: 800; color: var(--accent); flex-shrink: 0; white-space: nowrap; }
+    .no-fixtures { text-align: center; padding: 20px; color: var(--muted); font-size: 0.88rem; }
+
+    /* ── SUMMARY ── */
+    .summary-box { background: var(--accent-light); border: 1.5px solid #fca5a5; border-radius: var(--radius); padding: 18px 20px; }
+    .summary-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.88rem; gap: 8px; color: #374151; padding: 3px 0; }
+    .summary-row.total { border-top: 1px solid #fca5a5; margin-top: 10px; padding-top: 12px; font-size: 1rem; }
+    .summary-row.total .s-label { font-weight: 700; color: var(--accent-dark); }
+    .summary-row.total .s-value { font-weight: 900; color: var(--accent); font-size: 1.15rem; }
+    .s-label { color: #4b5563; }
+    .s-value { font-weight: 600; color: var(--text); text-align: right; }
+    .discount-row { display: flex; gap: 8px; margin-top: 14px; border-top: 1px dashed #fca5a5; padding-top: 14px; }
+    .discount-row input { flex: 1; padding: 10px 12px; border: 1.5px solid #fca5a5; border-radius: 8px; font-size: 0.88rem; font-family: inherit; background: #fff; text-transform: uppercase; letter-spacing: 0.05em; outline: none; }
+    .discount-row input:focus { border-color: var(--accent); }
+    .btn-apply { background: var(--accent-dark); color: #fff; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; }
+    .btn-apply:hover { background: var(--accent); }
+    .discount-msg { font-size: 0.78rem; font-weight: 600; margin-top: 6px; display: none; }
+    .discount-msg.ok   { display: block; color: #15803d; }
+    .discount-msg.fail { display: block; color: #b91c1c; }
+
+    .process-note { background: var(--warn-bg); border: 1px solid #fcd34d; border-radius: 10px; padding: 13px 16px; font-size: 0.82rem; color: var(--warn); line-height: 1.6; }
+    .process-note strong { color: #78350f; }
+    .error-box { background: #fff7f7; border: 1px solid #fca5a5; color: #b91c1c; border-radius: 10px; padding: 11px 14px; font-size: 0.88rem; display: none; }
+    .error-box.show { display: block; }
+    .btn-submit { width: 100%; padding: 17px; background: var(--accent); color: #fff; border: none; border-radius: 12px; font-size: 1rem; font-weight: 800; cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-submit:hover:not(:disabled) { background: var(--accent-dark); transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-note { text-align: center; font-size: 0.75rem; color: var(--muted); }
+    .success-screen { display: none; text-align: center; padding: 64px 36px; }
+    .success-screen .icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .success-screen h2 { font-size: 1.5rem; font-weight: 900; color: var(--accent-dark); margin-bottom: 10px; }
+    .success-screen p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 380px; margin: 0 auto 28px; }
+    @media (max-width: 540px) {
+      .card-body { padding: 24px 20px; } .card-header { padding: 26px 20px 22px; }
+      .field-row { grid-template-columns: 1fr; } .version-grid { grid-template-columns: 1fr; }
+      .month-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/prague/" class="back-link">← Back</a>
+
+<div class="card">
+  <div class="card-header">
+    <span class="eyebrow">Prague · Booking request</span>
+    <h1>Prague Ice Hockey<br>Experience</h1>
+    <span class="sub">Personal confirmation within 24–48 hours · Guide: Kamil</span>
+    <div class="what-included">
+      <strong>Always included:</strong> Story-led walking route with Kamil · Czech Hockey Hall of Fame entry · honest answer within 24–48 hours
+    </div>
+  </div>
+
+  <form id="bookingForm" class="card-body" novalidate>
+
+    <!-- PERSONAL -->
+    <div>
+      <div class="section-label">Your details</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="field-row">
+          <div class="field"><label for="name">Full name *</label><input type="text" id="name" placeholder="Jane Smith" autocomplete="name" /></div>
+          <div class="field"><label for="email">Email *</label><input type="email" id="email" placeholder="jane@email.com" autocomplete="email" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="phone">Phone number</label><input type="tel" id="phone" placeholder="+1 555 000 0000" autocomplete="tel" /></div>
+          <div class="field">
+            <label for="guests">Group size *</label>
+            <select id="guests">
+              <option value="">Select size…</option>
+              <option value="solo">Solo — pair me with a group</option>
+              <option value="2">2 people</option>
+              <option value="3">3–4 people</option>
+              <option value="5">5–8 people</option>
+              <option value="9">9–15 people</option>
+              <option value="16">16–25 people</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="country">Country of residence *</label><input type="text" id="country" placeholder="e.g. United States" autocomplete="country-name" /></div>
+          <div class="field">
+            <label for="source">How did you hear about us? *</label>
+            <select id="source">
+              <option value="">Select…</option>
+              <option value="Google">Google search</option>
+              <option value="Instagram">Instagram</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Friend / word of mouth">Friend / word of mouth</option>
+              <option value="Hotel / concierge">Hotel / concierge</option>
+              <option value="Tour operator">Tour operator</option>
+              <option value="Travel blog / article">Travel blog / article</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="travelDate">Preferred date *</label>
+          <input type="date" id="travelDate" />
+          <span class="field-hint">We'll check Kamil's availability for your date and confirm within 48 hours.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERSION PICKER -->
+    <div>
+      <div class="section-label">Choose your version *</div>
+      <div class="version-grid">
+        <div class="version-card" id="versionA" onclick="selectVersion('A')">
+          <div class="version-radio"></div>
+          <div class="version-season">Year-round</div>
+          <div class="version-title">Walking tour + Hall of Fame</div>
+          <div class="version-price">€55 <span style="font-size:0.75rem;font-weight:500;color:var(--muted)">p.p.</span></div>
+          <div class="version-includes">2-hr walk with Kamil · Czech Hockey Hall of Fame entry · works any time of year</div>
+        </div>
+        <div class="version-card featured" id="versionB" onclick="selectVersion('B')">
+          <span class="version-badge">Most complete</span>
+          <div class="version-radio"></div>
+          <div class="version-season">Sep – Apr only</div>
+          <div class="version-title">Tour + Hall of Fame + live match</div>
+          <div class="version-price">€79 <span style="font-size:0.75rem;font-weight:500;color:var(--muted)">p.p.</span></div>
+          <div class="version-includes">Everything in Version A · seat at a live Czech Extraliga match · HC Sparta or HC Slavia Praha</div>
+        </div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:10px;">
+        Version B: if no suitable fixture exists for your date, we'll offer Version A or a full refund. No obligation.
+      </p>
+    </div>
+
+    <!-- FIXTURE PICKER — Version B only, Sep-Apr -->
+    <div id="fixtureSection" style="display:none;">
+      <div class="section-label">Choose a match (optional)</div>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;">
+        Select a preferred fixture below, or leave it to us — we'll pick the best available match for your date.
+      </p>
+
+      <div class="month-grid" id="monthGrid" style="margin-bottom:16px;"></div>
+
+      <div id="fixtureBlock" style="display:none;">
+        <div class="fixture-list" id="fixtureList"></div>
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div>
+      <div class="section-label">Anything we should know?</div>
+      <div class="field">
+        <textarea id="requests" rows="3" placeholder="Solo traveller? Accessibility needs? Dietary requirements? Questions about the route?"></textarea>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary-box" id="summaryBox" style="display:none;">
+      <div class="section-label" style="margin-bottom:10px;">Booking summary</div>
+      <div class="summary-row"><span class="s-label" id="sVersion">—</span><span class="s-value" id="sPricePP">—</span></div>
+      <div class="summary-row"><span class="s-label" id="sFixtureSummary" style="color:var(--muted);font-size:0.82rem;"></span></div>
+      <div class="summary-row" id="sDiscountRow" style="display:none;">
+        <span class="s-label" id="sDiscountLabel">—</span>
+        <span class="s-value" id="sDiscountValue" style="color:var(--accent);">—</span>
+      </div>
+      <div class="summary-row total"><span class="s-label">Total (indicative)</span><span class="s-value" id="sTotal">—</span></div>
+      <p style="font-size:0.72rem;color:var(--muted);margin-top:8px;">Final amount confirmed in your booking reply based on group size.</p>
+      <div class="discount-row">
+        <input type="text" id="discountInput" placeholder="Discount code" autocomplete="off" />
+        <button type="button" class="btn-apply" id="applyBtn">Apply</button>
+      </div>
+      <div class="discount-msg" id="discountMsg"></div>
+    </div>
+
+    <div class="process-note">
+      <strong>How it works:</strong> This is a booking request — not an instant charge. Kamil personally reviews every date. You'll get a clear answer within <strong>24–48 hours</strong>. No suitable match or Kamil unavailable? We'll tell you clearly and offer an alternative or full refund.
+    </div>
+
+    <div class="error-box" id="errorBox"></div>
+    <button type="submit" class="btn-submit" id="submitBtn" disabled>Send booking request</button>
+    <p class="form-note">Personally reviewed. No automated confirmation. No charge if nothing fits.</p>
+  </form>
+
+  <div class="success-screen" id="successScreen">
+    <div class="icon">✅</div>
+    <h2>Request received!</h2>
+    <p>Kamil and the team will review your dates and get back to you within 24–48 hours with a clear answer. Check your spam folder if you don't see an email from us.</p>
+    <button class="btn-submit" type="button" onclick="window.location.reload()" style="max-width:220px;margin:0 auto;">New booking</button>
+  </div>
+</div>
+
+<script>
+  const DISCOUNT_CODES = {
+    PRAGUE20: { type: 'percent', value: 20, label: 'Early Bird 20%' }
+  };
+
+  // ── IMPORTANT: Create a new Google Form for Prague and paste entry IDs below ──
+  const FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_PRAGUE_FORM_ID/formResponse';
+  const FIELDS = {
+    name:          'entry.NAME_ID',
+    email:         'entry.EMAIL_ID',
+    phone:         'entry.PHONE_ID',
+    experience:    'entry.EXPERIENCE_ID',
+    date:          'entry.DATE_ID',
+    guests:        'entry.GUESTS_ID',
+    requests:      'entry.REQUESTS_ID',
+    partner:       'entry.PARTNER_ID',
+    country:       'entry.COUNTRY_ID',
+    source:        'entry.SOURCE_ID',
+    version:       'entry.VERSION_ID',       // A or B
+    fixture:       'entry.FIXTURE_ID',       // match name if B selected
+    pricePerPerson:'entry.PRICE_PP_ID',
+    packageCode:   'entry.PACKAGECODE_ID',
+  };
+
+  // ── HC SLAVIA PRAGUE home fixtures ──
+  const SLAVIA = [
+    { date:'2026-09-09', opponent:'Vsetín',         round:'1st' },
+    { date:'2026-09-19', opponent:'Zlín',           round:'4th' },
+    { date:'2026-09-26', opponent:'Třebíč',         round:'6th' },
+    { date:'2026-09-30', opponent:'Havířov',        round:'8th' },
+    { date:'2026-10-07', opponent:'Sokolov',        round:'10th' },
+    { date:'2026-10-14', opponent:'Tábor',          round:'12th' },
+    { date:'2026-10-24', opponent:'Chomutov',       round:'15th' },
+    { date:'2026-10-25', opponent:'Jihlava',        round:'16th' },
+    { date:'2026-10-28', opponent:'Pardubice B',    round:'18th' },
+    { date:'2026-11-08', opponent:'Litoměřice',     round:'20th' },
+    { date:'2026-11-14', opponent:'Kolín',          round:'22nd' },
+    { date:'2026-11-18', opponent:'Přerov',         round:'24th' },
+    { date:'2026-11-25', opponent:'Frýdek-Místek',  round:'26th' },
+    { date:'2026-11-28', opponent:'Vsetín',         round:'27th' },
+    { date:'2026-12-02', opponent:'Zlín',           round:'30th' },
+    { date:'2026-12-16', opponent:'Třebíč',         round:'32nd' },
+    { date:'2026-12-21', opponent:'Havířov',        round:'34th' },
+    { date:'2026-12-29', opponent:'Sokolov',        round:'36th' },
+    { date:'2027-01-06', opponent:'Tábor',          round:'38th' },
+    { date:'2027-01-16', opponent:'Chomutov',       round:'41st' },
+    { date:'2027-01-17', opponent:'Jihlava',        round:'42nd' },
+    { date:'2027-01-23', opponent:'Pardubice B',    round:'44th' },
+    { date:'2027-01-30', opponent:'Litoměřice',     round:'46th' },
+    { date:'2027-02-06', opponent:'Kolín',          round:'48th' },
+    { date:'2027-02-14', opponent:'Přerov',         round:'50th' },
+    { date:'2027-02-20', opponent:'Frýdek-Místek',  round:'52nd' },
+  ].map(m => ({ ...m, club:'HC Slavia Prague', venue:'Zimní stadion Slavie, Prague', tag:'slavia' }));
+
+  // ── HC SPARTA PRAGUE home fixtures ──
+  const SPARTA = [
+    { date:'2026-09-22', opponent:'MBL',  round:'3rd' },
+    { date:'2026-09-28', opponent:'KVA',  round:'5th' },
+    { date:'2026-10-01', opponent:'CEB',  round:'7th' },
+    { date:'2026-10-08', opponent:'KOM',  round:'9th' },
+    { date:'2026-10-11', opponent:'VIT',  round:'10th' },
+    { date:'2026-10-18', opponent:'TRI',  round:'12th' },
+    { date:'2026-10-24', opponent:'OLO',  round:'14th' },
+    { date:'2026-11-01', opponent:'LIT',  round:'17th' },
+    { date:'2026-11-15', opponent:'MHK',  round:'19th' },
+    { date:'2026-11-29', opponent:'PLZ',  round:'24th' },
+    { date:'2026-12-06', opponent:'LIB',  round:'26th' },
+    { date:'2026-12-20', opponent:'KLA',  round:'28th', note:'Date subject to change' },
+    { date:'2026-12-22', opponent:'MBL',  round:'29th' },
+    { date:'2026-12-28', opponent:'KVA',  round:'31st' },
+    { date:'2027-01-03', opponent:'CEB',  round:'33rd' },
+    { date:'2027-01-08', opponent:'PCE',  round:'34th' },
+    { date:'2027-01-15', opponent:'VIT',  round:'36th' },
+    { date:'2027-01-22', opponent:'TRI',  round:'38th' },
+    { date:'2027-01-26', opponent:'OLO',  round:'40th' },
+    { date:'2027-01-29', opponent:'KLA',  round:'41st' },
+    { date:'2027-02-02', opponent:'LIT',  round:'43rd' },
+    { date:'2027-02-07', opponent:'MHK',  round:'45th' },
+    { date:'2027-02-19', opponent:'PCE',  round:'47th' },
+    { date:'2027-02-21', opponent:'KOM',  round:'48th' },
+    { date:'2027-02-28', opponent:'PLZ',  round:'50th' },
+    { date:'2027-03-05', opponent:'LIB',  round:'52nd' },
+  ].map(m => ({ ...m, club:'HC Sparta Prague', venue:'O2 Arena, Prague', tag:'sparta' }));
+
+  const ALL_MATCHES = [...SLAVIA, ...SPARTA].sort((a,b) => new Date(a.date)-new Date(b.date));
+
+  // Pricing
+  const PRICE_A = 55, PRICE_B = 79;
+
+  let selectedVersion = null, selectedMonth = null, selectedFixture = null, appliedDiscount = null, isSubmitting = false;
+  const $ = id => document.getElementById(id);
+  const els = {
+    form: $('bookingForm'), successScreen: $('successScreen'), errorBox: $('errorBox'),
+    name: $('name'), email: $('email'), phone: $('phone'), guests: $('guests'),
+    country: $('country'), source: $('source'), travelDate: $('travelDate'), requests: $('requests'),
+    fixtureSection: $('fixtureSection'), monthGrid: $('monthGrid'), fixtureBlock: $('fixtureBlock'), fixtureList: $('fixtureList'),
+    summaryBox: $('summaryBox'), sVersion: $('sVersion'), sPricePP: $('sPricePP'),
+    sFixtureSummary: $('sFixtureSummary'), sDiscountRow: $('sDiscountRow'),
+    sDiscountLabel: $('sDiscountLabel'), sDiscountValue: $('sDiscountValue'), sTotal: $('sTotal'),
+    discountInput: $('discountInput'), applyBtn: $('applyBtn'), discountMsg: $('discountMsg'), submitBtn: $('submitBtn')
+  };
+
+  function fmtDate(d) { return new Date(d+'T12:00:00').toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'long',year:'numeric'}); }
+  function fmtMoney(n) { return new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
+  function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+  function getPrice() { return selectedVersion === 'B' ? PRICE_B : PRICE_A; }
+
+  function selectVersion(v) {
+    selectedVersion = v;
+    document.getElementById('versionA').classList.toggle('active', v==='A');
+    document.getElementById('versionB').classList.toggle('active', v==='B');
+    // Show fixture picker only for Version B
+    els.fixtureSection.style.display = v==='B' ? 'block' : 'none';
+    if (v==='A') { selectedFixture = null; selectedMonth = null; }
+    updateSummary(); updateSubmit();
+  }
+
+  function getMonths() {
+    const map = {};
+    ALL_MATCHES.forEach(m => { const k=m.date.slice(0,7); map[k]=(map[k]||0)+1; });
+    return Object.entries(map).map(([k,count]) => { const d=new Date(k+'-01'); return {key:k,label:d.toLocaleDateString('en-IE',{month:'short',year:'numeric'}),count}; });
+  }
+
+  function renderMonths() {
+    els.monthGrid.innerHTML='';
+    getMonths().forEach(m => {
+      const btn=document.createElement('button'); btn.type='button';
+      btn.className='month-btn'+(selectedMonth===m.key?' active':'');
+      btn.innerHTML=`<span class="m-name">${m.label}</span><span class="m-count">${m.count} match${m.count!==1?'es':''}</span>`;
+      btn.addEventListener('click',()=>{ selectedMonth=m.key; selectedFixture=null; renderMonths(); renderFixtures(); updateSummary(); });
+      els.monthGrid.appendChild(btn);
+    });
+  }
+
+  function renderFixtures() {
+    if (!selectedMonth) { els.fixtureBlock.style.display='none'; return; }
+    const filtered=ALL_MATCHES.filter(m=>m.date.startsWith(selectedMonth));
+    els.fixtureList.innerHTML='';
+    if (!filtered.length) { els.fixtureList.innerHTML='<div class="no-fixtures">No matches this month.</div>'; els.fixtureBlock.style.display='block'; return; }
+    filtered.forEach(m => {
+      const el=document.createElement('div');
+      el.className='fixture-item'+(selectedFixture?.date===m.date&&selectedFixture?.club===m.club?' active':'');
+      el.innerHTML=`
+        <div class="fixture-radio"></div>
+        <div class="fixture-info">
+          <div class="fixture-name">${m.club} vs ${m.opponent}</div>
+          <div class="fixture-meta">
+            <span class="fixture-club ${m.tag==='slavia'?'club-slavia':'club-sparta'}">${m.tag==='slavia'?'Slavia':'Sparta'}</span>
+            <span>${fmtDate(m.date)}</span>
+            <span>${m.venue}</span>
+            ${m.note?`<span style="font-style:italic;color:#9ca3af;">${m.note}</span>`:''}
+          </div>
+        </div>
+        <div class="fixture-price">€${PRICE_B}<span style="font-size:0.72rem;font-weight:500;color:var(--muted)"> p.p.</span></div>`;
+      el.addEventListener('click',()=>{ selectedFixture=m; renderFixtures(); updateSummary(); clearError(); });
+      els.fixtureList.appendChild(el);
+    });
+    els.fixtureBlock.style.display='block';
+  }
+
+  function updateSummary() {
+    if (!selectedVersion) { els.summaryBox.style.display='none'; return; }
+    const pp = getPrice();
+    const label = selectedVersion==='A' ? 'Version A — Walking + Hall of Fame' : 'Version B — Tour + Hall of Fame + match';
+    els.sVersion.textContent = label;
+    els.sPricePP.textContent = `€${pp} p.p.`;
+    els.sFixtureSummary.textContent = selectedFixture ? `${selectedFixture.club} vs ${selectedFixture.opponent} · ${fmtDate(selectedFixture.date)}` : selectedVersion==='B' ? 'No fixture selected — we\'ll pick the best available' : '';
+
+    let disc=0;
+    if (appliedDiscount) disc = appliedDiscount.type==='percent' ? pp*appliedDiscount.value/100 : appliedDiscount.value;
+    if (appliedDiscount&&disc>0) {
+      els.sDiscountLabel.textContent=`${appliedDiscount.label}${appliedDiscount.type==='percent'?` (${appliedDiscount.value}%)`:''}`;
+      els.sDiscountValue.textContent=`− ${fmtMoney(disc)} p.p.`;
+      els.sDiscountRow.style.display='flex';
+    } else { els.sDiscountRow.style.display='none'; }
+
+    els.sTotal.textContent = `${fmtMoney(pp-disc)} p.p.`;
+    els.summaryBox.style.display='block';
+  }
+
+  function applyDiscount() {
+    const raw=els.discountInput.value.trim().toUpperCase(); const code=DISCOUNT_CODES[raw];
+    if (!raw) { showDiscountMsg('fail','Enter a discount code.'); return; }
+    if (!code) { appliedDiscount=null; showDiscountMsg('fail','Code not found or expired.'); updateSummary(); return; }
+    appliedDiscount={code:raw,...code}; showDiscountMsg('ok','Discount applied!'); updateSummary();
+  }
+
+  function showDiscountMsg(type,msg) { els.discountMsg.className='discount-msg '+type; els.discountMsg.textContent=msg; }
+  function showError(msg) { els.errorBox.textContent=msg; els.errorBox.className='error-box show'; }
+  function clearError() { els.errorBox.textContent=''; els.errorBox.className='error-box'; }
+
+  function updateSubmit() {
+    els.submitBtn.disabled=!(
+      els.name.value.trim() && validEmail(els.email.value.trim()) &&
+      els.guests.value && els.country.value.trim() && els.source.value &&
+      els.travelDate.value && selectedVersion && !isSubmitting
+    );
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault(); if (isSubmitting) return; clearError();
+    const name=els.name.value.trim(), email=els.email.value.trim();
+    if (!name)                     { showError('Please enter your full name.'); return; }
+    if (!validEmail(email))        { showError('Please enter a valid email address.'); return; }
+    if (!els.guests.value)         { showError('Please select your group size.'); return; }
+    if (!els.country.value.trim()) { showError('Please enter your country of residence.'); return; }
+    if (!els.source.value)         { showError('Please tell us how you heard about us.'); return; }
+    if (!els.travelDate.value)     { showError('Please enter your preferred date.'); return; }
+    if (!selectedVersion)          { showError('Please choose a version (A or B).'); return; }
+
+    isSubmitting=true; els.submitBtn.disabled=true; els.submitBtn.className='btn-submit loading'; els.submitBtn.innerHTML='<span class="spinner"></span> Sending…';
+
+    const pp = getPrice();
+    const packageCode = selectedVersion==='A' ? 'PRG-A' : 'PRG-B';
+    const experienceName = selectedVersion==='A' ? 'Prague Ice Hockey Experience – Version A (Tour + Hall of Fame)' : 'Prague Ice Hockey Experience – Version B (Tour + Hall of Fame + Match)';
+    const fixtureText = selectedFixture ? `${selectedFixture.club} vs ${selectedFixture.opponent} — ${selectedFixture.venue} — ${fmtDate(selectedFixture.date)}` : selectedVersion==='B' ? 'Version B — no specific fixture selected, please advise best available' : 'Version A — no fixture needed';
+    const discountText = appliedDiscount ? `Discount: ${appliedDiscount.code}` : 'No discount applied';
+    const guestNotes = els.requests.value.trim() ? `Notes: ${els.requests.value.trim()}` : '';
+
+    const fd=new FormData();
+    fd.append(FIELDS.name,           name);
+    fd.append(FIELDS.email,          email);
+    fd.append(FIELDS.phone,          els.phone.value.trim());
+    fd.append(FIELDS.experience,     experienceName);
+    fd.append(FIELDS.date,           els.travelDate.value);
+    fd.append(FIELDS.guests,         els.guests.value);
+    fd.append(FIELDS.partner,        'Prague');
+    fd.append(FIELDS.country,        els.country.value.trim());
+    fd.append(FIELDS.source,         els.source.value);
+    fd.append(FIELDS.version,        selectedVersion);
+    fd.append(FIELDS.fixture,        fixtureText);
+    fd.append(FIELDS.pricePerPerson, String(pp));
+    fd.append(FIELDS.packageCode,    packageCode);
+    fd.append(FIELDS.requests,       [discountText, guestNotes].filter(Boolean).join('\n'));
+
+    try {
+      await fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:fd});
+      try { gtag('event','form_submit',{experience:'prague',version:selectedVersion,guests:els.guests.value,value:pp,currency:'EUR'}); } catch(e){}
+      els.form.style.display='none'; els.successScreen.style.display='block';
+    } catch(err) {
+      showError('Could not send your request. Please try again.');
+      isSubmitting=false; els.submitBtn.disabled=false; els.submitBtn.className='btn-submit'; els.submitBtn.textContent='Send booking request';
+    }
+  }
+
+  function init() {
+    renderMonths();
+    els.applyBtn.addEventListener('click',applyDiscount);
+    els.discountInput.addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault();applyDiscount();} });
+    [els.name,els.email,els.country,els.travelDate].forEach(f=>f.addEventListener('input',updateSubmit));
+    [els.guests,els.source].forEach(f=>f.addEventListener('change',updateSubmit));
+    els.form.addEventListener('submit',handleSubmit);
+    try { gtag('event','experience_page_view',{experience:'prague',page_type:'booking'}); } catch(e){}
+  }
+
+  window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
