@@ -1,92 +1,446 @@
 /**
  * Beyond the Pitch - Master Admin Dashboard Logic
- * Versie: 3.3
+ * Versie: 4.0 — Pipeline + Email Composer
  */
 
 const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxDoEqNnYDf60dDVNjqzRTjh595ee3ufzpuKEyXJ-3Ns8pwTNLAZWw5DtjANUmVKr0irw/exec';
 
-let revenueChart = null;
-let allBookings = [];
-let packagePriceCache = {};      // { "PackageName": sellPrice }
-let partnerInfoFromSheet = null; // geladen vanuit PartnerInfo tab in Sheet
+let revenueChart    = null;
+let allBookings     = [];
+let packagePriceCache = {};
+let partnerInfoFromSheet = null;
 
-// --- PARTNER OPERATIONAL INFO ---
-// Vul hieronder per partner de operationele details in.
-// partnerId moet exact overeenkomen met de partnerID in je Google Sheet.
-// Je kunt meerdere locations toevoegen per partner.
-const partnerOperationalInfo = {
+// ─── Pipeline state ───────────────────────────────────────────────────────────
+let selectedBooking   = null;   // het huidig geselecteerde booking-object
+let activeTemplate    = 'confirmation';
 
-    dublin: {
-        partnerId: 'Dublin',
-        partnerName: 'Dublin Experience',
-        sheetIds: ['Dublin', 'dublin', 'Dublin Experience', 'Na Fianna'],
-        defaultLocationId: 'dublin-city',
-        locations: [
-            {
-                id: 'dublin-city',
-                label: 'Dublin',
-                venue: 'Na Fianna GAA Club',
-                address: 'St Mobhi Rd, Drumcondra, Dublin 9',
-                contactName: '',
-                contactPhone: '',
-                contactEmail: '',
-                bookingCutoffHours: 24,
-                maxGroupSize: null,
-                sessionSchedule: 'Publieke sessies: ma-vr 10:00, za 11:00. Zomer: ook Galway ma-za 11:00.',
-                netRatePerPerson: 39.50,
-                privateMinGroup: 10,
-                notes: 'Boekingsdeadline: min. 24u van tevoren, meer notice is beter.\n\nPublieke & private sessies hebben dezelfde basisstructuur (introductie + veld). Private groepen kunnen worden aangepast: meer sport of competitief element mogelijk.\n\nPrivate sessies: min. 10 personen (Dublin & Galway). Belfast en Cork: alleen groepsboeking (min. 10), geen dagelijkse publieke sessie.\n\nCopy: sessiebeschrijving eerst ter goedkeuring voorleggen aan partner voor publicatie. Niet overpromisen.'
-            }
-        ]
-    },
-
-    ireland: {
-        partnerId: 'Ireland',
-        partnerName: 'Ireland Experience',
-        sheetIds: ['Ireland', 'ireland', 'Ireland Experience', 'Hurling Tours Ireland'],  // voeg hier elke naam toe die in je sheet kan staan
-        defaultLocationId: 'ireland-kilkenny',
-        locations: [
-            {
-                id: 'ireland-kilkenny',
-                label: 'Kilkenny',
-                venue: '',
-                address: '',
-                contactName: '',
-                contactPhone: '',
-                contactEmail: '',
-                bookingCutoffHours: 48,
-                maxGroupSize: 12,
-                sessionSchedule: '',
-                netRatePerPerson: 0,
-                notes: ''
-            }
-        ]
-    }
-
+// Status → kolomnaam mapping
+const STAGE_MAP = {
+    'Pending'   : 'new',
+    'Confirmed' : 'confirmed',
+    'Paid'      : 'paid',
+    'Ready'     : 'ready',
+    'Complete'  : 'complete',
+    'Cancelled' : 'complete'   // geannuleerd toont in Complete kolom met aparte stijl
 };
 
+// ─── E-mail templates ─────────────────────────────────────────────────────────
+const EMAIL_TEMPLATES = {
+    confirmation: {
+        label: 'Bevestiging',
+        subject: (b) => `Booking confirmed – ${b['Experience'] || 'Beyond the Pitch'}`,
+        body: (b) => {
+            const firstName = (b['Full Name'] || 'there').split(' ')[0];
+            const date = formatDateLong(b['Start Date']);
+            const guests = b['Guests'] || '1';
+            const experience = b['Experience'] || 'your experience';
+            return `Hi ${firstName},
 
-// --- SHEET-GEBASEERDE PARTNER INFO ---
-// Haalt partner operationele info op uit de 'PartnerInfo' tab in Google Sheet.
-// Overschrijft de hardcoded partnerOperationalInfo zodra de Sheet geladen is.
-async function fetchPartnerInfoFromSheet() {
-    try {
-        // Converteer datum naar yyyy-MM-dd formaat
-let formattedDate = date;
-if (date && date.includes('-')) {
-    const parts = date.split('-');
-    if (parts.length === 3 && parts[0].length <= 2) {
-        // dd-M-yyyy of d-M-yyyy → yyyy-MM-dd
-        formattedDate = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+Great news — we have received your booking request for:
+
+Experience: ${experience}
+Date: ${date}
+Guests: ${guests}
+
+We're reviewing availability and will confirm your spot shortly. You'll receive a payment link as soon as your booking is confirmed.
+
+If you have any questions in the meantime, just reply to this email.
+
+See you on the pitch,
+Beyond the Pitch
+travelbeyondthepitch.com`;
+        }
+    },
+
+    payment: {
+        label: 'Betaallink',
+        subject: (b) => `Your payment link – ${b['Experience'] || 'Beyond the Pitch'}`,
+        body: (b) => {
+            const firstName = (b['Full Name'] || 'there').split(' ')[0];
+            const date = formatDateLong(b['Start Date']);
+            const guests = b['Guests'] || '1';
+            const experience = b['Experience'] || 'your experience';
+            return `Hi ${firstName},
+
+Your booking for ${experience} on ${date} (${guests} guests) is confirmed!
+
+Please complete your payment via the link below to secure your spot:
+
+→ [STRIPE PAYMENT LINK — paste here before sending]
+
+Once payment is received, you're all set. Your spot is held for 48 hours.
+
+Any questions? Just reply here.
+
+See you soon,
+Beyond the Pitch
+travelbeyondthepitch.com`;
+        }
+    },
+
+    reminder: {
+        label: '48u reminder',
+        subject: (b) => `See you tomorrow – ${b['Experience'] || 'Beyond the Pitch'}`,
+        body: (b) => {
+            const firstName = (b['Full Name'] || 'there').split(' ')[0];
+            const date = formatDateLong(b['Start Date']);
+            const experience = b['Experience'] || 'your experience';
+            const partner = (b['Partner'] || '').toLowerCase();
+            const venue = partner.includes('dublin')
+                ? 'Na Fianna GAA Club, St Mobhi Rd, Drumcondra, Dublin 9'
+                : partner.includes('kilkenny') || partner.includes('ireland')
+                    ? 'Kilkenny — check your booking confirmation for the exact location'
+                    : 'your venue — check your booking confirmation';
+            return `Hi ${firstName},
+
+Just a quick reminder that your ${experience} is tomorrow, ${date}!
+
+📍 ${venue}
+⏰ Please arrive 10 minutes before the session starts
+👟 Wear comfortable sports clothes and trainers
+💧 Bring water — it's an active session!
+
+We're looking forward to seeing you. If anything comes up, please let us know as soon as possible.
+
+See you on the pitch,
+Beyond the Pitch
+travelbeyondthepitch.com`;
+        }
+    },
+
+    followup: {
+        label: 'Follow-up',
+        subject: (b) => `How was it? – ${b['Experience'] || 'Beyond the Pitch'}`,
+        body: (b) => {
+            const firstName = (b['Full Name'] || 'there').split(' ')[0];
+            const experience = b['Experience'] || 'your experience';
+            return `Hi ${firstName},
+
+We hope you had an incredible time at ${experience}!
+
+We'd love to hear what you thought — even a few words means a lot to us and helps other travellers find us.
+
+→ Leave a review: [REVIEW LINK]
+
+If you're coming back to Ireland or thinking about another experience, reply here and we'll sort you out.
+
+Thanks for being part of it,
+Beyond the Pitch
+travelbeyondthepitch.com`;
+        }
     }
+};
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function formatDateLong(raw) {
+    if (!raw) return '—';
+    const d = new Date(raw);
+    if (isNaN(d)) return raw;
+    return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(formattedDate)}&status=${encodeURIComponent(newStatus)}`, { redirect: 'follow' });
+function formatDateShort(raw) {
+    if (!raw) return '—';
+    const d = new Date(raw);
+    if (isNaN(d)) return raw;
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+function normalizeDate(date) {
+    if (!date) return '';
+    if (date.includes('-')) {
+        const parts = date.split('-');
+        if (parts.length === 3 && parts[0].length <= 2) {
+            return `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+        }
+    }
+    return date;
+}
+
+function escapeHtml(value = '') {
+    return String(value).replace(/[&<>"']/g, (c) =>
+        ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])
+    );
+}
+
+function normalizePartnerKey(v = '') { return String(v).trim().toLowerCase(); }
+
+// ─── PIPELINE ─────────────────────────────────────────────────────────────────
+window.renderPipeline = function() {
+    const filterVal = (document.getElementById('pipelinePartnerFilter')?.value || 'all').toLowerCase();
+
+    const filtered = filterVal === 'all'
+        ? allBookings
+        : allBookings.filter(b => (b['Partner'] || '').toLowerCase().includes(filterVal));
+
+    // Reset columns
+    const colIds = ['new','confirmed','paid','ready','complete'];
+    colIds.forEach(id => {
+        const el = document.getElementById('col-' + id);
+        if (el) el.innerHTML = '';
+        const cnt = document.getElementById('cnt-' + id);
+        if (cnt) cnt.textContent = '0';
+    });
+
+    const counts = { new:0, confirmed:0, paid:0, ready:0, complete:0 };
+
+    filtered.forEach((b, idx) => {
+        const rawStatus = (b['Status'] || 'Pending');
+        const colKey    = STAGE_MAP[rawStatus] || 'new';
+        const col       = document.getElementById('col-' + colKey);
+        if (!col) return;
+
+        counts[colKey]++;
+
+        const partner  = (b['Partner'] || '').toLowerCase();
+        const tagClass = partner.includes('dublin') ? 'tag-dublin'
+                       : partner.includes('kilkenny') || partner.includes('ireland') ? 'tag-kilkenny'
+                       : 'tag-pax';
+        const tagLabel = partner.includes('dublin') ? 'Dublin' : partner.includes('kilkenny') || partner.includes('ireland') ? 'Kilkenny' : b['Partner'] || '—';
+
+        const payStatus = (b['PaymentStatus'] || '').toLowerCase();
+        const payTag    = payStatus === 'paid'
+            ? '<span class="pill-tag tag-paid">Paid</span>'
+            : '<span class="pill-tag tag-unpaid">Unpaid</span>';
+
+        const isCancelled = rawStatus === 'Cancelled';
+        const pill = document.createElement('div');
+        pill.className = 'booking-pill' + (isCancelled ? ' opacity-50' : '');
+        pill.style.opacity = isCancelled ? '0.45' : '1';
+        pill.dataset.idx   = allBookings.indexOf(b);
+        pill.innerHTML = `
+            <div class="pill-name">${escapeHtml(b['Full Name'] || 'Guest')}</div>
+            <div class="pill-meta">${escapeHtml(tagLabel)} · ${formatDateShort(b['Start Date'])}</div>
+            <div class="pill-tags">
+                <span class="pill-tag ${tagClass}">${escapeHtml(tagLabel)}</span>
+                <span class="pill-tag tag-pax">${b['Guests'] || 1} pax</span>
+                ${payTag}
+            </div>`;
+
+        pill.addEventListener('click', () => selectBooking(b, pill));
+        col.appendChild(pill);
+    });
+
+    // Update counts
+    Object.entries(counts).forEach(([k, v]) => {
+        const el = document.getElementById('cnt-' + k);
+        if (el) el.textContent = v;
+    });
+};
+
+function selectBooking(b, pillEl) {
+    // Highlight geselecteerde pill
+    document.querySelectorAll('.booking-pill').forEach(p => p.classList.remove('selected'));
+    if (pillEl) pillEl.classList.add('selected');
+
+    selectedBooking = b;
+
+    // Toon detail panel
+    const detail = document.getElementById('pipelineDetail');
+    if (detail) detail.classList.add('visible');
+
+    // Vul detail rows in
+    const rows = document.getElementById('detailRows');
+    if (rows) {
+        rows.innerHTML = `
+            <div class="detail-row"><span class="dl">Naam</span><span class="dv">${escapeHtml(b['Full Name'] || '—')}</span></div>
+            <div class="detail-row"><span class="dl">Experience</span><span class="dv">${escapeHtml(b['Experience'] || '—')}</span></div>
+            <div class="detail-row"><span class="dl">Datum</span><span class="dv">${formatDateLong(b['Start Date'])}</span></div>
+            <div class="detail-row"><span class="dl">Gasten</span><span class="dv">${b['Guests'] || 1} pax</span></div>
+            <div class="detail-row"><span class="dl">Partner</span><span class="dv">${escapeHtml(b['Partner'] || '—')}</span></div>
+            <div class="detail-row"><span class="dl">E-mail</span><span class="dv" style="font-size:0.75rem;">${escapeHtml(b['Email Address'] || '—')}</span></div>
+            <div class="detail-row"><span class="dl">Telefoon</span><span class="dv">${escapeHtml(b['Phone Number'] || '—')}</span></div>
+            <div class="detail-row"><span class="dl">Status</span><span class="dv">${escapeHtml(b['Status'] || 'Pending')}</span></div>
+            <div class="detail-row"><span class="dl">Betaling</span><span class="dv">${escapeHtml(b['PaymentStatus'] || 'Unpaid')}</span></div>
+            <div class="detail-row"><span class="dl">PackageCode</span><span class="dv">${escapeHtml(b['PackageCode'] || '—')}</span></div>
+            ${b['Special Requests'] ? `<div class="detail-row" style="flex-direction:column; gap:4px;"><span class="dl">Opmerkingen</span><span class="dv" style="font-size:0.75rem; text-align:left;">${escapeHtml(b['Special Requests'])}</span></div>` : ''}
+        `;
+    }
+
+    // Toon stage mover
+    const moverWrap = document.getElementById('stageMoverWrap');
+    if (moverWrap) moverWrap.style.display = 'block';
+
+    // Highlight huidige stage knop
+    const currentStage = b['Status'] || 'Pending';
+    document.querySelectorAll('.stage-btn').forEach(btn => {
+        btn.classList.toggle('current', btn.textContent.trim() === currentStage ||
+            (btn.textContent.trim() === 'New' && currentStage === 'Pending'));
+    });
+
+    // Ververs email preview
+    renderEmailPreview();
+
+    // Toon/verberg Stripe knop bij payment template
+    updateStripeBtn();
+
+    // Activeer send knop
+    const sendBtn = document.getElementById('sendEmailBtn');
+    if (sendBtn) sendBtn.disabled = false;
+
+    // Reset feedback
+    const fb = document.getElementById('sendFeedback');
+    if (fb) { fb.className = 'send-feedback'; fb.textContent = ''; }
+}
+
+window.selectTemplate = function(tplKey, btnEl) {
+    activeTemplate = tplKey;
+    document.querySelectorAll('.tpl-tab').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    renderEmailPreview();
+    updateStripeBtn();
+};
+
+function renderEmailPreview() {
+    const tpl = EMAIL_TEMPLATES[activeTemplate];
+    if (!tpl || !selectedBooking) {
+        document.getElementById('emailSubjectPreview').textContent = '—';
+        document.getElementById('emailBodyPreview').textContent = 'Selecteer eerst een boeking.';
+        return;
+    }
+    document.getElementById('emailSubjectPreview').textContent = tpl.subject(selectedBooking);
+    document.getElementById('emailBodyPreview').textContent    = tpl.body(selectedBooking);
+}
+
+function updateStripeBtn() {
+    const stripeBtn = document.getElementById('stripeBtn');
+    if (!stripeBtn) return;
+    stripeBtn.style.display = (activeTemplate === 'payment') ? 'flex' : 'none';
+}
+
+window.openStripeLink = function() {
+    if (!selectedBooking) return;
+    const pkg = selectedBooking['PackageCode'] || '';
+    alert(`Genereer een Stripe Payment Link voor:\n${selectedBooking['Full Name']} — ${selectedBooking['Experience']}\nPackageCode: ${pkg || 'onbekend'}\n\nKopieer de link en plak hem in het e-mailveld voor je verstuurt.`);
+};
+
+window.copyEmailBody = function() {
+    const body = document.getElementById('emailBodyPreview')?.textContent || '';
+    navigator.clipboard.writeText(body).then(() => {
+        showFeedback('E-mailtekst gekopieerd naar klembord.', 'success');
+    });
+};
+
+window.sendEmailFromDashboard = async function() {
+    if (!selectedBooking) return;
+
+    const tpl     = EMAIL_TEMPLATES[activeTemplate];
+    const subject = tpl.subject(selectedBooking);
+    const body    = tpl.body(selectedBooking);
+    const toEmail = selectedBooking['Email Address'];
+    const name    = selectedBooking['Full Name'];
+    const date    = normalizeDate(selectedBooking['Start Date'] || selectedBooking['Date'] || '');
+
+    if (!toEmail) {
+        showFeedback('Geen e-mailadres gevonden voor deze boeking.', 'error');
+        return;
+    }
+
+    const sendBtn = document.getElementById('sendEmailBtn');
+    if (sendBtn) { sendBtn.disabled = true; sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Versturen...'; }
+
+    try {
+        const url = `${SHEET_API_URL}?action=sendEmail`
+            + `&to=${encodeURIComponent(toEmail)}`
+            + `&name=${encodeURIComponent(name)}`
+            + `&date=${encodeURIComponent(date)}`
+            + `&subject=${encodeURIComponent(subject)}`
+            + `&body=${encodeURIComponent(body)}`
+            + `&template=${encodeURIComponent(activeTemplate)}`;
+
+        const resp = await fetch(url, { redirect: 'follow' });
+        const text = await resp.text();
+
+        let result;
+        try { result = JSON.parse(text); } catch(e) { result = { status: 'success' }; }
+
+        if (result.status === 'success' || result.status === undefined) {
+            showFeedback(`E-mail verstuurd naar ${toEmail}`, 'success');
+        } else {
+            showFeedback('Fout bij versturen: ' + (result.message || 'onbekende fout'), 'error');
+        }
+    } catch(e) {
+        showFeedback('Verbindingsfout. Controleer de Apps Script URL.', 'error');
+    } finally {
+        if (sendBtn) { sendBtn.disabled = false; sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur e-mail'; }
+    }
+};
+
+function showFeedback(msg, type) {
+    const fb = document.getElementById('sendFeedback');
+    if (!fb) return;
+    fb.textContent  = msg;
+    fb.className    = `send-feedback ${type}`;
+}
+
+// ─── Stage verplaatsen ────────────────────────────────────────────────────────
+window.moveToStage = async function(newStatus) {
+    if (!selectedBooking) return;
+
+    const name = selectedBooking['Full Name'] || '';
+    const rawDate = selectedBooking['Start Date'] || selectedBooking['Date'] || '';
+    const date = normalizeDate(rawDate);
+
+    // Optimistisch updaten in geheugen
+    selectedBooking['Status'] = newStatus;
+
+    // Ververs pipeline kaarten
+    renderPipeline();
+
+    // Highlight bijwerken
+    document.querySelectorAll('.stage-btn').forEach(btn => {
+        btn.classList.toggle('current', btn.textContent.trim() === newStatus ||
+            (btn.textContent.trim() === 'New' && newStatus === 'Pending'));
+    });
+
+    // Bijwerken in sheet
+    try {
+        await fetch(
+            `${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(date)}&status=${encodeURIComponent(newStatus)}`,
+            { redirect: 'follow' }
+        );
+    } catch(e) {
+        console.error('Stage update fout:', e);
+    }
+};
+
+// ─── PARTNER OPERATIONAL INFO ─────────────────────────────────────────────────
+const partnerOperationalInfo = {
+    dublin: {
+        partnerId: 'Dublin', partnerName: 'Dublin Experience',
+        sheetIds: ['Dublin', 'dublin', 'Dublin Experience', 'Na Fianna'],
+        defaultLocationId: 'dublin-city',
+        locations: [{
+            id: 'dublin-city', label: 'Dublin',
+            venue: 'Na Fianna GAA Club', address: 'St Mobhi Rd, Drumcondra, Dublin 9',
+            contactName: '', contactPhone: '', contactEmail: '',
+            bookingCutoffHours: 24, maxGroupSize: null, privateMinGroup: 10,
+            sessionSchedule: 'Publieke sessies: ma-vr 10:00, za 11:00.',
+            netRatePerPerson: 39.50,
+            notes: 'Boekingsdeadline: min. 24u van tevoren.\n\nPrivate sessies: min. 10 personen. Copy eerst ter goedkeuring voorleggen aan partner.'
+        }]
+    },
+    ireland: {
+        partnerId: 'Ireland', partnerName: 'Ireland Experience',
+        sheetIds: ['Ireland', 'ireland', 'Ireland Experience', 'Hurling Tours Ireland', 'Kilkenny'],
+        defaultLocationId: 'ireland-kilkenny',
+        locations: [{
+            id: 'ireland-kilkenny', label: 'Kilkenny',
+            venue: '', address: '', contactName: '', contactPhone: '', contactEmail: '',
+            bookingCutoffHours: 48, maxGroupSize: 12, privateMinGroup: null,
+            sessionSchedule: '', netRatePerPerson: 0, notes: ''
+        }]
+    }
+};
+
+// ─── SHEET-GEBASEERDE PARTNER INFO (BUG FIXED) ───────────────────────────────
+async function fetchPartnerInfoFromSheet() {
+    try {
+        const response = await fetch(`${SHEET_API_URL}?action=getPartnerInfo`, { redirect: 'follow' });
         const rows = await response.json();
 
         if (!Array.isArray(rows) || rows.length === 0) return;
 
-        // Groepeer rijen per PartnerID
         const grouped = {};
         rows.forEach(row => {
             const pid = (row.PartnerID || '').trim();
@@ -95,73 +449,48 @@ const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encode
             grouped[pid].push(row);
         });
 
-        // Bouw partnerOperationalInfo opnieuw op vanuit Sheet data
         Object.entries(grouped).forEach(([pid, locations]) => {
-            const key = pid.toLowerCase();
+            const key      = pid.toLowerCase();
             const existing = partnerOperationalInfo[key];
-
-            // Behoud sheetIds uit de hardcoded config als die er is
             const sheetIds = existing?.sheetIds || [pid];
 
             partnerOperationalInfo[key] = {
-                partnerId: pid,
-                partnerName: existing?.partnerName || pid,
-                sheetIds: sheetIds,
+                partnerId:         pid,
+                partnerName:       existing?.partnerName || pid,
+                sheetIds:          sheetIds,
                 defaultLocationId: locations[0]?.LocationID || `${key}-main`,
                 locations: locations.map(row => ({
-                    id:                  row.LocationID      || `${key}-main`,
-                    label:               row.LocationLabel   || pid,
-                    venue:               row.Venue           || '',
-                    address:             row.Address         || '',
-                    contactName:         row.ContactName     || '',
-                    contactPhone:        row.ContactPhone    || '',
-                    contactEmail:        row.ContactEmail    || '',
-                    bookingCutoffHours:  row.BookingCutoffHours ? parseInt(row.BookingCutoffHours) : null,
-                    maxGroupSize:        row.MaxGroupSize        ? parseInt(row.MaxGroupSize)       : null,
-                    privateMinGroup:     row.PrivateMinGroup     ? parseInt(row.PrivateMinGroup)    : null,
-                    sessionSchedule:     row.SessionSchedule || '',
-                    netRatePerPerson:    row.NetRatePerPerson ? parseFloat(row.NetRatePerPerson) : null,
-                    notes:               row.Notes           || ''
+                    id:                 row.LocationID          || `${key}-main`,
+                    label:              row.LocationLabel        || pid,
+                    venue:              row.Venue                || '',
+                    address:            row.Address              || '',
+                    contactName:        row.ContactName          || '',
+                    contactPhone:       row.ContactPhone         || '',
+                    contactEmail:       row.ContactEmail         || '',
+                    bookingCutoffHours: row.BookingCutoffHours   ? parseInt(row.BookingCutoffHours) : null,
+                    maxGroupSize:       row.MaxGroupSize         ? parseInt(row.MaxGroupSize)       : null,
+                    privateMinGroup:    row.PrivateMinGroup      ? parseInt(row.PrivateMinGroup)    : null,
+                    sessionSchedule:    row.SessionSchedule      || '',
+                    netRatePerPerson:   row.NetRatePerPerson     ? parseFloat(row.NetRatePerPerson) : null,
+                    notes:              row.Notes                || ''
                 }))
             };
         });
 
         partnerInfoFromSheet = true;
-        console.log('PartnerInfo geladen vanuit Sheet:', Object.keys(grouped));
-
-        // Herrender het paneel als dat open is
         renderPartnerInfoFromSelection();
-
-    } catch (e) {
-        console.warn('PartnerInfo Sheet niet bereikbaar, hardcoded data wordt gebruikt:', e);
+    } catch(e) {
+        console.warn('PartnerInfo Sheet niet bereikbaar, hardcoded data gebruikt:', e);
     }
 }
 
-function normalizePartnerKey(value = '') {
-    return String(value).trim().toLowerCase();
-}
-
-function escapeHtml(value = '') {
-    return String(value).replace(/[&<>"']/g, (char) => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-    }[char]));
-}
-
 function getPartnerOperationalEntry(partnerId = '') {
-    const normalized = normalizePartnerKey(partnerId);
-    if (!normalized) return null;
+    const n = normalizePartnerKey(partnerId);
+    if (!n) return null;
     return Object.values(partnerOperationalInfo).find(entry => {
-        // Match op partnerId of partnerName
-        if (normalizePartnerKey(entry.partnerId) === normalized) return true;
-        if (normalizePartnerKey(entry.partnerName) === normalized) return true;
-        // Match op alle sheetIds — voeg hier waarden toe als de sheet-naam wijzigt
-        if (Array.isArray(entry.sheetIds)) {
-            return entry.sheetIds.some(id => normalizePartnerKey(id) === normalized);
-        }
+        if (normalizePartnerKey(entry.partnerId)   === n) return true;
+        if (normalizePartnerKey(entry.partnerName) === n) return true;
+        if (Array.isArray(entry.sheetIds)) return entry.sheetIds.some(id => normalizePartnerKey(id) === n);
         return false;
     }) || null;
 }
@@ -169,202 +498,119 @@ function getPartnerOperationalEntry(partnerId = '') {
 function ensurePartnerOperationalEntry(partnerId = '', partnerName = '') {
     const key = normalizePartnerKey(partnerId || partnerName);
     if (!key) return null;
-
     if (!partnerOperationalInfo[key]) {
         const displayName = partnerName || partnerId || key;
         partnerOperationalInfo[key] = {
-            partnerId: partnerId || key,
-            partnerName: displayName,
+            partnerId: partnerId || key, partnerName: displayName,
             defaultLocationId: `${key}-main`,
-            locations: [
-                {
-                    id: `${key}-main`,
-                    label: displayName,
-                    venue: displayName,
-                    address: '',
-                    contactName: '',
-                    contactPhone: '',
-                    contactEmail: '',
-                    notes: 'Nog geen operationele info ingevuld.'
-                }
-            ]
+            locations: [{ id: `${key}-main`, label: displayName, venue: displayName, address: '', contactName: '', contactPhone: '', contactEmail: '', notes: 'Nog geen operationele info ingevuld.' }]
         };
-    } else {
-        if (partnerId && !partnerOperationalInfo[key].partnerId) {
-            partnerOperationalInfo[key].partnerId = partnerId;
-        }
-        if (partnerName && (!partnerOperationalInfo[key].partnerName || partnerOperationalInfo[key].partnerName === partnerOperationalInfo[key].partnerId)) {
-            partnerOperationalInfo[key].partnerName = partnerName;
-        }
     }
-
     return partnerOperationalInfo[key];
 }
 
 function initPartnerInfoEvents() {
-    const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
-    const locationSelect = document.getElementById('partnerInfoLocationSelect');
-
-    if (partnerSelect && !partnerSelect.dataset.bound) {
-        partnerSelect.addEventListener('change', () => {
-            populatePartnerInfoSelectors(partnerSelect.value);
-        });
-        partnerSelect.dataset.bound = 'true';
+    const ps = document.getElementById('partnerInfoPartnerSelect');
+    const ls = document.getElementById('partnerInfoLocationSelect');
+    if (ps && !ps.dataset.bound) {
+        ps.addEventListener('change', () => populatePartnerInfoSelectors(ps.value));
+        ps.dataset.bound = 'true';
     }
-
-    if (locationSelect && !locationSelect.dataset.bound) {
-        locationSelect.addEventListener('change', () => {
-            renderPartnerInfoFromSelection();
-        });
-        locationSelect.dataset.bound = 'true';
+    if (ls && !ls.dataset.bound) {
+        ls.addEventListener('change', renderPartnerInfoFromSelection);
+        ls.dataset.bound = 'true';
     }
 }
 
 function populatePartnerInfoSelectors(defaultPartnerId = 'dublin') {
-    const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
-    const locationSelect = document.getElementById('partnerInfoLocationSelect');
+    const ps = document.getElementById('partnerInfoPartnerSelect');
+    const ls = document.getElementById('partnerInfoLocationSelect');
+    if (!ps || !ls) return;
 
-    if (!partnerSelect || !locationSelect) return;
+    const entries = Object.values(partnerOperationalInfo);
+    if (!entries.length) { ps.innerHTML = '<option value="">No partners</option>'; ls.innerHTML = '<option value="">No locations</option>'; return; }
 
-    const partnerEntries = Object.values(partnerOperationalInfo);
-    if (!partnerEntries.length) {
-        partnerSelect.innerHTML = '<option value="">No partners</option>';
-        locationSelect.innerHTML = '<option value="">No locations</option>';
-        renderPartnerInfoFromSelection();
-        return;
-    }
+    ps.innerHTML = entries.map(e => `<option value="${escapeHtml(e.partnerId)}">${escapeHtml(e.partnerName)}</option>`).join('');
 
-    partnerSelect.innerHTML = partnerEntries.map(entry => `
-        <option value="${escapeHtml(entry.partnerId)}">${escapeHtml(entry.partnerName)}</option>
-    `).join('');
+    let sel = getPartnerOperationalEntry(defaultPartnerId) || getPartnerOperationalEntry(ps.value) || entries[0];
+    ps.value = sel.partnerId;
 
-    let selectedPartner = getPartnerOperationalEntry(defaultPartnerId);
-
-    if (!selectedPartner) {
-        selectedPartner =
-            getPartnerOperationalEntry(partnerSelect.value) ||
-            getPartnerOperationalEntry('dublin') ||
-            partnerEntries[0];
-    }
-
-    partnerSelect.value = selectedPartner.partnerId;
-
-    const locations = Array.isArray(selectedPartner.locations) ? selectedPartner.locations : [];
-
-    locationSelect.innerHTML = locations.length
-        ? locations.map(loc => `
-            <option value="${escapeHtml(loc.id)}">${escapeHtml(loc.label)}</option>
-        `).join('')
+    const locs = Array.isArray(sel.locations) ? sel.locations : [];
+    ls.innerHTML = locs.length
+        ? locs.map(l => `<option value="${escapeHtml(l.id)}">${escapeHtml(l.label)}</option>`).join('')
         : '<option value="">No locations</option>';
-
-    if (locations.length) {
-        locationSelect.value = selectedPartner.defaultLocationId || locations[0].id;
-    }
+    if (locs.length) ls.value = sel.defaultLocationId || locs[0].id;
 
     renderPartnerInfoFromSelection();
 }
 
-function renderPartnerInfoFromSelection() {
-    const partnerSelect = document.getElementById('partnerInfoPartnerSelect');
-    const locationSelect = document.getElementById('partnerInfoLocationSelect');
-    const container = document.getElementById('partnerInfoContent');
+window.renderPartnerInfoFromSelection = function() {
+    const ps  = document.getElementById('partnerInfoPartnerSelect');
+    const ls  = document.getElementById('partnerInfoLocationSelect');
+    const con = document.getElementById('partnerInfoContent');
+    if (!ps || !ls || !con) return;
 
-    if (!partnerSelect || !locationSelect || !container) return;
+    const partner = getPartnerOperationalEntry(ps.value);
+    if (!partner) { con.innerHTML = '<p style="color:#94a3b8;">No partner info found.</p>'; return; }
 
-    const partner = getPartnerOperationalEntry(partnerSelect.value);
+    const locs  = Array.isArray(partner.locations) ? partner.locations : [];
+    const loc   = locs.find(l => l.id === ls.value) || locs.find(l => l.id === partner.defaultLocationId) || locs[0];
+    if (!loc) { con.innerHTML = '<p style="color:#94a3b8;">No location info.</p>'; return; }
 
-    if (!partner) {
-        container.innerHTML = `
-            <div style="padding:16px; border:1px solid #e2e8f0; border-radius:12px; background:#fff;">
-                <strong style="color:#0f172a;">No partner info found.</strong>
+    const tile = (icon, label, value, highlight = false) => `
+        <div style="padding:12px; border-radius:10px; background:${highlight ? 'rgba(197,160,89,0.08)' : 'rgba(255,255,255,0.03)'}; border:1px solid ${highlight ? 'rgba(197,160,89,0.2)' : 'rgba(255,255,255,0.07)'};">
+            <div style="font-size:0.7rem; color:#64748b; margin-bottom:5px; display:flex; align-items:center; gap:5px;">
+                <i class="${escapeHtml(icon)}" style="color:#c5a059; font-size:0.7rem;"></i>${escapeHtml(label)}
             </div>
-        `;
-        return;
-    }
-
-    const locations = Array.isArray(partner.locations) ? partner.locations : [];
-    const selectedLocation =
-        locations.find(loc => loc.id === locationSelect.value) ||
-        locations.find(loc => loc.id === partner.defaultLocationId) ||
-        locations[0];
-
-    if (!selectedLocation) {
-        container.innerHTML = `
-            <div style="padding:16px; border:1px solid #e2e8f0; border-radius:12px; background:#fff;">
-                <strong style="color:#0f172a;">No location info available.</strong>
-            </div>
-        `;
-        return;
-    }
-
-    const tile = (icon, label, value, yellow = false) => `
-        <div style="padding:14px; border-radius:12px; background:${yellow ? '#fffbeb' : '#f8fafc'}; border:1px solid ${yellow ? '#fde68a' : '#e2e8f0'};">
-            <div style="font-size:0.75rem; color:#64748b; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
-                <i class="${escapeHtml(icon)}" style="color:#c5a059; font-size:0.75rem;"></i>
-                ${escapeHtml(label)}
-            </div>
-            <div style="font-weight:700; color:#0f172a; font-size:0.9rem; line-height:1.5;">${value || '<span style="color:#94a3b8;">—</span>'}</div>
+            <div style="font-weight:700; color:#f1f5f9; font-size:0.85rem; line-height:1.5;">${value || '<span style="color:#475569;">—</span>'}</div>
         </div>`;
 
-    const cutoff    = selectedLocation.bookingCutoffHours ? `${selectedLocation.bookingCutoffHours} uur van tevoren` : '';
-    const maxGroup  = selectedLocation.maxGroupSize      ? `Max. ${selectedLocation.maxGroupSize} gasten`            : '';
-    const netRate   = selectedLocation.netRatePerPerson  ? `€${selectedLocation.netRatePerPerson} p.p.`              : '';
-    const privMin   = selectedLocation.privateMinGroup   ? `Min. ${selectedLocation.privateMinGroup} personen`        : '';
+    const cutoff   = loc.bookingCutoffHours ? `${loc.bookingCutoffHours}u van tevoren` : '';
+    const maxGroup = loc.maxGroupSize       ? `Max. ${loc.maxGroupSize} gasten`         : '';
+    const netRate  = loc.netRatePerPerson   ? `€${loc.netRatePerPerson} p.p.`           : '';
+    const privMin  = loc.privateMinGroup    ? `Min. ${loc.privateMinGroup} personen`     : '';
 
-    container.innerHTML = `
-        <div style="border-radius:14px; overflow:hidden; border:1px solid #e2e8f0;">
-
-            <div style="background:#0f172a; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+    con.innerHTML = `
+        <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+            <div style="background:#0f172a; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                 <div>
-                    <div style="font-weight:800; color:#fff; font-size:1rem;">${escapeHtml(partner.partnerName)}</div>
-                    <div style="color:#c5a059; font-size:0.8rem; margin-top:2px;">${escapeHtml(selectedLocation.label)}</div>
+                    <div style="font-weight:800; color:#fff; font-size:0.95rem;">${escapeHtml(partner.partnerName)}</div>
+                    <div style="color:#c5a059; font-size:0.75rem; margin-top:2px;">${escapeHtml(loc.label)}</div>
                 </div>
-                ${netRate ? `<span style="background:rgba(197,160,89,0.15); color:#c5a059; border:1px solid rgba(197,160,89,0.3); padding:5px 12px; border-radius:999px; font-size:0.8rem; font-weight:800;">${escapeHtml(netRate)} netto</span>` : ''}
+                ${netRate ? `<span style="background:rgba(197,160,89,0.15); color:#c5a059; border:1px solid rgba(197,160,89,0.3); padding:4px 10px; border-radius:999px; font-size:0.75rem; font-weight:800;">${escapeHtml(netRate)} netto</span>` : ''}
             </div>
-
-            <div style="padding:16px; background:#fff;">
-
-                <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Locatie & contact</p>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:16px;">
-                    ${tile('fa-solid fa-location-dot', 'Venue', escapeHtml(selectedLocation.venue))}
-                    ${tile('fa-solid fa-map-pin', 'Adres', escapeHtml(selectedLocation.address))}
-                    ${tile('fa-solid fa-user', 'Contact', escapeHtml(selectedLocation.contactName))}
-                    ${tile('fa-solid fa-phone', 'Telefoon', escapeHtml(selectedLocation.contactPhone))}
-                    ${tile('fa-solid fa-envelope', 'E-mail', escapeHtml(selectedLocation.contactEmail))}
+            <div style="padding:14px; background:rgba(0,0,0,0.2);">
+                <p style="font-size:0.65rem; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 8px;">Locatie & contact</p>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-bottom:12px;">
+                    ${tile('fa-solid fa-location-dot','Venue', escapeHtml(loc.venue))}
+                    ${tile('fa-solid fa-map-pin','Adres', escapeHtml(loc.address))}
+                    ${tile('fa-solid fa-user','Contact', escapeHtml(loc.contactName))}
+                    ${tile('fa-solid fa-phone','Telefoon', escapeHtml(loc.contactPhone))}
+                    ${tile('fa-solid fa-envelope','E-mail', escapeHtml(loc.contactEmail))}
                 </div>
-
-                <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Boekingsregels</p>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:16px;">
-                    ${tile('fa-solid fa-clock', 'Boekingsdeadline', escapeHtml(cutoff), true)}
-                    ${tile('fa-solid fa-users', 'Max. groep (publiek)', escapeHtml(maxGroup), true)}
-                    ${tile('fa-solid fa-user-group', 'Min. privé groep', escapeHtml(privMin), true)}
-                    ${tile('fa-solid fa-calendar-days', 'Sessietijden', escapeHtml(selectedLocation.sessionSchedule), true)}
+                <p style="font-size:0.65rem; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 8px;">Boekingsregels</p>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-bottom:12px;">
+                    ${tile('fa-solid fa-clock','Deadline', escapeHtml(cutoff), true)}
+                    ${tile('fa-solid fa-users','Max. groep', escapeHtml(maxGroup), true)}
+                    ${tile('fa-solid fa-user-group','Min. privé', escapeHtml(privMin), true)}
+                    ${tile('fa-solid fa-calendar-days','Sessietijden', escapeHtml(loc.sessionSchedule), true)}
                 </div>
-
-                ${selectedLocation.notes ? `
-                <p style="font-size:0.7rem; font-weight:800; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 10px;">Notities</p>
-                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px; color:#475569; font-size:0.88rem; line-height:1.6; white-space:pre-wrap;">${escapeHtml(selectedLocation.notes)}</div>
+                ${loc.notes ? `
+                <p style="font-size:0.65rem; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 8px;">Notities</p>
+                <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px; color:#94a3b8; font-size:0.82rem; line-height:1.6; white-space:pre-wrap;">${escapeHtml(loc.notes)}</div>
                 ` : ''}
-
             </div>
-        </div>
-    `;
-}
+        </div>`;
+};
 
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof window.checkAuth === "function") {
+    if (typeof window.checkAuth === 'function') {
         if (!window.checkAuth('admin')) return;
     }
 
-    const currentDateDisplay = document.getElementById('currentDateDisplay');
-    if (currentDateDisplay) {
-        currentDateDisplay.textContent = new Date().toLocaleDateString('en-GB', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    }
+    const dateEl = document.getElementById('currentDateDisplay');
+    if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 
     initCalendar();
     initPartnerInfoEvents();
@@ -373,226 +619,176 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAdminData();
     fetchPartnerInfoFromSheet();
 
-    // Automatisch elke 5 minuten verversen
     setInterval(loadAdminData, 5 * 60 * 1000);
 });
 
-async function loadPartnerFilterOptions() {
-    try {
-        const response = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect: 'follow' });
-        const partners = await response.json();
-        if (!partners || !partners.length) return;
-
-        partners.forEach(p => ensurePartnerOperationalEntry(p.partnerID, p.name));
-
-        const select = document.getElementById('partnerFilter');
-        if (select) {
-            const current = select.value;
-            select.innerHTML = `<option value="all">Global View</option>`;
-            partners.forEach(p => {
-                const opt = document.createElement('option');
-                opt.value = p.partnerID;
-                opt.textContent = p.name || p.partnerID;
-                select.appendChild(opt);
-            });
-            select.value = current || 'all';
-        }
-
-        const pkgSelect = document.getElementById('pkg_partnerid');
-        if (pkgSelect) {
-            pkgSelect.innerHTML = '';
-            partners.forEach(p => {
-                const opt = document.createElement('option');
-                opt.value = p.partnerID;
-                opt.textContent = p.name || p.partnerID;
-                pkgSelect.appendChild(opt);
-            });
-        }
-
-        const currentPartnerInfoValue = document.getElementById('partnerInfoPartnerSelect')?.value || 'dublin';
-        populatePartnerInfoSelectors(currentPartnerInfoValue);
-    } catch (e) {
-        console.error("Could not load partner filter:", e);
-    }
-}
-
-// --- NAVIGATIE ---
+// ─── NAVIGATIE ────────────────────────────────────────────────────────────────
 window.showSection = (sId, el) => {
-    document.querySelectorAll('.content-section').forEach(s => {
-        s.style.display = 'none';
-        s.classList.remove('active');
-    });
-
+    document.querySelectorAll('.content-section').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
     const target = document.getElementById(sId);
-    if (target) {
-        target.style.display = 'block';
-        setTimeout(() => target.classList.add('active'), 10);
-    }
-
+    if (target) { target.style.display = 'block'; setTimeout(() => target.classList.add('active'), 10); }
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     if (el) el.classList.add('active');
 
-    if (sId === 'partners') {
-        loadPartnerList();
-        initPartnerInfoEvents();
-        populatePartnerInfoSelectors('dublin');
-        fetchPartnerInfoFromSheet();
-    }
-
-    if (sId === 'packages') {
-        loadPackageList();
-    }
-
-    if (sId === 'overview') {
+    if (sId === 'pipeline')  renderPipeline();
+    if (sId === 'partners')  { loadPartnerList(); initPartnerInfoEvents(); populatePartnerInfoSelectors('dublin'); fetchPartnerInfoFromSheet(); }
+    if (sId === 'packages')  loadPackageList();
+    if (sId === 'overview')  {
         setTimeout(() => {
-            if (window.calendar) {
-                window.calendar.updateSize();
-                window.calendar.render();
-            }
+            if (window.calendar) { window.calendar.updateSize(); window.calendar.render(); }
             if (revenueChart) revenueChart.update();
         }, 150);
     }
 };
 
-// --- DATA LADEN ---
+// ─── DATA LADEN ───────────────────────────────────────────────────────────────
 async function loadAdminData() {
-    const syncBtn = document.getElementById('syncBtn');
-    const filterEl = document.getElementById('partnerFilter');
-    const filterValue = filterEl ? filterEl.value : 'all';
+    const syncBtn    = document.getElementById('syncBtn');
+    const filterVal  = document.getElementById('partnerFilter')?.value || 'all';
 
-    if (syncBtn) {
-        syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
-    }
+    if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing...';
 
     try {
-        const [bookingResponse, packageResponse] = await Promise.all([
-            fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterValue)}`, { redirect: 'follow' }),
-            fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`, { redirect: 'follow' })
+        const [bookingResp, packageResp] = await Promise.all([
+            fetch(`${SHEET_API_URL}?partnerID=${encodeURIComponent(filterVal)}`, { redirect:'follow' }),
+            fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`, { redirect:'follow' })
         ]);
 
-        const data = await bookingResponse.json();
-        allBookings = Array.isArray(data) ? data.filter(row => row["Full Name"] || row["Experience"]) : [];
+        const data = await bookingResp.json();
+        allBookings = Array.isArray(data) ? data.filter(r => r['Full Name'] || r['Experience']) : [];
 
-        // Bouw een lookup: "Experience naam" → sell price
         try {
-            const packages = await packageResponse.json();
+            const pkgs = await packageResp.json();
             packagePriceCache = {};
-            if (Array.isArray(packages)) {
-                packages.forEach(p => {
+            if (Array.isArray(pkgs)) {
+                pkgs.forEach(p => {
                     const key = (p.PackageName || '').trim().toLowerCase();
                     if (key) packagePriceCache[key] = parseFloat(p.SellPrice) || 0;
                 });
             }
-        } catch (pkgErr) {
-            console.warn("Could not load package prices, falling back to €75/guest:", pkgErr);
-        }
+        } catch(e) { console.warn('Package prijzen konden niet geladen worden:', e); }
 
         renderAdminTable(allBookings);
         updateAdminStats(allBookings);
         populateAdminCalendar(allBookings);
         updateRevenueChart(allBookings);
-    } catch (e) {
-        console.error("Sync error:", e);
+
+        // Herlaad pipeline als die zichtbaar is
+        const pipelineSection = document.getElementById('pipeline');
+        if (pipelineSection && pipelineSection.style.display !== 'none') renderPipeline();
+
+    } catch(e) {
+        console.error('Sync fout:', e);
     } finally {
-        if (syncBtn) {
-            syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data';
-        }
+        if (syncBtn) syncBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Data';
     }
 }
 
-// --- TABEL ---
+async function loadPartnerFilterOptions() {
+    try {
+        const resp     = await fetch(`${SHEET_API_URL}?action=getPartners`, { redirect:'follow' });
+        const partners = await resp.json();
+        if (!partners?.length) return;
+
+        partners.forEach(p => ensurePartnerOperationalEntry(p.partnerID, p.name));
+
+        const sel = document.getElementById('partnerFilter');
+        if (sel) {
+            const cur = sel.value;
+            sel.innerHTML = '<option value="all">Global View</option>';
+            partners.forEach(p => { const o = document.createElement('option'); o.value = p.partnerID; o.textContent = p.name || p.partnerID; sel.appendChild(o); });
+            sel.value = cur || 'all';
+        }
+
+        const pkgSel = document.getElementById('pkg_partnerid');
+        if (pkgSel) {
+            pkgSel.innerHTML = '';
+            partners.forEach(p => { const o = document.createElement('option'); o.value = p.partnerID; o.textContent = p.name || p.partnerID; pkgSel.appendChild(o); });
+        }
+
+        // Pipeline filter bijwerken
+        const pipeSel = document.getElementById('pipelinePartnerFilter');
+        if (pipeSel) {
+            const curPipe = pipeSel.value;
+            pipeSel.innerHTML = '<option value="all">Alle partners</option>';
+            partners.forEach(p => { const o = document.createElement('option'); o.value = p.partnerID; o.textContent = p.name || p.partnerID; pipeSel.appendChild(o); });
+            pipeSel.value = curPipe || 'all';
+        }
+
+        populatePartnerInfoSelectors(document.getElementById('partnerInfoPartnerSelect')?.value || 'dublin');
+    } catch(e) {
+        console.error('Partnerfilter kon niet geladen worden:', e);
+    }
+}
+
+// ─── TABEL ────────────────────────────────────────────────────────────────────
 function renderAdminTable(bookings) {
     const container = document.getElementById('adminTableContainer');
     if (!container) return;
+    if (!bookings.length) { container.innerHTML = "<p style='padding:20px; color:#64748b;'>No bookings found.</p>"; return; }
 
-    if (!bookings.length) {
-        container.innerHTML = "<p style='padding:20px; color:#64748b;'>No bookings found.</p>";
-        return;
-    }
+    const sorted = [...bookings].sort((a,b) => new Date(b['Start Date']||b['Date']) - new Date(a['Start Date']||a['Date']));
 
-    let html = `
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>Partner</th>
-                    <th>Date</th>
-                    <th>Guest</th>
-                    <th>Experience</th>
-                    <th>Pax</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>`;
-
-    const sorted = [...bookings].sort((a, b) => {
-        return new Date(b["Start Date"] || b["Date"]) - new Date(a["Start Date"] || a["Date"]);
-    });
+    let html = `<table class="admin-table"><thead><tr><th>Partner</th><th>Date</th><th>Guest</th><th>Experience</th><th>Pax</th><th>Status</th></tr></thead><tbody>`;
 
     sorted.forEach((b) => {
-        const index = allBookings.indexOf(b);
-        const d = new Date(b["Start Date"] || b["Date"]);
-        const fDate = !isNaN(d) ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : "-";
-        const rawDate = b["Start Date"] || b["Date"] || "";
-        const rawStatus = b["Status"] || "Pending";
-        const name = (b["Full Name"] || "Guest").replace(/'/g, "\\'");
+        const idx       = allBookings.indexOf(b);
+        const d         = new Date(b['Start Date'] || b['Date']);
+        const fDate     = !isNaN(d) ? d.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) : '—';
+        const rawDate   = b['Start Date'] || b['Date'] || '';
+        const rawStatus = b['Status'] || 'Pending';
+        const name      = (b['Full Name'] || 'Guest').replace(/'/g,"\\'");
 
-        html += `
-            <tr>
-                <td><span class="badge-partner">${b["Partner"] || "-"}</span></td>
-                <td><strong>${fDate}</strong></td>
-                <td><span onclick="openBookingModal(${index})" style="cursor:pointer; color:#c5a059; font-weight:700;">${b["Full Name"] || "Guest"}</span></td>
-                <td style="font-size:0.8rem;">${b["Experience"] || "-"}</td>
-                <td>${b["Guests"] || 1}</td>
-                <td>
-                    <select onchange="updateBookingStatus('${name}', '${rawDate}', this.value, this)"
-                        style="padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; font-size:0.8rem; font-weight:600; cursor:pointer;
-                        background:${rawStatus.toLowerCase() === 'confirmed' ? '#dcfce7' : rawStatus.toLowerCase() === 'cancelled' ? '#fee2e2' : '#fef3c7'};
-                        color:${rawStatus.toLowerCase() === 'confirmed' ? '#166534' : rawStatus.toLowerCase() === 'cancelled' ? '#991b1b' : '#92400e'};">
-                        <option value="Pending" ${rawStatus === 'Pending' ? 'selected' : ''}>Pending</option>
-                        <option value="Confirmed" ${rawStatus === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
-                        <option value="Cancelled" ${rawStatus === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-                    </select>
-                </td>
-            </tr>`;
+        html += `<tr>
+            <td><span class="badge-partner">${b['Partner'] || '—'}</span></td>
+            <td><strong>${fDate}</strong></td>
+            <td><span onclick="openBookingModal(${idx})" style="cursor:pointer; color:#c5a059; font-weight:700;">${b['Full Name'] || 'Guest'}</span></td>
+            <td style="font-size:0.8rem;">${b['Experience'] || '—'}</td>
+            <td>${b['Guests'] || 1}</td>
+            <td>
+                <select onchange="updateBookingStatus('${name}','${rawDate}',this.value,this)"
+                    style="padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; font-size:0.8rem; font-weight:600; cursor:pointer;
+                    background:${rawStatus==='Confirmed'?'#dcfce7':rawStatus==='Cancelled'?'#fee2e2':rawStatus==='Paid'?'#dbeafe':'#fef3c7'};
+                    color:${rawStatus==='Confirmed'?'#166534':rawStatus==='Cancelled'?'#991b1b':rawStatus==='Paid'?'#1e40af':'#92400e'};">
+                    <option value="Pending"   ${rawStatus==='Pending'  ?'selected':''}>Pending</option>
+                    <option value="Confirmed" ${rawStatus==='Confirmed'?'selected':''}>Confirmed</option>
+                    <option value="Paid"      ${rawStatus==='Paid'     ?'selected':''}>Paid</option>
+                    <option value="Ready"     ${rawStatus==='Ready'    ?'selected':''}>Ready</option>
+                    <option value="Complete"  ${rawStatus==='Complete' ?'selected':''}>Complete</option>
+                    <option value="Cancelled" ${rawStatus==='Cancelled'?'selected':''}>Cancelled</option>
+                </select>
+            </td>
+        </tr>`;
     });
 
     container.innerHTML = html + '</tbody></table>';
 }
 
-// --- STATUS UPDATE ---
+// ─── STATUS UPDATE (ook gebruikt door tabel-dropdown) ─────────────────────────
 async function updateBookingStatus(name, date, newStatus, selectEl) {
     if (selectEl) {
-        selectEl.style.background = newStatus === 'Confirmed'
-            ? '#dcfce7'
-            : newStatus === 'Cancelled'
-                ? '#fee2e2'
-                : '#fef3c7';
-
-        selectEl.style.color = newStatus === 'Confirmed'
-            ? '#166534'
-            : newStatus === 'Cancelled'
-                ? '#991b1b'
-                : '#92400e';
+        const colors = { Confirmed:'#dcfce7', Cancelled:'#fee2e2', Paid:'#dbeafe', Ready:'#ede9fe', Complete:'#f1f5f9' };
+        const texts  = { Confirmed:'#166534', Cancelled:'#991b1b', Paid:'#1e40af', Ready:'#5b21b6', Complete:'#475569' };
+        selectEl.style.background = colors[newStatus] || '#fef3c7';
+        selectEl.style.color      = texts[newStatus]  || '#92400e';
     }
 
-    try {
-        const response = await fetch(`${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(date)}&status=${encodeURIComponent(newStatus)}`, { redirect: 'follow' });
-        const text = await response.text();
+    const normalizedDate = normalizeDate(date);
 
-        try {
-            const result = JSON.parse(text);
-            if (result.status !== "success") {
-                console.warn("Status update warning:", result.message);
-            }
-        } catch (parseErr) {
-            console.log("Status updated (redirect response)");
-        }
-    } catch (e) {
-        console.error("Connection error:", e);
+    try {
+        const resp = await fetch(
+            `${SHEET_API_URL}?action=updateStatus&name=${encodeURIComponent(name)}&date=${encodeURIComponent(normalizedDate)}&status=${encodeURIComponent(newStatus)}`,
+            { redirect:'follow' }
+        );
+        const text = await resp.text();
+        try { const r = JSON.parse(text); if (r.status !== 'success') console.warn('Status update:', r.message); }
+        catch(e) { /* redirect response, OK */ }
+    } catch(e) {
+        console.error('Status update fout:', e);
     }
 }
 
-// --- BOOKING MODAL ---
+// ─── BOOKING MODAL ────────────────────────────────────────────────────────────
 window.openBookingModal = function(index) {
     const b = allBookings[index];
     if (b) showAdminBookingModal(b);
@@ -602,349 +798,176 @@ function showAdminBookingModal(b) {
     const existing = document.getElementById('adminBookingModal');
     if (existing) existing.remove();
 
-    const rawStatus = b["Status"] || "Pending";
-    const statusColor = rawStatus.toLowerCase() === 'confirmed'
-        ? '#166534'
-        : rawStatus.toLowerCase() === 'cancelled'
-            ? '#991b1b'
-            : '#92400e';
-
-    const statusBg = rawStatus.toLowerCase() === 'confirmed'
-        ? '#dcfce7'
-        : rawStatus.toLowerCase() === 'cancelled'
-            ? '#fee2e2'
-            : '#fef3c7';
-
-    const d = new Date(b["Start Date"] || b["Date"]);
-    const dateStr = !isNaN(d)
-        ? d.toLocaleDateString('en-GB', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        })
-        : "-";
+    const rawStatus = b['Status'] || 'Pending';
+    const statusColor = rawStatus === 'Confirmed' ? '#166534' : rawStatus === 'Cancelled' ? '#991b1b' : '#92400e';
+    const statusBg    = rawStatus === 'Confirmed' ? '#dcfce7' : rawStatus === 'Cancelled' ? '#fee2e2' : '#fef3c7';
 
     const modal = document.createElement('div');
-    modal.id = 'adminBookingModal';
+    modal.id        = 'adminBookingModal';
     modal.className = 'modal-overlay';
     modal.innerHTML = `
         <div class="modal-card">
-            <button class="modal-close" onclick="document.getElementById('adminBookingModal').remove()">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+            <button class="modal-close" onclick="document.getElementById('adminBookingModal').remove()"><i class="fa-solid fa-xmark"></i></button>
             <h3 style="margin-bottom:20px; color:#1e293b;">Booking Details</h3>
-            <div class="modal-row">
-                <div class="modal-label">Partner</div>
-                <div class="modal-value">${b["Partner"] || "-"}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Guest</div>
-                <div class="modal-value">${b["Full Name"] || "-"}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Experience</div>
-                <div class="modal-value">${b["Experience"] || "-"}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Date</div>
-                <div class="modal-value">${dateStr}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Guests</div>
-                <div class="modal-value">${b["Guests"] || "1"} pax</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Email</div>
-                <div class="modal-value">${b["Email Address"] || "-"}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Phone</div>
-                <div class="modal-value">${b["Phone Number"] || "-"}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Special Requests</div>
-                <div class="modal-value">${b["Special Requests"] || "-"}</div>
-            </div>
-            <div class="modal-row">
-                <div class="modal-label">Status</div>
-                <div style="margin-top:4px;">
-                    <span style="padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; background:${statusBg}; color:${statusColor};">
-                        ${rawStatus}
-                    </span>
-                </div>
-            </div>
+            <div class="modal-row"><div class="modal-label">Partner</div><div class="modal-value">${b['Partner']||'—'}</div></div>
+            <div class="modal-row"><div class="modal-label">Guest</div><div class="modal-value">${b['Full Name']||'—'}</div></div>
+            <div class="modal-row"><div class="modal-label">Experience</div><div class="modal-value">${b['Experience']||'—'}</div></div>
+            <div class="modal-row"><div class="modal-label">Date</div><div class="modal-value">${formatDateLong(b['Start Date'])}</div></div>
+            <div class="modal-row"><div class="modal-label">Guests</div><div class="modal-value">${b['Guests']||1} pax</div></div>
+            <div class="modal-row"><div class="modal-label">Email</div><div class="modal-value">${b['Email Address']||'—'}</div></div>
+            <div class="modal-row"><div class="modal-label">Phone</div><div class="modal-value">${b['Phone Number']||'—'}</div></div>
+            <div class="modal-row"><div class="modal-label">Special Requests</div><div class="modal-value">${b['Special Requests']||'—'}</div></div>
+            <div class="modal-row"><div class="modal-label">Status</div><div style="margin-top:4px;"><span style="padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; background:${statusBg}; color:${statusColor};">${rawStatus}</span></div></div>
         </div>`;
 
-    modal.addEventListener('click', e => {
-        if (e.target === modal) modal.remove();
-    });
-
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
     document.body.appendChild(modal);
 }
 
-// --- EXPORT ---
-window.exportBookingsToCSV = function() {
-    if (!allBookings.length) return alert("No data to export.");
-
-    const headers = ["Partner", "Full Name", "Email Address", "Phone Number", "Experience", "Start Date", "Guests", "Special Requests"];
-    const csvContent = [
-        headers.join(","),
-        ...allBookings.map(row =>
-            headers.map(h => `"${(row[h] || "").toString().replace(/"/g, '""')}"`).join(",")
-        )
-    ].join("\n");
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `BTP_Export_${new Date().toISOString().split('T')[0]}.csv`;
-    link.click();
-};
-
-window.calculateSellPrice = () => {
-    const net = parseFloat(document.getElementById('pkg_net')?.value) || 0;
-    const comm = parseFloat(document.getElementById('pkg_comm')?.value) || 0;
-    const sellInput = document.getElementById('pkg_sell');
-    if (sellInput) {
-        sellInput.value = (net * (1 + comm / 100)).toFixed(2);
-    }
-};
-
-// --- PACKAGES ---
-async function loadPackageList() {
-    const container = document.getElementById('packagesTableContainer');
-    if (!container) return;
-
-    container.innerHTML = "Loading...";
-
-    try {
-        const r = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`);
-        const pkgs = await r.json();
-
-        let h = `<table class="admin-table"><thead><tr><th>Partner</th><th>Package</th><th>Net</th><th>Sell</th><th>Profit</th><th>Action</th></tr></thead><tbody>`;
-        pkgs.forEach(p => {
-            const n = parseFloat(p.NetPrice) || 0;
-            const s = parseFloat(p.SellPrice) || 0;
-            h += `<tr>
-                <td>${p.PartnerID}</td>
-                <td><strong>${p.PackageName}</strong></td>
-                <td>€${n.toFixed(2)}</td>
-                <td>€${s.toFixed(2)}</td>
-                <td style="color:#10b981;font-weight:bold">€${(s - n).toFixed(2)}</td>
-                <td><button class="btn-delete" onclick="deletePackage('${p.PackageName}','${p.PartnerID}')"><i class="fa-solid fa-trash"></i></button></td>
-            </tr>`;
-        });
-
-        container.innerHTML = h + "</tbody></table>";
-    } catch (e) {
-        container.innerHTML = "Error loading packages.";
-    }
-}
-
-async function deletePackage(name, partner) {
-    if (!confirm(`Delete ${name}?`)) return;
-
-    try {
-        await fetch(`${SHEET_API_URL}?action=deletePackage&name=${encodeURIComponent(name)}&partnerID=${encodeURIComponent(partner)}`, { redirect: 'follow' });
-        loadPackageList();
-    } catch (e) {
-        loadPackageList();
-    }
-}
-
-async function submitNewPackage() {
-    const pID = document.getElementById('pkg_partnerid')?.value;
-    const name = document.getElementById('pkg_name')?.value;
-    const net = document.getElementById('pkg_net')?.value;
-    const sell = document.getElementById('pkg_sell')?.value;
-
-    await fetch(`${SHEET_API_URL}?action=addPackage&partnerID=${encodeURIComponent(pID)}&name=${encodeURIComponent(name)}&net=${net}&sell=${sell}`, { redirect: 'follow' });
-
-    const form = document.getElementById('addPackageForm');
-    if (form) form.style.display = 'none';
-
-    loadPackageList();
-}
-
-// --- STATS & CHARTS ---
+// ─── STATS ────────────────────────────────────────────────────────────────────
 function updateAdminStats(b) {
-    const totalBookingsEl = document.getElementById('totalBookings');
-    const totalGuestsEl = document.getElementById('totalGuests');
-    const totalRevenueEl = document.getElementById('totalRevenue');
-    const activePartnersEl = document.getElementById('activePartners');
-
-    if (totalBookingsEl) totalBookingsEl.textContent = b.length;
-
-    const g = b.reduce((s, x) => s + (parseInt(x["Guests"]) || 0), 0);
-
-    // Revenue: gebruik echte SellPrice uit packages, anders fallback €75/gast
-    const revenue = b.reduce((sum, x) => {
-        const guests = parseInt(x["Guests"]) || 0;
-        const experienceKey = (x["Experience"] || '').trim().toLowerCase();
-        const pricePerPerson = packagePriceCache[experienceKey] || 75;
-        return sum + (guests * pricePerPerson);
+    const g = b.reduce((s,x) => s + (parseInt(x['Guests'])||0), 0);
+    const revenue = b.reduce((sum,x) => {
+        const guests = parseInt(x['Guests'])||0;
+        const key    = (x['Experience']||'').trim().toLowerCase();
+        return sum + guests * (packagePriceCache[key] || 75);
     }, 0);
 
-    if (totalGuestsEl) totalGuestsEl.textContent = g;
-    if (totalRevenueEl) totalRevenueEl.textContent = `€${revenue.toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-    if (activePartnersEl) activePartnersEl.textContent = new Set(b.map(x => x["Partner"])).size;
+    document.getElementById('totalBookings').textContent  = b.length;
+    document.getElementById('totalGuests').textContent    = g;
+    document.getElementById('totalRevenue').textContent   = `€${revenue.toLocaleString('nl-NL', { minimumFractionDigits:0, maximumFractionDigits:0 })}`;
+    document.getElementById('activePartners').textContent = new Set(b.map(x => x['Partner'])).size;
 }
 
+// ─── KALENDER ─────────────────────────────────────────────────────────────────
 function initCalendar() {
-    const calendarEl = document.getElementById('calendar');
-    if (!calendarEl || typeof FullCalendar === 'undefined') return;
-
-    window.calendar = new FullCalendar.Calendar(calendarEl, {
+    const el = document.getElementById('calendar');
+    if (!el || typeof FullCalendar === 'undefined') return;
+    window.calendar = new FullCalendar.Calendar(el, {
         initialView: 'dayGridMonth',
-        headerToolbar: { left: 'prev,next', center: 'title', right: 'today' },
+        headerToolbar: { left:'prev,next', center:'title', right:'today' },
         eventColor: '#c5a059'
     });
-
     window.calendar.render();
 }
 
 function populateAdminCalendar(b) {
     if (!window.calendar) return;
-
     window.calendar.removeAllEvents();
-    window.calendar.addEventSource(b.map(x => ({
-        title: `[${x.Partner}] ${x["Full Name"]}`,
-        start: x["Start Date"],
-        allDay: true
-    })));
+    window.calendar.addEventSource(b.map(x => ({ title: `[${x.Partner}] ${x['Full Name']}`, start: x['Start Date'], allDay: true })));
 }
 
+// ─── REVENUE CHART ────────────────────────────────────────────────────────────
 function updateRevenueChart(bookings) {
     const ctx = document.getElementById('revenueChart');
     if (!ctx || typeof Chart === 'undefined') return;
-
     if (revenueChart) revenueChart.destroy();
 
-    const monthlyData = {};
+    const monthly = {};
     bookings.forEach(b => {
-        const d = new Date(b["Start Date"] || b["Date"]);
+        const d = new Date(b['Start Date']||b['Date']);
         if (isNaN(d)) return;
-        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        const guests = parseInt(b["Guests"]) || 0;
-        const experienceKey = (b["Experience"] || '').trim().toLowerCase();
-        const pricePerPerson = packagePriceCache[experienceKey] || 75;
-        monthlyData[key] = (monthlyData[key] || 0) + (guests * pricePerPerson);
+        const key    = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+        const guests = parseInt(b['Guests'])||0;
+        const price  = packagePriceCache[(b['Experience']||'').trim().toLowerCase()] || 75;
+        monthly[key] = (monthly[key]||0) + guests * price;
     });
 
-    const sortedKeys = Object.keys(monthlyData).sort();
-    const labels = sortedKeys.map(k => {
-        const [y, m] = k.split('-');
-        return new Date(y, m - 1).toLocaleDateString('en-GB', { month: 'short', year: '2-digit' });
-    });
-    const values = sortedKeys.map(k => monthlyData[k]);
+    const keys   = Object.keys(monthly).sort();
+    const labels = keys.map(k => { const [y,m] = k.split('-'); return new Date(y,m-1).toLocaleDateString('en-GB',{month:'short',year:'2-digit'}); });
+    const vals   = keys.map(k => monthly[k]);
 
     revenueChart = new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: labels.length ? labels : ['No data'],
-            datasets: [{
-                label: 'Revenue (€)',
-                data: values.length ? values : [0],
-                borderColor: '#c5a059',
-                backgroundColor: 'rgba(197, 160, 89, 0.1)',
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: '#c5a059'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: ctx => `€${Math.round(ctx.parsed.y).toLocaleString('nl-NL')}`
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#94a3b8',
-                        callback: v => `€${Math.round(v).toLocaleString('nl-NL')}`
-                    }
-                },
-                x: {
-                    ticks: { color: '#94a3b8' }
-                }
-            }
-        }
+        data: { labels: labels.length ? labels : ['No data'], datasets: [{ label:'Revenue (€)', data: vals.length ? vals : [0], borderColor:'#c5a059', backgroundColor:'rgba(197,160,89,0.1)', tension:0.4, fill:true, pointBackgroundColor:'#c5a059' }] },
+        options: { responsive:true, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: c => `€${Math.round(c.parsed.y).toLocaleString('nl-NL')}` } } }, scales:{ y:{ beginAtZero:true, ticks:{ color:'#94a3b8', callback: v => `€${Math.round(v).toLocaleString('nl-NL')}` } }, x:{ ticks:{ color:'#94a3b8' } } } }
     });
 }
 
-// --- PARTNERS ---
+// ─── PARTNERS & PACKAGES ─────────────────────────────────────────────────────
 async function loadPartnerList() {
     const c = document.getElementById('partnersTableContainer');
     if (!c) return;
-
     try {
         const r = await fetch(`${SHEET_API_URL}?action=getPartners`);
         const p = await r.json();
-
         p.forEach(x => ensurePartnerOperationalEntry(x.partnerID, x.name));
-
         let h = `<table class="admin-table"><thead><tr><th>Name</th><th>Email</th><th>ID</th></tr></thead><tbody>`;
-        p.forEach(x => {
-            h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td>${x.partnerID}</td></tr>`;
-        });
-
-        c.innerHTML = h + "</tbody></table>";
-
-        const currentPartner = document.getElementById('partnerInfoPartnerSelect')?.value || 'dublin';
-        populatePartnerInfoSelectors(currentPartner);
-    } catch (e) {
-        c.innerHTML = "Error.";
-    }
+        p.forEach(x => { h += `<tr><td><strong>${x.name}</strong></td><td>${x.email}</td><td>${x.partnerID}</td></tr>`; });
+        c.innerHTML = h + '</tbody></table>';
+        populatePartnerInfoSelectors(document.getElementById('partnerInfoPartnerSelect')?.value || 'dublin');
+    } catch(e) { c.innerHTML = 'Error.'; }
 }
 
 async function submitNewPartner() {
-    const n = document.getElementById('p_name')?.value;
-    const e = document.getElementById('p_user')?.value;
-    const p = document.getElementById('p_pass')?.value;
+    const n  = document.getElementById('p_name')?.value;
+    const e  = document.getElementById('p_user')?.value;
+    const p  = document.getElementById('p_pass')?.value;
     const id = document.getElementById('p_id')?.value;
-
-    if (!n || !e || !p || !id) return alert("Fill in all fields.");
-
-    await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(n)}&user=${encodeURIComponent(e)}&pass=${encodeURIComponent(p)}&partnerID=${encodeURIComponent(id)}`, { redirect: 'follow' });
-
+    if (!n||!e||!p||!id) return alert('Fill in all fields.');
+    await fetch(`${SHEET_API_URL}?action=addPartner&name=${encodeURIComponent(n)}&user=${encodeURIComponent(e)}&pass=${encodeURIComponent(p)}&partnerID=${encodeURIComponent(id)}`, { redirect:'follow' });
     ensurePartnerOperationalEntry(id, n);
-
-    const form = document.getElementById('addPartnerForm');
-    if (form) form.style.display = 'none';
-
-    loadPartnerList();
-    loadPartnerFilterOptions();
-    populatePartnerInfoSelectors(id);
-
+    document.getElementById('addPartnerForm').style.display = 'none';
+    loadPartnerList(); loadPartnerFilterOptions(); populatePartnerInfoSelectors(id);
     alert(`Partner "${n}" successfully added!`);
 }
 
+async function loadPackageList() {
+    const c = document.getElementById('packagesTableContainer');
+    if (!c) return;
+    c.innerHTML = 'Loading...';
+    try {
+        const r    = await fetch(`${SHEET_API_URL}?action=getPackages&partnerID=all`);
+        const pkgs = await r.json();
+        let h = `<table class="admin-table"><thead><tr><th>Partner</th><th>Package</th><th>Net</th><th>Sell</th><th>Profit</th><th>Action</th></tr></thead><tbody>`;
+        pkgs.forEach(p => {
+            const n = parseFloat(p.NetPrice)||0; const s = parseFloat(p.SellPrice)||0;
+            h += `<tr><td>${p.PartnerID}</td><td><strong>${p.PackageName}</strong></td><td>€${n.toFixed(2)}</td><td>€${s.toFixed(2)}</td><td style="color:#10b981;font-weight:bold">€${(s-n).toFixed(2)}</td><td><button class="btn-delete" onclick="deletePackage('${p.PackageName}','${p.PartnerID}')"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+        });
+        c.innerHTML = h + '</tbody></table>';
+    } catch(e) { c.innerHTML = 'Error loading packages.'; }
+}
+
+async function deletePackage(name, partner) {
+    if (!confirm(`Delete ${name}?`)) return;
+    try { await fetch(`${SHEET_API_URL}?action=deletePackage&name=${encodeURIComponent(name)}&partnerID=${encodeURIComponent(partner)}`, { redirect:'follow' }); }
+    catch(e) {}
+    loadPackageList();
+}
+
+async function submitNewPackage() {
+    const pID  = document.getElementById('pkg_partnerid')?.value;
+    const name = document.getElementById('pkg_name')?.value;
+    const net  = document.getElementById('pkg_net')?.value;
+    const sell = document.getElementById('pkg_sell')?.value;
+    await fetch(`${SHEET_API_URL}?action=addPackage&partnerID=${encodeURIComponent(pID)}&name=${encodeURIComponent(name)}&net=${net}&sell=${sell}`, { redirect:'follow' });
+    document.getElementById('addPackageForm').style.display = 'none';
+    loadPackageList();
+}
+
+window.calculateSellPrice = () => {
+    const net  = parseFloat(document.getElementById('pkg_net')?.value)||0;
+    const comm = parseFloat(document.getElementById('pkg_comm')?.value)||0;
+    const el   = document.getElementById('pkg_sell');
+    if (el) el.value = (net * (1 + comm/100)).toFixed(2);
+};
+
+// ─── EXPORT ───────────────────────────────────────────────────────────────────
+window.exportBookingsToCSV = function() {
+    if (!allBookings.length) return alert('No data to export.');
+    const headers = ['Partner','Full Name','Email Address','Phone Number','Experience','Start Date','Guests','Status','PaymentStatus','Special Requests'];
+    const csv = [ headers.join(','), ...allBookings.map(r => headers.map(h => `"${(r[h]||'').toString().replace(/"/g,'""')}"`).join(',')) ].join('\n');
+    const a   = document.createElement('a');
+    a.href     = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8;' }));
+    a.download = `BTP_Export_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+};
+
+// ─── UI HELPERS ───────────────────────────────────────────────────────────────
 window.toggleSidebar = function() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-
-    if (sidebar) sidebar.classList.toggle('open');
-    if (overlay) overlay.classList.toggle('open');
+    document.querySelector('.sidebar')?.classList.toggle('open');
+    document.querySelector('.sidebar-overlay')?.classList.toggle('open');
 };
-
-window.logout = () => {
-    sessionStorage.clear();
-    window.location.href = 'index.html';
-};
-
-window.togglePartnerForm = () => {
-    const f = document.getElementById('addPartnerForm');
-    if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
-};
-
-window.togglePackageForm = () => {
-    const f = document.getElementById('addPackageForm');
-    if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
-};
+window.logout = () => { sessionStorage.clear(); window.location.href = 'index.html'; };
+window.togglePartnerForm = () => { const f = document.getElementById('addPartnerForm'); if(f) f.style.display = f.style.display==='none'?'block':'none'; };
+window.togglePackageForm = () => { const f = document.getElementById('addPackageForm'); if(f) f.style.display = f.style.display==='none'?'block':'none'; };
