@@ -7,420 +7,103 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --blue:       #1d4ed8;
-      --blue-dark:  #1e3a8a;
-      --blue-light: #eff6ff;
-      --blue-mid:   #dbeafe;
-      --border:     #e5e7eb;
-      --surface:    #f8fafc;
-      --text:       #111827;
-      --muted:      #6b7280;
-      --success-bg: #f0fdf4;
-      --success:    #15803d;
-      --warn-bg:    #fffbeb;
-      --warn:       #92400e;
-      --radius:     14px;
+      --accent:       #1d4ed8;
+      --accent-dark:  #1e3a8a;
+      --accent-light: #eff6ff;
+      --accent-mid:   #dbeafe;
+      --border:       #e5e7eb;
+      --surface:      #f8fafc;
+      --text:         #111827;
+      --muted:        #6b7280;
+      --warn-bg:      #fffbeb;
+      --warn:         #92400e;
+      --radius:       14px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(160deg, #1e3a8a 0%, #1d4ed8 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
+      display: flex; align-items: flex-start; justify-content: center;
       padding: 28px 16px 48px;
       -webkit-font-smoothing: antialiased;
     }
-
     .back-link {
-      position: fixed;
-      top: 16px; left: 16px;
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.25);
-      transition: background 0.2s;
-      z-index: 10;
+      position: fixed; top: 16px; left: 16px;
+      background: rgba(255,255,255,0.15); color: #fff; text-decoration: none;
+      font-size: 0.82rem; font-weight: 600; padding: 8px 16px;
+      border-radius: 50px; border: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.2s; z-index: 10;
     }
     .back-link:hover { background: rgba(255,255,255,0.25); }
-
-    /* ── CARD ── */
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 660px;
-      box-shadow: 0 32px 64px rgba(0,0,0,0.35);
-      overflow: hidden;
-      margin-top: 20px;
-    }
-
-    /* ── HEADER ── */
-    .card-header {
-      background: #0f172a;
-      padding: 32px 36px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .card-header .eyebrow {
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.35);
-    }
-    .card-header h1 {
-      font-size: 1.45rem;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-    }
-    .card-header .sub {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.45);
-      margin-top: 2px;
-    }
-    .what-included {
-      margin-top: 18px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-    }
+    .card { background: #fff; border-radius: 20px; width: 100%; max-width: 660px; box-shadow: 0 32px 64px rgba(0,0,0,0.35); overflow: hidden; margin-top: 20px; }
+    .card-header { background: #0f172a; padding: 32px 36px 28px; display: flex; flex-direction: column; gap: 4px; }
+    .card-header .eyebrow { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.35); }
+    .card-header h1 { font-size: 1.45rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; line-height: 1.15; }
+    .card-header .sub { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+    .what-included { margin-top: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 16px; font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
     .what-included strong { color: rgba(255,255,255,0.85); }
-
-    /* ── BODY ── */
-    .card-body {
-      padding: 32px 36px;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
+    .card-body { padding: 32px 36px; display: flex; flex-direction: column; gap: 28px; }
+    .section-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 12px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 0.82rem; font-weight: 600; color: #374151; }
+    .field input, .field select, .field textarea {
+      padding: 13px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 0.95rem; font-family: inherit; background: var(--surface); color: var(--text);
+      outline: none; transition: border-color 0.15s, background 0.15s; width: 100%;
     }
-
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--blue);
-      margin-bottom: 12px;
-    }
-
-    /* ── FORM ELEMENTS ── */
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .field label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #374151;
-    }
-    .field input,
-    .field select,
-    .field textarea {
-      padding: 13px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-family: inherit;
-      background: var(--surface);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.15s, background 0.15s;
-      width: 100%;
-    }
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: var(--blue);
-      background: #fff;
-    }
-    .field input.err,
-    .field select.err { border-color: #f87171; background: #fff7f7; }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    /* ── MONTH PICKER ── */
-    .month-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .month-btn {
-      padding: 11px 8px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      background: var(--surface);
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s;
-      font-family: inherit;
-    }
-    .month-btn:hover { border-color: #93c5fd; background: var(--blue-light); }
-    .month-btn.active {
-      border-color: var(--blue);
-      background: var(--blue-light);
-      box-shadow: 0 0 0 3px rgba(29,78,216,0.1);
-    }
-    .month-btn .m-name {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .month-btn .m-count {
-      display: block;
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .month-btn.active .m-name { color: var(--blue); }
-    .month-btn.active .m-count { color: var(--blue); }
-
-    /* ── FIXTURE LIST ── */
-    .fixture-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .fixture-item {
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 13px 15px;
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #fff;
-    }
-    .fixture-item:hover { border-color: #93c5fd; background: var(--blue-light); }
-    .fixture-item.active {
-      border-color: var(--blue);
-      background: var(--blue-light);
-    }
-    .fixture-radio {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      border: 2px solid #d1d5db;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.15s;
-    }
-    .fixture-item.active .fixture-radio {
-      border-color: var(--blue);
-      background: var(--blue);
-    }
-    .fixture-item.active .fixture-radio::after {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #fff;
-    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: #fff; }
+    .field-hint { font-size: 0.72rem; color: var(--muted); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .month-btn { padding: 11px 8px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface); cursor: pointer; text-align: center; transition: all 0.15s; font-family: inherit; }
+    .month-btn:hover { border-color: #93c5fd; background: var(--accent-light); }
+    .month-btn.active { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 3px rgba(29,78,216,0.1); }
+    .month-btn .m-name { display: block; font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .month-btn .m-count { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    .month-btn.active .m-name, .month-btn.active .m-count { color: var(--accent); }
+    .fixture-list { display: flex; flex-direction: column; gap: 8px; }
+    .fixture-item { border: 1.5px solid var(--border); border-radius: 10px; padding: 13px 15px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 12px; background: #fff; }
+    .fixture-item:hover { border-color: #93c5fd; background: var(--accent-light); }
+    .fixture-item.active { border-color: var(--accent); background: var(--accent-light); }
+    .fixture-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d1d5db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .fixture-item.active .fixture-radio { border-color: var(--accent); background: var(--accent); }
+    .fixture-item.active .fixture-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
     .fixture-info { flex: 1; min-width: 0; }
-    .fixture-name {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-    }
-    .fixture-meta {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 3px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 10px;
-    }
-    .fixture-sport {
-      display: inline-block;
-      font-size: 0.67rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      background: #e0e7ff;
-      color: #3730a3;
-      padding: 1px 6px;
-      border-radius: 4px;
-    }
-    .fixture-price {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--blue);
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
-    .no-fixtures {
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    /* ── SUMMARY BOX ── */
-    .summary-box {
-      background: var(--blue-light);
-      border: 1.5px solid #93c5fd;
-      border-radius: var(--radius);
-      padding: 18px 20px;
-    }
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 0.88rem;
-      gap: 8px;
-      color: #374151;
-      padding: 3px 0;
-    }
-    .summary-row.total {
-      border-top: 1px solid #93c5fd;
-      margin-top: 10px;
-      padding-top: 12px;
-      font-size: 1rem;
-    }
-    .summary-row.total .s-label { font-weight: 700; color: var(--blue-dark); }
-    .summary-row.total .s-value { font-weight: 900; color: var(--blue); font-size: 1.15rem; }
+    .fixture-name { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .fixture-meta { font-size: 0.75rem; color: var(--muted); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 10px; }
+    .fixture-sport { display: inline-block; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; background: #e0e7ff; color: #3730a3; padding: 1px 6px; border-radius: 4px; }
+    .fixture-price { font-size: 0.95rem; font-weight: 800; color: var(--accent); flex-shrink: 0; white-space: nowrap; }
+    .no-fixtures { text-align: center; padding: 20px; color: var(--muted); font-size: 0.88rem; }
+    .summary-box { background: var(--accent-light); border: 1.5px solid #93c5fd; border-radius: var(--radius); padding: 18px 20px; }
+    .summary-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.88rem; gap: 8px; color: #374151; padding: 3px 0; }
+    .summary-row.total { border-top: 1px solid #93c5fd; margin-top: 10px; padding-top: 12px; font-size: 1rem; }
+    .summary-row.total .s-label { font-weight: 700; color: var(--accent-dark); }
+    .summary-row.total .s-value { font-weight: 900; color: var(--accent); font-size: 1.15rem; }
     .s-label { color: #4b5563; }
     .s-value { font-weight: 600; color: var(--text); text-align: right; }
-
-    /* ── DISCOUNT ── */
-    .discount-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      border-top: 1px dashed #93c5fd;
-      padding-top: 14px;
-    }
-    .discount-row input {
-      flex: 1;
-      padding: 10px 12px;
-      border: 1.5px solid #93c5fd;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-family: inherit;
-      background: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      outline: none;
-    }
-    .discount-row input:focus { border-color: var(--blue); }
-    .btn-apply {
-      background: var(--blue-dark);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0 16px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-      white-space: nowrap;
-    }
-    .btn-apply:hover { background: var(--blue); }
-    .discount-msg {
-      font-size: 0.78rem;
-      font-weight: 600;
-      margin-top: 6px;
-      display: none;
-    }
-    .discount-msg.ok { display: block; color: var(--success); }
+    .discount-row { display: flex; gap: 8px; margin-top: 14px; border-top: 1px dashed #93c5fd; padding-top: 14px; }
+    .discount-row input { flex: 1; padding: 10px 12px; border: 1.5px solid #93c5fd; border-radius: 8px; font-size: 0.88rem; font-family: inherit; background: #fff; text-transform: uppercase; letter-spacing: 0.05em; outline: none; }
+    .discount-row input:focus { border-color: var(--accent); }
+    .btn-apply { background: var(--accent-dark); color: #fff; border: none; border-radius: 8px; padding: 0 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .btn-apply:hover { background: var(--accent); }
+    .discount-msg { font-size: 0.78rem; font-weight: 600; margin-top: 6px; display: none; }
+    .discount-msg.ok { display: block; color: #15803d; }
     .discount-msg.fail { display: block; color: #b91c1c; }
-
-    /* ── PROCESS NOTE ── */
-    .process-note {
-      background: var(--warn-bg);
-      border: 1px solid #fcd34d;
-      border-radius: 10px;
-      padding: 13px 16px;
-      font-size: 0.82rem;
-      color: var(--warn);
-      line-height: 1.6;
-    }
+    .process-note { background: var(--warn-bg); border: 1px solid #fcd34d; border-radius: 10px; padding: 13px 16px; font-size: 0.82rem; color: var(--warn); line-height: 1.6; }
     .process-note strong { color: #78350f; }
-
-    /* ── ERROR ── */
-    .error-box {
-      background: #fff7f7;
-      border: 1px solid #fca5a5;
-      color: #b91c1c;
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-size: 0.88rem;
-      display: none;
-    }
+    .error-box { background: #fff7f7; border: 1px solid #fca5a5; color: #b91c1c; border-radius: 10px; padding: 11px 14px; font-size: 0.88rem; display: none; }
     .error-box.show { display: block; }
-
-    /* ── SUBMIT ── */
-    .btn-submit {
-      width: 100%;
-      padding: 17px;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.2s, transform 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      letter-spacing: -0.01em;
-    }
-    .btn-submit:hover:not(:disabled) { background: var(--blue-dark); transform: translateY(-1px); }
+    .btn-submit { width: 100%; padding: 17px; background: var(--accent); color: #fff; border: none; border-radius: 12px; font-size: 1rem; font-weight: 800; cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; letter-spacing: -0.01em; }
+    .btn-submit:hover:not(:disabled) { background: var(--accent-dark); transform: translateY(-1px); }
     .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-    .btn-submit.loading { background: var(--blue-dark); }
-
-    .spinner {
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,0.35);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .form-note {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    /* ── SUCCESS ── */
-    .success-screen {
-      display: none;
-      text-align: center;
-      padding: 64px 36px;
-    }
+    .form-note { text-align: center; font-size: 0.75rem; color: var(--muted); }
+    .success-screen { display: none; text-align: center; padding: 64px 36px; }
     .success-screen .icon { font-size: 2.5rem; margin-bottom: 16px; }
-    .success-screen h2 { font-size: 1.5rem; font-weight: 900; color: var(--blue-dark); margin-bottom: 10px; letter-spacing: -0.03em; }
+    .success-screen h2 { font-size: 1.5rem; font-weight: 900; color: var(--accent-dark); margin-bottom: 10px; letter-spacing: -0.03em; }
     .success-screen p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 380px; margin: 0 auto 28px; }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 540px) {
       .card-body { padding: 24px 20px; }
       .card-header { padding: 26px 20px 22px; }
@@ -434,8 +117,6 @@
 <a href="/gaelic-games/" class="back-link">← Back</a>
 
 <div class="card">
-
-  <!-- HEADER -->
   <div class="card-header">
     <span class="eyebrow">Dublin · Booking request</span>
     <h1>Gaelic Games<br>Dublin Experience</h1>
@@ -445,7 +126,6 @@
     </div>
   </div>
 
-  <!-- FORM -->
   <form id="bookingForm" class="card-body" novalidate>
 
     <!-- PERSONAL -->
@@ -470,7 +150,27 @@
           <div class="field">
             <label for="guests">Number of guests *</label>
             <input type="number" id="guests" min="4" max="20" value="4" />
-            <span style="font-size:0.72rem;color:var(--muted);">Minimum 4 guests per booking</span>
+            <span class="field-hint">Minimum 4 guests per booking</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="country">Country of residence *</label>
+            <input type="text" id="country" placeholder="e.g. United States" autocomplete="country-name" />
+          </div>
+          <div class="field">
+            <label for="source">How did you hear about us? *</label>
+            <select id="source">
+              <option value="">Select…</option>
+              <option value="Google">Google search</option>
+              <option value="Instagram">Instagram</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Friend / word of mouth">Friend / word of mouth</option>
+              <option value="Hotel / concierge">Hotel / concierge</option>
+              <option value="Tour operator">Tour operator</option>
+              <option value="Travel blog / article">Travel blog / article</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
         </div>
       </div>
@@ -484,7 +184,7 @@
 
     <!-- FIXTURES -->
     <div id="fixtureBlock" style="display:none;">
-      <div class="section-label" id="fixtureLabel">Choose a fixture</div>
+      <div class="section-label">Choose a fixture</div>
       <div class="fixture-list" id="fixtureList"></div>
     </div>
 
@@ -492,30 +192,23 @@
     <div>
       <div class="section-label">Anything we should know?</div>
       <div class="field">
-        <textarea id="requests" rows="3" placeholder="Seating needs, dietary requirements, questions…"></textarea>
+        <textarea id="requests" rows="3" placeholder="Dietary requirements, accessibility needs, questions…"></textarea>
       </div>
     </div>
 
     <!-- SUMMARY -->
     <div class="summary-box" id="summaryBox" style="display:none;">
       <div class="section-label" style="margin-bottom:10px;">Booking summary</div>
-      <div class="summary-row">
-        <span class="s-label" id="sFixture">—</span>
-        <span class="s-value" id="sPricePP">—</span>
-      </div>
-      <div class="summary-row">
-        <span class="s-label" id="sGuests">—</span>
-        <span class="s-value" id="sSubtotal">—</span>
-      </div>
+      <div class="summary-row"><span class="s-label" id="sFixture">—</span><span class="s-value" id="sPricePP">—</span></div>
+      <div class="summary-row"><span class="s-label" id="sGuests">—</span><span class="s-value" id="sSubtotal">—</span></div>
       <div class="summary-row" id="sDiscountRow" style="display:none;">
         <span class="s-label" id="sDiscountLabel">—</span>
-        <span class="s-value" id="sDiscountValue" style="color:var(--blue);">—</span>
+        <span class="s-value" id="sDiscountValue" style="color:var(--accent);">—</span>
       </div>
       <div class="summary-row total">
         <span class="s-label">Total</span>
         <span class="s-value" id="sTotal">—</span>
       </div>
-      <!-- DISCOUNT -->
       <div class="discount-row">
         <input type="text" id="discountInput" placeholder="Discount code" autocomplete="off" />
         <button type="button" class="btn-apply" id="applyBtn">Apply</button>
@@ -523,153 +216,119 @@
       <div class="discount-msg" id="discountMsg"></div>
     </div>
 
-    <!-- PROCESS NOTE -->
     <div class="process-note">
       <strong>How it works:</strong> This is a booking request — not an instant charge. We'll confirm your spot and match access within <strong>24–48 hours</strong>, then send payment details.
     </div>
 
-    <!-- ERROR -->
     <div class="error-box" id="errorBox"></div>
 
-    <!-- SUBMIT -->
-    <button type="submit" class="btn-submit" id="submitBtn" disabled>
-      Send booking request
-    </button>
+    <button type="submit" class="btn-submit" id="submitBtn" disabled>Send booking request</button>
     <p class="form-note">We'll be in touch within 48 hours to confirm everything.</p>
 
   </form>
 
-  <!-- SUCCESS -->
   <div class="success-screen" id="successScreen">
     <div class="icon">✅</div>
     <h2>Request received!</h2>
-    <p>You'll receive a confirmation email shortly - if it doesn't arrive within a few minutes, check your spam folder. We'll follow up personally within 48 hours to confirm your spot and sort payment.</p>
-    <button class="btn-submit" type="button" onclick="window.location.reload()" style="max-width:220px;margin:0 auto;">
-      New booking
-    </button>
+    <p>You'll receive a confirmation email shortly. If it doesn't arrive within a few minutes, check your spam folder. We'll follow up personally within 48 hours to confirm your spot and sort payment.</p>
+    <button class="btn-submit" type="button" onclick="window.location.reload()" style="max-width:220px;margin:0 auto;">New booking</button>
   </div>
-
 </div>
 
 <script>
-  // ── DATA ──
   const DISCOUNT_CODES = {
     DUBLINEXPERIENCE20: { type: 'percent', value: 20, label: 'Early Bird 20%' }
   };
 
+  // ── IMPORTANT: replace entry IDs with your actual Dublin Google Form entry IDs ──
   const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse';
   const FIELDS = {
-    name: 'entry.761572476', email: 'entry.1144619265', phone: 'entry.1213010877',
-    experience: 'entry.1446094233', date: 'entry.301148404', guests: 'entry.175134312',
-    requests: 'entry.2094398847', packageCode: 'entry.924755547', fixture: 'entry.857468506'
+    name:          'entry.761572476',
+    email:         'entry.1144619265',
+    phone:         'entry.1213010877',
+    experience:    'entry.1446094233',
+    date:          'entry.301148404',
+    guests:        'entry.175134312',
+    requests:      'entry.2094398847',
+    packageCode:   'entry.924755547',
+    fixture:       'entry.857468506',
+    // ── NEW FIELDS — add these to your Dublin Google Form and paste entry IDs ──
+    country:       'entry.COUNTRY_ID',      // Country of residence
+    source:        'entry.SOURCE_ID',       // How did you hear about us
+    pricePerPerson:'entry.PRICE_PP_ID',     // Price per person (number)
+    totalPrice:    'entry.TOTAL_PRICE_ID',  // Total price (number)
+    competition:   'entry.COMPETITION_ID',  // Competition name
   };
 
   const MATCHES = [
-    { id: 'ai-sfc-r2a', date: '2026-06-13', teams: 'All Ireland SFC – Round 2', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 119 },
-    { id: 'ai-sfc-r2b', date: '2026-06-14', teams: 'All Ireland SFC – Round 2', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 119 },
-    { id: 'ai-sfc-r3a', date: '2026-06-20', teams: 'All Ireland SFC – Round 3', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 119 },
-    { id: 'tailteann-hf', date: '2026-06-21', teams: 'Tailteann Cup – Semi-finals', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'Tailteann Cup', price: 119 },
-    { id: 'ai-sfc-qf1', date: '2026-06-27', teams: 'All Ireland SFC – Quarter-finals', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 149 },
-    { id: 'ai-sfc-qf2', date: '2026-06-28', teams: 'All Ireland SFC – Quarter-finals', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 149 },
-    { id: 'ai-shc-hf1', date: '2026-07-04', teams: 'All Ireland SHC – Semi-finals', venue: 'Croke Park, Dublin', sport: 'Hurling', competition: 'All Ireland SHC', price: 149 },
-    { id: 'ai-shc-hf2', date: '2026-07-05', teams: 'All Ireland SHC – Semi-finals', venue: 'Croke Park, Dublin', sport: 'Hurling', competition: 'All Ireland SHC', price: 149 },
-    { id: 'ai-sfc-hf1', date: '2026-07-11', teams: 'All Ireland SFC – Semi-finals', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 149 },
-    { id: 'tailteann-final', date: '2026-07-11', teams: 'Tailteann Cup – Final', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'Tailteann Cup', price: 119 },
-    { id: 'ai-sfc-hf2', date: '2026-07-12', teams: 'All Ireland SFC – Semi-finals', venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC', price: 149 },
-    { id: 'lgfa-final', date: '2026-08-02', teams: 'All Ireland Ladies Gaelic Football – Final', venue: 'Croke Park, Dublin', sport: 'Ladies Football', competition: 'All Ireland LGFA', price: 119 },
-    { id: 'camogie-final', date: '2026-08-09', teams: 'All Ireland Camogie – Final', venue: 'Croke Park, Dublin', sport: 'Camogie', competition: 'All Ireland Camogie', price: 119 }
+    { id: 'ai-sfc-r2a',       date: '2026-06-13', teams: 'All Ireland SFC – Round 2',                    venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 119 },
+    { id: 'ai-sfc-r2b',       date: '2026-06-14', teams: 'All Ireland SFC – Round 2',                    venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 119 },
+    { id: 'ai-sfc-r3a',       date: '2026-06-20', teams: 'All Ireland SFC – Round 3',                    venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 119 },
+    { id: 'tailteann-hf',     date: '2026-06-21', teams: 'Tailteann Cup – Semi-finals',                  venue: 'Croke Park, Dublin', sport: 'Football', competition: 'Tailteann Cup',         price: 119 },
+    { id: 'ai-sfc-qf1',       date: '2026-06-27', teams: 'All Ireland SFC – Quarter-finals',             venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 149 },
+    { id: 'ai-sfc-qf2',       date: '2026-06-28', teams: 'All Ireland SFC – Quarter-finals',             venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 149 },
+    { id: 'ai-shc-hf1',       date: '2026-07-04', teams: 'All Ireland SHC – Semi-finals',                venue: 'Croke Park, Dublin', sport: 'Hurling',  competition: 'All Ireland SHC',       price: 149 },
+    { id: 'ai-shc-hf2',       date: '2026-07-05', teams: 'All Ireland SHC – Semi-finals',                venue: 'Croke Park, Dublin', sport: 'Hurling',  competition: 'All Ireland SHC',       price: 149 },
+    { id: 'ai-sfc-hf1',       date: '2026-07-11', teams: 'All Ireland SFC – Semi-finals',                venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 149 },
+    { id: 'tailteann-final',  date: '2026-07-11', teams: 'Tailteann Cup – Final',                        venue: 'Croke Park, Dublin', sport: 'Football', competition: 'Tailteann Cup',         price: 119 },
+    { id: 'ai-sfc-hf2',       date: '2026-07-12', teams: 'All Ireland SFC – Semi-finals',                venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland SFC',       price: 149 },
+    { id: 'lgfa-final',       date: '2026-08-02', teams: 'All Ireland Ladies Gaelic Football – Final',   venue: 'Croke Park, Dublin', sport: 'Football', competition: 'All Ireland LGFA',      price: 119 },
+    { id: 'camogie-final',    date: '2026-08-09', teams: 'All Ireland Camogie – Final',                  venue: 'Croke Park, Dublin', sport: 'Camogie',  competition: 'All Ireland Camogie',   price: 119 },
   ];
 
-  // ── STATE ──
-  let selectedMonth = null;
-  let selectedFixture = null;
-  let appliedDiscount = null;
-  let isSubmitting = false;
-
-  // ── ELEMENTS ──
+  let selectedMonth = null, selectedFixture = null, appliedDiscount = null, isSubmitting = false;
   const $ = id => document.getElementById(id);
   const els = {
     form: $('bookingForm'), successScreen: $('successScreen'), errorBox: $('errorBox'),
-    name: $('name'), email: $('email'), phone: $('phone'), guests: $('guests'), requests: $('requests'),
+    name: $('name'), email: $('email'), phone: $('phone'), guests: $('guests'),
+    country: $('country'), source: $('source'), requests: $('requests'),
     monthGrid: $('monthGrid'), fixtureBlock: $('fixtureBlock'), fixtureList: $('fixtureList'),
-    fixtureLabel: $('fixtureLabel'), summaryBox: $('summaryBox'),
-    sFixture: $('sFixture'), sPricePP: $('sPricePP'), sGuests: $('sGuests'), sSubtotal: $('sSubtotal'),
-    sDiscountRow: $('sDiscountRow'), sDiscountLabel: $('sDiscountLabel'), sDiscountValue: $('sDiscountValue'),
-    sTotal: $('sTotal'), discountInput: $('discountInput'), applyBtn: $('applyBtn'),
-    discountMsg: $('discountMsg'), submitBtn: $('submitBtn')
+    summaryBox: $('summaryBox'), sFixture: $('sFixture'), sPricePP: $('sPricePP'),
+    sGuests: $('sGuests'), sSubtotal: $('sSubtotal'), sDiscountRow: $('sDiscountRow'),
+    sDiscountLabel: $('sDiscountLabel'), sDiscountValue: $('sDiscountValue'), sTotal: $('sTotal'),
+    discountInput: $('discountInput'), applyBtn: $('applyBtn'), discountMsg: $('discountMsg'),
+    submitBtn: $('submitBtn')
   };
 
-  // ── HELPERS ──
-  function fmtDate(d) {
-    return new Date(d + 'T12:00:00').toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'long' });
-  }
-  function fmtMoney(n) {
-    return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
-  }
+  function fmtDate(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-IE', { weekday: 'short', day: 'numeric', month: 'long' }); }
+  function fmtMoney(n) { return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n); }
   function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
   function getGuests() { return Math.min(20, Math.max(4, parseInt(els.guests.value) || 4)); }
 
   function calcTotals() {
     const pp = selectedFixture ? selectedFixture.price : 119;
-    const g = getGuests();
-    const sub = pp * g;
+    const g = getGuests(), sub = pp * g;
     let disc = 0;
-    if (appliedDiscount) {
-      if (appliedDiscount.type === 'percent') disc = sub * appliedDiscount.value / 100;
-      else disc = Math.min(appliedDiscount.value * g, sub);
-    }
+    if (appliedDiscount) disc = appliedDiscount.type === 'percent' ? sub * appliedDiscount.value / 100 : Math.min(appliedDiscount.value * g, sub);
     return { pp, sub, disc, total: sub - disc };
   }
 
-  // ── MONTHS ──
   function getMonths() {
     const map = {};
-    MATCHES.forEach(m => {
-      const key = m.date.slice(0, 7); // YYYY-MM
-      if (!map[key]) map[key] = 0;
-      map[key]++;
-    });
+    MATCHES.forEach(m => { const k = m.date.slice(0,7); map[k] = (map[k]||0) + 1; });
     return Object.entries(map).map(([k, count]) => {
       const d = new Date(k + '-01');
-      return { key: k, label: d.toLocaleDateString('en-IE', { month: 'long' }), year: d.getFullYear(), count };
+      return { key: k, label: d.toLocaleDateString('en-IE', { month: 'long' }), count };
     });
   }
 
   function renderMonths() {
-    const months = getMonths();
     els.monthGrid.innerHTML = '';
-    months.forEach(m => {
+    getMonths().forEach(m => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'month-btn' + (selectedMonth === m.key ? ' active' : '');
       btn.innerHTML = `<span class="m-name">${m.label}</span><span class="m-count">${m.count} fixture${m.count !== 1 ? 's' : ''}</span>`;
-      btn.addEventListener('click', () => selectMonth(m.key));
+      btn.addEventListener('click', () => { selectedMonth = m.key; selectedFixture = null; renderMonths(); renderFixtures(); updateSummary(); updateSubmit(); });
       els.monthGrid.appendChild(btn);
     });
   }
 
-  function selectMonth(key) {
-    selectedMonth = key;
-    selectedFixture = null;
-    renderMonths();
-    renderFixtures();
-    updateSummary();
-    updateSubmit();
-  }
-
-  // ── FIXTURES ──
   function renderFixtures() {
     if (!selectedMonth) { els.fixtureBlock.style.display = 'none'; return; }
     const filtered = MATCHES.filter(m => m.date.startsWith(selectedMonth));
-    els.fixtureLabel.textContent = `Choose a fixture`;
     els.fixtureList.innerHTML = '';
-
-    if (!filtered.length) {
-      els.fixtureList.innerHTML = '<div class="no-fixtures">No fixtures available this month.</div>';
-      els.fixtureBlock.style.display = 'block';
-      return;
-    }
-
+    if (!filtered.length) { els.fixtureList.innerHTML = '<div class="no-fixtures">No fixtures available this month.</div>'; els.fixtureBlock.style.display = 'block'; return; }
     filtered.forEach(m => {
       const el = document.createElement('div');
       el.className = 'fixture-item' + (selectedFixture?.id === m.id ? ' active' : '');
@@ -677,28 +336,15 @@
         <div class="fixture-radio"></div>
         <div class="fixture-info">
           <div class="fixture-name">${m.teams}</div>
-          <div class="fixture-meta">
-            <span class="fixture-sport">${m.sport}</span>
-            <span>${fmtDate(m.date)}</span>
-            <span>${m.venue}</span>
-          </div>
+          <div class="fixture-meta"><span class="fixture-sport">${m.sport}</span><span>${fmtDate(m.date)}</span><span>${m.venue}</span></div>
         </div>
-        <div class="fixture-price">€${m.price}<span style="font-size:0.72rem;font-weight:500;color:var(--muted)"> p.p.</span></div>
-      `;
-      el.addEventListener('click', () => {
-        selectedFixture = m;
-        renderFixtures();
-        updateSummary();
-        updateSubmit();
-        clearError();
-      });
+        <div class="fixture-price">€${m.price}<span style="font-size:0.72rem;font-weight:500;color:var(--muted)"> p.p.</span></div>`;
+      el.addEventListener('click', () => { selectedFixture = m; renderFixtures(); updateSummary(); updateSubmit(); clearError(); });
       els.fixtureList.appendChild(el);
     });
-
     els.fixtureBlock.style.display = 'block';
   }
 
-  // ── SUMMARY ──
   function updateSummary() {
     if (!selectedFixture) { els.summaryBox.style.display = 'none'; return; }
     const { pp, sub, disc, total } = calcTotals();
@@ -709,58 +355,46 @@
     els.sSubtotal.textContent = fmtMoney(sub);
     els.sTotal.textContent = fmtMoney(total);
     if (appliedDiscount && disc > 0) {
-      const pct = appliedDiscount.type === 'percent' ? ` (${appliedDiscount.value}%)` : '';
-      els.sDiscountLabel.textContent = `${appliedDiscount.label}${pct}`;
+      els.sDiscountLabel.textContent = `${appliedDiscount.label}${appliedDiscount.type==='percent'?` (${appliedDiscount.value}%)`:''}`;
       els.sDiscountValue.textContent = `− ${fmtMoney(disc)}`;
       els.sDiscountRow.style.display = 'flex';
-    } else {
-      els.sDiscountRow.style.display = 'none';
-    }
+    } else { els.sDiscountRow.style.display = 'none'; }
     els.summaryBox.style.display = 'block';
   }
 
-  // ── DISCOUNT ──
   function applyDiscount() {
     const raw = els.discountInput.value.trim().toUpperCase();
     const code = DISCOUNT_CODES[raw];
     if (!raw) { showDiscountMsg('fail', 'Enter a discount code.'); return; }
     if (!code) { appliedDiscount = null; showDiscountMsg('fail', 'Code not found or expired.'); updateSummary(); return; }
     appliedDiscount = { code: raw, ...code };
-    const { disc } = calcTotals();
-    showDiscountMsg('ok', `Applied — you save ${fmtMoney(disc)}!`);
+    showDiscountMsg('ok', `Applied — you save ${fmtMoney(calcTotals().disc)}!`);
     updateSummary();
   }
 
-  function showDiscountMsg(type, msg) {
-    els.discountMsg.className = 'discount-msg ' + type;
-    els.discountMsg.textContent = msg;
-  }
-
-  // ── ERROR ──
+  function showDiscountMsg(type, msg) { els.discountMsg.className = 'discount-msg ' + type; els.discountMsg.textContent = msg; }
   function showError(msg) { els.errorBox.textContent = msg; els.errorBox.className = 'error-box show'; }
   function clearError() { els.errorBox.textContent = ''; els.errorBox.className = 'error-box'; }
 
-  // ── SUBMIT BUTTON ──
   function updateSubmit() {
-    const ok = els.name.value.trim() &&
-               validEmail(els.email.value.trim()) &&
-               selectedFixture &&
-               getGuests() >= 4 &&
-               !isSubmitting;
-    els.submitBtn.disabled = !ok;
+    els.submitBtn.disabled = !(
+      els.name.value.trim() && validEmail(els.email.value.trim()) &&
+      els.country.value.trim() && els.source.value &&
+      selectedFixture && getGuests() >= 4 && !isSubmitting
+    );
   }
 
-  // ── FORM SUBMIT ──
   async function handleSubmit(e) {
     e.preventDefault();
     if (isSubmitting) return;
     clearError();
-    const name = els.name.value.trim();
-    const email = els.email.value.trim();
-    if (!name) { showError('Please enter your full name.'); return; }
-    if (!validEmail(email)) { showError('Please enter a valid email address.'); return; }
-    if (!selectedFixture) { showError('Please choose a fixture.'); return; }
-    if (getGuests() < 4) { showError('Minimum 4 guests per booking.'); return; }
+    const name = els.name.value.trim(), email = els.email.value.trim();
+    if (!name)                    { showError('Please enter your full name.'); return; }
+    if (!validEmail(email))       { showError('Please enter a valid email address.'); return; }
+    if (!els.country.value.trim()){ showError('Please enter your country of residence.'); return; }
+    if (!els.source.value)        { showError('Please tell us how you heard about us.'); return; }
+    if (!selectedFixture)         { showError('Please choose a fixture.'); return; }
+    if (getGuests() < 4)          { showError('Minimum 4 guests per booking.'); return; }
 
     isSubmitting = true;
     els.submitBtn.disabled = true;
@@ -769,34 +403,31 @@
 
     const g = getGuests();
     const { pp, sub, disc, total } = calcTotals();
-    const fixtureText = `${selectedFixture.teams} — ${selectedFixture.venue} — ${fmtDate(selectedFixture.date)}`;
     const discountText = appliedDiscount ? `Discount: ${appliedDiscount.code} (${appliedDiscount.label}) — saving ${fmtMoney(disc)}` : 'No discount applied';
-    const notes = [
-      `Fixture: ${fixtureText}`,
-      `Competition: ${selectedFixture.competition}`,
-      discountText,
-      `€${pp} p.p. · Subtotal: ${fmtMoney(sub)} · Total: ${fmtMoney(total)}`,
-      els.requests.value.trim() ? `Notes: ${els.requests.value.trim()}` : ''
-    ].filter(Boolean).join('\n');
+    const guestNotes = els.requests.value.trim() ? `Notes: ${els.requests.value.trim()}` : '';
 
     let packageCode = 'DUB-PRM';
     if (selectedFixture.price >= 149) packageCode = 'DUB-HDG';
-    else if (selectedFixture.price >= 119) packageCode = 'DUB-PRM';
 
     const fd = new FormData();
-    fd.append(FIELDS.name, name);
-    fd.append(FIELDS.email, email);
-    fd.append(FIELDS.phone, els.phone.value.trim());
-    fd.append(FIELDS.experience, 'The Dublin Culture & Heritage Experience');
-    fd.append(FIELDS.date, selectedFixture.date);
-    fd.append(FIELDS.fixture, `${selectedFixture.teams} — ${selectedFixture.venue}`);
-    fd.append(FIELDS.guests, String(g));
-    fd.append(FIELDS.requests, notes);
-    fd.append(FIELDS.packageCode, packageCode);
+    fd.append(FIELDS.name,           name);
+    fd.append(FIELDS.email,          email);
+    fd.append(FIELDS.phone,          els.phone.value.trim());
+    fd.append(FIELDS.experience,     'The Dublin Culture & Heritage Experience');
+    fd.append(FIELDS.date,           selectedFixture.date);
+    fd.append(FIELDS.fixture,        `${selectedFixture.teams} — ${selectedFixture.venue}`);
+    fd.append(FIELDS.guests,         String(g));
+    fd.append(FIELDS.packageCode,    packageCode);
+    fd.append(FIELDS.country,        els.country.value.trim());
+    fd.append(FIELDS.source,         els.source.value);
+    fd.append(FIELDS.pricePerPerson, String(pp));
+    fd.append(FIELDS.totalPrice,     String(total));
+    fd.append(FIELDS.competition,    selectedFixture.competition);
+    // Special requests stays clean — only actual guest notes
+    fd.append(FIELDS.requests,       [discountText, guestNotes].filter(Boolean).join('\n'));
 
     try {
       await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: fd });
-      // GA4
       try { gtag('event', 'form_submit', { experience: 'dublin', fixture: selectedFixture.teams, guests: g, value: total, currency: 'EUR' }); } catch(e){}
       els.form.style.display = 'none';
       els.successScreen.style.display = 'block';
@@ -809,19 +440,14 @@
     }
   }
 
-  // ── INIT ──
   function init() {
     renderMonths();
-
     els.applyBtn.addEventListener('click', applyDiscount);
     els.discountInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyDiscount(); } });
-
-    [els.name, els.email, els.guests].forEach(f => f.addEventListener('input', () => { updateSubmit(); updateSummary(); }));
+    [els.name, els.email, els.guests, els.country, els.source].forEach(f => f.addEventListener('input', () => { updateSubmit(); updateSummary(); }));
+    els.source.addEventListener('change', updateSubmit);
     els.guests.addEventListener('blur', () => { els.guests.value = getGuests(); updateSummary(); });
-    els.requests.addEventListener('input', () => {});
-
     els.form.addEventListener('submit', handleSubmit);
-
     try { gtag('event', 'experience_page_view', { experience: 'dublin', page_type: 'booking' }); } catch(e) {}
   }
 
