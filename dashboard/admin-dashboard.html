@@ -11,178 +11,233 @@
     <link rel="stylesheet" href="dashboard-style.css">
 
     <style>
-        .partner-section-grid {
+        /* ── Pipeline kanban ── */
+        .pipeline-board {
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
             align-items: start;
+            margin-bottom: 30px;
         }
-
-        .partner-info-toolbar {
+        .pipeline-col {
+            background: #1a2740;
+            border-radius: 16px;
+            padding: 14px;
+            min-height: 200px;
+        }
+        .pipeline-col-header {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
-
-        .partner-info-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .partner-info-filters .input-group {
-            min-width: 220px;
-            margin: 0;
-        }
-
-        .partner-info-intro {
-            margin-bottom: 18px;
-            color: #64748b;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-        }
-
-        .info-box {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
-        }
-
-        .info-box h4 {
-            font-size: 0.9rem;
+        .pipeline-col-label {
+            font-size: 0.7rem;
             font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
         }
-
-        .info-box p,
-        .info-box li {
-            font-size: 0.92rem;
-            line-height: 1.6;
-            color: #475569;
-        }
-
-        .info-box ul {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        .info-highlight {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-            padding: 8px 12px;
+        .pipeline-col-count {
+            font-size: 0.7rem;
+            background: rgba(255,255,255,0.08);
             border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 800;
-        }
-
-        .info-note {
-            background: #fffbeb;
-            border-color: #fcd34d;
-        }
-
-        .info-empty-state {
-            border: 1px dashed #cbd5e1;
-            border-radius: 14px;
-            padding: 24px;
-            text-align: center;
-            color: #64748b;
-            background: #f8fafc;
-        }
-
-        .info-empty-state i {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            padding: 2px 8px;
             color: #94a3b8;
         }
+        .stage-new    .pipeline-col-label { color: #38bdf8; }
+        .stage-conf   .pipeline-col-label { color: #c5a059; }
+        .stage-paid   .pipeline-col-label { color: #10b981; }
+        .stage-ready  .pipeline-col-label { color: #a78bfa; }
+        .stage-done   .pipeline-col-label { color: #64748b; }
 
-        .card-subtitle {
+        .booking-pill {
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: border-color 0.15s, transform 0.1s;
+        }
+        .booking-pill:hover { border-color: #c5a059; transform: translateY(-1px); }
+        .booking-pill.selected { border-color: #c5a059; background: #1a2236; }
+        .pill-name { font-size: 0.82rem; font-weight: 700; color: #f8fafc; margin-bottom: 4px; }
+        .pill-meta { font-size: 0.72rem; color: #64748b; margin-bottom: 6px; }
+        .pill-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+        .pill-tag {
+            font-size: 0.65rem;
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+        .tag-dublin  { background: rgba(56,189,248,0.12); color: #38bdf8; }
+        .tag-kilkenny{ background: rgba(16,185,129,0.12); color: #10b981; }
+        .tag-pax     { background: rgba(148,163,184,0.1); color: #94a3b8; }
+        .tag-unpaid  { background: rgba(251,191,36,0.12); color: #fbbf24; }
+        .tag-paid    { background: rgba(16,185,129,0.12); color: #10b981; }
+
+        /* ── Detail + Email panel ── */
+        .pipeline-detail {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .pipeline-detail.visible { display: grid; }
+
+        .detail-card {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .detail-card h4 {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
             color: #64748b;
-            font-size: 0.92rem;
+            margin-bottom: 14px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.82rem;
+            gap: 12px;
+        }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-row .dl { color: #64748b; flex-shrink: 0; }
+        .detail-row .dv { color: #f1f5f9; font-weight: 600; text-align: right; }
+
+        .stage-mover { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+        .stage-btn {
+            font-size: 0.72rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .stage-btn:hover { background: rgba(197,160,89,0.15); color: #c5a059; border-color: rgba(197,160,89,0.4); }
+        .stage-btn.current { background: rgba(197,160,89,0.2); color: #c5a059; border-color: rgba(197,160,89,0.5); }
+
+        /* ── Email composer ── */
+        .email-composer { display: flex; flex-direction: column; gap: 12px; }
+        .tpl-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+        .tpl-tab {
+            font-size: 0.72rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .tpl-tab.active { background: #c5a059; color: #0f172a; border-color: #c5a059; font-weight: 700; }
+        .email-subject {
+            font-size: 0.78rem;
+            color: #64748b;
+            padding: 8px 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .email-body-preview {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.65;
+            padding: 12px 14px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.06);
+            min-height: 120px;
+            white-space: pre-wrap;
+        }
+        .email-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-send {
+            background: #c5a059;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.15s;
+        }
+        .btn-send:hover { background: #d4af6a; }
+        .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-stripe {
+            background: #6772e5;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-secondary-sm {
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-secondary-sm:hover { color: #f1f5f9; border-color: rgba(255,255,255,0.25); }
+
+        .send-feedback {
+            display: none;
+            font-size: 0.78rem;
+            padding: 8px 12px;
+            border-radius: 8px;
             margin-top: 4px;
         }
+        .send-feedback.success { background: rgba(16,185,129,0.15); color: #10b981; display: block; }
+        .send-feedback.error   { background: rgba(239,68,68,0.15); color: #f87171; display: block; }
 
-        .mini-help-list {
-            display: grid;
-            gap: 10px;
+        .no-selection-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #475569;
         }
+        .no-selection-state i { font-size: 2rem; margin-bottom: 12px; display: block; }
 
-        .mini-help-item {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 12px 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: #f8fafc;
-        }
+        /* ── Partner info (unchanged) ── */
+        .partner-section-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px; align-items: start; }
+        .partner-info-toolbar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .partner-info-filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+        .partner-info-filters .input-group { min-width: 220px; margin: 0; }
+        .partner-info-intro { margin-bottom: 18px; color: #64748b; line-height: 1.6; font-size: 0.95rem; }
+        .card-subtitle { color: #64748b; font-size: 0.92rem; margin-top: 4px; }
+        .mini-help-list { display: grid; gap: 10px; }
+        .mini-help-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; background: rgba(255,255,255,0.03); }
+        .mini-help-item i { color: #c5a059; margin-top: 3px; }
+        .mini-help-item strong { display: block; color: #f1f5f9; margin-bottom: 4px; font-size: 0.9rem; }
+        .mini-help-item span { color: #64748b; font-size: 0.88rem; line-height: 1.5; }
+        .info-empty-state { border: 1px dashed rgba(255,255,255,0.1); border-radius: 14px; padding: 24px; text-align: center; color: #64748b; background: rgba(255,255,255,0.02); }
 
-        .mini-help-item i {
-            color: #c5a059;
-            margin-top: 3px;
-        }
-
-        .mini-help-item strong {
-            display: block;
-            color: #0f172a;
-            margin-bottom: 4px;
-            font-size: 0.9rem;
-        }
-
-        .mini-help-item span {
-            color: #64748b;
-            font-size: 0.88rem;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 1100px) {
-            .partner-section-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .partner-info-toolbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .partner-info-filters {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .partner-info-filters .input-group {
-                min-width: 100%;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 1200px) { .pipeline-board { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 900px)  { .pipeline-board { grid-template-columns: repeat(2, 1fr); } .pipeline-detail { grid-template-columns: 1fr; } }
+        @media (max-width: 640px)  { .pipeline-board { grid-template-columns: 1fr; } .partner-section-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body class="admin-theme">
-    <!-- Mobiele header -->
     <div class="mobile-header">
         <button class="hamburger" onclick="toggleSidebar()">
             <i class="fa-solid fa-bars"></i>
@@ -201,10 +256,12 @@
                 <div class="admin-badge">Admin</div>
                 <h3>Master Control</h3>
             </div>
-
             <ul class="nav-links">
                 <li class="nav-item active" onclick="showSection('overview', this)">
                     <i class="fa-solid fa-chart-pie"></i> <span>Global Overview</span>
+                </li>
+                <li class="nav-item" onclick="showSection('pipeline', this)">
+                    <i class="fa-solid fa-layer-group"></i> <span>Booking Pipeline</span>
                 </li>
                 <li class="nav-item" onclick="showSection('bookings', this)">
                     <i class="fa-solid fa-list-check"></i> <span>Master Bookings</span>
@@ -228,12 +285,10 @@
                     <h2 id="welcomeText">Dashboard</h2>
                     <p class="current-date" id="currentDateDisplay"></p>
                 </div>
-
                 <div class="admin-actions">
                     <button class="btn-refresh" style="background: #10b981; color: white;" onclick="exportBookingsToCSV()">
                         <i class="fa-solid fa-file-export"></i> Export to Excel
                     </button>
-
                     <div class="filter-wrapper">
                         <i class="fa-solid fa-filter"></i>
                         <select id="partnerFilter" onchange="loadAdminData()">
@@ -242,84 +297,177 @@
                             <option value="Ireland">Ireland Experience (Kilkenny)</option>
                         </select>
                     </div>
-
                     <button class="btn-refresh" id="syncBtn" onclick="loadAdminData()">
                         <i class="fa-solid fa-rotate"></i> Sync Data
                     </button>
                 </div>
             </header>
 
+            <!-- ══ OVERVIEW ══ -->
             <section id="overview" class="content-section active">
                 <div class="stats-grid">
                     <div class="stat-card accent-gold">
                         <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
                         <div class="stat-info"><h4>Total Bookings</h4><p id="totalBookings">0</p></div>
                     </div>
-
                     <div class="stat-card accent-blue">
                         <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
                         <div class="stat-info"><h4>Total Guests</h4><p id="totalGuests">0</p></div>
                     </div>
-
                     <div class="stat-card accent-green">
                         <div class="stat-icon"><i class="fa-solid fa-euro-sign"></i></div>
                         <div class="stat-info"><h4>Est. Revenue</h4><p id="totalRevenue">€0</p></div>
                     </div>
-
                     <div class="stat-card accent-gold">
                         <div class="stat-icon"><i class="fa-solid fa-building-user"></i></div>
                         <div class="stat-info"><h4>Active Partners</h4><p id="activePartners">0</p></div>
                     </div>
                 </div>
-
                 <div class="card chart-card">
                     <canvas id="revenueChart"></canvas>
                 </div>
-
                 <div class="card calendar-card">
                     <div id="calendar"></div>
                 </div>
             </section>
 
+            <!-- ══ BOOKING PIPELINE ══ -->
+            <section id="pipeline" class="content-section" style="display:none;">
+
+                <div class="card" style="margin-bottom:20px; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <h3 style="margin:0 0 4px;">Booking Pipeline</h3>
+                        <p style="color:#64748b; font-size:0.85rem; margin:0;">Klik een boeking aan om details te zien en een e-mail te sturen.</p>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <select id="pipelinePartnerFilter" class="form-input" style="min-width:160px;" onchange="renderPipeline()">
+                            <option value="all">Alle partners</option>
+                            <option value="Dublin">Dublin</option>
+                            <option value="Kilkenny">Kilkenny</option>
+                        </select>
+                        <button class="btn-refresh" onclick="loadAdminData()">
+                            <i class="fa-solid fa-rotate"></i> Sync
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kanban board -->
+                <div class="pipeline-board">
+                    <div class="pipeline-col stage-new">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-label">New</span>
+                            <span class="pipeline-col-count" id="cnt-new">0</span>
+                        </div>
+                        <div id="col-new"></div>
+                    </div>
+                    <div class="pipeline-col stage-conf">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-label">Confirmed</span>
+                            <span class="pipeline-col-count" id="cnt-confirmed">0</span>
+                        </div>
+                        <div id="col-confirmed"></div>
+                    </div>
+                    <div class="pipeline-col stage-paid">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-label">Paid</span>
+                            <span class="pipeline-col-count" id="cnt-paid">0</span>
+                        </div>
+                        <div id="col-paid"></div>
+                    </div>
+                    <div class="pipeline-col stage-ready">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-label">Ready</span>
+                            <span class="pipeline-col-count" id="cnt-ready">0</span>
+                        </div>
+                        <div id="col-ready"></div>
+                    </div>
+                    <div class="pipeline-col stage-done">
+                        <div class="pipeline-col-header">
+                            <span class="pipeline-col-label">Complete</span>
+                            <span class="pipeline-col-count" id="cnt-complete">0</span>
+                        </div>
+                        <div id="col-complete"></div>
+                    </div>
+                </div>
+
+                <!-- Detail + email panel (hidden until card selected) -->
+                <div class="pipeline-detail" id="pipelineDetail">
+                    <!-- Booking details -->
+                    <div class="detail-card">
+                        <h4><i class="fa-solid fa-user" style="margin-right:6px;"></i>Booking Details</h4>
+                        <div id="detailRows">
+                            <div class="no-selection-state">
+                                <i class="fa-solid fa-hand-pointer"></i>
+                                <p>Selecteer een boeking om de details te zien.</p>
+                            </div>
+                        </div>
+                        <div id="stageMoverWrap" style="display:none;">
+                            <p style="font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#64748b; margin:16px 0 8px;">Verplaats naar fase</p>
+                            <div class="stage-mover">
+                                <button class="stage-btn" onclick="moveToStage('Pending')">New</button>
+                                <button class="stage-btn" onclick="moveToStage('Confirmed')">Confirmed</button>
+                                <button class="stage-btn" onclick="moveToStage('Paid')">Paid</button>
+                                <button class="stage-btn" onclick="moveToStage('Ready')">Ready</button>
+                                <button class="stage-btn" onclick="moveToStage('Complete')">Complete</button>
+                                <button class="stage-btn" onclick="moveToStage('Cancelled')" style="color:#f87171;">Cancelled</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email composer -->
+                    <div class="detail-card">
+                        <h4><i class="fa-solid fa-envelope" style="margin-right:6px;"></i>E-mail versturen</h4>
+                        <div class="email-composer">
+                            <div class="tpl-tabs">
+                                <button class="tpl-tab active" onclick="selectTemplate('confirmation', this)">Bevestiging</button>
+                                <button class="tpl-tab" onclick="selectTemplate('payment', this)">Betaallink</button>
+                                <button class="tpl-tab" onclick="selectTemplate('reminder', this)">48u reminder</button>
+                                <button class="tpl-tab" onclick="selectTemplate('followup', this)">Follow-up</button>
+                            </div>
+                            <div class="email-subject" id="emailSubjectPreview">—</div>
+                            <div class="email-body-preview" id="emailBodyPreview">Selecteer eerst een boeking.</div>
+                            <div class="email-actions">
+                                <button class="btn-send" id="sendEmailBtn" onclick="sendEmailFromDashboard()" disabled>
+                                    <i class="fa-solid fa-paper-plane"></i> Verstuur e-mail
+                                </button>
+                                <button class="btn-stripe" id="stripeBtn" onclick="openStripeLink()" style="display:none;">
+                                    <i class="fa-brands fa-stripe-s"></i> Stripe link
+                                </button>
+                                <button class="btn-secondary-sm" onclick="copyEmailBody()">
+                                    <i class="fa-solid fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="send-feedback" id="sendFeedback"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ══ MASTER BOOKINGS ══ -->
             <section id="bookings" class="content-section" style="display: none;">
                 <div class="card">
-                    <div class="card-header">
-                        <h3>Master Booking List</h3>
-                    </div>
+                    <div class="card-header"><h3>Master Booking List</h3></div>
                     <div class="table-responsive" id="adminTableContainer"></div>
                 </div>
             </section>
 
+            <!-- ══ PARTNERS ══ -->
             <section id="partners" class="content-section" style="display: none;">
                 <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
                     <button class="btn-refresh" onclick="togglePartnerForm()">
                         <i class="fa-solid fa-plus"></i> Add Partner
                     </button>
                 </div>
-
                 <div id="addPartnerForm" class="card" style="display: none;">
                     <h3>Add New Partner</h3>
                     <div class="form-grid">
-                        <div class="input-group">
-                            <label>Name</label>
-                            <input type="text" id="p_name" class="form-input">
-                        </div>
-                        <div class="input-group">
-                            <label>Email</label>
-                            <input type="text" id="p_user" class="form-input">
-                        </div>
-                        <div class="input-group">
-                            <label>Password</label>
-                            <input type="password" id="p_pass" class="form-input">
-                        </div>
-                        <div class="input-group">
-                            <label>PartnerID</label>
-                            <input type="text" id="p_id" class="form-input">
-                        </div>
+                        <div class="input-group"><label>Name</label><input type="text" id="p_name" class="form-input"></div>
+                        <div class="input-group"><label>Email</label><input type="text" id="p_user" class="form-input"></div>
+                        <div class="input-group"><label>Password</label><input type="password" id="p_pass" class="form-input"></div>
+                        <div class="input-group"><label>PartnerID</label><input type="text" id="p_id" class="form-input"></div>
                     </div>
                     <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPartner()">Save</button>
                 </div>
-
                 <div class="partner-section-grid">
                     <div class="left-column">
                         <div class="card" id="partnersTableCard">
@@ -330,7 +478,6 @@
                             <div id="partnersTableContainer"></div>
                         </div>
                     </div>
-
                     <div class="right-column">
                         <div class="card" id="partnerInfoPanel">
                             <div class="partner-info-toolbar">
@@ -338,40 +485,26 @@
                                     <h3 style="margin-bottom: 4px;">Partner Operational Info</h3>
                                     <p class="card-subtitle">Important booking rules, rates, session details and publishing notes.</p>
                                 </div>
-
                                 <div class="partner-info-filters">
                                     <div class="input-group">
                                         <label for="partnerInfoPartnerSelect">Partner</label>
-                                        <select
-                                            id="partnerInfoPartnerSelect"
-                                            class="form-input"
-                                            onchange="if(window.renderPartnerInfoFromSelection){window.renderPartnerInfoFromSelection();}"
-                                        >
+                                        <select id="partnerInfoPartnerSelect" class="form-input" onchange="if(window.renderPartnerInfoFromSelection){window.renderPartnerInfoFromSelection();}">
                                             <option value="">Select partner</option>
                                             <option value="Dublin">Dublin Experience</option>
                                             <option value="Ireland">Ireland Experience (Kilkenny)</option>
                                         </select>
                                     </div>
-
                                     <div class="input-group">
                                         <label for="partnerInfoLocationSelect">Region / Location</label>
-                                        <select
-                                            id="partnerInfoLocationSelect"
-                                            class="form-input"
-                                            onchange="if(window.renderPartnerInfoFromSelection){window.renderPartnerInfoFromSelection();}"
-                                        >
+                                        <select id="partnerInfoLocationSelect" class="form-input" onchange="if(window.renderPartnerInfoFromSelection){window.renderPartnerInfoFromSelection();}">
                                             <option value="">Select location</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="partner-info-intro">
                                 Use this panel as your central source of truth for partner-specific operational notes.
-                                This is the ideal place for booking cut-off times, net rates, session schedules,
-                                private group rules, website wording notes and special seasonal constraints.
                             </div>
-
                             <div id="partnerInfoContent">
                                 <div class="info-empty-state">
                                     <i class="fa-solid fa-circle-info"></i>
@@ -380,109 +513,40 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card">
                             <div class="card-header">
                                 <h3>Suggested Info Blocks</h3>
                                 <p class="card-subtitle">Recommended structure for all partners.</p>
                             </div>
-
                             <div class="mini-help-list">
-                                <div class="mini-help-item">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <div>
-                                        <strong>Booking notice</strong>
-                                        <span>How far in advance a booking can still be confirmed.</span>
-                                    </div>
-                                </div>
-
-                                <div class="mini-help-item">
-                                    <i class="fa-solid fa-euro-sign"></i>
-                                    <div>
-                                        <strong>Net rate / pricing</strong>
-                                        <span>Commercial terms per person, session or package.</span>
-                                    </div>
-                                </div>
-
-                                <div class="mini-help-item">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <div>
-                                        <strong>Session schedule</strong>
-                                        <span>Public session days, times, seasonality and location restrictions.</span>
-                                    </div>
-                                </div>
-
-                                <div class="mini-help-item">
-                                    <i class="fa-solid fa-users"></i>
-                                    <div>
-                                        <strong>Group rules</strong>
-                                        <span>Minimum group sizes, private booking requirements and exceptions.</span>
-                                    </div>
-                                </div>
-
-                                <div class="mini-help-item">
-                                    <i class="fa-solid fa-pen-ruler"></i>
-                                    <div>
-                                        <strong>Publishing / copy notes</strong>
-                                        <span>Approved wording, structure notes and website content restrictions.</span>
-                                    </div>
-                                </div>
-
-                                <div class="mini-help-item">
-                                    <i class="fa-solid fa-clipboard-check"></i>
-                                    <div>
-                                        <strong>Session structure</strong>
-                                        <span>Clarify whether public and private sessions follow the same format.</span>
-                                    </div>
-                                </div>
+                                <div class="mini-help-item"><i class="fa-solid fa-clock"></i><div><strong>Booking notice</strong><span>How far in advance a booking can still be confirmed.</span></div></div>
+                                <div class="mini-help-item"><i class="fa-solid fa-euro-sign"></i><div><strong>Net rate / pricing</strong><span>Commercial terms per person, session or package.</span></div></div>
+                                <div class="mini-help-item"><i class="fa-solid fa-calendar-days"></i><div><strong>Session schedule</strong><span>Public session days, times, seasonality and location restrictions.</span></div></div>
+                                <div class="mini-help-item"><i class="fa-solid fa-users"></i><div><strong>Group rules</strong><span>Minimum group sizes, private booking requirements and exceptions.</span></div></div>
+                                <div class="mini-help-item"><i class="fa-solid fa-pen-ruler"></i><div><strong>Publishing / copy notes</strong><span>Approved wording, structure notes and website content restrictions.</span></div></div>
+                                <div class="mini-help-item"><i class="fa-solid fa-clipboard-check"></i><div><strong>Session structure</strong><span>Clarify whether public and private sessions follow the same format.</span></div></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- ══ PACKAGES ══ -->
             <section id="packages" class="content-section" style="display: none;">
                 <div class="partner-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-                    <button class="btn-refresh" onclick="togglePackageForm()">
-                        <i class="fa-solid fa-plus"></i> Add Package
-                    </button>
+                    <button class="btn-refresh" onclick="togglePackageForm()"><i class="fa-solid fa-plus"></i> Add Package</button>
                 </div>
-
                 <div id="addPackageForm" class="card" style="display: none;">
                     <h3>Setup Package Pricing</h3>
                     <div class="form-grid">
-                        <div class="input-group">
-                            <label>Partner</label>
-                            <select id="pkg_partnerid" class="form-input">
-                                <option value="Dublin">Dublin</option>
-                                <option value="Ireland">Ireland</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group">
-                            <label>Package Name</label>
-                            <input type="text" id="pkg_name" class="form-input">
-                        </div>
-
-                        <div class="input-group">
-                            <label>Net Price (€)</label>
-                            <input type="number" id="pkg_net" class="form-input" oninput="calculateSellPrice()">
-                        </div>
-
-                        <div class="input-group">
-                            <label>Commission (%)</label>
-                            <input type="number" id="pkg_comm" class="form-input" value="20" oninput="calculateSellPrice()">
-                        </div>
-
-                        <div class="input-group">
-                            <label>Sell Price (€)</label>
-                            <input type="text" id="pkg_sell" class="form-input" readonly>
-                        </div>
+                        <div class="input-group"><label>Partner</label><select id="pkg_partnerid" class="form-input"><option value="Dublin">Dublin</option><option value="Ireland">Ireland</option></select></div>
+                        <div class="input-group"><label>Package Name</label><input type="text" id="pkg_name" class="form-input"></div>
+                        <div class="input-group"><label>Net Price (€)</label><input type="number" id="pkg_net" class="form-input" oninput="calculateSellPrice()"></div>
+                        <div class="input-group"><label>Commission (%)</label><input type="number" id="pkg_comm" class="form-input" value="20" oninput="calculateSellPrice()"></div>
+                        <div class="input-group"><label>Sell Price (€)</label><input type="text" id="pkg_sell" class="form-input" readonly></div>
                     </div>
-
                     <button class="btn-refresh" style="margin-top: 20px;" onclick="submitNewPackage()">Save Package</button>
                 </div>
-
                 <div class="card" id="packagesTableContainer"></div>
             </section>
         </main>
