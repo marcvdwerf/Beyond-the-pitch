@@ -3,7 +3,7 @@
  * Versie: 4.0 — Pipeline + Email Composer
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbw68geaupfYuRGBIZotaYpLo8mfwBW4m2fpGb2q21hgBf35JanVAD5yFG2fT52QZuMHpA/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxDoEqNnYDf60dDVNjqzRTjh595ee3ufzpuKEyXJ-3Ns8pwTNLAZWw5DtjANUmVKr0irw/exec';
 
 let revenueChart    = null;
 let allBookings     = [];
@@ -26,51 +26,107 @@ const STAGE_MAP = {
 
 // ─── E-mail templates ─────────────────────────────────────────────────────────
 const EMAIL_TEMPLATES = {
+
+    // ── 1. BEVESTIGING (ontvangst aanvraag) ──────────────────────────────────
     confirmation: {
         label: 'Bevestiging',
-        subject: (b) => `Booking confirmed – ${b['Experience'] || 'Beyond the Pitch'}`,
+        subject: (b) => `☘ We\'ve received your Beyond the Pitch request`,
         body: (b) => {
             const firstName = (b['Full Name'] || 'there').split(' ')[0];
-            const date = formatDateLong(b['Start Date']);
-            const guests = b['Guests'] || '1';
+            const date      = formatDateLong(b['Start Date']);
+            const guests    = b['Guests'] || '1';
             const experience = b['Experience'] || 'your experience';
+            const partner   = (b['Partner'] || '').toLowerCase();
+            const isPrague  = partner.includes('prague');
+            const closing   = isPrague
+                ? 'Kamil and the team will be in touch within 24–48 hours.\n\nSee you in Prague,\nBeyond the Pitch\ntravelbeyondthepitch.com/prague'
+                : 'Our team is checking availability with our local partner and will be in touch within 24–48 hours.\n\nSee you on the pitch,\nBeyond the Pitch\ntravelbeyondthepitch.com';
             return `Hi ${firstName},
 
-Great news — we have received your booking request for:
+Slán abhaile — welcome to Beyond the Pitch! ☘
+
+We\'ve received your booking request and we\'re delighted to have you join us.
 
 Experience: ${experience}
 Date: ${date}
 Guests: ${guests}
 
-We're reviewing availability and will confirm your spot shortly. You'll receive a payment link as soon as your booking is confirmed.
-
-If you have any questions in the meantime, just reply to this email.
-
-See you on the pitch,
-Beyond the Pitch
-travelbeyondthepitch.com`;
+${closing}`;
         }
     },
 
+    // ── 2. BETAALLINK (boeking goedgekeurd) ──────────────────────────────────
     payment: {
         label: 'Betaallink',
-        subject: (b) => `Your payment link – ${b['Experience'] || 'Beyond the Pitch'}`,
+        subject: (b) => `✅ You\'re booked! – ${b['Experience'] || 'Beyond the Pitch'}`,
         body: (b) => {
-            const firstName = (b['Full Name'] || 'there').split(' ')[0];
-            const date = formatDateLong(b['Start Date']);
-            const guests = b['Guests'] || '1';
+            const firstName  = (b['Full Name'] || 'there').split(' ')[0];
+            const date       = formatDateLong(b['Start Date']);
+            const guests     = b['Guests'] || '1';
             const experience = b['Experience'] || 'your experience';
+            const partner    = (b['Partner'] || '').toLowerCase();
+            const isPrague   = partner.includes('prague');
+            const closing    = isPrague
+                ? 'Kamil and the team are looking forward to seeing you in Prague.\n\nBeyond the Pitch\ntravelbeyondthepitch.com/prague'
+                : 'A full preparation guide with directions, what to wear and what to bring will follow closer to your experience date.\n\nGo raibh míle maith agat,\nBeyond the Pitch\ntravelbeyondthepitch.com';
             return `Hi ${firstName},
 
-Your booking for ${experience} on ${date} (${guests} guests) is confirmed!
+Fáilte romhat — you\'re officially part of the Beyond the Pitch family! 🎉
 
-Please complete your payment via the link below to secure your spot:
+Your spot is confirmed. Please complete payment via the link below to secure your booking:
 
-→ [STRIPE PAYMENT LINK — paste here before sending]
+→ [STRIPE PAYMENT LINK — paste before sending]
 
-Once payment is received, you're all set. Your spot is held for 48 hours.
+Confirmed booking details
+Experience: ${experience}
+Date: ${date}
+Guests: ${guests}
 
-Any questions? Just reply here.
+${closing}`;
+        }
+    },
+
+    // ── 3. 4 WEKEN VOOR DE ERVARING ──────────────────────────────────────────
+    reminder_4weeks: {
+        label: '4 weken voor',
+        subject: (b) => `⏳ 4 weeks until your ${b['Experience'] || 'Beyond the Pitch'} experience!`,
+        body: (b) => {
+            const firstName  = (b['Full Name'] || 'there').split(' ')[0];
+            const date       = formatDateLong(b['Start Date']);
+            const guests     = b['Guests'] || '1';
+            const experience = b['Experience'] || 'your experience';
+            const partner    = (b['Partner'] || '').toLowerCase();
+            const isPrague   = partner.includes('prague');
+            const isKilkenny = partner.includes('kilkenny') || partner.includes('ireland');
+
+            const practicalInfo = isPrague
+                ? `What to expect
+The experience starts at the National Theatre (Národní divadlo), Ostrovní 1, Prague 1. Kamil will meet you at the main entrance.
+
+The walk takes around 2 hours and covers central Prague on foot — wear comfortable shoes. The Czech Hockey Hall of Fame is indoors and takes about 45 minutes.
+
+If you\'re doing Version B, your match ticket details will follow once the fixture is confirmed.`
+                : isKilkenny
+                ? `What to prepare
+Wear comfortable, flexible sports clothing and sturdy footwear — you\'ll be on the pitch.
+Bring a water bottle and a light rain jacket. This is Ireland, after all.
+No prior experience needed. All equipment is provided on the day.
+
+Your exact meeting point will be confirmed in your 48-hour reminder — either Freshford (The Square, Co. Kilkenny) or Kilkenny City (O\'Loughlin Gaels GAA Club). We\'ll let you know which applies to your session.`
+                : `What to prepare
+Wear comfortable, flexible sports clothing and sturdy footwear — you\'ll be on the pitch at Na Fianna GAA Club.
+Bring a water bottle and a light rain jacket.
+No prior experience needed. Hurleys, sliotars and footballs are all provided.
+
+Meeting point: Na Fianna GAA Club, St Mobhi Rd, Drumcondra, Dublin 9`;
+
+            return `Hi ${firstName},
+
+Can you believe it\'s almost time? In just four weeks you\'ll be joining us for ${experience} on ${date}.
+
+${practicalInfo}
+
+If you have any questions before the day, just reply to this email — we\'re always happy to help.
 
 See you soon,
 Beyond the Pitch
@@ -78,59 +134,141 @@ travelbeyondthepitch.com`;
         }
     },
 
+    // ── 4. 48 UUR VOOR DE ERVARING ───────────────────────────────────────────
     reminder: {
         label: '48u reminder',
-        subject: (b) => `See you tomorrow – ${b['Experience'] || 'Beyond the Pitch'}`,
+        subject: (b) => `🏆 48 hours to go – everything you need for ${b['Experience'] || 'your experience'}`,
         body: (b) => {
-            const firstName = (b['Full Name'] || 'there').split(' ')[0];
-            const date = formatDateLong(b['Start Date']);
+            const firstName  = (b['Full Name'] || 'there').split(' ')[0];
+            const date       = formatDateLong(b['Start Date']);
             const experience = b['Experience'] || 'your experience';
-            const partner = (b['Partner'] || '').toLowerCase();
-            const venue = partner.includes('dublin')
-                ? 'Na Fianna GAA Club, St Mobhi Rd, Drumcondra, Dublin 9'
-                : partner.includes('kilkenny') || partner.includes('ireland')
-                    ? 'Kilkenny — check your booking confirmation for the exact location'
-                    : 'your venue — check your booking confirmation';
+            const partner    = (b['Partner'] || '').toLowerCase();
+            const isPrague   = partner.includes('prague');
+            const isKilkenny = partner.includes('kilkenny') || partner.includes('ireland');
+
+            const logistics = isPrague
+                ? `📍 Meeting point: National Theatre (Národní divadlo), Ostrovní 1, Prague 1
+   Meet Kamil at the main entrance — he\'ll be there to welcome you
+⏰ Please arrive 5–10 minutes before your start time
+👟 Comfortable walking shoes — you\'ll be on your feet for about 2 hours
+🎒 No special gear needed — just curiosity and a bit of appetite for history`
+                : isKilkenny
+                ? `📍 Meeting point: [FRESHFORD — The Square, Freshford, Co. Kilkenny OR Kilkenny City — O\'Loughlin Gaels GAA Club — confirm which applies]
+⏰ Please arrive 10 minutes before the session starts
+👟 Wear sports clothes and sturdy footwear
+💧 Bring water — it\'s an active session!
+🏑 All equipment (hurleys, sliotars) is provided on the day`
+                : `📍 Na Fianna GAA Club, St Mobhi Rd, Drumcondra, Dublin 9
+⏰ Please arrive 10 minutes before the session starts
+👟 Wear sports clothes and trainers
+💧 Bring water — it\'s an active session!
+🏑 All equipment (hurleys, sliotars, footballs) is provided on the day`;
+
+            const fixture = b['Fixture'] ? `\nMatch: ${b['Fixture']}` : '';
+
             return `Hi ${firstName},
 
-Just a quick reminder that your ${experience} is tomorrow, ${date}!
+Just 48 hours to go — we\'re looking forward to seeing you at ${experience} on ${date}!${fixture}
 
-📍 ${venue}
-⏰ Please arrive 10 minutes before the session starts
-👟 Wear comfortable sports clothes and trainers
-💧 Bring water — it's an active session!
+${logistics}
 
-We're looking forward to seeing you. If anything comes up, please let us know as soon as possible.
+If anything comes up last minute, reply to this email or reach us at info@travelbeyondthepitch.com.
 
-See you on the pitch,
+Feicfimid thú — see you there! ☘
 Beyond the Pitch
 travelbeyondthepitch.com`;
         }
     },
 
-    followup: {
-        label: 'Follow-up',
-        subject: (b) => `How was it? – ${b['Experience'] || 'Beyond the Pitch'}`,
+    // ── 5. ANNULERING ────────────────────────────────────────────────────────
+    cancellation: {
+        label: 'Annulering',
+        subject: (b) => `Your Beyond the Pitch booking has been cancelled`,
         body: (b) => {
-            const firstName = (b['Full Name'] || 'there').split(' ')[0];
+            const firstName  = (b['Full Name'] || 'there').split(' ')[0];
+            const date       = formatDateLong(b['Start Date']);
             const experience = b['Experience'] || 'your experience';
             return `Hi ${firstName},
 
-We hope you had an incredible time at ${experience}!
+We\'ve processed the cancellation of your booking for ${experience} on ${date}.
 
-We'd love to hear what you thought — even a few words means a lot to us and helps other travellers find us.
+We\'re sorry you won\'t be joining us this time — we hope everything is okay.
 
-→ Leave a review: [REVIEW LINK]
+If your plans change or you\'d like to rebook for a future date, we\'d love to welcome you back. Just reply to this email and we\'ll sort something out.
 
-If you're coming back to Ireland or thinking about another experience, reply here and we'll sort you out.
+Refund information
+As per our cancellation policy, any applicable refund will be processed within 5–10 business days. If you have questions about your refund, just reply here.
 
-Thanks for being part of it,
+With warmest wishes,
+Beyond the Pitch
+travelbeyondthepitch.com`;
+        }
+    },
+
+    // ── 6. HERVERSCHEDULING ──────────────────────────────────────────────────
+    reschedule: {
+        label: 'Herverscheduling',
+        subject: (b) => `📅 Your Beyond the Pitch experience has been rescheduled`,
+        body: (b) => {
+            const firstName  = (b['Full Name'] || 'there').split(' ')[0];
+            const experience = b['Experience'] || 'your experience';
+            return `Hi ${firstName},
+
+We\'ve updated your booking with a new date for ${experience}.
+
+New date: [NEW DATE — fill in before sending]
+Everything else stays the same — only the date has changed, and the craic is still guaranteed! 🎉
+
+Please make sure your travel plans reflect the new date. If you have any questions, just reply here.
+
+Go raibh míle maith agat,
+Beyond the Pitch
+travelbeyondthepitch.com`;
+        }
+    },
+
+    // ── 7. FOLLOW-UP (2–3 dagen na de ervaring) ──────────────────────────────
+    followup: {
+        label: 'Follow-up',
+        subject: (b) => `🏆 Thank you for experiencing ${b['Experience'] || 'Beyond the Pitch'}!`,
+        body: (b) => {
+            const firstName  = (b['Full Name'] || 'there').split(' ')[0];
+            const experience = b['Experience'] || 'your experience';
+            const partner    = (b['Partner'] || '').toLowerCase();
+            const isPrague   = partner.includes('prague');
+
+            const reviewAsk = isPrague
+                ? `Kamil puts a huge amount of care into every session — a short review genuinely helps him reach more people who\'d appreciate what he does.`
+                : `Your feedback helps future guests understand what awaits them — and it means the world to our local partners and coaches.`;
+
+            const socialTag = isPrague
+                ? `Share your photos on Instagram and tag us @travelbeyondthepitch — Kamil loves seeing them.`
+                : `Share your photos on Instagram and tag us @travelbeyondthepitch — we\'d love to repost!`;
+
+            return `Hi ${firstName},
+
+Go raibh míle maith agat — a thousand thank-yous! ☘
+
+What an incredible time it was having you at ${experience}. We hope you\'re already telling people about it — because that\'s exactly what Beyond the Pitch is all about.
+
+${reviewAsk}
+
+→ Leave a review or share your feedback: https://travelbeyondthepitch.com/feedback/
+
+${socialTag}
+
+Come back again
+Whether it\'s another session, a different experience, or a completely new destination — we\'d love to have you back. Browse what\'s coming up at travelbeyondthepitch.com.
+
+Refer a friend and mention your name — we\'ll make sure they\'re looked after.
+
+Until next time,
 Beyond the Pitch
 travelbeyondthepitch.com`;
         }
     }
-};
 
+};
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function formatDateLong(raw) {
     if (!raw) return '—';
