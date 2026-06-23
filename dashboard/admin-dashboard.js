@@ -3,7 +3,7 @@
  * Versie: 4.0 — Pipeline + Email Composer
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbx2xqv3JPhreA32C1IfgXtOfgUfH4cghwGRX2PnHsaAHjKdMW23XU1oxl74qqhpcuVLMA/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwkreFsmYzfk3kf0dRly5bxxkA33VdE0FbXMjih1x3BfX12WUnCcSi5X0ykP5e0SwKWDQ/exec';
 
 let revenueChart    = null;
 let allBookings     = [];
