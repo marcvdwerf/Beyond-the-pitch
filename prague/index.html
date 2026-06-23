@@ -266,7 +266,64 @@
       .sticky-bar{display:flex}
       .footer-bottom{flex-direction:column}
     }
-    @media (max-width:520px){
+    /* ── Booking form inline styles ── */
+  #bookingFormWrap .version-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  #bookingFormWrap .version-card-pick { border: 1.5px solid var(--line-2); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.15s; background: rgba(255,255,255,0.02); }
+  #bookingFormWrap .version-card-pick:hover { border-color: rgba(201,48,42,.4); background: var(--red-soft); }
+  #bookingFormWrap .version-card-pick.active { border-color: var(--red); background: var(--red-soft); box-shadow: 0 0 0 3px rgba(201,48,42,0.1); }
+  #bookingFormWrap .version-card-pick.featured-pick { border-color: rgba(184,147,62,.35); }
+  #bookingFormWrap .version-card-pick.featured-pick.active { border-color: var(--gold); background: rgba(184,147,62,0.08); }
+  #bookingFormWrap .version-radio-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-bottom: 10px; }
+  #bookingFormWrap .version-card-pick.active .version-radio-dot { border-color: var(--red); background: var(--red); }
+  #bookingFormWrap .version-card-pick.active .version-radio-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+  #bookingFormWrap .v-season { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--soft); margin-bottom: 4px; }
+  #bookingFormWrap .v-title { font-size: 0.88rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  #bookingFormWrap .v-price { font-size: 1.15rem; font-weight: 900; color: var(--red-2); margin-bottom: 6px; }
+  #bookingFormWrap .version-card-pick.featured-pick .v-price { color: var(--gold); }
+  #bookingFormWrap .v-includes { font-size: 0.75rem; color: var(--soft); line-height: 1.6; }
+  #bookingFormWrap .month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  #bookingFormWrap .month-btn { padding: 10px 8px; border: 1.5px solid var(--line-2); border-radius: 10px; background: rgba(255,255,255,0.02); cursor: pointer; text-align: center; transition: all 0.15s; font-family: var(--body); color: var(--text); }
+  #bookingFormWrap .month-btn:hover { border-color: rgba(201,48,42,.4); background: var(--red-soft); }
+  #bookingFormWrap .month-btn.active { border-color: var(--red); background: var(--red-soft); }
+  #bookingFormWrap .month-btn .m-name { display: block; font-size: 0.85rem; font-weight: 700; }
+  #bookingFormWrap .month-btn .m-count { display: block; font-size: 0.7rem; color: var(--soft); margin-top: 2px; }
+  #bookingFormWrap .fixture-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  #bookingFormWrap .fixture-item { border: 1.5px solid var(--line-2); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.02); }
+  #bookingFormWrap .fixture-item:hover { border-color: rgba(201,48,42,.4); background: var(--red-soft); }
+  #bookingFormWrap .fixture-item.active { border-color: var(--red); background: var(--red-soft); }
+  #bookingFormWrap .fixture-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  #bookingFormWrap .fixture-item.active .fixture-radio { border-color: var(--red); background: var(--red); }
+  #bookingFormWrap .fixture-item.active .fixture-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; display: block; border-radius: 50%; }
+  #bookingFormWrap .fixture-name { font-size: 0.88rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  #bookingFormWrap .fixture-meta { font-size: 0.73rem; color: var(--soft); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  #bookingFormWrap .club-slavia { display: inline-block; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; background: rgba(201,48,42,0.15); color: var(--red-2); padding: 1px 6px; border-radius: 4px; }
+  #bookingFormWrap .club-sparta { display: inline-block; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; background: rgba(184,147,62,0.15); color: var(--gold); padding: 1px 6px; border-radius: 4px; }
+  #bookingFormWrap .fixture-price { font-size: 0.9rem; font-weight: 800; color: var(--red-2); flex-shrink: 0; }
+  #bookingFormWrap .no-fixtures { text-align: center; padding: 16px; color: var(--soft); font-size: 0.85rem; }
+  #bookingFormWrap .summary-box { background: var(--red-soft); border: 1px solid rgba(201,48,42,.2); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  #bookingFormWrap .summary-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 4px 0; color: var(--muted); }
+  #bookingFormWrap .summary-row.total { border-top: 1px solid rgba(201,48,42,.2); margin-top: 8px; padding-top: 10px; font-weight: 700; color: var(--red-2); font-size: 0.95rem; }
+  #bookingFormWrap .send-feedback { font-size: 0.8rem; padding: 8px 12px; border-radius: 8px; margin-top: 8px; display: none; }
+  #bookingFormWrap .send-feedback.success { background: rgba(16,185,129,0.12); color: #10b981; display: block; }
+  #bookingFormWrap .send-feedback.error { background: rgba(239,68,68,0.12); color: #f87171; display: block; }
+  #bookingFormWrap .error-box { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #f87171; border-radius: 10px; padding: 10px 14px; font-size: 0.85rem; display: none; margin-bottom: 12px; }
+  #bookingFormWrap .error-box.show { display: block; }
+  #bookingFormWrap .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  #bookingFormWrap .field label { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.72); }
+  #bookingFormWrap .field-hint { font-size: 0.72rem; color: var(--soft); }
+  #bookingFormWrap .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  #bookingFormWrap .section-label-booking { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--red-2); margin-bottom: 10px; margin-top: 4px; }
+  #bookingFormWrap .process-note { background: rgba(184,147,62,0.08); border: 1px solid rgba(184,147,62,0.2); border-radius: 10px; padding: 12px 14px; font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+  #bookingFormWrap .btn-submit { width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 800; cursor: pointer; font-family: var(--body); transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  #bookingFormWrap .btn-submit:hover:not(:disabled) { background: var(--red-2); transform: translateY(-1px); }
+  #bookingFormWrap .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+  #bookingFormWrap .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 540px) {
+    #bookingFormWrap .field-row { grid-template-columns: 1fr; }
+    #bookingFormWrap .version-grid { grid-template-columns: 1fr; }
+    #bookingFormWrap .month-grid { grid-template-columns: repeat(2, 1fr); }
+  }
       .facts-grid{grid-template-columns:1fr}
       .fact{border-right:none}
       .hero-price{font-size:2.6rem}
@@ -280,7 +337,7 @@
 <div class="sticky-bar" id="stickyBar">
   <div class="sticky-left">
     <small>From</small>
-    <strong>€49</strong>
+    <strong>€55</strong>
     <span>Hall of Fame included</span>
   </div>
   <a href="#enquire" class="sticky-btn">Check my date</a>
@@ -939,7 +996,7 @@
     </div>
   </section>
 
-  <!-- ENQUIRY -->
+ <!-- ENQUIRY — Full booking form connected to Google Form + Mastersheet -->
   <section class="section enquiry" id="enquire">
     <div class="container enquiry-grid">
       <div>
@@ -950,7 +1007,7 @@
         <div class="info-points">
           <div class="info-point">
             <span class="info-icon">✓</span>
-            <div><strong>Reply within 24–48 hours</strong><span>An actual human checking your request -not a bot.</span></div>
+            <div><strong>Reply within 24–48 hours</strong><span>An actual human checking your request — not a bot.</span></div>
           </div>
           <div class="info-point">
             <span class="info-icon">✓</span>
@@ -963,61 +1020,141 @@
         </div>
       </div>
 
-      <div class="form-card">
-        <div class="form-title">Request availability →</div>
-       <form id="enquiryForm" action="https://formspree.io/f/mrevbjol" method="POST" onsubmit="handleSubmit(event)" novalidate>
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="fname">First name</label>
-              <input type="text" id="fname" name="fname" placeholder="Your name" required autocomplete="given-name">
-            </div>
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
-            </div>
-            <div class="form-group">
-              <label for="date">Preferred date</label>
-              <input type="date" id="date" name="date" required>
-            </div>
-            <div class="form-group">
-              <label for="groupsize">Group size</label>
-              <select id="groupsize" name="groupsize" required>
-                <option value="" disabled selected>Select size</option>
-                <option value="solo">solo - pair me with a group</option>
-                <option value="2">2 people</option>
-                <option value="3-4">3–4 people</option>
-                <option value="5-8">5–8 people</option>
-                <option value="9-15">9–15 people</option>
-                <option value="16-25">16–25 people</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label for="version">Which version interests you?</label>
-              <select id="version" name="version" required>
-                <option value="" disabled selected>Select a version</option>
-                <option value="a">Version A - Walking + Hall of Fame (€49 p.p.)</option>
-                <option value="b">Version B - Tour + Hall of Fame + match acces (€69 p.p.)</option>
-                <option value="unsure">Not sure yet - happy to be advised</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label for="message">Anything else? (optional)</label>
-              <textarea id="message" name="message" placeholder="Travel context, alternative dates, questions..."></textarea>
-            </div>
-          </div>
-          <div style="margin-top:1.3rem;">
-            <button type="submit" class="btn btn-primary btn-block">Send your request →</button>
-          </div>
-          <p class="form-note">Personal reply within 24–48 hours. Your data is not shared with third parties.</p>
-        </form>
-        <div class="form-success" id="formSuccess">
-          <strong>Request received.</strong>
-          We'll get back to you within 24–48 hours with a clear answer on availability and next steps.
+      <!-- BOOKING FORM CARD -->
+      <div class="form-card" id="bookingFormWrap">
+
+        <!-- STEP INDICATOR -->
+        <div style="display:flex;gap:6px;margin-bottom:1.2rem;">
+          <div id="step1ind" style="height:3px;flex:1;border-radius:3px;background:var(--red);transition:.3s;"></div>
+          <div id="step2ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
+          <div id="step3ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
         </div>
+
+        <div id="bfStep1">
+          <div class="form-title">Your details</div>
+
+          <div class="field-row" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="bf_name">Full name *</label>
+              <input type="text" id="bf_name" placeholder="Jane Smith" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="bf_email">Email *</label>
+              <input type="email" id="bf_email" placeholder="jane@email.com" autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="bf_phone">Phone</label>
+              <input type="tel" id="bf_phone" placeholder="+1 555 000 0000" autocomplete="tel" />
+            </div>
+            <div class="field">
+              <label for="bf_country">Country of residence *</label>
+              <input type="text" id="bf_country" placeholder="e.g. United States" />
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="bf_date">Preferred date *</label>
+              <input type="date" id="bf_date" />
+            </div>
+            <div class="field">
+              <label for="bf_guests">Group size *</label>
+              <select id="bf_guests">
+                <option value="">Select…</option>
+                <option value="solo">Solo — pair me with a group</option>
+                <option value="2">2 people</option>
+                <option value="3">3–4 people</option>
+                <option value="5">5–8 people</option>
+                <option value="9">9–15 people</option>
+                <option value="16">16–25 people</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" style="margin-bottom:16px;">
+            <label for="bf_source">How did you hear about us? *</label>
+            <select id="bf_source">
+              <option value="">Select…</option>
+              <option value="Google">Google search</option>
+              <option value="Instagram">Instagram</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Friend / word of mouth">Friend / word of mouth</option>
+              <option value="Hotel / concierge">Hotel / concierge</option>
+              <option value="Tour operator">Tour operator</option>
+              <option value="Travel blog / article">Travel blog / article</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div id="bf_error1" class="error-box"></div>
+          <button class="btn-submit" onclick="bfNext1()">Choose your version →</button>
+        </div>
+
+        <!-- STEP 2: VERSION + FIXTURE -->
+        <div id="bfStep2" style="display:none;">
+          <div class="form-title">Choose your version</div>
+
+          <div class="version-grid" style="margin-bottom:16px;">
+            <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
+              <div class="version-radio-dot"></div>
+              <div class="v-season">Year-round</div>
+              <div class="v-title">Walking + Hall of Fame</div>
+              <div class="v-price">€55 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
+              <div class="v-includes">Tour + Hall of Fame entry. No fixture needed.</div>
+            </div>
+            <div class="version-card-pick featured-pick" id="vcard_b" onclick="bfSelectVersion('B')">
+              <div class="version-radio-dot"></div>
+              <div class="v-season">Sep – Apr · Most complete</div>
+              <div class="v-title">Tour + Hall of Fame + match</div>
+              <div class="v-price" style="color:var(--gold)">€79 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
+              <div class="v-includes">Everything in A + live Extraliga match.</div>
+            </div>
+          </div>
+
+          <!-- Fixture picker — Version B only -->
+          <div id="bf_fixturePicker" style="display:none;">
+            <div class="section-label-booking">Preferred fixture (optional)</div>
+            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Select a match or leave it — we'll pick the best available for your date.</p>
+            <div class="month-grid" id="bf_monthGrid"></div>
+            <div id="bf_fixtureBlock" style="display:none;">
+              <div class="fixture-list" id="bf_fixtureList"></div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="summary-box" id="bf_summaryBox" style="display:none;">
+            <div class="summary-row"><span id="bf_sVersion">—</span><span id="bf_sPricePP">—</span></div>
+            <div class="summary-row" id="bf_sFixtureRow" style="display:none;font-size:0.78rem;"><span id="bf_sFixture" style="color:var(--soft)"></span></div>
+            <div class="summary-row total"><span>Price per person</span><span id="bf_sTotal">—</span></div>
+          </div>
+
+          <div class="field" style="margin-bottom:16px;">
+            <label for="bf_requests">Anything we should know? (optional)</label>
+            <textarea id="bf_requests" rows="3" placeholder="Solo traveller? Dietary needs? Questions about the route?"></textarea>
+          </div>
+
+          <div id="bf_error2" class="error-box"></div>
+
+          <div style="display:flex;gap:8px;">
+            <button class="btn-submit" onclick="bfBack1()" style="background:transparent;border:1px solid var(--line-2);color:var(--muted);flex:0 0 auto;width:auto;padding:16px 20px;">←</button>
+            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;" disabled>Send booking request</button>
+          </div>
+          <p style="text-align:center;font-size:0.75rem;color:var(--soft);margin-top:10px;">Personal reply within 24–48 hours. No charge if nothing fits.</p>
+        </div>
+
+        <!-- SUCCESS -->
+        <div id="bf_success" style="display:none;text-align:center;padding:2rem 0;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">✅</div>
+          <strong style="display:block;color:var(--text);font-size:1.1rem;margin-bottom:.5rem;">Request received!</strong>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:340px;margin:0 auto;">Kamil and the team will get back to you within 24–48 hours with a clear answer on availability and next steps.</p>
+        </div>
+
       </div>
     </div>
   </section>
-
   <!-- FINAL CTA -->
   <section class="final-cta">
     <div class="final-bg" aria-hidden="true"></div>
@@ -1029,7 +1166,7 @@
         <a href="#enquire" class="btn btn-primary">Check my date →</a>
         <a href="mailto:info@travelbeyondthepitch.com" class="btn btn-ghost">Ask a question instead</a>
       </div>
-      <p class="final-micro">From €49 p.p. · Min. 4 people · Personally confirmed within 24–48 hours</p>
+      <p class="final-micro">From €55 p.p. · Min. 4 people · Personally confirmed within 24–48 hours</p>
     </div>
   </section>
 </main>
@@ -1100,41 +1237,233 @@
   overlay.addEventListener('click', closeMenu);
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-  function preselectVersion(val){
-    setTimeout(() => {
-      const sel = document.getElementById('version');
-      if (sel) sel.value = val;
-    }, 250);
+ // ── Prague Booking Form — Inline version ──
+const BF_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSewFWGL3Ycb_5SUtCXfjh3tKP4qRG8fjb053KUI__iucl2Byg/formResponse';
+const BF_FIELDS = {
+  name:          'entry.761572476',
+  email:         'entry.1144619265',
+  phone:         'entry.1213010877',
+  experience:    'entry.1446094233',
+  date:          'entry.301148404',
+  guests:        'entry.175134312',
+  requests:      'entry.2094398847',
+  packageCode:   'entry.924755547',
+  fixture:       'entry.857468506',
+  partner:       'entry.979778576',
+  discount:      'entry.1437425214',
+  country:       'entry.757548239',
+  source:        'entry.6981604',
+  pricePerPerson:'entry.689601628',
+  version:       'entry.199160968',
+};
+
+const BF_PRICE_A = 55, BF_PRICE_B = 79;
+let bfVersion = null, bfFixture = null, bfMonth = null;
+
+const BF_SLAVIA = [
+  {date:'2026-09-09',opponent:'Vsetín'},{date:'2026-09-19',opponent:'Zlín'},{date:'2026-09-26',opponent:'Třebíč'},
+  {date:'2026-09-30',opponent:'Havířov'},{date:'2026-10-07',opponent:'Sokolov'},{date:'2026-10-14',opponent:'Tábor'},
+  {date:'2026-10-24',opponent:'Chomutov'},{date:'2026-10-25',opponent:'Jihlava'},{date:'2026-10-28',opponent:'Pardubice B'},
+  {date:'2026-11-08',opponent:'Litoměřice'},{date:'2026-11-14',opponent:'Kolín'},{date:'2026-11-18',opponent:'Přerov'},
+  {date:'2026-11-25',opponent:'Frýdek-Místek'},{date:'2026-11-28',opponent:'Vsetín'},{date:'2026-12-02',opponent:'Zlín'},
+  {date:'2026-12-16',opponent:'Třebíč'},{date:'2026-12-21',opponent:'Havířov'},{date:'2026-12-29',opponent:'Sokolov'},
+  {date:'2027-01-06',opponent:'Tábor'},{date:'2027-01-16',opponent:'Chomutov'},{date:'2027-01-17',opponent:'Jihlava'},
+  {date:'2027-01-23',opponent:'Pardubice B'},{date:'2027-01-30',opponent:'Litoměřice'},{date:'2027-02-06',opponent:'Kolín'},
+  {date:'2027-02-14',opponent:'Přerov'},{date:'2027-02-20',opponent:'Frýdek-Místek'},
+].map(m => ({...m, club:'HC Slavia Prague', venue:'Zimní stadion Slavie, Prague', tag:'slavia'}));
+
+const BF_SPARTA = [
+  {date:'2026-09-22',opponent:'MBL'},{date:'2026-09-28',opponent:'KVA'},{date:'2026-10-01',opponent:'CEB'},
+  {date:'2026-10-08',opponent:'KOM'},{date:'2026-10-11',opponent:'VIT'},{date:'2026-10-18',opponent:'TRI'},
+  {date:'2026-10-24',opponent:'OLO'},{date:'2026-11-01',opponent:'LIT'},{date:'2026-11-15',opponent:'MHK'},
+  {date:'2026-11-29',opponent:'PLZ'},{date:'2026-12-06',opponent:'LIB'},{date:'2026-12-20',opponent:'KLA'},
+  {date:'2026-12-22',opponent:'MBL'},{date:'2026-12-28',opponent:'KVA'},{date:'2027-01-03',opponent:'CEB'},
+  {date:'2027-01-08',opponent:'PCE'},{date:'2027-01-15',opponent:'VIT'},{date:'2027-01-22',opponent:'TRI'},
+  {date:'2027-01-26',opponent:'OLO'},{date:'2027-01-29',opponent:'KLA'},{date:'2027-02-02',opponent:'LIT'},
+  {date:'2027-02-07',opponent:'MHK'},{date:'2027-02-19',opponent:'PCE'},{date:'2027-02-21',opponent:'KOM'},
+  {date:'2027-02-28',opponent:'PLZ'},{date:'2027-03-05',opponent:'LIB'},
+].map(m => ({...m, club:'HC Sparta Prague', venue:'O2 Arena, Prague', tag:'sparta'}));
+
+const BF_ALL_MATCHES = [...BF_SLAVIA, ...BF_SPARTA].sort((a,b) => new Date(a.date)-new Date(b.date));
+
+function bfFmt(d) { return new Date(d+'T12:00:00').toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'short'}); }
+function bfValid(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function bfErr(id,msg){ const el=document.getElementById(id); if(el){el.textContent=msg;el.className='error-box'+(msg?' show':'');} }
+
+// Step indicators
+function bfSetStep(n){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('step'+i+'ind');
+    if(el) el.style.background = i<=n ? 'var(--red)' : 'var(--line-2)';
+  });
+}
+
+function bfNext1(){
+  const name=document.getElementById('bf_name').value.trim();
+  const email=document.getElementById('bf_email').value.trim();
+  const country=document.getElementById('bf_country').value.trim();
+  const date=document.getElementById('bf_date').value;
+  const guests=document.getElementById('bf_guests').value;
+  const source=document.getElementById('bf_source').value;
+  if(!name||!bfValid(email)||!country||!date||!guests||!source){
+    bfErr('bf_error1','Please fill in all required fields.'); return;
   }
+  bfErr('bf_error1','');
+  document.getElementById('bfStep1').style.display='none';
+  document.getElementById('bfStep2').style.display='block';
+  bfSetStep(2);
+  bfRenderMonths();
+}
 
-async function handleSubmit(e) {
-  e.preventDefault();
-  const form = document.getElementById('enquiryForm');
-  const success = document.getElementById('formSuccess');
-  const btn = form.querySelector('button[type="submit"]');
+function bfBack1(){
+  document.getElementById('bfStep2').style.display='none';
+  document.getElementById('bfStep1').style.display='block';
+  bfSetStep(1);
+}
 
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
+function bfSelectVersion(v){
+  bfVersion=v;
+  document.getElementById('vcard_a').classList.toggle('active',v==='A');
+  document.getElementById('vcard_b').classList.toggle('active',v==='B');
+  document.getElementById('bf_fixturePicker').style.display = v==='B' ? 'block' : 'none';
+  if(v==='A'){ bfFixture=null; bfMonth=null; }
+  bfUpdateSummary();
+  document.getElementById('bf_submitBtn').disabled = false;
+}
+
+function bfGetMonths(){
+  const map={};
+  BF_ALL_MATCHES.forEach(m=>{ const k=m.date.slice(0,7); map[k]=(map[k]||0)+1; });
+  return Object.entries(map).map(([k,c])=>{
+    const d=new Date(k+'-01');
+    return {key:k,label:d.toLocaleDateString('en-IE',{month:'short',year:'numeric'}),count:c};
+  });
+}
+
+function bfRenderMonths(){
+  const grid=document.getElementById('bf_monthGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  bfGetMonths().forEach(m=>{
+    const btn=document.createElement('button');
+    btn.type='button'; btn.className='month-btn'+(bfMonth===m.key?' active':'');
+    btn.innerHTML=`<span class="m-name">${m.label}</span><span class="m-count">${m.count} match${m.count!==1?'es':''}</span>`;
+    btn.addEventListener('click',()=>{ bfMonth=m.key; bfFixture=null; bfRenderMonths(); bfRenderFixtures(); bfUpdateSummary(); });
+    grid.appendChild(btn);
+  });
+}
+
+function bfRenderFixtures(){
+  const block=document.getElementById('bf_fixtureBlock');
+  const list=document.getElementById('bf_fixtureList');
+  if(!block||!list)return;
+  if(!bfMonth){ block.style.display='none'; return; }
+  const filtered=BF_ALL_MATCHES.filter(m=>m.date.startsWith(bfMonth));
+  list.innerHTML='';
+  if(!filtered.length){ list.innerHTML='<div class="no-fixtures">No matches this month.</div>'; block.style.display='block'; return; }
+  filtered.forEach(m=>{
+    const el=document.createElement('div');
+    const isActive=bfFixture&&bfFixture.date===m.date&&bfFixture.club===m.club;
+    el.className='fixture-item'+(isActive?' active':'');
+    el.innerHTML=`
+      <div class="fixture-radio"></div>
+      <div style="flex:1;min-width:0;">
+        <div class="fixture-name">${m.club} vs ${m.opponent}</div>
+        <div class="fixture-meta">
+          <span class="${m.tag==='slavia'?'club-slavia':'club-sparta'}">${m.tag==='slavia'?'Slavia':'Sparta'}</span>
+          <span>${bfFmt(m.date)}</span>
+          <span style="font-size:0.7rem;color:var(--soft)">${m.venue}</span>
+        </div>
+      </div>
+      <div class="fixture-price">€${BF_PRICE_B}</div>`;
+    el.addEventListener('click',()=>{ bfFixture=m; bfRenderFixtures(); bfUpdateSummary(); });
+    list.appendChild(el);
+  });
+  block.style.display='block';
+}
+
+function bfUpdateSummary(){
+  const box=document.getElementById('bf_summaryBox');
+  if(!bfVersion||!box){ if(box) box.style.display='none'; return; }
+  const pp = bfVersion==='B' ? BF_PRICE_B : BF_PRICE_A;
+  const label = bfVersion==='A' ? 'Version A — Walking + Hall of Fame' : 'Version B — Tour + Hall of Fame + Match';
+  document.getElementById('bf_sVersion').textContent=label;
+  document.getElementById('bf_sPricePP').textContent=`€${pp} p.p.`;
+  document.getElementById('bf_sTotal').textContent=`€${pp} p.p.`;
+  const fRow=document.getElementById('bf_sFixtureRow');
+  const fSpan=document.getElementById('bf_sFixture');
+  if(bfFixture){ fSpan.textContent=`${bfFixture.club} vs ${bfFixture.opponent} · ${bfFmt(bfFixture.date)}`; fRow.style.display='flex'; }
+  else if(bfVersion==='B'){ fSpan.textContent="No fixture selected — we'll pick best available"; fRow.style.display='flex'; }
+  else { fRow.style.display='none'; }
+  box.style.display='block';
+}
+
+async function bfSubmit(){
+  if(!bfVersion){ bfErr('bf_error2','Please choose a version.'); return; }
+  bfErr('bf_error2','');
+
+  const btn=document.getElementById('bf_submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Sending…';
+
+  const name=document.getElementById('bf_name').value.trim();
+  const email=document.getElementById('bf_email').value.trim();
+  const phone=document.getElementById('bf_phone').value.trim();
+  const country=document.getElementById('bf_country').value.trim();
+  const date=document.getElementById('bf_date').value;
+  const guests=document.getElementById('bf_guests').value;
+  const source=document.getElementById('bf_source').value;
+  const requests=document.getElementById('bf_requests').value.trim();
+
+  const pp = bfVersion==='B' ? BF_PRICE_B : BF_PRICE_A;
+  const packageCode = bfVersion==='A' ? 'PRG-A' : 'PRG-B';
+  const experienceName = bfVersion==='A'
+    ? 'Prague Ice Hockey Experience – Version A (Tour + Hall of Fame)'
+    : 'Prague Ice Hockey Experience – Version B (Tour + Hall of Fame + Match)';
+  const fixtureText = bfFixture
+    ? `${bfFixture.club} vs ${bfFixture.opponent} — ${bfFixture.venue} — ${bfFmt(bfFixture.date)}`
+    : bfVersion==='B' ? 'Version B — no specific fixture selected, please advise best available' : 'Version A — no fixture needed';
+
+  const fd=new FormData();
+  fd.append(BF_FIELDS.name,           name);
+  fd.append(BF_FIELDS.email,          email);
+  fd.append(BF_FIELDS.phone,          phone);
+  fd.append(BF_FIELDS.experience,     experienceName);
+  fd.append(BF_FIELDS.date,           date);
+  fd.append(BF_FIELDS.guests,         guests);
+  fd.append(BF_FIELDS.partner,        'Prague');
+  fd.append(BF_FIELDS.country,        country);
+  fd.append(BF_FIELDS.source,         source);
+  fd.append(BF_FIELDS.version,        bfVersion);
+  fd.append(BF_FIELDS.fixture,        fixtureText);
+  fd.append(BF_FIELDS.pricePerPerson, String(pp));
+  fd.append(BF_FIELDS.packageCode,    packageCode);
+  fd.append(BF_FIELDS.discount,       '');
+  fd.append(BF_FIELDS.requests,       requests || 'No special requests');
 
   try {
-    const res = await fetch('https://formspree.io/f/mrevbjol', {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      form.style.display = 'none';
-      success.style.display = 'block';
-    } else {
-      btn.textContent = 'Send your request →';
-      btn.disabled = false;
-      alert('Something went wrong. Please email us directly at info@travelbeyondthepitch.com');
-    }
-  } catch {
-    btn.textContent = 'Send your request →';
-    btn.disabled = false;
-    alert('Something went wrong. Please email us directly at info@travelbeyondthepitch.com');
+    await fetch(BF_FORM_ACTION, {method:'POST', mode:'no-cors', body:fd});
+    try { gtag('event','form_submit',{experience:'prague',version:bfVersion,guests,value:pp,currency:'EUR'}); } catch(e){}
+    document.getElementById('bfStep2').style.display='none';
+    document.getElementById('bf_success').style.display='block';
+    bfSetStep(3);
+  } catch(err) {
+    bfErr('bf_error2','Could not send your request. Please try again or email us directly.');
+    btn.disabled=false; btn.textContent='Send booking request';
   }
+}
+
+// Preselect version from CTA buttons
+function preselectVersion(val){
+  setTimeout(()=>{
+    if(val==='a'||val==='b'){
+      // Go to step 2 first if on step 1 - just highlight
+      const vMap = {a:'A',b:'B'};
+      if(vMap[val]) {
+        // scroll to form
+        document.getElementById('enquire').scrollIntoView({behavior:'smooth'});
+      }
+    }
+  }, 300);
 }
 </script>
 </body>
