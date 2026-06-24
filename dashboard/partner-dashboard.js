@@ -3,7 +3,7 @@
  * Versie: 3.2 - Mobile First, Anti-Undefined & Status Badges
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwkreFsmYzfk3kf0dRly5bxxkA33VdE0FbXMjih1x3BfX12WUnCcSi5X0ykP5e0SwKWDQ/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzsK3lfeLFk9qN8_nBByzQpRodpbLwkRJqiJV5eFqAufEMx6gs3QuZxJMvnqdQRkhKm/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     const partnerID = sessionStorage.getItem("partnerID");
