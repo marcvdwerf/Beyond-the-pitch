@@ -427,8 +427,8 @@
                                 <button class="tpl-tab" onclick="selectTemplate('reschedule', this)">Herverscheduling</button>
                                 <button class="tpl-tab" onclick="selectTemplate('followup', this)">Follow-up</button>
                             </div>
-                            <div class="email-subject" id="emailSubjectPreview">—</div>
-                            <div class="email-body-preview" id="emailBodyPreview">Selecteer eerst een boeking.</div>
+                            <input type="text" class="email-subject" id="emailSubjectPreview" value="—" style="width:100%;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;color:#f1f5f9;font-size:0.78rem;font-family:inherit;">
+                            <textarea class="email-body-preview" id="emailBodyPreview" style="width:100%;resize:vertical;font-family:inherit;color:#94a3b8;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;font-size:0.8rem;line-height:1.65;min-height:200px;">Selecteer eerst een boeking.</textarea>
                             <div class="email-actions">
                                 <button class="btn-send" id="sendEmailBtn" onclick="sendEmailFromDashboard()" disabled>
                                     <i class="fa-solid fa-paper-plane"></i> Verstuur e-mail
