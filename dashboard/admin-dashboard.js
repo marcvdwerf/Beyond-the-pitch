@@ -3,7 +3,7 @@
  * Versie: 4.0 — Pipeline + Email Composer
  */
 
-const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzsK3lfeLFk9qN8_nBByzQpRodpbLwkRJqiJV5eFqAufEMx6gs3QuZxJMvnqdQRkhKm/exec';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxDoEqNnYDf60dDVNjqzRTjh595ee3ufzpuKEyXJ-3Ns8pwTNLAZWw5DtjANUmVKr0irw/exec';
 
 let revenueChart    = null;
 let allBookings     = [];
@@ -430,14 +430,16 @@ window.selectTemplate = function(tplKey, btnEl) {
 };
 
 function renderEmailPreview() {
-    const tpl = EMAIL_TEMPLATES[activeTemplate];
+    const tpl    = EMAIL_TEMPLATES[activeTemplate];
+    const subjEl = document.getElementById('emailSubjectPreview');
+    const bodyEl = document.getElementById('emailBodyPreview');
     if (!tpl || !selectedBooking) {
-        document.getElementById('emailSubjectPreview').textContent = '—';
-        document.getElementById('emailBodyPreview').textContent = 'Selecteer eerst een boeking.';
+        if (subjEl) subjEl.value = '—';
+        if (bodyEl) bodyEl.value = 'Selecteer eerst een boeking.';
         return;
     }
-    document.getElementById('emailSubjectPreview').textContent = tpl.subject(selectedBooking);
-    document.getElementById('emailBodyPreview').textContent    = tpl.body(selectedBooking);
+    if (subjEl) subjEl.value = tpl.subject(selectedBooking);
+    if (bodyEl) bodyEl.value = tpl.body(selectedBooking);
 }
 
 function updateStripeBtn() {
@@ -453,7 +455,8 @@ window.openStripeLink = function() {
 };
 
 window.copyEmailBody = function() {
-    const body = document.getElementById('emailBodyPreview')?.textContent || '';
+    const el = document.getElementById('emailBodyPreview');
+    const body = el?.value || el?.textContent || '';
     navigator.clipboard.writeText(body).then(() => {
         showFeedback('E-mailtekst gekopieerd naar klembord.', 'success');
     });
@@ -463,8 +466,9 @@ window.sendEmailFromDashboard = async function() {
     if (!selectedBooking) return;
 
     const tpl     = EMAIL_TEMPLATES[activeTemplate];
-    const subject = tpl.subject(selectedBooking);
-    const body    = tpl.body(selectedBooking);
+    // Read from editable fields (user may have modified the text)
+    const subject = document.getElementById('emailSubjectPreview')?.value || tpl.subject(selectedBooking);
+    const body    = document.getElementById('emailBodyPreview')?.value    || tpl.body(selectedBooking);
     const toEmail = selectedBooking['Email Address'];
     const name    = selectedBooking['Full Name'];
     const date    = normalizeDate(selectedBooking['Start Date'] || selectedBooking['Date'] || '');
