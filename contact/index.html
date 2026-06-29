@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact – Beyond the Pitch | Sport. Culture. Travel.</title>
-  <meta name="description" content="Talk to the Beyond the Pitch agent to find the right experience for you — or join our community and partner with us." />
+  <meta name="description" content="Talk to the Beyond the Pitch AI agent to find the right experience for you — or join our community and partner with us." />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
@@ -28,7 +28,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Beyond the Pitch" />
   <meta property="og:title" content="Contact – Beyond the Pitch" />
-  <meta property="og:description" content="Find the right experience with our agent, or get in touch directly." />
+  <meta property="og:description" content="Find the right experience with our AI agent, or get in touch directly." />
   <meta property="og:url" content="https://travelbeyondthepitch.com/contact/" />
   <meta property="og:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Beyond%20the%20pitch%20achtergrond.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -36,7 +36,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact – Beyond the Pitch" />
-  <meta name="twitter:description" content="Find the right experience with our agent, or get in touch directly." />
+  <meta name="twitter:description" content="Find the right experience with our AI agent, or get in touch directly." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Beyond%20the%20pitch%20achtergrond.jpg" />
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -216,7 +216,7 @@
       Find your experience.<br>Book a call. Join the community.
     </h1>
     <p class="text-lg text-gray-400 max-w-xl mx-auto">
-      Not sure which experience fits you? Start with the agent below - it takes 60 seconds and means we can skip the intro when we speak.
+      Not sure which experience fits you? Start with the AI agent below — it takes 60 seconds and means we can skip the intro when we speak.
     </p>
   </section>
 
@@ -226,7 +226,7 @@
 
       <!-- Tab nav -->
       <div class="grid grid-cols-3 border-b border-gray-800 mb-8">
-        <button id="tabAgent"     class="tab-button active py-4 text-sm font-semibold">BTP Agent</button>
+        <button id="tabAgent"     class="tab-button active py-4 text-sm font-semibold">AI Agent</button>
         <button id="tabCommunity" class="tab-button        py-4 text-sm font-semibold">Community</button>
         <button id="tabPartner"   class="tab-button        py-4 text-sm font-semibold">Partner / Host</button>
       </div>
@@ -235,7 +235,7 @@
       <div id="panelAgent">
 
         <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-          Answer four quick questions. The agent will match you to the right experience and give you a personalised recommendation - then you can book a free 30-minute call with Marc & Martijn directly.
+          Answer four quick questions. The agent will match you to the right experience and give you a personalised recommendation — then you can book a free 30-minute call with Marc directly.
         </p>
 
         <div class="chat-window">
@@ -262,7 +262,7 @@
             <a href="https://calendly.com/travelbeyondthepitch-info/30min" target="_blank" class="cal-btn">
               📅 Book a free 30-min call →
             </a>
-            <span class="sum-note">Free · No obligation · Marc or Martijn picks up directly</span>
+            <span class="sum-note">Free · No obligation · Marc picks up directly</span>
           </div>
         </div>
 
@@ -314,10 +314,10 @@
       <!-- ── Direct calendar option (always visible below tabs) ── -->
       <div class="cal-direct mt-10">
         <p class="text-xs font-mono tracking-widest text-green-700 uppercase mb-3">Prefer to skip straight to a call?</p>
-        <p class="text-gray-400 text-sm mb-5">Book a free 30-minute intro with Marc or Martijn directly - no forms, no waiting.</p>
+        <p class="text-gray-400 text-sm mb-5">Book a free 30-minute intro with Marc directly — no forms, no waiting.</p>
         <a href="https://calendly.com/travelbeyondthepitch-info/30min" target="_blank"
           class="inline-block bg-gold text-black font-bold text-sm px-8 py-3 rounded-full hover:opacity-88 transition">
-          📅 Plan a call with Marc or Martijn →
+          📅 Plan a call with Marc →
         </a>
         <p class="text-xs text-gray-600 mt-3">Free · 30 min · No obligation</p>
       </div>
@@ -470,7 +470,7 @@ Motivation: ${answers.motivation}
 Write the personalised recommendation.`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
