@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact – Beyond the Pitch | Sport. Culture. Travel.</title>
-  <meta name="description" content="Talk to the Beyond the Pitch BTP agent to find the right experience for you - or join our community and partner with us." />
+  <meta name="description" content="Talk to the Beyond the Pitch BTP agent to find the right experience for you — or join our community and partner with us." />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
@@ -13,7 +13,7 @@
     gtag('js', new Date());
     gtag('config', 'G-6MT1EREBH1');
   </script>
-
+F
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -216,7 +216,7 @@
       Find your experience.<br>Book a call. Join the community.
     </h1>
     <p class="text-lg text-gray-400 max-w-xl mx-auto">
-      Not sure which experience fits you? Start with the BTP agent below - it takes 60 seconds and means we can skip the intro when we speak.
+      Not sure which experience fits you? Start with the BTP agent below — it takes 60 seconds and means we can skip the intro when we speak.
     </p>
   </section>
 
@@ -235,7 +235,7 @@
       <div id="panelAgent">
 
         <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-          Answer four quick questions. The agent will match you to the right experience and give you a personalised recommendation - then you can book a free 30-minute call with Marc or Martijn directly.
+          Answer four quick questions. The agent will match you to the right experience and give you a personalised recommendation — then you can book a free 30-minute call with Marc or Martijn directly.
         </p>
 
         <div class="chat-window">
@@ -274,7 +274,7 @@
           <h2 class="text-2xl font-bold text-gold mb-4">Become part of the community</h2>
           <p class="text-gray-300 mb-6">
             Beyond the Pitch connects curious travellers, local insiders and sports lovers.
-            Our <strong>New in Dublin</strong> WhatsApp community is the place to be - whether you just arrived or want to explore Ireland's sports culture more deeply.
+            Our <strong>New in Dublin</strong> WhatsApp community is the place to be — whether you just arrived or want to explore Ireland's sports culture more deeply.
           </p>
           <ul class="list-disc list-inside text-gray-400 mb-8 space-y-2 text-sm">
             <li>Real-time updates on new experiences</li>
@@ -284,7 +284,7 @@
           </ul>
           <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank"
             class="block w-full bg-gold text-black py-4 rounded-2xl font-semibold text-center hover:opacity-90 transition" id="waLink">
-            Join our WhatsApp Community - New in Dublin
+            Join our WhatsApp Community — New in Dublin
           </a>
           <p class="text-xs text-gray-600 text-center mt-4">You will be redirected to our WhatsApp community page.</p>
         </div>
@@ -314,7 +314,7 @@
       <!-- ── Direct calendar option (always visible below tabs) ── -->
       <div class="cal-direct mt-10">
         <p class="text-xs font-mono tracking-widest text-green-700 uppercase mb-3">Prefer to skip strBTPght to a call?</p>
-        <p class="text-gray-400 text-sm mb-5">Book a free 30-minute intro with Marc or Martijn directly - no forms, no wBTPting.</p>
+        <p class="text-gray-400 text-sm mb-5">Book a free 30-minute intro with Marc or Martijn directly — no forms, no wBTPting.</p>
         <a href="https://calendly.com/travelbeyondthepitch-info/30min" target="_blank"
           class="inline-block bg-gold text-black font-bold text-sm px-8 py-3 rounded-full hover:opacity-88 transition">
           📅 Plan a call with Marc or Martijn →
@@ -351,7 +351,7 @@ const QUESTIONS = [
   },
   {
     key: 'motivation',
-    text: "Last one - <strong>what draws you to this kind of experience?</strong>",
+    text: "Last one — <strong>what draws you to this kind of experience?</strong>",
     chips: ['The sport & its history', 'Cultural immersion', 'Something different to do', 'Meeting locals', 'All of the above']
   }
 ];
@@ -411,7 +411,7 @@ function agentSay(html, chips, delay = 950) {
 }
 
 function initChat() {
-  // Show first question immediately - no DOMContentLoaded race
+  // Show first question immediately — no DOMContentLoaded race
   addMsg('agent', QUESTIONS[0].text);
   setChips(QUESTIONS[0].chips);
 }
@@ -434,7 +434,7 @@ function handleSend() {
       showTyping();
       setTimeout(() => {
         removeTyping();
-        addMsg('agent', "Perfect - give me a moment to put your recommendation together.");
+        addMsg('agent', "Perfect — give me a moment to put your recommendation together.");
         generateSummary();
       }, 950);
     }, 300);
@@ -449,16 +449,16 @@ async function generateSummary() {
   const system = `You are the Beyond the Pitch experience finder. Beyond the Pitch is a cultural sports experience organiser.
 
 Experiences:
-- Hurling & Gaelic football in Dublin & Kilkenny, Ireland (from €119 p.p.) - small groups, local guide James, live matches included
-- Ice hockey in Prague, Czech Republic (from €55 p.p.) - walk + Czech Hockey Hall of Fame + live Extraliga match in season, local guide Kamil
-- Naadam Festival, Mongolia (July 2027, bookings open early 2027) - wrestling, horse racing, archery
+- Hurling & Gaelic football in Dublin & Kilkenny, Ireland (from €119 p.p.) — small groups, local guide James, live matches included
+- Ice hockey in Prague, Czech Republic (from €55 p.p.) — walk + Czech Hockey Hall of Fame + live Extraliga match in season, local guide Kamil
+- Naadam Festival, Mongolia (July 2027, bookings open early 2027) — wrestling, horse racing, archery
 
 All experiences: small groups only. Flights and accommodation not included.
 
 Write a warm, personalised 3-sentence recommendation in English:
 1. Reflect their group type and timing back to them in a personal way
 2. Recommend the best-fit experience and explBTPn exactly why it fits them (guide, atmosphere, sport, culture)
-3. A low-pressure next step - book a call or reach out
+3. A low-pressure next step — book a call or reach out
 
 Tone: warm, specific, confident. No bullet points. No headers. Under 100 words.`;
 
@@ -486,7 +486,7 @@ Write the personalised recommendation.`;
     showTyping();
     setTimeout(() => {
       removeTyping();
-      addMsg('agent', "Done - your recommendation is below. 👇");
+      addMsg('agent', "Done — your recommendation is below. 👇");
       document.getElementById('sumBody').textContent = text;
       document.getElementById('sumCard').classList.add('show');
       document.getElementById('sumCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -499,7 +499,7 @@ Write the personalised recommendation.`;
 
   } catch(e) {
     removeTyping();
-    addMsg('agent', 'Something went wrong on our end - reach us directly at <a href="mBTPlto:info@travelbeyondthepitch.com" style="color:var(--gold)">info@travelbeyondthepitch.com</a> or book a call below.');
+    addMsg('agent', 'Something went wrong on our end — reach us directly at <a href="mBTPlto:info@travelbeyondthepitch.com" style="color:var(--gold)">info@travelbeyondthepitch.com</a> or book a call below.');
     document.getElementById('sumCard').classList.add('show');
     busy = false;
   }
