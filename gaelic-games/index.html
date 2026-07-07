@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gaelic Games Experience Dublin & Kilkenny | Hurling & Football | Beyond the Pitch</title>
   <meta name="description" content="Learn hurling with a Kilkenny native, train on the pitch, and watch a live GAA match the way the Irish do. Small-group cultural sports experiences in Kilkenny and Dublin. From €119 p.p." />
@@ -461,7 +461,7 @@
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <a href="#experiences" class="floating-cta">
+  <a href="#book" class="floating-cta">
   <span>All Ireland Finals - book now</span>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
@@ -487,14 +487,11 @@
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
       <button class="hamburger" id="menuClose" aria-label="Close menu">
-        <span style="transform:rotate(45deg) translateY(7px)"></span>
-        <span style="opacity:0"></span>
-        <span style="transform:rotate(-45deg) translateY(-5px)"></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.25rem;">
       <a href="/" class="nav-link">Home</a>
-      <a href="/experiences/" class="nav-link">Experiences</a>
       <a href="/gaelic-trivia/" class="nav-link">The Gaelic Challenge</a>
       <a href="/about/" class="nav-link">About</a>
       <a href="/contact/" class="nav-link">Contact</a>
@@ -547,14 +544,14 @@
     flex-wrap:wrap;
     align-items:center;
   ">
- <a href="#experiences"
-   onclick="switchTab('kilkenny')"
+ <a href="#book"
+   onclick="switchTab('kilkenny');bookGoTo('kilkenny')"
    style="background:#FFD700;color:#000;padding:0.95rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;display:inline-flex;align-items:center;gap:0.5rem;">
   Kilkenny
 </a>
 
- <a href="#experiences"
-   onclick="switchTab('dublin')"
+ <a href="#book"
+   onclick="switchTab('dublin');bookGoTo('dublin')"
    style="background:#4a90d9;color:#fff;padding:0.95rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;display:inline-flex;align-items:center;gap:0.5rem;">
  Dublin
 </a>
@@ -599,7 +596,7 @@
             <p style="color:var(--text-mid);font-size:1rem;line-height:1.95;margin-bottom:2.5rem;">
               In Kilkenny, hurling is more than just a game. Local clubs form the backbone of social life, where children grow up playing and families gather to support their county or club. With our Kilkenny Experience, you'll <strong style="color:var(--text-dark);">learn, play and feel the thrill</strong> of the fastest field sport in the world.
             </p>
-            <<div class="facts-strip">
+            <div class="facts-strip">
   <div><p class="fact-label">Expert</p><p class="fact-value">James</p></div>
   <div class="fact-divider"></div>
   <div><p class="fact-label">Sport</p><p class="fact-value">Hurling</p></div>
@@ -692,7 +689,8 @@
           <div>
             <p style="color:rgba(0,0,0,0.22);font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.6rem;">Ready to experience it?</p>
             <p style="color:var(--text-dark);font-size:1.25rem;font-weight:900;letter-spacing:-0.02em;line-height:1.15;margin-bottom:1.5rem;">Secure your spot<br>in Kilkenny</p>
-         <a href="/booking-page-ireland/" 
+         <a href="#book"
+   onclick="bookGoTo('kilkenny')"
    class="btn-dark" 
    style="margin-bottom:1.5rem;background:#FFD700;color:#000;">
               Book Kilkenny
@@ -1066,7 +1064,8 @@ You’ll also be introduced to a third traditional sport: Gaelic handball.
           <div>
             <p style="color:rgba(0,0,0,0.22);font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.6rem;">Ready to experience it?</p>
             <p style="color:var(--text-dark);font-size:1.25rem;font-weight:900;letter-spacing:-0.02em;line-height:1.15;margin-bottom:1.5rem;">Secure your spot<br>in Dublin</p>
-            <a href="/booking-page-dublin/" 
+            <a href="#book"
+   onclick="bookGoTo('dublin')"
    class="btn-dark" 
    style="margin-bottom:1.5rem;background:#FFD700;color:#000;">
               Book Dublin
@@ -1081,32 +1080,7 @@ You’ll also be introduced to a third traditional sport: Gaelic handball.
     </div>
   </section>
 
- <script> block at the bottom of your page,
-  alongside the other JS (mobile menu, header scroll, switchTab function).
-  Do NOT create a second <script> tag - just paste these lines in.
--->
-<script>
-function cSwitchTab(loc) {
-  var kPanel = document.getElementById('cpanel-k');
-  var dPanel = document.getElementById('cpanel-d');
-  var kBtn   = document.getElementById('ctab-k');
-  var dBtn   = document.getElementById('ctab-d');
-
-  kPanel.style.display = loc === 'k' ? 'block' : 'none';
-  dPanel.style.display = loc === 'd' ? 'block' : 'none';
-
-  // Active tab: white text + gold underline
-  kBtn.style.color            = loc === 'k' ? '#fff' : 'rgba(255,255,255,0.35)';
-  kBtn.style.borderBottomColor = loc === 'k' ? 'var(--gold-bright)' : 'transparent';
-  dBtn.style.color            = loc === 'd' ? '#fff' : 'rgba(255,255,255,0.35)';
-  dBtn.style.borderBottomColor = loc === 'd' ? 'var(--gold-bright)' : 'transparent';
-}
- 
-</script>
-
   <section style="background:#f7f6f3;padding:4rem 1.5rem;">
-  <div style="max-width:760px;margin:0 auto;">
-    <section style="background:#f7f6f3;padding:4rem 1.5rem;">
   <div style="max-width:760px;margin:0 auto;">
     <p style="font-size:1rem;color:#444;line-height:1.9;margin-bottom:1.25rem;">
       The <strong style="color:#1a1a1a;">Gaelic Games experience</strong> from Beyond the Pitch is the only experience in Ireland that combines a cultural introduction, GAA training session and a <strong style="color:#1a1a1a;">live match ticket</strong> - in Dublin and Kilkenny.
@@ -1116,15 +1090,6 @@ function cSwitchTab(loc) {
     </p>
     <p style="font-size:1rem;color:#444;line-height:1.9;">
       No prior knowledge needed. Groups from 4 people. Match tickets confirmed personally within 24–48 hours.
-    </p>
-  </div>
-</section>
-    </p>
-    <p style="font-size:1rem;color:#444;line-height:1.9;margin-bottom:1.25rem;">
-      We run group <strong style="color:#1a1a1a;">hurling experiences in Kilkenny</strong> and <strong style="color:#1a1a1a;">Gaelic Football and Hurling experiences in Dublin</strong>. Each experience includes: a expert introduction to the sport and its history, a training session with local coaches, and access to a live GAA match.
-    </p>
-    <p style="font-size:1rem;color:#444;line-height:1.9;">
-      No prior knowledge of Gaelic Games is needed. Groups start from 4 participants.
     </p>
   </div>
 </section>
@@ -1267,7 +1232,7 @@ function cSwitchTab(loc) {
 </section>
 
   <!-- ══════════════════════════════════════════════════
-       ZONE 5 -DARK  |  Gallery + Booking
+       ZONE 5 -DARK  |  Gallery
   ══════════════════════════════════════════════════ -->
   <section class="zone-dark" style="padding:6rem 1.5rem;">
     <div style="max-width:1200px;margin:0 auto;">
@@ -1474,109 +1439,439 @@ function cSwitchTab(loc) {
     </div>
   </section>
 
- <!-- Beyond the Pitch – GAA Fixtures Lead Capture -->
-<section style="max-width: 960px; margin: 60px auto; padding: 0 24px;">
-  <div style="background: #fff; border: 1px solid #e8e6e0; border-radius: 16px; padding: 40px 36px;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+  <!-- ══════════════════════════════════════════════════
+       ZONE 6.5 -DARK  |  Integrated booking form (Kilkenny + Dublin)
+  ══════════════════════════════════════════════════ -->
+  <style>
+    #bookWrap { background: var(--dark); }
+    #bookWrap .book-loc-toggle { display:flex; gap:.6rem; margin-bottom:2rem; }
+    #bookWrap .loc-btn { flex:1; padding:1rem 1.25rem; border-radius:12px; border:1.5px solid var(--border-dark); background:var(--dark-panel); color:rgba(255,255,255,.55); font-weight:800; font-size:.95rem; cursor:pointer; transition:.2s; font-family:inherit; }
+    #bookWrap .loc-btn.active[data-loc="kilkenny"] { border-color:var(--gold-bright); background:rgba(255,215,0,.08); color:#fff; }
+    #bookWrap .loc-btn.active[data-loc="dublin"] { border-color:#4a90d9; background:rgba(74,144,217,.1); color:#fff; }
+    #bookWrap .booking-grid { display:grid; grid-template-columns: .85fr 1.15fr; gap:3rem; align-items:start; }
+    #bookWrap .field { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+    #bookWrap .field label { font-size:.82rem; font-weight:700; color:rgba(255,255,255,.72); }
+    #bookWrap .field-hint { font-size:.72rem; color:rgba(255,255,255,.4); }
+    #bookWrap .field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    #bookWrap input, #bookWrap select, #bookWrap textarea {
+      width:100%; padding:13px 14px; border:1.5px solid var(--border-dark); border-radius:10px;
+      font-size:.95rem; font-family:inherit; background:#1a1a1a; color:#fff; outline:none; transition:.15s;
+    }
+    #bookWrap input::placeholder, #bookWrap textarea::placeholder { color:rgba(255,255,255,.3); }
+    #bookWrap input:focus, #bookWrap select:focus, #bookWrap textarea:focus { border-color:var(--gold-bright); }
+    #bookWrap select option { background:#1a1a1a; }
+    #bookWrap .section-label-book { font-size:.65rem; font-weight:800; text-transform:uppercase; letter-spacing:.18em; color:var(--gold-bright); margin-bottom:12px; }
+    #bookWrap .month-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
+    #bookWrap .month-btn { padding:11px 8px; border:1.5px solid var(--border-dark); border-radius:10px; background:#1a1a1a; cursor:pointer; text-align:center; transition:.15s; font-family:inherit; color:#fff; }
+    #bookWrap .month-btn:hover { border-color:rgba(255,215,0,.4); }
+    #bookWrap .month-btn.active { border-color:var(--gold-bright); background:rgba(255,215,0,.08); }
+    #bookWrap .month-btn .m-name { display:block; font-size:.88rem; font-weight:700; }
+    #bookWrap .month-btn .m-count { display:block; font-size:.7rem; color:rgba(255,255,255,.45); margin-top:2px; }
+    #bookWrap .fixture-list { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+    #bookWrap .fixture-item { border:1.5px solid var(--border-dark); border-radius:10px; padding:13px 15px; cursor:pointer; transition:.15s; display:flex; align-items:center; gap:12px; background:#1a1a1a; }
+    #bookWrap .fixture-item:hover { border-color:rgba(255,215,0,.4); }
+    #bookWrap .fixture-item.active { border-color:var(--gold-bright); background:rgba(255,215,0,.08); }
+    #bookWrap .fixture-radio { width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,.25); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+    #bookWrap .fixture-item.active .fixture-radio { border-color:var(--gold-bright); background:var(--gold-bright); }
+    #bookWrap .fixture-item.active .fixture-radio::after { content:''; width:6px; height:6px; border-radius:50%; background:#000; }
+    #bookWrap .fixture-info { flex:1; min-width:0; }
+    #bookWrap .fixture-name { font-size:.9rem; font-weight:700; color:#fff; line-height:1.3; }
+    #bookWrap .fixture-meta { font-size:.75rem; color:rgba(255,255,255,.45); margin-top:3px; display:flex; flex-wrap:wrap; gap:4px 10px; }
+    #bookWrap .fixture-sport { display:inline-block; font-size:.67rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; background:rgba(255,215,0,.15); color:var(--gold-bright); padding:1px 6px; border-radius:4px; }
+    #bookWrap .fixture-price { font-size:.95rem; font-weight:800; color:var(--gold-bright); flex-shrink:0; white-space:nowrap; }
+    #bookWrap .no-fixtures { text-align:center; padding:20px; color:rgba(255,255,255,.4); font-size:.88rem; }
+    #bookWrap .summary-box { background:rgba(255,215,0,.06); border:1.5px solid rgba(255,215,0,.25); border-radius:14px; padding:18px 20px; margin-bottom:16px; }
+    #bookWrap .summary-row { display:flex; justify-content:space-between; align-items:baseline; font-size:.88rem; gap:8px; color:rgba(255,255,255,.72); padding:3px 0; }
+    #bookWrap .summary-row.total { border-top:1px solid rgba(255,215,0,.25); margin-top:10px; padding-top:12px; font-size:1rem; }
+    #bookWrap .summary-row.total .s-label { font-weight:700; color:#fff; }
+    #bookWrap .summary-row.total .s-value { font-weight:900; color:var(--gold-bright); font-size:1.15rem; }
+    #bookWrap .s-value { font-weight:600; color:#fff; text-align:right; }
+    #bookWrap .discount-row { display:flex; gap:8px; margin-top:14px; border-top:1px dashed rgba(255,215,0,.25); padding-top:14px; }
+    #bookWrap .discount-row input { flex:1; text-transform:uppercase; letter-spacing:.05em; }
+    #bookWrap .btn-apply { background:#fff; color:#000; border:none; border-radius:8px; padding:0 16px; font-size:.85rem; font-weight:700; cursor:pointer; font-family:inherit; white-space:nowrap; }
+    #bookWrap .btn-apply:hover { background:var(--gold-bright); }
+    #bookWrap .discount-msg { font-size:.78rem; font-weight:600; margin-top:6px; display:none; }
+    #bookWrap .discount-msg.ok { display:block; color:#6ee7b7; }
+    #bookWrap .discount-msg.fail { display:block; color:#f87171; }
+    #bookWrap .process-note { background:rgba(255,215,0,.06); border:1px solid rgba(255,215,0,.2); border-radius:10px; padding:13px 16px; font-size:.82rem; color:rgba(255,255,255,.6); line-height:1.6; margin-bottom:16px; }
+    #bookWrap .process-note strong { color:#fff; }
+    #bookWrap .error-box { background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3); color:#f87171; border-radius:10px; padding:11px 14px; font-size:.88rem; display:none; margin-bottom:12px; }
+    #bookWrap .error-box.show { display:block; }
+    #bookWrap .btn-submit { width:100%; padding:17px; background:var(--gold-bright); color:#000; border:none; border-radius:12px; font-size:1rem; font-weight:800; cursor:pointer; font-family:inherit; transition:.2s; display:flex; align-items:center; justify-content:center; gap:8px; }
+    #bookWrap .btn-submit:hover:not(:disabled) { background:#fff; transform:translateY(-1px); }
+    #bookWrap .btn-submit:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+    #bookWrap .spinner { width:16px; height:16px; border:2px solid rgba(0,0,0,.3); border-top-color:#000; border-radius:50%; animation:bwspin .6s linear infinite; }
+    @keyframes bwspin { to { transform:rotate(360deg); } }
+    #bookWrap .form-note { text-align:center; font-size:.75rem; color:rgba(255,255,255,.4); }
+    #bookWrap .success-screen { display:none; text-align:center; padding:3rem 1rem; }
+    #bookWrap .success-screen .icon { font-size:2.5rem; margin-bottom:1rem; }
+    #bookWrap .success-screen h3 { font-size:1.4rem; font-weight:900; color:#fff; margin-bottom:.6rem; }
+    #bookWrap .success-screen p { font-size:.9rem; color:rgba(255,255,255,.55); line-height:1.7; max-width:380px; margin:0 auto 1.5rem; }
+    @media (max-width:900px){ #bookWrap .booking-grid{ grid-template-columns:1fr; } }
+    @media (max-width:540px){ #bookWrap .field-row, #bookWrap .month-grid{ grid-template-columns:1fr; } }
+  </style>
 
-      <!-- Left: copy + button -->
-      <div>
-        <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin: 0 0 10px;">Free expert</p>
-        <h2 style="font-size: 26px; font-weight: 600; color: #1a1a1a; line-height: 1.25; margin: 0 0 12px;">Never miss a game<br>in Ireland</h2>
-        <p style="font-size: 15px; color: #555; line-height: 1.65; margin: 0 0 20px;">Get the full 2026 GAA fixtures calendar for Kilkenny and Dublin - including the matches we attend with our experiences.</p>
-        <ul style="list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 9px;">
-          <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #555;">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="8" cy="8" r="7.5" stroke="#d0cdc6" stroke-width="0.75"/><path d="M5 8.5l2 2 4-4" stroke="#3a7d44" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            All hurling and Gaelic football fixtures
-          </li>
-          <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #555;">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="8" cy="8" r="7.5" stroke="#d0cdc6" stroke-width="0.75"/><path d="M5 8.5l2 2 4-4" stroke="#3a7d44" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Kilkenny and Dublin - both locations
-          </li>
-          <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #555;">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;margin-top:2px"><circle cx="8" cy="8" r="7.5" stroke="#d0cdc6" stroke-width="0.75"/><path d="M5 8.5l2 2 4-4" stroke="#3a7d44" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Our picks for the best matches to attend
-          </li>
-        </ul>
+  <section class="zone-dark" id="book" style="padding:6rem 1.5rem;">
+    <div style="max-width:1100px;margin:0 auto;" id="bookWrap">
+      <span class="section-label">Booking request</span>
+      <h2 style="font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:.5rem;">Book your Gaelic Games experience</h2>
+      <p style="color:rgba(255,255,255,.5);font-size:1rem;line-height:1.8;margin:0 0 2rem;max-width:600px;">Pick Kilkenny or Dublin below. Every request is reviewed personally - we confirm your match access within 24–48 hours.</p>
 
-        <div id="btp-form">
-          <p style="font-size: 13px; color: #555; margin: 0 0 12px; line-height: 1.5;">Want to check availability? Send us your preferred date and we'll send you the full fixtures guide.</p>
-          <a href="#" onclick="btpOpenWhatsApp(event)"
-            style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 16px;font-size:14px;font-weight:600;background:#25D366;color:#fff;border:none;border-radius:8px;cursor:pointer;text-decoration:none;box-sizing:border-box;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Send us a WhatsApp
-          </a>
-          <p style="font-size:11px;color:#aaa;text-align:center;margin:8px 0 0;">Free. No spam. We'll get back to you quickly.</p>
-        </div>
-
-        <!-- Success state -->
-        <div id="btp-success" style="display:none;text-align:center;padding:20px 0;">
-          <div style="width:40px;height:40px;border-radius:50%;background:#eaf3de;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5l4 4 8-8" stroke="#3a7d44" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p style="font-size:15px;font-weight:600;color:#1a1a1a;margin:0 0 6px;">WhatsApp is opening.</p>
-          <p style="font-size:13px;color:#666;margin:0;">Send us your name and preferred date -<br>we'll get the guide over to you straight away.</p>
-        </div>
+      <div class="book-loc-toggle">
+        <button type="button" class="loc-btn active" data-loc="kilkenny" onclick="bookSetLocation('kilkenny')">🏐 Kilkenny Experience</button>
+        <button type="button" class="loc-btn" data-loc="dublin" onclick="bookSetLocation('dublin')">🏟️ Dublin Experience</button>
       </div>
 
-      <!-- Right: fixtures preview -->
-      <div style="background:#f8f7f5;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;">
-        <p style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#aaa;margin:0 0 4px;">2026 GAA fixtures - preview</p>
-
-        <div style="background:#fff;border:1px solid #e8e6e0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
-          <div>
-            <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:0;">Kilkenny v Tipperary</p>
-            <p style="font-size:11px;color:#aaa;margin:3px 0 0;">Nowlan Park · 15 Jun</p>
+      <div class="booking-grid">
+        <div>
+          <div id="bookIncludedBox" class="d-card">
+            <p style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--gold-bright);margin-bottom:.75rem;">What's included</p>
+            <p id="bookIncludedText" style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.8;margin-bottom:1.25rem;">Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice</p>
+            <div class="warn-box" style="margin:0;">
+              <p><strong>Not an instant charge.</strong> This is a booking request - we personally confirm match access and send payment details within 24–48 hours.</p>
+            </div>
           </div>
-          <span style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:#faeeda;color:#854f0b;white-space:nowrap;">Hurling</span>
         </div>
 
-        <div style="background:#fff;border:1px solid #e8e6e0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
-          <div>
-            <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:0;">Dublin v Kerry</p>
-            <p style="font-size:11px;color:#aaa;margin:3px 0 0;">Croke Park · 22 Jun</p>
-          </div>
-          <span style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:#e6f1fb;color:#185fa5;white-space:nowrap;">Football</span>
-        </div>
+        <div>
+          <form id="bookForm" novalidate>
+            <div class="section-label-book">Your details</div>
+            <div class="field-row">
+              <div class="field"><label for="bk_name">Full name *</label><input type="text" id="bk_name" placeholder="Jane Smith" autocomplete="name"></div>
+              <div class="field"><label for="bk_email">Email *</label><input type="email" id="bk_email" placeholder="jane@email.com" autocomplete="email"></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label for="bk_phone">Phone number</label><input type="tel" id="bk_phone" placeholder="+1 555 000 0000" autocomplete="tel"></div>
+              <div class="field">
+                <label for="bk_guests">Number of guests *</label>
+                <input type="number" id="bk_guests" min="4" max="20" value="4">
+                <span class="field-hint">Minimum 4 guests per booking</span>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label for="bk_country">Country of residence *</label><input type="text" id="bk_country" placeholder="e.g. United States" autocomplete="country-name"></div>
+              <div class="field">
+                <label for="bk_source">How did you hear about us? *</label>
+                <select id="bk_source">
+                  <option value="">Select…</option>
+                  <option value="Google">Google search</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="Friend / word of mouth">Friend / word of mouth</option>
+                  <option value="Hotel / concierge">Hotel / concierge</option>
+                  <option value="Tour operator">Tour operator</option>
+                  <option value="Travel blog / article">Travel blog / article</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
 
-        <div style="background:#fff;border:1px solid #e8e6e0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;filter:blur(3px);opacity:0.4;pointer-events:none;user-select:none;">
-          <div>
-            <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:0;">Kilkenny v Wexford</p>
-            <p style="font-size:11px;color:#aaa;margin:3px 0 0;">Nowlan Park · 6 Jul</p>
-          </div>
-          <span style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:#faeeda;color:#854f0b;white-space:nowrap;">Hurling</span>
-        </div>
+            <div class="section-label-book" style="margin-top:8px;">When are you travelling?</div>
+            <div class="month-grid" id="bk_monthGrid"></div>
 
-        <div style="background:#fff;border:1px solid #e8e6e0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;filter:blur(3px);opacity:0.4;pointer-events:none;user-select:none;">
-          <div>
-            <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin:0;">Dublin v Mayo</p>
-            <p style="font-size:11px;color:#aaa;margin:3px 0 0;">Croke Park · 13 Jul</p>
-          </div>
-          <span style="font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:#e6f1fb;color:#185fa5;white-space:nowrap;">Football</span>
-        </div>
+            <div id="bk_fixtureBlock" style="display:none;">
+              <div class="section-label-book">Choose a fixture</div>
+              <div class="fixture-list" id="bk_fixtureList"></div>
+            </div>
 
-        <p style="font-size:11px;color:#aaa;text-align:center;margin:4px 0 0;">+ 18 more fixtures in the full guide</p>
+            <div class="field">
+              <label for="bk_requests">Anything we should know?</label>
+              <textarea id="bk_requests" rows="3" placeholder="Dietary requirements, accessibility needs, questions…"></textarea>
+            </div>
+
+            <div class="summary-box" id="bk_summaryBox" style="display:none;">
+              <div class="summary-row"><span id="bk_sFixture">—</span><span id="bk_sPricePP">—</span></div>
+              <div class="summary-row"><span id="bk_sGuests">—</span><span id="bk_sSubtotal">—</span></div>
+              <div class="summary-row" id="bk_sDiscountRow" style="display:none;">
+                <span id="bk_sDiscountLabel">—</span>
+                <span id="bk_sDiscountValue" style="color:var(--gold-bright);">—</span>
+              </div>
+              <div class="summary-row total"><span>Total</span><span id="bk_sTotal">—</span></div>
+              <div class="discount-row">
+                <input type="text" id="bk_discountInput" placeholder="Discount code" autocomplete="off">
+                <button type="button" class="btn-apply" id="bk_applyBtn">Apply</button>
+              </div>
+              <div class="discount-msg" id="bk_discountMsg"></div>
+            </div>
+
+            <div class="process-note">
+              <strong>How it works:</strong> We confirm your spot and match access within <strong>24–48 hours</strong>, then send payment details.
+            </div>
+
+            <div class="error-box" id="bk_errorBox"></div>
+
+            <button type="submit" class="btn-submit" id="bk_submitBtn" disabled>Send booking request</button>
+            <p class="form-note">We'll be in touch within 48 hours to confirm everything.</p>
+          </form>
+
+          <div class="success-screen" id="bk_successScreen">
+            <div class="icon">✅</div>
+            <h3>Request received!</h3>
+            <p>You'll receive a confirmation email shortly. If it doesn't arrive within a few minutes, check your spam folder. We'll follow up personally within 48 hours to confirm your spot and sort payment.</p>
+            <button class="btn-submit" type="button" onclick="bookReset()" style="max-width:220px;margin:0 auto;">New booking</button>
+          </div>
+        </div>
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<script>
-function btpOpenWhatsApp(e) {
-  e.preventDefault();
+  <script>
+  // ══════════════ INTEGRATED BOOKING (Kilkenny + Dublin) ══════════════
+  const BOOK_LOCATIONS = {
+    kilkenny: {
+      formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse',
+      fields: {
+        name:'entry.761572476', email:'entry.1144619265', phone:'entry.1213010877', experience:'entry.1446094233',
+        date:'entry.301148404', guests:'entry.175134312', country:'entry.1971355954', source:'entry.580313499',
+        fixture:'entry.1784310410', pricePerPerson:'entry.726691570', packageCode:'entry.617110041',
+        partner:'entry.162503340', discount:'entry.185741207', requests:'entry.2094398847'
+      },
+      discountCodes: { KILKENNYEXPERIENCE20: { type:'percent', value:20, label:'Early Bird 20%' } },
+      experienceName: 'The Kilkenny Experience - Premium',
+      partner: 'Kilkenny',
+      pkgLow: 'KIL-PRM', pkgHigh: 'KIL-HDG',
+      included: "Pitch session with local coaches in Kilkenny · cultural intro to hurling &amp; GAA · live championship match of your choice",
+      matches: [
+        { id:'joe-mcdonagh-final', date:'2026-06-06', teams:'Joe McDonagh Cup Final', venue:'Croke Park, Dublin', sport:'Hurling', price:119 },
+        { id:'leinster-shc-final', date:'2026-06-06', teams:'Leinster SHC Final', venue:'Croke Park, Dublin', sport:'Hurling', price:119 },
+        { id:'aishc-prelim-qf-jun13', date:'2026-06-13', teams:'All-Ireland SHC Preliminary Quarter-Final', venue:'TBC', sport:'Hurling', price:119 },
+        { id:'aishc-prelim-qf-jun14', date:'2026-06-14', teams:'All-Ireland SHC Preliminary Quarter-Final', venue:'TBC', sport:'Hurling', price:119 },
+        { id:'aisfc-r2-jun13', date:'2026-06-13', teams:'All-Ireland SFC – Sam Maguire Round 2', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aisfc-r2-jun14', date:'2026-06-14', teams:'All-Ireland SFC – Sam Maguire Round 2', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aishc-qf-jun20', date:'2026-06-20', teams:'All-Ireland SHC Quarter-Final', venue:'TBC — possibly Nowlan Park', sport:'Hurling', price:119 },
+        { id:'aishc-qf-jun21', date:'2026-06-21', teams:'All-Ireland SHC Quarter-Final', venue:'TBC — possibly Nowlan Park', sport:'Hurling', price:119 },
+        { id:'aisfc-r3-jun20', date:'2026-06-20', teams:'All-Ireland SFC – Sam Maguire Round 3', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aisfc-r3-jun21', date:'2026-06-21', teams:'All-Ireland SFC – Sam Maguire Round 3', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'tailteann-sf-jun20', date:'2026-06-20', teams:'Tailteann Cup Semi-Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aisfc-qf-jun27', date:'2026-06-27', teams:'All-Ireland SFC – Quarter-Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aisfc-qf-jun28', date:'2026-06-28', teams:'All-Ireland SFC – Quarter-Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aishc-sf-jul04', date:'2026-07-04', teams:'All-Ireland SHC Semi-Final', venue:'Croke Park, Dublin', sport:'Hurling', price:149 },
+        { id:'aishc-sf-jul05', date:'2026-07-05', teams:'All-Ireland SHC Semi-Final', venue:'Croke Park, Dublin', sport:'Hurling', price:149 },
+        { id:'aisfc-sf-jul11', date:'2026-07-11', teams:'All-Ireland SFC – Semi-Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'tailteann-final-jul11', date:'2026-07-11', teams:'Tailteann Cup Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'aisfc-sf-jul12', date:'2026-07-12', teams:'All-Ireland SFC – Semi-Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'lgfa-final-aug02', date:'2026-08-02', teams:'All-Ireland Ladies Gaelic Football Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'camogie-final-aug09', date:'2026-08-09', teams:'All-Ireland Camogie Final', venue:'Croke Park, Dublin', sport:'Camogie', price:119 }
+      ].sort((a,b)=>new Date(a.date)-new Date(b.date))
+    },
+    dublin: {
+      formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse',
+      fields: {
+        name:'entry.761572476', email:'entry.1144619265', phone:'entry.1213010877', experience:'entry.1446094233',
+        date:'entry.301148404', guests:'entry.175134312', requests:'entry.2094398847', packageCode:'entry.924755547',
+        fixture:'entry.857468506', partner:'entry.979778576', discount:'entry.1437425214', country:'entry.757548239',
+        source:'entry.6981604', pricePerPerson:'entry.689601628'
+      },
+      discountCodes: { DUBLINEXPERIENCE20: { type:'percent', value:20, label:'Early Bird 20%' } },
+      experienceName: 'The Dublin Culture & Heritage Experience',
+      partner: 'Dublin',
+      pkgLow: 'DUB-PRM', pkgHigh: 'DUB-HDG',
+      included: "Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice",
+      matches: [
+        { id:'ai-sfc-r2a', date:'2026-06-13', teams:'All Ireland SFC – Round 2', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'ai-sfc-r2b', date:'2026-06-14', teams:'All Ireland SFC – Round 2', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'ai-sfc-r3a', date:'2026-06-20', teams:'All Ireland SFC – Round 3', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'tailteann-hf', date:'2026-06-21', teams:'Tailteann Cup – Semi-finals', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'ai-sfc-qf1', date:'2026-06-27', teams:'All Ireland SFC – Quarter-finals', venue:'Croke Park, Dublin', sport:'Football', price:149 },
+        { id:'ai-sfc-qf2', date:'2026-06-28', teams:'All Ireland SFC – Quarter-finals', venue:'Croke Park, Dublin', sport:'Football', price:149 },
+        { id:'ai-shc-hf1', date:'2026-07-04', teams:'All Ireland SHC – Semi-finals', venue:'Croke Park, Dublin', sport:'Hurling', price:149 },
+        { id:'ai-shc-hf2', date:'2026-07-05', teams:'All Ireland SHC – Semi-finals', venue:'Croke Park, Dublin', sport:'Hurling', price:149 },
+        { id:'ai-sfc-hf1', date:'2026-07-11', teams:'All Ireland SFC – Semi-finals', venue:'Croke Park, Dublin', sport:'Football', price:149 },
+        { id:'tailteann-final', date:'2026-07-11', teams:'Tailteann Cup – Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'ai-sfc-hf2', date:'2026-07-12', teams:'All Ireland SFC – Semi-finals', venue:'Croke Park, Dublin', sport:'Football', price:149 },
+        { id:'lgfa-final', date:'2026-08-02', teams:'All Ireland Ladies Gaelic Football – Final', venue:'Croke Park, Dublin', sport:'Football', price:119 },
+        { id:'camogie-final', date:'2026-08-09', teams:'All Ireland Camogie – Final', venue:'Croke Park, Dublin', sport:'Camogie', price:119 }
+      ]
+    }
+  };
 
-  // ── REPLACE with your WhatsApp number (international format, no + or spaces) ──
-  var phoneNumber = '31639211686';
-  // ─────────────────────────────────────────────────────────────────────────────
+  let bkLoc = 'kilkenny', bkMonth = null, bkFixture = null, bkDiscount = null, bkSubmitting = false;
+  const bk = id => document.getElementById(id);
+  const bkEls = {
+    form: bk('bookForm'), success: bk('bk_successScreen'), errorBox: bk('bk_errorBox'),
+    name: bk('bk_name'), email: bk('bk_email'), phone: bk('bk_phone'), guests: bk('bk_guests'),
+    country: bk('bk_country'), source: bk('bk_source'), requests: bk('bk_requests'),
+    monthGrid: bk('bk_monthGrid'), fixtureBlock: bk('bk_fixtureBlock'), fixtureList: bk('bk_fixtureList'),
+    summaryBox: bk('bk_summaryBox'), sFixture: bk('bk_sFixture'), sPricePP: bk('bk_sPricePP'),
+    sGuests: bk('bk_sGuests'), sSubtotal: bk('bk_sSubtotal'), sDiscountRow: bk('bk_sDiscountRow'),
+    sDiscountLabel: bk('bk_sDiscountLabel'), sDiscountValue: bk('bk_sDiscountValue'), sTotal: bk('bk_sTotal'),
+    discountInput: bk('bk_discountInput'), applyBtn: bk('bk_applyBtn'), discountMsg: bk('bk_discountMsg'),
+    submitBtn: bk('bk_submitBtn'), includedText: bk('bookIncludedText')
+  };
 
-  var message = encodeURIComponent('Hi! I\'d like to check availability for a GAA experience. My name is: \nPreferred date(s): ');
-  var url = 'https://wa.me/' + phoneNumber + '?text=' + message;
-  window.open(url, '_blank');
-  document.getElementById('btp-form').style.display = 'none';
-  document.getElementById('btp-success').style.display = 'block';
-}
-</script>
+  function bkFmtDate(d){ return new Date(d+'T12:00:00').toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'long'}); }
+  function bkFmtMoney(n){ return new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
+  function bkValidEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+  function bkGetGuests(){ return Math.min(20, Math.max(4, parseInt(bkEls.guests.value)||4)); }
+  function bkLocData(){ return BOOK_LOCATIONS[bkLoc]; }
+
+  function bkCalcTotals(){
+    const pp = bkFixture ? bkFixture.price : 119;
+    const g = bkGetGuests(), sub = pp*g;
+    let disc = 0;
+    if (bkDiscount) disc = bkDiscount.type==='percent' ? sub*bkDiscount.value/100 : Math.min(bkDiscount.value*g, sub);
+    return { pp, sub, disc, total: sub-disc };
+  }
+
+  function bkGetMonths(){
+    const map = {};
+    bkLocData().matches.forEach(m=>{ const k=m.date.slice(0,7); map[k]=(map[k]||0)+1; });
+    return Object.entries(map).map(([k,count])=>{ const d=new Date(k+'-01'); return {key:k,label:d.toLocaleDateString('en-IE',{month:'long'}),count}; });
+  }
+
+  function bkRenderMonths(){
+    bkEls.monthGrid.innerHTML='';
+    bkGetMonths().forEach(m=>{
+      const btn=document.createElement('button'); btn.type='button';
+      btn.className='month-btn'+(bkMonth===m.key?' active':'');
+      btn.innerHTML=`<span class="m-name">${m.label}</span><span class="m-count">${m.count} fixture${m.count!==1?'s':''}</span>`;
+      btn.addEventListener('click',()=>{ bkMonth=m.key; bkFixture=null; bkRenderMonths(); bkRenderFixtures(); bkUpdateSummary(); bkUpdateSubmit(); });
+      bkEls.monthGrid.appendChild(btn);
+    });
+  }
+
+  function bkRenderFixtures(){
+    if(!bkMonth){ bkEls.fixtureBlock.style.display='none'; return; }
+    const filtered = bkLocData().matches.filter(m=>m.date.startsWith(bkMonth));
+    bkEls.fixtureList.innerHTML='';
+    if(!filtered.length){ bkEls.fixtureList.innerHTML='<div class="no-fixtures">No fixtures available this month.</div>'; bkEls.fixtureBlock.style.display='block'; return; }
+    filtered.forEach(m=>{
+      const el=document.createElement('div');
+      el.className='fixture-item'+(bkFixture?.id===m.id?' active':'');
+      el.innerHTML=`
+        <div class="fixture-radio"></div>
+        <div class="fixture-info">
+          <div class="fixture-name">${m.teams}</div>
+          <div class="fixture-meta"><span class="fixture-sport">${m.sport}</span><span>${bkFmtDate(m.date)}</span><span>${m.venue}</span></div>
+        </div>
+        <div class="fixture-price">€${m.price}<span style="font-size:.72rem;font-weight:500;color:rgba(255,255,255,.4)"> p.p.</span></div>`;
+      el.addEventListener('click',()=>{ bkFixture=m; bkRenderFixtures(); bkUpdateSummary(); bkUpdateSubmit(); bkClearError(); });
+      bkEls.fixtureList.appendChild(el);
+    });
+    bkEls.fixtureBlock.style.display='block';
+  }
+
+  function bkUpdateSummary(){
+    if(!bkFixture){ bkEls.summaryBox.style.display='none'; return; }
+    const {pp,sub,disc,total}=bkCalcTotals(); const g=bkGetGuests();
+    bkEls.sFixture.textContent = bkFixture.teams;
+    bkEls.sPricePP.textContent = `€${pp} p.p.`;
+    bkEls.sGuests.textContent = `${g} guest${g>1?'s':''}`;
+    bkEls.sSubtotal.textContent = bkFmtMoney(sub);
+    bkEls.sTotal.textContent = bkFmtMoney(total);
+    if(bkDiscount && disc>0){
+      bkEls.sDiscountLabel.textContent = `${bkDiscount.label}${bkDiscount.type==='percent'?` (${bkDiscount.value}%)`:''}`;
+      bkEls.sDiscountValue.textContent = `− ${bkFmtMoney(disc)}`;
+      bkEls.sDiscountRow.style.display='flex';
+    } else { bkEls.sDiscountRow.style.display='none'; }
+    bkEls.summaryBox.style.display='block';
+  }
+
+  function bkApplyDiscount(){
+    const raw = bkEls.discountInput.value.trim().toUpperCase();
+    const code = bkLocData().discountCodes[raw];
+    if(!raw){ bkDiscountMsg('fail','Enter a discount code.'); return; }
+    if(!code){ bkDiscount=null; bkDiscountMsg('fail','Code not found or expired.'); bkUpdateSummary(); return; }
+    bkDiscount = { code:raw, ...code };
+    bkDiscountMsg('ok', `Applied — you save ${bkFmtMoney(bkCalcTotals().disc)}!`);
+    bkUpdateSummary();
+  }
+  function bkDiscountMsg(type,msg){ bkEls.discountMsg.className='discount-msg '+type; bkEls.discountMsg.textContent=msg; }
+  function bkShowError(msg){ bkEls.errorBox.textContent=msg; bkEls.errorBox.className='error-box show'; }
+  function bkClearError(){ bkEls.errorBox.textContent=''; bkEls.errorBox.className='error-box'; }
+
+  function bkUpdateSubmit(){
+    bkEls.submitBtn.disabled = !(
+      bkEls.name.value.trim() && bkValidEmail(bkEls.email.value.trim()) &&
+      bkEls.country.value.trim() && bkEls.source.value &&
+      bkFixture && bkGetGuests()>=4 && !bkSubmitting
+    );
+  }
+
+  function bookSetLocation(loc){
+    bkLoc = loc; bkMonth=null; bkFixture=null; bkDiscount=null;
+    document.querySelectorAll('#bookWrap .loc-btn').forEach(b=>b.classList.toggle('active', b.dataset.loc===loc));
+    bkEls.includedText.innerHTML = bkLocData().included;
+    bkEls.discountInput.value=''; bkDiscountMsg('','');
+    bkRenderMonths(); bkRenderFixtures(); bkUpdateSummary(); bkUpdateSubmit(); bkClearError();
+  }
+
+  function bookGoTo(loc){
+    bookSetLocation(loc);
+    setTimeout(()=>{ document.getElementById('book').scrollIntoView({behavior:'smooth'}); }, 60);
+  }
+
+  function bookReset(){
+    bkEls.form.reset();
+    bkFixture=null; bkMonth=null; bkDiscount=null; bkSubmitting=false;
+    bkEls.form.style.display='block'; bkEls.success.style.display='none';
+    bkEls.submitBtn.disabled=true; bkEls.submitBtn.className='btn-submit'; bkEls.submitBtn.textContent='Send booking request';
+    bkRenderMonths(); bkRenderFixtures(); bkUpdateSummary();
+  }
+
+  async function bkHandleSubmit(e){
+    e.preventDefault();
+    if(bkSubmitting) return;
+    bkClearError();
+    const name=bkEls.name.value.trim(), email=bkEls.email.value.trim();
+    if(!name){ bkShowError('Please enter your full name.'); return; }
+    if(!bkValidEmail(email)){ bkShowError('Please enter a valid email address.'); return; }
+    if(!bkEls.country.value.trim()){ bkShowError('Please enter your country of residence.'); return; }
+    if(!bkEls.source.value){ bkShowError('Please tell us how you heard about us.'); return; }
+    if(!bkFixture){ bkShowError('Please choose a fixture.'); return; }
+    if(bkGetGuests()<4){ bkShowError('Minimum 4 guests per booking.'); return; }
+
+    bkSubmitting=true; bkEls.submitBtn.disabled=true;
+    bkEls.submitBtn.innerHTML='<span class="spinner"></span> Sending…';
+
+    const loc = bkLocData();
+    const g = bkGetGuests();
+    const {pp,sub,disc,total} = bkCalcTotals();
+    const discountText = bkDiscount ? `Discount: ${bkDiscount.code} (${bkDiscount.label}) — saving ${bkFmtMoney(disc)}` : 'No discount applied';
+    const guestNotes = bkEls.requests.value.trim() ? `Notes: ${bkEls.requests.value.trim()}` : '';
+    let packageCode = loc.pkgLow;
+    if (bkFixture.price >= 149) packageCode = loc.pkgHigh;
+
+    const fd = new FormData();
+    fd.append(loc.fields.name, name);
+    fd.append(loc.fields.email, email);
+    fd.append(loc.fields.phone, bkEls.phone.value.trim());
+    fd.append(loc.fields.experience, loc.experienceName);
+    fd.append(loc.fields.date, bkFixture.date);
+    fd.append(loc.fields.fixture, `${bkFixture.teams} — ${bkFixture.venue} — ${bkFmtDate(bkFixture.date)}`);
+    fd.append(loc.fields.guests, String(g));
+    fd.append(loc.fields.packageCode, packageCode);
+    fd.append(loc.fields.partner, loc.partner);
+    fd.append(loc.fields.country, bkEls.country.value.trim());
+    fd.append(loc.fields.source, bkEls.source.value);
+    fd.append(loc.fields.pricePerPerson, String(pp));
+    fd.append(loc.fields.discount, bkDiscount ? bkDiscount.code : '');
+    fd.append(loc.fields.requests, [discountText, guestNotes].filter(Boolean).join('\n'));
+
+    try {
+      await fetch(loc.formAction, { method:'POST', mode:'no-cors', body:fd });
+      try { gtag('event','form_submit',{ experience:bkLoc, fixture:bkFixture.teams, guests:g, value:total, currency:'EUR' }); } catch(e){}
+      bkEls.form.style.display='none';
+      bkEls.success.style.display='block';
+    } catch(err){
+      bkShowError('Could not send your request. Please try again.');
+      bkSubmitting=false; bkEls.submitBtn.disabled=false;
+      bkEls.submitBtn.className='btn-submit'; bkEls.submitBtn.textContent='Send booking request';
+    }
+  }
+
+  function bkInit(){
+    bkEls.includedText.innerHTML = bkLocData().included;
+    bkRenderMonths();
+    bkEls.applyBtn.addEventListener('click', bkApplyDiscount);
+    bkEls.discountInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); bkApplyDiscount(); } });
+    [bkEls.name, bkEls.email, bkEls.guests, bkEls.country].forEach(f=>f.addEventListener('input', ()=>{ bkUpdateSubmit(); bkUpdateSummary(); }));
+    bkEls.source.addEventListener('change', bkUpdateSubmit);
+    bkEls.guests.addEventListener('blur', ()=>{ bkEls.guests.value = bkGetGuests(); bkUpdateSummary(); });
+    bkEls.form.addEventListener('submit', bkHandleSubmit);
+  }
+  window.addEventListener('DOMContentLoaded', bkInit);
+  </script>
 
   <!-- ══════════════════════════════════════════════════
        ZONE 7 -DARK  |  Final CTA
@@ -1591,13 +1886,15 @@ function btpOpenWhatsApp(e) {
         Step into an experience where sport opens doors to Irish culture, community, and identity.
       </p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-       <a href="/booking-page-ireland/" class="btn-gold">Kilkenny</a>
-<a href="/booking-page-dublin/" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.95rem 2rem;background:#4a90d9;color:#fff;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.95rem;">Dublin</a>
+       <a href="#book" onclick="bookGoTo('kilkenny')" class="btn-gold">Kilkenny</a>
+<a href="#book" onclick="bookGoTo('dublin')" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.95rem 2rem;background:#4a90d9;color:#fff;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.95rem;">Dublin</a>
 <a href="mailto:info@travelbeyondthepitch.com" class="btn-outline-white">Ask a Question</a>
       </div>
     </div>
   </section>
 
+
+  </main>
 
   <!-- ══ FOOTER ══ -->
   <footer>
