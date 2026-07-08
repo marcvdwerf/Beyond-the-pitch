@@ -292,10 +292,11 @@
                     <div class="filter-wrapper">
                         <i class="fa-solid fa-filter"></i>
                         <select id="partnerFilter" onchange="loadAdminData()">
-                            <option value="all">Global View</option>
-                            <option value="Dublin">Dublin Experience</option>
-                            <option value="Ireland">Ireland Experience (Kilkenny)</option>
-                        </select>
+    <option value="all">Global View</option>
+    <option value="Dublin">Dublin Experience</option>
+    <option value="Kilkenny">Kilkenny Experience</option>
+    <option value="Prague">Prague Experience</option>
+</select>
                     </div>
                     <button class="btn-refresh" id="syncBtn" onclick="loadAdminData()">
                         <i class="fa-solid fa-rotate"></i> Sync Data
@@ -492,10 +493,11 @@
                                     <div class="input-group">
                                         <label for="partnerInfoPartnerSelect">Partner</label>
                                         <select id="partnerInfoPartnerSelect" class="form-input" onchange="if(window.renderPartnerInfoFromSelection){window.renderPartnerInfoFromSelection();}">
-                                            <option value="">Select partner</option>
-                                            <option value="Dublin">Dublin Experience</option>
-                                            <option value="Ireland">Ireland Experience (Kilkenny)</option>
-                                        </select>
+    <option value="">Select partner</option>
+    <option value="Dublin">Dublin Experience</option>
+    <option value="Kilkenny">Kilkenny Experience</option>
+    <option value="Prague">Prague Experience</option>
+</select>
                                     </div>
                                     <div class="input-group">
                                         <label for="partnerInfoLocationSelect">Region / Location</label>

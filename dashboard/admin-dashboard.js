@@ -801,11 +801,22 @@ async function loadAdminData() {
 
         try {
             const pkgs = await packageResp.json();
-            packagePriceCache = {};
+            packagePriceCache = { _byCode: {}, _byPartner: {} };
             if (Array.isArray(pkgs)) {
+                const partnerSums = {};
                 pkgs.forEach(p => {
-                    const key = (p.PackageName || '').trim().toLowerCase();
-                    if (key) packagePriceCache[key] = parseFloat(p.SellPrice) || 0;
+                    const code  = (p.PackageCode || '').trim().toUpperCase();
+                    const price = parseFloat(p.SellPrice) || 0;
+                    if (code) packagePriceCache._byCode[code] = price;
+
+                    const partnerKey = (p.PartnerID || '').trim().toLowerCase();
+                    if (partnerKey) {
+                        if (!partnerSums[partnerKey]) partnerSums[partnerKey] = [];
+                        partnerSums[partnerKey].push(price);
+                    }
+                });
+                Object.entries(partnerSums).forEach(([k, arr]) => {
+                    packagePriceCache._byPartner[k] = arr.reduce((a,b)=>a+b,0) / arr.length;
                 });
             }
         } catch(e) { console.warn('Package prijzen konden niet geladen worden:', e); }
@@ -965,14 +976,23 @@ function showAdminBookingModal(b) {
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
     document.body.appendChild(modal);
 }
-
+function resolveBookingPrice(booking) {
+    const code = (booking['PackageCode'] || '').trim().toUpperCase();
+    if (code && packagePriceCache._byCode?.[code] !== undefined) {
+        return packagePriceCache._byCode[code];
+    }
+    const partnerKey = (booking['Partner'] || '').trim().toLowerCase();
+    if (partnerKey && packagePriceCache._byPartner?.[partnerKey] !== undefined) {
+        return packagePriceCache._byPartner[partnerKey];
+    }
+    return 75;
+}
 // ─── STATS ────────────────────────────────────────────────────────────────────
 function updateAdminStats(b) {
     const g = b.reduce((s,x) => s + (parseInt(x['Guests'])||0), 0);
     const revenue = b.reduce((sum,x) => {
         const guests = parseInt(x['Guests'])||0;
-        const key    = (x['Experience']||'').trim().toLowerCase();
-        return sum + guests * (packagePriceCache[key] || 75);
+        return sum + guests * resolveBookingPrice(x);
     }, 0);
 
     document.getElementById('totalBookings').textContent  = b.length;
@@ -1005,13 +1025,13 @@ function updateRevenueChart(bookings) {
     if (!ctx || typeof Chart === 'undefined') return;
     if (revenueChart) revenueChart.destroy();
 
-    const monthly = {};
+    cconst monthly = {};
     bookings.forEach(b => {
         const d = new Date(b['Start Date']||b['Date']);
         if (isNaN(d)) return;
         const key    = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
         const guests = parseInt(b['Guests'])||0;
-        const price  = packagePriceCache[(b['Experience']||'').trim().toLowerCase()] || 75;
+        const price  = resolveBookingPrice(b);
         monthly[key] = (monthly[key]||0) + guests * price;
     });
 
