@@ -1025,7 +1025,7 @@ function updateRevenueChart(bookings) {
     if (!ctx || typeof Chart === 'undefined') return;
     if (revenueChart) revenueChart.destroy();
 
-    cconst monthly = {};
+    const monthly = {};
     bookings.forEach(b => {
         const d = new Date(b['Start Date']||b['Date']);
         if (isNaN(d)) return;
