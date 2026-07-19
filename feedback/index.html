@@ -176,7 +176,7 @@
     display: block;
   }
 
-  /* Toggle checkbox (consent + interest) */
+  /* Toggle checkbox / radio (consent + interest + experience) */
   .toggle-item {
     display: flex;
     align-items: center;
@@ -193,7 +193,8 @@
   .toggle-item:hover { border-color: #c9a84c44; background: #1e2e1f; }
   .toggle-item.checked { border-color: #c9a84c66; background: #1e2e1f; }
 
-  .toggle-item input[type="checkbox"] {
+  .toggle-item input[type="checkbox"],
+  .toggle-item input[type="radio"] {
     appearance: none;
     width: 16px; height: 16px;
     border: 1px solid #3a4e3b;
@@ -205,7 +206,10 @@
     transition: background 0.15s, border-color 0.15s;
   }
 
-  .toggle-item input[type="checkbox"]:checked {
+  .toggle-item input[type="radio"] { border-radius: 50%; }
+
+  .toggle-item input[type="checkbox"]:checked,
+  .toggle-item input[type="radio"]:checked {
     background: #c9a84c;
     border-color: #c9a84c;
   }
@@ -218,6 +222,15 @@
     border: 2px solid #0f1a10;
     border-top: none; border-left: none;
     transform: rotate(45deg);
+  }
+
+  .toggle-item input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px; top: 4px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #0f1a10;
   }
 
   .toggle-item span {
@@ -278,7 +291,7 @@
   .btn-submit:hover { background: #dbb95a; transform: translateY(-1px); }
   .btn-submit:disabled { background: #2a3d2b; color: #3e5040; cursor: not-allowed; transform: none; }
 
-  .google-panel {
+  .review-panel {
     display: none;
     background: #1a2a1b;
     border: 1px solid #2a3d2b;
@@ -288,11 +301,11 @@
     margin-top: 20px;
   }
 
-  .google-panel.visible { display: block; animation: fadeIn 0.5s ease; }
+  .review-panel.visible { display: block; animation: fadeIn 0.5s ease; }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-  .google-panel .panel-eyebrow {
+  .review-panel .panel-eyebrow {
     font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -300,14 +313,14 @@
     margin-bottom: 10px;
   }
 
-  .google-panel h3 {
+  .review-panel h3 {
     font-family: 'Playfair Display', serif;
     font-size: 20px;
     color: #f0ead8;
     margin-bottom: 8px;
   }
 
-  .google-panel p {
+  .review-panel p {
     font-size: 13px;
     font-weight: 300;
     color: #9aab8e;
@@ -315,7 +328,7 @@
     margin-bottom: 20px;
   }
 
-  .btn-google {
+  .btn-trustpilot {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -332,8 +345,8 @@
     transition: box-shadow 0.2s, transform 0.15s;
   }
 
-  .btn-google:hover { box-shadow: 0 4px 16px #c9a84c33; transform: translateY(-1px); }
-  .btn-google svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-trustpilot:hover { box-shadow: 0 4px 16px #00b67a33; transform: translateY(-1px); }
+  .btn-trustpilot svg { width: 18px; height: 18px; flex-shrink: 0; }
 
   .thankyou { display: none; text-align: center; padding: 48px 0; }
   .thankyou.visible { display: block; animation: fadeIn 0.5s ease; }
@@ -376,35 +389,54 @@
 </a>
     <div class="header-eyebrow">Your feedback</div>
     <h1>How was your<br><em>experience?</em></h1>
-    <p>Five quick questions. No fluff, just what we actually need to keep this worth doing.</p>
+    <p>A few quick questions. No fluff, just what we actually need to keep this worth doing.</p>
   </div>
 
   <div id="form-container">
     <div class="form-body">
 
+      <div class="question-block" id="block-experience">
+        <div class="question-label">01 — Which experience</div>
+        <div class="question-text">Which experience did you join?</div>
+        <div class="checkbox-group" id="experience-row">
+          <label class="toggle-item" data-exp="Dublin">
+            <input type="radio" name="experience" value="Dublin" />
+            <span>Gaelic Games, Dublin</span>
+          </label>
+          <label class="toggle-item" data-exp="Kilkenny">
+            <input type="radio" name="experience" value="Kilkenny" />
+            <span>Hurling, Kilkenny</span>
+          </label>
+          <label class="toggle-item" data-exp="Prague">
+            <input type="radio" name="experience" value="Prague" />
+            <span>Ice Hockey, Prague</span>
+          </label>
+        </div>
+      </div>
+
       <div class="question-block" id="block-0">
-        <div class="question-label">01 — The experience</div>
+        <div class="question-label">02 — The experience</div>
         <div class="question-text">How would you rate the overall experience?</div>
         <div class="stars" data-q="0"></div>
         <div class="star-caption" id="caption-0"></div>
       </div>
 
       <div class="question-block" id="block-1">
-        <div class="question-label">02 — Your guide</div>
+        <div class="question-label">03 — Your guide</div>
         <div class="question-text">How was your local guide or trainer?</div>
         <div class="stars" data-q="1"></div>
         <div class="star-caption" id="caption-1"></div>
       </div>
 
       <div class="question-block" id="block-2">
-        <div class="question-label">03 — Value</div>
+        <div class="question-label">04 — Value</div>
         <div class="question-text">Did it feel worth your time and investment?</div>
         <div class="stars" data-q="2"></div>
         <div class="star-caption" id="caption-2"></div>
       </div>
 
       <div class="question-block" id="block-nps">
-        <div class="question-label">04 — Recommendation</div>
+        <div class="question-label">05 — Recommendation</div>
         <div class="question-text">How likely are you to recommend Beyond the Pitch to a friend?</div>
         <div class="nps-row" id="nps-row"></div>
         <div class="nps-labels">
@@ -416,7 +448,7 @@
       <div class="divider"></div>
 
       <div class="question-block answered" id="block-moment">
-        <div class="question-label">05 — Your highlight</div>
+        <div class="question-label">06 — Your highlight</div>
         <div class="question-text">What was your favourite moment?</div>
         <span class="field-sub">Optional. These quotes sometimes end up on the site, with your permission.</span>
         <textarea id="moment-text" placeholder="The moment that stuck with me was…" rows="3"></textarea>
@@ -433,7 +465,7 @@
       </div>
 
       <div class="question-block answered" id="block-interest">
-        <div class="question-label">06 — What's next?</div>
+        <div class="question-label">07 — What's next?</div>
         <div class="question-text">Any of these on your radar?</div>
         <span class="field-sub">Optional. We'll keep you posted on the ones you pick.</span>
         <div class="checkbox-group">
@@ -466,18 +498,15 @@
 
     </div>
 
-    <div class="google-panel" id="google-panel">
+    <div class="review-panel" id="review-panel">
       <div class="panel-eyebrow">One more thing</div>
-      <h3>Would you share this on Google?</h3>
+      <h3>Would you share this on Trustpilot?</h3>
       <p>Reviews help other curious travellers find us, and they mean more than any ad we could run.</p>
-      <a class="btn-google" href="https://g.page/r/CZbvSeYyXZOZEAE/review" target="_blank" rel="noopener">
+      <a class="btn-trustpilot" href="https://www.trustpilot.com/evaluate/travelbeyondthepitch.com" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          <path fill="#00b67a" d="M12 1.5l2.99 6.62 7.31.8-5.44 5.03 1.55 7.25L12 17.77l-6.41 3.43 1.55-7.25L1.7 8.92l7.31-.8z"/>
         </svg>
-        Leave a Google review
+        Leave a Trustpilot review
       </a>
     </div>
   </div>
@@ -505,6 +534,7 @@
 const STAR_LABELS = ['','Not what I hoped for','Could be better','Good experience','Really enjoyed it','Absolutely loved it'];
 const ratings = [0, 0, 0];
 let npsScore = null;
+let selectedExperience = null;
 
 function buildStars() {
   document.querySelectorAll('.stars').forEach(container => {
@@ -565,7 +595,23 @@ function setRating(q, val) {
   checkCanSubmit();
 }
 
-// Checkbox toggle visual state
+// Experience selection (radio-style toggle-items)
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('#experience-row .toggle-item').forEach(label => {
+    label.addEventListener('click', () => {
+      document.querySelectorAll('#experience-row .toggle-item').forEach(l => l.classList.remove('checked'));
+      label.classList.add('checked');
+      selectedExperience = label.dataset.exp;
+      document.getElementById('block-experience').classList.add('answered');
+      checkCanSubmit();
+    });
+  });
+
+  const cl = document.getElementById('consent-label');
+  if (cl) cl.classList.add('checked');
+});
+
+// Checkbox toggle visual state (interest + consent checkboxes)
 document.addEventListener('change', e => {
   if (e.target.type === 'checkbox') {
     const label = e.target.closest('label');
@@ -573,14 +619,8 @@ document.addEventListener('change', e => {
   }
 });
 
-// Pre-check consent on load
-document.addEventListener('DOMContentLoaded', () => {
-  const cl = document.getElementById('consent-label');
-  if (cl) cl.classList.add('checked');
-});
-
 function checkCanSubmit() {
-  const allRated = ratings.every(r => r > 0) && npsScore !== null;
+  const allRated = ratings.every(r => r > 0) && npsScore !== null && selectedExperience !== null;
   document.getElementById('btn-submit').disabled = !allRated;
 }
 
@@ -590,7 +630,7 @@ async function submitForm() {
   const consent = document.getElementById('consent-checkbox').checked;
   const interests = [...document.querySelectorAll('input[name="interest"]:checked')].map(i => i.value);
 
-  const payload = { ratings, avg, npsScore, moment, consent, interests };
+  const payload = { experience: selectedExperience, ratings, avg, npsScore, moment, consent, interests };
 try {
     const res = await fetch('https://hook.eu1.make.com/kqv51xmevgd43c4kmbww0oqg93it9svi', {
       method: 'POST',
@@ -603,8 +643,8 @@ try {
   }
 
   if (avg >= 4 || npsScore >= 8) {
-    document.getElementById('google-panel').classList.add('visible');
-    document.getElementById('google-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('review-panel').classList.add('visible');
+    document.getElementById('review-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => {
       document.querySelector('.form-body').style.display = 'none';
       document.getElementById('thankyou').classList.add('visible');
