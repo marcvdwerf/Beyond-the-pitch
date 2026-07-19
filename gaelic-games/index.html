@@ -1630,80 +1630,65 @@ You’ll also be introduced to a third traditional sport: Gaelic handball.
 
   <script>
   // ══════════════ INTEGRATED BOOKING (Kilkenny + Dublin) ══════════════
-  const BOOK_LOCATIONS = {
-    kilkenny: {
-      formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse',
-      fields: {
-        name:'entry.761572476', email:'entry.1144619265', phone:'entry.1213010877', experience:'entry.1446094233',
-        date:'entry.301148404', guests:'entry.175134312', country:'entry.1971355954', source:'entry.580313499',
-        fixture:'entry.1784310410', pricePerPerson:'entry.726691570', packageCode:'entry.617110041',
-        partner:'entry.162503340', discount:'entry.185741207', requests:'entry.2094398847'
-      },
-      discountCodes: { KILKENNYEXPERIENCE20: { type:'percent', value:20, label:'Early Bird 20%' } },
-      experienceName: 'The Kilkenny Experience - Premium',
-      partner: 'Kilkenny',
-      pkgLow: 'KIL-PRM', pkgHigh: 'KIL-HDG',
-      included: "Pitch session with local coaches in Kilkenny · cultural intro to hurling &amp; GAA · live championship match of your choice",
-      matches: [
-       matches: [
-  { id:'hurl-g1-erinsisle-vincents-jul24', date:'2026-07-24', teams:'Erins Isle v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-whitehall-nafianna-jul24', date:'2026-07-24', teams:'Whitehall Colmcille v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-crokes-naomhbarrog-jul25', date:'2026-07-25', teams:'Kilmacud Crokes v Naomh Barróg', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-cuala-lucan-jul25', date:'2026-07-25', teams:'Cuala v Lucan Sarsfields', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'lgfa-final', date:'2026-08-02', teams:'All Ireland Ladies Gaelic Football – Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-  { id:'foot-g3-nafianna-thomasdavis-aug07', date:'2026-08-07', teams:'Na Fianna v Thomas Davis', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-  { id:'foot-g3-skerries-raheny-aug07', date:'2026-08-07', teams:'Skerries Harps v Raheny', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-  { id:'foot-g1-ballyboden-templeogue-aug08', date:'2026-08-08', teams:'Ballyboden St Endas v Templeogue Synge St', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-  { id:'foot-g2-crokes-clontarf-aug08', date:'2026-08-08', teams:'Kilmacud Crokes v Clontarf', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-  { id:'camogie-final', date:'2026-08-09', teams:'All Ireland Camogie – Final', venue:'Croke Park, Dublin', sport:'Camogie', price:129 },
-  { id:'hurl-g1-vincents-whitehall-aug14', date:'2026-08-14', teams:'St Vincents v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-naomhbarrog-nafianna-aug14', date:'2026-08-14', teams:'Naomh Barróg v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-brigids-cuala-aug15', date:'2026-08-15', teams:'St Brigids v Cuala', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-faughs-ballyboden-aug15', date:'2026-08-15', teams:'Faughs v Ballyboden St Endas', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-judes-lucan-aug15', date:'2026-08-15', teams:'St Judes v Lucan Sarsfields', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-erinsisle-naomhbarrog-aug28', date:'2026-08-28', teams:'Erins Isle v Naomh Barróg', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-nafianna-vincents-aug28', date:'2026-08-28', teams:'Na Fianna v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-cuala-faughs-aug29', date:'2026-08-29', teams:'Cuala v Faughs', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-ballyboden-judes-aug29', date:'2026-08-29', teams:'Ballyboden St Endas v St Judes', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-naomhbarrog-vincents-sep11', date:'2026-09-11', teams:'Naomh Barróg v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-erinsisle-whitehall-sep11', date:'2026-09-11', teams:'Erins Isle v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g1-crokes-nafianna-sep12', date:'2026-09-12', teams:'Kilmacud Crokes v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-  { id:'hurl-g2-ballyboden-cuala-sep12', date:'2026-09-12', teams:'Ballyboden St Endas v Cuala', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 }
-  { id:'aisfc-sf-jul12', date:'2026-07-12', teams:'All-Ireland SFC – Semi-Final', venue:'Croke Park, Dublin', sport:'Football', price:159 },
-  { id:'lgfa-final-aug02', date:'2026-08-02', teams:'All-Ireland Ladies Gaelic Football Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-  { id:'camogie-final-aug09', date:'2026-08-09', teams:'All-Ireland Camogie Final', venue:'Croke Park, Dublin', sport:'Camogie', price:129 }
-      ].sort((a,b)=>new Date(a.date)-new Date(b.date))
+ const BOOK_LOCATIONS = {
+  kilkenny: {
+    formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse',
+    fields: {
+      name:'entry.761572476', email:'entry.1144619265', phone:'entry.1213010877', experience:'entry.1446094233',
+      date:'entry.301148404', guests:'entry.175134312', country:'entry.1971355954', source:'entry.580313499',
+      fixture:'entry.1784310410', pricePerPerson:'entry.726691570', packageCode:'entry.617110041',
+      partner:'entry.162503340', discount:'entry.185741207', requests:'entry.2094398847'
     },
-    dublin: {
-      formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse',
-      fields: {
-        name:'entry.761572476', email:'entry.1144619265', phone:'entry.1213010877', experience:'entry.1446094233',
-        date:'entry.301148404', guests:'entry.175134312', requests:'entry.2094398847', packageCode:'entry.924755547',
-        fixture:'entry.857468506', partner:'entry.979778576', discount:'entry.1437425214', country:'entry.757548239',
-        source:'entry.6981604', pricePerPerson:'entry.689601628'
-      },
-      discountCodes: { DUBLINEXPERIENCE20: { type:'percent', value:20, label:'Early Bird 20%' } },
-      experienceName: 'The Dublin Culture & Heritage Experience',
-      partner: 'Dublin',
-      pkgLow: 'DUB-PRM', pkgHigh: 'DUB-HDG',
-      included: "Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice",
-      matches: [
-        { id:'ai-sfc-r2a', date:'2026-06-13', teams:'All Ireland SFC – Round 2', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-        { id:'ai-sfc-r2b', date:'2026-06-14', teams:'All Ireland SFC – Round 2', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-        { id:'ai-sfc-r3a', date:'2026-06-20', teams:'All Ireland SFC – Round 3', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-        { id:'tailteann-hf', date:'2026-06-21', teams:'Tailteann Cup – Semi-finals', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-        { id:'ai-sfc-qf1', date:'2026-06-27', teams:'All Ireland SFC – Quarter-finals', venue:'Croke Park, Dublin', sport:'Football', price:159 },
-        { id:'ai-sfc-qf2', date:'2026-06-28', teams:'All Ireland SFC – Quarter-finals', venue:'Croke Park, Dublin', sport:'Football', price:159 },
-        { id:'ai-shc-hf1', date:'2026-07-04', teams:'All Ireland SHC – Semi-finals', venue:'Croke Park, Dublin', sport:'Hurling', price:159 },
-        { id:'ai-shc-hf2', date:'2026-07-05', teams:'All Ireland SHC – Semi-finals', venue:'Croke Park, Dublin', sport:'Hurling', price:159 },
-        { id:'ai-sfc-hf1', date:'2026-07-11', teams:'All Ireland SFC – Semi-finals', venue:'Croke Park, Dublin', sport:'Football', price:159 },
-        { id:'tailteann-final', date:'2026-07-11', teams:'Tailteann Cup – Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-        { id:'ai-sfc-hf2', date:'2026-07-12', teams:'All Ireland SFC – Semi-finals', venue:'Croke Park, Dublin', sport:'Football', price:159 },
-        { id:'lgfa-final', date:'2026-08-02', teams:'All Ireland Ladies Gaelic Football – Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-        { id:'camogie-final', date:'2026-08-09', teams:'All Ireland Camogie – Final', venue:'Croke Park, Dublin', sport:'Camogie', price:129 }
-      ]
-    }
-  };
+    discountCodes: { KILKENNYEXPERIENCE20: { type:'percent', value:20, label:'Early Bird 20%' } },
+    experienceName: 'The Kilkenny Experience - Premium',
+    partner: 'Kilkenny',
+    pkgLow: 'KIL-PRM', pkgHigh: 'KIL-HDG',
+    included: "Pitch session with local coaches in Kilkenny · cultural intro to hurling &amp; GAA · live championship match of your choice",
+    matches: [
+      { id:'lgfa-final-aug02', date:'2026-08-02', teams:'All-Ireland Ladies Gaelic Football Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
+      { id:'camogie-final-aug09', date:'2026-08-09', teams:'All-Ireland Camogie Final', venue:'Croke Park, Dublin', sport:'Camogie', price:129 }
+    ]
+  },
+  dublin: {
+    formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse',
+    fields: {
+      name:'entry.761572476', email:'entry.1144619265', phone:'entry.1213010877', experience:'entry.1446094233',
+      date:'entry.301148404', guests:'entry.175134312', requests:'entry.2094398847', packageCode:'entry.924755547',
+      fixture:'entry.857468506', partner:'entry.979778576', discount:'entry.1437425214', country:'entry.757548239',
+      source:'entry.6981604', pricePerPerson:'entry.689601628'
+    },
+    discountCodes: { DUBLINEXPERIENCE20: { type:'percent', value:20, label:'Early Bird 20%' } },
+    experienceName: 'The Dublin Culture & Heritage Experience',
+    partner: 'Dublin',
+    pkgLow: 'DUB-PRM', pkgHigh: 'DUB-HDG',
+    included: "Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice",
+    matches: [
+      { id:'hurl-g1-erinsisle-vincents-jul24', date:'2026-07-24', teams:'Erins Isle v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-whitehall-nafianna-jul24', date:'2026-07-24', teams:'Whitehall Colmcille v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-crokes-naomhbarrog-jul25', date:'2026-07-25', teams:'Kilmacud Crokes v Naomh Barróg', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-cuala-lucan-jul25', date:'2026-07-25', teams:'Cuala v Lucan Sarsfields', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'lgfa-final', date:'2026-08-02', teams:'All Ireland Ladies Gaelic Football – Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
+      { id:'foot-g3-nafianna-thomasdavis-aug07', date:'2026-08-07', teams:'Na Fianna v Thomas Davis', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'foot-g3-skerries-raheny-aug07', date:'2026-08-07', teams:'Skerries Harps v Raheny', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'foot-g1-ballyboden-templeogue-aug08', date:'2026-08-08', teams:'Ballyboden St Endas v Templeogue Synge St', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'foot-g2-crokes-clontarf-aug08', date:'2026-08-08', teams:'Kilmacud Crokes v Clontarf', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'camogie-final', date:'2026-08-09', teams:'All Ireland Camogie – Final', venue:'Croke Park, Dublin', sport:'Camogie', price:129 },
+      { id:'hurl-g1-vincents-whitehall-aug14', date:'2026-08-14', teams:'St Vincents v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-naomhbarrog-nafianna-aug14', date:'2026-08-14', teams:'Naomh Barróg v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-brigids-cuala-aug15', date:'2026-08-15', teams:'St Brigids v Cuala', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-faughs-ballyboden-aug15', date:'2026-08-15', teams:'Faughs v Ballyboden St Endas', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-judes-lucan-aug15', date:'2026-08-15', teams:'St Judes v Lucan Sarsfields', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-erinsisle-naomhbarrog-aug28', date:'2026-08-28', teams:'Erins Isle v Naomh Barróg', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-nafianna-vincents-aug28', date:'2026-08-28', teams:'Na Fianna v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-cuala-faughs-aug29', date:'2026-08-29', teams:'Cuala v Faughs', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-ballyboden-judes-aug29', date:'2026-08-29', teams:'Ballyboden St Endas v St Judes', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-naomhbarrog-vincents-sep11', date:'2026-09-11', teams:'Naomh Barróg v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-erinsisle-whitehall-sep11', date:'2026-09-11', teams:'Erins Isle v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g1-crokes-nafianna-sep12', date:'2026-09-12', teams:'Kilmacud Crokes v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-g2-ballyboden-cuala-sep12', date:'2026-09-12', teams:'Ballyboden St Endas v Cuala', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 }
+    ]
+  }
+};
 
   let bkLoc = 'kilkenny', bkMonth = null, bkFixture = null, bkDiscount = null, bkSubmitting = false;
   const bk = id => document.getElementById(id);
