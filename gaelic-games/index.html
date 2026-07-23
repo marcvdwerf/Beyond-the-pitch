@@ -127,6 +127,8 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    img, iframe, video { max-width: 100%; }
 
     body {
       font-family: "Inter", system-ui, sans-serif;
@@ -303,61 +305,58 @@
     details[open] .faq-icon { transform: rotate(45deg); }
     details[open] summary { border-bottom: 1px solid var(--border-light); }
 
-    /* ── GOOGLE TRANSLATE ── */
-      background-color: #000 !important; color: var(--gold-bright) !important;
-      border: 1px solid #333 !important; padding: 5px 25px 5px 10px !important;
-      border-radius: 4px !important; font-family: 'Inter', sans-serif !important;
-      font-size: 13px !important; font-weight: 600 !important; outline: none !important;
-      cursor: pointer !important; appearance: none !important; -webkit-appearance: none !important;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
-      background-repeat: no-repeat !important; background-position: right 8px center !important;
-    }
-
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-  .two-col { display: block !important; }
-  .three-col {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-}
-  .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
-  .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
-}
-@media (max-width: 768px) {
-  .two-col { display: grid !important; grid-template-columns: 1fr !important; gap: 2rem !important; }
-}
+      .two-col {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .three-col {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+      }
+      .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
+      .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
+    }
     @media (max-width: 640px) {
       .hide-mobile { display: none !important; }
     }
 
-    /* TABS */
-  .tab-bar {
-  display: flex; border-bottom: 1px solid rgba(0,0,0,0.1);
-  margin-bottom: 4rem; gap: 0.5rem;
-}
-.tab-btn {
-  padding: 1rem 2.5rem; background: none; border: none;
-  border-bottom: 3px solid transparent; margin-bottom: -1px;
-  font-weight: 800; font-size: 1.2rem; cursor: pointer;
-  display: flex; align-items: center; gap: 0.6rem;
-  transition: all 0.2s; letter-spacing: -0.02em;
-  color: #bbb;
-}
-.tab-btn.active {
-  color: var(--text-dark);
-  border-bottom-color: var(--gold);   /* gouden lijn i.p.v. zwart */
-}
-.tab-btn:hover:not(.active) { color: #555; }
-    .tab-btn.active { color: var(--text-dark); border-bottom-color: var(--text-dark); }
-.tab-btn:hover:not(.active) { color: #666; }
+    /* Word-wrap vangnet voor lopende tekst op mobiel */
+    .zone-white p, .zone-off p, .zone-dark p {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
 
-#tab-dublin { color: #4a90d9; }
-#tab-dublin.active { color: #4a90d9; border-bottom-color: #4a90d9; }
-#tab-dublin:hover:not(.active) { color: #2e6db4; }
+    /* TABS */
+    .tab-bar {
+      display: flex; border-bottom: 1px solid rgba(0,0,0,0.1);
+      margin-bottom: 4rem; gap: 0.5rem;
+    }
+    .tab-btn {
+      padding: 1rem 2.5rem; background: none; border: none;
+      border-bottom: 3px solid transparent; margin-bottom: -1px;
+      font-weight: 800; font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; gap: 0.6rem;
+      transition: all 0.2s; letter-spacing: -0.02em;
+      color: #bbb;
+    }
+    .tab-btn.active {
+      color: var(--text-dark);
+      border-bottom-color: var(--gold);   /* gouden lijn i.p.v. zwart */
+    }
+    .tab-btn:hover:not(.active) { color: #555; }
+    .tab-btn.active { color: var(--text-dark); border-bottom-color: var(--text-dark); }
+    .tab-btn:hover:not(.active) { color: #666; }
+
+    #tab-dublin { color: #4a90d9; }
+    #tab-dublin.active { color: #4a90d9; border-bottom-color: #4a90d9; }
+    #tab-dublin:hover:not(.active) { color: #2e6db4; }
 
     /* QUICK FACTS STRIP */
     .facts-strip {
-      display: flex; gap: 2rem; padding-top: 2rem;
+      display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding-top: 2rem;
       border-top: 1px solid rgba(0,0,0,0.08);
     }
     .facts-strip .fact-divider { width: 1px; background: rgba(0,0,0,0.08); }
@@ -513,8 +512,9 @@
         <h1 style="margin:0;line-height:1;font-size:clamp(2.8rem,5.5vw,4.5rem);font-weight:900;letter-spacing:-0.02em;">
           Experience Ireland <br><span style="color:#FFD700;">through Gaelic Games</span>
         </h1>
-       <p style="margin-top:1.75rem;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,0.5);max-width:380px;line-height:1.5;">
-  Hurling & Gaelic Football Experiences<br>in Dublin & Kilkenny
+        <p style="margin-top:1.75rem;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,0.5);max-width:380px;line-height:1.5;">
+          Hurling & Gaelic Football Experiences<br>in Dublin & Kilkenny
+        </p>
         <div style="width:45px;height:4px;background:#FFD700;margin-top:1.5rem;"></div>
       </div>
 <div style="
@@ -1024,11 +1024,11 @@ Add something truly unique to your trip.
               <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Step Onto the Pitch</h4>
               <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin-bottom:0.9rem;">Gaelic Football, Hurling &amp; Handball</p>
               <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-               The stage is set, and now it’s your turn to step onto the pitch.
+               The stage is set, and now it's your turn to step onto the pitch.
 
-Under the guidance of experienced coaches, you’ll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It’s the perfect preparation for watching the very best athletes in action later on.  
+Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.  
 
-You’ll also be introduced to a third traditional sport: Gaelic handball.
+You'll also be introduced to a third traditional sport: Gaelic handball.
 
               </p>
             </div>
@@ -1039,7 +1039,7 @@ You’ll also be introduced to a third traditional sport: Gaelic handball.
               <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Live Gaelic Games Matchday</h4>
               <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin-bottom:0.9rem;">Croke park or Parnell park</p>
               <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                You'll attend a Gaelic Games match of your choice. From the moment <em>Amhrán na bhFiann</em> plays, you're hooked. We’ll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
+                You'll attend a Gaelic Games match of your choice. From the moment <em>Amhrán na bhFiann</em> plays, you're hooked. We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
               </p>
             </div>
           </div>
@@ -1390,8 +1390,6 @@ You’ll also be introduced to a third traditional sport: Gaelic handball.
     </div>
   </details>
 </div>
-
-</parameter>
 
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
