@@ -125,8 +125,10 @@
       --border-light: rgba(0,0,0,0.08);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+   * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    img, iframe, video { max-width: 100%; }
 
     body {
       font-family: "Inter", system-ui, sans-serif;
@@ -314,17 +316,18 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-  .two-col { display: block !important; }
+  @media (max-width: 900px) {
+  .two-col {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
   .three-col {
   display: grid !important;
   grid-template-columns: 1fr !important;
 }
   .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
   .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
-}
-@media (max-width: 768px) {
-  .two-col { display: grid !important; grid-template-columns: 1fr !important; gap: 2rem !important; }
 }
     @media (max-width: 640px) {
       .hide-mobile { display: none !important; }
@@ -515,8 +518,8 @@
         </h1>
        <p style="margin-top:1.75rem;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,0.5);max-width:380px;line-height:1.5;">
   Hurling & Gaelic Football Experiences<br>in Dublin & Kilkenny
+        </p>
         <div style="width:45px;height:4px;background:#FFD700;margin-top:1.5rem;"></div>
-      </div>
 <div style="
   padding-top:2.5rem;
   max-width:520px;
