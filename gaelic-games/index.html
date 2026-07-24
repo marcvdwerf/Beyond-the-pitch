@@ -491,15 +491,18 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:1.25rem;">
       <a href="/" class="nav-link">Home</a>
+      <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('kilkenny'),100)" class="nav-link">Kilkenny</a>
+      <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('dublin'),100)" class="nav-link">Dublin</a>
       <a href="/gaelic-trivia/" class="nav-link">The Gaelic Challenge</a>
       <a href="/about/" class="nav-link">About</a>
       <a href="/contact/" class="nav-link">Contact</a>
+      <a href="#book" onclick="bookGoTo('kilkenny')" class="nav-link" style="margin-top:0.5rem;background:var(--gold-bright);color:#000;padding:0.85rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;text-align:center;">Book Now</a>
     </div>
   </nav>
 
 <main id="main">
 <section style="position: relative; padding: 8rem 1.5rem 6rem; overflow: hidden; color: #fff;">
-  <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+  <video autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.JPG" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
     <source src="/kilkenny-pitch-and-wall.mp4" type="video/mp4">
   </video>
   <div style="position:absolute;inset:0;background:rgba(0,0,0,0.60);z-index:1;"></div>
@@ -700,9 +703,10 @@
               Book Kilkenny
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="mailto:info@travelbeyondthepitch.com?subject=Question about the Kilkenny Experience"
+            <a href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Kilkenny%20Experience"
+               target="_blank" rel="noopener"
                style="display:block;margin-top:0.75rem;font-size:0.8rem;color:var(--text-mid);text-decoration:underline;text-underline-offset:3px;">
-              Not ready to book? Ask a question first →
+              Not ready to book? Ask a question on WhatsApp →
             </a>
             <div class="warn-box-light" style="margin-top:1rem;">
             </div>
@@ -1079,9 +1083,10 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
               Book Dublin
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="mailto:info@travelbeyondthepitch.com?subject=Question about the Dublin Experience"
+            <a href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Dublin%20Experience"
+               target="_blank" rel="noopener"
                style="display:block;margin-top:0.75rem;font-size:0.8rem;color:var(--text-mid);text-decoration:underline;text-underline-offset:3px;">
-              Not ready to book? Ask a question first →
+              Not ready to book? Ask a question on WhatsApp →
             </a>
             <div class="warn-box-light" style="margin-top:1rem;">
             </div>
@@ -1382,8 +1387,8 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
               <div class="field"><label for="bk_phone">Phone number</label><input type="tel" id="bk_phone" placeholder="+1 555 000 0000" autocomplete="tel"></div>
               <div class="field">
                 <label for="bk_guests">Number of guests *</label>
-                <input type="number" id="bk_guests" min="4" max="20" value="4">
-                <span class="field-hint">Minimum 4 guests per booking. Travelling solo or as a couple? We'll match you into an open group — just enter your own group size below and mention it in "Anything we should know?".</span>
+                <input type="number" id="bk_guests" min="1" max="20" value="2">
+                <span class="field-hint">Travelling solo or as a couple? No problem — we'll match you into an open group and you only pay for your own spot(s). Booking for 4+ friends? You can request a private slot in "Anything we should know?".</span>
               </div>
             </div>
             <div class="field-row">
@@ -1537,7 +1542,7 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
   function bkFmtDate(d){ return new Date(d+'T12:00:00').toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'long'}); }
   function bkFmtMoney(n){ return new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
   function bkValidEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-  function bkGetGuests(){ return Math.min(20, Math.max(4, parseInt(bkEls.guests.value)||4)); }
+  function bkGetGuests(){ return Math.min(20, Math.max(1, parseInt(bkEls.guests.value)||1)); }
   function bkLocData(){ return BOOK_LOCATIONS[bkLoc]; }
 
   function bkCalcTotals(){
@@ -1619,7 +1624,7 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
     bkEls.submitBtn.disabled = !(
       bkEls.name.value.trim() && bkValidEmail(bkEls.email.value.trim()) &&
       bkEls.country.value.trim() && bkEls.source.value &&
-      bkFixture && bkGetGuests()>=4 && !bkSubmitting
+      bkFixture && bkGetGuests()>=1 && !bkSubmitting
     );
   }
 
@@ -1654,7 +1659,6 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
     if(!bkEls.country.value.trim()){ bkShowError('Please enter your country of residence.'); return; }
     if(!bkEls.source.value){ bkShowError('Please tell us how you heard about us.'); return; }
     if(!bkFixture){ bkShowError('Please choose a fixture.'); return; }
-    if(bkGetGuests()<4){ bkShowError('Minimum 4 guests per booking.'); return; }
 
     bkSubmitting=true; bkEls.submitBtn.disabled=true;
     bkEls.submitBtn.innerHTML='<span class="spinner"></span> Sending…';
@@ -1964,7 +1968,7 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
        <a href="#book" onclick="bookGoTo('kilkenny')" class="btn-gold">Kilkenny</a>
 <a href="#book" onclick="bookGoTo('dublin')" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.95rem 2rem;background:#4a90d9;color:#fff;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.95rem;">Dublin</a>
-<a href="mailto:info@travelbeyondthepitch.com" class="btn-outline-white">Ask a Question</a>
+<a href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Gaelic%20Games%20Experience" target="_blank" rel="noopener" class="btn-outline-white">Ask a Question</a>
       </div>
     </div>
   </section>
@@ -2029,11 +2033,25 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
     document.querySelectorAll('.mobile-menu .nav-link').forEach(l => l.addEventListener('click', toggleMenu));
 // ── BEYOND THE PITCH: GA4 Event Tracking ──
 
-// 1. Booking knop clicks
-document.querySelectorAll('a[href*="booking-page"]').forEach(function(link) {
+// 1. Booking knop clicks (Book Kilkenny / Book Dublin / hero + final CTA)
+document.querySelectorAll('a[onclick*="bookGoTo"]').forEach(function(link) {
   link.addEventListener('click', function() {
-    var destination = this.href.includes('dublin') ? 'dublin' : 'kilkenny';
+    var match = (this.getAttribute('onclick') || '').match(/bookGoTo\('(\w+)'\)/);
+    var destination = match ? match[1] : 'unknown';
     gtag('event', 'cta_click', {
+      experience: destination,
+      cta_text: this.innerText.trim(),
+      page_location: window.location.href
+    });
+  });
+});
+
+// 1b. Info-tab knop clicks (hero + nav "Choose your city" -> info section, not booking)
+document.querySelectorAll('a[onclick*="switchTab"]:not([onclick*="bookGoTo"])').forEach(function(link) {
+  link.addEventListener('click', function() {
+    var match = (this.getAttribute('onclick') || '').match(/switchTab\('(\w+)'\)/);
+    var destination = match ? match[1] : 'unknown';
+    gtag('event', 'info_cta_click', {
       experience: destination,
       cta_text: this.innerText.trim(),
       page_location: window.location.href
