@@ -843,7 +843,8 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
         <div>
           <div id="bookIncludedBox" class="d-card">
             <p style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#4a90d9;margin-bottom:.75rem;">What's included</p>
-            <p id="bookIncludedText" style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.8;margin-bottom:1.25rem;">Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice</p>
+            <p id="bookIncludedText" style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.8;margin-bottom:.6rem;">Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice</p>
+            <a id="bookIncludedLink" href="#panel-dublin" style="display:inline-block;font-size:.78rem;color:#4a90d9;text-decoration:underline;text-underline-offset:3px;margin-bottom:1.25rem;">See the full Dublin experience walkthrough ↑</a>
             <div class="warn-box" style="margin:0;">
               <p><strong>Not an instant charge.</strong> This is a booking request - we personally confirm match access and send payment details within 24–48 hours.</p>
             </div>
@@ -1010,7 +1011,7 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
     sGuests: bk('bk_sGuests'), sSubtotal: bk('bk_sSubtotal'), sDiscountRow: bk('bk_sDiscountRow'),
     sDiscountLabel: bk('bk_sDiscountLabel'), sDiscountValue: bk('bk_sDiscountValue'), sTotal: bk('bk_sTotal'),
     discountInput: bk('bk_discountInput'), applyBtn: bk('bk_applyBtn'), discountMsg: bk('bk_discountMsg'),
-    submitBtn: bk('bk_submitBtn'), includedText: bk('bookIncludedText')
+    submitBtn: bk('bk_submitBtn'), includedText: bk('bookIncludedText'), includedLink: bk('bookIncludedLink')
   };
 
   function bkFmtDate(d){ return new Date(d+'T12:00:00').toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'long'}); }
@@ -1106,6 +1107,11 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
     bkLoc = loc; bkMonth=null; bkFixture=null; bkDiscount=null;
     document.querySelectorAll('#bookWrap .loc-btn').forEach(b=>b.classList.toggle('active', b.dataset.loc===loc));
     bkEls.includedText.innerHTML = bkLocData().included;
+    bkEls.includedLink.href = '#panel-' + loc;
+    bkEls.includedLink.textContent = loc === 'dublin'
+      ? 'See the full Dublin experience walkthrough ↑'
+      : 'See the full Kilkenny experience walkthrough ↑';
+    bkEls.includedLink.style.color = loc === 'dublin' ? '#4a90d9' : 'var(--gold-bright)';
     bkEls.discountInput.value=''; bkDiscountMsg('','');
     bkRenderMonths(); bkRenderFixtures(); bkUpdateSummary(); bkUpdateSubmit(); bkClearError();
   }
