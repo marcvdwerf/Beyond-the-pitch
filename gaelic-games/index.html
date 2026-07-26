@@ -2094,25 +2094,6 @@ document.querySelectorAll('a[href*="/community/"]').forEach(function(link) {
   });
 });
 
-// ── FIX 2: In-app browser detectie (Facebook/Instagram) + banner ──
-(function() {
-  var ua = navigator.userAgent || '';
-  var match = ua.match(/FBAN|FBAV|Instagram/);
-  if (match) {
-    gtag('event', 'in_app_browser_detected', { browser_flag: match[0] });
-
-    var banner = document.createElement('div');
-    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:200;' +
-      'background:#111;color:#fff;padding:0.75rem 1rem;font-size:0.85rem;' +
-      'text-align:center;line-height:1.4;';
-    banner.innerHTML = 'Voor de beste ervaring: open deze pagina in je browser via het "···"-menu rechtsboven &rarr; "Open in browser".';
-    document.body.prepend(banner);
-
-    var headerEl = document.getElementById('header');
-    if (headerEl) headerEl.style.top = banner.offsetHeight + 'px';
-  }
-})();
-
     // Header scroll
     window.addEventListener('scroll', () => {
       document.getElementById('header').classList.toggle('header-scrolled', window.scrollY > 50);
