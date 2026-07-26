@@ -920,6 +920,12 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
 
             <button type="submit" class="btn-submit" id="bk_submitBtn" disabled>Send booking request</button>
             <p class="form-note">We'll be in touch within 48 hours to confirm everything.</p>
+            <a id="bookWhatsAppLink"
+               href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Dublin%20Experience"
+               target="_blank" rel="noopener"
+               style="display:block;text-align:center;margin-top:.9rem;font-size:.8rem;color:rgba(255,255,255,.5);text-decoration:underline;text-underline-offset:3px;">
+              Got a question first? Ask on WhatsApp →
+            </a>
           </form>
 
           <div class="success-screen" id="bk_successScreen">
@@ -1011,7 +1017,8 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
     sGuests: bk('bk_sGuests'), sSubtotal: bk('bk_sSubtotal'), sDiscountRow: bk('bk_sDiscountRow'),
     sDiscountLabel: bk('bk_sDiscountLabel'), sDiscountValue: bk('bk_sDiscountValue'), sTotal: bk('bk_sTotal'),
     discountInput: bk('bk_discountInput'), applyBtn: bk('bk_applyBtn'), discountMsg: bk('bk_discountMsg'),
-    submitBtn: bk('bk_submitBtn'), includedText: bk('bookIncludedText'), includedLink: bk('bookIncludedLink')
+    submitBtn: bk('bk_submitBtn'), includedText: bk('bookIncludedText'), includedLink: bk('bookIncludedLink'),
+    whatsappLink: bk('bookWhatsAppLink')
   };
 
   function bkFmtDate(d){ return new Date(d+'T12:00:00').toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'long'}); }
@@ -1112,6 +1119,9 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
       ? 'See the full Dublin experience walkthrough ↑'
       : 'See the full Kilkenny experience walkthrough ↑';
     bkEls.includedLink.style.color = loc === 'dublin' ? '#4a90d9' : 'var(--gold-bright)';
+    bkEls.whatsappLink.href = loc === 'dublin'
+      ? 'https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Dublin%20Experience'
+      : 'https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Kilkenny%20Experience';
     bkEls.discountInput.value=''; bkDiscountMsg('','');
     bkRenderMonths(); bkRenderFixtures(); bkUpdateSummary(); bkUpdateSubmit(); bkClearError();
   }
