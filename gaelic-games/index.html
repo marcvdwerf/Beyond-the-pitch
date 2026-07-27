@@ -463,7 +463,7 @@
 
 <main id="main">
 <section style="position: relative; padding: 8rem 1.5rem 6rem; overflow: hidden; color: #fff;">
-  <video autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.JPG" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+  <video autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
     <source src="/kilkenny-pitch-and-wall.mp4" type="video/mp4">
   </video>
   <div style="position:absolute;inset:0;background:rgba(0,0,0,0.60);z-index:1;"></div>
@@ -1576,7 +1576,10 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <img src="/images/group-picture-gaelic-games-experience.jpg" alt="group picture of the gaelic games experience at local gaa club naa fianna" loading="lazy">
         <img src="/images/all-ireland-hurling-final-action.jpg" alt="Action shot from the All Ireland Hurling Final at Croke Park" loading="lazy">
         <img src="/images/hurling-wall-of-fame.jpg" alt="Hurling wall of fame celebrating Kilkenny's greatest players and GAA history" loading="lazy">
-        <img src="/images/hurling-kilkenny.JPG" alt="Hurling kilkenny legends in action" loading="lazy">
+        <picture>
+  <source srcset="/images/hurling-kilkenny.webp" type="image/webp">
+  <img src="/images/hurling-kilkenny.JPG" alt="Hurling kilkenny legends in action" loading="lazy">
+</picture>
         <img src="/images/pub-wall-dublin-croke-park.jpg" alt="Pub wall in Dublin decorated with Croke Park and GAA memorabilia" loading="lazy">
       </div>
     </div>
