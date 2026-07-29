@@ -211,6 +211,27 @@
       position: relative;
       z-index: 2;
     }
+    /* ── HERO VIDEO FALLBACK (autoplay geblokkeerd, bv. Low Power Mode) ── */
+.hero-video-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.hero-video-fallback.visible { display: flex; }
+.hero-video-fallback-btn {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(255,215,0,0.95);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+.hero-video-fallback:hover .hero-video-fallback-btn { transform: scale(1.08); }
+.hero-video-fallback-btn svg { margin-left: 4px; }
 
     /* ── SECTION COLOUR ZONES ── */
     .zone-dark { background: var(--dark); color: #fff; }
@@ -673,10 +694,15 @@
 
   <!-- ZONE 1 - HERO -->
   <section class="zone-dark hero-section" style="padding:9rem 1.5rem 5rem;">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/beyond-the-pitch-achtergrond.jpg">
-      <source src="kilkenny-boys1.mp4" type="video/mp4">
-    </video>
-    <div class="hero-video-overlay"></div>
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="images/beyond-the-pitch-achtergrond.jpg">
+  <source src="/kilkenny-boys1.mp4" type="video/mp4">
+</video>
+<div class="hero-video-overlay"></div>
+<div class="hero-video-fallback" id="heroVideoFallback" aria-label="Video afspelen">
+  <div class="hero-video-fallback-btn">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
+  </div>
+</div>
     <div class="container-inner" style="max-width:1100px;margin:0 auto;">
       <span class="section-label">Cultural Sports Experiences</span>
       <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
@@ -1154,7 +1180,33 @@ A travel agency books your transport and hotel. We do something different: we cu
         }
       }
     });
+// ── Hero video autoplay fallback ──
+const heroVideo = document.getElementById('heroVideo');
+const heroFallback = document.getElementById('heroVideoFallback');
 
+if (heroVideo && heroFallback) {
+  heroVideo.muted = true;
+  const playPromise = heroVideo.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      heroFallback.classList.add('visible');
+    });
+  }
+
+  heroFallback.addEventListener('click', () => {
+    heroVideo.play().then(() => {
+      heroFallback.classList.remove('visible');
+    }).catch(() => {});
+  });
+
+  // Eerste tap op de pagina alsnog proberen te starten (user-gesture telt mee)
+  document.addEventListener('touchstart', function tryPlay() {
+    if (heroVideo.paused) {
+      heroVideo.play().then(() => heroFallback.classList.remove('visible')).catch(() => {});
+    }
+    document.removeEventListener('touchstart', tryPlay);
+  }, { once: true, passive: true });
+}
     // ── Mobile menu ──
     const menuToggle = document.getElementById('menuToggle');
     const menuClose  = document.getElementById('menuClose');
