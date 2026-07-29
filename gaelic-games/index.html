@@ -414,7 +414,27 @@
     footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; font-size: 0.9rem; }
     footer a:hover { color: #fff; }
     footer h4 { color: rgba(255,255,255,0.3); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.25rem; }
-
+/* ── HERO VIDEO FALLBACK (autoplay geblokkeerd, bv. Low Power Mode) ── */
+.hero-video-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.hero-video-fallback.visible { display: flex; }
+.hero-video-fallback-btn {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(74,144,217,0.95);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+.hero-video-fallback:hover .hero-video-fallback-btn { transform: scale(1.08); }
+.hero-video-fallback-btn svg { margin-left: 4px; }
     ::selection { background: var(--dublin-blue); color: #fff; }
   </style>
 </head>
@@ -463,10 +483,15 @@
 
 <main id="main">
 <section style="position: relative; padding: 8rem 1.5rem 6rem; overflow: hidden; color: #fff;">
-  <video autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+  <video id="heroVideoGaelic" autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
     <source src="/kilkenny-pitch-and-wall.mp4" type="video/mp4">
   </video>
   <div style="position:absolute;inset:0;background:rgba(0,0,0,0.60);z-index:1;"></div>
+  <div class="hero-video-fallback" id="heroVideoFallbackGaelic" aria-label="Video afspelen">
+    <div class="hero-video-fallback-btn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
   <div style="position:relative;z-index:2;max-width:1100px;margin:0 auto;">
     <span style="display:block;text-transform:uppercase;letter-spacing:0.15em;font-size:0.72rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;">
       Dublin · Cultural Sports Experiences
@@ -1858,6 +1883,32 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
 
   <!-- ══ JS ══ -->
   <script>
+    // ── Hero video autoplay fallback ──
+const heroVideoGaelic = document.getElementById('heroVideoGaelic');
+const heroFallbackGaelic = document.getElementById('heroVideoFallbackGaelic');
+
+if (heroVideoGaelic && heroFallbackGaelic) {
+  heroVideoGaelic.muted = true;
+  const playPromiseGaelic = heroVideoGaelic.play();
+  if (playPromiseGaelic !== undefined) {
+    playPromiseGaelic.catch(() => {
+      heroFallbackGaelic.classList.add('visible');
+    });
+  }
+
+  heroFallbackGaelic.addEventListener('click', () => {
+    heroVideoGaelic.play().then(() => {
+      heroFallbackGaelic.classList.remove('visible');
+    }).catch(() => {});
+  });
+
+  document.addEventListener('touchstart', function tryPlayGaelic() {
+    if (heroVideoGaelic.paused) {
+      heroVideoGaelic.play().then(() => heroFallbackGaelic.classList.remove('visible')).catch(() => {});
+    }
+    document.removeEventListener('touchstart', tryPlayGaelic);
+  }, { once: true, passive: true });
+}
     // Mobile menu
     const menuToggle = document.getElementById('menuToggle');
     const menuClose  = document.getElementById('menuClose');
