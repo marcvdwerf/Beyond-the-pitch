@@ -298,6 +298,14 @@
     .faq-icon { transition: transform 0.3s ease; font-style: normal; font-size: 1.4rem; flex-shrink: 0; }
     details[open] .faq-icon { transform: rotate(45deg); }
     details[open] summary { border-bottom: 1px solid var(--border-light); }
+    .step-accordion { display:flex; flex-direction:column; gap:0.75rem; }
+.step-details { border:1px solid var(--border-light); border-radius:12px; padding:0 1.25rem; }
+.step-details summary::-webkit-details-marker { display:none; }
+.step-summary {
+  list-style:none; cursor:pointer; padding:1.25rem 0;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+}
+.step-details-body { padding:0 0 1.5rem; }
 
     @media (max-width: 900px) {
       .two-col {
@@ -645,42 +653,68 @@ Add something truly unique to your trip.
         <!-- What to expect -->
         <div style="border-top:1px solid var(--border-light);padding-top:3.5rem;margin-bottom:4.5rem;">
           <span class="section-label" style="color:rgba(0,0,0,0.2);">What to expect</span>
-          <div class="three-col" style="gap:3.5rem;margin-top:2.5rem;">
-            <div>
-              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-                <div class="step-num">1</div><div class="step-line"></div>
-              </div>
-              <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Culture &amp; Heritage</h4>
-              <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin-bottom:0.9rem;">Na Fianna GAA Club, Dublin</p>
-              <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                The experience kicks off at the grounds of <strong style="color:var(--text-dark);">Na Fianna</strong>, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and why these sports hold such a central place in Irish culture.
-              </p>
-            </div>
-            <div>
-              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-                <div class="step-num">2</div><div class="step-line"></div>
-              </div>
-              <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Step Onto the Pitch</h4>
-              <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin-bottom:0.9rem;">Gaelic Football, Hurling &amp; Handball</p>
-              <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-               The stage is set, and now it's your turn to step onto the pitch.
+          <div class="step-accordion" style="margin-top:2.5rem;">
 
-Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.
-
-You'll also be introduced to a third traditional sport: Gaelic handball.
-
-              </p>
-            </div>
-            <div>
-              <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-                <div class="step-num">3</div><div class="step-line"></div>
+            <details class="step-details" open>
+              <summary class="step-summary">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                  <div class="step-num">1</div>
+                  <div>
+                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Culture &amp; Heritage</h4>
+                    <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin:0;">Na Fianna GAA Club, Dublin</p>
+                  </div>
+                </div>
+                <span class="faq-icon" style="color:var(--gold);">+</span>
+              </summary>
+              <div class="step-details-body">
+                <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
+                  The experience kicks off at the grounds of <strong style="color:var(--text-dark);">Na Fianna</strong>, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and why these sports hold such a central place in Irish culture.
+                </p>
               </div>
-              <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.3rem;">Live Gaelic Games Matchday</h4>
-              <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin-bottom:0.9rem;">Croke park or Parnell park</p>
-              <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                You'll attend a Gaelic Games match of your choice. From the moment <em>Amhrán na bhFiann</em> plays, you're hooked. We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
-              </p>
-            </div>
+            </details>
+
+            <details class="step-details">
+              <summary class="step-summary">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                  <div class="step-num">2</div>
+                  <div>
+                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Step Onto the Pitch</h4>
+                    <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin:0;">Gaelic Football, Hurling &amp; Handball</p>
+                  </div>
+                </div>
+                <span class="faq-icon" style="color:var(--gold);">+</span>
+              </summary>
+              <div class="step-details-body">
+                <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
+                  The stage is set, and now it's your turn to step onto the pitch.
+                </p>
+                <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
+                  Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.
+                </p>
+                <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
+                  You'll also be introduced to a third traditional sport: Gaelic handball.
+                </p>
+              </div>
+            </details>
+
+            <details class="step-details">
+              <summary class="step-summary">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                  <div class="step-num">3</div>
+                  <div>
+                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Live Gaelic Games Matchday</h4>
+                    <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin:0;">Croke park or Parnell park</p>
+                  </div>
+                </div>
+                <span class="faq-icon" style="color:var(--gold);">+</span>
+              </summary>
+              <div class="step-details-body">
+                <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
+                  You'll attend a Gaelic Games match of your choice. From the moment <em>Amhrán na bhFiann</em> plays, you're hooked. We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
+                </p>
+              </div>
+            </details>
+
           </div>
         </div>
 
