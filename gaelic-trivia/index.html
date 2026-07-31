@@ -455,9 +455,19 @@
             shareBtn.innerHTML = '📲 ' + t.shareScore;
             stack.appendChild(shareBtn);
 
-            stack.appendChild(el('a', { className: 'btn-outline-green', text: '🏟️ ' + t.requestTickets, attrs: { href: '/gaelic-games/' } }));
-            stack.appendChild(el('a', { className: 'btn-outline-green', text: '🏠 ' + t.projectPage, attrs: { href: '/gaelic-games/' } }));
+           var bookLink = el('a', {
+    className: 'btn-irish-gold',
+    text: '🏟️ ' + t.requestTickets,
+    attrs: {
+        href: 'https://travelbeyondthepitch.com/gaelic-games/?utm_source=gaelic_challenge&utm_medium=quiz&utm_campaign=lead_gen#book'
+    },
+    onClick: function () {
+        safeGtag('event', 'cta_click', { cta_type: 'book_direct', source: 'gaelic_challenge', score: state.score });
+    }
+});
+stack.appendChild(bookLink);
 
+stack.appendChild(el('a', { className: 'btn-outline-green', text: '🏠 ' + t.projectPage, attrs: { href: '/gaelic-games/' } }));
             var restartBtn = el('button', {
                 className: 'btn-restart', text: t.restart,
                 onClick: function () { location.reload(); }
