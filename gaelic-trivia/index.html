@@ -427,9 +427,9 @@
                 return;
             }
             var fd = new FormData();
-            fd.append('YOUR_EMAIL_ENTRY_ID', emailValue);
-            fd.append('YOUR_SCORE_ENTRY_ID', state.score + '/' + triviaQuestions.length);
-            fetch('YOUR_GOOGLE_FORM_ACTION_URL', { method: 'POST', mode: 'no-cors', body: fd })
+            fd.append('entry.1073901989', emailValue);
+            fd.append('entry.669605026', state.score + '/' + triviaQuestions.length);
+            fetch('https://docs.google.com/forms/d/e/1FAIpQLSewOocWsZhWAr5X95KkSwnApSkc49ukV3omqbBZC4xU7_0oKQ/formResponse', { method: 'POST', mode: 'no-cors', body: fd })
                 .then(function () {
                     safeGtag('event', 'lead_capture', { source: 'gaelic_challenge', score: state.score });
                 })
