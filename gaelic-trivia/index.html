@@ -178,7 +178,16 @@
             font-size: 0.8rem; cursor: pointer; font-family: inherit;
         }
         .btn-restart:hover { text-decoration: underline; }
-
+.email-capture { margin-bottom: 1rem; }
+        .email-input {
+            width: 100%; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 1rem;
+            font-family: inherit; font-size: 1rem; margin-bottom: 0.75rem; box-sizing: border-box;
+        }
+        .email-input:focus { outline: none; border-color: #14532d; }
+        .email-submitted-msg {
+            background: #f0fdf4; color: #14532d; padding: 1rem; border-radius: 1rem;
+            font-weight: 700; text-align: center; margin-bottom: 1rem; font-size: 0.9rem;
+        }
         @media (max-width: 480px) {
             .card, .quiz-card, .complete-card { max-width: 100%; }
             .card h1 { font-size: 2.2rem; }
@@ -207,7 +216,7 @@
             finish: 'Final Whistle',
             perfect: 'All-Ireland Champion! You have the spirit of a legend! 🏆🍀',
             good: 'Great Performance! You know your way around the pitch. 🏐',
-            shareScore: 'Share my score',
+            shareScore: 'Share My Score',
             copied: 'Copied to clipboard!'
         };
 
@@ -221,7 +230,7 @@
                 options: ['Hurling & Gaelic Football', 'Rugby & Cricket', 'Football & Swimming', 'Hurling & Tennis'],
                 correct: 'Hurling & Gaelic Football',
                 image: '/images/gaelic-football-hurling-action.jpg',
-                shortFact: 'Correct! These are the kings of Irish sport.',
+                shortFact: 'These are the kings of Irish sport.',
                 longFact: 'There are actually 4 Gaelic games in total. Beside the famous Hurling and Gaelic Football, the GAA also promotes Gaelic Handball and Rounders (a bat-and-ball game similar to baseball).'
             },
             {
@@ -229,7 +238,7 @@
                 options: ['A Bat', 'A Hurley', 'A Racket', 'A Club'],
                 correct: 'A Hurley',
                 image: '/images/seamus-callanan-aidan-harte-hurling.jpg',
-                shortFact: 'Correct! It is traditionally made of ash wood.',
+                shortFact: 'It is traditionally made of ash wood.',
                 longFact: 'The hurley (or camán) is a wooden stick with a flat end. Hurling is one of the fastest field sports in the world, with the ball traveling at speeds up to 150 km/h!'
             },
             {
@@ -237,7 +246,7 @@
                 options: ['Puck', 'Sphere', 'Sliotar', 'Gaelball'],
                 correct: 'Sliotar',
                 image: '/images/irish-sliotar-hurling-ball.jpg',
-                shortFact: 'Exactly! It\u2019s the "Sliotar".',
+                shortFact: 'It\u2019s the "Sliotar".',
                 longFact: 'A sliotar has a cork core and a leather cover. It is incredibly hard and fast, making protective helmets mandatory for players.'
             },
             {
@@ -245,7 +254,7 @@
                 options: ['Green Athletic Alliance', 'Global Association of Athletes', 'Gaelic Athletic Association', 'Great Adventure Area'],
                 correct: 'Gaelic Athletic Association',
                 image: '/images/gaelic-football-hurling-action.jpg',
-                shortFact: 'Correct! Founded in 1884.',
+                shortFact: 'Founded in 1884.',
                 longFact: 'The GAA is a volunteer-led organization that focuses not just on sports, but also on Irish culture, language, and community.'
             },
             {
@@ -253,7 +262,7 @@
                 options: ['Staid na hÉireann', 'Páirc an Chrócaigh', 'Baile Átha Cliath Arena', 'The Spire Field'],
                 correct: 'Páirc an Chrócaigh',
                 image: '/images/gaelic-football-croke-park-leinster.jpg',
-                shortFact: 'Perfect! It is the third-largest stadium in Europe.',
+                shortFact: 'It is the third-largest stadium in Europe.',
                 longFact: 'Croke Park is the headquarters of the GAA and has a capacity of over 82,300 people. It is considered "holy ground" by Irish sports fans.'
             },
             {
@@ -261,17 +270,18 @@
                 options: ['Individual star players', 'The National team only', 'Their county team', 'The referee'],
                 correct: 'Their county team',
                 image: '/images/hurling-wall-of-fame.jpg',
-                shortFact: 'Yes! Pride for your county is everything.',
+                shortFact: 'Pride for your county is everything.',
                 longFact: 'The GAA is unique because players are strictly amateur. They play for the county they were born in, which creates a deep emotional bond between the players and the fans.'
             }
         ];
 
-        var state = {
+      var state = {
             step: 'intro',       // intro | trivia | complete
             question: 0,
             score: 0,
             feedback: false,     // false | 'short' | 'long'
-            selectedAnswer: null
+            selectedAnswer: null,
+            emailSent: false
         };
 
         function safeGtag() {
@@ -385,7 +395,11 @@
 
             if (state.feedback) {
                 var fb = el('div', { className: 'feedback-box' });
-                fb.appendChild(el('p', { text: state.feedback === 'short' ? q.shortFact : q.longFact }));
+                var isCorrect = state.selectedAnswer === q.correct;
+                var shortText = isCorrect
+                    ? 'Correct! ' + q.shortFact
+                    : 'Not quite — the correct answer is "' + q.correct + '". ' + q.shortFact;
+                fb.appendChild(el('p', { text: state.feedback === 'short' ? shortText : q.longFact }));
                 var actions = el('div', { className: 'feedback-actions' });
                 if (state.feedback === 'short') {
                     actions.appendChild(el('button', {
@@ -406,6 +420,22 @@
             card.appendChild(body);
             screen.appendChild(card);
             return screen;
+        }
+        function submitEmail(emailValue) {
+            if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            var fd = new FormData();
+            fd.append('YOUR_EMAIL_ENTRY_ID', emailValue);
+            fd.append('YOUR_SCORE_ENTRY_ID', state.score + '/' + triviaQuestions.length);
+            fetch('YOUR_GOOGLE_FORM_ACTION_URL', { method: 'POST', mode: 'no-cors', body: fd })
+                .then(function () {
+                    safeGtag('event', 'lead_capture', { source: 'gaelic_challenge', score: state.score });
+                })
+                .catch(function () {});
+            state.emailSent = true;
+            render();
         }
 
         function handleShare() {
@@ -433,10 +463,27 @@
             var isPerfect = state.score === triviaQuestions.length;
             card.appendChild(el('p', { className: 'result-msg', text: isPerfect ? t.perfect : t.good }));
 
-            var stack = el('div', { className: 'action-stack' });
+           var stack = el('div', { className: 'action-stack' });
 
-            var waMsg = 'Hi! I scored ' + state.score + '/' + triviaQuestions.length +
-                ' on the Gaelic Challenge 🏆 - I\'d love to know more about the Dublin experience';
+            if (!state.emailSent) {
+                var emailBox = el('div', { className: 'email-capture' });
+                var emailInput = el('input', {
+                    className: 'email-input',
+                    attrs: { type: 'email', placeholder: 'Your email for Dublin insider tips' }
+                });
+                var emailBtn = el('button', {
+                    className: 'btn-irish-gold', text: '📧 Send Me Insider Tips',
+                    onClick: function () { submitEmail(emailInput.value.trim()); }
+                });
+                emailBox.appendChild(emailInput);
+                emailBox.appendChild(emailBtn);
+                stack.appendChild(emailBox);
+            } else {
+                stack.appendChild(el('div', { className: 'email-submitted-msg', text: '✅ Thanks! Check your inbox soon.' }));
+            }
+
+            var waMsg = 'Hi! I scored '+ state.score + '/' + triviaQuestions.length +
+                ' on the Gaelic Challenge 🏆 - I\'d love to know more about the Dublin Experience';
             var waLink = el('a', {
                 className: 'btn-whatsapp',
                 text: '💬 Get my Dublin tips on WhatsApp',
