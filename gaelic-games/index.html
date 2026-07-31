@@ -164,8 +164,10 @@
       font-weight: 800; font-size: 0.9rem; text-decoration: none;
       display: flex; align-items: center; gap: 0.5rem;
       box-shadow: 0 8px 24px rgba(74,144,217,0.35);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0; transform: translateY(20px); pointer-events: none;
     }
+    .floating-cta.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
     .floating-cta:hover { transform: scale(1.05) translateY(-3px); background: #3a7cc4; }
 
     .floating-whatsapp {
@@ -174,8 +176,10 @@
       background: #25D366; color: #fff;
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 8px 24px rgba(37,211,102,0.4);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0; transform: translateY(20px); pointer-events: none;
     }
+    .floating-whatsapp.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
     .floating-whatsapp:hover { transform: scale(1.08); background: #20bd5a; }
 
     .mobile-menu {
@@ -2014,11 +2018,17 @@ document.querySelectorAll('a[href*="/community/"]').forEach(function(link) {
   });
 });
 
-    // Header scroll
+    // Header scroll + floating CTA's pas tonen na de hero (voorkomt overlap met de hero-CTA)
+    const floatingCtaBtn = document.querySelector('.floating-cta');
+    const floatingWaBtn = document.querySelector('.floating-whatsapp');
     window.addEventListener('scroll', () => {
-      document.getElementById('header').classList.toggle('header-scrolled', window.scrollY > 50);
-    });
+      const scrolled = window.scrollY > 50;
+      document.getElementById('header').classList.toggle('header-scrolled', scrolled);
 
+      const pastHero = window.scrollY > window.innerHeight * 0.6;
+      floatingCtaBtn.classList.toggle('visible', pastHero);
+      floatingWaBtn.classList.toggle('visible', pastHero);
+    });
     // Tabs — Dublin is the default active panel (see initial HTML state above)
     function switchTab(tab) {
       const kPanel = document.getElementById('panel-kilkenny');
