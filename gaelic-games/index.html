@@ -934,7 +934,15 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
 
         <div>
           <form id="bookForm" novalidate>
-            <div class="section-label-book">Your details</div>
+            <div class="section-label-book">When are you travelling?</div>
+            <div class="month-grid" id="bk_monthGrid"></div>
+
+            <div id="bk_fixtureBlock" style="display:none;">
+              <div class="section-label-book">Choose a fixture</div>
+              <div class="fixture-list" id="bk_fixtureList"></div>
+            </div>
+
+            <div class="section-label-book" style="margin-top:8px;">Your details</div>
             <div class="field-row">
               <div class="field"><label for="bk_name">Full name *</label><input type="text" id="bk_name" placeholder="Jane Smith" autocomplete="name"></div>
               <div class="field"><label for="bk_email">Email *</label><input type="email" id="bk_email" placeholder="jane@email.com" autocomplete="email"></div>
@@ -963,14 +971,6 @@ You'll also be introduced to a third traditional sport: Gaelic handball.
                   <option value="Other">Other</option>
                 </select>
               </div>
-            </div>
-
-            <div class="section-label-book" style="margin-top:8px;">When are you travelling?</div>
-            <div class="month-grid" id="bk_monthGrid"></div>
-
-            <div id="bk_fixtureBlock" style="display:none;">
-              <div class="section-label-book">Choose a fixture</div>
-              <div class="fixture-list" id="bk_fixtureList"></div>
             </div>
 
             <div class="field">
