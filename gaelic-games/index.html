@@ -320,12 +320,16 @@
       .two-col > *, .three-col > * { margin-bottom: 2.5rem; }
      .floating-cta { bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; font-size: 0.8rem; }
       .floating-whatsapp { width: 46px; height: 46px; bottom: 1rem; left: 1rem; }
-      .hero-gaelic {
+    .hero-gaelic {
     padding: 5.5rem 1.5rem 3rem !important;
   }
   .hero-cta-wrap {
     padding-top: 1rem !important;
     min-height: auto !important;
+  }
+  .hero-video, .hero-overlay {
+    height: 62vh !important;
+    min-height: 380px;
   }
     }
     @media (max-width: 640px) {
@@ -518,10 +522,10 @@
 
 <main id="main">
 <section class="hero-gaelic" style="position: relative; padding: 8rem 1.5rem 6rem; overflow: hidden; color: #fff;">
-  <video id="heroVideoGaelic" autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+  <video id="heroVideoGaelic" class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/hurling-kilkenny.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
   <source src="/dublin-pitch-and-wall.mp4" type="video/mp4">
   </video>
-  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.60);z-index:1;"></div>
+  <div class="hero-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.60);z-index:1;"></div>
   <div class="hero-video-fallback" id="heroVideoFallbackGaelic" aria-label="Video afspelen">
     <div class="hero-video-fallback-btn">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
