@@ -397,9 +397,13 @@
       <div class="hero-copy">
         <span class="eyebrow">Prague · Cultural sports experience</span>
         <h2 class="display-lg">Discover Prague<br>through <em>icehockey.</em></h2>
-        <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.8rem;">
+       <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.8rem;">
           <a href="#enquire" class="btn btn-primary">Check my date →</a>
           <a href="#versions" class="btn btn-ghost">Compare versions</a>
+          <a href="#what-to-expect-video" class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>
+            Watch: what to expect
+          </a>
         </div>
         <div class="hero-micro">
           <span class="pill"><span class="pill-dot"></span>Local guide Kamil · 1000+ guests</span>
@@ -423,6 +427,23 @@
       </div>
     </div>
   </section>
+
+  <!-- WHAT TO EXPECT VIDEO -->
+  <section class="section" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="container" style="max-width:900px;text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">What to expect</span>
+      <h2 class="display-md">See the experience<br><em>before you book.</em></h2>
+      <div class="yt-facade" data-video-id="PLACEHOLDER_ID" style="border-radius:18px;overflow:hidden;aspect-ratio:16/9;position:relative;background:#111;cursor:pointer;margin-top:2rem;box-shadow:var(--shadow);">
+        <img src="https://i.ytimg.com/vi/PLACEHOLDER_ID/hqdefault.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <svg width="68" height="48" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00" fill-opacity="0.85"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERSIONS -->
+ <section class="section" id="what-to-expect-video" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
 
   <!-- VERSIONS -->
   <section class="section versions" id="versions">
@@ -1459,6 +1480,23 @@ async function bfSubmit(){
     btn.disabled=false; btn.textContent='Send booking request';
   }
 }
+document.querySelectorAll('.yt-facade').forEach(function(facade) {
+  facade.addEventListener('click', function() {
+    var videoId = facade.dataset.videoId;
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?rel=0&modestbranding=1&autoplay=1';
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+    iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.title = 'Prague Ice Hockey experience video';
+    facade.innerHTML = '';
+    facade.appendChild(iframe);
+    try { gtag('event', 'video_play', { video_id: videoId, page_location: window.location.href }); } catch(e){}
+  }, { once: true });
+});
+
+// Preselect version from CTA buttons
+function preselectVersion(val){
 
 // Preselect version from CTA buttons
 function preselectVersion(val){
