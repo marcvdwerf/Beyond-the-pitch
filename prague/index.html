@@ -491,6 +491,166 @@
     </div>
   </section>
 
+  <!-- ENQUIRY — Full booking form connected to Google Form + Mastersheet -->
+  <section class="section enquiry" id="enquire">
+    <div class="container enquiry-grid">
+      <div>
+        <span class="eyebrow">Check my date</span>
+        <h2 class="display-md">Tell us your dates.<br><em>We'll do the rest.</em></h2>
+        <p class="lead" style="margin-top:1.4rem;">Personally reviewed. No automated confirmation. One clear answer within 24–48 hours.</p>
+
+        <div class="info-points">
+          <div class="info-point">
+            <span class="info-icon">✓</span>
+            <div><strong>Reply within 24–48 hours</strong><span>An actual human checking your request — not a bot.</span></div>
+          </div>
+          <div class="info-point">
+            <span class="info-icon">✓</span>
+            <div><strong>No obligation until confirmed</strong><span>Enquiring doesn't commit you to anything.</span></div>
+          </div>
+          <div class="info-point">
+            <span class="info-icon">✓</span>
+            <div><strong>No charge if nothing fits</strong><span>Honest about availability. Clear alternatives or full refund.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOKING FORM CARD -->
+      <div class="form-card" id="bookingFormWrap">
+
+        <!-- STEP INDICATOR -->
+        <div style="display:flex;gap:6px;margin-bottom:1.2rem;">
+          <div id="step1ind" style="height:3px;flex:1;border-radius:3px;background:var(--red);transition:.3s;"></div>
+          <div id="step2ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
+          <div id="step3ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
+        </div>
+
+      <div id="bfStep1">
+          <div class="form-title">Choose your version</div>
+
+          <div class="version-grid" style="margin-bottom:16px;">
+            <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
+              <div class="version-radio-dot"></div>
+              <div class="v-season">Year-round</div>
+              <div class="v-title">Walking + Hall of Fame</div>
+              <div class="v-price">€65 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
+              <div class="v-includes">Tour + Hall of Fame entry. No fixture needed.</div>
+            </div>
+            <div class="version-card-pick featured-pick" id="vcard_b" onclick="bfSelectVersion('B')">
+              <div class="version-radio-dot"></div>
+              <div class="v-season">Sep – Apr · Most complete</div>
+              <div class="v-title">Tour + Hall of Fame + match</div>
+              <div class="v-price" style="color:var(--gold)">€97 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
+              <div class="v-includes">Everything in A + live Extraliga match.</div>
+            </div>
+          </div>
+
+          <!-- Fixture picker — Version B only -->
+          <div id="bf_fixturePicker" style="display:none;">
+            <div class="section-label-booking">Preferred fixture (optional)</div>
+            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Select a match or leave it — we'll pick the best available for your date.</p>
+            <div class="month-grid" id="bf_monthGrid"></div>
+            <div id="bf_fixtureBlock" style="display:none;">
+              <div class="fixture-list" id="bf_fixtureList"></div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="summary-box" id="bf_summaryBox" style="display:none;">
+            <div class="summary-row"><span id="bf_sVersion">—</span><span id="bf_sPricePP">—</span></div>
+            <div class="summary-row" id="bf_sFixtureRow" style="display:none;font-size:0.78rem;"><span id="bf_sFixture" style="color:var(--soft)"></span></div>
+            <div class="summary-row total"><span>Price per person</span><span id="bf_sTotal">—</span></div>
+          </div>
+
+          <div id="bf_error1" class="error-box"></div>
+          <button class="btn-submit" id="bf_next1Btn" onclick="bfNext1()" disabled>Continue to your details →</button>
+        </div>
+
+        <!-- STEP 2: YOUR DETAILS -->
+        <div id="bfStep2" style="display:none;">
+          <div class="form-title">Your details</div>
+
+          <div class="field-row" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="bf_name">Full name *</label>
+              <input type="text" id="bf_name" placeholder="Jane Smith" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="bf_email">Email *</label>
+              <input type="email" id="bf_email" placeholder="jane@email.com" autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="bf_phone">Phone</label>
+              <input type="tel" id="bf_phone" placeholder="+1 555 000 0000" autocomplete="tel" />
+            </div>
+            <div class="field">
+              <label for="bf_country">Country of residence *</label>
+              <input type="text" id="bf_country" placeholder="e.g. United States" />
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="bf_date">Preferred date *</label>
+              <input type="date" id="bf_date" />
+            </div>
+            <div class="field">
+              <label for="bf_guests">Group size *</label>
+              <select id="bf_guests">
+                <option value="">Select…</option>
+                <option value="solo">Solo — pair me with a group</option>
+                <option value="2">2 people</option>
+                <option value="3">3–4 people</option>
+                <option value="5">5–8 people</option>
+                <option value="9">9–15 people</option>
+                <option value="16">16–25 people</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" style="margin-bottom:16px;">
+            <label for="bf_source">How did you hear about us? *</label>
+            <select id="bf_source">
+              <option value="">Select…</option>
+              <option value="Google">Google search</option>
+              <option value="Instagram">Instagram</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Friend / word of mouth">Friend / word of mouth</option>
+              <option value="Hotel / concierge">Hotel / concierge</option>
+              <option value="Tour operator">Tour operator</option>
+              <option value="Travel blog / article">Travel blog / article</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="field" style="margin-bottom:16px;">
+            <label for="bf_requests">Anything we should know? (optional)</label>
+            <textarea id="bf_requests" rows="3" placeholder="Solo traveller? Dietary needs? Questions about the route?"></textarea>
+          </div>
+
+          <div id="bf_error2" class="error-box"></div>
+
+          <div style="display:flex;gap:8px;">
+            <button class="btn-submit" onclick="bfBack1()" style="background:transparent;border:1px solid var(--line-2);color:var(--muted);flex:0 0 auto;width:auto;padding:16px 20px;">←</button>
+            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;">Send booking request</button>
+          </div>
+          <p style="text-align:center;font-size:0.75rem;color:var(--soft);margin-top:10px;">Personal reply within 24–48 hours. No charge if nothing fits.</p>
+        </div>
+
+        <!-- SUCCESS -->
+        <div id="bf_success" style="display:none;text-align:center;padding:2rem 0;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">✅</div>
+          <strong style="display:block;color:var(--text);font-size:1.1rem;margin-bottom:.5rem;">Request received!</strong>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:340px;margin:0 auto;">Kamil and the team will get back to you within 24–48 hours with a clear answer on availability and next steps.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- KAMIL -->
   <section class="section kamil">
     <div class="container">
@@ -1010,165 +1170,6 @@
     </div>
   </section>
 
- <!-- ENQUIRY — Full booking form connected to Google Form + Mastersheet -->
-  <section class="section enquiry" id="enquire">
-    <div class="container enquiry-grid">
-      <div>
-        <span class="eyebrow">Check my date</span>
-        <h2 class="display-md">Tell us your dates.<br><em>We'll do the rest.</em></h2>
-        <p class="lead" style="margin-top:1.4rem;">Personally reviewed. No automated confirmation. One clear answer within 24–48 hours.</p>
-
-        <div class="info-points">
-          <div class="info-point">
-            <span class="info-icon">✓</span>
-            <div><strong>Reply within 24–48 hours</strong><span>An actual human checking your request — not a bot.</span></div>
-          </div>
-          <div class="info-point">
-            <span class="info-icon">✓</span>
-            <div><strong>No obligation until confirmed</strong><span>Enquiring doesn't commit you to anything.</span></div>
-          </div>
-          <div class="info-point">
-            <span class="info-icon">✓</span>
-            <div><strong>No charge if nothing fits</strong><span>Honest about availability. Clear alternatives or full refund.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOOKING FORM CARD -->
-      <div class="form-card" id="bookingFormWrap">
-
-        <!-- STEP INDICATOR -->
-        <div style="display:flex;gap:6px;margin-bottom:1.2rem;">
-          <div id="step1ind" style="height:3px;flex:1;border-radius:3px;background:var(--red);transition:.3s;"></div>
-          <div id="step2ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
-          <div id="step3ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
-        </div>
-
-      <div id="bfStep1">
-          <div class="form-title">Choose your version</div>
-
-          <div class="version-grid" style="margin-bottom:16px;">
-            <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
-              <div class="version-radio-dot"></div>
-              <div class="v-season">Year-round</div>
-              <div class="v-title">Walking + Hall of Fame</div>
-              <div class="v-price">€65 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
-              <div class="v-includes">Tour + Hall of Fame entry. No fixture needed.</div>
-            </div>
-            <div class="version-card-pick featured-pick" id="vcard_b" onclick="bfSelectVersion('B')">
-              <div class="version-radio-dot"></div>
-              <div class="v-season">Sep – Apr · Most complete</div>
-              <div class="v-title">Tour + Hall of Fame + match</div>
-              <div class="v-price" style="color:var(--gold)">€97 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
-              <div class="v-includes">Everything in A + live Extraliga match.</div>
-            </div>
-          </div>
-
-          <!-- Fixture picker — Version B only -->
-          <div id="bf_fixturePicker" style="display:none;">
-            <div class="section-label-booking">Preferred fixture (optional)</div>
-            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Select a match or leave it — we'll pick the best available for your date.</p>
-            <div class="month-grid" id="bf_monthGrid"></div>
-            <div id="bf_fixtureBlock" style="display:none;">
-              <div class="fixture-list" id="bf_fixtureList"></div>
-            </div>
-          </div>
-
-          <!-- Summary -->
-          <div class="summary-box" id="bf_summaryBox" style="display:none;">
-            <div class="summary-row"><span id="bf_sVersion">—</span><span id="bf_sPricePP">—</span></div>
-            <div class="summary-row" id="bf_sFixtureRow" style="display:none;font-size:0.78rem;"><span id="bf_sFixture" style="color:var(--soft)"></span></div>
-            <div class="summary-row total"><span>Price per person</span><span id="bf_sTotal">—</span></div>
-          </div>
-
-          <div id="bf_error1" class="error-box"></div>
-          <button class="btn-submit" id="bf_next1Btn" onclick="bfNext1()" disabled>Continue to your details →</button>
-        </div>
-
-        <!-- STEP 2: YOUR DETAILS -->
-        <div id="bfStep2" style="display:none;">
-          <div class="form-title">Your details</div>
-
-          <div class="field-row" style="margin-bottom:12px;">
-            <div class="field">
-              <label for="bf_name">Full name *</label>
-              <input type="text" id="bf_name" placeholder="Jane Smith" autocomplete="name" />
-            </div>
-            <div class="field">
-              <label for="bf_email">Email *</label>
-              <input type="email" id="bf_email" placeholder="jane@email.com" autocomplete="email" />
-            </div>
-          </div>
-
-          <div class="field-row" style="margin-bottom:12px;">
-            <div class="field">
-              <label for="bf_phone">Phone</label>
-              <input type="tel" id="bf_phone" placeholder="+1 555 000 0000" autocomplete="tel" />
-            </div>
-            <div class="field">
-              <label for="bf_country">Country of residence *</label>
-              <input type="text" id="bf_country" placeholder="e.g. United States" />
-            </div>
-          </div>
-
-          <div class="field-row" style="margin-bottom:12px;">
-            <div class="field">
-              <label for="bf_date">Preferred date *</label>
-              <input type="date" id="bf_date" />
-            </div>
-            <div class="field">
-              <label for="bf_guests">Group size *</label>
-              <select id="bf_guests">
-                <option value="">Select…</option>
-                <option value="solo">Solo — pair me with a group</option>
-                <option value="2">2 people</option>
-                <option value="3">3–4 people</option>
-                <option value="5">5–8 people</option>
-                <option value="9">9–15 people</option>
-                <option value="16">16–25 people</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field" style="margin-bottom:16px;">
-            <label for="bf_source">How did you hear about us? *</label>
-            <select id="bf_source">
-              <option value="">Select…</option>
-              <option value="Google">Google search</option>
-              <option value="Instagram">Instagram</option>
-              <option value="TikTok">TikTok</option>
-              <option value="Friend / word of mouth">Friend / word of mouth</option>
-              <option value="Hotel / concierge">Hotel / concierge</option>
-              <option value="Tour operator">Tour operator</option>
-              <option value="Travel blog / article">Travel blog / article</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div class="field" style="margin-bottom:16px;">
-            <label for="bf_requests">Anything we should know? (optional)</label>
-            <textarea id="bf_requests" rows="3" placeholder="Solo traveller? Dietary needs? Questions about the route?"></textarea>
-          </div>
-
-          <div id="bf_error2" class="error-box"></div>
-
-          <div style="display:flex;gap:8px;">
-            <button class="btn-submit" onclick="bfBack1()" style="background:transparent;border:1px solid var(--line-2);color:var(--muted);flex:0 0 auto;width:auto;padding:16px 20px;">←</button>
-            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;">Send booking request</button>
-          </div>
-          <p style="text-align:center;font-size:0.75rem;color:var(--soft);margin-top:10px;">Personal reply within 24–48 hours. No charge if nothing fits.</p>
-        </div>
-
-        <!-- SUCCESS -->
-        <div id="bf_success" style="display:none;text-align:center;padding:2rem 0;">
-          <div style="font-size:2.5rem;margin-bottom:1rem;">✅</div>
-          <strong style="display:block;color:var(--text);font-size:1.1rem;margin-bottom:.5rem;">Request received!</strong>
-          <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:340px;margin:0 auto;">Kamil and the team will get back to you within 24–48 hours with a clear answer on availability and next steps.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
   <!-- FINAL CTA -->
   <section class="final-cta">
     <div class="final-bg" aria-hidden="true"></div>
@@ -1336,6 +1337,9 @@ function bfSelectVersion(v){
   if(v==='A'){ bfFixture=null; bfMonth=null; }
   bfUpdateSummary();
   document.getElementById('bf_next1Btn').disabled = false;
+  if(v==='B' && !document.getElementById('bf_monthGrid').children.length){
+    bfRenderMonths();
+  }
 }
 function bfGetMonths(){
   const map={};
@@ -1474,21 +1478,17 @@ document.querySelectorAll('.yt-facade').forEach(function(facade) {
   }, { once: true });
 });
 
-// Preselect version from CTA buttons
+// Preselect version from CTA buttons — now actually pre-selects the version in step 1
 function preselectVersion(val){
+  const vMap = {a:'A',b:'B'};
   setTimeout(()=>{
-    if(val==='a'||val==='b'){
-      // Go to step 2 first if on step 1 - just highlight
-      const vMap = {a:'A',b:'B'};
-      if(vMap[val]) {
-        // scroll to form
-        document.getElementById('enquire').scrollIntoView({behavior:'smooth'});
-      }
+    if(vMap[val]){
+      bfSelectVersion(vMap[val]);
     }
-  }, 300);
+    document.getElementById('enquire').scrollIntoView({behavior:'smooth'});
+  }, 100);
 }
 bfRenderMonths();
 </script>
 </body>
 </html>
-
