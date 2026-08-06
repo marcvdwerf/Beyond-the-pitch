@@ -1044,7 +1044,49 @@
           <div id="step3ind" style="height:3px;flex:1;border-radius:3px;background:var(--line-2);transition:.3s;"></div>
         </div>
 
-        <div id="bfStep1">
+      <div id="bfStep1">
+          <div class="form-title">Choose your version</div>
+
+          <div class="version-grid" style="margin-bottom:16px;">
+            <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
+              <div class="version-radio-dot"></div>
+              <div class="v-season">Year-round</div>
+              <div class="v-title">Walking + Hall of Fame</div>
+              <div class="v-price">€65 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
+              <div class="v-includes">Tour + Hall of Fame entry. No fixture needed.</div>
+            </div>
+            <div class="version-card-pick featured-pick" id="vcard_b" onclick="bfSelectVersion('B')">
+              <div class="version-radio-dot"></div>
+              <div class="v-season">Sep – Apr · Most complete</div>
+              <div class="v-title">Tour + Hall of Fame + match</div>
+              <div class="v-price" style="color:var(--gold)">€97 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
+              <div class="v-includes">Everything in A + live Extraliga match.</div>
+            </div>
+          </div>
+
+          <!-- Fixture picker — Version B only -->
+          <div id="bf_fixturePicker" style="display:none;">
+            <div class="section-label-booking">Preferred fixture (optional)</div>
+            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Select a match or leave it — we'll pick the best available for your date.</p>
+            <div class="month-grid" id="bf_monthGrid"></div>
+            <div id="bf_fixtureBlock" style="display:none;">
+              <div class="fixture-list" id="bf_fixtureList"></div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="summary-box" id="bf_summaryBox" style="display:none;">
+            <div class="summary-row"><span id="bf_sVersion">—</span><span id="bf_sPricePP">—</span></div>
+            <div class="summary-row" id="bf_sFixtureRow" style="display:none;font-size:0.78rem;"><span id="bf_sFixture" style="color:var(--soft)"></span></div>
+            <div class="summary-row total"><span>Price per person</span><span id="bf_sTotal">—</span></div>
+          </div>
+
+          <div id="bf_error1" class="error-box"></div>
+          <button class="btn-submit" id="bf_next1Btn" onclick="bfNext1()" disabled>Continue to your details →</button>
+        </div>
+
+        <!-- STEP 2: YOUR DETAILS -->
+        <div id="bfStep2" style="display:none;">
           <div class="form-title">Your details</div>
 
           <div class="field-row" style="margin-bottom:12px;">
@@ -1103,48 +1145,6 @@
             </select>
           </div>
 
-          <div id="bf_error1" class="error-box"></div>
-          <button class="btn-submit" onclick="bfNext1()">Choose your version →</button>
-        </div>
-
-        <!-- STEP 2: VERSION + FIXTURE -->
-        <div id="bfStep2" style="display:none;">
-          <div class="form-title">Choose your version</div>
-
-          <div class="version-grid" style="margin-bottom:16px;">
-            <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
-              <div class="version-radio-dot"></div>
-              <div class="v-season">Year-round</div>
-              <div class="v-title">Walking + Hall of Fame</div>
-              <div class="v-price">€65 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
-              <div class="v-includes">Tour + Hall of Fame entry. No fixture needed.</div>
-            </div>
-            <div class="version-card-pick featured-pick" id="vcard_b" onclick="bfSelectVersion('B')">
-              <div class="version-radio-dot"></div>
-              <div class="v-season">Sep – Apr · Most complete</div>
-              <div class="v-title">Tour + Hall of Fame + match</div>
-              <div class="v-price" style="color:var(--gold)">€97 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
-              <div class="v-includes">Everything in A + live Extraliga match.</div>
-            </div>
-          </div>
-
-          <!-- Fixture picker — Version B only -->
-          <div id="bf_fixturePicker" style="display:none;">
-            <div class="section-label-booking">Preferred fixture (optional)</div>
-            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Select a match or leave it — we'll pick the best available for your date.</p>
-            <div class="month-grid" id="bf_monthGrid"></div>
-            <div id="bf_fixtureBlock" style="display:none;">
-              <div class="fixture-list" id="bf_fixtureList"></div>
-            </div>
-          </div>
-
-          <!-- Summary -->
-          <div class="summary-box" id="bf_summaryBox" style="display:none;">
-            <div class="summary-row"><span id="bf_sVersion">—</span><span id="bf_sPricePP">—</span></div>
-            <div class="summary-row" id="bf_sFixtureRow" style="display:none;font-size:0.78rem;"><span id="bf_sFixture" style="color:var(--soft)"></span></div>
-            <div class="summary-row total"><span>Price per person</span><span id="bf_sTotal">—</span></div>
-          </div>
-
           <div class="field" style="margin-bottom:16px;">
             <label for="bf_requests">Anything we should know? (optional)</label>
             <textarea id="bf_requests" rows="3" placeholder="Solo traveller? Dietary needs? Questions about the route?"></textarea>
@@ -1154,7 +1154,7 @@
 
           <div style="display:flex;gap:8px;">
             <button class="btn-submit" onclick="bfBack1()" style="background:transparent;border:1px solid var(--line-2);color:var(--muted);flex:0 0 auto;width:auto;padding:16px 20px;">←</button>
-            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;" disabled>Send booking request</button>
+            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;">Send booking request</button>
           </div>
           <p style="text-align:center;font-size:0.75rem;color:var(--soft);margin-top:10px;">Personal reply within 24–48 hours. No charge if nothing fits.</p>
         </div>
@@ -1313,20 +1313,13 @@ function bfSetStep(n){
 }
 
 function bfNext1(){
-  const name=document.getElementById('bf_name').value.trim();
-  const email=document.getElementById('bf_email').value.trim();
-  const country=document.getElementById('bf_country').value.trim();
-  const date=document.getElementById('bf_date').value;
-  const guests=document.getElementById('bf_guests').value;
-  const source=document.getElementById('bf_source').value;
-  if(!name||!bfValid(email)||!country||!date||!guests||!source){
-    bfErr('bf_error1','Please fill in all required fields.'); return;
+  if(!bfVersion){
+    bfErr('bf_error1','Please choose a version.'); return;
   }
   bfErr('bf_error1','');
   document.getElementById('bfStep1').style.display='none';
   document.getElementById('bfStep2').style.display='block';
   bfSetStep(2);
-  bfRenderMonths();
 }
 
 function bfBack1(){
@@ -1342,9 +1335,8 @@ function bfSelectVersion(v){
   document.getElementById('bf_fixturePicker').style.display = v==='B' ? 'block' : 'none';
   if(v==='A'){ bfFixture=null; bfMonth=null; }
   bfUpdateSummary();
-  document.getElementById('bf_submitBtn').disabled = false;
+  document.getElementById('bf_next1Btn').disabled = false;
 }
-
 function bfGetMonths(){
   const map={};
   BF_ALL_MATCHES.forEach(m=>{ const k=m.date.slice(0,7); map[k]=(map[k]||0)+1; });
@@ -1413,12 +1405,6 @@ function bfUpdateSummary(){
 }
 
 async function bfSubmit(){
-  if(!bfVersion){ bfErr('bf_error2','Please choose a version.'); return; }
-  bfErr('bf_error2','');
-
-  const btn=document.getElementById('bf_submitBtn');
-  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Sending…';
-
   const name=document.getElementById('bf_name').value.trim();
   const email=document.getElementById('bf_email').value.trim();
   const phone=document.getElementById('bf_phone').value.trim();
@@ -1427,6 +1413,14 @@ async function bfSubmit(){
   const guests=document.getElementById('bf_guests').value;
   const source=document.getElementById('bf_source').value;
   const requests=document.getElementById('bf_requests').value.trim();
+
+  if(!name||!bfValid(email)||!country||!date||!guests||!source){
+    bfErr('bf_error2','Please fill in all required fields.'); return;
+  }
+  bfErr('bf_error2','');
+
+  const btn=document.getElementById('bf_submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Sending…';
 
   const pp = bfVersion==='B' ? BF_PRICE_B : BF_PRICE_A;
   const packageCode = bfVersion==='A' ? 'PRG-A' : 'PRG-B';
@@ -1493,6 +1487,7 @@ function preselectVersion(val){
     }
   }, 300);
 }
+bfRenderMonths();
 </script>
 </body>
 </html>
