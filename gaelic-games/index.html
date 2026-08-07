@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>
+    if (location.search.includes('debug=btp123')) {
+      eruda.init();
+    }
+  </script>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dublin Gaelic Games Experience | Hurling & Football | Beyond the Pitch</title>
   <meta name="description" content="Learn Gaelic Games with local Dublin GAA coaches, train on the pitch, and watch a live GAA match the way the Irish do. Small-group cultural sports experiences in Dublin (also available in Kilkenny). From €115 p.p." />
@@ -503,6 +511,26 @@
 .hero-video-fallback-btn svg { margin-left: 4px; }
     ::selection { background: var(--dublin-blue); color: #fff; }
   </style>
+  <script>
+    function switchTab(tab) {
+      const kPanel = document.getElementById('panel-kilkenny');
+      const dPanel = document.getElementById('panel-dublin');
+      const kBtn   = document.getElementById('tab-kilkenny');
+      const dBtn   = document.getElementById('tab-dublin');
+      if (!kPanel || !dPanel || !kBtn || !dBtn) return;
+      if (tab === 'kilkenny') {
+        kPanel.style.display = 'block';
+        dPanel.style.display = 'none';
+        kBtn.classList.add('active');
+        dBtn.classList.remove('active');
+      } else {
+        kPanel.style.display = 'none';
+        dPanel.style.display = 'block';
+        dBtn.classList.add('active');
+        kBtn.classList.remove('active');
+      }
+    }
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -2073,24 +2101,6 @@ document.querySelectorAll('a[href*="/community/"]').forEach(function(link) {
       floatingCtaBtn.classList.toggle('visible', pastHero);
       floatingWaBtn.classList.toggle('visible', pastHero);
     });
-    // Tabs — Dublin is the default active panel (see initial HTML state above)
-    function switchTab(tab) {
-      const kPanel = document.getElementById('panel-kilkenny');
-      const dPanel = document.getElementById('panel-dublin');
-      const kBtn   = document.getElementById('tab-kilkenny');
-      const dBtn   = document.getElementById('tab-dublin');
-      if (tab === 'kilkenny') {
-        kPanel.style.display = 'block';
-        dPanel.style.display = 'none';
-        kBtn.classList.add('active');
-        dBtn.classList.remove('active');
-      } else {
-        kPanel.style.display = 'none';
-        dPanel.style.display = 'block';
-        dBtn.classList.add('active');
-        kBtn.classList.remove('active');
-      }
- }
   </script>
   <script>
 document.querySelectorAll('.yt-facade').forEach(function(facade) {
