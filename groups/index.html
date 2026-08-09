@@ -334,6 +334,7 @@
     @media (max-width: 640px) {
       .info-strip { grid-template-columns: 1fr 1fr !important; }
       .footer-grid { grid-template-columns: 1fr !important; }
+      .form-row-2, .form-row-3 { grid-template-columns: 1fr !important; }
     }
 
     ::selection { background: var(--gold-bright); color: #000; }
@@ -395,8 +396,8 @@
       <div style="max-width:850px;margin:0 auto;">
         <span class="section-label"><span class="lang-en">For trip organisers</span><span class="lang-nl">Voor reisorganisatoren</span></span>
         <h1 style="font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;letter-spacing:-0.03em;line-height:1.15;color:#fff;margin-bottom:1.25rem;text-shadow:0 2px 24px rgba(0,0,0,0.4);">
-          <span class="lang-en">Sport and culture experiences for group trips.<br><span style="color:var(--gold-bright);"></span></span>
-          <span class="lang-nl">Sport- en cultuurexperiences voor groepsreizen.<br><span style="color:var(--gold-bright);"></span></span>
+          <span class="lang-en">Sport and culture experiences for group trips.<br><span style="color:var(--gold-bright);">Booked as one item, added to your itinerary.</span></span>
+          <span class="lang-nl">Sport- en cultuurexperiences voor groepsreizen.<br><span style="color:var(--gold-bright);">Geboekt als één item, toegevoegd aan jullie programma.</span></span>
         </h1>
         <div class="zone-divider"></div>
         <p style="color:rgba(255,255,255,0.85);font-size:1.05rem;line-height:1.85;margin-top:2rem;margin-bottom:2rem;max-width:560px;text-shadow:0 1px 12px rgba(0,0,0,0.5);">
@@ -692,12 +693,12 @@
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
           <input type="text" name="_honey" style="display:none">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
             <input required name="name" placeholder="Your name" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
             <input required name="organisation" placeholder="Organisation" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
           </div>
           <input required type="email" name="email" placeholder="Work email" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+          <div class="form-row-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
             <select required name="destination" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
               <option value="">Destination</option>
               <option>Dublin / Kilkenny</option>
