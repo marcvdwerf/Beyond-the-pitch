@@ -526,8 +526,38 @@
         </div>
 
       <div id="bfStep1">
-          <div class="form-title">Choose your version</div>
+          <div class="form-title">Pick a match — or skip it</div>
 
+          <!-- Fixture picker — shown first, so guests browse matches before locking a version -->
+          <div id="bf_fixturePicker">
+            <div class="section-label-booking">Live Extraliga fixtures (optional)</div>
+            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Browse by month and pick a match — or skip straight to the walking tour only.</p>
+
+            <div class="fixture-item" id="bf_noMatchOption" onclick="bfSkipMatch()" style="margin-bottom:12px;">
+              <div class="fixture-radio" id="bf_noMatchRadio"></div>
+              <div style="flex:1;min-width:0;">
+                <div class="fixture-name">No live match — walking tour + Hall of Fame only</div>
+                <div class="fixture-meta"><span style="font-size:0.7rem;color:var(--soft)">Works year-round, no fixture needed</span></div>
+              </div>
+              <div class="fixture-price">€65</div>
+            </div>
+
+            <div class="month-grid" id="bf_monthGrid"></div>
+            <div id="bf_fixtureBlock" style="display:none;">
+              <div class="fixture-list" id="bf_fixtureList"></div>
+            </div>
+            <div id="bf_bestAvailableOption" class="fixture-item" onclick="bfPickBestAvailable()" style="display:none;margin-top:8px;">
+              <div class="fixture-radio" id="bf_bestAvailableRadio"></div>
+              <div style="flex:1;min-width:0;">
+                <div class="fixture-name">Not sure which match — pick the best available</div>
+                <div class="fixture-meta"><span style="font-size:0.7rem;color:var(--soft)">We'll confirm the fixture within 24–48 hours</span></div>
+              </div>
+              <div class="fixture-price">€97</div>
+            </div>
+          </div>
+
+          <!-- Version confirmation — auto-set by the match choice above, still editable -->
+          <div class="section-label-booking" style="margin-top:18px;">Your version</div>
           <div class="version-grid" style="margin-bottom:16px;">
             <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
               <div class="version-radio-dot"></div>
@@ -542,16 +572,6 @@
               <div class="v-title">Tour + Hall of Fame + match</div>
               <div class="v-price" style="color:var(--gold)">€97 <span style="font-size:.75rem;font-weight:500;color:var(--soft)">p.p.</span></div>
               <div class="v-includes">Everything in A + live Extraliga match.</div>
-            </div>
-          </div>
-
-          <!-- Fixture picker — Version B only -->
-          <div id="bf_fixturePicker" style="display:none;">
-            <div class="section-label-booking">Preferred fixture (optional)</div>
-            <p style="font-size:0.78rem;color:var(--soft);margin-bottom:10px;">Select a match or leave it — we'll pick the best available for your date.</p>
-            <div class="month-grid" id="bf_monthGrid"></div>
-            <div id="bf_fixtureBlock" style="display:none;">
-              <div class="fixture-list" id="bf_fixtureList"></div>
             </div>
           </div>
 
@@ -1333,13 +1353,32 @@ function bfSelectVersion(v){
   bfVersion=v;
   document.getElementById('vcard_a').classList.toggle('active',v==='A');
   document.getElementById('vcard_b').classList.toggle('active',v==='B');
-  document.getElementById('bf_fixturePicker').style.display = v==='B' ? 'block' : 'none';
-  if(v==='A'){ bfFixture=null; bfMonth=null; }
+  if(v==='A'){ bfFixture=null; bfMonth=null; bfRenderFixtures(); }
+  bfSyncMatchRadios();
   bfUpdateSummary();
   document.getElementById('bf_next1Btn').disabled = false;
-  if(v==='B' && !document.getElementById('bf_monthGrid').children.length){
-    bfRenderMonths();
-  }
+}
+
+// Explicit "no match" choice from the fixture picker — sets Version A
+function bfSkipMatch(){
+  bfFixture=null; bfMonth=null;
+  bfRenderMonths(); bfRenderFixtures();
+  bfSelectVersion('A');
+}
+
+// "Pick best available" — sets Version B with no specific fixture chosen
+function bfPickBestAvailable(){
+  bfFixture=null;
+  bfSelectVersion('B');
+}
+
+// Keep the no-match / best-available rows visually in sync with the current choice
+function bfSyncMatchRadios(){
+  const noMatchActive = bfVersion==='A';
+  document.getElementById('bf_noMatchOption').classList.toggle('active', noMatchActive);
+  const bestBtn = document.getElementById('bf_bestAvailableOption');
+  const bestActive = bfVersion==='B' && !bfFixture;
+  if(bestBtn) bestBtn.classList.toggle('active', bestActive);
 }
 function bfGetMonths(){
   const map={};
@@ -1358,7 +1397,7 @@ function bfRenderMonths(){
     const btn=document.createElement('button');
     btn.type='button'; btn.className='month-btn'+(bfMonth===m.key?' active':'');
     btn.innerHTML=`<span class="m-name">${m.label}</span><span class="m-count">${m.count} match${m.count!==1?'es':''}</span>`;
-    btn.addEventListener('click',()=>{ bfMonth=m.key; bfFixture=null; bfRenderMonths(); bfRenderFixtures(); bfUpdateSummary(); });
+    btn.addEventListener('click',()=>{ bfMonth=m.key; bfFixture=null; bfRenderMonths(); bfRenderFixtures(); bfSyncMatchRadios(); bfUpdateSummary(); });
     grid.appendChild(btn);
   });
 }
@@ -1366,11 +1405,12 @@ function bfRenderMonths(){
 function bfRenderFixtures(){
   const block=document.getElementById('bf_fixtureBlock');
   const list=document.getElementById('bf_fixtureList');
+  const bestBtn=document.getElementById('bf_bestAvailableOption');
   if(!block||!list)return;
-  if(!bfMonth){ block.style.display='none'; return; }
+  if(!bfMonth){ block.style.display='none'; if(bestBtn) bestBtn.style.display='none'; return; }
   const filtered=BF_ALL_MATCHES.filter(m=>m.date.startsWith(bfMonth));
   list.innerHTML='';
-  if(!filtered.length){ list.innerHTML='<div class="no-fixtures">No matches this month.</div>'; block.style.display='block'; return; }
+  if(!filtered.length){ list.innerHTML='<div class="no-fixtures">No matches this month.</div>'; block.style.display='block'; if(bestBtn) bestBtn.style.display='flex'; bfSyncMatchRadios(); return; }
   filtered.forEach(m=>{
     const el=document.createElement('div');
     const isActive=bfFixture&&bfFixture.date===m.date&&bfFixture.club===m.club;
@@ -1386,10 +1426,12 @@ function bfRenderFixtures(){
         </div>
       </div>
       <div class="fixture-price">€${BF_PRICE_B}</div>`;
-    el.addEventListener('click',()=>{ bfFixture=m; bfRenderFixtures(); bfUpdateSummary(); });
+    el.addEventListener('click',()=>{ bfFixture=m; bfSelectVersion('B'); bfRenderFixtures(); });
     list.appendChild(el);
   });
   block.style.display='block';
+  if(bestBtn) bestBtn.style.display='flex';
+  bfSyncMatchRadios();
 }
 
 function bfUpdateSummary(){
