@@ -549,7 +549,7 @@
         <a href="/" class="nav-link">Home</a>
         <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('dublin'),100)" class="nav-link">Dublin</a>
         <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('kilkenny'),100)" class="nav-link">Kilkenny</a>
-        <a href="/gaelic-trivia/" class="nav-link">The Challenge</a>
+        <a href="/groups/" class="nav-link">Groups</a>
         <a href="/about/" class="nav-link">About</a>
         <a href="/contact/" class="nav-link">Contact</a>
       </nav>
@@ -570,7 +570,7 @@
       <a href="/" class="nav-link">Home</a>
       <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('dublin'),100)" class="nav-link">Dublin</a>
       <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('kilkenny'),100)" class="nav-link">Kilkenny</a>
-      <a href="/gaelic-trivia/" class="nav-link">The Gaelic Challenge</a>
+      <a href="/groups/" class="nav-link">Groups</a>
       <a href="/about/" class="nav-link">About</a>
       <a href="/contact/" class="nav-link">Contact</a>
       <a href="#book" onclick="bookGoTo('dublin')" class="nav-link" style="margin-top:0.5rem;background:var(--dublin-blue);color:#fff;padding:0.85rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;text-align:center;">Book Now</a>
@@ -886,18 +886,18 @@ Add something truly unique to your trip.
 
     </div>
   </section>
-    <!-- ══ GAELIC CHALLENGE TEASER - lead capture, right below the hero for max visibility ══ -->
+    <!-- ══ GROUPS TEASER - lead capture, right below the hero for max visibility ══ -->
   <section class="zone-dark" style="padding:2.5rem 1.5rem;border-top:1px solid var(--border-dark);border-bottom:1px solid var(--border-dark);">
     <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem;">
       <div style="display:flex;align-items:center;gap:1rem;">
         <span style="font-size:1.8rem;line-height:1;"></span>
         <div>
-          <p style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:0.15rem;">How much do you know about Gaelic Games?</p>
-          <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Take the Gaelic Challenge - test your knowledge in 2 minutes</p>
+          <p style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:0.15rem;">Travelling with a group?</p>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);">See our group options and private slot arrangements</p>
         </div>
       </div>
-      <a href="/gaelic-trivia/" onclick="gtag('event','gaelic_challenge_click',{cta_location:'hero_banner',page_location:window.location.href})" style="background:var(--dublin-blue);color:#fff;padding:0.85rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;white-space:nowrap;display:inline-flex;align-items:center;gap:0.5rem;">
-        Take the Challenge
+      <a href="/groups/" onclick="gtag('event','groups_click',{cta_location:'hero_banner',page_location:window.location.href})" style="background:var(--dublin-blue);color:#fff;padding:0.85rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;white-space:nowrap;display:inline-flex;align-items:center;gap:0.5rem;">
+        See Group Options
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
@@ -1103,34 +1103,31 @@ Add something truly unique to your trip.
     pkgLow: 'DUB-PRM', pkgHigh: 'DUB-HDG',
     included: "Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match of your choice",
     matches: [
-      { id:'hurl-g1-erinsisle-vincents-jul24', date:'2026-07-24', teams:'Erins Isle v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-whitehall-nafianna-jul24', date:'2026-07-24', teams:'Whitehall Colmcille v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-crokes-naomhbarrog-jul25', date:'2026-07-25', teams:'Kilmacud Crokes v Naomh Barróg', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-cuala-lucan-jul25', date:'2026-07-25', teams:'Cuala v Lucan Sarsfields', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'lgfa-final', date:'2026-08-02', teams:'All Ireland Ladies Gaelic Football – Final', venue:'Croke Park, Dublin', sport:'Football', price:129 },
-      { id:'foot-g3-nafianna-thomasdavis-aug07', date:'2026-08-07', teams:'Na Fianna v Thomas Davis', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-      { id:'foot-g3-skerries-raheny-aug07', date:'2026-08-07', teams:'Skerries Harps v Raheny', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-      { id:'foot-g1-ballyboden-templeogue-aug08', date:'2026-08-08', teams:'Ballyboden St Endas v Templeogue Synge St', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-      { id:'foot-g2-crokes-clontarf-aug08', date:'2026-08-08', teams:'Kilmacud Crokes v Clontarf', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
-      { id:'camogie-final', date:'2026-08-09', teams:'All Ireland Camogie – Final', venue:'Croke Park, Dublin', sport:'Camogie', price:129 },
-      { id:'hurl-g1-vincents-whitehall-aug14', date:'2026-08-14', teams:'St Vincents v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-naomhbarrog-nafianna-aug14', date:'2026-08-14', teams:'Naomh Barróg v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-brigids-cuala-aug15', date:'2026-08-15', teams:'St Brigids v Cuala', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-faughs-ballyboden-aug15', date:'2026-08-15', teams:'Faughs v Ballyboden St Endas', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-judes-lucan-aug15', date:'2026-08-15', teams:'St Judes v Lucan Sarsfields', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-erinsisle-naomhbarrog-aug28', date:'2026-08-28', teams:'Erins Isle v Naomh Barróg', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-nafianna-vincents-aug28', date:'2026-08-28', teams:'Na Fianna v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-cuala-faughs-aug29', date:'2026-08-29', teams:'Cuala v Faughs', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-ballyboden-judes-aug29', date:'2026-08-29', teams:'Ballyboden St Endas v St Judes', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-naomhbarrog-vincents-sep11', date:'2026-09-11', teams:'Naomh Barróg v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-erinsisle-whitehall-sep11', date:'2026-09-11', teams:'Erins Isle v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g1-crokes-nafianna-sep12', date:'2026-09-12', teams:'Kilmacud Crokes v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-      { id:'hurl-g2-ballyboden-cuala-sep12', date:'2026-09-12', teams:'Ballyboden St Endas v Cuala', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
-     { id:'oct-w1-tbc', date:'2026-10-03', teams:'Fixture TBC (Fri–Sun)', venue:'Parnell Park, Dublin', sport:'GAA', price:115 },
-      { id:'oct-w2-tbc', date:'2026-10-10', teams:'Fixture TBC (Fri–Sun)', venue:'Parnell Park, Dublin', sport:'GAA', price:115 },
-      { id:'oct-w3-tbc', date:'2026-10-17', teams:'Fixture TBC (Fri–Sun)', venue:'Parnell Park, Dublin', sport:'GAA', price:115 },
-      { id:'oct-w4-tbc', date:'2026-10-24', teams:'Fixture TBC (Fri–Sun)', venue:'Parnell Park, Dublin', sport:'GAA', price:115 },
-      { id:'oct-w5-tbc', date:'2026-10-31', teams:'Fixture TBC (Fri–Sun)', venue:'Parnell Park, Dublin', sport:'GAA', price:115 }
+      { id:'foot-castleknock-templeogue-sep05', date:'2026-09-05', teams:'Castleknock v Templeogue Synge St', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'foot-nafianna-skerries-sep05', date:'2026-09-05', teams:'Na Fianna v Skerries Harps', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'foot-ballinteer-crokes-sep06', date:'2026-09-06', teams:'Ballinteer St Johns v Kilmacud Crokes', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'foot-ballymun-judes-sep06', date:'2026-09-06', teams:'Ballymun Kickhams v St Judes', venue:'Parnell Park, Dublin', sport:'Football', price:115 },
+      { id:'hurl-naomhbarrog-vincents-sep11', date:'2026-09-11', teams:'Naomh Barróg v St Vincents', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-erinsisle-whitehall-sep11', date:'2026-09-11', teams:'Erins Isle v Whitehall Colmcille', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'hurl-crokes-nafianna-sep12', date:'2026-09-12', teams:'Kilmacud Crokes v Na Fianna', venue:'Parnell Park, Dublin', sport:'Hurling', price:115 },
+      { id:'foot-dub-sfc1-qf-sep19', date:'2026-09-19', teams:'Dublin SFC1 - Quarter-finals', venue:'Dublin - venue TBC', sport:'Football', price:115 },
+      { id:'hurl-dub-shc1-qf-sep26', date:'2026-09-26', teams:'Dublin SHC1 - Quarter-finals', venue:'Dublin - venue TBC', sport:'Hurling', price:115 },
+      { id:'foot-dub-sfc1-sf-oct03', date:'2026-10-03', teams:'Dublin SFC1 - Semi-finals', venue:'Dublin - venue TBC', sport:'Football', price:129 },
+      { id:'hurl-dub-shc1-sf-oct10', date:'2026-10-10', teams:'Dublin SHC1 - Semi-finals', venue:'Dublin - venue TBC', sport:'Hurling', price:129 },
+      { id:'foot-dub-sfc1-final-oct17', date:'2026-10-17', teams:'Dublin SFC1 - Final', venue:'Dublin - venue TBC', sport:'Football', price:129 },
+      { id:'hurl-dub-shc1-final-oct24', date:'2026-10-24', teams:'Dublin SHC1 - Final', venue:'Dublin - venue TBC', sport:'Hurling', price:129 },
+      { id:'foot-dub-sr2-final-oct31', date:'2026-10-31', teams:'Dublin Senior 2 Football Final', venue:'Dublin - venue TBC', sport:'Football', price:115 },
+      { id:'foot-offaly-dublin-nov01', date:'2026-11-01', teams:'Offaly champion v Dublin champion', venue:'Offaly (away fixture)', sport:'Football', price:129 },
+      { id:'hurl-carlow-dublin-nov07', date:'2026-11-07', teams:'Carlow champion v Dublin champion', venue:'Carlow (away fixture)', sport:'Hurling', price:129 },
+      { id:'foot-leinster-qf-nov14', date:'2026-11-14', teams:'Leinster Senior Club Football - Quarter-final', venue:'Venue TBC (possibly Dublin)', sport:'Football', price:129 },
+      { id:'hurl-leinster-sf-nov21', date:'2026-11-21', teams:'Leinster Senior Club Hurling - Semi-final', venue:'Venue TBC (outside Dublin)', sport:'Hurling', price:129 },
+      { id:'foot-leinster-sf-nov28', date:'2026-11-28', teams:'Leinster Senior Club Football - Semi-final', venue:'Venue TBC (possibly Dublin)', sport:'Football', price:129 },
+      { id:'foot-leinster-final-dec05', date:'2026-12-05', teams:'Leinster Senior Club Football - Final', venue:'Croke Park, Dublin', sport:'Football', price:159 },
+      { id:'hurl-leinster-final-dec05', date:'2026-12-05', teams:'Leinster Senior Club Hurling - Final', venue:'Croke Park, Dublin', sport:'Hurling', price:159 },
+      { id:'foot-lgfa-club-finals-dec12', date:'2026-12-12', teams:'LGFA Club Finals', venue:'Croke Park, Dublin', sport:'Football', price:159 },
+      { id:'camogie-club-finals-dec13', date:'2026-12-13', teams:'Camogie Club Finals', venue:'Croke Park, Dublin', sport:'Camogie', price:159 },
+      { id:'gaa-ai-junior-inter-finals-jan10', date:'2027-01-10', teams:'All-Ireland Junior & Intermediate Club Finals', venue:'Croke Park, Dublin', sport:'GAA', price:159 },
+      { id:'gaa-ai-senior-finals-jan17', date:'2027-01-17', teams:'All-Ireland Senior Club Finals', venue:'Croke Park, Dublin', sport:'GAA', price:159 }
     ]
   },
   kilkenny: {
