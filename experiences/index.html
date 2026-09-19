@@ -65,6 +65,25 @@
     html { scroll-behavior:smooth; }
     body { font-family:"Inter",system-ui,sans-serif; background:var(--dark); color:#fff; -webkit-font-smoothing:antialiased; line-height:1.6; }
 
+    /* LANGUAGE TOGGLE */
+    .lang-nl { display: none; }
+    body.lang-active-nl .lang-en { display: none; }
+    body.lang-active-nl .lang-nl { display: inline; }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 2px;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+      padding: 2px; background: rgba(255,255,255,0.03);
+    }
+    .lang-btn {
+      border: none; background: transparent; color: rgba(255,255,255,0.5);
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em;
+      padding: 0.4rem 0.65rem; border-radius: 4px; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .lang-btn.active { background: var(--gold-bright); color: #000; }
+    .lang-btn:hover:not(.active) { color: #fff; }
+    .mobile-menu .lang-toggle { margin-top: 0.5rem; }
+
     /* NAV */
     .header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,10,10,0.97); backdrop-filter:blur(12px); border-bottom:1px solid var(--border-dark); transition:all 0.3s ease; }
     .logo { font-size:1.2rem; font-weight:900; color:#fff; text-decoration:none; letter-spacing:-0.02em; }
@@ -260,7 +279,7 @@
   </script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link"><span class="lang-en">Skip to content</span><span class="lang-nl">Ga naar inhoud</span></a>
 
   <!-- HEADER -->
   <header class="header" id="header">
@@ -268,9 +287,13 @@
       <a href="/" class="logo">Beyond the Pitch</a>
       <nav class="hidden md:flex items-center gap-8">
         <a href="/experiences/" class="nav-link active" aria-current="page">Experiences</a>
-        <a href="/groups/" class="nav-link">For groups</a>
-        <a href="/about/" class="nav-link">About</a>
+        <a href="/groups/" class="nav-link"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+        <a href="/about/" class="nav-link"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
         <a href="/contact/" class="nav-link">Contact</a>
+        <div class="lang-toggle">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="nl">NL</button>
+        </div>
       </nav>
       <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -289,10 +312,14 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:0.25rem;">
       <a href="/experiences/" class="nav-link" style="color:#fff;padding:0.75rem 0;border-bottom:1px solid var(--border-dark);display:block;">Experiences</a>
-      <a href="/groups/" class="nav-link" style="padding:0.75rem 0;border-bottom:1px solid var(--border-dark);display:block;">For groups</a>
-      <a href="/about/" class="nav-link" style="padding:0.75rem 0;border-bottom:1px solid var(--border-dark);display:block;">About</a>
+      <a href="/groups/" class="nav-link" style="padding:0.75rem 0;border-bottom:1px solid var(--border-dark);display:block;"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+      <a href="/about/" class="nav-link" style="padding:0.75rem 0;border-bottom:1px solid var(--border-dark);display:block;"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
       <a href="/contact/" class="nav-link" style="padding:0.75rem 0;display:block;">Contact</a>
-      <a href="/contact/" style="color:var(--gold-bright);font-weight:700;font-size:0.9rem;text-decoration:none;margin-top:1.5rem;display:inline-flex;align-items:center;gap:0.4rem;">Get in touch →</a>
+      <a href="/contact/" style="color:var(--gold-bright);font-weight:700;font-size:0.9rem;text-decoration:none;margin-top:1.5rem;display:inline-flex;align-items:center;gap:0.4rem;"><span class="lang-en">Get in touch →</span><span class="lang-nl">Neem contact op →</span></a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="nl">NL</button>
+      </div>
     </div>
   </nav>
 
@@ -301,13 +328,14 @@
   <!-- ══ PAGE HEADER ══ -->
   <section class="zone-dark page-header" style="padding:8rem 1.5rem 4rem;">
     <div style="max-width:1100px;margin:0 auto;">
-      <span class="section-label">Cultural Sports Experiences</span>
+      <span class="section-label"><span class="lang-en">Cultural Sports Experiences</span><span class="lang-nl">Culturele sportervaringen</span></span>
       <h1 style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;letter-spacing:-0.05em;line-height:0.95;color:#fff;margin-bottom:1rem;">
         Experiences
       </h1>
       <div class="zone-divider"></div>
       <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;line-height:1.85;margin-top:1.5rem;max-width:500px;">
-        Two experiences. Each built around a sporting tradition that runs deep - and a local expert who has spent their life inside it. Looking for something else? We're happy to think along about other locations too.
+        <span class="lang-en">Two experiences. Each built around a sporting tradition that runs deep - and a local expert who has spent their life inside it. Looking for something else? We're happy to think along about other locations too.</span>
+        <span class="lang-nl">Twee experiences. Elk opgebouwd rond een sportieve traditie die diep geworteld is - en een lokale expert die er zijn hele leven middenin staat. Op zoek naar iets anders? We denken graag mee over andere locaties.</span>
       </p>
     </div>
   </section>
@@ -323,28 +351,29 @@
           <a href="/gaelic-games/" style="text-decoration:none;display:block;">
             <img src="/images/hurling-kilkenny.JPG" alt="Hurling match in Kilkenny, Ireland" loading="lazy" />
             <div class="exp-card-body">
-              <span class="exp-tag">Ireland · Year-round</span>
+              <span class="exp-tag"><span class="lang-en">Ireland · Year-round</span><span class="lang-nl">Ierland · het hele jaar door</span></span>
               <h2 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;color:#fff;margin-bottom:0.75rem;">Hurling &amp; Gaelic Football</h2>
               <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.75;margin-bottom:1.5rem;">
-                Learn about Gaelic Games from a local in an Interactive Hall of Fame presentation, try them yourself through a Gaelic Football, Hurling & Gaelic Handball training, and the absolute highlight: Experience a live matchday, from start till end, in the way the Irish do.
+                <span class="lang-en">Learn about Gaelic Games from a local in an Interactive Hall of Fame presentation, try them yourself through a Gaelic Football, Hurling & Gaelic Handball training, and the absolute highlight: Experience a live matchday, from start till end, in the way the Irish do.</span>
+                <span class="lang-nl">Leer over Gaelic Games van een local tijdens een interactieve Hall of Fame-presentatie, probeer het zelf tijdens een Gaelic Football-, Hurling- & Gaelic Handball-training, en het absolute hoogtepunt: maak een live wedstrijddag mee, van begin tot eind, zoals de Ieren dat doen.</span>
               </p> 
               <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;">
                 <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.45);">
-                  <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> Hands-on hurling &amp; Gaelic football session
+                  <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> <span class="lang-en">Hands-on hurling &amp; Gaelic football session</span><span class="lang-nl">Praktijksessie hurling &amp; Gaelic football</span>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.45);">
-                  <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> Live match at a GAA stadium 
+                  <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> <span class="lang-en">Live match at a GAA stadium</span><span class="lang-nl">Live wedstrijd bij een GAA-stadion</span>
                 </div>
                 <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.45);">
-                  <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> Minimum 4 participants · Dublin & Kilkenny, Ireland
+                  <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> <span class="lang-en">Minimum 4 participants · Dublin & Kilkenny, Ireland</span><span class="lang-nl">Minimaal 4 deelnemers · Dublin & Kilkenny, Ierland</span>
                 </div>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding-top:1.25rem;border-top:1px solid var(--border-dark);">
                 <div>
-                  <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;">Group rate</p>
-                  <p style="font-size:1.2rem;font-weight:900;color:#fff;">On request</p>
+                  <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;"><span class="lang-en">Group rate</span><span class="lang-nl">Groepstarief</span></p>
+                  <p style="font-size:1.2rem;font-weight:900;color:#fff;"><span class="lang-en">On request</span><span class="lang-nl">Op aanvraag</span></p>
                 </div>
-                <span style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;white-space:nowrap;">Request a quote →</span>
+                <span style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;white-space:nowrap;"><span class="lang-en">Request a quote →</span><span class="lang-nl">Vraag een offerte aan →</span></span>
               </div>
             </div>
           </a>
@@ -355,28 +384,29 @@
   <a href="/prague/" style="text-decoration:none;display:block;">
  <img src="/prague/images/hall-of-fame.jpeg" alt="Prague Ice Hockey Experience - Czech Hockey Hall of Fame" loading="lazy" />
     <div class="exp-card-body">
-      <span class="exp-tag">Czech Republic · Prague</span>
-      <h2 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;color:#fff;margin-bottom:0.75rem;">Prague Ice Hockey</h2>
+      <span class="exp-tag"><span class="lang-en">Czech Republic · Prague</span><span class="lang-nl">Tsjechië · Praag</span></span>
+      <h2 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;color:#fff;margin-bottom:0.75rem;"><span class="lang-en">Prague Ice Hockey</span><span class="lang-nl">IJshockey in Praag</span></h2>
       <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.75;margin-bottom:1.5rem;">
-        Read Prague through hockey. A 2-hour walk with local guide Kamil — independence, occupation, resistance. Czech Hockey Hall of Fame included. Live Extraliga match in season.
+        <span class="lang-en">Read Prague through hockey. A 2-hour walk with local guide Kamil — independence, occupation, resistance. Czech Hockey Hall of Fame included. Live Extraliga match in season.</span>
+        <span class="lang-nl">Ontdek Praag via ijshockey. Een wandeling van 2 uur met lokale gids Kamil — onafhankelijkheid, bezetting, verzet. Inclusief de Tsjechische IJshockey Hall of Fame. In het seizoen ook een live Extraliga-wedstrijd.</span>
       </p>
       <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;">
         <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.45);">
-          <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> 2-hour guided city walk with Kamil
+          <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> <span class="lang-en">2-hour guided city walk with Kamil</span><span class="lang-nl">Begeleide stadswandeling van 2 uur met Kamil</span>
         </div>
         <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.45);">
-          <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> Czech Hockey Hall of Fame included
+          <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> <span class="lang-en">Czech Hockey Hall of Fame included</span><span class="lang-nl">Inclusief de Tsjechische IJshockey Hall of Fame</span>
         </div>
         <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.45);">
-          <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> Live Extraliga match in season
+          <span style="color:var(--gold-bright);flex-shrink:0;margin-top:1px;">✓</span> <span class="lang-en">Live Extraliga match in season</span><span class="lang-nl">In het seizoen een live Extraliga-wedstrijd</span>
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;padding-top:1.25rem;border-top:1px solid var(--border-dark);">
         <div>
-          <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;">Group rate</p>
-          <p style="font-size:1.2rem;font-weight:900;color:#fff;">On request</p>
+          <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;"><span class="lang-en">Group rate</span><span class="lang-nl">Groepstarief</span></p>
+          <p style="font-size:1.2rem;font-weight:900;color:#fff;"><span class="lang-en">On request</span><span class="lang-nl">Op aanvraag</span></p>
         </div>
-        <span style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;white-space:nowrap;">Request a quote →</span>
+        <span style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;white-space:nowrap;"><span class="lang-en">Request a quote →</span><span class="lang-nl">Vraag een offerte aan →</span></span>
       </div>
     </div>
   </a>
@@ -385,12 +415,13 @@
         <!-- Looking for something else -->
         <article class="exp-card-soon">
           <div class="exp-card-soon-inner">
-            <span class="exp-tag" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.4);">Other locations</span>
-            <h2 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;color:rgba(255,255,255,0.55);margin-bottom:0.75rem;">Looking for something else?</h2>
+            <span class="exp-tag" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.4);"><span class="lang-en">Other locations</span><span class="lang-nl">Andere locaties</span></span>
+            <h2 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;color:rgba(255,255,255,0.55);margin-bottom:0.75rem;"><span class="lang-en">Looking for something else?</span><span class="lang-nl">Op zoek naar iets anders?</span></h2>
             <p style="color:rgba(255,255,255,0.35);font-size:0.9rem;line-height:1.75;margin-bottom:1.5rem;">
-              Not limited to Ireland or Prague - we're happy to think along about sport and culture activities in other locations too, on request.
+              <span class="lang-en">Not limited to Ireland or Prague - we're happy to think along about sport and culture activities in other locations too, on request.</span>
+              <span class="lang-nl">Niet beperkt tot Ierland of Praag - we denken graag mee over sport- en cultuuractiviteiten op andere locaties, op aanvraag.</span>
             </p>
-            <a href="/contact/" style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;text-decoration:none;">Get in touch →</a>
+            <a href="/contact/" style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;text-decoration:none;"><span class="lang-en">Get in touch →</span><span class="lang-nl">Neem contact op →</span></a>
           </div>
         </article>
 
@@ -399,10 +430,10 @@
       <!-- Coming soon -->
       <div class="coming-soon-strip" style="margin-top:1.5rem;padding:1.5rem 2rem;border:1px dashed rgba(255,255,255,0.1);border-radius:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
         <div>
-          <span style="font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.2);display:block;margin-bottom:0.5rem;">Coming soon</span>
-          <p style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.35);">More destinations in the works</p>
+          <span style="font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:rgba(255,255,255,0.2);display:block;margin-bottom:0.5rem;"><span class="lang-en">Coming soon</span><span class="lang-nl">Binnenkort</span></span>
+          <p style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.35);"><span class="lang-en">More destinations in the works</span><span class="lang-nl">Meer bestemmingen in de maak</span></p>
         </div>
-        <a href="/contact/" style="font-size:0.82rem;color:rgba(255,255,255,0.3);text-decoration:none;font-weight:600;white-space:nowrap;">Stay in the loop →</a>
+        <a href="/contact/" style="font-size:0.82rem;color:rgba(255,255,255,0.3);text-decoration:none;font-weight:600;white-space:nowrap;"><span class="lang-en">Stay in the loop →</span><span class="lang-nl">Blijf op de hoogte →</span></a>
       </div>
 
     </div>
@@ -416,35 +447,35 @@
       <div class="footer-grid">
         <div>
           <a href="/" style="font-size:1.1rem;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.02em;display:block;margin-bottom:0.75rem;">Beyond the Pitch</a>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:1.25rem;">A cultural sports experience organiser connecting participants with authentic sporting traditions in Ireland and the Czech Republic.</p>
-          <p style="font-size:0.78rem;color:rgba(255,255,255,0.2);">Not a travel agency. Flights and accommodation not included.</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:1.25rem;"><span class="lang-en">A cultural sports experience organiser connecting participants with authentic sporting traditions in Ireland and the Czech Republic.</span><span class="lang-nl">Een cultureel sportervaringen-organisator die deelnemers verbindt met authentieke sporttradities in Ierland en Tsjechië.</span></p>
+          <p style="font-size:0.78rem;color:rgba(255,255,255,0.2);"><span class="lang-en">Not a travel agency. Flights and accommodation not included.</span><span class="lang-nl">Geen reisbureau. Vluchten en accommodatie niet inbegrepen.</span></p>
         </div>
         <div>
           <h4>Experiences</h4>
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <a href="/gaelic-games/">Gaelic Games - Ireland</a>
-            <a href="/prague/">Ice hockey- Prague</a>
+            <a href="/gaelic-games/"><span class="lang-en">Gaelic Games - Ireland</span><span class="lang-nl">Gaelic Games - Ierland</span></a>
+            <a href="/prague/"><span class="lang-en">Ice hockey - Prague</span><span class="lang-nl">IJshockey - Praag</span></a>
           </div>
         </div>
         <div>
-          <h4>Company</h4>
+          <h4><span class="lang-en">Company</span><span class="lang-nl">Bedrijf</span></h4>
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <a href="/about/">About</a>
-            <a href="/blogs/">Stories</a>
+            <a href="/about/"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+            <a href="/blogs/"><span class="lang-en">Stories</span><span class="lang-nl">Verhalen</span></a>
             <a href="/community/new-in-dublin/">Community</a>
             <a href="/contact/">Contact</a>
           </div>
         </div>
         <div>
-          <h4>Legal</h4>
+          <h4><span class="lang-en">Legal</span><span class="lang-nl">Juridisch</span></h4>
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <a href="/privacy-policy/">Privacy Policy</a>
-            <a href="/terms/">Terms &amp; Conditions</a>
+            <a href="/privacy-policy/"><span class="lang-en">Privacy Policy</span><span class="lang-nl">Privacybeleid</span></a>
+            <a href="/terms/"><span class="lang-en">Terms &amp; Conditions</span><span class="lang-nl">Algemene voorwaarden</span></a>
           </div>
         </div>
       </div>
       <div style="padding-top:2rem;border-top:1px solid var(--border-dark);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
-        <p style="font-size:0.75rem;color:rgba(255,255,255,0.2);">© 2026 Beyond the Pitch. All rights reserved.</p>
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.2);"><span class="lang-en">© 2026 Beyond the Pitch. All rights reserved.</span><span class="lang-nl">© 2026 Beyond the Pitch. Alle rechten voorbehouden.</span></p>
         <a href="mailto:info@travelbeyondthepitch.com" style="font-size:0.75rem;color:rgba(255,255,255,0.2);">info@travelbeyondthepitch.com</a>
       </div>
     </div>
@@ -483,6 +514,29 @@
         gtag('event','outbound_click',{event_category:'engagement',event_label:link.href,value:1});
       }
     });
+
+    // ── Language toggle ──
+    function setLang(lang) {
+      document.body.classList.toggle('lang-active-nl', lang === 'nl');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    let initialLang = 'en';
+    try {
+      const saved = localStorage.getItem('btp_lang');
+      if (saved === 'en' || saved === 'nl') {
+        initialLang = saved;
+      } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
+        initialLang = 'nl';
+      }
+    } catch(e) {}
+    setLang(initialLang);
   </script>
 </body>
 </html>
