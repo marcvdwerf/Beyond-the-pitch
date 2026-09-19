@@ -249,6 +249,25 @@
     .bg-7{background-image:url('images/politických-vězňů-prague.jpeg')}
     .bg-8{background-image:linear-gradient(180deg, rgba(10,10,11,.12), rgba(10,10,11,.3)), url('images/hall-of-fame.jpeg')}
 
+    /* LANGUAGE TOGGLE */
+    .lang-nl { display: none; }
+    body.lang-active-nl .lang-en { display: none; }
+    body.lang-active-nl .lang-nl { display: inline; }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 2px;
+      border: 1px solid var(--line-2); border-radius: 6px;
+      padding: 2px; background: rgba(255,255,255,0.03);
+    }
+    .lang-btn {
+      border: none; background: transparent; color: var(--soft);
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em;
+      padding: 0.4rem 0.6rem; border-radius: 4px; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .lang-btn.active { background: var(--red); color: #fff; }
+    .lang-btn:hover:not(.active) { color: var(--text); }
+    .mobile-menu .lang-toggle { margin-top: 1rem; }
+
     @media (max-width:1100px){
       .hero-inner,.kamil-wrap,.enquiry-grid,.grid-2{grid-template-columns:1fr}
       .hero-card{margin-left:0;max-width:100%}
@@ -325,15 +344,15 @@
     }
   </style>
 </head>
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main" class="skip-link"><span class="lang-en">Skip to content</span><span class="lang-nl">Ga naar inhoud</span></a>
 
 <div class="sticky-bar" id="stickyBar">
   <div class="sticky-left">
-    <small>Group rate</small>
-    <strong>On request</strong>
-    <span>Hall of Fame included</span>
+    <small><span class="lang-en">Group rate</span><span class="lang-nl">Groepstarief</span></small>
+    <strong><span class="lang-en">On request</span><span class="lang-nl">Op aanvraag</span></strong>
+    <span><span class="lang-en">Hall of Fame included</span><span class="lang-nl">Inclusief Hall of Fame</span></span>
   </div>
-  <a href="#enquire" class="sticky-btn">Request a quote</a>
+  <a href="#enquire" class="sticky-btn"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></a>
 </div>
 
 <header class="header" id="header">
@@ -342,8 +361,14 @@
     <nav class="nav">
       <a href="/">Home</a>
       <a href="/experiences/">Experiences</a>
-      <a href="/groups/">For groups</a>
-      <a href="#enquire" class="nav-cta">Request a quote</a>
+      <a href="#versions"><span class="lang-en">Versions</span><span class="lang-nl">Versies</span></a>
+      <a href="/groups/"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+      <a href="/about/"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+      <a href="#enquire" class="nav-cta"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="nl">NL</button>
+      </div>
     </nav>
     <button class="hamburger" id="menuToggle" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -361,9 +386,14 @@
   <div class="mobile-links">
     <a href="/">Home</a>
     <a href="/experiences/">Experiences</a>
-    <a href="/groups/">For groups</a>
-    <a href="/about/">About</a>
-    <a href="#enquire">Request a quote</a>
+    <a href="#versions"><span class="lang-en">Versions</span><span class="lang-nl">Versies</span></a>
+    <a href="/groups/"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+    <a href="/about/"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+    <a href="#enquire"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></a>
+    <div class="lang-toggle">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="nl">NL</button>
+    </div>
   </div>
 </nav>
 
@@ -379,19 +409,19 @@
 <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:1;"></div>
    <div class="container hero-inner" style="position:relative;z-index:2;">
       <div class="hero-copy">
-        <span class="eyebrow">Prague · Cultural sports experience</span>
-        <h2 class="display-lg">Discover Prague<br>through <em>icehockey.</em></h2>
+        <span class="eyebrow">Prague · <span class="lang-en">Cultural sports experience</span><span class="lang-nl">Culturele sportervaring</span></span>
+        <h2 class="display-lg"><span class="lang-en">Discover Prague<br>through <em>icehockey.</em></span><span class="lang-nl">Ontdek Praag<br>via <em>ijshockey.</em></span></h2>
        <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.8rem;">
-          <a href="#enquire" class="btn btn-primary">Request a quote →</a>
+          <a href="#enquire" class="btn btn-primary"><span class="lang-en">Request a quote →</span><span class="lang-nl">Vraag een offerte aan →</span></a>
           <a href="#what-to-expect-video" class="btn btn-ghost">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>
-            Watch
+            <span class="lang-en">Watch</span><span class="lang-nl">Bekijk</span>
           </a>
         </div>
        <div class="hero-micro">
-          <span class="pill"><span class="pill-dot"></span>Local guide Kamil · 1000+ guests</span>
-          <span class="pill"><span class="pill-dot"></span>Hall of Fame included</span>
-          <span class="pill"><span class="pill-dot"></span>Seat at a live Czech Extraliga match</span>
+          <span class="pill"><span class="pill-dot"></span><span class="lang-en">Local guide Kamil · 1000+ guests</span><span class="lang-nl">Lokale gids Kamil · 1000+ gasten</span></span>
+          <span class="pill"><span class="pill-dot"></span><span class="lang-en">Hall of Fame included</span><span class="lang-nl">Inclusief Hall of Fame</span></span>
+          <span class="pill"><span class="pill-dot"></span><span class="lang-en">Seat at a live Czech Extraliga match</span><span class="lang-nl">Plek bij een live Tsjechische Extraliga-wedstrijd</span></span>
         </div>
       </div>
 
@@ -401,8 +431,8 @@
   <!-- WHAT TO EXPECT VIDEO -->
   <section class="section" id="what-to-expect-video" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container" style="max-width:900px;text-align:center;">
-      <span class="eyebrow" style="justify-content:center;">What to expect</span>
-      <h2 class="display-md">See the experience<br><em>before you book.</em></h2>
+      <span class="eyebrow" style="justify-content:center;"><span class="lang-en">What to expect</span><span class="lang-nl">Wat je kan verwachten</span></span>
+      <h2 class="display-md"><span class="lang-en">See the experience<br><em>before you book.</em></span><span class="lang-nl">Bekijk de experience<br><em>voordat je boekt.</em></span></h2>
       <div class="yt-facade" data-video-id="3Rqb5cEk1wI" style="border-radius:18px;overflow:hidden;aspect-ratio:16/9;position:relative;background:#111;cursor:pointer;margin-top:2rem;box-shadow:var(--shadow);">
         <img src="https://i.ytimg.com/vi/3Rqb5cEk1wI/hqdefault.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
@@ -415,30 +445,30 @@
   <!-- VERSIONS -->
   <section class="section versions" id="versions">
     <div class="container">
-      <span class="eyebrow">Two clear versions</span>
-      <h2 class="display-md">Pick your version.<br><em>One story, two formats.</em></h2>
-      <p class="lead" style="margin:1.5rem 0 2.5rem;">Both versions include the full walking route with Kamil and entry to the Czech Hockey Hall of Fame. Add a live Extraliga match in season - tell us your dates and we'll check what's on.</p>
+      <span class="eyebrow"><span class="lang-en">Two clear versions</span><span class="lang-nl">Twee duidelijke versies</span></span>
+      <h2 class="display-md"><span class="lang-en">Pick your version.<br><em>One story, two formats.</em></span><span class="lang-nl">Kies je versie.<br><em>Eén verhaal, twee vormen.</em></span></h2>
+      <p class="lead" style="margin:1.5rem 0 2.5rem;"><span class="lang-en">Both versions include the full walking route with Kamil and entry to the Czech Hockey Hall of Fame. Add a live Extraliga match in season - tell us your dates and we'll check what's on.</span><span class="lang-nl">Beide versies omvatten de volledige wandelroute met Kamil en toegang tot de Tsjechische IJshockey Hall of Fame. Voeg een live Extraliga-wedstrijd toe in het seizoen - vertel ons je data en we checken wat er te doen is.</span></p>
 
       <div class="grid-2">
         <article class="version-card">
           <div class="version-bar"></div>
           <div class="version-head">
             <div class="version-meta">
-              <span class="version-type">Year-round · Version A</span>
+              <span class="version-type"><span class="lang-en">Year-round · Version A</span><span class="lang-nl">Het hele jaar door · Versie A</span></span>
             </div>
-            <h3 class="version-title">Walking tour +<br>Hall of Fame</h3>
-            <p class="version-sub">The full story-led walk and the Hall of Fame. Complete on its own - no match required.</p>
-            <p class="version-includes">Guide fee + Hall of Fame entry included</p>
+            <h3 class="version-title"><span class="lang-en">Walking tour +<br>Hall of Fame</span><span class="lang-nl">Wandeltour +<br>Hall of Fame</span></h3>
+            <p class="version-sub"><span class="lang-en">The full story-led walk and the Hall of Fame. Complete on its own - no match required.</span><span class="lang-nl">De volledige verhalende wandeling en de Hall of Fame. Compleet op zichzelf - geen wedstrijd nodig.</span></p>
+            <p class="version-includes"><span class="lang-en">Guide fee + Hall of Fame entry included</span><span class="lang-nl">Gidskosten + inclusief toegang Hall of Fame</span></p>
           </div>
           <div class="version-divider"></div>
           <div class="version-body">
             <div class="list">
-              <div class="list-item"><span class="list-dot">✓</span><span>2-hour walking route through central Prague with Kamil</span></div>
-              <div class="list-item"><span class="list-dot">✓</span><span>Czech Hockey Hall of Fame entry included</span></div>
-              <div class="list-item"><span class="list-dot">✓</span><span>Works year-round, no fixture needed</span></div>
-              <div class="list-item"><span class="list-dot">✓</span><span>No prior hockey knowledge needed</span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">2-hour walking route through central Prague with Kamil</span><span class="lang-nl">Wandelroute van 2 uur door het centrum van Praag met Kamil</span></span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">Czech Hockey Hall of Fame entry included</span><span class="lang-nl">Inclusief toegang tot de Tsjechische IJshockey Hall of Fame</span></span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">Works year-round, no fixture needed</span><span class="lang-nl">Werkt het hele jaar door, geen wedstrijd nodig</span></span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">No prior hockey knowledge needed</span><span class="lang-nl">Geen voorkennis van ijshockey nodig</span></span></div>
             </div>
-            <a href="#enquire" class="btn btn-ghost btn-block" onclick="preselectVersion('a')">Request a quote for Version A →</a>
+            <a href="#enquire" class="btn btn-ghost btn-block" onclick="preselectVersion('a')"><span class="lang-en">Request a quote for Version A →</span><span class="lang-nl">Vraag een offerte aan voor Versie A →</span></a>
           </div>
         </article>
 
@@ -446,28 +476,28 @@
           <div class="version-bar"></div>
           <div class="version-head">
             <div class="version-meta">
-              <span class="version-type">Seasonal · Sep – Apr</span>
-              <span class="version-badge">Most complete</span>
+              <span class="version-type"><span class="lang-en">Seasonal · Sep – Apr</span><span class="lang-nl">Seizoensgebonden · sep-apr</span></span>
+              <span class="version-badge"><span class="lang-en">Most complete</span><span class="lang-nl">Meest compleet</span></span>
             </div>
-            <h3 class="version-title">Tour + Hall of Fame<br>+ live match</h3>
-            <p class="version-sub">Everything in Version A, plus a seat at a real Czech Extraliga match - the fullest atmosphere.</p>
-            <p class="version-includes">Guide fee + Hall of Fame + match ticket (Sparta Praha / HC Slavia Praha), checked against your dates</p>
+            <h3 class="version-title"><span class="lang-en">Tour + Hall of Fame<br>+ live match</span><span class="lang-nl">Tour + Hall of Fame<br>+ live wedstrijd</span></h3>
+            <p class="version-sub"><span class="lang-en">Everything in Version A, plus a seat at a real Czech Extraliga match - the fullest atmosphere.</span><span class="lang-nl">Alles uit Versie A, plus een plek bij een echte Tsjechische Extraliga-wedstrijd - de volle sfeer.</span></p>
+            <p class="version-includes"><span class="lang-en">Guide fee + Hall of Fame + match ticket (Sparta Praha / HC Slavia Praha), checked against your dates</span><span class="lang-nl">Gidskosten + Hall of Fame + wedstrijdticket (Sparta Praha / HC Slavia Praha), gecheckt tegen jouw data</span></p>
           </div>
           <div class="version-divider"></div>
           <div class="version-body">
             <div class="list">
-              <div class="list-item"><span class="list-dot">✓</span><span>Everything in Version A</span></div>
-              <div class="list-item"><span class="list-dot">✓</span><span>Seat at a live Czech Extraliga match</span></div>
-              <div class="list-item"><span class="list-dot">✓</span><span>Direct metro from Hall of Fame to O2 Arena (~10 min)</span></div>
-              <div class="list-item"><span class="list-dot">✓</span><span>Full refund or Version A if no suitable match exists</span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">Everything in Version A</span><span class="lang-nl">Alles uit Versie A</span></span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">Seat at a live Czech Extraliga match</span><span class="lang-nl">Plek bij een live Tsjechische Extraliga-wedstrijd</span></span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">Direct metro from Hall of Fame to O2 Arena (~10 min)</span><span class="lang-nl">Directe metro van Hall of Fame naar O2 Arena (~10 min)</span></span></div>
+              <div class="list-item"><span class="list-dot">✓</span><span><span class="lang-en">Full refund or Version A if no suitable match exists</span><span class="lang-nl">Volledige terugbetaling of Versie A als er geen geschikte wedstrijd is</span></span></div>
             </div>
-            <div class="risk-box">We check match availability personally within 24–48 hours of your quote request. If no fixture fits your dates, we offer Version A or full refund. No pressure, no obligation.</div>
-            <a href="#enquire" class="btn btn-primary btn-block" onclick="preselectVersion('b')">Request a quote for Version B →</a>
+            <div class="risk-box"><span class="lang-en">We check match availability personally within 24–48 hours of your quote request. If no fixture fits your dates, we offer Version A or full refund. No pressure, no obligation.</span><span class="lang-nl">We checken persoonlijk de beschikbaarheid van wedstrijden binnen 24-48 uur na je offerteaanvraag. Past er geen wedstrijd bij jouw data, dan bieden we Versie A of volledige terugbetaling aan. Geen druk, geen verplichting.</span></div>
+            <a href="#enquire" class="btn btn-primary btn-block" onclick="preselectVersion('b')"><span class="lang-en">Request a quote for Version B →</span><span class="lang-nl">Vraag een offerte aan voor Versie B →</span></a>
           </div>
         </article>
       </div>
 
-      <p class="versions-foot">Min. 4 people · Max ~25 · Solo? <a href="#enquire" onclick="preselectVersion('unsure')">Get in touch</a> – we pair you with another small group.</p>
+      <p class="versions-foot"><span class="lang-en">Min. 4 people · Max ~25 · Solo? <a href="#enquire" onclick="preselectVersion('unsure')">Get in touch</a> – we pair you with another small group.</span><span class="lang-nl">Min. 4 personen · Max ~25 · Alleen? <a href="#enquire" onclick="preselectVersion('unsure')">Neem contact op</a> – we koppelen je aan een andere kleine groep.</span></p>
     </div>
   </section>
 
@@ -475,11 +505,11 @@
   <section class="section" style="padding:2.5rem 0;background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem;">
       <div>
-        <p style="font-weight:800;font-size:1rem;color:var(--text);margin-bottom:.15rem;">Travelling with a group?</p>
-        <p style="font-size:.85rem;color:var(--soft);">Schools, sports clubs, agencies and company offsites - see our group options and private slot arrangements.</p>
+        <p style="font-weight:800;font-size:1rem;color:var(--text);margin-bottom:.15rem;"><span class="lang-en">Travelling with a group?</span><span class="lang-nl">Reis je met een groep?</span></p>
+        <p style="font-size:.85rem;color:var(--soft);"><span class="lang-en">Language schools, sports clubs, agencies and company offsites - see our group options and private slot arrangements.</span><span class="lang-nl">Taalscholen, sportclubs, agentschappen en bedrijfsuitjes - bekijk onze groepsopties en regelingen voor privéslots.</span></p>
       </div>
       <a href="/groups/" onclick="gtag('event','groups_click',{cta_location:'prague_banner',page_location:window.location.href})" class="btn btn-primary" style="white-space:nowrap;">
-        See Group Options
+        <span class="lang-en">See Group Options</span><span class="lang-nl">Bekijk groepsopties</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
@@ -489,22 +519,22 @@
   <section class="section enquiry" id="enquire">
     <div class="container enquiry-grid">
       <div>
-        <span class="eyebrow">Request a quote</span>
-        <h2 class="display-md">Tell us your dates.<br><em>We'll do the rest.</em></h2>
-        <p class="lead" style="margin-top:1.4rem;">Personally reviewed. No automated confirmation. One clear answer within 24–48 hours.</p>
+        <span class="eyebrow"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></span>
+        <h2 class="display-md"><span class="lang-en">Tell us your dates.<br><em>We'll do the rest.</em></span><span class="lang-nl">Vertel ons je data.<br><em>Wij doen de rest.</em></span></h2>
+        <p class="lead" style="margin-top:1.4rem;"><span class="lang-en">Personally reviewed. No automated confirmation. One clear answer within 24–48 hours.</span><span class="lang-nl">Persoonlijk bekeken. Geen automatische bevestiging. Eén duidelijk antwoord binnen 24-48 uur.</span></p>
 
         <div class="info-list">
           <div class="info-row">
             <span class="info-mark">—</span>
-            <div><strong>Reply within 24–48 hours</strong><span>An actual human checking your request — not a bot.</span></div>
+            <div><strong><span class="lang-en">Reply within 24–48 hours</span><span class="lang-nl">Antwoord binnen 24-48 uur</span></strong><span><span class="lang-en">An actual human checking your request — not a bot.</span><span class="lang-nl">Een echt persoon die je aanvraag bekijkt — geen bot.</span></span></div>
           </div>
           <div class="info-row">
             <span class="info-mark">—</span>
-            <div><strong>No obligation until confirmed</strong><span>Enquiring doesn't commit you to anything.</span></div>
+            <div><strong><span class="lang-en">No obligation until confirmed</span><span class="lang-nl">Geen verplichting tot bevestiging</span></strong><span><span class="lang-en">Enquiring doesn't commit you to anything.</span><span class="lang-nl">Een aanvraag verplicht je tot niets.</span></span></div>
           </div>
           <div class="info-row">
             <span class="info-mark">—</span>
-            <div><strong>No charge if nothing fits</strong><span>Honest about availability. Clear alternatives or full refund.</span></div>
+            <div><strong><span class="lang-en">No charge if nothing fits</span><span class="lang-nl">Geen kosten als niets past</span></strong><span><span class="lang-en">Honest about availability. Clear alternatives or full refund.</span><span class="lang-nl">Eerlijk over beschikbaarheid. Duidelijke alternatieven of volledige terugbetaling.</span></span></div>
           </div>
         </div>
       </div>
@@ -520,35 +550,35 @@
         </div>
 
       <div id="bfStep1">
-          <div class="form-title">Choose your version</div>
-          <p style="font-size:0.85rem;color:var(--soft);margin-bottom:14px;">Both include the full walking route with Kamil and Hall of Fame entry. Version B adds a live match if one fits your date.</p>
+          <div class="form-title"><span class="lang-en">Choose your version</span><span class="lang-nl">Kies je versie</span></div>
+          <p style="font-size:0.85rem;color:var(--soft);margin-bottom:14px;"><span class="lang-en">Both include the full walking route with Kamil and Hall of Fame entry. Version B adds a live match if one fits your date.</span><span class="lang-nl">Beide omvatten de volledige wandelroute met Kamil en toegang tot de Hall of Fame. Versie B voegt een live wedstrijd toe als die past bij jouw datum.</span></p>
 
           <div class="version-grid">
             <div class="version-card-pick" id="vcard_a" onclick="bfSelectVersion('A')">
               <div class="version-radio-dot"></div>
-              <div class="v-season">Year-round</div>
-              <div class="v-title">Walking + Hall of Fame</div>
-              <div class="v-includes">Tour + Hall of Fame entry. No fixture needed - works any date.</div>
+              <div class="v-season"><span class="lang-en">Year-round</span><span class="lang-nl">Het hele jaar door</span></div>
+              <div class="v-title"><span class="lang-en">Walking + Hall of Fame</span><span class="lang-nl">Wandeling + Hall of Fame</span></div>
+              <div class="v-includes"><span class="lang-en">Tour + Hall of Fame entry. No fixture needed - works any date.</span><span class="lang-nl">Tour + toegang Hall of Fame. Geen wedstrijd nodig - werkt op elke datum.</span></div>
             </div>
             <div class="version-card-pick featured-pick" id="vcard_b" onclick="bfSelectVersion('B')">
               <div class="version-radio-dot"></div>
-              <div class="v-season">Sep – Apr · Most complete</div>
-              <div class="v-title">Tour + Hall of Fame + match</div>
-              <div class="v-includes">Everything in A, plus a live Extraliga match if one fits your date.</div>
+              <div class="v-season"><span class="lang-en">Sep – Apr · Most complete</span><span class="lang-nl">Sep-apr · Meest compleet</span></div>
+              <div class="v-title"><span class="lang-en">Tour + Hall of Fame + match</span><span class="lang-nl">Tour + Hall of Fame + wedstrijd</span></div>
+              <div class="v-includes"><span class="lang-en">Everything in A, plus a live Extraliga match if one fits your date.</span><span class="lang-nl">Alles uit A, plus een live Extraliga-wedstrijd als die past bij jouw datum.</span></div>
             </div>
           </div>
 
           <div id="bf_error1" class="error-box"></div>
-          <button class="btn-submit" id="bf_next1Btn" onclick="bfNext1()" disabled>Continue to your details →</button>
+          <button class="btn-submit" id="bf_next1Btn" onclick="bfNext1()" disabled><span class="lang-en">Continue to your details →</span><span class="lang-nl">Ga door naar je gegevens →</span></button>
         </div>
 
         <!-- STEP 2: YOUR DETAILS -->
         <div id="bfStep2" style="display:none;">
-          <div class="form-title">Your details</div>
+          <div class="form-title"><span class="lang-en">Your details</span><span class="lang-nl">Jouw gegevens</span></div>
 
           <div class="field-row" style="margin-bottom:12px;">
             <div class="field">
-              <label for="bf_name">Full name *</label>
+              <label for="bf_name"><span class="lang-en">Full name *</span><span class="lang-nl">Volledige naam *</span></label>
               <input type="text" id="bf_name" placeholder="Jane Smith" autocomplete="name" />
             </div>
             <div class="field">
@@ -559,23 +589,23 @@
 
           <div class="field-row" style="margin-bottom:12px;">
             <div class="field">
-              <label for="bf_phone">Phone</label>
+              <label for="bf_phone"><span class="lang-en">Phone</span><span class="lang-nl">Telefoon</span></label>
               <input type="tel" id="bf_phone" placeholder="+1 555 000 0000" autocomplete="tel" />
             </div>
             <div class="field">
-              <label for="bf_country">Country of residence *</label>
+              <label for="bf_country"><span class="lang-en">Country of residence *</span><span class="lang-nl">Land van verblijf *</span></label>
               <input type="text" id="bf_country" placeholder="e.g. United States" />
             </div>
           </div>
 
           <div class="field" style="margin-bottom:12px;">
-            <label for="bf_date">Preferred date(s) *</label>
+            <label for="bf_date"><span class="lang-en">Preferred date(s) *</span><span class="lang-nl">Gewenste datum(s) *</span></label>
             <input type="text" id="bf_date" placeholder="e.g. weekend of 10 October, or 'flexible in November'" />
-            <span class="field-hint">Not sure yet? A rough month or date range is fine - we'll check what's on and let you know.</span>
+            <span class="field-hint"><span class="lang-en">Not sure yet? A rough month or date range is fine - we'll check what's on and let you know.</span><span class="lang-nl">Nog niet zeker? Een ruwe maand of periode is prima - we checken wat er is en laten het je weten.</span></span>
           </div>
 
           <div class="field" style="margin-bottom:12px;">
-            <label for="bf_guests">Group size *</label>
+            <label for="bf_guests"><span class="lang-en">Group size *</span><span class="lang-nl">Groepsgrootte *</span></label>
             <select id="bf_guests">
               <option value="">Select…</option>
               <option value="solo">Solo — pair me with a group</option>
@@ -588,7 +618,7 @@
           </div>
 
           <div class="field" style="margin-bottom:16px;">
-            <label for="bf_source">How did you hear about us? *</label>
+            <label for="bf_source"><span class="lang-en">How did you hear about us? *</span><span class="lang-nl">Hoe heb je ons gevonden? *</span></label>
             <select id="bf_source">
               <option value="">Select…</option>
               <option value="Google">Google search</option>
@@ -603,7 +633,7 @@
           </div>
 
           <div class="field" style="margin-bottom:16px;">
-            <label for="bf_requests">Anything we should know? (optional)</label>
+            <label for="bf_requests"><span class="lang-en">Anything we should know? (optional)</span><span class="lang-nl">Nog iets dat we moeten weten? (optioneel)</span></label>
             <textarea id="bf_requests" rows="3" placeholder="Solo traveller? Dietary needs? Questions about the route?"></textarea>
           </div>
 
@@ -611,39 +641,150 @@
 
           <div style="display:flex;gap:8px;">
             <button class="btn-submit" onclick="bfBack1()" style="background:transparent;border:1px solid var(--line-2);color:var(--muted);flex:0 0 auto;width:auto;padding:16px 20px;">←</button>
-            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;">Request a quote</button>
+            <button class="btn-submit" id="bf_submitBtn" onclick="bfSubmit()" style="flex:1;"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></button>
           </div>
-          <p style="text-align:center;font-size:0.75rem;color:var(--soft);margin-top:10px;">Personal reply within 24–48 hours. No charge if nothing fits.</p>
+          <p style="text-align:center;font-size:0.75rem;color:var(--soft);margin-top:10px;"><span class="lang-en">Personal reply within 24–48 hours. No charge if nothing fits.</span><span class="lang-nl">Persoonlijk antwoord binnen 24-48 uur. Geen kosten als niets past.</span></p>
         </div>
 
         <!-- SUCCESS -->
         <div id="bf_success" style="display:none;text-align:center;padding:2rem 0;">
           <div style="font-size:2.5rem;margin-bottom:1rem;">✅</div>
-          <strong style="display:block;color:var(--text);font-size:1.1rem;margin-bottom:.5rem;">Request received!</strong>
-          <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:340px;margin:0 auto;">Kamil and the team will get back to you within 24–48 hours with your quote and next steps.</p>
+          <strong style="display:block;color:var(--text);font-size:1.1rem;margin-bottom:.5rem;"><span class="lang-en">Request received!</span><span class="lang-nl">Aanvraag ontvangen!</span></strong>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:340px;margin:0 auto;"><span class="lang-en">Kamil and the team will get back to you within 24–48 hours with your quote and next steps.</span><span class="lang-nl">Kamil en het team nemen binnen 24-48 uur contact met je op met je offerte en de vervolgstappen.</span></p>
         </div>
 
       </div>
     </div>
   </section>
 
+  <script>
+  // ── Prague Quote Request Form — Inline version ──
+  function bfT(en, nl){ return document.body.classList.contains('lang-active-nl') ? nl : en; }
+
+const BF_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSewFWGL3Ycb_5SUtCXfjh3tKP4qRG8fjb053KUI__iucl2Byg/formResponse';
+const BF_FIELDS = {
+  name:          'entry.761572476',
+  email:         'entry.1144619265',
+  phone:         'entry.1213010877',
+  experience:    'entry.1446094233',
+  date:          'entry.301148404',
+  guests:        'entry.175134312',
+  requests:      'entry.2094398847',
+  packageCode:   'entry.924755547',
+  fixture:       'entry.857468506',
+  partner:       'entry.997778576',
+  country:       'entry.757548239',
+  source:        'entry.6981604',
+  version:       'entry.199160968',
+};
+
+let bfVersion = null;
+
+function bfValid(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function bfErr(id,msg){ const el=document.getElementById(id); if(el){el.textContent=msg;el.className='error-box'+(msg?' show':'');} }
+
+// Step indicators
+function bfSetStep(n){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('step'+i+'ind');
+    if(el) el.style.background = i<=n ? 'var(--red)' : 'var(--line-2)';
+  });
+}
+
+function bfNext1(){
+  if(!bfVersion){
+    bfErr('bf_error1',bfT('Please choose a version.','Kies een versie.')); return;
+  }
+  bfErr('bf_error1','');
+  document.getElementById('bfStep1').style.display='none';
+  document.getElementById('bfStep2').style.display='block';
+  bfSetStep(2);
+}
+
+function bfBack1(){
+  document.getElementById('bfStep2').style.display='none';
+  document.getElementById('bfStep1').style.display='block';
+  bfSetStep(1);
+}
+
+function bfSelectVersion(v){
+  bfVersion=v;
+  document.getElementById('vcard_a').classList.toggle('active',v==='A');
+  document.getElementById('vcard_b').classList.toggle('active',v==='B');
+  document.getElementById('bf_next1Btn').disabled = false;
+}
+
+async function bfSubmit(){
+  const name=document.getElementById('bf_name').value.trim();
+  const email=document.getElementById('bf_email').value.trim();
+  const phone=document.getElementById('bf_phone').value.trim();
+  const country=document.getElementById('bf_country').value.trim();
+  const date=document.getElementById('bf_date').value.trim();
+  const guests=document.getElementById('bf_guests').value;
+  const source=document.getElementById('bf_source').value;
+  const requests=document.getElementById('bf_requests').value.trim();
+
+  if(!name||!bfValid(email)||!country||!date||!guests||!source){
+    bfErr('bf_error2',bfT('Please fill in all required fields.','Vul alle verplichte velden in.')); return;
+  }
+  bfErr('bf_error2','');
+
+  const btn=document.getElementById('bf_submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> ' + bfT('Sending…','Verzenden…');
+
+  const packageCode = bfVersion==='A' ? 'PRG-A' : 'PRG-B';
+  const experienceName = bfVersion==='A'
+    ? 'Prague Ice Hockey Experience – Version A (Tour + Hall of Fame)'
+    : 'Prague Ice Hockey Experience – Version B (Tour + Hall of Fame + Match)';
+  const fixtureNote = bfVersion==='B'
+    ? 'Version B - please check for a live Sparta/Slavia match around the requested date'
+    : 'Version A - no match needed';
+
+  const fd=new FormData();
+  fd.append(BF_FIELDS.name,           name);
+  fd.append(BF_FIELDS.email,          email);
+  fd.append(BF_FIELDS.phone,          phone);
+  fd.append(BF_FIELDS.experience,     experienceName);
+  fd.append(BF_FIELDS.date,           date);
+  fd.append(BF_FIELDS.guests,         guests);
+  fd.append(BF_FIELDS.partner,        'Prague');
+  fd.append(BF_FIELDS.country,        country);
+  fd.append(BF_FIELDS.source,         source);
+  fd.append(BF_FIELDS.version,        bfVersion);
+  fd.append(BF_FIELDS.fixture,        fixtureNote);
+  fd.append(BF_FIELDS.packageCode,    packageCode);
+  fd.append(BF_FIELDS.requests,       requests || 'No special requests');
+
+  try {
+    await fetch(BF_FORM_ACTION, {method:'POST', mode:'no-cors', body:fd});
+    try { gtag('event','form_submit',{experience:'prague',version:bfVersion,guests}); } catch(e){}
+    document.getElementById('bfStep2').style.display='none';
+    document.getElementById('bf_success').style.display='block';
+    bfSetStep(3);
+  } catch(err) {
+    bfErr('bf_error2',bfT('Could not send your request. Please try again or email us directly.','Het versturen is niet gelukt. Probeer het opnieuw of mail ons direct.'));
+    btn.disabled=false;
+    btn.innerHTML = '<span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>';
+  }
+}
+
   <!-- KAMIL -->
   <section class="section kamil">
     <div class="container">
       <div class="kamil-wrap">
         <div class="kamil-image" aria-hidden="true">
-          <span class="kamil-tag">Your guide · Kamil</span>
+          <span class="kamil-tag"><span class="lang-en">Your guide · Kamil</span><span class="lang-nl">Jouw gids · Kamil</span></span>
         </div>
         <div class="kamil-copy">
-          <span class="eyebrow">Local guide · Prague</span>
-          <h2 class="display-md">Kamil knows Prague<br>from the <em>inside.</em></h2>
-          <p class="kamil-quote">"If you want to understand a place, don't just look at what it celebrates. Look at what it plays, what it remembers, and what people carry with them."</p>
-          <p>Born and raised in Prague. Background in political science. 10+ years of guiding · 1000+ guests. He uses the city itself - not a script - to show why hockey matters here.</p>
+          <span class="eyebrow"><span class="lang-en">Local guide · Prague</span><span class="lang-nl">Lokale gids · Praag</span></span>
+          <h2 class="display-md"><span class="lang-en">Kamil knows Prague<br>from the <em>inside.</em></span><span class="lang-nl">Kamil kent Praag<br>van <em>binnenuit.</em></span></h2>
+          <p class="kamil-quote"><span class="lang-en">"If you want to understand a place, don't just look at what it celebrates. Look at what it plays, what it remembers, and what people carry with them."</span><span class="lang-nl">"Als je een plek echt wil begrijpen, kijk dan niet alleen naar wat het viert. Kijk naar wat het speelt, wat het onthoudt, en wat mensen met zich meedragen."</span></p>
+          <p><span class="lang-en">Born and raised in Prague. Background in political science. 10+ years of guiding · 1000+ guests. He uses the city itself - not a script - to show why hockey matters here.</span><span class="lang-nl">Geboren en getogen in Praag. Achtergrond in politicologie. 10+ jaar ervaring als gids · 1000+ gasten. Hij gebruikt de stad zelf - geen script - om te laten zien waarom ijshockey hier zo belangrijk is.</span></p>
           <div class="tags">
-            <span class="tag">Prague local</span>
-            <span class="tag">In English</span>
-            <span class="tag">Small group</span>
-            <span class="tag">Story-led</span>
+            <span class="tag"><span class="lang-en">Prague local</span><span class="lang-nl">Local uit Praag</span></span>
+            <span class="tag"><span class="lang-en">In English</span><span class="lang-nl">In het Engels</span></span>
+            <span class="tag"><span class="lang-en">Small group</span><span class="lang-nl">Kleine groep</span></span>
+            <span class="tag"><span class="lang-en">Story-led</span><span class="lang-nl">Verhalend</span></span>
           </div>
         </div>
       </div>
@@ -834,8 +975,8 @@
 <section class="section testimonials" id="reviews">
   <div class="container">
 
-    <span class="eyebrow">What people say about Kamil</span>
-    <h2 class="display-md">Straight from the<br><em>people who were there.</em></h2>
+    <span class="eyebrow"><span class="lang-en">What people say about Kamil</span><span class="lang-nl">Wat mensen zeggen over Kamil</span></span>
+    <h2 class="display-md"><span class="lang-en">Straight from the<br><em>people who were there.</em></span><span class="lang-nl">Rechtstreeks van<br><em>de mensen die er waren.</em></span></h2>
 
     <div class="tcarousel">
 
@@ -847,7 +988,7 @@
             <img src="images/testimonial-esperanza.jpeg" alt="Review by Esperanza" loading="lazy">
           </div>
         </div>
-        <p class="tslide-quote">"Kamil's tour was absolutely brilliant. As someone who has taken walking tours on every continent, I can confidently say this was one of the most memorable. His skills are better than those of many university professors I've had. I feel truly lucky to have had this learning experience."</p>
+        <p class="tslide-quote"><span class="lang-en">"Kamil's tour was absolutely brilliant. As someone who has taken walking tours on every continent, I can confidently say this was one of the most memorable. His skills are better than those of many university professors I've had. I feel truly lucky to have had this learning experience."</span><span class="lang-nl">"Kamils tour was absoluut briljant. Als iemand die op elk continent wandeltours heeft gedaan, kan ik met vertrouwen zeggen dat dit een van de meest memorabele was. Zijn vaardigheden zijn beter dan die van veel universiteitsprofessoren die ik heb gehad. Ik voel me echt bevoorrecht dat ik deze leerervaring heb gehad."</span></p>
         <div class="tslide-divider"></div>
         <div class="tslide-author">
           <span class="tslide-name">Esperanza</span>
@@ -863,7 +1004,7 @@
             <img src="images/testimonial2.png" alt="Review by Asaf Zuarez" loading="lazy">
           </div>
         </div>
-        <p class="tslide-quote">"Embarking on the walking tour with Kamil was an unforgettable journey back in time. His passion for the topic was infectious, and his ability to bring the stories to life left a lasting impression on everyone in the group."</p>
+        <p class="tslide-quote"><span class="lang-en">"Embarking on the walking tour with Kamil was an unforgettable journey back in time. His passion for the topic was infectious, and his ability to bring the stories to life left a lasting impression on everyone in the group."</span><span class="lang-nl">"De wandeltour met Kamil was een onvergetelijke reis terug in de tijd. Zijn passie voor het onderwerp was aanstekelijk, en zijn vermogen om de verhalen tot leven te brengen liet een blijvende indruk achter bij iedereen in de groep."</span></p>
         <div class="tslide-divider"></div>
         <div class="tslide-author">
           <span class="tslide-name">Asaf Zuarez</span>
@@ -879,7 +1020,7 @@
             <img src="images/testimonial3.jpeg" alt="Review by Kirstie" loading="lazy">
           </div>
         </div>
-        <p class="tslide-quote">"Kamil was a fantastic guide - knowledgeable, engaging, and with a clear passion for Czech Republic, its people and its history. You'll come away feeling a deep solidarity, respect and love for the Czech people and their culture."</p>
+        <p class="tslide-quote"><span class="lang-en">"Kamil was a fantastic guide - knowledgeable, engaging, and with a clear passion for Czech Republic, its people and its history. You'll come away feeling a deep solidarity, respect and love for the Czech people and their culture."</span><span class="lang-nl">"Kamil was een fantastische gids - deskundig, boeiend, en met een duidelijke passie voor Tsjechië, zijn mensen en zijn geschiedenis. Je vertrekt met een diep gevoel van saamhorigheid, respect en liefde voor het Tsjechische volk en hun cultuur."</span></p>
         <div class="tslide-divider"></div>
         <div class="tslide-author">
           <span class="tslide-name">Kirstie</span>
@@ -895,7 +1036,7 @@
             <img src="images/testimonial4.jpeg" alt="Review by Daniel" loading="lazy">
           </div>
         </div>
-        <p class="tslide-quote">"He. Was. AMAZING. He has an obvious passion for this tour and captivated us with his stories and facts. We spoke to him afterwards to tell him how impressed we were. You have a gem in your team - make sure you treat him well."</p>
+        <p class="tslide-quote"><span class="lang-en">"He. Was. AMAZING. He has an obvious passion for this tour and captivated us with his stories and facts. We spoke to him afterwards to tell him how impressed we were. You have a gem in your team - make sure you treat him well."</span><span class="lang-nl">"Hij. Was. GEWELDIG. Hij heeft duidelijk een passie voor deze tour en boeide ons met zijn verhalen en feiten. We spraken hem achteraf om te zeggen hoe onder de indruk we waren. Jullie hebben een parel in het team - zorg dat jullie goed voor hem zorgen."</span></p>
         <div class="tslide-divider"></div>
         <div class="tslide-author">
           <span class="tslide-name">Daniel</span>
@@ -938,30 +1079,30 @@
   <!-- WHY BOOK -->
   <section class="section why-book">
     <div class="container">
-      <span class="eyebrow">Why this experience exists</span>
-      <h2 class="display-md">More than a city tour.<br><em>More than a match.</em></h2>
-      <p class="lead" style="margin:1.5rem 0 2.5rem;">Czech history through ice hockey: independence, occupation, propaganda, resistance, and national pride. Designed for curious travellers who want depth and not just a checklist of monuments.</p>
+      <span class="eyebrow"><span class="lang-en">Why this experience exists</span><span class="lang-nl">Waarom deze experience bestaat</span></span>
+      <h2 class="display-md"><span class="lang-en">More than a city tour.<br><em>More than a match.</em></span><span class="lang-nl">Meer dan een stadstour.<br><em>Meer dan een wedstrijd.</em></span></h2>
+      <p class="lead" style="margin:1.5rem 0 2.5rem;"><span class="lang-en">Czech history through ice hockey: independence, occupation, propaganda, resistance, and national pride. Designed for curious travellers who want depth and not just a checklist of monuments.</span><span class="lang-nl">Tsjechische geschiedenis via ijshockey: onafhankelijkheid, bezetting, propaganda, verzet en nationale trots. Ontworpen voor nieuwsgierige reizigers die diepgang willen en niet alleen een lijstje monumenten.</span></p>
 
       <div class="editorial-trio">
         <div class="card">
-          <div class="card-kicker">01 · For you if</div>
-          <h3>You want depth, not landmarks</h3>
-          <p>You care about why a city feels the way it does -and what people carry with them, not just what they show tourists.</p>
+          <div class="card-kicker"><span class="lang-en">01 · For you if</span><span class="lang-nl">01 · Dit is voor jou als</span></div>
+          <h3><span class="lang-en">You want depth, not landmarks</span><span class="lang-nl">Je wil diepgang, geen bezienswaardigheden</span></h3>
+          <p><span class="lang-en">You care about why a city feels the way it does -and what people carry with them, not just what they show tourists.</span><span class="lang-nl">Je wil weten waarom een stad aanvoelt zoals het aanvoelt - en wat mensen met zich meedragen, niet alleen wat ze aan toeristen laten zien.</span></p>
         </div>
         <div class="card">
-          <div class="card-kicker">02 · For you if</div>
-          <h3>You like sport in context</h3>
-          <p>Sport as a lens for history, identity and politics. You don't need to follow hockey, the story makes it click.</p>
+          <div class="card-kicker"><span class="lang-en">02 · For you if</span><span class="lang-nl">02 · Dit is voor jou als</span></div>
+          <h3><span class="lang-en">You like sport in context</span><span class="lang-nl">Je houdt van sport in context</span></h3>
+          <p><span class="lang-en">Sport as a lens for history, identity and politics. You don't need to follow hockey, the story makes it click.</span><span class="lang-nl">Sport als lens voor geschiedenis, identiteit en politiek. Je hoeft geen ijshockey te volgen, het verhaal maakt het duidelijk.</span></p>
         </div>
         <div class="card">
-          <div class="card-kicker">03 · For you if</div>
-          <h3>You travel small &amp; curious</h3>
-          <p>Couples, friends, small groups, solo travellers who like real conversation over scripted commentary.</p>
+          <div class="card-kicker"><span class="lang-en">03 · For you if</span><span class="lang-nl">03 · Dit is voor jou als</span></div>
+          <h3><span class="lang-en">You travel small &amp; curious</span><span class="lang-nl">Je reist klein &amp; nieuwsgierig</span></h3>
+          <p><span class="lang-en">Couples, friends, small groups, solo travellers who like real conversation over scripted commentary.</span><span class="lang-nl">Stellen, vrienden, kleine groepen, solo reizigers die van een echt gesprek houden in plaats van scriptmatig commentaar.</span></p>
         </div>
       </div>
 
       <div class="mini-proof">
-        <strong>No charge if it doesn't fit.</strong> We review every request by hand. If Kamil isn't available, or no suitable match exists for your dates, we'll tell you clearly and offer the closest alternative.
+        <strong><span class="lang-en">No charge if it doesn't fit.</span><span class="lang-nl">Geen kosten als het niet past.</span></strong> <span class="lang-en">We review every request by hand. If Kamil isn't available, or no suitable match exists for your dates, we'll tell you clearly and offer the closest alternative.</span><span class="lang-nl">We bekijken elke aanvraag met de hand. Is Kamil niet beschikbaar, of is er geen geschikte wedstrijd voor jouw data, dan laten we dat duidelijk weten en bieden we het dichtstbijzijnde alternatief aan.</span>
       </div>
     </div>
   </section>
@@ -971,10 +1112,10 @@
     <div class="container">
       <div class="route-head">
         <div>
-          <span class="eyebrow">The route</span>
-          <h2 class="display-md">Eight stops.<br><em>One country's story.</em></h2>
+          <span class="eyebrow"><span class="lang-en">The route</span><span class="lang-nl">De route</span></span>
+          <h2 class="display-md"><span class="lang-en">Eight stops.<br><em>One country's story.</em></span><span class="lang-nl">Acht haltes.<br><em>Het verhaal van één land.</em></span></h2>
         </div>
-        <p class="route-note">From 1918 independence to the Nagano gold -moments, streets and symbols that help Czech hockey make sense.</p>
+        <p class="route-note"><span class="lang-en">From 1918 independence to the Nagano gold -moments, streets and symbols that help Czech hockey make sense.</span><span class="lang-nl">Van de onafhankelijkheid in 1918 tot het goud van Nagano - momenten, straten en symbolen die het Tsjechische ijshockey begrijpelijk maken.</span></p>
       </div>
 
       <div class="route-grid">
@@ -982,8 +1123,8 @@
           <div class="stop-card-bg bg-1" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">01 · 1918 · National Theatre</div>
-            <h3 class="stop-title">A nation is born</h3>
-            <p class="stop-copy">Why hockey became part of how Czechoslovakia saw itself and what happened when that symbol was threatened.</p>
+            <h3 class="stop-title"><span class="lang-en">A nation is born</span><span class="lang-nl">Een natie wordt geboren</span></h3>
+            <p class="stop-copy"><span class="lang-en">Why hockey became part of how Czechoslovakia saw itself and what happened when that symbol was threatened.</span><span class="lang-nl">Waarom ijshockey deel werd van hoe Tsjechoslowakije zichzelf zag, en wat er gebeurde toen dat symbool werd bedreigd.</span></p>
           </div>
         </article>
 
@@ -991,8 +1132,8 @@
           <div class="stop-card-bg bg-2" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">02 · 1938 · Žofín Island</div>
-            <h3 class="stop-title">The first rink</h3>
-            <p class="stop-copy">Prague's original hockey stadium, on the brink of a Europe sliding into war.</p>
+            <h3 class="stop-title"><span class="lang-en">The first rink</span><span class="lang-nl">De eerste ijsbaan</span></h3>
+            <p class="stop-copy"><span class="lang-en">Prague's original hockey stadium, on the brink of a Europe sliding into war.</span><span class="lang-nl">Praags originele hockeystadion, aan de vooravond van een Europa dat afgleed naar oorlog.</span></p>
           </div>
         </article>
 
@@ -1000,8 +1141,8 @@
           <div class="stop-card-bg bg-3" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">03 · 1950 · Zlatá Hospůdka</div>
-            <h3 class="stop-title">The state turns on its own</h3>
-            <p class="stop-copy">National hockey players arrested by the regime, the emotional centre of the walk.</p>
+            <h3 class="stop-title"><span class="lang-en">The state turns on its own</span><span class="lang-nl">De staat keert zich tegen de eigen mensen</span></h3>
+            <p class="stop-copy"><span class="lang-en">National hockey players arrested by the regime, the emotional centre of the walk.</span><span class="lang-nl">Nationale hockeyspelers gearresteerd door het regime - het emotionele hart van de wandeling.</span></p>
           </div>
         </article>
 
@@ -1009,8 +1150,8 @@
           <div class="stop-card-bg bg-4" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">04 · 1950s · Myslíkova Street</div>
-            <h3 class="stop-title">Sport as performance</h3>
-            <p class="stop-copy">How bodies, crowds and rituals became propaganda and how ordinary people moved within that.</p>
+            <h3 class="stop-title"><span class="lang-en">Sport as performance</span><span class="lang-nl">Sport als schouwspel</span></h3>
+            <p class="stop-copy"><span class="lang-en">How bodies, crowds and rituals became propaganda and how ordinary people moved within that.</span><span class="lang-nl">Hoe lichamen, menigtes en rituelen propaganda werden, en hoe gewone mensen zich daarin bewogen.</span></p>
           </div>
         </article>
 
@@ -1018,8 +1159,8 @@
           <div class="stop-card-bg bg-5" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">05 · Interlude · Lucerna</div>
-            <h3 class="stop-title">A Prague what-if</h3>
-            <p class="stop-copy">A lighter, local detail, the cultural palace that was once almost a hockey venue.</p>
+            <h3 class="stop-title"><span class="lang-en">A Prague what-if</span><span class="lang-nl">Een Praags wat-als</span></h3>
+            <p class="stop-copy"><span class="lang-en">A lighter, local detail, the cultural palace that was once almost a hockey venue.</span><span class="lang-nl">Een luchtiger, lokaal detail: het cultuurpaleis dat ooit bijna een hockeylocatie werd.</span></p>
           </div>
         </article>
 
@@ -1027,8 +1168,8 @@
           <div class="stop-card-bg bg-6" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">06 · 1968–69 · Wenceslas Sq.</div>
-            <h3 class="stop-title">Tanks, then goals</h3>
-            <p class="stop-copy">How victories over the USSR became political anger, hope and collective feeling on the ice.</p>
+            <h3 class="stop-title"><span class="lang-en">Tanks, then goals</span><span class="lang-nl">Tanks, toen doelpunten</span></h3>
+            <p class="stop-copy"><span class="lang-en">How victories over the USSR became political anger, hope and collective feeling on the ice.</span><span class="lang-nl">Hoe overwinningen op de USSR politieke woede, hoop en een collectief gevoel op het ijs werden.</span></p>
           </div>
         </article>
 
@@ -1037,7 +1178,7 @@
           <div class="stop-card-content">
             <div class="stop-meta">07 · 1989 · Political Prisoners St.</div>
             <h3 class="stop-title">Velvet Revolution</h3>
-            <p class="stop-copy">From fear and control to self-definition and the later split into two nations, two hockey stories.</p>
+            <p class="stop-copy"><span class="lang-en">From fear and control to self-definition and the later split into two nations, two hockey stories.</span><span class="lang-nl">Van angst en controle naar zelfdefinitie, en later de splitsing in twee landen, twee hockeyverhalen.</span></p>
           </div>
         </article>
 
@@ -1045,8 +1186,8 @@
           <div class="stop-card-bg bg-8" aria-hidden="true"></div>
           <div class="stop-card-content">
             <div class="stop-meta">08 · 1998–2001 · Hall of Fame</div>
-            <h3 class="stop-title">Nagano &amp; memory</h3>
-            <p class="stop-copy">The route ends where pride becomes tangible players, trophies and the moments that still live.</p>
+            <h3 class="stop-title"><span class="lang-en">Nagano &amp; memory</span><span class="lang-nl">Nagano &amp; herinnering</span></h3>
+            <p class="stop-copy"><span class="lang-en">The route ends where pride becomes tangible players, trophies and the moments that still live.</span><span class="lang-nl">De route eindigt waar trots tastbaar wordt: spelers, trofeeën en de momenten die nog altijd leven.</span></p>
           </div>
         </article>
       </div>
@@ -1056,25 +1197,25 @@
   <!-- STEPS -->
   <section class="section steps">
     <div class="container">
-      <span class="eyebrow">How the quote process works</span>
-      <h2 class="display-md">Checked before confirmed.<br><em>Not sold before checked.</em></h2>
-      <p class="lead" style="margin:1.5rem 0 2.5rem;">No automated booking that may not hold up. One honest answer within 24–48 hours.</p>
+      <span class="eyebrow"><span class="lang-en">How the quote process works</span><span class="lang-nl">Hoe het offerteproces werkt</span></span>
+      <h2 class="display-md"><span class="lang-en">Checked before confirmed.<br><em>Not sold before checked.</em></span><span class="lang-nl">Gecheckt voor bevestiging.<br><em>Niet verkocht voor het gecheckt is.</em></span></h2>
+      <p class="lead" style="margin:1.5rem 0 2.5rem;"><span class="lang-en">No automated booking that may not hold up. One honest answer within 24–48 hours.</span><span class="lang-nl">Geen automatische boeking die misschien niet standhoudt. Eén eerlijk antwoord binnen 24-48 uur.</span></p>
 
       <div class="editorial-trio">
         <div class="step">
           <div class="step-num">01</div>
-          <h3>Send your date</h3>
-          <p>Tell us your preferred date, group size, and which version you want, or that you're not sure yet.</p>
+          <h3><span class="lang-en">Send your date</span><span class="lang-nl">Stuur je datum</span></h3>
+          <p><span class="lang-en">Tell us your preferred date, group size, and which version you want, or that you're not sure yet.</span><span class="lang-nl">Vertel ons je gewenste datum, groepsgrootte en welke versie je wil, of dat je het nog niet zeker weet.</span></p>
         </div>
         <div class="step">
           <div class="step-num">02</div>
-          <h3>We check personally</h3>
-          <p>We verify Kamil's availability and -for Version B -which fixtures actually work for your dates.</p>
+          <h3><span class="lang-en">We check personally</span><span class="lang-nl">Wij checken persoonlijk</span></h3>
+          <p><span class="lang-en">We verify Kamil's availability and -for Version B -which fixtures actually work for your dates.</span><span class="lang-nl">We checken Kamils beschikbaarheid en - voor Versie B - welke wedstrijden daadwerkelijk passen bij jouw data.</span></p>
         </div>
         <div class="step">
           <div class="step-num">03</div>
-          <h3>You get a clear answer</h3>
-          <p>A quote, an alternative that fits, or -if nothing works -no charge at all. No pressure.</p>
+          <h3><span class="lang-en">You get a clear answer</span><span class="lang-nl">Je krijgt een duidelijk antwoord</span></h3>
+          <p><span class="lang-en">A quote, an alternative that fits, or -if nothing works -no charge at all. No pressure.</span><span class="lang-nl">Een offerte, een passend alternatief, of - als niets past - helemaal geen kosten. Geen druk.</span></p>
         </div>
       </div>
     </div>
@@ -1083,28 +1224,28 @@
   <!-- INCLUDED -->
   <section class="section included">
     <div class="container">
-      <span class="eyebrow">What's covered</span>
-      <h2 class="display-md">Included &amp; <em>not included.</em></h2>
+      <span class="eyebrow"><span class="lang-en">What's covered</span><span class="lang-nl">Wat is inbegrepen</span></span>
+      <h2 class="display-md"><span class="lang-en">Included &amp; <em>not included.</em></span><span class="lang-nl">Inbegrepen &amp; <em>niet inbegrepen.</em></span></h2>
 
       <div class="include-cols">
         <div class="include-box">
-          <div class="include-title">Included</div>
+          <div class="include-title"><span class="lang-en">Included</span><span class="lang-nl">Inbegrepen</span></div>
           <ul class="include-list yes">
-            <li>Kamil's guide fee for the full walking route</li>
-            <li>Czech Hockey Hall of Fame entry (both versions)</li>
-            <li>Live Extraliga match ticket (Version B, when available)</li>
-            <li>Personal quote review &amp; clear availability response</li>
-            <li>Full refund or alternative if no suitable match exists</li>
+            <li><span class="lang-en">Kamil's guide fee for the full walking route</span><span class="lang-nl">Kamils gidskosten voor de volledige wandelroute</span></li>
+            <li><span class="lang-en">Czech Hockey Hall of Fame entry (both versions)</span><span class="lang-nl">Toegang tot de Tsjechische IJshockey Hall of Fame (beide versies)</span></li>
+            <li><span class="lang-en">Live Extraliga match ticket (Version B, when available)</span><span class="lang-nl">Ticket voor live Extraliga-wedstrijd (Versie B, indien beschikbaar)</span></li>
+            <li><span class="lang-en">Personal quote review &amp; clear availability response</span><span class="lang-nl">Persoonlijke beoordeling van de offerte &amp; duidelijk antwoord over beschikbaarheid</span></li>
+            <li><span class="lang-en">Full refund or alternative if no suitable match exists</span><span class="lang-nl">Volledige terugbetaling of alternatief als er geen geschikte wedstrijd is</span></li>
           </ul>
         </div>
         <div class="include-box">
-          <div class="include-title">Not included</div>
+          <div class="include-title"><span class="lang-en">Not included</span><span class="lang-nl">Niet inbegrepen</span></div>
           <ul class="include-list no">
-            <li>Travel to Prague (flights, trains)</li>
-            <li>Hotel / accommodation</li>
-            <li>Meals, drinks and food during the route</li>
-            <li>Prague public transport (metro tickets are cheap)</li>
-            <li>Travel insurance · Tips (entirely optional)</li>
+            <li><span class="lang-en">Travel to Prague (flights, trains)</span><span class="lang-nl">Reis naar Praag (vluchten, treinen)</span></li>
+            <li><span class="lang-en">Hotel / accommodation</span><span class="lang-nl">Hotel / accommodatie</span></li>
+            <li><span class="lang-en">Meals, drinks and food during the route</span><span class="lang-nl">Maaltijden, drankjes en eten tijdens de route</span></li>
+            <li><span class="lang-en">Prague public transport (metro tickets are cheap)</span><span class="lang-nl">Openbaar vervoer in Praag (metrotickets zijn goedkoop)</span></li>
+            <li><span class="lang-en">Travel insurance · Tips (entirely optional)</span><span class="lang-nl">Reisverzekering · Fooien (volledig optioneel)</span></li>
           </ul>
         </div>
       </div>
@@ -1114,33 +1255,33 @@
   <!-- FAQ -->
   <section class="section faq">
     <div class="container faq-wrap">
-      <span class="eyebrow">Good to know</span>
-      <h2 class="display-md" style="color:var(--ink);">Common questions.</h2>
+      <span class="eyebrow"><span class="lang-en">Good to know</span><span class="lang-nl">Goed om te weten</span></span>
+      <h2 class="display-md" style="color:var(--ink);"><span class="lang-en">Common questions.</span><span class="lang-nl">Veelgestelde vragen.</span></h2>
 
       <div style="margin-top:2rem;">
         <details open>
-          <summary>Do I need to know anything about ice hockey?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Nothing at all. Most guests have never watched a hockey match. The history makes the sport make sense -not the other way around.</p>
+          <summary><span class="lang-en">Do I need to know anything about ice hockey?</span><span class="lang-nl">Moet ik iets weten over ijshockey?</span><span class="faq-icon">+</span></summary>
+          <p class="faq-answer"><span class="lang-en">Nothing at all. Most guests have never watched a hockey match. The history makes the sport make sense -not the other way around.</span><span class="lang-nl">Helemaal niets. De meeste gasten hebben nog nooit een hockeywedstrijd gezien. De geschiedenis maakt de sport begrijpelijk - niet andersom.</span></p>
         </details>
         <details>
-          <summary>When can I do the live match version?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Czech Extraliga runs September – April. Outside the season, Version A (walking + Hall of Fame) is a complete experience on its own.</p>
+          <summary><span class="lang-en">When can I do the live match version?</span><span class="lang-nl">Wanneer kan ik de versie met live wedstrijd doen?</span><span class="faq-icon">+</span></summary>
+          <p class="faq-answer"><span class="lang-en">Czech Extraliga runs September – April. Outside the season, Version A (walking + Hall of Fame) is a complete experience on its own.</span><span class="lang-nl">De Tsjechische Extraliga loopt van september tot april. Buiten het seizoen is Versie A (wandeling + Hall of Fame) een complete experience op zichzelf.</span></p>
         </details>
         <details>
-          <summary>What if no match is available for my date?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">We'll tell you clearly within 24–48 hours, suggest the closest alternative, or offer Version A. If nothing fits, there's no charge.</p>
+          <summary><span class="lang-en">What if no match is available for my date?</span><span class="lang-nl">Wat als er geen wedstrijd beschikbaar is op mijn datum?</span><span class="faq-icon">+</span></summary>
+          <p class="faq-answer"><span class="lang-en">We'll tell you clearly within 24–48 hours, suggest the closest alternative, or offer Version A. If nothing fits, there's no charge.</span><span class="lang-nl">We laten je binnen 24-48 uur duidelijk weten, stellen het dichtstbijzijnde alternatief voor, of bieden Versie A aan. Past er niets, dan zijn er geen kosten.</span></p>
         </details>
         <details>
-          <summary>Is the history heavy? OK for all ages?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Real and honest, not sanitised, but never shock-led. Teens and adults find it compelling. Younger children welcome with some parental context.</p>
+          <summary><span class="lang-en">Is the history heavy? OK for all ages?</span><span class="lang-nl">Is de geschiedenis zwaar? Geschikt voor alle leeftijden?</span><span class="faq-icon">+</span></summary>
+          <p class="faq-answer"><span class="lang-en">Real and honest, not sanitised, but never shock-led. Teens and adults find it compelling. Younger children welcome with some parental context.</span><span class="lang-nl">Echt en eerlijk, niet afgezwakt, maar nooit shockerend. Tieners en volwassenen vinden het boeiend. Jongere kinderen zijn welkom met wat context van de ouders.</span></p>
         </details>
         <details>
-          <summary>I'm travelling solo - can I still join?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Yes. We regularly pair solo guests with other small groups on the same date. Just mention it in the form.</p>
+          <summary><span class="lang-en">I'm travelling solo - can I still join?</span><span class="lang-nl">Ik reis alleen - kan ik toch meedoen?</span><span class="faq-icon">+</span></summary>
+          <p class="faq-answer"><span class="lang-en">Yes. We regularly pair solo guests with other small groups on the same date. Just mention it in the form.</span><span class="lang-nl">Ja. We koppelen regelmatig solo gasten aan andere kleine groepen op dezelfde datum. Vermeld het gewoon in het formulier.</span></p>
         </details>
         <details>
-          <summary>How is this different from a regular Prague walking tour?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Most tours show you the same five landmarks and call it history. This one uses sport as the thread -and sport turns out to be one of the most honest ways to read a culture.</p>
+          <summary><span class="lang-en">How is this different from a regular Prague walking tour?</span><span class="lang-nl">Hoe verschilt dit van een gewone wandeltour door Praag?</span><span class="faq-icon">+</span></summary>
+          <p class="faq-answer"><span class="lang-en">Most tours show you the same five landmarks and call it history. This one uses sport as the thread -and sport turns out to be one of the most honest ways to read a culture.</span><span class="lang-nl">De meeste tours laten je dezelfde vijf bezienswaardigheden zien en noemen dat geschiedenis. Deze gebruikt sport als de rode draad - en sport blijkt een van de eerlijkste manieren te zijn om een cultuur te lezen.</span></p>
         </details>
       </div>
     </div>
@@ -1150,14 +1291,14 @@
   <section class="final-cta">
     <div class="final-bg" aria-hidden="true"></div>
     <div class="final-inner">
-      <span class="eyebrow" style="justify-content:center;">Small groups · Prague, Czech Republic</span>
-      <h2 class="display-lg">You'll leave Prague<br><em>knowing it.</em></h2>
-      <p class="final-copy">Not the postcards. Not the highlights reel. The thing underneath -the stubbornness, the humour, the refusal to give in. The sport that made it visible.</p>
+      <span class="eyebrow" style="justify-content:center;"><span class="lang-en">Small groups · Prague, Czech Republic</span><span class="lang-nl">Kleine groepen · Praag, Tsjechië</span></span>
+      <h2 class="display-lg"><span class="lang-en">You'll leave Prague<br><em>knowing it.</em></span><span class="lang-nl">Je verlaat Praag<br><em>terwijl je het kent.</em></span></h2>
+      <p class="final-copy"><span class="lang-en">Not the postcards. Not the highlights reel. The thing underneath -the stubbornness, the humour, the refusal to give in. The sport that made it visible.</span><span class="lang-nl">Niet de ansichtkaarten. Niet de hoogtepunten. Het onderliggende - de koppigheid, de humor, de weigering om op te geven. De sport die het zichtbaar maakte.</span></p>
       <div class="final-row">
-        <a href="#enquire" class="btn btn-primary">Request a quote →</a>
-        <a href="mailto:info@travelbeyondthepitch.com" class="btn btn-ghost">Ask a question instead</a>
+        <a href="#enquire" class="btn btn-primary"><span class="lang-en">Request a quote →</span><span class="lang-nl">Vraag een offerte aan →</span></a>
+        <a href="mailto:info@travelbeyondthepitch.com" class="btn btn-ghost"><span class="lang-en">Ask a question instead</span><span class="lang-nl">Stel liever een vraag</span></a>
       </div>
-      <p class="final-micro">Custom group quote · Min. 4 people · Personally confirmed within 24–48 hours</p>
+      <p class="final-micro"><span class="lang-en">Custom group quote · Min. 4 people · Personally confirmed within 24–48 hours</span><span class="lang-nl">Offerte op maat voor groepen · Min. 4 personen · Persoonlijk bevestigd binnen 24-48 uur</span></p>
     </div>
   </section>
 </main>
@@ -1167,20 +1308,20 @@
     <div class="footer-grid">
       <div>
         <a href="/" class="logo">Beyond <span>the Pitch</span></a>
-        <p class="footer-tag">Authentic cultural sports experiences connecting you with local communities and traditions.</p>
+        <p class="footer-tag"><span class="lang-en">Authentic cultural sports experiences connecting you with local communities and traditions.</span><span class="lang-nl">Authentieke culturele sportervaringen die je verbinden met lokale gemeenschappen en tradities.</span></p>
       </div>
       <div>
-        <div class="footer-head">Quick links</div>
+        <div class="footer-head"><span class="lang-en">Quick links</span><span class="lang-nl">Snelle links</span></div>
         <div class="footer-links">
           <a href="/">Home</a>
           <a href="/experiences/">Experiences</a>
-          <a href="/prague/">Prague Ice Hockey</a>
-          <a href="/about/">About</a>
+          <a href="/prague/"><span class="lang-en">Prague Ice Hockey</span><span class="lang-nl">IJshockey in Praag</span></a>
+          <a href="/about/"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
           <a href="/contact/">Contact</a>
         </div>
       </div>
       <div>
-        <div class="footer-head">Connect</div>
+        <div class="footer-head"><span class="lang-en">Connect</span><span class="lang-nl">Volg ons</span></div>
         <div class="footer-links">
           <a href="https://www.tiktok.com/@travelbeyondthepitch" target="_blank" rel="noopener">TikTok</a>
           <a href="https://www.instagram.com/travelbeyondthepitch/" target="_blank" rel="noopener">Instagram</a>
@@ -1189,11 +1330,11 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Beyond the Pitch. All rights reserved.</p>
+      <p><span class="lang-en">© 2026 Beyond the Pitch. All rights reserved.</span><span class="lang-nl">© 2026 Beyond the Pitch. Alle rechten voorbehouden.</span></p>
       <div style="display:flex;gap:1.2rem;flex-wrap:wrap;">
-        <a href="/privacy-policy/">Privacy</a>
-        <a href="/terms-&-conditions/">Terms</a>
-        <a href="/refund-cancellation-policy/">Refund &amp; cancellation</a>
+        <a href="/privacy-policy/"><span class="lang-en">Privacy</span><span class="lang-nl">Privacybeleid</span></a>
+        <a href="/terms-&-conditions/"><span class="lang-en">Terms</span><span class="lang-nl">Voorwaarden</span></a>
+        <a href="/refund-cancellation-policy/"><span class="lang-en">Refund &amp; cancellation</span><span class="lang-nl">Restitutie &amp; annulering</span></a>
       </div>
     </div>
   </div>
@@ -1228,112 +1369,6 @@
   overlay.addEventListener('click', closeMenu);
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
- // ── Prague Quote Request Form — Inline version ──
-const BF_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSewFWGL3Ycb_5SUtCXfjh3tKP4qRG8fjb053KUI__iucl2Byg/formResponse';
-const BF_FIELDS = {
-  name:          'entry.761572476',
-  email:         'entry.1144619265',
-  phone:         'entry.1213010877',
-  experience:    'entry.1446094233',
-  date:          'entry.301148404',
-  guests:        'entry.175134312',
-  requests:      'entry.2094398847',
-  packageCode:   'entry.924755547',
-  fixture:       'entry.857468506',
-  partner:       'entry.997778576',
-  country:       'entry.757548239',
-  source:        'entry.6981604',
-  version:       'entry.199160968',
-};
-
-let bfVersion = null;
-
-function bfValid(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-function bfErr(id,msg){ const el=document.getElementById(id); if(el){el.textContent=msg;el.className='error-box'+(msg?' show':'');} }
-
-// Step indicators
-function bfSetStep(n){
-  [1,2,3].forEach(i=>{
-    const el=document.getElementById('step'+i+'ind');
-    if(el) el.style.background = i<=n ? 'var(--red)' : 'var(--line-2)';
-  });
-}
-
-function bfNext1(){
-  if(!bfVersion){
-    bfErr('bf_error1','Please choose a version.'); return;
-  }
-  bfErr('bf_error1','');
-  document.getElementById('bfStep1').style.display='none';
-  document.getElementById('bfStep2').style.display='block';
-  bfSetStep(2);
-}
-
-function bfBack1(){
-  document.getElementById('bfStep2').style.display='none';
-  document.getElementById('bfStep1').style.display='block';
-  bfSetStep(1);
-}
-
-function bfSelectVersion(v){
-  bfVersion=v;
-  document.getElementById('vcard_a').classList.toggle('active',v==='A');
-  document.getElementById('vcard_b').classList.toggle('active',v==='B');
-  document.getElementById('bf_next1Btn').disabled = false;
-}
-
-async function bfSubmit(){
-  const name=document.getElementById('bf_name').value.trim();
-  const email=document.getElementById('bf_email').value.trim();
-  const phone=document.getElementById('bf_phone').value.trim();
-  const country=document.getElementById('bf_country').value.trim();
-  const date=document.getElementById('bf_date').value.trim();
-  const guests=document.getElementById('bf_guests').value;
-  const source=document.getElementById('bf_source').value;
-  const requests=document.getElementById('bf_requests').value.trim();
-
-  if(!name||!bfValid(email)||!country||!date||!guests||!source){
-    bfErr('bf_error2','Please fill in all required fields.'); return;
-  }
-  bfErr('bf_error2','');
-
-  const btn=document.getElementById('bf_submitBtn');
-  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Sending…';
-
-  const packageCode = bfVersion==='A' ? 'PRG-A' : 'PRG-B';
-  const experienceName = bfVersion==='A'
-    ? 'Prague Ice Hockey Experience – Version A (Tour + Hall of Fame)'
-    : 'Prague Ice Hockey Experience – Version B (Tour + Hall of Fame + Match)';
-  const fixtureNote = bfVersion==='B'
-    ? 'Version B - please check for a live Sparta/Slavia match around the requested date'
-    : 'Version A - no match needed';
-
-  const fd=new FormData();
-  fd.append(BF_FIELDS.name,           name);
-  fd.append(BF_FIELDS.email,          email);
-  fd.append(BF_FIELDS.phone,          phone);
-  fd.append(BF_FIELDS.experience,     experienceName);
-  fd.append(BF_FIELDS.date,           date);
-  fd.append(BF_FIELDS.guests,         guests);
-  fd.append(BF_FIELDS.partner,        'Prague');
-  fd.append(BF_FIELDS.country,        country);
-  fd.append(BF_FIELDS.source,         source);
-  fd.append(BF_FIELDS.version,        bfVersion);
-  fd.append(BF_FIELDS.fixture,        fixtureNote);
-  fd.append(BF_FIELDS.packageCode,    packageCode);
-  fd.append(BF_FIELDS.requests,       requests || 'No special requests');
-
-  try {
-    await fetch(BF_FORM_ACTION, {method:'POST', mode:'no-cors', body:fd});
-    try { gtag('event','form_submit',{experience:'prague',version:bfVersion,guests}); } catch(e){}
-    document.getElementById('bfStep2').style.display='none';
-    document.getElementById('bf_success').style.display='block';
-    bfSetStep(3);
-  } catch(err) {
-    bfErr('bf_error2','Could not send your request. Please try again or email us directly.');
-    btn.disabled=false; btn.textContent='Request a quote';
-  }
-}
 document.querySelectorAll('.yt-facade').forEach(function(facade) {
   facade.addEventListener('click', function() {
     var videoId = facade.dataset.videoId;
@@ -1359,6 +1394,29 @@ function preselectVersion(val){
     document.getElementById('enquire').scrollIntoView({behavior:'smooth'});
   }, 100);
 }
+
+// ── Language toggle ──
+function setLang(lang) {
+  document.body.classList.toggle('lang-active-nl', lang === 'nl');
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.documentElement.lang = lang;
+  try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+let initialLang = 'en';
+try {
+  const saved = localStorage.getItem('btp_lang');
+  if (saved === 'en' || saved === 'nl') {
+    initialLang = saved;
+  } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
+    initialLang = 'nl';
+  }
+} catch(e) {}
+setLang(initialLang);
 </script>
 </body>
 </html>
