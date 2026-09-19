@@ -66,6 +66,25 @@
 
     .text-gold { color: var(--gold); }
     .bg-gold { background: var(--gold); }
+
+    /* LANGUAGE TOGGLE */
+    .lang-nl { display: none; }
+    body.lang-active-nl .lang-en { display: none; }
+    body.lang-active-nl .lang-nl { display: inline; }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 2px;
+      border: 1px solid rgba(255,215,0,0.2); border-radius: 6px;
+      padding: 2px; background: rgba(255,255,255,0.03);
+    }
+    .lang-btn {
+      border: none; background: transparent; color: rgba(255,255,255,0.5);
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em;
+      padding: 0.4rem 0.65rem; border-radius: 4px; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .lang-btn.active { background: var(--gold); color: #000; }
+    .lang-btn:hover:not(.active) { color: #fff; }
+    #mobileNavMenu .lang-toggle { margin-top: 0.75rem; }
     
     /* Sticky Navigation */
     .sticky-nav {
@@ -220,12 +239,16 @@
         </a>
         
         <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-8 text-sm font-medium">
-          <a href="/./" class="text-gray-300 hover:text-gold transition-colors">Home</a>
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <a href="/" class="text-gray-300 hover:text-gold transition-colors">Home</a>
           <a href="/experiences/" class="text-gray-300 hover:text-gold transition-colors">Experiences</a>
-          <a href="/contact/"community class="text-gray-300 hover:text-gold transition-colors">Community</a>
-          <a href="/about/" class="text-gold transition-colors">About</a>
-          <a href="/./#faq" class="text-gray-300 hover:text-gold transition-colors">FAQ</a>
+          <a href="/groups/" class="text-gray-300 hover:text-gold transition-colors"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+          <a href="/about/" class="text-gold transition-colors"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+          <a href="/contact/" class="text-gray-300 hover:text-gold transition-colors">Contact</a>
+          <div class="lang-toggle">
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="nl">NL</button>
+          </div>
         </div>
         
         <!-- Mobile Hamburger Button -->
@@ -239,22 +262,15 @@
       
       <!-- Mobile Menu -->
       <div id="mobileNavMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
-        <a href="/./" class="block py-2 text-gray-300 hover:text-gold transition-colors">Home</a>
+        <a href="/" class="block py-2 text-gray-300 hover:text-gold transition-colors">Home</a>
         <a href="/experiences/" class="block py-2 text-gray-300 hover:text-gold transition-colors">Experiences</a>
-        
-        <!-- Projects Dropdown -->
-        <details class="mt-2">
-          <summary class="cursor-pointer text-gray-300 hover:text-gold py-2">Projects</summary>
-          <div class="pl-4 mt-2">
-            <a href="/naadam/" class="block py-1 text-gray-300 hover:text-gold text-sm">Naadam Festival - Mongolia</a>
-            <a href="/gaelic-games/" class="block py-1 text-gray-300 hover:text-gold text-sm">Gaelic Football & Hurling - Ireland</a>
-          </div>
-        </details>
-        
-        <a href="/./#community" class="block py-2 text-gray-300 hover:text-gold transition-colors">Community</a>
-        <a href="/./#partners" class="block py-2 text-gray-300 hover:text-gold transition-colors">Partners</a>
-        <a href="/about/" class="block py-2 text-gold transition-colors">About</a>
-        <a href="/./#faq" class="block py-2 text-gray-300 hover:text-gold transition-colors">FAQ</a>
+        <a href="/groups/" class="block py-2 text-gray-300 hover:text-gold transition-colors"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+        <a href="/about/" class="block py-2 text-gold transition-colors"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+        <a href="/contact/" class="block py-2 text-gray-300 hover:text-gold transition-colors">Contact</a>
+        <div class="lang-toggle">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="nl">NL</button>
+        </div>
       </div>
       
     </div>
@@ -264,13 +280,14 @@
   <section class="hero-about py-32 px-6 relative">
     <div class="max-w-4xl mx-auto text-center relative z-10" data-animate>
       <h1 class="text-5xl md:text-6xl font-bold text-gold mb-8 leading-tight">
-        About us
+        <span class="lang-en">About us</span><span class="lang-nl">Over ons</span>
       </h1>
       <p class="text-2xl text-gray-300 mb-6 font-light">
-        Where Sport, Culture and Community come together
+        <span class="lang-en">Where Sport, Culture and Community come together</span><span class="lang-nl">Waar sport, cultuur en community samenkomen</span>
       </p>
       <p class="lead-text max-w-3xl mx-auto">
-        Beyond the Pitch is a <strong>Sports Culture Experience &amp; Media Company</strong> built around a simple belief: to truly understand a place, you need to experience the sports, traditions and communities that shape it.
+        <span class="lang-en">Beyond the Pitch is a <strong>Sports Culture Experience &amp; Media Company</strong> built around a simple belief: to truly understand a place, you need to experience the sports, traditions and communities that shape it.</span>
+        <span class="lang-nl">Beyond the Pitch is een <strong>Sports Culture Experience &amp; Media Company</strong>, gebouwd rond een simpel geloof: om een plek écht te begrijpen, moet je de sporten, tradities en gemeenschappen ervaren die haar vormen.</span>
       </p>
     </div>
   </section>
@@ -289,24 +306,26 @@
   <section class="py-24 px-6 md:px-20 bg-black">
     <div class="max-w-4xl mx-auto" data-animate>
       <p class="lead-text mb-6">
-        We create small-scale, authentic <strong>sport culture experiences</strong> that go far beyond stadiums and tourist hotspots. Our <strong>programs</strong> are designed for people who want to connect deeply with local sports traditions – meeting locals, feeling the culture, and discovering the stories behind the sports that unite communities worldwide.
+        <span class="lang-en">We create small-scale, authentic <strong>sport culture experiences</strong> that go far beyond stadiums and tourist hotspots. Our <strong>programs</strong> are designed for people who want to connect deeply with local sports traditions – meeting locals, feeling the culture, and discovering the stories behind the sports that unite communities worldwide.</span>
+        <span class="lang-nl">We creëren kleinschalige, authentieke <strong>sport- en cultuurervaringen</strong> die ver voorbij stadions en toeristische hotspots gaan. Onze <strong>programma's</strong> zijn gemaakt voor mensen die zich diep willen verbinden met lokale sporttradities - locals ontmoeten, de cultuur voelen, en de verhalen ontdekken achter de sporten die gemeenschappen wereldwijd verbinden.</span>
       </p>
       <p class="lead-text mb-12">
-        From Mongolian wrestling to the Gaelic games in Ireland. Beyond the Pitch unlocks the real heartbeat of a destination through <strong>local experiences</strong>.
+        <span class="lang-en">From hurling in Ireland to ice hockey in Prague. Beyond the Pitch unlocks the real heartbeat of a destination through <strong>local experiences</strong>.</span>
+        <span class="lang-nl">Van hurling in Ierland tot ijshockey in Praag. Beyond the Pitch ontsluit de echte hartslag van een bestemming via <strong>lokale experiences</strong>.</span>
       </p>
       
       <div class="grid md:grid-cols-3 gap-8 mt-16 text-center">
         <div class="py-6 border-t border-gray-800" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold">Our Approach</p>
-          <p class="text-gray-400 text-sm">No mass travel</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold"><span class="lang-en">Our Approach</span><span class="lang-nl">Onze aanpak</span></p>
+          <p class="text-gray-400 text-sm"><span class="lang-en">No mass travel</span><span class="lang-nl">Geen massatoerisme</span></p>
         </div>
         <div class="py-6 border-t border-gray-800" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold">Our Path</p>
-          <p class="text-gray-400 text-sm">No usual routes</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold"><span class="lang-en">Our Path</span><span class="lang-nl">Onze weg</span></p>
+          <p class="text-gray-400 text-sm"><span class="lang-en">No usual routes</span><span class="lang-nl">Geen standaardroutes</span></p>
         </div>
         <div class="py-6 border-t border-gray-800" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold">Our Promise</p>
-          <p class="text-gray-400 text-sm">Personal, meaningful experiences</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-3 font-semibold"><span class="lang-en">Our Promise</span><span class="lang-nl">Onze belofte</span></p>
+          <p class="text-gray-400 text-sm"><span class="lang-en">Personal, meaningful experiences</span><span class="lang-nl">Persoonlijke, betekenisvolle experiences</span></p>
         </div>
       </div>
     </div>
@@ -317,16 +336,18 @@
     <div class="max-w-5xl mx-auto">
       <div class="grid md:grid-cols-2 gap-16">
         <div data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Mission</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Mission</span><span class="lang-nl">Missie</span></p>
           <p class="text-xl text-gray-200 leading-relaxed mb-4">
-            To connect people with authentic sport cultures through curated experiences, local storytelling, and community access – powered by local partners.
+            <span class="lang-en">To connect people with authentic sport cultures through curated experiences, local storytelling, and community access – powered by local partners.</span>
+            <span class="lang-nl">Mensen verbinden met authentieke sportculturen via samengestelde experiences, lokale verhalen en toegang tot de community - mogelijk gemaakt door lokale partners.</span>
           </p>
-          <p class="text-sm text-gray-500 italic">Travel &amp; accommodation arranged independently.</p>
+          <p class="text-sm text-gray-500 italic"><span class="lang-en">Travel &amp; accommodation arranged independently.</span><span class="lang-nl">Reis &amp; accommodatie regel je zelf.</span></p>
         </div>
         <div data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Vision</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Vision</span><span class="lang-nl">Visie</span></p>
           <p class="text-xl text-gray-200 leading-relaxed">
-            To become a global platform for cultural sports experiences, setting a new standard for meaningful cultural immersion through local tradition, athletic passion, and human connection.
+            <span class="lang-en">To become a global platform for cultural sports experiences, setting a new standard for meaningful cultural immersion through local tradition, athletic passion, and human connection.</span>
+            <span class="lang-nl">Een wereldwijd platform worden voor culturele sportervaringen, en een nieuwe standaard zetten voor betekenisvolle culturele onderdompeling via lokale tradities, sportieve passie en menselijke verbinding.</span>
           </p>
         </div>
       </div>
@@ -337,50 +358,56 @@
   <section class="py-24 px-6 md:px-20 bg-black">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16" data-animate>
-        <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4">Our values</h2>
-        <p class="text-gray-400 text-lg">The principles that guide everything we do</p>
+        <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4"><span class="lang-en">Our values</span><span class="lang-nl">Onze waarden</span></h2>
+        <p class="text-gray-400 text-lg"><span class="lang-en">The principles that guide everything we do</span><span class="lang-nl">De principes die alles sturen wat we doen</span></p>
       </div>
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-balanced">
         <div class="value-card" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Authenticity</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Authenticity</span><span class="lang-nl">Authenticiteit</span></p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            We work with local communities, athletes, guides and storytellers who represent the real culture of their home - ensuring every experience feels genuine.
+            <span class="lang-en">We work with local communities, athletes, guides and storytellers who represent the real culture of their home - ensuring every experience feels genuine.</span>
+            <span class="lang-nl">We werken samen met lokale gemeenschappen, atleten, gidsen en verhalenvertellers die de echte cultuur van hun thuisland vertegenwoordigen - zodat elke experience authentiek aanvoelt.</span>
           </p>
         </div>
         
         <div class="value-card" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Community First</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Community First</span><span class="lang-nl">Community eerst</span></p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            Every destination is built in collaboration with locals. They lead, we support. Their stories shape the experience.
+            <span class="lang-en">Every destination is built in collaboration with locals. They lead, we support. Their stories shape the experience.</span>
+            <span class="lang-nl">Elke bestemming wordt samen met locals opgebouwd. Zij leiden, wij ondersteunen. Hun verhalen vormen de experience.</span>
           </p>
         </div>
         
         <div class="value-card" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Respect</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Respect</span><span class="lang-nl">Respect</span></p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            We approach every culture, tradition and community with integrity and care. Our role is to listen first, then share.
+            <span class="lang-en">We approach every culture, tradition and community with integrity and care. Our role is to listen first, then share.</span>
+            <span class="lang-nl">We benaderen elke cultuur, traditie en gemeenschap met integriteit en zorg. Onze rol is eerst luisteren, dan delen.</span>
           </p>
         </div>
         
         <div class="value-card" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Connection</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Connection</span><span class="lang-nl">Verbinding</span></p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            Sport is our gateway, but people are at the centre of everything we do - participants, fans, families and local hosts.
+            <span class="lang-en">Sport is our gateway, but people are at the centre of everything we do - participants, fans, families and local hosts.</span>
+            <span class="lang-nl">Sport is onze ingang, maar mensen staan centraal in alles wat we doen - deelnemers, fans, families en lokale gastheren.</span>
           </p>
         </div>
         
         <div class="value-card" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Curated Quality</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Curated Quality</span><span class="lang-nl">Zorgvuldig samengesteld</span></p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            Small groups, thoughtfully designed cultural programs, safe execution, and professional local guidance ensure every participant feels supported and immersed.
+            <span class="lang-en">Small groups, thoughtfully designed cultural programs, safe execution, and professional local guidance ensure every participant feels supported and immersed.</span>
+            <span class="lang-nl">Kleine groepen, doordacht samengestelde culturele programma's, veilige uitvoering en professionele lokale begeleiding zorgen dat elke deelnemer zich ondersteund en ondergedompeld voelt.</span>
           </p>
         </div>
         
         <div class="value-card" data-animate>
-          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold">Beyond the Game</p>
+          <p class="text-sm uppercase tracking-wider text-gold mb-4 font-semibold"><span class="lang-en">Beyond the Game</span><span class="lang-nl">Voorbij de wedstrijd</span></p>
           <p class="text-gray-300 leading-relaxed text-sm">
-            The match is only the starting point. We take participants deeper - into rituals, food, stories, music and daily life.
+            <span class="lang-en">The match is only the starting point. We take participants deeper - into rituals, food, stories, music and daily life.</span>
+            <span class="lang-nl">De wedstrijd is slechts het beginpunt. We nemen deelnemers dieper mee - in rituelen, eten, verhalen, muziek en het dagelijks leven.</span>
           </p>
         </div>
       </div>
@@ -391,7 +418,7 @@
   <section class="py-24 px-6 md:px-20 bg-gray-900 bg-opacity-30">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16" data-animate>
-        <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4">Meet the founders</h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-gold mb-4"><span class="lang-en">Meet the founders</span><span class="lang-nl">Maak kennis met de oprichters</span></h2>
       </div>
       
       <div class="grid md:grid-cols-2 gap-12">
@@ -405,13 +432,15 @@
      loading="lazy" />
           </div>
           <div class="p-8">
-            <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold">Founder</p>
+            <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold"><span class="lang-en">Founder</span><span class="lang-nl">Oprichter</span></p>
             <h3 class="text-2xl font-bold mb-6 text-white">Marc van der Werf</h3>
             <p class="text-gray-300 leading-relaxed mb-5 text-sm">
-             Born and based in the Netherlands, I've built my career in tourism, working on global projects for some of the world's largest airlines and leading international ground-transportation initiatives. Alongside my professional work, sport has always been a constant in my life - from playing as a kid to exploring new cities through their local sports culture.
+              <span class="lang-en">Born and based in the Netherlands, I've built my career in tourism, working on global projects for some of the world's largest airlines and leading international ground-transportation initiatives. Alongside my professional work, sport has always been a constant in my life - from playing as a kid to exploring new cities through their local sports culture.</span>
+              <span class="lang-nl">Geboren en woonachtig in Nederland, heb ik mijn carrière opgebouwd in het toerisme, waar ik wereldwijde projecten deed voor enkele van 's werelds grootste luchtvaartmaatschappijen en internationale grondtransport-initiatieven leidde. Naast mijn werk is sport altijd een constante factor in mijn leven geweest - van zelf spelen als kind tot het ontdekken van nieuwe steden via hun lokale sportcultuur.</span>
             </p>
             <p class="text-gray-300 leading-relaxed text-sm">
-              With a degree in Sports Marketing and a lifelong passion for exploring new cultures through sports, food, language, and local experiences, I felt inspired to create a platform that brings all these elements together. That idea grew into Beyond the Pitch.
+              <span class="lang-en">With a degree in Sports Marketing and a lifelong passion for exploring new cultures through sports, food, language, and local experiences, I felt inspired to create a platform that brings all these elements together. That idea grew into Beyond the Pitch.</span>
+              <span class="lang-nl">Met een opleiding Sportmarketing en een levenslange passie voor het ontdekken van nieuwe culturen via sport, eten, taal en lokale experiences, voelde ik me geïnspireerd om een platform te creëren dat al deze elementen samenbrengt. Dat idee groeide uit tot Beyond the Pitch.</span>
             </p>
           </div>
         </article>
@@ -425,13 +454,15 @@
      loading="lazy" />
           </div>
           <div class="p-8">
-            <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold">Co-Founder</p>
+            <p class="text-sm uppercase tracking-wider text-gold mb-2 font-semibold"><span class="lang-en">Co-Founder</span><span class="lang-nl">Mede-oprichter</span></p>
             <h3 class="text-2xl font-bold mb-6 text-white">Martijn Berden</h3>
             <p class="text-gray-300 leading-relaxed mb-5 text-sm">
-              Football has been at the center of my life for as long as I can remember. I played professionally for around ten years, starting in the academy of PSV Eindhoven and later continuing my career across several first- and second-division clubs in the Netherlands.
+              <span class="lang-en">Football has been at the center of my life for as long as I can remember. I played professionally for around ten years, starting in the academy of PSV Eindhoven and later continuing my career across several first- and second-division clubs in the Netherlands.</span>
+              <span class="lang-nl">Voetbal staat al zolang ik me kan herinneren centraal in mijn leven. Ik speelde ongeveer tien jaar op professioneel niveau, begonnen in de jeugdopleiding van PSV Eindhoven en later actief bij verschillende eerste- en tweededivisieclubs in Nederland.</span>
             </p>
             <p class="text-gray-300 leading-relaxed text-sm">
-              After stepping away from the highest professional level, I felt a strong desire to share what football has given me: the energy of performing for a crowd, the joy of entertaining people, and the unique connection that sport creates between players and fans. Combined with my passion for discovering new cultures, Beyond the Pitch gives me the perfect opportunity to bring these worlds together.
+              <span class="lang-en">After stepping away from the highest professional level, I felt a strong desire to share what football has given me: the energy of performing for a crowd, the joy of entertaining people, and the unique connection that sport creates between players and fans. Combined with my passion for discovering new cultures, Beyond the Pitch gives me the perfect opportunity to bring these worlds together.</span>
+              <span class="lang-nl">Na het afscheid van het hoogste niveau voelde ik een sterke wens om te delen wat voetbal mij heeft gegeven: de energie van optreden voor publiek, het plezier van mensen vermaken, en de unieke verbinding die sport creëert tussen spelers en fans. Gecombineerd met mijn passie voor het ontdekken van nieuwe culturen geeft Beyond the Pitch mij de perfecte kans om deze werelden samen te brengen.</span>
             </p>
           </div>
         </article>
@@ -443,17 +474,18 @@
   <!-- Why We Exist -->
   <section class="py-24 px-6 bg-black text-center">
     <div class="max-w-3xl mx-auto" data-animate>
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Why we exist</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-8"><span class="lang-en">Why we exist</span><span class="lang-nl">Waarom we bestaan</span></h2>
       <p class="text-xl text-gray-300 leading-relaxed mb-6">
-        Because sport is more than competition.
+        <span class="lang-en">Because sport is more than competition.</span><span class="lang-nl">Omdat sport meer is dan competitie.</span>
       </p>
       <p class="text-xl text-gray-300 leading-relaxed mb-6">
-        It's culture. It's human. It's universal connection.
+        <span class="lang-en">It's culture. It's human. It's universal connection.</span><span class="lang-nl">Het is cultuur. Het is menselijk. Het is universele verbinding.</span>
       </p>
       <p class="lead-text mb-8">
-        <strong>Beyond the Pitch unlocks these stories through local experiences</strong> – the match is just the beginning.
+        <span class="lang-en"><strong>Beyond the Pitch unlocks these stories through local experiences</strong> – the match is just the beginning.</span>
+        <span class="lang-nl"><strong>Beyond the Pitch ontsluit deze verhalen via lokale experiences</strong> - de wedstrijd is slechts het begin.</span>
       </p>
-      <p class="text-sm text-gray-500 italic mb-12">We are not a travel agency.</p>
+      <p class="text-sm text-gray-500 italic mb-12"><span class="lang-en">We are not a travel agency.</span><span class="lang-nl">We zijn geen reisbureau.</span></p>
       <p class="text-3xl font-bold text-gold mt-12">
         This is Beyond the Pitch
       </p>
@@ -471,19 +503,21 @@
       </div>
       <div class="mb-6">
         <a href="mailto:info@travelbeyondthepitch.com" class="text-gray-400 hover:text-gold transition-colors">
-          📧 info@travelbeyondhthepitch.com
+          📧 info@travelbeyondthepitch.com
         </a>
       </div>
 
       <!-- Legal Notice -->
       <div class="mt-8 mb-6 max-w-2xl mx-auto border-t border-gray-800 pt-8">
         <p class="text-xs text-gray-600 leading-relaxed">
-          <strong class="text-gray-500">Legal Notice:</strong> Beyond the Pitch organizes cultural sports experiences and media content. We are not a licensed tour operator. Transportation and accommodation are your responsibility or arranged via licensed partners.
-          <a href="/tersm-&-conditions/" class="text-gray-500 hover:text-gold underline ml-1 transition-colors">See full terms.</a>
+          <strong class="text-gray-500"><span class="lang-en">Legal Notice:</span><span class="lang-nl">Juridische mededeling:</span></strong>
+          <span class="lang-en">Beyond the Pitch organizes cultural sports experiences and media content. We are not a licensed tour operator. Transportation and accommodation are your responsibility or arranged via licensed partners.</span>
+          <span class="lang-nl">Beyond the Pitch organiseert culturele sportervaringen en mediacontent. We zijn geen erkend reisorganisator. Vervoer en accommodatie zijn je eigen verantwoordelijkheid of worden geregeld via erkende partners.</span>
+          <a href="/terms-&-conditions/" class="text-gray-500 hover:text-gold underline ml-1 transition-colors"><span class="lang-en">See full terms.</span><span class="lang-nl">Bekijk de volledige voorwaarden.</span></a>
         </p>
       </div>
 
-      <p class="text-gray-600 text-sm">© 2026 Beyond the Pitch. All rights reserved.</p>
+      <p class="text-gray-600 text-sm"><span class="lang-en">© 2026 Beyond the Pitch. All rights reserved.</span><span class="lang-nl">© 2026 Beyond the Pitch. Alle rechten voorbehouden.</span></p>
     </div>
   </footer>
 
@@ -545,7 +579,7 @@
   <script>
     // Track CTA button clicks
     document.addEventListener('click', function(e) {
-      const cta = e.target.closest('a[href*="contact"], a[href*="naadam"], .nav-cta, .floating-cta');
+      const cta = e.target.closest('a[href*="contact"], .nav-cta, .floating-cta');
       if (cta) {
         gtag('event', 'cta_click', {
           'event_category': 'engagement',
@@ -603,6 +637,29 @@
         });
       }
     });
+
+    // ── Language toggle ──
+    function setLang(lang) {
+      document.body.classList.toggle('lang-active-nl', lang === 'nl');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    let initialLang = 'en';
+    try {
+      const saved = localStorage.getItem('btp_lang');
+      if (saved === 'en' || saved === 'nl') {
+        initialLang = saved;
+      } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
+        initialLang = 'nl';
+      }
+    } catch(e) {}
+    setLang(initialLang);
   </script>
 </body>
 </html>
