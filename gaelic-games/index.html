@@ -140,6 +140,25 @@
       line-height: 1.6;
     }
 
+    /* ── LANGUAGE TOGGLE ── */
+    .lang-nl { display: none; }
+    body.lang-active-nl .lang-en { display: none; }
+    body.lang-active-nl .lang-nl { display: inline; }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 2px;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+      padding: 2px; background: rgba(255,255,255,0.03);
+    }
+    .lang-btn {
+      border: none; background: transparent; color: rgba(255,255,255,0.5);
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em;
+      padding: 0.4rem 0.65rem; border-radius: 4px; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .lang-btn.active { background: var(--gold-bright); color: #000; }
+    .lang-btn:hover:not(.active) { color: #fff; }
+    .mobile-menu .lang-toggle { margin-top: 0.5rem; }
+
     .header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(10,10,10,0.97);
@@ -521,10 +540,10 @@
   </script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link"><span class="lang-en">Skip to content</span><span class="lang-nl">Ga naar inhoud</span></a>
 
   <a href="#book" class="floating-cta" onclick="bookGoTo('dublin')">
-  <span>The Dublin Experience - request a quote</span>
+  <span>The Dublin Experience - <span class="lang-en">request a quote</span><span class="lang-nl">vraag een offerte aan</span></span>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
 
@@ -540,9 +559,13 @@
         <a href="/" class="nav-link">Home</a>
         <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('dublin'),100)" class="nav-link">Dublin</a>
         <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('kilkenny'),100)" class="nav-link">Kilkenny</a>
-        <a href="/groups/" class="nav-link">Groups</a>
-        <a href="/about/" class="nav-link">About</a>
+        <a href="/groups/" class="nav-link"><span class="lang-en">Groups</span><span class="lang-nl">Groepen</span></a>
+        <a href="/about/" class="nav-link"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
         <a href="/contact/" class="nav-link">Contact</a>
+        <div class="lang-toggle">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="nl">NL</button>
+        </div>
       </nav>
       <button class="hamburger md:hidden" id="menuToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -561,10 +584,14 @@
       <a href="/" class="nav-link">Home</a>
       <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('dublin'),100)" class="nav-link">Dublin</a>
       <a href="/gaelic-games/#experiences" onclick="setTimeout(()=>switchTab('kilkenny'),100)" class="nav-link">Kilkenny</a>
-      <a href="/groups/" class="nav-link">Groups</a>
-      <a href="/about/" class="nav-link">About</a>
+      <a href="/groups/" class="nav-link"><span class="lang-en">Groups</span><span class="lang-nl">Groepen</span></a>
+      <a href="/about/" class="nav-link"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
       <a href="/contact/" class="nav-link">Contact</a>
-      <a href="#book" onclick="bookGoTo('dublin')" class="nav-link" style="margin-top:0.5rem;background:var(--dublin-blue);color:#fff;padding:0.85rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;text-align:center;">Request a quote</a>
+      <a href="#book" onclick="bookGoTo('dublin')" class="nav-link" style="margin-top:0.5rem;background:var(--dublin-blue);color:#fff;padding:0.85rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;text-align:center;"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="nl">NL</button>
+      </div>
     </div>
   </nav>
 
@@ -581,7 +608,7 @@
   </div>
   <div style="position:relative;z-index:2;max-width:1100px;margin:0 auto;">
     <span style="display:block;text-transform:uppercase;letter-spacing:0.15em;font-size:0.72rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;">
-      Dublin · Cultural Sports Experiences
+      Dublin · <span class="lang-en">Cultural Sports Experiences</span><span class="lang-nl">Culturele sportervaringen</span>
     </span>
     <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
       <div>
@@ -589,11 +616,12 @@
           The Gaelic Games <br><span style="color:#4a90d9;">Experience</span>
         </h1>
         <p style="margin-top:1.75rem;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,0.5);max-width:380px;line-height:1.5;">
-A local-led introduction to Gaelic Games - from an introduction in a Hall of Fame setting to hands-on training in Gaelic football, hurling & Gaelic handball, ending with a live matchday the way the Irish experience it.
+<span class="lang-en">A local-led introduction to Gaelic Games - from an introduction in a Hall of Fame setting to hands-on training in Gaelic football, hurling & Gaelic handball, ending with a live matchday the way the Irish experience it.</span>
+<span class="lang-nl">Een door locals geleide introductie in Gaelic Games - van een introductie in een Hall of Fame-setting tot een praktijktraining in Gaelic football, hurling & Gaelic handball, met als afsluiter een live wedstrijddag zoals de Ieren die beleven.</span>
         </p>
         <div style="width:45px;height:4px;background:#4a90d9;margin-top:1.5rem;"></div>
         <div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.5rem;">
-          <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:0.78rem;font-weight:700;padding:0.45rem 0.9rem;border-radius:50px;">Request a group quote</span>
+          <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:0.78rem;font-weight:700;padding:0.45rem 0.9rem;border-radius:50px;"><span class="lang-en">Request a group quote</span><span class="lang-nl">Vraag een groepsofferte aan</span></span>
       </div>
 <!-- City choice removed as a hard gate for Dublin ad-traffic: Dublin is pre-selected below.
      Kilkenny is still one click away, just no longer the default decision the visitor must make first. -->
@@ -609,16 +637,16 @@ A local-led introduction to Gaelic Games - from an introduction in a Hall of Fam
     <a href="#book"
        onclick="bookGoTo('dublin')"
        style="background:#4a90d9;color:#fff;padding:1.1rem 2rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:1rem;display:inline-flex;align-items:center;gap:0.6rem;box-shadow:0 8px 24px rgba(74,144,217,0.35);">
-      Request a quote
+      <span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
     <a href="#what-to-expect-video" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.35);padding:1.05rem 1.6rem;border-radius:8px;font-weight:800;font-size:0.95rem;display:inline-flex;align-items:center;gap:0.55rem;cursor:pointer;font-family:inherit;text-decoration:none;">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      Watch
+      <span class="lang-en">Watch</span><span class="lang-nl">Bekijk</span>
     </a>
   </div>
   <a href="#experiences" onclick="switchTab('kilkenny')" style="margin-top:1rem;font-size:0.8rem;color:rgba(255,255,255,0.55);text-decoration:underline;text-underline-offset:3px;">
-    Based near Kilkenny instead? See the Kilkenny Experience →
+    <span class="lang-en">Based near Kilkenny instead? See the Kilkenny Experience →</span><span class="lang-nl">Woon je dichter bij Kilkenny? Bekijk de Kilkenny Experience →</span>
   </a>
 </div>
       </div>
@@ -628,8 +656,8 @@ A local-led introduction to Gaelic Games - from an introduction in a Hall of Fam
  <!-- ══ WHAT TO EXPECT VIDEO - scroll target from hero CTA ══ -->
   <section class="zone-dark" id="what-to-expect-video" style="padding:5rem 1.5rem;border-top:1px solid var(--border-dark);">
     <div style="max-width:900px;margin:0 auto;text-align:center;">
-      <span class="section-label" style="text-align:center;display:block;">What to expect</span>
-      <h2 class="section-heading" style="margin-bottom:2.5rem;">See the experience<br>before you book</h2>
+      <span class="section-label" style="text-align:center;display:block;"><span class="lang-en">What to expect</span><span class="lang-nl">Wat je kan verwachten</span></span>
+      <h2 class="section-heading" style="margin-bottom:2.5rem;"><span class="lang-en">See the experience<br>before you book</span><span class="lang-nl">Bekijk de experience<br>voordat je boekt</span></h2>
       <div class="yt-facade" data-video-id="Ce7rdl2KS3E" style="border-radius:14px;overflow:hidden;aspect-ratio:16/9;position:relative;background:#111;cursor:pointer;box-shadow:0 20px 50px rgba(0,0,0,0.35);">
         <img src="https://i.ytimg.com/vi/Ce7rdl2KS3E/hqdefault.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
@@ -666,23 +694,24 @@ A local-led introduction to Gaelic Games - from an introduction in a Hall of Fam
   The Dublin<br><span style="color:#4a90d9;">Experience</span>
 </h2>
             <p style="color:var(--text-mid);font-size:1rem;line-height:1.95;margin-bottom:1.25rem;">
-              In Dublin for a weekend with friends or traveling through Ireland?
-Add something truly unique to your trip.
+              <span class="lang-en">In Dublin for a weekend with friends or traveling through Ireland?
+Add something truly unique to your trip.</span>
+<span class="lang-nl">Een weekend in Dublin met vrienden, of onderweg door Ierland? Voeg iets echt unieks toe aan je reis.</span>
             </p>
             <div class="facts-strip">
-              <div><p class="fact-label">Venue</p><p class="fact-value">Na Fianna GAA</p></div>
+              <div><p class="fact-label"><span class="lang-en">Venue</span><span class="lang-nl">Locatie</span></p><p class="fact-value">Na Fianna GAA</p></div>
               <div class="fact-divider"></div>
-              <div><p class="fact-label">Sports</p><p class="fact-value">Football &amp; Hurling</p></div>
+              <div><p class="fact-label"><span class="lang-en">Sports</span><span class="lang-nl">Sporten</span></p><p class="fact-value">Football &amp; Hurling</p></div>
               <div class="fact-divider"></div>
-              <div><p class="fact-label">Match ticket</p><p class="fact-value">Included</p></div>
+              <div><p class="fact-label"><span class="lang-en">Match ticket</span><span class="lang-nl">Wedstrijdticket</span></p><p class="fact-value"><span class="lang-en">Included</span><span class="lang-nl">Inbegrepen</span></p></div>
   <div class="fact-divider"></div>
-              <div><p class="fact-label">Stadium</p><p class="fact-value">Croke Park or Parnell Park</p></div>
+              <div><p class="fact-label"><span class="lang-en">Stadium</span><span class="lang-nl">Stadion</span></p><p class="fact-value">Croke Park or Parnell Park</p></div>
             </div>
           </div>
 
         <!-- What to expect -->
         <div style="border-top:1px solid var(--border-light);padding-top:3.5rem;margin-bottom:4.5rem;">
-          <span class="section-label" style="color:rgba(0,0,0,0.2);">What to expect</span>
+          <span class="section-label" style="color:rgba(0,0,0,0.2);"><span class="lang-en">What to expect</span><span class="lang-nl">Wat je kan verwachten</span></span>
           <div class="step-accordion" style="margin-top:2.5rem;">
 
             <details class="step-details">
@@ -690,7 +719,7 @@ Add something truly unique to your trip.
                 <div style="display:flex;align-items:center;gap:1rem;">
                   <div class="step-num">1</div>
                   <div>
-                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Culture &amp; Heritage</h4>
+                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;"><span class="lang-en">Culture &amp; Heritage</span><span class="lang-nl">Cultuur &amp; Erfgoed</span></h4>
                     <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin:0;">Na Fianna GAA Club, Dublin</p>
                   </div>
                 </div>
@@ -698,7 +727,8 @@ Add something truly unique to your trip.
               </summary>
               <div class="step-details-body">
                 <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                  The experience kicks off at the grounds of <strong style="color:var(--text-dark);">Na Fianna</strong>, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and why these sports hold such a central place in Irish culture.
+                  <span class="lang-en">The experience kicks off at the grounds of <strong style="color:var(--text-dark);">Na Fianna</strong>, one of Dublin's most vibrant GAA clubs. In a hall-of-fame setting, you'll be introduced to the origins of Gaelic Games and why these sports hold such a central place in Irish culture.</span>
+                  <span class="lang-nl">De experience begint op het terrein van <strong style="color:var(--text-dark);">Na Fianna</strong>, een van de levendigste GAA-clubs van Dublin. In een hall-of-fame-setting maak je kennis met de oorsprong van Gaelic Games en waarom deze sporten zo'n centrale plek innemen in de Ierse cultuur.</span>
                 </p>
               </div>
             </details>
@@ -708,7 +738,7 @@ Add something truly unique to your trip.
                 <div style="display:flex;align-items:center;gap:1rem;">
                   <div class="step-num">2</div>
                   <div>
-                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Step Onto the Pitch</h4>
+                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;"><span class="lang-en">Step Onto the Pitch</span><span class="lang-nl">Het veld op</span></h4>
                     <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin:0;">Gaelic Football, Hurling &amp; Handball</p>
                   </div>
                 </div>
@@ -716,13 +746,16 @@ Add something truly unique to your trip.
               </summary>
               <div class="step-details-body">
                 <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                  The stage is set, and now it's your turn to step onto the pitch.
+                  <span class="lang-en">The stage is set, and now it's your turn to step onto the pitch.</span>
+                  <span class="lang-nl">Het podium staat klaar, en nu is het jouw beurt om het veld op te gaan.</span>
                 </p>
                 <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                  Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.
+                  <span class="lang-en">Under the guidance of experienced coaches, you'll learn the key skills of Gaelic Football and Hurling and get a feel for the speed and intensity of the games. It's the perfect preparation for watching the very best athletes in action later on.</span>
+                  <span class="lang-nl">Onder begeleiding van ervaren coaches leer je de belangrijkste vaardigheden van Gaelic Football en Hurling en krijg je een gevoel voor de snelheid en intensiteit van de sporten. De perfecte voorbereiding om later de beste atleten in actie te zien.</span>
                 </p>
                 <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                  You'll also be introduced to a third traditional sport: Gaelic handball.
+                  <span class="lang-en">You'll also be introduced to a third traditional sport: Gaelic handball.</span>
+                  <span class="lang-nl">Ook maak je kennis met een derde traditionele sport: Gaelic handball.</span>
                 </p>
               </div>
             </details>
@@ -732,7 +765,7 @@ Add something truly unique to your trip.
                 <div style="display:flex;align-items:center;gap:1rem;">
                   <div class="step-num">3</div>
                   <div>
-                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Live Gaelic Games Matchday</h4>
+                    <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;"><span class="lang-en">Live Gaelic Games Matchday</span><span class="lang-nl">Live Gaelic Games-wedstrijddag</span></h4>
                     <p style="color:var(--text-light);font-size:0.75rem;font-style:italic;margin:0;">Croke park or Parnell park</p>
                   </div>
                 </div>
@@ -740,7 +773,8 @@ Add something truly unique to your trip.
               </summary>
               <div class="step-details-body">
                 <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-                  You'll attend a Gaelic Games match on the weekend you choose. From the moment <em>Amhrán na bhFiann</em> plays, you're hooked. We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.
+                  <span class="lang-en">You'll attend a Gaelic Games match on the weekend you choose. From the moment <em>Amhrán na bhFiann</em> plays, you're hooked. We'll prepare you for the full matchday experience, so you can follow in the footsteps of local supporters as they gather in pubs and streets on their way to the stadium.</span>
+                  <span class="lang-nl">Je woont een Gaelic Games-wedstrijd bij in het weekend dat je kiest. Vanaf het moment dat <em>Amhrán na bhFiann</em> klinkt, ben je verkocht. We bereiden je voor op de volledige wedstrijddag-ervaring, zodat je in de voetsporen kan treden van lokale fans die zich verzamelen in pubs en op straat op weg naar het stadion.</span>
                 </p>
               </div>
             </details>
@@ -760,24 +794,25 @@ Add something truly unique to your trip.
               The Kilkenny<br><span style="color:var(--gold);">Experience</span>
             </h2>
             <p style="color:var(--text-mid);font-size:1rem;line-height:1.95;margin-bottom:1.25rem;">
-              Welcome to Kilkenny, the hurling capital of the world. Home of the legendary <strong style="color:var(--text-dark);">Kilkenny Cats</strong> - Ireland's most successful hurling team and the pride of the county.
+              <span class="lang-en">Welcome to Kilkenny, the hurling capital of the world. Home of the legendary <strong style="color:var(--text-dark);">Kilkenny Cats</strong> - Ireland's most successful hurling team and the pride of the county.</span>
+              <span class="lang-nl">Welkom in Kilkenny, de hurling-hoofdstad van de wereld. Thuisbasis van de legendarische <strong style="color:var(--text-dark);">Kilkenny Cats</strong> - het succesvolste hurlingteam van Ierland en de trots van het graafschap.</span>
             </p>
             <p style="color:var(--text-mid);font-size:1rem;line-height:1.95;margin-bottom:2.5rem;">
             </p>
             <div class="facts-strip">
   <div><p class="fact-label">Expert</p><p class="fact-value">James</p></div>
   <div class="fact-divider"></div>
-  <div><p class="fact-label">Sport</p><p class="fact-value">Hurling</p></div>
+  <div><p class="fact-label"><span class="lang-en">Sport</span><span class="lang-nl">Sport</span></p><p class="fact-value">Hurling</p></div>
   <div class="fact-divider"></div>
-  <div><p class="fact-label">Match ticket</p><p class="fact-value">included</p></div>
+  <div><p class="fact-label"><span class="lang-en">Match ticket</span><span class="lang-nl">Wedstrijdticket</span></p><p class="fact-value"><span class="lang-en">included</span><span class="lang-nl">inbegrepen</span></p></div>
   <div class="fact-divider"></div>
-  <div><p class="fact-label">Group rate</p><p class="fact-value">On request</p></div>
+  <div><p class="fact-label"><span class="lang-en">Group rate</span><span class="lang-nl">Groepstarief</span></p><p class="fact-value"><span class="lang-en">On request</span><span class="lang-nl">Op aanvraag</span></p></div>
 </div>
           </div>
 
      <!-- What to expect -->
 <div style="border-top:1px solid var(--border-light);padding-top:3.5rem;margin-bottom:4.5rem;">
-  <span class="section-label" style="color:rgba(0,0,0,0.2);">What to expect</span>
+  <span class="section-label" style="color:rgba(0,0,0,0.2);"><span class="lang-en">What to expect</span><span class="lang-nl">Wat je kan verwachten</span></span>
   <div class="step-accordion" style="margin-top:2.5rem;">
 
     <details class="step-details">
@@ -785,21 +820,22 @@ Add something truly unique to your trip.
         <div style="display:flex;align-items:center;gap:1rem;">
           <div class="step-num">1</div>
           <div>
-            <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Culture &amp; Heritage</h4>
-            <p style="color:var(--gold);font-size:0.75rem;font-style:italic;margin:0;">The heart of rural Kilkenny</p>
+            <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;"><span class="lang-en">Culture &amp; Heritage</span><span class="lang-nl">Cultuur &amp; Erfgoed</span></h4>
+            <p style="color:var(--gold);font-size:0.75rem;font-style:italic;margin:0;"><span class="lang-en">The heart of rural Kilkenny</span><span class="lang-nl">Het hart van landelijk Kilkenny</span></p>
           </div>
         </div>
         <span class="faq-icon" style="color:var(--gold);">+</span>
       </summary>
       <div class="step-details-body">
         <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;margin-bottom:0.9rem;">
-          Your experience begins with a unique introduction to the world of hurling.
-          Meet our expert on the ground: <strong style="color:var(--text-dark);">James</strong>, a Kilkenny-native with a lifelong love for the sport. Through an engaging presentation, he introduces you to the history, rules and cultural significance of hurling.
+          <span class="lang-en">Your experience begins with a unique introduction to the world of hurling.
+          Meet our expert on the ground: <strong style="color:var(--text-dark);">James</strong>, a Kilkenny-native with a lifelong love for the sport. Through an engaging presentation, he introduces you to the history, rules and cultural significance of hurling.</span>
+          <span class="lang-nl">Je experience begint met een unieke introductie in de wereld van hurling. Maak kennis met onze expert ter plaatse: <strong style="color:var(--text-dark);">James</strong>, geboren en getogen in Kilkenny met een levenslange liefde voor de sport. Via een boeiende presentatie maakt hij je wegwijs in de geschiedenis, regels en culturele betekenis van hurling.</span>
         </p>
-        <p style="color:var(--text-mid);font-size:0.85rem;margin-bottom:0.6rem;">This takes place at a location of your choice:</p>
+        <p style="color:var(--text-mid);font-size:0.85rem;margin-bottom:0.6rem;"><span class="lang-en">This takes place at a location of your choice:</span><span class="lang-nl">Dit vindt plaats op een locatie naar keuze:</span></p>
         <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.45rem;">
-          <li style="color:var(--text-mid);font-size:0.85rem;padding-left:1rem;position:relative;line-height:1.65;"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">—</span>A traditional Irish pub in the heart of the rural village of Freshford, Kilkenny</li>
-          <li style="color:var(--text-mid);font-size:0.85rem;padding-left:1rem;position:relative;line-height:1.65;"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">—</span>The intense environment of a players' dressing room, just a stone's throw from Nowlan Park - the iconic stadium of the Kilkenny Cats</li>
+          <li style="color:var(--text-mid);font-size:0.85rem;padding-left:1rem;position:relative;line-height:1.65;"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">—</span><span class="lang-en">A traditional Irish pub in the heart of the rural village of Freshford, Kilkenny</span><span class="lang-nl">Een traditionele Ierse pub in het hart van het landelijke dorp Freshford, Kilkenny</span></li>
+          <li style="color:var(--text-mid);font-size:0.85rem;padding-left:1rem;position:relative;line-height:1.65;"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">—</span><span class="lang-en">The intense environment of a players' dressing room, just a stone's throw from Nowlan Park - the iconic stadium of the Kilkenny Cats</span><span class="lang-nl">De intense sfeer van een kleedkamer van spelers, op een steenworp afstand van Nowlan Park - het iconische stadion van de Kilkenny Cats</span></li>
         </ul>
       </div>
     </details>
@@ -809,18 +845,20 @@ Add something truly unique to your trip.
         <div style="display:flex;align-items:center;gap:1rem;">
           <div class="step-num">2</div>
           <div>
-            <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Step onto the Pitch</h4>
-            <p style="color:var(--gold);font-size:0.75rem;font-style:italic;margin:0;">Master the skills for yourself</p>
+            <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;"><span class="lang-en">Step onto the Pitch</span><span class="lang-nl">Het veld op</span></h4>
+            <p style="color:var(--gold);font-size:0.75rem;font-style:italic;margin:0;"><span class="lang-en">Master the skills for yourself</span><span class="lang-nl">Beheers de vaardigheden zelf</span></p>
           </div>
         </div>
         <span class="faq-icon" style="color:var(--gold);">+</span>
       </summary>
       <div class="step-details-body">
         <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;margin-bottom:0.9rem;">
-          After immersing yourself in the world of hurling, it's time to take the hurley into your own hands. Led by expert local coaches, you'll learn the fundamentals of the game: the ground stroke, hand pass, solo run and hand strike. Soon you'll be ready to take your first shot at the goalposts.
+          <span class="lang-en">After immersing yourself in the world of hurling, it's time to take the hurley into your own hands. Led by expert local coaches, you'll learn the fundamentals of the game: the ground stroke, hand pass, solo run and hand strike. Soon you'll be ready to take your first shot at the goalposts.</span>
+          <span class="lang-nl">Na jezelf te hebben ondergedompeld in de wereld van hurling, is het tijd om de hurley zelf ter hand te nemen. Onder leiding van lokale expert-coaches leer je de basis van het spel: de grondslag, hand pass, solorun en handslag. Al snel ben je klaar voor je eerste schot op doel.</span>
         </p>
         <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;font-style:italic;">
-          The moment you strike the sliotar for the first time is one you won't forget.
+          <span class="lang-en">The moment you strike the sliotar for the first time is one you won't forget.</span>
+          <span class="lang-nl">Het moment waarop je voor het eerst de sliotar raakt, vergeet je niet snel.</span>
         </p>
       </div>
     </details>
@@ -830,18 +868,20 @@ Add something truly unique to your trip.
         <div style="display:flex;align-items:center;gap:1rem;">
           <div class="step-num">3</div>
           <div>
-            <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;">Live Hurling Matchday Immersion</h4>
-            <p style="color:var(--gold);font-size:0.75rem;font-style:italic;margin:0;">Attendance at a live GAA match included</p>
+            <h4 style="color:var(--text-dark);font-size:1rem;font-weight:800;margin-bottom:0.2rem;"><span class="lang-en">Live Hurling Matchday Immersion</span><span class="lang-nl">Live hurling-wedstrijddag onderdompeling</span></h4>
+            <p style="color:var(--gold);font-size:0.75rem;font-style:italic;margin:0;"><span class="lang-en">Attendance at a live GAA match included</span><span class="lang-nl">Inclusief bijwonen van een live GAA-wedstrijd</span></p>
           </div>
         </div>
         <span class="faq-icon" style="color:var(--gold);">+</span>
       </summary>
       <div class="step-details-body">
         <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;margin-bottom:0.9rem;">
-          There's only one thing left to complete the experience: watching the very best players in action. As the first whistle sounds, the match explodes into life. Fast, physical and played with incredible skill and precision, hurling is one of the most spectacular sports you'll ever witness.
+          <span class="lang-en">There's only one thing left to complete the experience: watching the very best players in action. As the first whistle sounds, the match explodes into life. Fast, physical and played with incredible skill and precision, hurling is one of the most spectacular sports you'll ever witness.</span>
+          <span class="lang-nl">Er is nog maar één ding dat de experience compleet maakt: de beste spelers in actie zien. Zodra het eerste fluitsignaal klinkt, komt de wedstrijd tot leven. Snel, fysiek en gespeeld met ongelooflijke vaardigheid en precisie - hurling is een van de meest spectaculaire sporten die je ooit zult zien.</span>
         </p>
         <p style="color:var(--text-mid);font-size:0.875rem;line-height:1.85;">
-          With a list of local pubs recommended by <strong style="color:var(--text-dark);">James</strong>, you can follow the footsteps of the fans and experience matchday the true Kilkenny way.
+          <span class="lang-en">With a list of local pubs recommended by <strong style="color:var(--text-dark);">James</strong>, you can follow the footsteps of the fans and experience matchday the true Kilkenny way.</span>
+          <span class="lang-nl">Met een lijst lokale pubs aanbevolen door <strong style="color:var(--text-dark);">James</strong> kan je in de voetsporen van de fans treden en de wedstrijddag beleven op echte Kilkenny-wijze.</span>
         </p>
       </div>
     </details>
@@ -851,25 +891,26 @@ Add something truly unique to your trip.
         <!-- About + CTA -->
         <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;border-top:1px solid var(--border-light);padding-top:3.5rem;">
           <div>
-            <span class="section-label" style="color:rgba(0,0,0,0.2);">About Kilkenny</span>
+            <span class="section-label" style="color:rgba(0,0,0,0.2);"><span class="lang-en">About Kilkenny</span><span class="lang-nl">Over Kilkenny</span></span>
             <p style="color:var(--text-mid);font-size:0.95rem;line-height:1.9;margin-bottom:0.9rem;">
-              Besides being the hurling capital of Ireland, Kilkenny is a vibrant medieval city. Known as the <em>"Marble City,"</em> it enchants visitors with cobbled streets, colourful shopfronts, cosy cafés and the impressive Kilkenny Castle overlooking it all.
+              <span class="lang-en">Besides being the hurling capital of Ireland, Kilkenny is a vibrant medieval city. Known as the <em>"Marble City,"</em> it enchants visitors with cobbled streets, colourful shopfronts, cosy cafés and the impressive Kilkenny Castle overlooking it all.</span>
+              <span class="lang-nl">Naast de hurling-hoofdstad van Ierland is Kilkenny ook een levendige middeleeuwse stad. Bekend als de <em>"Marble City"</em> betovert het bezoekers met kasseienstraten, kleurrijke winkelpuien, gezellige cafés en het imposante Kilkenny Castle dat over alles uittorent.</span>
             </p>
           </div>
           <div>
-            <p style="color:rgba(0,0,0,0.22);font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.6rem;">Ready to experience it?</p>
-            <p style="color:var(--text-dark);font-size:1.25rem;font-weight:900;letter-spacing:-0.02em;line-height:1.15;margin-bottom:1.5rem;">Get your quote<br>for Kilkenny</p>
+            <p style="color:rgba(0,0,0,0.22);font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.6rem;"><span class="lang-en">Ready to experience it?</span><span class="lang-nl">Klaar om het te beleven?</span></p>
+            <p style="color:var(--text-dark);font-size:1.25rem;font-weight:900;letter-spacing:-0.02em;line-height:1.15;margin-bottom:1.5rem;"><span class="lang-en">Get your quote<br>for Kilkenny</span><span class="lang-nl">Vraag je offerte<br>aan voor Kilkenny</span></p>
          <a href="#book"
    onclick="bookGoTo('kilkenny')"
    class="btn-dark"
    style="margin-bottom:1.5rem;background:#FFD700;color:#000;">
-              Request a quote
+              <span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Kilkenny%20Experience"
                target="_blank" rel="noopener"
                style="display:block;margin-top:0.75rem;font-size:0.8rem;color:var(--text-mid);text-decoration:underline;text-underline-offset:3px;">
-              Not ready to book? Ask a question on WhatsApp →
+              <span class="lang-en">Not ready to book? Ask a question on WhatsApp →</span><span class="lang-nl">Nog niet klaar om te boeken? Stel een vraag via WhatsApp →</span>
             </a>
           </div>
         </div>
@@ -883,12 +924,12 @@ Add something truly unique to your trip.
       <div style="display:flex;align-items:center;gap:1rem;">
         <span style="font-size:1.8rem;line-height:1;"></span>
         <div>
-          <p style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:0.15rem;">Travelling with a group?</p>
-          <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);">See our group options and private slot arrangements</p>
+          <p style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:0.15rem;"><span class="lang-en">Travelling with a group?</span><span class="lang-nl">Reis je met een groep?</span></p>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);"><span class="lang-en">See our group options and private slot arrangements</span><span class="lang-nl">Bekijk onze groepsopties en regelingen voor privéslots</span></p>
         </div>
       </div>
       <a href="/groups/" onclick="gtag('event','groups_click',{cta_location:'hero_banner',page_location:window.location.href})" style="background:var(--dublin-blue);color:#fff;padding:0.85rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:800;font-size:0.9rem;white-space:nowrap;display:inline-flex;align-items:center;gap:0.5rem;">
-        See Group Options
+        <span class="lang-en">See Group Options</span><span class="lang-nl">Bekijk groepsopties</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
@@ -936,9 +977,9 @@ Add something truly unique to your trip.
 
   <section class="zone-dark" id="book" style="padding:6rem 1.5rem;">
     <div style="max-width:1100px;margin:0 auto;" id="bookWrap">
-      <span class="section-label">Quote request</span>
-      <h2 style="font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:.5rem;">Get a quote for your Gaelic Games experience</h2>
-      <p style="color:rgba(255,255,255,.5);font-size:1rem;line-height:1.8;margin:0 0 2rem;max-width:600px;">Dublin selected below by default. Switch to Kilkenny if that's a better fit. Tell us your preferred dates and group size - we'll check what matches are on that weekend and send you a fixed group quote within 24–48 hours.</p>
+      <span class="section-label"><span class="lang-en">Quote request</span><span class="lang-nl">Offerteaanvraag</span></span>
+      <h2 style="font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:.5rem;"><span class="lang-en">Get a quote for your Gaelic Games experience</span><span class="lang-nl">Vraag een offerte aan voor je Gaelic Games experience</span></h2>
+      <p style="color:rgba(255,255,255,.5);font-size:1rem;line-height:1.8;margin:0 0 2rem;max-width:600px;"><span class="lang-en">Dublin selected below by default. Switch to Kilkenny if that's a better fit. Tell us your preferred dates and group size - we'll check what matches are on that weekend and send you a fixed group quote within 24–48 hours.</span><span class="lang-nl">Hieronder staat Dublin standaard geselecteerd. Kies Kilkenny als dat beter past. Geef ons je gewenste data en groepsgrootte door - we checken welke wedstrijden er dat weekend zijn en sturen je binnen 24-48 uur een vaste groepsofferte.</span></p>
 
       <div class="book-loc-toggle">
         <button type="button" class="loc-btn active" data-loc="dublin" onclick="bookSetLocation('dublin')">Dublin Experience</button>
@@ -948,39 +989,39 @@ Add something truly unique to your trip.
       <div class="booking-grid">
         <div>
           <div id="bookIncludedBox" class="d-card">
-            <p style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#4a90d9;margin-bottom:.75rem;">What's included</p>
-            <p id="bookIncludedText" style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.8;margin-bottom:.6rem;">Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match on the weekend you choose</p>
+            <p style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#4a90d9;margin-bottom:.75rem;"><span class="lang-en">What's included</span><span class="lang-nl">Wat is inbegrepen</span></p>
+            <p id="bookIncludedText" style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.8;margin-bottom:.6rem;"><span class="lang-en">Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match on the weekend you choose</span><span class="lang-nl">Culturele intro bij Na Fianna GAA Club · trainingssessie met coaches · live Gaelic Games-wedstrijd in het weekend dat je kiest</span></p>
             <a id="bookIncludedLink" href="#panel-dublin" style="display:inline-block;font-size:.78rem;color:#4a90d9;text-decoration:underline;text-underline-offset:3px;margin-bottom:1.25rem;">See the full Dublin experience walkthrough ↑</a>
             <div class="warn-box" style="margin:0;">
-              <p><strong>Not an instant quote.</strong> This is a quote request - we personally check match availability for your dates and send you a tailored quote within 24–48 hours.</p>
+              <p><strong><span class="lang-en">Not an instant quote.</span><span class="lang-nl">Geen directe offerte.</span></strong> <span class="lang-en">This is a quote request - we personally check match availability for your dates and send you a tailored quote within 24–48 hours.</span><span class="lang-nl">Dit is een offerteaanvraag - we checken persoonlijk de beschikbaarheid van wedstrijden voor jouw data en sturen je binnen 24-48 uur een offerte op maat.</span></p>
             </div>
           </div>
         </div>
 
         <div>
           <form id="bookForm" novalidate>
-            <div class="section-label-book">Your details</div>
+            <div class="section-label-book"><span class="lang-en">Your details</span><span class="lang-nl">Jouw gegevens</span></div>
             <div class="field-row">
-              <div class="field"><label for="bk_name">Full name *</label><input type="text" id="bk_name" placeholder="Jane Smith" autocomplete="name"></div>
+              <div class="field"><label for="bk_name"><span class="lang-en">Full name *</span><span class="lang-nl">Volledige naam *</span></label><input type="text" id="bk_name" placeholder="Jane Smith" autocomplete="name"></div>
               <div class="field"><label for="bk_email">Email *</label><input type="email" id="bk_email" placeholder="jane@email.com" autocomplete="email"></div>
             </div>
             <div class="field-row">
-              <div class="field"><label for="bk_phone">Phone number</label><input type="tel" id="bk_phone" placeholder="+1 555 000 0000" autocomplete="tel"></div>
+              <div class="field"><label for="bk_phone"><span class="lang-en">Phone number</span><span class="lang-nl">Telefoonnummer</span></label><input type="tel" id="bk_phone" placeholder="+1 555 000 0000" autocomplete="tel"></div>
               <div class="field">
-                <label for="bk_guests">Number of guests *</label>
+                <label for="bk_guests"><span class="lang-en">Number of guests *</span><span class="lang-nl">Aantal gasten *</span></label>
                 <input type="number" id="bk_guests" min="1" max="20" value="2">
-                <span class="field-hint">Travelling solo or as a couple? No problem — we'll match you into an open group. Booking for 4+ friends? Mention it below and we'll look at a private slot.</span>
+                <span class="field-hint"><span class="lang-en">Travelling solo or as a couple? No problem — we'll match you into an open group. Booking for 4+ friends? Mention it below and we'll look at a private slot.</span><span class="lang-nl">Reis je alleen of als stel? Geen probleem — we plaatsen je in een open groep. Boek je met 4+ vrienden? Vermeld dat hieronder en we kijken naar een privéslot.</span></span>
               </div>
             </div>
             <div class="field">
-              <label for="bk_date">Preferred date(s) *</label>
+              <label for="bk_date"><span class="lang-en">Preferred date(s) *</span><span class="lang-nl">Gewenste datum(s) *</span></label>
               <input type="text" id="bk_date" placeholder="e.g. weekend of 10 October, or 'flexible in November'">
-              <span class="field-hint">Not sure yet? A rough month or date range is fine - we'll check what's on and let you know.</span>
+              <span class="field-hint"><span class="lang-en">Not sure yet? A rough month or date range is fine - we'll check what's on and let you know.</span><span class="lang-nl">Nog niet zeker? Een ruwe maand of periode is prima - we checken wat er is en laten het je weten.</span></span>
             </div>
             <div class="field-row">
-              <div class="field"><label for="bk_country">Country of residence *</label><input type="text" id="bk_country" placeholder="e.g. United States" autocomplete="country-name"></div>
+              <div class="field"><label for="bk_country"><span class="lang-en">Country of residence *</span><span class="lang-nl">Land van verblijf *</span></label><input type="text" id="bk_country" placeholder="e.g. United States" autocomplete="country-name"></div>
               <div class="field">
-                <label for="bk_source">How did you hear about us? *</label>
+                <label for="bk_source"><span class="lang-en">How did you hear about us? *</span><span class="lang-nl">Hoe heb je ons gevonden? *</span></label>
                 <select id="bk_source">
                   <option value="">Select…</option>
                   <option value="Google">Google search</option>
@@ -996,31 +1037,31 @@ Add something truly unique to your trip.
             </div>
 
             <div class="field">
-              <label for="bk_requests">Anything we should know?</label>
+              <label for="bk_requests"><span class="lang-en">Anything we should know?</span><span class="lang-nl">Nog iets dat we moeten weten?</span></label>
               <textarea id="bk_requests" rows="3" placeholder="Dietary requirements, accessibility needs, questions…"></textarea>
             </div>
 
             <div class="process-note">
-              <strong>How it works:</strong> We check match availability for your dates and send a fixed group quote within <strong>24–48 hours</strong>.
+              <strong><span class="lang-en">How it works:</span><span class="lang-nl">Zo werkt het:</span></strong> <span class="lang-en">We check match availability for your dates and send a fixed group quote within <strong>24–48 hours</strong>.</span><span class="lang-nl">We checken de beschikbaarheid van wedstrijden voor jouw data en sturen binnen <strong>24-48 uur</strong> een vaste groepsofferte.</span>
             </div>
 
             <div class="error-box" id="bk_errorBox"></div>
 
-            <button type="submit" class="btn-submit" id="bk_submitBtn" disabled>Request a quote</button>
-            <p class="form-note">We'll be in touch within 48 hours with your quote.</p>
+            <button type="submit" class="btn-submit" id="bk_submitBtn" disabled><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></button>
+            <p class="form-note"><span class="lang-en">We'll be in touch within 48 hours with your quote.</span><span class="lang-nl">We nemen binnen 48 uur contact met je op met je offerte.</span></p>
             <a id="bookWhatsAppLink"
                href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Dublin%20Experience"
                target="_blank" rel="noopener"
                style="display:block;text-align:center;margin-top:.9rem;font-size:.8rem;color:rgba(255,255,255,.5);text-decoration:underline;text-underline-offset:3px;">
-              Got a question first? Ask on WhatsApp →
+              <span class="lang-en">Got a question first? Ask on WhatsApp →</span><span class="lang-nl">Eerst nog een vraag? Stel 'm via WhatsApp →</span>
             </a>
           </form>
 
           <div class="success-screen" id="bk_successScreen">
             <div class="icon">✅</div>
-            <h3>Request received!</h3>
-            <p>You'll receive a confirmation email shortly. If it doesn't arrive within a few minutes, check your spam folder. We'll check what matches are on for your dates and follow up personally within 48 hours with your quote.</p>
-            <button class="btn-submit" type="button" onclick="bookReset()" style="max-width:220px;margin:0 auto;">New request</button>
+            <h3><span class="lang-en">Request received!</span><span class="lang-nl">Aanvraag ontvangen!</span></h3>
+            <p><span class="lang-en">You'll receive a confirmation email shortly. If it doesn't arrive within a few minutes, check your spam folder. We'll check what matches are on for your dates and follow up personally within 48 hours with your quote.</span><span class="lang-nl">Je ontvangt binnenkort een bevestigingsmail. Komt deze niet binnen een paar minuten aan? Check dan je spamfolder. We checken welke wedstrijden er zijn voor jouw data en nemen binnen 48 uur persoonlijk contact met je op met je offerte.</span></p>
+            <button class="btn-submit" type="button" onclick="bookReset()" style="max-width:220px;margin:0 auto;"><span class="lang-en">New request</span><span class="lang-nl">Nieuwe aanvraag</span></button>
           </div>
         </div>
       </div>
@@ -1029,6 +1070,8 @@ Add something truly unique to your trip.
 
   <script>
   // ══════════════ QUOTE REQUEST FORM (Dublin default, Kilkenny secondary) ══════════════
+  function bkT(en, nl){ return document.body.classList.contains('lang-active-nl') ? nl : en; }
+
  const BOOK_LOCATIONS = {
   dublin: {
     formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSeTI604id3nsbLY5CF76uf6Q6Gm7-Ngo4JumBnsROsDwuRbbw/formResponse',
@@ -1039,7 +1082,7 @@ Add something truly unique to your trip.
     },
     experienceName: 'The Dublin Culture & Heritage Experience',
     partner: 'Dublin',
-    included: "Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match on the weekend you choose"
+    included: "<span class=\"lang-en\">Cultural intro at Na Fianna GAA Club · pitch session with coaches · live Gaelic Games match on the weekend you choose</span><span class=\"lang-nl\">Culturele intro bij Na Fianna GAA Club · trainingssessie met coaches · live Gaelic Games-wedstrijd in het weekend dat je kiest</span>"
   },
   kilkenny: {
     formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSdEZfxOmj9Hsnxz7-xQGhQc4Z88lTATYSSPK6-uzod_qeSICQ/formResponse',
@@ -1050,7 +1093,7 @@ Add something truly unique to your trip.
     },
     experienceName: 'The Kilkenny Experience',
     partner: 'Kilkenny',
-    included: "Pitch session with local coaches in Kilkenny · cultural intro to hurling &amp; GAA · live match on the weekend you choose"
+    included: "<span class=\"lang-en\">Pitch session with local coaches in Kilkenny · cultural intro to hurling &amp; GAA · live match on the weekend you choose</span><span class=\"lang-nl\">Trainingssessie met lokale coaches in Kilkenny · culturele intro in hurling &amp; GAA · live wedstrijd in het weekend dat je kiest</span>"
   }
 };
 
@@ -1085,8 +1128,8 @@ Add something truly unique to your trip.
     bkEls.includedText.innerHTML = bkLocData().included;
     bkEls.includedLink.href = '#panel-' + loc;
     bkEls.includedLink.textContent = loc === 'dublin'
-      ? 'See the full Dublin experience walkthrough ↑'
-      : 'See the full Kilkenny experience walkthrough ↑';
+      ? bkT('See the full Dublin experience walkthrough ↑', 'Bekijk de volledige Dublin-experience ↑')
+      : bkT('See the full Kilkenny experience walkthrough ↑', 'Bekijk de volledige Kilkenny-experience ↑');
     bkEls.includedLink.style.color = loc === 'dublin' ? '#4a90d9' : 'var(--gold-bright)';
     bkEls.whatsappLink.href = loc === 'dublin'
       ? 'https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Dublin%20Experience'
@@ -1103,7 +1146,8 @@ Add something truly unique to your trip.
     bkEls.form.reset();
     bkSubmitting=false;
     bkEls.form.style.display='block'; bkEls.success.style.display='none';
-    bkEls.submitBtn.disabled=true; bkEls.submitBtn.className='btn-submit'; bkEls.submitBtn.textContent='Request a quote';
+    bkEls.submitBtn.disabled=true; bkEls.submitBtn.className='btn-submit';
+    bkEls.submitBtn.innerHTML = '<span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>';
   }
 
   async function bkHandleSubmit(e){
@@ -1111,14 +1155,14 @@ Add something truly unique to your trip.
     if(bkSubmitting) return;
     bkClearError();
     const name=bkEls.name.value.trim(), email=bkEls.email.value.trim();
-    if(!name){ bkShowError('Please enter your full name.'); return; }
-    if(!bkValidEmail(email)){ bkShowError('Please enter a valid email address.'); return; }
-    if(!bkEls.country.value.trim()){ bkShowError('Please enter your country of residence.'); return; }
-    if(!bkEls.source.value){ bkShowError('Please tell us how you heard about us.'); return; }
-    if(!bkEls.date.value.trim()){ bkShowError('Please let us know your preferred date(s).'); return; }
+    if(!name){ bkShowError(bkT('Please enter your full name.','Vul je volledige naam in.')); return; }
+    if(!bkValidEmail(email)){ bkShowError(bkT('Please enter a valid email address.','Vul een geldig e-mailadres in.')); return; }
+    if(!bkEls.country.value.trim()){ bkShowError(bkT('Please enter your country of residence.','Vul je land van verblijf in.')); return; }
+    if(!bkEls.source.value){ bkShowError(bkT('Please tell us how you heard about us.','Laat ons weten hoe je ons hebt gevonden.')); return; }
+    if(!bkEls.date.value.trim()){ bkShowError(bkT('Please let us know your preferred date(s).','Laat ons je gewenste datum(s) weten.')); return; }
 
     bkSubmitting=true; bkEls.submitBtn.disabled=true;
-    bkEls.submitBtn.innerHTML='<span class="spinner"></span> Sending…';
+    bkEls.submitBtn.innerHTML='<span class="spinner"></span> ' + bkT('Sending…','Verzenden…');
 
     const loc = bkLocData();
     const g = bkGetGuests();
@@ -1141,9 +1185,10 @@ Add something truly unique to your trip.
       bkEls.form.style.display='none';
       bkEls.success.style.display='block';
     } catch(err){
-      bkShowError('Could not send your request. Please try again.');
+      bkShowError(bkT('Could not send your request. Please try again.','Het versturen is niet gelukt. Probeer het opnieuw.'));
       bkSubmitting=false; bkEls.submitBtn.disabled=false;
-      bkEls.submitBtn.className='btn-submit'; bkEls.submitBtn.textContent='Request a quote';
+      bkEls.submitBtn.className='btn-submit';
+      bkEls.submitBtn.innerHTML = '<span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>';
     }
   }
 
@@ -1155,7 +1200,7 @@ Add something truly unique to your trip.
   }
 
   function bkInit(){
-    bkEls.includedText.innerHTML = bkLocData().included;
+    bookSetLocation('dublin');
     [bkEls.name, bkEls.email, bkEls.guests, bkEls.country, bkEls.date].forEach(f=>f.addEventListener('input', bkUpdateSubmit));
     bkEls.source.addEventListener('change', bkUpdateSubmit);
     bkEls.guests.addEventListener('blur', ()=>{ bkEls.guests.value = bkGetGuests(); });
@@ -1172,11 +1217,11 @@ Add something truly unique to your trip.
   <div style="max-width:1100px;margin:0 auto;position:relative;">
 
     <span class="section-label">
-      What guests say about the experience
+      <span class="lang-en">What guests say about the experience</span><span class="lang-nl">Wat gasten zeggen over de experience</span>
     </span>
 
     <h2 class="section-heading" style="margin-bottom:0.75rem;">
-      Straight from the<br>people who were there
+      <span class="lang-en">Straight from the<br>people who were there</span><span class="lang-nl">Rechtstreeks van<br>de mensen die er waren</span>
     </h2>
 
     <div class="zone-divider" style="margin-bottom:3rem;"></div>
@@ -1196,13 +1241,14 @@ Add something truly unique to your trip.
             <meta itemprop="bestRating" content="5">
           </div>
           <p class="testimonial-text" itemprop="reviewBody">
-            "When we arrived in Dublin, I fell in love with the game. Learning from people who live and breath these sports and seeing a live match at Croke Park made this unforgettable."
+            <span class="lang-en">"When we arrived in Dublin, I fell in love with the game. Learning from people who live and breath these sports and seeing a live match at Croke Park made this unforgettable."</span>
+            <span class="lang-nl">"Toen we in Dublin aankwamen, werd ik verliefd op de sport. Door te leren van mensen die deze sporten ademen en een live wedstrijd bij Croke Park te zien, werd dit onvergetelijk."</span>
           </p>
           <div class="testimonial-user" itemprop="author" itemscope itemtype="https://schema.org/Person">
             <div class="testimonial-avatar">M</div>
             <div>
               <p class="name" itemprop="name">Marc van der Werf</p>
-              <p class="meta">Netherlands · The Gaelic Games Experience</p>
+              <p class="meta"><span class="lang-en">Netherlands</span><span class="lang-nl">Nederland</span> · The Gaelic Games Experience</p>
             </div>
           </div>
         </div>
@@ -1216,13 +1262,14 @@ Add something truly unique to your trip.
             <meta itemprop="bestRating" content="5">
           </div>
           <p class="testimonial-text" itemprop="reviewBody">
-            "A truly memorable experience. The dressing room atmosphere was intense and unique. It made me want to try the sport myself."
+            <span class="lang-en">"A truly memorable experience. The dressing room atmosphere was intense and unique. It made me want to try the sport myself."</span>
+            <span class="lang-nl">"Een echt onvergetelijke ervaring. De sfeer in de kleedkamer was intens en uniek. Het gaf me zin om de sport zelf te proberen."</span>
           </p>
           <div class="testimonial-user" itemprop="author" itemscope itemtype="https://schema.org/Person">
             <div class="testimonial-avatar">R</div>
             <div>
               <p class="name" itemprop="name">Ruby Wilson</p>
-              <p class="meta">USA · The Kilkenny Experience</p>
+              <p class="meta"><span class="lang-en">USA</span><span class="lang-nl">VS</span> · The Kilkenny Experience</p>
             </div>
           </div>
         </div>
@@ -1236,13 +1283,14 @@ Add something truly unique to your trip.
             <meta itemprop="bestRating" content="5">
           </div>
           <p class="testimonial-text" itemprop="reviewBody">
-            "I knew nothing about hurling before - now I love it. Cormack was a great coach and I'm already thinking about coming back."
+            <span class="lang-en">"I knew nothing about hurling before - now I love it. Cormack was a great coach and I'm already thinking about coming back."</span>
+            <span class="lang-nl">"Ik wist eerst niets van hurling - nu ben ik er weg van. Cormack was een geweldige coach en ik denk nu al aan terugkomen."</span>
           </p>
           <div class="testimonial-user" itemprop="author" itemscope itemtype="https://schema.org/Person">
             <div class="testimonial-avatar">M</div>
             <div>
               <p class="name" itemprop="name">Martijn Berden</p>
-              <p class="meta">Netherlands · The Gaelic Games Experience</p>
+              <p class="meta"><span class="lang-en">Netherlands</span><span class="lang-nl">Nederland</span> · The Gaelic Games Experience</p>
             </div>
           </div>
         </div>
@@ -1256,7 +1304,8 @@ Add something truly unique to your trip.
             <meta itemprop="bestRating" content="5">
           </div>
           <p class="testimonial-text" itemprop="reviewBody">
-            "An outstanding coach who made everything engaging. Seeing the game up close and holding a major trophy was incredible."
+            <span class="lang-en">"An outstanding coach who made everything engaging. Seeing the game up close and holding a major trophy was incredible."</span>
+            <span class="lang-nl">"Een uitstekende coach die alles boeiend maakte. De wedstrijd van dichtbij zien en een grote trofee vasthouden was ongelooflijk."</span>
           </p>
           <div class="testimonial-user" itemprop="author" itemscope itemtype="https://schema.org/Person">
             <div class="testimonial-avatar">B</div>
@@ -1276,13 +1325,14 @@ Add something truly unique to your trip.
             <meta itemprop="bestRating" content="5">
           </div>
           <p class="testimonial-text" itemprop="reviewBody">
-            "I would do this again in a heartbeat. Fun, insightful, and a special memory we'll share for years."
+            <span class="lang-en">"I would do this again in a heartbeat. Fun, insightful, and a special memory we'll share for years."</span>
+            <span class="lang-nl">"Dit zou ik zo weer doen. Leuk, leerzaam, en een bijzondere herinnering die we jarenlang zullen koesteren."</span>
           </p>
           <div class="testimonial-user" itemprop="author" itemscope itemtype="https://schema.org/Person">
             <div class="testimonial-avatar">E</div>
             <div>
               <p class="name" itemprop="name">Erika Moore</p>
-              <p class="meta">Australia · The Kilkenny Experience</p>
+              <p class="meta"><span class="lang-en">Australia</span><span class="lang-nl">Australië</span> · The Kilkenny Experience</p>
             </div>
           </div>
         </div>
@@ -1336,13 +1386,16 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
   <section style="background:#f7f6f3;padding:4rem 1.5rem;">
   <div style="max-width:760px;margin:0 auto;">
     <p style="font-size:1rem;color:#444;line-height:1.9;margin-bottom:1.25rem;">
-      The <strong style="color:#1a1a1a;">Gaelic Games experience</strong> from Beyond the Pitch is the only experience in Ireland that combines a cultural introduction, GAA training session and a <strong style="color:#1a1a1a;">live match ticket</strong> - in Dublin and Kilkenny.
+      <span class="lang-en">The <strong style="color:#1a1a1a;">Gaelic Games experience</strong> from Beyond the Pitch is the only experience in Ireland that combines a cultural introduction, GAA training session and a <strong style="color:#1a1a1a;">live match ticket</strong> - in Dublin and Kilkenny.</span>
+      <span class="lang-nl">De <strong style="color:#1a1a1a;">Gaelic Games experience</strong> van Beyond the Pitch is de enige experience in Ierland die een culturele introductie, GAA-trainingssessie en een <strong style="color:#1a1a1a;">live wedstrijdticket</strong> combineert - in Dublin en Kilkenny.</span>
     </p>
     <p style="font-size:1rem;color:#444;line-height:1.9;margin-bottom:1.25rem;">
-      We curate <strong style="color:#1a1a1a;">Gaelic Football and Hurling experiences in Dublin</strong> and <strong style="color:#1a1a1a;">hurling experiences in Kilkenny</strong>, including facilitated access to <strong style="color:#1a1a1a;">live GAA matches at Croke Park, Parnell Park and Nowlan Park</strong>. With the All Ireland Finals approaching, this is the best time of year to experience Gaelic Games as a visitor to Ireland.
+      <span class="lang-en">We curate <strong style="color:#1a1a1a;">Gaelic Football and Hurling experiences in Dublin</strong> and <strong style="color:#1a1a1a;">hurling experiences in Kilkenny</strong>, including facilitated access to <strong style="color:#1a1a1a;">live GAA matches at Croke Park, Parnell Park and Nowlan Park</strong>. With the All Ireland Finals approaching, this is the best time of year to experience Gaelic Games as a visitor to Ireland.</span>
+      <span class="lang-nl">We stellen <strong style="color:#1a1a1a;">Gaelic Football- en Hurling-experiences samen in Dublin</strong> en <strong style="color:#1a1a1a;">hurling-experiences in Kilkenny</strong>, inclusief gefaciliteerde toegang tot <strong style="color:#1a1a1a;">live GAA-wedstrijden bij Croke Park, Parnell Park en Nowlan Park</strong>. Met de All Ireland Finals in aantocht is dit de beste tijd van het jaar om Gaelic Games te beleven als bezoeker van Ierland.</span>
     </p>
     <p style="font-size:1rem;color:#444;line-height:1.9;">
-      No prior knowledge needed. Solo travellers, couples and groups are all welcome - tell us your dates and we'll confirm match access and a quote within 24–48 hours.
+      <span class="lang-en">No prior knowledge needed. Solo travellers, couples and groups are all welcome - tell us your dates and we'll confirm match access and a quote within 24–48 hours.</span>
+      <span class="lang-nl">Geen voorkennis nodig. Solo reizigers, stellen en groepen zijn allemaal welkom - vertel ons je data en we bevestigen wedstrijdtoegang en een offerte binnen 24-48 uur.</span>
     </p>
   </div>
 </section>
@@ -1375,24 +1428,25 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
 </picture>
         </div>
         <div>
-          <span class="section-label" style="color:rgba(0,0,0,0.25);">Your Hurling Expert</span>
-          <h2 style="font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:0.5rem;">Meet James<br>from Kilkenny</h2>
+          <span class="section-label" style="color:rgba(0,0,0,0.25);"><span class="lang-en">Your Hurling Expert</span><span class="lang-nl">Jouw hurling-expert</span></span>
+          <h2 style="font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:0.5rem;"><span class="lang-en">Meet James<br>from Kilkenny</span><span class="lang-nl">Maak kennis met James<br>uit Kilkenny</span></h2>
           <div class="zone-divider"></div>
           <p style="color:var(--text-mid);font-size:1.05rem;line-height:1.85;margin-top:1.5rem;margin-bottom:2rem;font-style:italic;border-left:3px solid var(--gold);padding-left:1.25rem;">
-            "Growing up in Kilkenny, hurling was a way of life. I love welcoming visitors - showing them that while the capital has the lights, Kilkenny has the soul of the game. I don't just teach the skills; I pass on the 3,000 years of history that live in our streets."
+            <span class="lang-en">"Growing up in Kilkenny, hurling was a way of life. I love welcoming visitors - showing them that while the capital has the lights, Kilkenny has the soul of the game. I don't just teach the skills; I pass on the 3,000 years of history that live in our streets."</span>
+            <span class="lang-nl">"Opgroeien in Kilkenny betekende opgroeien met hurling. Ik verwelkom bezoekers graag - en laat ze zien dat de hoofdstad dan wel de schijnwerpers heeft, Kilkenny de ziel van het spel heeft. Ik leer niet alleen de vaardigheden aan; ik geef de 3.000 jaar geschiedenis door die in onze straten leeft."</span>
           </p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-mid);">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Kilkenny Native
+              <span class="lang-en">Kilkenny Native</span><span class="lang-nl">Geboren en getogen in Kilkenny</span>
             </div>
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-mid);">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Ireland Round Trip
+              <span class="lang-en">Ireland Round Trip</span><span class="lang-nl">Rondreis door Ierland</span>
             </div>
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-mid);">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Dublin Day-Trip Specialist
+              <span class="lang-en">Dublin Day-Trip Specialist</span><span class="lang-nl">Specialist dagtrips Dublin</span>
             </div>
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-mid);">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1410,39 +1464,39 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
   <section class="zone-off" style="padding:0 1.5rem 6rem;">
     <div style="max-width:1100px;margin:0 auto;">
       <div style="border-top:1px solid rgba(0,0,0,0.08);padding-top:5rem;">
-        <span class="section-label" style="color:rgba(0,0,0,0.25);">What's included</span>
-        <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;">Everything you need</h2>
+        <span class="section-label" style="color:rgba(0,0,0,0.25);"><span class="lang-en">What's included</span><span class="lang-nl">Wat is inbegrepen</span></span>
+        <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;"><span class="lang-en">Everything you need</span><span class="lang-nl">Alles wat je nodig hebt</span></h2>
         <div class="zone-divider"></div>
         <div class="included-grid" style="margin-top:2.5rem;">
           <div class="included-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/></svg>
-            <h3>Match Access</h3>
-            <p>Seats for Gaelic Football or Hurling matches.</p>
+            <h3><span class="lang-en">Match Access</span><span class="lang-nl">Toegang tot de wedstrijd</span></h3>
+            <p><span class="lang-en">Seats for Gaelic Football or Hurling matches.</span><span class="lang-nl">Plaatsen voor Gaelic Football- of Hurling-wedstrijden.</span></p>
           </div>
           <div class="included-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <h3>Local Expert</h3>
-            <p>Passionate expert who knows Gaelic Games inside and out.</p>
+            <h3><span class="lang-en">Local Expert</span><span class="lang-nl">Lokale expert</span></h3>
+            <p><span class="lang-en">Passionate expert who knows Gaelic Games inside and out.</span><span class="lang-nl">Gepassioneerde expert die Gaelic Games door en door kent.</span></p>
           </div>
           <div class="included-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <h3>GAA Training Session</h3>
-            <p>Step onto the pitch with local coaches and experience the fastest field sport yourself.</p>
+            <h3><span class="lang-en">GAA Training Session</span><span class="lang-nl">GAA-trainingssessie</span></h3>
+            <p><span class="lang-en">Step onto the pitch with local coaches and experience the fastest field sport yourself.</span><span class="lang-nl">Ga het veld op met lokale coaches en ervaar zelf de snelste veldsport.</span></p>
           </div>
           <div class="included-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            <h3>Community Visits</h3>
-            <p>Access to local GAA clubs and authentic interactions with people who live the game.</p>
+            <h3><span class="lang-en">Community Visits</span><span class="lang-nl">Bezoeken aan de community</span></h3>
+            <p><span class="lang-en">Access to local GAA clubs and authentic interactions with people who live the game.</span><span class="lang-nl">Toegang tot lokale GAA-clubs en authentieke interacties met mensen die de sport leven.</span></p>
           </div>
           <div class="included-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8V20M14 20h8"/><path d="M7 2v10"/><path d="M11 2v10"/><path d="M3 2v10a4 4 0 0 0 8 0V2"/></svg>
-            <h3>Pub Experience</h3>
-            <p>Irish cuisine, pub culture and the authentic matchday atmosphere.</p>
+            <h3><span class="lang-en">Pub Experience</span><span class="lang-nl">Pub-experience</span></h3>
+            <p><span class="lang-en">Irish cuisine, pub culture and the authentic matchday atmosphere.</span><span class="lang-nl">Ierse keuken, pubcultuur en de authentieke sfeer van een wedstrijddag.</span></p>
           </div>
           <div class="included-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            <h3>Cultural Activities</h3>
-            <p>Heritage sites, Irish storytelling and traditions passed down for generations.</p>
+            <h3><span class="lang-en">Cultural Activities</span><span class="lang-nl">Culturele activiteiten</span></h3>
+            <p><span class="lang-en">Heritage sites, Irish storytelling and traditions passed down for generations.</span><span class="lang-nl">Erfgoedlocaties, Ierse verhalen en tradities die van generatie op generatie worden doorgegeven.</span></p>
           </div>
         </div>
       </div>
@@ -1453,22 +1507,23 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
 <section class="zone-off" style="padding:0 1.5rem 6rem;">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="border-top:1px solid rgba(0,0,0,0.08);padding-top:5rem;">
-      <span class="section-label" style="color:rgba(0,0,0,0.25);">Pricing</span>
-      <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;">What you pay depends on the match</h2>
+      <span class="section-label" style="color:rgba(0,0,0,0.25);"><span class="lang-en">Pricing</span><span class="lang-nl">Prijzen</span></span>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;"><span class="lang-en">What you pay depends on the match</span><span class="lang-nl">Wat je betaalt hangt af van de wedstrijd</span></h2>
       <div class="zone-divider"></div>
       <p style="color:var(--text-mid);font-size:1rem;line-height:1.8;margin-top:1.25rem;margin-bottom:2rem;max-width:640px;">
-        Match access costs vary - a club fixture is priced differently than a provincial final or an All-Ireland match. Tell us your preferred dates and group size, and we'll check what's on that weekend and send you a fixed group quote within 24–48 hours.
+        <span class="lang-en">Match access costs vary - a club fixture is priced differently than a provincial final or an All-Ireland match. Tell us your preferred dates and group size, and we'll check what's on that weekend and send you a fixed group quote within 24–48 hours.</span>
+        <span class="lang-nl">De kosten voor wedstrijdtoegang variëren - een clubwedstrijd is anders geprijsd dan een provinciale finale of een All-Ireland wedstrijd. Geef ons je gewenste data en groepsgrootte door, en we checken wat er dat weekend te doen is en sturen binnen 24-48 uur een vaste groepsofferte.</span>
       </p>
       <a href="#book" onclick="bookGoTo('dublin')" class="btn-dark" style="background:#4a90d9;">
-        Request a quote
+        <span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
 
       <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:1.1rem 1.25rem;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:12px;margin-top:2rem;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#169b62" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg>
         <div>
-          <p style="font-size:0.9rem;font-weight:700;color:var(--text-dark);margin:0 0 3px;">Every quote includes the full experience</p>
-          <p style="font-size:0.82rem;color:var(--text-mid);margin:0;line-height:1.7;">Local expert · GAA training session · Match access · Pub recommendations · Cultural introduction.</p>
+          <p style="font-size:0.9rem;font-weight:700;color:var(--text-dark);margin:0 0 3px;"><span class="lang-en">Every quote includes the full experience</span><span class="lang-nl">Elke offerte omvat de volledige experience</span></p>
+          <p style="font-size:0.82rem;color:var(--text-mid);margin:0;line-height:1.7;"><span class="lang-en">Local expert · GAA training session · Match access · Pub recommendations · Cultural introduction.</span><span class="lang-nl">Lokale expert · GAA-trainingssessie · Toegang tot de wedstrijd · Pubaanbevelingen · Culturele introductie.</span></p>
         </div>
       </div>
 
@@ -1483,8 +1538,8 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
   ══════════════════════════════════════════════════ -->
   <section class="zone-dark" style="padding:6rem 1.5rem;">
     <div style="max-width:1200px;margin:0 auto;">
-      <span class="section-label">Experience Gaelic Games</span>
-      <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;">The games. The people. The feeling.</h2>
+      <span class="section-label"><span class="lang-en">Experience Gaelic Games</span><span class="lang-nl">Beleef Gaelic Games</span></span>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;"><span class="lang-en">The games. The people. The feeling.</span><span class="lang-nl">De wedstrijden. De mensen. Het gevoel.</span></h2>
       <div class="zone-divider" style="margin-bottom:2.5rem;"></div>
       <div class="gallery">
         <img src="/images/gaelic-football-experience.jpeg" alt="Gaelic football experience in Nijmegen" loading="lazy">
@@ -1507,19 +1562,19 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
   ══════════════════════════════════════════════════ -->
   <section class="zone-white" style="padding:6rem 1.5rem;">
     <div style="max-width:800px;margin:0 auto;">
-      <span class="section-label" style="color:rgba(0,0,0,0.25);">Frequently asked questions</span>
-      <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;">Good to know</h2>
+      <span class="section-label" style="color:rgba(0,0,0,0.25);"><span class="lang-en">Frequently asked questions</span><span class="lang-nl">Veelgestelde vragen</span></span>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;"><span class="lang-en">Good to know</span><span class="lang-nl">Goed om te weten</span></h2>
       <div class="zone-divider" style="margin-bottom:3rem;"></div>
 
       <div itemscope itemtype="https://schema.org/FAQPage">
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
             <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">What is a unique thing to do in Dublin?</span>
+              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">What is a unique thing to do in Dublin?</span><span class="lang-nl">Wat is iets unieks om te doen in Dublin?</span></span>
               <span class="faq-icon" style="color:var(--gold);">+</span>
             </summary>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">One of the most unique things to do in Dublin is joining a small-group Gaelic Games experience. You learn the sport's history from local coaches at Na Fianna GAA Club, try it yourself on the pitch, and watch a live GAA match at Croke Park or Parnell Park alongside real fans. Beyond the Pitch tailors a group quote to your dates and group size - no prior knowledge required.</p>
+              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">One of the most unique things to do in Dublin is joining a small-group Gaelic Games experience. You learn the sport's history from local coaches at Na Fianna GAA Club, try it yourself on the pitch, and watch a live GAA match at Croke Park or Parnell Park alongside real fans. Beyond the Pitch tailors a group quote to your dates and group size - no prior knowledge required.</span><span class="lang-nl">Een van de meest unieke dingen om te doen in Dublin is deelnemen aan een kleinschalige Gaelic Games experience. Je leert de geschiedenis van de sport van lokale coaches bij Na Fianna GAA Club, probeert het zelf op het veld, en bekijkt een live GAA-wedstrijd bij Croke Park of Parnell Park samen met echte fans. Beyond the Pitch stelt een groepsofferte op maat samen op basis van je data en groepsgrootte - geen voorkennis vereist.</span></p>
             </div>
           </details>
         </div>
@@ -1527,11 +1582,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">Is a live match ticket included in the Gaelic Games experience?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">Is a live match ticket included in the Gaelic Games experience?</span><span class="lang-nl">Is een ticket voor een live wedstrijd inbegrepen in de Gaelic Games experience?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Yes — and that's what sets Beyond the Pitch apart. Every experience includes a live GAA match ticket. Most Gaelic Games experiences teach you the sport. Ours takes you to an actual match the same day - from the dressing room to the stands. Match access is confirmed personally within 24–48 hours of your quote request.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Yes — and that's what sets Beyond the Pitch apart. Every experience includes a live GAA match ticket. Most Gaelic Games experiences teach you the sport. Ours takes you to an actual match the same day - from the dressing room to the stands. Match access is confirmed personally within 24–48 hours of your quote request.</span><span class="lang-nl">Ja — en dat is wat Beyond the Pitch onderscheidt. Elke experience omvat een ticket voor een live GAA-wedstrijd. De meeste Gaelic Games experiences leren je de sport. Bij ons ga je dezelfde dag nog naar een echte wedstrijd - van de kleedkamer tot de tribune. Wedstrijdtoegang wordt persoonlijk bevestigd binnen 24-48 uur na je offerteaanvraag.</span></p>
     </div>
   </details>
 </div>
@@ -1539,11 +1594,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">Is the stadium the same size as Croke Park?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">Is the stadium the same size as Croke Park?</span><span class="lang-nl">Is het stadion even groot als Croke Park?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Not always. The club championship fixtures we currently offer in Dublin are played at Parnell Park, a smaller ground with a more intimate atmosphere - closer to the pitch and closer to the local supporters. County and provincial fixtures, including All-Ireland matches, take place at the much larger Croke Park (over 80,000 capacity). Both offer a genuine GAA matchday experience, just at a different scale - we'll confirm the exact venue once we know your dates.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Not always. The club championship fixtures we currently offer in Dublin are played at Parnell Park, a smaller ground with a more intimate atmosphere - closer to the pitch and closer to the local supporters. County and provincial fixtures, including All-Ireland matches, take place at the much larger Croke Park (over 80,000 capacity). Both offer a genuine GAA matchday experience, just at a different scale - we'll confirm the exact venue once we know your dates.</span><span class="lang-nl">Niet altijd. De clubkampioenschapwedstrijden die we momenteel in Dublin aanbieden, worden gespeeld bij Parnell Park, een kleiner stadion met een intiemere sfeer - dichter bij het veld en dichter bij de lokale supporters. Provinciale en landelijke wedstrijden, waaronder All-Ireland-wedstrijden, vinden plaats in het veel grotere Croke Park (meer dan 80.000 plaatsen). Beide bieden een echte GAA-wedstrijddagervaring, alleen op een andere schaal - we bevestigen de exacte locatie zodra we jouw data weten.</span></p>
     </div>
   </details>
 </div>
@@ -1551,11 +1606,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">Can I watch a live GAA match as part of the experience?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">Can I watch a live GAA match as part of the experience?</span><span class="lang-nl">Kan ik een live GAA-wedstrijd bijwonen als onderdeel van de experience?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Yes. Beyond the Pitch curates access to live GAA matches as part of every experience - championship fixtures at Croke Park and Parnell Park in Dublin. With the All Ireland season in full swing, there's no better time to be in Dublin for Gaelic Games. Send us your dates and we confirm what's available, along with a quote, within 24–48 hours.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Yes. Beyond the Pitch curates access to live GAA matches as part of every experience - championship fixtures at Croke Park and Parnell Park in Dublin. With the All Ireland season in full swing, there's no better time to be in Dublin for Gaelic Games. Send us your dates and we confirm what's available, along with a quote, within 24–48 hours.</span><span class="lang-nl">Ja. Beyond the Pitch regelt toegang tot live GAA-wedstrijden als onderdeel van elke experience - kampioenschapswedstrijden bij Croke Park en Parnell Park in Dublin. Met het All Ireland-seizoen in volle gang is er geen beter moment om in Dublin te zijn voor Gaelic Games. Stuur ons je data en we bevestigen binnen 24-48 uur wat er beschikbaar is, samen met een offerte.</span></p>
     </div>
   </details>
 </div>
@@ -1563,11 +1618,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
             <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">What is hurling and why should I experience it in Ireland?</span>
+              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">What is hurling and why should I experience it in Ireland?</span><span class="lang-nl">Wat is hurling en waarom zou ik het in Ierland moeten beleven?</span></span>
               <span class="faq-icon" style="color:var(--gold);">+</span>
             </summary>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Hurling is Ireland's ancient national sport - widely considered the fastest field game in the world. Played with a wooden stick (hurley) and a small ball (sliotar), it has been part of Irish culture for over 3,000 years. Dublin's GAA clubs are part of everyday life across the city.</p>
+              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Hurling is Ireland's ancient national sport - widely considered the fastest field game in the world. Played with a wooden stick (hurley) and a small ball (sliotar), it has been part of Irish culture for over 3,000 years. Dublin's GAA clubs are part of everyday life across the city.</span><span class="lang-nl">Hurling is de eeuwenoude nationale sport van Ierland - algemeen beschouwd als de snelste veldsport ter wereld. Gespeeld met een houten stok (hurley) en een klein balletje (sliotar), maakt het al meer dan 3.000 jaar deel uit van de Ierse cultuur. Dublinse GAA-clubs maken deel uit van het dagelijks leven in de hele stad.</span></p>
             </div>
           </details>
         </div>
@@ -1575,22 +1630,22 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">How does the quote process work?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">How does the quote process work?</span><span class="lang-nl">Hoe werkt het offerteproces?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">When you submit a quote request, it is not an instant confirmation - we personally review each request within 24–48 hours. First, send us your details, preferred dates and group size. We then check host availability and match access for that weekend to put together the best fit and a fixed group quote. Once reviewed, you'll receive an email with our quote and the next steps to confirm your booking. Please note that match access and specific local arrangements remain subject to availability at the time of confirmation.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">When you submit a quote request, it is not an instant confirmation - we personally review each request within 24–48 hours. First, send us your details, preferred dates and group size. We then check host availability and match access for that weekend to put together the best fit and a fixed group quote. Once reviewed, you'll receive an email with our quote and the next steps to confirm your booking. Please note that match access and specific local arrangements remain subject to availability at the time of confirmation.</span><span class="lang-nl">Wanneer je een offerteaanvraag indient, is dit geen directe bevestiging - we bekijken elke aanvraag persoonlijk binnen 24-48 uur. Stuur ons eerst je gegevens, gewenste data en groepsgrootte. We checken vervolgens de beschikbaarheid van onze gastheer en wedstrijdtoegang voor dat weekend om de beste match en een vaste groepsofferte samen te stellen. Na beoordeling ontvang je een e-mail met onze offerte en de vervolgstappen om je boeking te bevestigen. Let op: wedstrijdtoegang en specifieke lokale regelingen blijven onderhevig aan beschikbaarheid op het moment van bevestiging.</span></p>
     </div>
   </details>
 </div>
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">Can I join if I'm travelling solo?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">Can I join if I'm travelling solo?</span><span class="lang-nl">Kan ik meedoen als ik alleen reis?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Yes. We run open-group experiences where solo travellers join a small group. Message us and we'll match you to the right date.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Yes. We run open-group experiences where solo travellers join a small group. Message us and we'll match you to the right date.</span><span class="lang-nl">Ja. We organiseren open-groep experiences waarbij solo reizigers zich aansluiten bij een kleine groep. Stuur ons een bericht en we koppelen je aan de juiste datum.</span></p>
     </div>
   </details>
 </div>
@@ -1598,11 +1653,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">How long does the full experience take?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">How long does the full experience take?</span><span class="lang-nl">Hoe lang duurt de volledige experience?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Plan for roughly 5–6 hours from start to final whistle - including the intro session, training, and the match itself.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Plan for roughly 5–6 hours from start to final whistle - including the intro session, training, and the match itself.</span><span class="lang-nl">Reken op ongeveer 5-6 uur van start tot eindsignaal - inclusief de introductiesessie, de training en de wedstrijd zelf.</span></p>
     </div>
   </details>
 </div>
@@ -1610,22 +1665,22 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
 <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">What happens if it rains?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">What happens if it rains?</span><span class="lang-nl">Wat gebeurt er als het regent?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Hurling and Gaelic Football are played in all weather - and so is the matchday experience. We'll make sure you're prepared.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Hurling and Gaelic Football are played in all weather - and so is the matchday experience. We'll make sure you're prepared.</span><span class="lang-nl">Hurling en Gaelic Football worden bij elk weer gespeeld - en dat geldt ook voor de wedstrijddag-experience. We zorgen dat je goed voorbereid bent.</span></p>
     </div>
   </details>
 </div>
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
   <details>
     <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">Is it possible to visit the All Ireland Final?</span>
+      <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">Is it possible to visit the All Ireland Final?</span><span class="lang-nl">Is het mogelijk om de All Ireland Final te bezoeken?</span></span>
       <span class="faq-icon" style="color:var(--gold);">+</span>
     </summary>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">It's a special day, and we understand why it's tempting to ask. In practice though, All-Ireland Final tickets aren't something we can access - they're allocated almost entirely through county and club channels to the supporters who've followed their team all season. We think that's exactly as it should be. What we do offer is access to championship fixtures throughout the year, so you still get the full matchday atmosphere - the crowd, the build-up, the roar - just not the final itself.</p>
+      <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">It's a special day, and we understand why it's tempting to ask. In practice though, All-Ireland Final tickets aren't something we can access - they're allocated almost entirely through county and club channels to the supporters who've followed their team all season. We think that's exactly as it should be. What we do offer is access to championship fixtures throughout the year, so you still get the full matchday atmosphere - the crowd, the build-up, the roar - just not the final itself.</span><span class="lang-nl">Het is een bijzondere dag, en we begrijpen waarom het verleidelijk is om te vragen. In de praktijk hebben we echter geen toegang tot tickets voor de All-Ireland Final - deze worden bijna volledig verdeeld via graafschaps- en clubkanalen aan de supporters die hun team het hele seizoen hebben gevolgd. Wij vinden dat precies zo hoort. Wat we wél bieden is toegang tot kampioenschapswedstrijden gedurende het hele jaar, zodat je nog steeds de volledige wedstrijddagsfeer meemaakt - de menigte, de opbouw, het gebrul - alleen niet de finale zelf.</span></p>
     </div>
   </details>
 </div>
@@ -1633,11 +1688,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
             <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">Do I need any experience to join?</span>
+              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">Do I need any experience to join?</span><span class="lang-nl">Heb ik ervaring nodig om mee te doen?</span></span>
               <span class="faq-icon" style="color:var(--gold);">+</span>
             </summary>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">No experience needed. The Dublin experience is designed for complete beginners and international visitors. You'll learn the basic skills in a relaxed and welcoming environment typical of Irish GAA club culture.</p>
+              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">No experience needed. The Dublin experience is designed for complete beginners and international visitors. You'll learn the basic skills in a relaxed and welcoming environment typical of Irish GAA club culture.</span><span class="lang-nl">Geen ervaring nodig. De Dublin-experience is ontworpen voor complete beginners en internationale bezoekers. Je leert de basisvaardigheden in een ontspannen en gastvrije omgeving die kenmerkend is voor de Ierse GAA-clubcultuur.</span></p>
             </div>
           </details>
         </div>
@@ -1645,11 +1700,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
             <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">How do I get from Dublin to Kilkenny if I want that experience instead?</span>
+              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">How do I get from Dublin to Kilkenny if I want that experience instead?</span><span class="lang-nl">Hoe kom ik van Dublin naar Kilkenny als ik liever die experience wil?</span></span>
               <span class="faq-icon" style="color:var(--gold);">+</span>
             </summary>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Kilkenny is approximately 90 minutes from Dublin by car, train or bus. Direct coaches run regularly from Dublin's Busáras station, so it's easy to combine both if your trip allows.</p>
+              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Kilkenny is approximately 90 minutes from Dublin by car, train or bus. Direct coaches run regularly from Dublin's Busáras station, so it's easy to combine both if your trip allows.</span><span class="lang-nl">Kilkenny ligt ongeveer 90 minuten van Dublin met de auto, trein of bus. Directe bussen rijden regelmatig vanaf Dublins Busáras-station, dus het is makkelijk om beide te combineren als je reis dat toelaat.</span></p>
             </div>
           </details>
         </div>
@@ -1657,11 +1712,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
             <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">What is the best time of year to experience Gaelic Games in Ireland?</span>
+              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">What is the best time of year to experience Gaelic Games in Ireland?</span><span class="lang-nl">Wat is de beste tijd van het jaar om Gaelic Games te beleven in Ierland?</span></span>
               <span class="faq-icon" style="color:var(--gold);">+</span>
             </summary>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"> Experiences and matches are available year-round.</p>
+              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"> <span class="lang-en">Experiences and matches are available year-round.</span><span class="lang-nl">Experiences en wedstrijden zijn het hele jaar door beschikbaar.</span></p>
             </div>
           </details>
         </div>
@@ -1669,11 +1724,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="border-bottom:1px solid rgba(0,0,0,0.07);overflow:hidden;">
           <details>
             <summary itemprop="name" style="padding:1.25rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;list-style:none;">
-              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;">How is this different from a standard Ireland experience?</span>
+              <span style="color:var(--text-dark);font-weight:600;font-size:1rem;"><span class="lang-en">How is this different from a standard Ireland experience?</span><span class="lang-nl">Hoe verschilt dit van een standaard Ierland-experience?</span></span>
               <span class="faq-icon" style="color:var(--gold);">+</span>
             </summary>
             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" style="padding-bottom:1.25rem;">
-              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;">Most Ireland experiences show you the country from a bus window. Beyond the Pitch puts you inside Irish culture - on the pitch with local coaches, in a traditional pub learning the history, and in the stands at a live match where possible.</p>
+              <p itemprop="text" style="color:var(--text-mid);font-size:0.9rem;line-height:1.8;"><span class="lang-en">Most Ireland experiences show you the country from a bus window. Beyond the Pitch puts you inside Irish culture - on the pitch with local coaches, in a traditional pub learning the history, and in the stands at a live match where possible.</span><span class="lang-nl">De meeste Ierland-experiences laten je het land zien vanuit een busraam. Beyond the Pitch brengt je middenin de Ierse cultuur - op het veld met lokale coaches, in een traditionele pub waar je de geschiedenis leert, en op de tribune bij een live wedstrijd waar mogelijk.</span></p>
             </div>
           </details>
         </div>
@@ -1681,18 +1736,18 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
       </div>
 
       <div style="margin-top:3rem;padding:2rem;background:var(--off-white);border-radius:14px;">
-        <h3 style="font-size:0.95rem;font-weight:700;color:var(--text-dark);margin-bottom:1.25rem;">What's Not Included</h3>
+        <h3 style="font-size:0.95rem;font-weight:700;color:var(--text-dark);margin-bottom:1.25rem;"><span class="lang-en">What's Not Included</span><span class="lang-nl">Wat is niet inbegrepen</span></h3>
         <div class="prac-item">
           <svg class="prac-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-          <p><strong>Flights to and from Ireland</strong></p>
+          <p><strong><span class="lang-en">Flights to and from Ireland</span><span class="lang-nl">Vluchten van en naar Ierland</span></strong></p>
         </div>
         <div class="prac-item">
           <svg class="prac-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/></svg>
-          <p><strong>Accommodation</strong> - recommendations provided</p>
+          <p><strong><span class="lang-en">Accommodation</span><span class="lang-nl">Accommodatie</span></strong> <span class="lang-en">- recommendations provided</span><span class="lang-nl">- aanbevelingen worden verstrekt</span></p>
         </div>
         <div class="prac-item" style="border:none;">
           <svg class="prac-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <p><strong>Travel insurance</strong></p>
+          <p><strong><span class="lang-en">Travel insurance</span><span class="lang-nl">Reisverzekering</span></strong></p>
         </div>
       </div>
     </div>
@@ -1706,15 +1761,15 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
     <div style="max-width:640px;margin:0 auto;">
       <span class="section-label" style="text-align:center;display:block;"></span>
       <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:1.25rem;">
-        Ready to Experience<br>Gaelic Games in Dublin?
+        <span class="lang-en">Ready to Experience<br>Gaelic Games in Dublin?</span><span class="lang-nl">Klaar om Gaelic Games<br>in Dublin te beleven?</span>
       </h2>
       <p style="color:rgba(255,255,255,0.55);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem;">
-        Step into an experience where sport opens doors to Irish culture, community, and identity.
+        <span class="lang-en">Step into an experience where sport opens doors to Irish culture, community, and identity.</span><span class="lang-nl">Stap in een experience waar sport de deuren opent naar Ierse cultuur, gemeenschap en identiteit.</span>
       </p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-       <a href="#book" onclick="bookGoTo('dublin')" class="btn-gold">Request a quote</a>
-<a href="#book" onclick="bookGoTo('kilkenny')" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.95rem 2rem;background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.2);border-radius:8px;font-weight:700;text-decoration:none;font-size:0.95rem;">Kilkenny quote instead</a>
-<a href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Gaelic%20Games%20Experience" target="_blank" rel="noopener" class="btn-outline-white">Ask a Question</a>
+       <a href="#book" onclick="bookGoTo('dublin')" class="btn-gold"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></a>
+<a href="#book" onclick="bookGoTo('kilkenny')" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.95rem 2rem;background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.2);border-radius:8px;font-weight:700;text-decoration:none;font-size:0.95rem;"><span class="lang-en">Kilkenny quote instead</span><span class="lang-nl">Liever een Kilkenny-offerte</span></a>
+<a href="https://wa.me/31639211686?text=Hi!%20I%20have%20a%20question%20about%20the%20Gaelic%20Games%20Experience" target="_blank" rel="noopener" class="btn-outline-white"><span class="lang-en">Ask a Question</span><span class="lang-nl">Stel een vraag</span></a>
       </div>
     </div>
   </section>
@@ -1729,20 +1784,20 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         <div style="grid-column:span 2;">
           <a href="/" class="logo" style="font-size:1.1rem;">Beyond the Pitch</a>
           <p style="margin-top:1rem;color:rgba(255,255,255,0.35);font-size:0.875rem;max-width:320px;line-height:1.7;">
-            Authentic cultural sports experiences connecting you with local communities and traditions worldwide.
+            <span class="lang-en">Authentic cultural sports experiences connecting you with local communities and traditions worldwide.</span><span class="lang-nl">Authentieke culturele sportervaringen die je verbinden met lokale gemeenschappen en tradities wereldwijd.</span>
           </p>
         </div>
         <div>
-          <h4>Quick Links</h4>
+          <h4><span class="lang-en">Quick Links</span><span class="lang-nl">Snelle links</span></h4>
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             <a href="/">Home</a>
             <a href="/experiences/">Experiences</a>
-            <a href="/about/">About Us</a>
+            <a href="/about/"><span class="lang-en">About Us</span><span class="lang-nl">Over ons</span></a>
             <a href="/contact/">Contact</a>
           </div>
         </div>
         <div>
-          <h4>Connect</h4>
+          <h4><span class="lang-en">Connect</span><span class="lang-nl">Volg ons</span></h4>
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             <a href="https://www.tiktok.com/@travelbeyondthepitch" target="_blank">TikTok</a>
             <a href="https://www.instagram.com/travelbeyondthepitch/" target="_blank">Instagram</a>
@@ -1751,11 +1806,11 @@ btnRight.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior
         </div>
       </div>
       <div style="border-top:1px solid var(--border-dark);padding-top:1.5rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;color:rgba(255,255,255,0.25);font-size:0.8rem;">
-        <p>&copy; 2026 Beyond the Pitch. All rights reserved.</p>
+        <p><span class="lang-en">&copy; 2026 Beyond the Pitch. All rights reserved.</span><span class="lang-nl">&copy; 2026 Beyond the Pitch. Alle rechten voorbehouden.</span></p>
         <div style="display:flex;gap:1.5rem;">
-          <a href="/privacy-policy/" style="color:rgba(255,255,255,0.25);">Privacy Policy</a>
-          <a href="/terms-&-conditions/" style="color:rgba(255,255,255,0.25);">Terms of Service</a>
-          <a href="/refund-cancellation-policy/" style="color:rgba(255,255,255,0.25);">Refund & cancellation policy</a>
+          <a href="/privacy-policy/" style="color:rgba(255,255,255,0.25);"><span class="lang-en">Privacy Policy</span><span class="lang-nl">Privacybeleid</span></a>
+          <a href="/terms-&-conditions/" style="color:rgba(255,255,255,0.25);"><span class="lang-en">Terms of Service</span><span class="lang-nl">Algemene voorwaarden</span></a>
+          <a href="/refund-cancellation-policy/" style="color:rgba(255,255,255,0.25);"><span class="lang-en">Refund &amp; cancellation policy</span><span class="lang-nl">Restitutie- en annuleringsbeleid</span></a>
         </div>
       </div>
     </div>
@@ -1874,6 +1929,29 @@ document.querySelectorAll('a[href*="/community/"]').forEach(function(link) {
       floatingCtaBtn.classList.toggle('visible', pastHero);
       floatingWaBtn.classList.toggle('visible', pastHero);
     });
+
+    // ── Language toggle ──
+    function setLang(lang) {
+      document.body.classList.toggle('lang-active-nl', lang === 'nl');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    let initialLang = 'en';
+    try {
+      const saved = localStorage.getItem('btp_lang');
+      if (saved === 'en' || saved === 'nl') {
+        initialLang = saved;
+      } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
+        initialLang = 'nl';
+      }
+    } catch(e) {}
+    setLang(initialLang);
   </script>
   <script>
 document.querySelectorAll('.yt-facade').forEach(function(facade) {
