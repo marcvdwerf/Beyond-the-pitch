@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="author" content="Beyond the Pitch" />
-  <title>Beyond the Pitch | Group Sports & Culture Trips for Schools, Companies & Teams</title>
-<meta name="description" content="Beyond the Pitch organises group sport & culture trips in Ireland and the Czech Republic - for schools, companies and sports teams. Request a custom group quote." />
-  <meta name="keywords" content="group travel Ireland, school trip Dublin, corporate outing sports, sports team travel, teambuilding trip Europe, group tour Prague, gaelic games experience, ice hockey Prague group" />
+  <title>Beyond the Pitch | Groepsreizen Sport & Cultuur voor Scholen, Bedrijven & Teams</title>
+<meta name="description" content="Beyond the Pitch organiseert groepsreizen met sport en cultuur in Ierland en Tsjechië - voor scholen, bedrijven en sportteams. Vraag een offerte op maat aan." />
+  <meta name="keywords" content="groepsreis Ierland, schoolreis Dublin, personeelsuitje sport, teambuilding Praag, sportteam reis Europa, groepsreis Praag, gaelic games experience, ijshockey Praag groep" />
   <link rel="icon" href="images/beyond-the-pitch-sport-culture-travel-logo.png" />
   <link rel="canonical" href="https://travelbeyondthepitch.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -28,16 +28,15 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Beyond the Pitch" />
-  <meta property="og:title" content="Beyond the Pitch - Authentic Cultural Sports Experiences" />
-  <meta property="og:description" content="Group sport & culture experiences in Ireland and the Czech Republic - for schools, companies and sports teams. Request a group quote." />
-<meta name="twitter:description" content="Group sport & culture experiences in Ireland and the Czech Republic - for schools, companies and sports teams." />
+  <meta property="og:title" content="Beyond the Pitch - Groepsreizen Sport & Cultuur" />
+  <meta property="og:description" content="Groepsreizen met sport en cultuur in Ierland en Tsjechië - voor scholen, bedrijven en sportteams. Vraag een offerte aan." />
   <meta property="og:url" content="https://travelbeyondthepitch.com/" />
   <meta property="og:image" content="images/beyond-the-pitch-achtergrond.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Beyond the Pitch - Authentic Cultural Sports Experiences" />
-  <meta name="twitter:description" content="We connect participants with places where sport still means something. Flights and accommodation not included." />
+  <meta name="twitter:title" content="Beyond the Pitch - Groepsreizen Sport & Cultuur" />
+  <meta name="twitter:description" content="Groepsreizen met sport en cultuur in Ierland en Tsjechië - voor scholen, bedrijven en sportteams." />
   <meta name="twitter:image" content="images/beyond-the-pitch-achtergrond.jpg" />
 
   <script type="application/ld+json">
@@ -45,7 +44,8 @@
   "@context": "https://schema.org",
   "@type": "TouristTrip",
   "name": "Hurling & Gaelic Football - Cultural Sports Experience, Ireland",
-  "description": "Step into the world of Gaelic games. In the two counties that live and breathe it. From the fields of Kilkenny to the roar of a Dublin crowd, this is Ireland the way outsiders never see it.",
+  "description": "Stap in de wereld van Gaelic games, in de twee graafschappen die er middenin leven. Van de velden van Kilkenny tot het gebrul van een Dublinse menigte - dit is Ierland zoals buitenstaanders het nooit zien.",
+  "inLanguage": "nl",
   "touristType": "Groups: schools, companies, sports teams",
 "audience": {
   "@type": "Audience",
@@ -69,7 +69,8 @@
   "@context": "https://schema.org",
   "@type": "TouristTrip",
   "name": "Ice Hockey & Culture - Cultural Sports Experience, Prague",
-  "description": "Discover the raw passion of Czech ice hockey culture. From the thundering atmosphere of Prague's ice rinks to the historic rivalries, experience the fastest team sport on earth alongside local fans.",
+  "description": "Ontdek de rauwe passie van de Tsjechische ijshockeycultuur. Van de donderende sfeer in de Praagse ijsbanen tot de historische rivaliteiten - beleef de snelste teamsport ter wereld tussen de lokale fans.",
+  "inLanguage": "nl",
   "touristType": "Groups: schools, companies, sports teams",
 "audience": {
   "@type": "Audience",
@@ -839,7 +840,7 @@
           <article class="exp-card">
             <a href="/prague/" class="exp-card-link">
               <div class="exp-card-media">
-                <img src="/prague/images/hall-of-fame.jpeg" alt="Prague Ice Hockey Experience - Czech Hockey Hall of Fame" loading="lazy" />
+                <img src="/prague/images/hall-of-fame.jpeg" alt="Groepsreis ijshockey Praag - Tsjechische IJshockey Hall of Fame" loading="lazy" />
                 <span class="exp-badge exp-badge--live">● <span class="lang-en">Live now</span><span class="lang-nl">Nu live</span></span>
                 <span class="exp-badge exp-badge--new"><span class="lang-en">New · Europe</span><span class="lang-nl">Nieuw · Europa</span></span>
               </div>
@@ -1301,13 +1302,13 @@ if (heroVideo && heroFallback) {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
 
-    let initialLang = 'en';
+    let initialLang = 'nl';
     try {
       const saved = localStorage.getItem('btp_lang');
       if (saved === 'en' || saved === 'nl') {
         initialLang = saved;
-      } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
-        initialLang = 'nl';
+      } else if (navigator.language && !navigator.language.toLowerCase().startsWith('nl')) {
+        initialLang = 'en';
       }
     } catch(e) {}
     setLang(initialLang);
