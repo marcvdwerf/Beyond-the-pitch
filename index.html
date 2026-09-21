@@ -1302,16 +1302,14 @@ if (heroVideo && heroFallback) {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
 
-    let initialLang = 'nl';
-    try {
-      const saved = localStorage.getItem('btp_lang');
-      if (saved === 'en' || saved === 'nl') {
-        initialLang = saved;
-      } else if (navigator.language && !navigator.language.toLowerCase().startsWith('nl')) {
-        initialLang = 'en';
-      }
-    } catch(e) {}
-    setLang(initialLang);
+   let initialLang = 'en';
+try {
+  const saved = localStorage.getItem('btp_lang');
+  if (saved === 'en' || saved === 'nl') {
+    initialLang = saved;
+  }
+} catch(e) {}
+setLang(initialLang);
   </script>
 </body>
 </html>
