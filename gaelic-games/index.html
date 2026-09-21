@@ -1939,13 +1939,14 @@ document.querySelectorAll('a[href*="/community/"]').forEach(function(link) {
       btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
 
-    let initialLang = 'en';
-    try {
-      const saved = localStorage.getItem('btp_lang');
-      if (saved === 'en' || saved === 'nl') {
-        initialLang = saved;
-      } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
-        initialLang = 'nl';
+   let initialLang = 'en';
+try {
+  const saved = localStorage.getItem('btp_lang');
+  if (saved === 'en' || saved === 'nl') {
+    initialLang = saved;
+  }
+} catch(e) {}
+setLang(initialLang);
       }
     } catch(e) {}
     setLang(initialLang);

@@ -1409,8 +1409,6 @@ try {
   const saved = localStorage.getItem('btp_lang');
   if (saved === 'en' || saved === 'nl') {
     initialLang = saved;
-  } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
-    initialLang = 'nl';
   }
 } catch(e) {}
 setLang(initialLang);
