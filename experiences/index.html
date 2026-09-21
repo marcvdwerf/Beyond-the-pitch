@@ -515,12 +515,12 @@
       }
     });
 
-    // ── Language toggle ──
+       // ── Language toggle ──
     function setLang(lang) {
       document.body.classList.toggle('lang-active-nl', lang === 'nl');
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
       document.documentElement.lang = lang;
-      try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+      try { localStorage.setItem('btp_lang_v2', lang); } catch(e) {}
     }
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -528,13 +528,13 @@
     });
 
     let initialLang = 'en';
-try {
-  const saved = localStorage.getItem('btp_lang');
-  if (saved === 'en' || saved === 'nl') {
-    initialLang = saved;
-  }
-} catch(e) {}
-setLang(initialLang);
+    try {
+      const saved = localStorage.getItem('btp_lang_v2');
+      if (saved === 'en' || saved === 'nl') {
+        initialLang = saved;
+      }
+    } catch(e) {}
+    setLang(initialLang);
   </script>
 </body>
 </html>

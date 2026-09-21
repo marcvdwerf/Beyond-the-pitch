@@ -643,7 +643,7 @@
       document.body.classList.toggle('lang-active-nl', lang === 'nl');
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
       document.documentElement.lang = lang;
-      try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+      try { localStorage.setItem('btp_lang_v2', lang); } catch(e) {}
     }
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -652,11 +652,9 @@
 
     let initialLang = 'en';
     try {
-      const saved = localStorage.getItem('btp_lang');
+      const saved = localStorage.getItem('btp_lang_v2');
       if (saved === 'en' || saved === 'nl') {
         initialLang = saved;
-      } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
-        initialLang = 'nl';
       }
     } catch(e) {}
     setLang(initialLang);
