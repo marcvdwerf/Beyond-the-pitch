@@ -131,6 +131,7 @@
     .exp-card-body { padding:1.75rem; }
     .exp-tag { display:inline-block; padding:0.3rem 0.75rem; background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.25); border-radius:50px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-bright); margin-bottom:1rem; }
 
+    .exp-card-media { position:relative; }
     /* EXPERIENCE GRID - stapelt op mobiel */
     .exp-grid {
       display:grid;
@@ -241,7 +242,7 @@
       "name": "Beyond the Pitch Experiences",
       "description": "Cultural sports experiences organised by Beyond the Pitch, a cultural sports experience organiser based in the Netherlands. Not a travel agency or tour operator under EU Directive 2015/2302.",
       "url": "https://travelbeyondthepitch.com/experiences/",
-      "numberOfItems": 2,
+      "numberOfItems": 3,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -254,6 +255,12 @@
           "position": 2,
           "url": "https://travelbeyondthepitch.com/prague/",
           "name": "Ice Hockey - Prague"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://travelbeyondthepitch.com/groups/",
+          "name": "Gaelic Football Clinic - Netherlands"
         }
       ]
     },
@@ -334,8 +341,8 @@
       </h1>
       <div class="zone-divider"></div>
       <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;line-height:1.85;margin-top:1.5rem;max-width:500px;">
-        <span class="lang-en">Two experiences. Each built around a sporting tradition that runs deep - and a local expert who has spent their life inside it. Looking for something else? We're happy to think along about other locations too.</span>
-        <span class="lang-nl">Twee experiences. Elk opgebouwd rond een sportieve traditie die diep geworteld is - en een lokale expert die er zijn hele leven middenin staat. Op zoek naar iets anders? We denken graag mee over andere locaties.</span>
+        <span class="lang-en">Three experiences. Each built around a sporting tradition that runs deep - and a local expert who has spent their life inside it. Looking for something else? We're happy to think along about other locations too.</span>
+        <span class="lang-nl">Drie experiences. Elk opgebouwd rond een sportieve traditie die diep geworteld is - en een lokale expert die er zijn hele leven middenin staat. Op zoek naar iets anders? We denken graag mee over andere locaties.</span>
       </p>
     </div>
   </section>
@@ -412,6 +419,29 @@
   </a>
 </article>
 
+        <!-- Gaelic Football Clinic -->
+        <article class="exp-card">
+          <a href="/groups/" style="text-decoration:none;display:block;">
+            <div class="exp-card-media">
+              <img src="/images/hurling-experience-kilkenny-small-group-james.webp" alt="Gaelic football clinic voor scholen en teams in Nederland" loading="lazy" />            </div>
+            <div class="exp-card-body">
+              <span class="exp-tag"><span class="lang-en">Netherlands · At your location</span><span class="lang-nl">Nederland · Op jullie locatie</span></span>
+              <h2 style="font-size:1.5rem;font-weight:900;letter-spacing:-0.03em;color:#fff;margin-bottom:0.75rem;">The Gaelic Football Clinic</h2>
+              <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.75;margin-bottom:1.5rem;">
+                <span class="lang-en">No plane ticket needed. Together with an experienced local Gaelic games club, we bring Ireland's national sport to your school or team - fast, physical and new for almost everyone.</span>
+                <span class="lang-nl">Geen vliegticket nodig. Samen met een ervaren Gaelic games-club uit Nederland brengen we de nationale sport van Ierland naar jullie school of team - snel, fysiek en voor bijna iedereen nieuw.</span>
+              </p>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-top:1.25rem;border-top:1px solid var(--border-dark);">
+                <div>
+                  <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;"><span class="lang-en">Group rate</span><span class="lang-nl">Groepstarief</span></p>
+                  <p style="font-size:1.2rem;font-weight:900;color:#fff;"><span class="lang-en">On request</span><span class="lang-nl">Op aanvraag</span></p>
+                </div>
+                <span style="color:var(--gold-bright);font-size:0.85rem;font-weight:700;white-space:nowrap;"><span class="lang-en">Request a quote →</span><span class="lang-nl">Vraag een offerte aan →</span></span>
+              </div>
+            </div>
+          </a>
+        </article>
+
         <!-- Looking for something else -->
         <article class="exp-card-soon">
           <div class="exp-card-soon-inner">
@@ -455,6 +485,7 @@
           <div style="display:flex;flex-direction:column;gap:0.75rem;">
             <a href="/gaelic-games/"><span class="lang-en">Gaelic Games - Ireland</span><span class="lang-nl">Gaelic Games - Ierland</span></a>
             <a href="/prague/"><span class="lang-en">Ice hockey - Prague</span><span class="lang-nl">IJshockey - Praag</span></a>
+            <a href="/groups/"><span class="lang-en">Gaelic Football Clinic - Netherlands</span><span class="lang-nl">Gaelic Football Clinic - Nederland</span></a>
           </div>
         </div>
         <div>
@@ -497,7 +528,7 @@
     });
 
     document.addEventListener('click', function(e) {
-      const cta = e.target.closest('a[href*="contact"], a[href*="gaelic"], a[href*="prague"], .btn-gold');
+      const cta = e.target.closest('a[href*="contact"], a[href*="gaelic"], a[href*="prague"], a[href*="groups"], .btn-gold');
       if (cta && typeof gtag !== 'undefined') {
         gtag('event', 'cta_click', { event_category:'engagement', event_label:cta.textContent.trim(), value:1 });
       }
