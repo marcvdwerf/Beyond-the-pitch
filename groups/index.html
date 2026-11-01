@@ -821,39 +821,44 @@
         <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;">
           <span class="lang-en">Or send us the details below:</span><span class="lang-nl">Of stuur hieronder de details:</span>
         </p>
-        <form action="https://formsubmit.co/info@travelbeyondthepitch.com" method="POST" style="display:grid;gap:1rem;text-align:left;background:var(--dark-panel);padding:2rem;border-radius:12px;border:1px solid var(--border-dark);">
+        <form id="groupForm" action="https://formsubmit.co/info@travelbeyondthepitch.com" method="POST" style="display:grid;gap:1rem;text-align:left;background:var(--dark-panel);padding:2rem;border-radius:12px;border:1px solid var(--border-dark);">
           <input type="hidden" name="_subject" value="New group quote request">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="page" value="groups">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
           <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-            <input required name="name" placeholder="Your name" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-            <input required name="organisation" placeholder="Organisation" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
+            <input required name="name" autocomplete="name" placeholder="Your name" data-ph-en="Your name" data-ph-nl="Je naam" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
+            <input required type="email" name="email" autocomplete="email" placeholder="Email" data-ph-en="Email" data-ph-nl="E-mailadres" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
           </div>
-          <input required type="email" name="email" placeholder="Work email" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-          <div class="form-row-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
-            <select required name="destination" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-              <option value="">Destination</option>
-              <option>Dublin &amp; Kilkenny</option>
-              <option>Prague</option>
-              <option>Not sure yet</option>
+          <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <input required name="organisation" autocomplete="organization" placeholder="School / organisation" data-ph-en="School / organisation" data-ph-nl="School / organisatie" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
+            <select required name="product" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
+              <option value="" data-en="I'm interested in..." data-nl="Ik heb interesse in...">I'm interested in...</option>
+              <option value="clinic" data-en="Gaelic Games clinic in NL" data-nl="Gaelic Games-clinic in NL">Gaelic Games clinic in NL</option>
+              <option value="dublin" data-en="Dublin &amp; Kilkenny" data-nl="Dublin &amp; Kilkenny">Dublin &amp; Kilkenny</option>
+              <option value="prague" data-en="Prague" data-nl="Praag">Prague</option>
+              <option value="studytrip" data-en="Activity for our study trip" data-nl="Activiteit voor onze studiereis">Activity for our study trip</option>
+              <option value="unsure" data-en="Not sure yet" data-nl="Weet ik nog niet">Not sure yet</option>
             </select>
-            <input required name="group_size" placeholder="Group size" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-            <input required name="dates" placeholder="Rough dates" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
           </div>
-          <select name="segment" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-            <option value="">What best describes you? (optional)</option>
-            <option>Language school / student group</option>
-            <option>Sports organisation</option>
-            <option>Agency / partner</option>
-            <option>Company offsite</option>
-            <option>Other</option>
-          </select>
-          <textarea name="message" rows="3" placeholder="Anything else we should know?" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;resize:vertical;"></textarea>
+          <textarea name="message" rows="2" placeholder="Group size and rough dates (optional)" data-ph-en="Group size and rough dates (optional)" data-ph-nl="Aantal personen en periode (optioneel)" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;resize:vertical;"></textarea>
           <button type="submit" class="btn-gold" style="justify-content:center;">
             <span class="lang-en">Send group enquiry</span><span class="lang-nl">Stuur groepsaanvraag</span>
           </button>
+          <p style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin:0;">
+            <span class="lang-en">We only use your details to answer your enquiry. See our <a href="/privacy-policy/" style="color:var(--gold-bright);">privacy policy</a>.</span>
+            <span class="lang-nl">We gebruiken je gegevens alleen om je aanvraag te beantwoorden. Zie ons <a href="/privacy-policy/" style="color:var(--gold-bright);">privacybeleid</a>.</span>
+          </p>
         </form>
+        <div id="groupFormThanks" role="status" aria-live="polite" style="display:none;text-align:left;background:var(--dark-panel);padding:2rem;border-radius:12px;border:1px solid var(--border-dark);">
+          <p style="font-size:1.15rem;font-weight:700;color:var(--gold-bright);margin:0 0 0.5rem;">
+            <span class="lang-en">Thanks - we've got your request!</span><span class="lang-nl">Dank je - we hebben je aanvraag ontvangen!</span>
+          </p>
+          <p style="color:rgba(255,255,255,0.7);margin:0;">
+            <span class="lang-en">Marc or Martijn will get back to you within 24 hours.</span><span class="lang-nl">Marc of Martijn neemt binnen 24 uur contact met je op.</span>
+          </p>
+        </div>
         <p style="margin-top:1.5rem;font-size:0.85rem;color:rgba(255,255,255,0.4);">
           <span class="lang-en">Prefer WhatsApp? </span><span class="lang-nl">Liever WhatsApp? </span>
           <a href="https://wa.me/31639211686" style="color:var(--gold-bright);">+31 6 3921 1686</a>
@@ -1026,7 +1031,36 @@
       const waText = encodeURIComponent(lang === 'nl' ? waTextNl : waTextEn);
       waFloat.href = `https://wa.me/31639211686?text=${waText}`;
       document.documentElement.lang = lang;
+      document.querySelectorAll('[data-ph-en]').forEach(el => { el.placeholder = el.dataset['ph' + (lang === 'nl' ? 'Nl' : 'En')]; });
+      document.querySelectorAll('option[data-en]').forEach(el => { el.textContent = lang === 'nl' ? el.dataset.nl : el.dataset.en; });
       try { localStorage.setItem('btp_lang', lang); } catch(e) {}
+    }
+
+    // ── Group enquiry form ──
+    // Sends the request straight to the BTP Control Center (Google Apps Script).
+    // While GROUP_FORM_ENDPOINT is empty, the form falls back to the old FormSubmit route.
+    const GROUP_FORM_ENDPOINT = '';
+    const groupForm = document.getElementById('groupForm');
+    if (groupForm && GROUP_FORM_ENDPOINT) {
+      groupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = groupForm.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        const fd = new FormData(groupForm);
+        try {
+          await fetch(GROUP_FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fd) });
+          if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'groups', event_label: fd.get('product') || '' });
+          groupForm.style.display = 'none';
+          document.getElementById('groupFormThanks').style.display = 'block';
+        } catch (err) {
+          btn.disabled = false;
+          btn.style.opacity = '';
+          alert(document.documentElement.lang === 'nl'
+            ? 'Er ging iets mis. Probeer het opnieuw of stuur ons een WhatsApp.'
+            : 'Something went wrong. Please try again or send us a WhatsApp.');
+        }
+      });
     }
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
