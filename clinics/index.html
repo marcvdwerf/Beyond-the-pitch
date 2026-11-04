@@ -155,18 +155,19 @@
   .terms span i { font-style: normal; color: rgba(255,255,255,0.45); }
   @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
 
-  /* Photos */
-  .photos { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 0.75rem; margin-top: 3rem; }
-  .photos figure { margin: 0; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3; max-width: 100%; background: var(--dark-panel); }
+  /* Photos: 4 kolommen, liggende foto en Instagram-kaart over 2 kolommen */
+  .photos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(200px, 26vw, 320px); gap: 0.75rem; margin-top: 3rem; }
+  .photos figure { margin: 0; border-radius: 12px; overflow: hidden; background: var(--dark-panel); min-width: 0; }
   .photos img { width: 100%; height: 100%; object-fit: cover; }
+  .photos .wide { grid-column: span 2; }
   .photos .ig {
     display: flex; flex-direction: column; justify-content: flex-end; padding: 1.4rem; text-decoration: none;
-    background: var(--dark-panel); border: 1px solid var(--border-dark); border-radius: 12px; aspect-ratio: 4 / 3;
+    background: var(--dark-panel); border: 1px solid var(--border-dark); border-radius: 12px;
   }
   .photos .ig strong { font-size: 1.05rem; }
   .photos .ig span { color: rgba(255,255,255,0.55); font-size: 0.85rem; }
   .photos .ig:hover strong { color: var(--gold-bright); }
-  @media (max-width: 760px) { .photos { grid-template-columns: 1fr 1fr; } .photos figure:first-child { grid-column: 1 / -1; } }
+  @media (max-width: 760px) { .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(180px, 52vw, 280px); } }
 
   /* Audience */
   .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
@@ -260,7 +261,7 @@
 
   <section class="zone-white">
     <div class="wrap quote-grid">
-      <div class="quote-photo"><img src="gaelic-football-clinic.jpg.png" alt="Ierse trainers geven uitleg aan de sportklas van 't Atrium" style="object-position: center 75%;" loading="lazy"></div>
+      <div class="quote-photo"><img src="gaelic-football-clinic-uitleg-sportklas-atrium.jpg" alt="Ierse trainers geven uitleg aan de sportklas van 't Atrium" style="object-position: center 75%;" loading="lazy"></div>
       <div>
         <span class="label">Wat scholen zeggen</span>
         <div class="quote-mark" aria-hidden="true">“</div>
@@ -284,9 +285,12 @@
         <li><h3>Wedstrijd</h3><p>Alles komt samen in een echte wedstrijd.</p></li>
       </ol>
       <div class="photos">
-        <figure><img src="/images/gaelic-football-clinic.jpg.png" alt="Spelers oefenen het vangen van de bal" loading="lazy"></figure>
-        <figure><img src="/images/gaelic-football-experience.jpeg" alt="Gaelic football in actie" loading="lazy"></figure>
-        <a class="ig" href="https://www.instagram.com/travelbeyondthepitch/" target="_blank" rel="noopener">
+        <figure class="wide"><img src="/images/gaelic-football-clinic.jpg.png" alt="Spelers oefenen het vangen van de bal" loading="lazy"></figure>
+        <figure><img src="clinic-atrium-bal.jpg" alt="Een Gaelic football op het veld" style="object-position: center 80%;" loading="lazy"></figure>
+        <figure><img src="clinic-atrium-matta.jpg" alt="Ierse trainer met de bal tijdens de clinic" style="object-position: center 70%;" loading="lazy"></figure>
+        <figure><img src="clinic-atrium-hooghouden.jpg" alt="Leerling oefent de solo met de bal" style="object-position: center 60%;" loading="lazy"></figure>
+        <figure><img src="clinic-atrium-estafette.jpg" alt="Leerlingen rennen een estafette met de bal" style="object-position: center 70%;" loading="lazy"></figure>
+        <a class="ig wide" href="https://www.instagram.com/travelbeyondthepitch/" target="_blank" rel="noopener">
           <strong>Meer foto's →</strong>
           <span>@travelbeyondthepitch</span>
         </a>
