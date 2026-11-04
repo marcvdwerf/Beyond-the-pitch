@@ -393,7 +393,7 @@
       <div class="photos">
         <figure><img src="clinic-atrium-hooghouden.jpg" alt="Leerling oefent de solo met de bal" style="object-position: center 60%;" loading="lazy"></figure>
         <figure><img src="clinic-atrium-estafette.jpg" alt="Leerlingen rennen een estafette met de bal" style="object-position: center 70%;" loading="lazy"></figure>
-        <figure><img src="clinic-atrium-bal.jpg" alt="Een Gaelic football op het veld" style="object-position: center 80%;" loading="lazy"></figure>
+        <figure><img src="clinic-atrium-bal.jpg" alt="Een bal voor Gaelic Football op het veld" style="object-position: center 80%;" loading="lazy"></figure>
         <figure class="wide"><img src="/images/gaelic-football-clinic.jpg.png" alt="Spelers oefenen het vangen van de bal" loading="lazy"></figure>
         <a class="ig" href="https://www.instagram.com/travelbeyondthepitch/" target="_blank" rel="noopener">
           <strong><span class="lang-en">More photos →</span><span class="lang-nl">Meer foto's →</span></strong>
@@ -475,20 +475,20 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
   })();
 
-  // ── Taalknop: zelfde opslag (btp_lang) als de rest van de site ──
+  // ── Taalknop: zelfde opslag (btp_lang_v2) als de rest van de site ──
   // Deze pagina is voor Nederlandse scholen, dus Nederlands is de standaard.
   (function () {
     function setLang(lang) {
       document.body.classList.toggle('lang-active-nl', lang === 'nl');
       document.documentElement.lang = lang;
       document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
-      try { localStorage.setItem('btp_lang', lang); } catch (e) {}
+      try { localStorage.setItem('btp_lang_v2', lang); } catch (e) {}
     }
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.addEventListener('click', function () { setLang(btn.dataset.lang); });
     });
     var initial = 'nl';
-    try { if (localStorage.getItem('btp_lang') === 'en') initial = 'en'; } catch (e) {}
+    try { if (localStorage.getItem('btp_lang_v2') === 'en') initial = 'en'; } catch (e) {}
     setLang(initial);
   })();
 
