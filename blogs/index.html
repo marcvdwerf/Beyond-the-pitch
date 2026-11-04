@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!-- SEO: title expanded with keywords, "Travel" → "Experience" -->
-  <title>Hurling, Gaelic Games &amp; Naadam -   Cultural Sports Stories | Beyond the Pitch</title>
-  <meta name="description" content="Read about hurling experiences in Kilkenny, the Leinster Championship, Naadam in Mongolia, and what it means to experience sport as a local. Cultural sports stories by Beyond the Pitch." />
+  <title>Hurling, Gaelic Games &amp; Ice Hockey - Cultural Sports Stories | Beyond the Pitch</title>
+  <meta name="description" content="Read about hurling experiences in Kilkenny, the Leinster Championship, ice hockey in Prague, and what it means to experience sport as a local. Cultural sports stories by Beyond the Pitch." />
 
   <!-- Favicon -->
   <link rel="icon" href="/images/beyond-the-pitch-sport-culture-travel-logo.png" />
@@ -25,15 +25,15 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Beyond the Pitch" />
-  <meta property="og:title" content="Hurling, Gaelic Games &amp; Naadam -   Cultural Sports Stories | Beyond the Pitch" />
-  <meta property="og:description" content="Stories, cultural guides and insights from Beyond the Pitch -   hurling in Kilkenny, Naadam in Mongolia, and the traditions behind local sport." />
+  <meta property="og:title" content="Hurling, Gaelic Games &amp; Ice Hockey - Cultural Sports Stories | Beyond the Pitch" />
+  <meta property="og:description" content="Stories, cultural guides and insights from Beyond the Pitch -   hurling in Kilkenny, ice hockey in Prague, and the traditions behind local sport." />
   <meta property="og:url" content="https://travelbeyondthepitch.com/blogs/" />
   <meta property="og:image" content="https://travelbeyondthepitch.com/images/beyond-the-pitch-sport-culture-travel-logo.png" />
 
   <!-- Twitter Card -   typo fixed -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Beyond the Pitch -   Stories" />
-  <meta name="twitter:description" content="Stories, guides and authentic sporting experiences from Ireland, Mongolia and beyond." />
+  <meta name="twitter:description" content="Stories, guides and authentic sporting experiences from Ireland, Prague and beyond." />
 
   <!-- Schema.org: CollectionPage + BreadcrumbList -->
   <script type="application/ld+json">
@@ -42,7 +42,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Stories -   Beyond the Pitch",
-  "description": "Stories, cultural guides and insights about hurling in Kilkenny, Gaelic Games in Dublin, and the Naadam Festival in Mongolia. Published by Beyond the Pitch.",
+  "description": "Stories, cultural guides and insights about hurling in Kilkenny, Gaelic Games in Dublin, and ice hockey in Prague. Published by Beyond the Pitch.",
   "url": "https://travelbeyondthepitch.com/blogs/",
   "publisher": {
     "@type": "Organization",
@@ -62,7 +62,7 @@
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Stories -   Beyond the Pitch",
-    "description": "Stories, cultural guides and insights about hurling in Kilkenny, Gaelic Games in Dublin, and the Naadam Festival in Mongolia. Published by Beyond the Pitch.",
+    "description": "Stories, cultural guides and insights about hurling in Kilkenny, Gaelic Games in Dublin, and ice hockey in Prague. Published by Beyond the Pitch.",
     "url": "https://travelbeyondthepitch.com/blogs/",
     "publisher": {
       "@type": "Organization",
@@ -77,7 +77,7 @@
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Stories - Beyond the Pitch",
-    "description": "Stories, cultural guides and insights about hurling in Kilkenny, Gaelic Games in Dublin, and the Naadam Festival in Mongolia. Published by Beyond the Pitch.",
+    "description": "Stories, cultural guides and insights about hurling in Kilkenny, Gaelic Games in Dublin, and ice hockey in Prague. Published by Beyond the Pitch.",
     "url": "https://travelbeyondthepitch.com/blogs/",
     "publisher": {
       "@type": "Organization",
@@ -274,11 +274,11 @@
           />
         </a>
         <div class="hidden md:flex space-x-8 text-sm font-medium">
-          <a href="/" class="text-gray-300 hover:text-gold transition-colors">Home</a>
           <a href="/experiences/" class="text-gray-300 hover:text-gold transition-colors">Experiences</a>
-          <a href="/blogs/" class="text-gold" aria-current="page">Stories</a>
-          <a href="/community/new-in-dublin/" class="text-gray-300 hover:text-gold transition-colors">Community</a>
+          <a href="/groups/" class="text-gray-300 hover:text-gold transition-colors">For groups</a>
+          <a href="/clinics/" class="text-gray-300 hover:text-gold transition-colors">Clinics</a>
           <a href="/about/" class="text-gray-300 hover:text-gold transition-colors">About</a>
+          <a href="/contact/" class="text-gray-300 hover:text-gold transition-colors">Contact</a>
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@
     <div class="max-w-4xl mx-auto" data-animate>
       <h1 class="text-5xl md:text-6xl font-bold text-gold mb-6">Our Stories</h1>
 <p class="text-xl text-gray-300 leading-relaxed">
-  Hurling in Kilkenny, Gaelic Games in Dublin, Naadam in Mongolia - and the culture behind every sport we cover.
+  Hurling in Kilkenny, Gaelic Games in Dublin, ice hockey in Prague - and the culture behind every sport we cover.
 </p>
     </div>
   </section>
@@ -753,8 +753,8 @@
     document.addEventListener('DOMContentLoaded', function() {
     // Map
     const map = L.map('worldMap', {
-      center: [30, 20],
-      zoom: 2,
+      center: [51, 4],
+      zoom: 4,
       minZoom: 2,
       maxZoom: 6,
       scrollWheelZoom: true
@@ -768,13 +768,13 @@
 
     const destinations = [
       {
-        name: 'Mongolia',
-        coords: [47.9197, 106.9057],
-        flag: '🇲🇳',
-        title: 'Naadam Festival',
-        description: 'Wrestling, archery &amp; horse racing',
-        image: '/naadam/images/naadam-festival-horse-racing-mongolia.jpg',
-        link: '/naadam/'
+        name: 'Czech Republic',
+        coords: [50.0755, 14.4378],
+        flag: '🇨🇿',
+        title: 'Ice Hockey in Prague',
+        description: 'History walk &amp; Hall of Fame with Kamil',
+        image: '/prague/images/hall-of-fame-kamil.jpg',
+        link: '/prague/'
       },
       {
         name: 'Ireland',
