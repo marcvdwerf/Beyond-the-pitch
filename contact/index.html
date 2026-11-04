@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="nl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact – Beyond the Pitch | Sport. Culture. Travel.</title>
-  <meta name="description" content="Get in touch with Beyond the Pitch — book a call, join our community, or partner with us." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Beyond the Pitch" />
+  <title>Contact en offerte | Beyond the Pitch</title>
+  <meta name="description" content="Vraag een offerte aan voor een Gaelic Football-clinic op school of een sport- en cultuurprogramma voor je groepsreis. Of plan een gratis gesprek met Marc of Martijn." />
+    <link rel="icon" href="/images/beyond-the-pitch-sport-culture-travel-logo.png" />
+  <link rel="canonical" href="https://travelbeyondthepitch.com/contact/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MT1EREBH1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,7 +18,7 @@
     gtag('js', new Date());
     gtag('config', 'G-6MT1EREBH1');
   </script>
-
+  <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -22,248 +27,440 @@
     })(window, document, "clarity", "script", "uvqlcstnhp");
   </script>
 
-  <link rel="canonical" href="https://travelbeyondthepitch.com/contact/" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Beyond the Pitch" />
-  <meta property="og:title" content="Contact – Beyond the Pitch" />
-  <meta property="og:description" content="Book a call, join our community, or get in touch directly." />
+  <meta property="og:locale" content="nl_NL" />
+  <meta property="og:title" content="Contact en offerte | Beyond the Pitch" />
+  <meta property="og:description" content="Vertel ons over je groep. Binnen 24-48 uur een offerte op maat." />
   <meta property="og:url" content="https://travelbeyondthepitch.com/contact/" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Beyond%20the%20pitch%20achtergrond.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
+  <meta property="og:image" content="https://travelbeyondthepitch.com/images/beyond-the-pitch-achtergrond.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Contact – Beyond the Pitch" />
-  <meta name="twitter:description" content="Book a call, join our community, or get in touch directly." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/marcvdwerf/Beyond-the-pitch/refs/heads/main/images/Beyond%20the%20pitch%20achtergrond.jpg" />
+  <meta name="twitter:title" content="Contact en offerte | Beyond the Pitch" />
+  <meta name="twitter:description" content="Vertel ons over je groep. Binnen 24-48 uur een offerte op maat." />
+  <meta name="twitter:image" content="https://travelbeyondthepitch.com/images/beyond-the-pitch-achtergrond.jpg" />
 
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ContactPage","name":"Contact en offerte","url":"https://travelbeyondthepitch.com/contact/",
+   "mainEntity":{"@type":"Organization","name":"Beyond the Pitch","email":"info@travelbeyondthepitch.com","telephone":"+31639211686","url":"https://travelbeyondthepitch.com"}}
+  </script>
 
-  <style>
-    :root { --gold: #ffd700; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    body {
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: #000;
-      color: #fff;
-    }
-    html { scroll-behavior: smooth; }
+<style>
+  /* Layout: BTP-huisstijl. Donkere zones met foto, één witte zone voor de quote, goud als enige accent. */
+  :root {
+    --gold: #c9a227;
+    --gold-bright: #ffd700;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --dark-panel: #181818;
+    --white: #ffffff;
+    --off-white: #f7f6f3;
+    --text-dark: #1a1a1a;
+    --text-mid: #444444;
+    --text-light: #777777;
+    --border-dark: #222222;
+    --border-light: rgba(0,0,0,0.08);
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: var(--font); background: var(--dark); color: var(--white);
+    line-height: 1.6; -webkit-font-smoothing: antialiased; font-size: 16px;
+  }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 110; background: var(--black); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  .wrap {
+    max-width: 1100px; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
 
-    .text-gold { color: var(--gold); }
-    .bg-gold { background: var(--gold); }
-    .border-gold { border-color: var(--gold); }
+  /* Taal: zelfde systeem als de rest van de site */
+  .lang-nl { display: none; }
+  body.lang-active-nl .lang-en { display: none; }
+  body.lang-active-nl .lang-nl { display: inline; }
+  .lang-toggle {
+    display: flex; align-items: center; gap: 2px;
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+    padding: 2px; background: rgba(255,255,255,0.03); width: max-content;
+  }
+  .lang-btn {
+    border: none; background: transparent; color: rgba(255,255,255,0.5);
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em;
+    padding: 0.4rem 0.65rem; border-radius: 4px; cursor: pointer;
+    font-family: inherit; transition: all 0.15s;
+  }
+  .lang-btn.active { background: var(--gold-bright); color: #000; }
+  .lang-btn:hover:not(.active) { color: #fff; }
 
-    .tab-button { transition: color .2s, border-color .2s; color: #9ca3af; border-bottom: 3px solid transparent; }
-    .tab-button.active { border-bottom: 3px solid var(--gold); color: var(--gold); }
-    .tab-button:hover:not(.active) { color: #d1d5db; }
+  /* Header */
+  .header {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100;
+    background: rgba(10,10,10,0.97); border-bottom: 1px solid var(--border-dark);
+  }
+  .header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 64px; }
+  .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.02em; text-decoration: none; color: var(--white); }
+  .logo:hover { color: var(--gold-bright); }
+  .nav { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-link { color: rgba(255,255,255,0.75); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
+  .nav-link:hover { color: var(--white); }
+  .nav-link.active { color: var(--gold-bright); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.5rem; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: #fff; display: block; }
+  @media (max-width: 760px) { .nav { display: none; } .hamburger { display: flex; } }
 
-    input, select, textarea {
-      background: #0d0d0d;
-      border: 1px solid #374151;
-      color: #fff;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(255,215,0,.12);
-    }
-    input::placeholder, textarea::placeholder { color: #6b7280; }
+  .mobile-menu {
+    position: fixed; top: 0; right: -100%; width: 280px; max-width: 85vw; height: 100%;
+    background: var(--dark-panel); box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+    transition: right 0.3s ease; z-index: 101; border-left: 1px solid var(--border-dark);
+    padding: calc(2rem + env(safe-area-inset-top, 0px)) max(2rem, env(safe-area-inset-right, 0px)) 2rem 2rem;
+  }
+  .mobile-menu.active { right: 0; }
+  .mobile-menu .close-row { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
+  .mobile-menu .links { display: flex; flex-direction: column; gap: 1.25rem; }
+  .mobile-menu .nav-link { font-size: 1.05rem; }
+  .mobile-menu .close-btn span:nth-child(1) { transform: rotate(45deg) translateY(7px) translateX(0); transform-origin: center; }
+  .mobile-menu .close-btn span:nth-child(2) { opacity: 0; }
+  .mobile-menu .close-btn span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); transform-origin: center; }
+  .mobile-menu .close-btn { display: flex; }
+  .mobile-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100;
+  }
+  .mobile-overlay.active { opacity: 1; pointer-events: all; }
 
-    /* ── Calendly section ── */
-    .cal-direct {
-      border: 1px solid #1f2937; border-radius: 16px; padding: 32px;
-      text-align: center; background: #0d0d0d;
-    }
+  /* Shared */
+  .label {
+    display: block; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.22em; color: rgba(255,255,255,0.4); margin-bottom: 1rem;
+  }
+  .zone-white .label { color: rgba(0,0,0,0.4); }
+  .divider { width: 40px; height: 3px; border-radius: 2px; background: var(--gold-bright); margin-top: 1rem; }
+  .zone-white .divider { background: var(--gold); }
+  .h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; }
+  section { padding-block: 5rem; }
+  .zone-white { background: var(--white); color: var(--text-dark); }
 
-    /* LANGUAGE TOGGLE */
-    .lang-nl { display: none; }
-    body.lang-active-nl .lang-en { display: none; }
-    body.lang-active-nl .lang-nl { display: inline; }
-    .lang-toggle {
-      display: flex; align-items: center; gap: 2px;
-      border: 1px solid rgba(255,215,0,0.2); border-radius: 6px;
-      padding: 2px; background: rgba(255,255,255,0.03);
-    }
-    .lang-btn {
-      border: none; background: transparent; color: rgba(255,255,255,0.5);
-      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em;
-      padding: 0.4rem 0.65rem; border-radius: 4px; cursor: pointer;
-      font-family: inherit; transition: all 0.15s;
-    }
-    .lang-btn.active { background: var(--gold); color: #000; }
-    .lang-btn:hover:not(.active) { color: #fff; }
-  </style>
+  .btn-gold, .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.95rem 2rem;
+    border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .btn-gold { background: var(--gold-bright); color: #000; }
+  .btn-gold:hover { background: #ffed4e; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,215,0,0.3); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.2); color: var(--white); }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.6); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+  /* Hero */
+  .hero {
+    position: relative; padding-block: 8rem 4rem;
+    background-color: var(--dark);
+    background-image: linear-gradient(90deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.35) 100%), linear-gradient(180deg, transparent 60%, var(--dark) 100%), url('gaelic-football-clinic-uitleg-sportklas-atrium.jpg');
+    background-size: cover; background-position: center 78%;
+  }
+  .hero h1 {
+    font-size: clamp(2.3rem, 5.4vw, 4.2rem); font-weight: 900; letter-spacing: -0.045em; line-height: 1.02;
+    max-width: 14ch; text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+  }
+  .hero h1 em { font-style: normal; color: var(--gold-bright); }
+  .hero .lead {
+    margin-top: 2rem; max-width: 560px; font-size: 1.08rem; line-height: 1.85;
+    color: rgba(255,255,255,0.86); text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+
+  .strip {
+    margin-top: 3.5rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px; background: var(--border-dark); border: 1px solid var(--border-dark);
+    border-radius: 12px; overflow: hidden;
+  }
+  .strip div { background: rgba(24,24,24,0.92); padding: 1.4rem 1.5rem; min-width: 0; }
+  .strip h4 {
+    margin: 0 0 0.35rem; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.12em; color: rgba(255,255,255,0.4);
+  }
+  .strip p { font-weight: 700; font-size: 0.98rem; line-height: 1.4; }
+  @media (max-width: 860px) { .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .strip { grid-template-columns: 1fr; } }
+
+  /* Quote */
+  .quote-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3.5rem; align-items: center; }
+  .quote-photo { border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 5; max-width: 100%; background: var(--off-white); }
+  .quote-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .quote-mark { font-size: 6rem; line-height: 0.6; font-weight: 900; color: var(--gold); height: 2.5rem; }
+  blockquote {
+    margin: 0; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 800; letter-spacing: -0.025em;
+    line-height: 1.3; color: var(--text-dark); text-wrap: pretty;
+  }
+  blockquote mark { background: linear-gradient(transparent 62%, rgba(255,215,0,0.55) 62%); color: inherit; }
+  .who { display: flex; align-items: center; gap: 0.9rem; margin-top: 2rem; }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--text-dark); color: var(--gold-bright);
+    display: grid; place-items: center; font-weight: 800;
+  }
+  .who strong { display: block; font-size: 0.95rem; }
+  .who .role { font-size: 0.85rem; color: var(--text-light); }
+  @media (max-width: 820px) { .quote-grid { grid-template-columns: 1fr; gap: 2rem; } .quote-photo { aspect-ratio: 16 / 10; } }
+
+  /* Programma */
+  .steps { list-style: none; padding: 0; margin: 3rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; counter-reset: step; }
+  .steps li {
+    counter-increment: step; background: var(--dark-panel); border: 1px solid var(--border-dark);
+    border-radius: 14px; padding: 1.75rem; min-width: 0;
+  }
+  .steps li::before {
+    content: "Step " counter(step); display: block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold-bright); margin-bottom: 0.9rem;
+  }
+  body.lang-active-nl .steps li::before { content: "Stap " counter(step); }
+  .steps h3 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+  .steps p { color: rgba(255,255,255,0.68); font-size: 0.95rem; line-height: 1.7; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+
+  /* Foto's: 3 kolommen, eerst leerlingen, dan de liggende foto over 2 kolommen + Instagram */
+  .photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(200px, 26vw, 320px); gap: 0.75rem; margin-top: 3rem; }
+  .photos figure { margin: 0; border-radius: 12px; overflow: hidden; background: var(--dark-panel); min-width: 0; }
+  .photos img { width: 100%; height: 100%; object-fit: cover; }
+  .photos .wide { grid-column: span 2; }
+  .photos .ig {
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 1.4rem; text-decoration: none;
+    background: var(--dark-panel); border: 1px solid var(--border-dark); border-radius: 12px;
+  }
+  .photos .ig strong { font-size: 1.05rem; }
+  .photos .ig .handle { color: rgba(255,255,255,0.55); font-size: 0.85rem; }
+  .photos .ig:hover strong { color: var(--gold-bright); }
+  @media (max-width: 760px) { .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(180px, 52vw, 280px); } .photos .ig { order: 1; } .photos .wide { order: 2; } }
+
+  /* FAQ */
+  .faq { margin-top: 2.5rem; border-top: 1px solid var(--border-light); }
+  details { border-bottom: 1px solid var(--border-light); }
+  summary {
+    list-style: none; cursor: pointer; padding: 1.3rem 0; font-weight: 700; font-size: 1.02rem;
+    display: flex; justify-content: space-between; gap: 1rem; color: var(--text-dark);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-weight: 800; color: var(--gold); font-size: 1.3rem; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  details p { padding-bottom: 1.4rem; color: var(--text-mid); max-width: 680px; line-height: 1.75; }
+
+  /* CTA + footer */
+  .cta .h2 { max-width: 16ch; }
+  .mail { margin-top: 1.25rem; font-size: 0.9rem; color: rgba(255,255,255,0.55); max-width: 560px; }
+  .mail b { color: var(--white); user-select: all; }
+  footer { border-top: 1px solid var(--border-dark); background: var(--black); }
+  footer .wrap { padding-block: 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+<style>
+  /* Contactpagina */
+  .contact-hero { padding-block: 7rem 3rem; }
+  .contact-hero h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 900; letter-spacing: -0.045em; line-height: 1.02; }
+  .contact-hero .lead { margin-top: 1.5rem; max-width: 560px; color: rgba(255,255,255,0.75); font-size: 1.05rem; }
+  .contact-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: start; padding-bottom: 5rem; }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--dark-panel); border: 1px solid var(--border-dark); border-radius: 14px; padding: 2rem; min-width: 0; }
+  .panel h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+  .panel .sub { color: rgba(255,255,255,0.6); font-size: 0.92rem; margin-bottom: 1.5rem; }
+  .form { display: grid; gap: 1rem; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .row-2 { grid-template-columns: 1fr; } }
+  .field { display: grid; gap: 0.35rem; min-width: 0; }
+  .field label { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 0.85rem 1rem; background: var(--dark); border: 1px solid #2c2c2c; color: var(--white);
+    border-radius: 8px; font: inherit; font-size: 0.95rem;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--gold-bright); outline-offset: 1px; border-color: transparent; }
+  .form .btn-gold { justify-content: center; border: none; cursor: pointer; font-family: inherit; }
+  .privacy { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+  .privacy a { color: var(--gold-bright); }
+  .side { display: grid; gap: 1.25rem; }
+  .side .panel p { color: rgba(255,255,255,0.7); font-size: 0.93rem; }
+  .side .panel .big { font-size: 1.05rem; font-weight: 700; color: var(--white); user-select: all; word-break: break-all; }
+  .side .btn-outline { margin-top: 1rem; }
+  .small-note { margin-top: 0.6rem; font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+  .partner { border-top: 1px solid var(--border-dark); padding-block: 2.5rem; color: rgba(255,255,255,0.55); font-size: 0.9rem; }
+  .partner b { color: var(--white); }
+  .hp { position: absolute; left: -9999px; }
+</style>
 </head>
+<body class="lang-active-nl">
 
-<body>
-
-  <!-- NAV -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-70 backdrop-blur border-b border-gray-800">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="text-gold font-bold text-xl tracking-wide hover:opacity-80 transition">
-        Beyond the Pitch
-      </a>
-      <div class="flex items-center gap-4">
-        <a href="/experiences/" class="text-sm font-medium border border-yellow-500 border-opacity-50 text-gold px-4 py-2 rounded-full hover:bg-yellow-500 hover:text-black transition">
-          <span class="lang-en">Discover our experiences</span><span class="lang-nl">Bekijk onze experiences</span>
-        </a>
-        <div class="lang-toggle">
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="nl">NL</button>
-        </div>
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="/">Beyond the Pitch</a>
+    <nav class="nav" aria-label="Hoofdmenu">
+      <a class="nav-link" href="/experiences/">Experiences</a>
+      <a class="nav-link" href="/groups/"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+      <a class="nav-link" href="/clinics/">Clinics</a>
+      <a class="nav-link" href="/about/"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+      <a class="nav-link active" href="/contact/">Contact</a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="nl">NL</button>
       </div>
+    </nav>
+    <button class="hamburger" id="menuToggle" type="button" aria-label="Menu openen" aria-controls="mobileMenuPanel" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<nav class="mobile-menu" id="mobileMenuPanel" aria-label="Mobiel menu">
+  <div class="close-row">
+    <button class="hamburger close-btn" id="menuClose" type="button" aria-label="Menu sluiten">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="links">
+    <a class="nav-link" href="/experiences/">Experiences</a>
+    <a class="nav-link" href="/groups/"><span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span></a>
+    <a class="nav-link" href="/clinics/">Clinics</a>
+    <a class="nav-link" href="/about/"><span class="lang-en">About</span><span class="lang-nl">Over ons</span></a>
+    <a class="nav-link active" href="/contact/">Contact</a>
+    <div class="lang-toggle">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="nl">NL</button>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section class="pt-36 pb-16 px-6 text-center bg-gradient-to-br from-gray-900 via-black to-gray-900">
-    <p class="text-xs font-mono tracking-widest text-green-600 uppercase mb-4"><span class="lang-en">Get in touch</span><span class="lang-nl">Neem contact op</span></p>
-    <h1 class="text-4xl md:text-5xl font-extrabold text-gold mb-4 leading-tight">
-      <span class="lang-en">Find your experience.<br>Book a call. Join the community.</span><span class="lang-nl">Vind jouw experience.<br>Plan een gesprek. Word lid van de community.</span>
-    </h1>
-    <p class="text-lg text-gray-400 max-w-xl mx-auto">
-      <span class="lang-en">Not sure which experience fits you? Book a free 30-minute call with Marc or Martijn, or join our community to explore first.</span>
-      <span class="lang-nl">Weet je nog niet welke experience bij je past? Plan een gratis gesprek van 30 minuten met Marc of Martijn, of word eerst lid van onze community.</span>
-    </p>
-  </section>
-
-  <!-- TABS -->
-  <section class="py-10 px-6">
-    <div class="max-w-3xl mx-auto">
-
-      <!-- Tab nav -->
-      <div class="grid grid-cols-2 border-b border-gray-800 mb-8">
-        <button id="tabCommunity" class="tab-button active py-4 text-sm font-semibold">Community</button>
-        <button id="tabPartner"   class="tab-button        py-4 text-sm font-semibold"><span class="lang-en">Partner / Host</span><span class="lang-nl">Partner / Gastheer</span></button>
-      </div>
-
-      <!-- ══ TAB 1: COMMUNITY ══ -->
-      <div id="panelCommunity">
-        <div class="bg-gray-900 rounded-2xl p-8">
-          <h2 class="text-2xl font-bold text-gold mb-4"><span class="lang-en">Become part of the community</span><span class="lang-nl">Word onderdeel van de community</span></h2>
-          <p class="text-gray-300 mb-6">
-            <span class="lang-en">Beyond the Pitch connects curious travellers, local insiders and sports lovers.
-            Our <strong>New in Dublin</strong> WhatsApp community is the place to be — whether you just arrived or want to explore Ireland's sports culture more deeply.</span>
-            <span class="lang-nl">Beyond the Pitch verbindt nieuwsgierige reizigers, lokale insiders en sportliefhebbers. Onze <strong>New in Dublin</strong> WhatsApp-community is dé plek om te zijn — of je nu net bent aangekomen of de Ierse sportcultuur dieper wil ontdekken.</span>
-          </p>
-          <ul class="list-disc list-inside text-gray-400 mb-8 space-y-2 text-sm">
-            <li><span class="lang-en">Real-time updates on new experiences</span><span class="lang-nl">Realtime updates over nieuwe experiences</span></li>
-            <li><span class="lang-en">Discussions on local sports culture in Dublin and beyond</span><span class="lang-nl">Gesprekken over lokale sportcultuur in Dublin en daarbuiten</span></li>
-            <li><span class="lang-en">Stories from locals and hosts worldwide</span><span class="lang-nl">Verhalen van locals en gastheren wereldwijd</span></li>
-            <li><span class="lang-en">Early access &amp; limited spots for experiences</span><span class="lang-nl">Vroege toegang &amp; beperkte plekken voor experiences</span></li>
-          </ul>
-          <a href="https://chat.whatsapp.com/KPI4PIExBbf2hbdWUCYQum" target="_blank"
-            class="block w-full bg-gold text-black py-4 rounded-2xl font-semibold text-center hover:opacity-90 transition" id="waLink">
-            <span class="lang-en">Join our WhatsApp Community — New in Dublin</span><span class="lang-nl">Word lid van onze WhatsApp-community — New in Dublin</span>
-          </a>
-          <p class="text-xs text-gray-600 text-center mt-4"><span class="lang-en">You will be redirected to our WhatsApp community page.</span><span class="lang-nl">Je wordt doorgestuurd naar onze WhatsApp-communitypagina.</span></p>
-        </div>
-      </div>
-
-      <!-- ══ TAB 2: PARTNER ══ -->
-      <div id="panelPartner" class="hidden">
-        <div class="bg-gray-900 rounded-2xl p-8">
-          <h2 class="text-2xl font-bold text-gold mb-4"><span class="lang-en">Partner with Beyond the Pitch</span><span class="lang-nl">Word partner van Beyond the Pitch</span></h2>
-          <p class="text-gray-300 mb-6">
-            <span class="lang-en">Do you offer a unique sporting tradition, local event or destination experience?
-            We work with a small number of trusted partners who value authenticity.</span>
-            <span class="lang-nl">Bied je een unieke sporttraditie, lokaal evenement of bestemmingservaring aan? We werken met een klein aantal vertrouwde partners die authenticiteit waarderen.</span>
-          </p>
-          <form action="https://formspree.io/f/xjkjkeag" method="POST" class="space-y-4">
-            <input type="text"  name="name"     required class="w-full px-4 py-3 rounded-xl" placeholder="Your name" />
-            <input type="email" name="email"    required class="w-full px-4 py-3 rounded-xl" placeholder="Business email" />
-            <input type="text"  name="location"          class="w-full px-4 py-3 rounded-xl" placeholder="City / Country" />
-            <textarea name="message" rows="5"   required class="w-full px-4 py-3 rounded-xl" placeholder="Tell us about your experience or offering"></textarea>
-            <input type="hidden" name="_subject" value="New partnership inquiry - Beyond the Pitch" />
-            <button type="submit" class="w-full bg-gold text-black py-4 rounded-2xl font-semibold hover:opacity-90 transition">
-              <span class="lang-en">Submit partnership inquiry</span><span class="lang-nl">Verstuur partnerverzoek</span>
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <!-- ── Direct calendar option (always visible below tabs) ── -->
-      <div class="cal-direct mt-10">
-        <p class="text-xs font-mono tracking-widest text-green-700 uppercase mb-3"><span class="lang-en">Prefer to skip straight to a call?</span><span class="lang-nl">Liever meteen een gesprek?</span></p>
-        <p class="text-gray-400 text-sm mb-5"><span class="lang-en">Book a free 30-minute intro with Marc or Martijn directly - no forms, no waiting.</span><span class="lang-nl">Plan direct een gratis kennismakingsgesprek van 30 minuten met Marc of Martijn - geen formulieren, geen wachttijd.</span></p>
-        <a href="https://calendly.com/travelbeyondthepitch-info/30min" target="_blank"
-          class="inline-block bg-gold text-black font-bold text-sm px-8 py-3 rounded-full hover:opacity-88 transition">
-          📅 <span class="lang-en">Plan a call with Marc or Martijn →</span><span class="lang-nl">Plan een gesprek met Marc of Martijn →</span>
-        </a>
-        <p class="text-xs text-gray-600 mt-3"><span class="lang-en">Free · 30 min · No obligation</span><span class="lang-nl">Gratis · 30 min · Vrijblijvend</span></p>
-      </div>
-
+<main id="top">
+  <section class="contact-hero">
+    <div class="wrap">
+      <span class="label"><span class="lang-en">Contact</span><span class="lang-nl">Contact</span></span>
+      <h1><span class="lang-en">Tell us about your group.</span><span class="lang-nl">Vertel ons over je groep.</span></h1>
+      <div class="divider"></div>
+      <p class="lead"><span class="lang-en">For schools, companies and sports teams. You will get a tailor-made quote from Marc or Martijn within 24-48 hours.</span><span class="lang-nl">Voor scholen, bedrijven en sportteams. Je krijgt binnen 24-48 uur een offerte op maat van Marc of Martijn.</span></p>
     </div>
   </section>
 
-  <footer class="py-10 text-center border-t border-gray-800 mt-6">
-    <p class="text-gray-600 text-sm">© 2026 Beyond the Pitch</p>
-  </footer>
+  <div class="wrap contact-grid">
+    <section class="panel" aria-labelledby="formTitle" style="padding-block:2rem;">
+      <h2 id="formTitle"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span></h2>
+      <p class="sub"><span class="lang-en">Takes about a minute. A rough estimate is fine.</span><span class="lang-nl">Duurt ongeveer een minuut. Een schatting is prima.</span></p>
+      <form id="quoteForm" class="form" action="https://formsubmit.co/info@travelbeyondthepitch.com" method="POST">
+        <input type="hidden" name="_subject" value="Nieuwe offerteaanvraag via contactpagina">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://travelbeyondthepitch.com/thank-you.html">
+        <input type="hidden" name="pagina" value="contact">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="row-2">
+          <div class="field"><label for="f-naam"><span class="lang-en">Your name</span><span class="lang-nl">Je naam</span></label><input id="f-naam" name="naam" required autocomplete="name"></div>
+          <div class="field"><label for="f-email"><span class="lang-en">Email address</span><span class="lang-nl">E-mailadres</span></label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="row-2">
+          <div class="field"><label for="f-org"><span class="lang-en">School or organisation</span><span class="lang-nl">School of organisatie</span></label><input id="f-org" name="organisatie" required autocomplete="organization"></div>
+          <div class="field"><label for="f-interesse"><span class="lang-en">I'm interested in</span><span class="lang-nl">Ik heb interesse in</span></label>
+            <select id="f-interesse" name="interesse" required>
+              <option value="clinic">Gaelic Football Clinic (NL)</option>
+              <option value="dublin">Dublin &amp; Kilkenny</option>
+              <option value="praag">Praag / Prague</option>
+              <option value="anders">Andere bestemming / Other destination</option>
+              <option value="weet-niet">Weet ik nog niet / Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field"><label for="f-aantal"><span class="lang-en">Number of people (approx.)</span><span class="lang-nl">Aantal personen (ongeveer)</span></label><input id="f-aantal" name="aantal" inputmode="numeric"></div>
+          <div class="field"><label for="f-periode"><span class="lang-en">Preferred date or period</span><span class="lang-nl">Gewenste datum of periode</span></label><input id="f-periode" name="periode"></div>
+        </div>
+        <div class="field"><label for="f-bericht"><span class="lang-en">Anything else? (optional)</span><span class="lang-nl">Nog iets kwijt? (optioneel)</span></label><textarea id="f-bericht" name="bericht" rows="3"></textarea></div>
+        <button type="submit" class="btn-gold"><span class="lang-en">Send request</span><span class="lang-nl">Verstuur aanvraag</span></button>
+        <p class="privacy"><span class="lang-en">We only use your details to answer your request. See our <a href="/privacy-policy/">privacy policy</a>.</span><span class="lang-nl">We gebruiken je gegevens alleen om je aanvraag te beantwoorden. Zie ons <a href="/privacy-policy/">privacybeleid</a>.</span></p>
+      </form>
+    </section>
+
+    <aside class="side">
+      <div class="panel">
+        <h2><span class="lang-en">Rather talk first?</span><span class="lang-nl">Liever eerst even praten?</span></h2>
+        <p><span class="lang-en">Plan a free 30-minute call with Marc or Martijn.</span><span class="lang-nl">Plan een gratis gesprek van 30 minuten met Marc of Martijn.</span></p>
+        <a class="btn-outline" href="https://calendly.com/travelbeyondthepitch-info/30min" target="_blank" rel="noopener"><span class="lang-en">Plan a call</span><span class="lang-nl">Plan een gesprek</span></a>
+        <p class="small-note"><span class="lang-en">Free · 30 min · No obligation</span><span class="lang-nl">Gratis · 30 min · Vrijblijvend</span></p>
+      </div>
+      <div class="panel">
+        <h2><span class="lang-en">Email or WhatsApp</span><span class="lang-nl">Mail of WhatsApp</span></h2>
+        <p><span class="lang-en">Got an email from us? Just reply to it.</span><span class="lang-nl">Mail van ons gehad? Antwoord dan gewoon op die mail.</span></p>
+        <p class="big" style="margin-top:0.75rem;">info@travelbeyondthepitch.com</p>
+        <p style="margin-top:0.5rem;">WhatsApp: <a href="https://wa.me/31639211686" style="color:var(--gold-bright);">+31 6 3921 1686</a></p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="wrap partner">
+    <span class="lang-en"><b>Want to partner with us?</b> Do you offer a unique sports tradition or local experience? Email us at info@travelbeyondthepitch.com.</span>
+    <span class="lang-nl"><b>Partner worden?</b> Bied je een unieke sporttraditie of lokale ervaring aan? Mail ons op info@travelbeyondthepitch.com.</span>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Beyond the Pitch VOF · KvK 42039940 · 's-Hertogenbosch</span>
+    <span>© 2026 Beyond the Pitch</span>
+  </div>
+</footer>
 
 <script>
-// ════════════════════════════════
-// TABS
-// ════════════════════════════════
-const tabs = [
-  { btn: document.getElementById('tabCommunity'), panel: document.getElementById('panelCommunity') },
-  { btn: document.getElementById('tabPartner'),   panel: document.getElementById('panelPartner') }
-];
+  // ── Mobiel menu ──
+  (function () {
+    const toggle = document.getElementById('menuToggle');
+    const close = document.getElementById('menuClose');
+    const panel = document.getElementById('mobileMenuPanel');
+    const overlay = document.getElementById('mobileOverlay');
+    function openMenu() { panel.classList.add('active'); overlay.classList.add('active'); toggle.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { panel.classList.remove('active'); overlay.classList.remove('active'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
+    toggle.addEventListener('click', openMenu);
+    close.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    panel.querySelectorAll('.nav-link').forEach(function (l) { l.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  })();
 
-tabs.forEach(({ btn }, i) => {
-  btn.onclick = () => {
-    tabs.forEach(({ btn: b, panel: p }) => { b.classList.remove('active'); p.classList.add('hidden'); });
-    btn.classList.add('active');
-    tabs[i].panel.classList.remove('hidden');
-  };
-});
+  // ── Taalknop: zelfde opslag (btp_lang_v2) als de rest van de site ──
+  // Deze pagina is voor Nederlandse scholen, dus Nederlands is de standaard.
+  (function () {
+    function setLang(lang) {
+      document.body.classList.toggle('lang-active-nl', lang === 'nl');
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
+      try { localStorage.setItem('btp_lang_v2', lang); } catch (e) {}
+    }
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { setLang(btn.dataset.lang); });
+    });
+    var initial = 'nl';
+    try { if (localStorage.getItem('btp_lang_v2') === 'en') initial = 'en'; } catch (e) {}
+    setLang(initial);
+  })();
 
-// ── Hash routing ──
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.location.hash === '#partner') {
-    tabs[1].btn.click();
-    tabs[1].panel.scrollIntoView({ behavior: 'smooth' });
-  }
-  if (window.location.hash === '#community') {
-    tabs[0].btn.click();
-  }
-});
-
-// ── WhatsApp / Calendly GA event ──
-document.addEventListener('click', e => {
-  const link = e.target.closest('a');
-  if (link && link.href && link.href.includes('chat.whatsapp.com')) {
-    gtag('event', 'join_community_click', { event_category: 'engagement', event_label: 'WhatsApp Community' });
-  }
-  if (link && link.href && link.href.includes('calendly.com')) {
-    gtag('event', 'calendly_click', { event_category: 'engagement', event_label: 'Book a call' });
-  }
-});
-
-// ── Language toggle ──
-function setLang(lang) {
-  document.body.classList.toggle('lang-active-nl', lang === 'nl');
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-  document.documentElement.lang = lang;
-  try { localStorage.setItem('btp_lang', lang); } catch(e) {}
-}
-
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => setLang(btn.dataset.lang));
-});
-
-let initialLang = 'en';
-try {
-  const saved = localStorage.getItem('btp_lang');
-  if (saved === 'en' || saved === 'nl') {
-    initialLang = saved;
-  } else if (navigator.language && navigator.language.toLowerCase().startsWith('nl')) {
-    initialLang = 'nl';
-  }
-} catch(e) {}
-setLang(initialLang);
+  // ── Formulier: keuze vooraf invullen via ?interesse=clinic / dublin / praag ──
+  (function () {
+    try {
+      var v = new URLSearchParams(location.search).get('interesse');
+      var sel = document.getElementById('f-interesse');
+      if (v && sel && sel.querySelector('option[value="' + v + '"]')) sel.value = v;
+    } catch (e) {}
+    var form = document.getElementById('quoteForm');
+    form.addEventListener('submit', function () {
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'contact', event_label: document.getElementById('f-interesse').value });
+    });
+    document.querySelectorAll('a[href*="calendly.com"]').forEach(function (a) {
+      a.addEventListener('click', function () { if (typeof gtag === 'function') gtag('event', 'calendly_click', { event_category: 'contact' }); });
+    });
+  })();
 </script>
-
 </body>
 </html>
