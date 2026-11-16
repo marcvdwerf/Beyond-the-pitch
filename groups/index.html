@@ -823,12 +823,23 @@
         <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;">
           <span class="lang-en">Or send us the details below:</span><span class="lang-nl">Of stuur hieronder de details:</span>
         </p>
-        <form id="groupForm" action="https://formsubmit.co/info@travelbeyondthepitch.com" method="POST" style="display:grid;gap:1rem;text-align:left;background:var(--dark-panel);padding:2rem;border-radius:12px;border:1px solid var(--border-dark);">
+        <!-- Bot protection: no action in the HTML (set by JS after checks), FormSubmit's own _honey trap, a time trap and a phrase blacklist. -->
+        <form id="groupForm" method="POST" style="display:grid;gap:1rem;text-align:left;background:var(--dark-panel);padding:2rem;border-radius:12px;border:1px solid var(--border-dark);">
           <input type="hidden" name="_subject" value="New group quote request">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_blacklist" value="viagra, casino, crypto, bitcoin, forex, seo services, backlinks, loan offer, porn, escort, betting">
           <input type="hidden" name="page" value="groups">
-          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+          <!-- Honeypot: humans never see this, bots fill it. "_honey" is the field FormSubmit itself drops. -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label for="hp_company">Leave this field empty</label>
+            <input type="text" id="hp_company" name="_honey" tabindex="-1" autocomplete="off">
+          </div>
+          <noscript>
+            <p style="font-size:0.85rem;color:var(--gold-bright);margin:0;">
+              Please enable JavaScript to send this form - or message us on WhatsApp: +31 6 3921 1686.
+            </p>
+          </noscript>
           <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
             <input required name="name" autocomplete="name" placeholder="Your name" data-ph-en="Your name" data-ph-nl="Je naam" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
             <input required type="email" name="email" autocomplete="email" placeholder="Email" data-ph-en="Email" data-ph-nl="E-mailadres" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
@@ -1040,21 +1051,61 @@
 
     // ── Group enquiry form ──
     // Sends the request straight to the BTP Control Center (Google Apps Script).
-    // While GROUP_FORM_ENDPOINT is empty, the form falls back to the old FormSubmit route.
+    // While GROUP_FORM_ENDPOINT is empty, the form falls back to the FormSubmit route.
     const GROUP_FORM_ENDPOINT = '';
+    // Tip: replace the email below with your FormSubmit random alias
+    // (e.g. https://formsubmit.co/abc123def456...) so the address isn't readable by bots.
+    const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/' + ['info', 'travelbeyondthepitch.com'].join('@');
+    const MIN_FILL_MS = 4000; // humans need more than 4 seconds to fill in this form
+
     const groupForm = document.getElementById('groupForm');
-    if (groupForm && GROUP_FORM_ENDPOINT) {
+    const formLoadedAt = Date.now();
+    let humanInteraction = false;
+    if (groupForm) {
+      ['keydown', 'pointerdown', 'touchstart'].forEach(ev =>
+        groupForm.addEventListener(ev, () => { humanInteraction = true; }, { once: true, passive: true })
+      );
+    }
+
+    function looksLikeBot(fd) {
+      if ((fd.get('_honey') || '').trim() !== '') return true;           // honeypot filled
+      if (Date.now() - formLoadedAt < MIN_FILL_MS) return true;           // too fast
+      if (!humanInteraction) return true;                                // never typed or clicked
+      const shortFields = [fd.get('name'), fd.get('organisation')].join(' ');
+      if (/https?:\/\/|www\.|<a\s|\[url/i.test(shortFields)) return true; // links in name/organisation
+      const linkCount = ((fd.get('message') || '').match(/https?:\/\/|www\./gi) || []).length;
+      if (linkCount > 1) return true;                                    // link spam in message
+      return false;
+    }
+
+    function showThanks() {
+      groupForm.style.display = 'none';
+      document.getElementById('groupFormThanks').style.display = 'block';
+    }
+
+    if (groupForm) {
       groupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const fd = new FormData(groupForm);
+
+        // Bots get a fake "thank you" so they don't retry - nothing is sent.
+        if (looksLikeBot(fd)) { showThanks(); return; }
+
         const btn = groupForm.querySelector('button[type="submit"]');
         btn.disabled = true;
         btn.style.opacity = '0.6';
-        const fd = new FormData(groupForm);
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'groups', event_label: fd.get('product') || '' });
+
+        if (!GROUP_FORM_ENDPOINT) {
+          // FormSubmit route: set the action only now, then submit natively.
+          groupForm.action = FORMSUBMIT_ENDPOINT;
+          HTMLFormElement.prototype.submit.call(groupForm);
+          return;
+        }
+
         try {
           await fetch(GROUP_FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fd) });
-          if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'groups', event_label: fd.get('product') || '' });
-          groupForm.style.display = 'none';
-          document.getElementById('groupFormThanks').style.display = 'block';
+          showThanks();
         } catch (err) {
           btn.disabled = false;
           btn.style.opacity = '';
