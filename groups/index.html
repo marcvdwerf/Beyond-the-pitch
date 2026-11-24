@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="author" content="Beyond the Pitch" />
-  <title>Sport en cultuur voor groepsreizen | Dublin, Praag en op maat | Beyond the Pitch</title>
-  <meta name="description" content="Op groepsreis met je school, studie of bedrijf? Wij voegen een halve dag lokale sport en cultuur toe aan je reis. Vaste programma's in Dublin en Praag, op maat voor andere bestemmingen." />
+  <title>Voor groepen | Gaelic football-clinics en sportexperiences | Beyond the Pitch</title>
+  <meta name="description" content="Gaelic football-clinics en sport- en cultuurexperiences voor scholen, bedrijven, vriendengroepen en hoger onderwijs. In Nederland, Dublin, Praag en op maat." />
   <meta name="keywords" content="group activity dublin, group activity prague, language school trip activity, study abroad excursion dublin, student association trip dublin, lustrum weekend dublin, dispuutsreis dublin, sports club trip ireland, sports federation group trip, sports academy trip dublin, company offsite dublin, corporate sports experience, team offsite ireland, incentive trip prague, event agency partner ireland, white label sports experience, tour operator partnership ireland" />
   <link rel="icon" href="/images/beyond-the-pitch-sport-culture-travel-logo.png" />
   <link rel="canonical" href="https://travelbeyondthepitch.com/groups/" />
@@ -346,31 +346,42 @@
 
     ::selection { background: var(--gold-bright); color: #000; }
 
-    /* ── Audience switch: School / Vriendengroep ── */
-    [data-aud][hidden] { display: none !important; }
-    .aud-switch {
-      display: flex; gap: 2rem; margin-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.18);
+    /* ── Groups page: chooser + rows ── */
+    .group-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+    .group-chip {
+      color: #fff; text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      padding: 0.7rem 1.2rem; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px;
+      background: rgba(0,0,0,0.35); transition: border-color 0.15s, color 0.15s;
     }
-    .aud-btn {
-      border: none; background: none; cursor: pointer; font-family: inherit;
-      color: rgba(255,255,255,0.55); font-size: 1rem; font-weight: 600;
-      padding: 0 0 0.85rem; margin-bottom: -1px;
-      border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s;
+    .group-chip:hover { border-color: var(--gold-bright); color: var(--gold-bright); }
+    .group-row {
+      display: grid; grid-template-columns: 260px 1fr; gap: 2.25rem; align-items: center;
+      padding: 2.75rem 0; border-bottom: 1px solid var(--border-light); scroll-margin-top: 80px;
     }
-    .aud-btn:hover { color: #fff; }
-    .aud-btn.active { color: #fff; border-bottom-color: var(--gold-bright); }
-    .aud-btn:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 4px; }
-    .friends-card {
-      background: var(--off-white); border-radius: 14px; padding: 2rem;
-      border: 1px solid var(--border-light); border-top: 3px solid var(--tone, var(--gold));
+    .group-row:last-child { border-bottom: none; }
+    .group-tile {
+      position: relative; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden;
+      background: var(--dark); color: var(--gold-bright);
+      display: flex; align-items: center; justify-content: center;
     }
-    .friends-card h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; }
-    .friends-card .kicker {
-      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-light); margin-bottom: 0.35rem; display: block;
+    .group-tile.alt { background: #1e1b12; }
+    .group-tile::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; }
+    .group-tile::after {
+      content: ""; position: absolute; width: 60%; aspect-ratio: 1; right: -18%; bottom: -30%;
+      border: 1px solid rgba(255,215,0,0.25); border-radius: 50%;
     }
-    .friends-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.7; }
+    .group-title { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.6rem; color: var(--text-dark); }
+    .group-text { font-size: 0.98rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.25rem; max-width: 560px; }
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.4rem;
+      background: var(--black); color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
+      text-decoration: none; transition: background 0.15s, color 0.15s;
+    }
+    .btn-dark:hover { background: var(--gold-bright); color: #000; }
+    @media (max-width: 700px) {
+      .group-row { grid-template-columns: 1fr; gap: 1.25rem; padding: 2rem 0; }
+      .group-tile { aspect-ratio: 16 / 7; }
+    }
   </style>
 </head>
 <body>
@@ -425,218 +436,76 @@
   <main id="main">
 
     <!-- ============================================
-         HERO — organiser-first, real photo background
+         HERO — choose your group
          ============================================ -->
-    <section style="position:relative;padding:11rem 1.5rem 5rem;background-color:var(--dark);background-image:linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 55%, var(--dark) 100%), url('https://travelbeyondthepitch.com/images/hurling-kilkenny.JPG');background-position:center 30%;background-size:cover;background-repeat:no-repeat;">
-      <div style="max-width:1100px;margin:0 auto;">
-
-        <!-- Audience switch -->
-        <div class="aud-switch" role="group" aria-label="Choose your group type">
-          <button type="button" class="aud-btn" data-aud-btn="school" aria-pressed="true"><span class="lang-en">Schools</span><span class="lang-nl">Scholen</span></button>
-          <button type="button" class="aud-btn" data-aud-btn="friends" aria-pressed="false"><span class="lang-en">Groups of friends</span><span class="lang-nl">Vriendengroepen</span></button>
-        </div>
-
-        <!-- Hero: School -->
-        <div data-aud="school">
-        <span class="section-label"><span class="lang-en">For schools</span><span class="lang-nl">Voor scholen</span></span>
-        <h1 style="font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;letter-spacing:-0.03em;line-height:1.15;color:#fff;margin-bottom:1.25rem;text-shadow:0 2px 24px rgba(0,0,0,0.4);">
-          <span class="lang-en">Sport and culture experiences for group trips.</span>
-          <span class="lang-nl">Sport- en cultuurexperiences voor groepsreizen.</span>
+    <section style="position:relative;padding:10rem 1.5rem 4.5rem;background-color:var(--dark);background-image:linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.8) 60%, var(--dark) 100%), url('https://travelbeyondthepitch.com/images/hurling-kilkenny.JPG');background-position:center 30%;background-size:cover;background-repeat:no-repeat;text-align:center;">
+      <div style="max-width:900px;margin:0 auto;">
+        <h1 style="font-size:clamp(2.4rem,5vw,3.6rem);font-weight:900;letter-spacing:-0.03em;line-height:1.1;color:#fff;margin-bottom:1.75rem;text-shadow:0 2px 24px rgba(0,0,0,0.4);">
+          <span class="lang-en">For groups</span><span class="lang-nl">Voor groepen</span>
         </h1>
-        </div>
-
-        <!-- Hero: Friends -->
-        <div data-aud="friends" hidden>
-        <span class="section-label"><span class="lang-en">For groups of friends</span><span class="lang-nl">Voor vriendengroepen</span></span>
-        <p style="font-size:clamp(2rem,4.2vw,3.2rem);font-weight:900;letter-spacing:-0.03em;line-height:1.15;color:#fff;margin-bottom:1.25rem;text-shadow:0 2px 24px rgba(0,0,0,0.4);">
-          <span class="lang-en">Gaelic football with your friends.</span>
-          <span class="lang-nl">Gaelic football met je vriendengroep.</span>
-        </p>
-        </div>
-
-        <div class="zone-divider"></div>
-
-        <p data-aud="friends" hidden style="color:rgba(255,255,255,0.85);font-size:1.05rem;line-height:1.85;margin-top:2rem;margin-bottom:2rem;max-width:560px;text-shadow:0 1px 12px rgba(0,0,0,0.5);">
-          <span class="lang-en">For a bachelor party, a friends' weekend or a day out together. You train with experienced trainers, in the Netherlands or during a trip to Dublin.</span>
-          <span class="lang-nl">Voor een vrijgezellenfeest, vriendenweekend of een dag samen weg. Jullie trainen met ervaren trainers, in Nederland of tijdens een trip naar Dublin.</span>
-        </p>
-
-        <p data-aud="school" style="color:rgba(255,255,255,0.85);font-size:1.05rem;line-height:1.85;margin-top:2rem;margin-bottom:2rem;max-width:560px;text-shadow:0 1px 12px rgba(0,0,0,0.5);">
-          <span class="lang-en">A Gaelic football clinic at your school in the Netherlands, or a half day of sport and culture during your trip to Dublin or Prague.</span>
-          <span class="lang-nl">Een Gaelic football-clinic op jullie school in Nederland, of een halve dag sport en cultuur tijdens jullie reis naar Dublin of Praag.</span>
-        </p>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:3rem;">
-          <a href="#quote" class="btn-gold">
-            <span class="lang-en">Request a group quote</span><span class="lang-nl">Vraag een groepsofferte aan</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#school-clinic" class="btn-outline-white" data-aud="school">
-            <span class="lang-en">View the options</span><span class="lang-nl">Bekijk het aanbod</span>
-          </a>
-          <a href="#friends-packages" class="btn-outline-white" data-aud="friends" hidden>
-            <span class="lang-en">View the options</span><span class="lang-nl">Bekijk het aanbod</span>
-          </a>
-        </div>
-        <p data-aud="friends" hidden style="color:rgba(255,255,255,0.7);font-size:0.9rem;line-height:2;border-top:1px solid rgba(255,255,255,0.2);padding-top:1.5rem;">
-          <span class="lang-en">Send us your group size, date and location and we will send you a quote.</span>
-          <span class="lang-nl">Stuur ons jullie groepsgrootte, datum en locatie, dan sturen we een offerte.</span>
-        </p>
-        <p data-aud="school" style="color:rgba(255,255,255,0.7);font-size:0.9rem;line-height:2;border-top:1px solid rgba(255,255,255,0.2);padding-top:1.5rem;">
-          <span class="lang-en">Every quote is tailored to your group, invoiced to your school.</span>
-          <span class="lang-nl">Elke offerte is op maat van jullie groep, met een factuur op naam van de school.</span>
-        </p>
+        <p style="font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:1rem;"><span class="lang-en">Choose your group:</span><span class="lang-nl">Kies jouw groep:</span></p>
+        <nav class="group-chips" aria-label="Choose your group">
+            <a href="#scholen" class="group-chip" data-group="school"><span class="lang-en">Schools</span><span class="lang-nl">Scholen</span></a>
+            <a href="#bedrijven" class="group-chip" data-group="company"><span class="lang-en">Companies</span><span class="lang-nl">Bedrijven</span></a>
+            <a href="#vriendengroepen" class="group-chip" data-group="friends"><span class="lang-en">Groups of friends</span><span class="lang-nl">Vriendengroepen</span></a>
+            <a href="#hoger-onderwijs" class="group-chip" data-group="higher-ed"><span class="lang-en">Higher education</span><span class="lang-nl">Hoger onderwijs</span></a>
+        </nav>
       </div>
     </section>
 
     <!-- ============================================
-         WHAT'S INCLUDED PER PACKAGE
+         GROUPS — one row per group
          ============================================ -->
-    <!-- ============================================
-         FRIENDS — packages for groups of friends
-         ============================================ -->
-    <section class="zone-white" id="friends-packages" data-aud="friends" hidden style="padding:5rem 1.5rem;">
-      <div style="max-width:1100px;margin:0 auto;">
-        <span class="section-label"><span class="lang-en">For groups of friends</span><span class="lang-nl">Voor vriendengroepen</span></span>
-        <h2 class="section-heading" style="margin-bottom:1rem;">
-          <span class="lang-en">What we offer</span>
-          <span class="lang-nl">Wat we aanbieden</span>
-        </h2>
-        <p style="font-size:1rem;color:var(--text-mid);max-width:640px;margin-bottom:2.5rem;line-height:1.7;">
-          <span class="lang-en">A Gaelic football clinic for your group, for example for a bachelor party, a friends' weekend or a birthday. No experience needed.</span>
-          <span class="lang-nl">Een Gaelic football-clinic voor jullie groep, bijvoorbeeld voor een vrijgezellenfeest, vriendenweekend of verjaardag. Ervaring is niet nodig.</span>
-        </p>
-
-        <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-          <div class="friends-card" style="--tone:var(--green);">
-            <span class="kicker"><span class="lang-en">In the Netherlands</span><span class="lang-nl">In Nederland</span></span>
-            <h3>Gaelic Football Clinic</h3>
-            <p style="margin-bottom:1rem;">
-              <span class="lang-en">Gaelic football training, led by experienced trainers.</span>
-              <span class="lang-nl">Gaelic football-training, onder leiding van ervaren trainers.</span>
-            </p>
-            <p style="font-size:0.85rem;">
-              <span class="lang-en">Location and time in consultation.</span>
-              <span class="lang-nl">Locatie en tijd in overleg.</span>
-            </p>
+    <section class="zone-white" style="padding:2rem 1.5rem 4rem;">
+      <div style="max-width:960px;margin:0 auto;">
+        <article class="group-row" id="scholen">
+          <div class="group-tile" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M7 11.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/><path d="M21 9v5"/></svg>
           </div>
-          <div class="friends-card" style="--tone:var(--blue);">
-            <span class="kicker"><span class="lang-en">In Dublin or Kilkenny</span><span class="lang-nl">In Dublin of Kilkenny</span></span>
-            <h3><span class="lang-en">The Gaelic Games Experience</span><span class="lang-nl">De Gaelic Games Experience</span></h3>
-            <p style="margin-bottom:1rem;">
-              <span class="lang-en">Travelling to Ireland together? Then you can add an afternoon of Gaelic Games: Hall of Fame or hurling intro, training, and optionally a live match.</span>
-              <span class="lang-nl">Gaan jullie samen naar Ierland? Dan kun je daar een middag Gaelic Games aan toevoegen: Hall of Fame of hurling-intro, zelf trainen en eventueel een live wedstrijd.</span>
-            </p>
-            <p style="font-size:0.85rem;">
-              <span class="lang-en">You arrange flights and accommodation yourselves.</span>
-              <span class="lang-nl">Vluchten en verblijf regelen jullie zelf.</span>
-            </p>
-          </div>
-        </div>
-
-
-        <div style="margin-top:2rem;">
-          <a href="#quote" class="btn-gold">
-            <span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================
-         SCHOOL — Gaelic football clinic in NL (featured)
-         ============================================ -->
-    <section class="zone-off" id="school-clinic" data-aud="school" style="padding:5rem 1.5rem;">
-      <div style="max-width:1100px;margin:0 auto;">
-        <div class="two-col" style="display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;">
           <div>
-            <span class="section-label"><span class="lang-en">In the Netherlands</span><span class="lang-nl">In Nederland</span></span>
-            <h2 class="section-heading" style="margin-bottom:1rem;">
-              <span class="lang-en">Gaelic football clinic<br>at your school</span>
-              <span class="lang-nl">Gaelic football-clinic<br>op jullie school</span>
-            </h2>
-            <div class="zone-divider" style="margin-bottom:1.75rem;"></div>
-            <p style="font-size:1rem;color:var(--text-mid);line-height:1.75;margin-bottom:1.5rem;max-width:520px;">
-              <span class="lang-en">Experienced trainers come to your school and teach your students Gaelic football. Suitable for PE lessons, sports classes or a sports day. No trip needed.</span>
-              <span class="lang-nl">Ervaren trainers komen naar jullie school en leren de leerlingen Gaelic football. Geschikt voor de gymles, een sportklas of een sportdag. Geen reis nodig.</span>
-            </p>
-            <a href="#quote" class="btn-gold" data-pick-product="clinic">
-              <span class="lang-en">Request a clinic quote</span><span class="lang-nl">Vraag een offerte aan voor een clinic</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <h2 class="group-title"><span class="lang-en">Schools</span><span class="lang-nl">Scholen</span></h2>
+            <p class="group-text"><span class="lang-en">A Gaelic football clinic at your school, or a sport and culture experience tailored to your school trip abroad.</span><span class="lang-nl">Een Gaelic football-clinic bij jullie op school, of een sportieve en culturele experience op maat tijdens jullie buitenlandse schoolreis.</span></p>
+            <a href="#quote" class="btn-dark" data-group="school"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
-          <div style="background:var(--white);border:1px solid var(--border-light);border-top:3px solid var(--green);border-radius:14px;padding:2rem;">
-            <p style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:1rem;"><span class="lang-en">Good to know</span><span class="lang-nl">Goed om te weten</span></p>
-            <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.9rem;font-size:0.92rem;color:var(--text-mid);line-height:1.6;">
-              <li><strong style="color:var(--text-dark);"><span class="lang-en">Where:</span><span class="lang-nl">Waar:</span></strong> <span class="lang-en">at your school or sports facility</span><span class="lang-nl">op jullie school of sportlocatie</span></li>
-              <li><strong style="color:var(--text-dark);"><span class="lang-en">Group size:</span><span class="lang-nl">Groepsgrootte:</span></strong> <span class="lang-en">25-30 students per clinic (larger on request)</span><span class="lang-nl">25-30 leerlingen per clinic (in overleg groter)</span></li>
-              <li><strong style="color:var(--text-dark);"><span class="lang-en">Experience:</span><span class="lang-nl">Ervaring:</span></strong> <span class="lang-en">not needed</span><span class="lang-nl">niet nodig</span></li>
-              <li><strong style="color:var(--text-dark);"><span class="lang-en">Price:</span><span class="lang-nl">Prijs:</span></strong> <span class="lang-en">on quote, travel costs included</span><span class="lang-nl">op offerte, inclusief reiskosten</span></li>
-            </ul>
+        </article>
+        <article class="group-row" id="bedrijven">
+          <div class="group-tile alt" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 13h18"/></svg>
           </div>
-        </div>
+          <div>
+            <h2 class="group-title"><span class="lang-en">Companies</span><span class="lang-nl">Bedrijven</span></h2>
+            <p class="group-text"><span class="lang-en">A Gaelic football clinic as a team outing, at your own location or with us. Prefer a tailor-made team outing in the Netherlands or abroad? We can organise that too.</span><span class="lang-nl">Een Gaelic football-clinic als teamuitje, op jullie eigen locatie of bij ons. Liever een teamuitje op maat in binnen- of buitenland? Ook dat organiseren we graag.</span></p>
+            <a href="#quote" class="btn-dark" data-group="company"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+        <article class="group-row" id="vriendengroepen">
+          <div class="group-tile" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><circle cx="5.5" cy="10" r="2.2"/><circle cx="18.5" cy="10" r="2.2"/><path d="M7 20c0-3 2.2-5 5-5s5 2 5 5"/><path d="M2 19c0-2.2 1.5-3.8 3.5-3.8M22 19c0-2.2-1.5-3.8-3.5-3.8"/></svg>
+          </div>
+          <div>
+            <h2 class="group-title"><span class="lang-en">Groups of friends</span><span class="lang-nl">Vriendengroepen</span></h2>
+            <p class="group-text"><span class="lang-en">A Gaelic football clinic as a bachelor party or a sporty day out with friends. Or discover a unique sports culture together during an experience abroad.</span><span class="lang-nl">Een Gaelic football-clinic als vrijgezellenfeest of sportieve activiteit met vrienden. Of ontdek samen een unieke sportcultuur tijdens een experience in het buitenland.</span></p>
+            <a href="#quote" class="btn-dark" data-group="friends"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+        <article class="group-row" id="hoger-onderwijs">
+          <div class="group-tile alt" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20h18"/></svg>
+          </div>
+          <div>
+            <h2 class="group-title"><span class="lang-en">Higher education</span><span class="lang-nl">Hoger onderwijs</span></h2>
+            <p class="group-text"><span class="lang-en">A Gaelic football clinic for students, at your own location or with us. Or an educational sports visit in the Netherlands or abroad, tailored to your programme.</span><span class="lang-nl">Een Gaelic football-clinic voor studenten, op jullie eigen locatie of bij ons. Of een educatief sportbezoek op maat in binnen- of buitenland, passend bij jullie opleiding.</span></p>
+            <a href="#quote" class="btn-dark" data-group="higher-ed"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="zone-white" data-aud="school" style="padding:5rem 1.5rem;">
+    <!-- ============================================
+         REVIEWS
+         ============================================ -->
+    <section class="zone-off" style="padding:4.5rem 1.5rem;">
       <div style="max-width:1100px;margin:0 auto;">
-        <span class="section-label"><span class="lang-en">Abroad</span><span class="lang-nl">In het buitenland</span></span>
-        <h2 class="section-heading" style="margin-bottom:1rem;">
-          <span class="lang-en">During your school trip</span>
-          <span class="lang-nl">Tijdens jullie schoolreis</span>
-        </h2>
-        <p style="font-size:1rem;color:var(--text-mid);max-width:640px;margin-bottom:2.5rem;line-height:1.7;">
-          <span class="lang-en">A half day of sport and culture, added to a trip you are already organising. Price per group on quote. Other destinations on request.</span>
-          <span class="lang-nl">Een halve dag sport en cultuur, toegevoegd aan een reis die jullie al organiseren. Prijs per groep op offerte. Andere bestemmingen op aanvraag.</span>
-        </p>
-        <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-          <div class="friends-card" style="--tone:var(--green);">
-            <div class="yt-facade" data-video-id="Ce7rdl2KS3E" style="border-radius:10px;overflow:hidden;aspect-ratio:16/9;position:relative;background:#111;cursor:pointer;margin-bottom:1.5rem;">
-              <img src="https://i.ytimg.com/vi/Ce7rdl2KS3E/hqdefault.jpg" alt="Gaelic Games experience in Ireland" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-                <svg width="48" height="34" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00" fill-opacity="0.85"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
-              </div>
-            </div>
-            <h3><span class="lang-en">Gaelic Games in Dublin &amp; Kilkenny</span><span class="lang-nl">Gaelic Games in Dublin &amp; Kilkenny</span></h3>
-            <p style="margin-bottom:1.25rem;"><span class="lang-en">Hall of Fame session or hurling intro, then training in football, hurling and handball. Possible any day. Optionally with a live match, from a club game to the All-Ireland at Croke Park.</span><span class="lang-nl">Hall of Fame-sessie of hurling-intro, daarna zelf trainen in football, hurling en handball. Kan op elke dag. Optioneel met een live wedstrijd, van clubwedstrijd tot All-Ireland in Croke Park.</span></p>
-            <a href="#quote" data-pick-product="dublin" style="color:var(--text-dark);font-weight:700;font-size:0.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;border-bottom:2px solid var(--gold);padding-bottom:2px;"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
-          <div class="friends-card" style="--tone:var(--blue);">
-            <div class="yt-facade" data-video-id="3Rqb5cEk1wI" style="border-radius:10px;overflow:hidden;aspect-ratio:16/9;position:relative;background:#111;cursor:pointer;margin-bottom:1.5rem;">
-              <img src="https://i.ytimg.com/vi/3Rqb5cEk1wI/hqdefault.jpg" alt="Ice hockey experience in Prague" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-                <svg width="48" height="34" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00" fill-opacity="0.85"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
-              </div>
-            </div>
-            <h3><span class="lang-en">Ice hockey in Prague</span><span class="lang-nl">IJshockey in Praag</span></h3>
-            <p style="margin-bottom:1.25rem;"><span class="lang-en">A history walk with Kamil past eight stops and a visit to the Czech Hockey Hall of Fame. Year-round. From September to April a live Extraliga match can be added.</span><span class="lang-nl">Een geschiedeniswandeling met Kamil langs acht plekken en een bezoek aan de Czech Hockey Hall of Fame. Het hele jaar. Van september tot april kan er een live Extraliga-wedstrijd bij.</span></p>
-            <a href="#quote" data-pick-product="prague" style="color:var(--text-dark);font-weight:700;font-size:0.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;border-bottom:2px solid var(--gold);padding-bottom:2px;"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="zone-white" style="padding:5rem 1.5rem;">
-      <div style="max-width:1100px;margin:0 auto;">
-        <div data-aud="school">
-          <span class="section-label"><span class="lang-en">Who your group meets</span><span class="lang-nl">Wie jullie ontmoeten</span></span>
-          <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:0.5rem;">
-            <div style="display:flex;align-items:center;gap:0.9rem;">
-              <img src="https://travelbeyondthepitch.com/images/hurling-experience-kilkenny-small-group-james.jpg" alt="James, hurling expert in Kilkenny" loading="lazy" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-              <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.5;"><strong style="color:var(--text-dark);">James</strong> · Kilkenny<br><span class="lang-en">Grew up with hurling in Kilkenny.</span><span class="lang-nl">Groeide op met hurling in Kilkenny.</span></p>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.9rem;">
-              <img src="https://travelbeyondthepitch.com/prague/images/kamil.webp" alt="Kamil, ice hockey history guide in Prague" loading="lazy" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-              <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.5;"><strong style="color:var(--text-dark);">Kamil</strong> · <span class="lang-en">Prague</span><span class="lang-nl">Praag</span><br><span class="lang-en">Guide for over 10 years, 1,000+ guests.</span><span class="lang-nl">Al meer dan 10 jaar gids, ruim 1.000 gasten.</span></p>
-            </div>
-          </div>
-          <p style="font-size:0.9rem;color:var(--text-mid);margin-top:1.5rem;">
-            <span class="lang-en">In Dublin we work with Na Fianna, one of the city's largest GAA clubs.</span>
-            <span class="lang-nl">In Dublin werken we samen met Na Fianna, een van de grootste GAA-clubs van de stad.</span>
-          </p>
-          <div class="zone-divider" style="margin:3rem 0 2.5rem;"></div>
-        </div>
         <span class="section-label"><span class="lang-en">What guests say</span><span class="lang-nl">Wat gasten zeggen</span></span>
         <div class="three-col" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
           <div style="background:var(--off-white);border-radius:12px;padding:1.5rem;border:1px solid var(--border-light);">
@@ -673,92 +542,12 @@
       </div>
     </section>
 
-    <!-- ============================================
-         FOUNDERS - real background for institutional trust
-         ============================================ -->
-    <section class="zone-dark" style="padding:5rem 1.5rem;">
-      <div style="max-width:1100px;margin:0 auto;">
-        <span class="section-label"><span class="lang-en">Who's behind it</span><span class="lang-nl">Wie erachter zit</span></span>
-        <h2 class="section-heading" style="margin-bottom:1.25rem;">
-          <span class="lang-en">Run by two founders,<br>not a booking platform</span>
-          <span class="lang-nl">Gerund door twee oprichters,<br>geen boekingsplatform</span>
-        </h2>
-        <p style="font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:640px;margin-bottom:3rem;line-height:1.75;">
-          <span class="lang-en">From the first message to the day itself, you deal directly with Marc or Martijn.</span>
-          <span class="lang-nl">Van het eerste bericht tot de dag zelf heb je direct contact met Marc of Martijn.</span>
-        </p>
-        <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;">
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
-            <img src="https://travelbeyondthepitch.com/images/marcie-marc-2.jpg" alt="Marc van der Werf" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-            <div>
-              <p style="font-weight:800;font-size:1rem;margin-bottom:0.15rem;">Marc van der Werf</p>
-              <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem;"><span class="lang-en">Founder</span><span class="lang-nl">Oprichter</span></p>
-              <p style="font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.65;">
-                <span class="lang-en">Background in global tourism, having worked on international projects for major airlines and ground-transportation initiatives. Degree in Sports Marketing.</span>
-                <span class="lang-nl">Achtergrond in internationaal toerisme, met ervaring in internationale projecten voor grote luchtvaartmaatschappijen en grondtransport. Opleiding Sportmarketing.</span>
-              </p>
-            </div>
-          </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
-            <img src="https://travelbeyondthepitch.com/images/matta-2.jpg" alt="Martijn Berden" loading="lazy" style="width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-            <div>
-              <p style="font-weight:800;font-size:1rem;margin-bottom:0.15rem;">Martijn Berden</p>
-              <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem;"><span class="lang-en">Co-founder</span><span class="lang-nl">Mede-oprichter</span></p>
-              <p style="font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.65;">
-                <span class="lang-en">Former professional footballer, starting in the PSV Eindhoven academy and playing roughly ten years across Dutch first- and second-division clubs.</span>
-                <span class="lang-nl">Voormalig profvoetballer, begonnen in de jeugdopleiding van PSV Eindhoven en ongeveer tien jaar actief bij Nederlandse eerste- en tweededivisieclubs.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         HOW IT WORKS
-         ============================================ -->
-    <section class="zone-off" style="padding:6rem 1.5rem;">
-      <div style="max-width:1100px;margin:0 auto;">
-      <div style="max-width:700px;">
-          <div>
-            <span class="section-label"><span class="lang-en">How it works</span><span class="lang-nl">Hoe het werkt</span></span>
-            <h2 class="section-heading" style="margin-bottom:1.75rem;">
-              <span class="lang-en">What happens after<br>you reach out</span>
-              <span class="lang-nl">Wat er gebeurt nadat<br>jullie contact opnemen</span>
-            </h2>
-            <ol style="list-style:none;padding:0;display:flex;flex-direction:column;gap:1.25rem;">
-              <li style="display:flex;gap:1rem;align-items:baseline;">
-                <span style="flex-shrink:0;width:28px;height:28px;background:var(--text-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;">1</span>
-                <p style="font-size:0.95rem;"><strong><span class="lang-en">Send group size, dates and destination</span><span class="lang-nl">Stuur groepsgrootte, data en bestemming</span></strong> <span style="color:var(--text-mid);"><span class="lang-en">- reply within 24h.</span><span class="lang-nl">- reactie binnen 24u.</span></span></p>
-              </li>
-              <li style="display:flex;gap:1rem;align-items:baseline;">
-                <span style="flex-shrink:0;width:28px;height:28px;background:var(--text-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;">2</span>
-                <p style="font-size:0.95rem;"><strong><span class="lang-en">Get a fixed group quote</span><span class="lang-nl">Ontvang een vaste groepsofferte</span></strong> <span style="color:var(--text-mid);"><span class="lang-en">- invoiced to your organisation.</span><span class="lang-nl">- factuur op naam van jullie organisatie.</span></span></p>
-              </li>
-              <li style="display:flex;gap:1rem;align-items:baseline;">
-                <span style="flex-shrink:0;width:28px;height:28px;background:var(--text-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;">3</span>
-                <p style="font-size:0.95rem;"><strong><span class="lang-en">We arrange the rest</span><span class="lang-nl">Wij regelen de rest</span></strong> <span style="color:var(--text-mid);"><span class="lang-en">- confirmed in writing.</span><span class="lang-nl">- schriftelijk bevestigd.</span></span></p>
-              </li>
-              <li style="display:flex;gap:1rem;align-items:baseline;">
-                <span style="flex-shrink:0;width:28px;height:28px;background:var(--text-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;">4</span>
-                <p style="font-size:0.95rem;"><strong><span class="lang-en">We run the day</span><span class="lang-nl">Wij verzorgen de dag</span></strong> <span style="color:var(--text-mid);"><span class="lang-en">- reachable via WhatsApp on the day.</span><span class="lang-nl">- op de dag zelf bereikbaar via WhatsApp.</span></span></p>
-              </li>
-            </ol>
-          </div>
-      </div>
-      </div>
-    </section>
-
-    <!-- ============================================
-         FINAL CTA — B2B lead capture
-         ============================================ -->
     <section class="zone-dark" id="quote" style="padding:7rem 1.5rem;">
       <div style="max-width:720px;margin:0 auto;text-align:center;">
         <span class="section-label" style="display:block;"><span class="lang-en">Request a group quote</span><span class="lang-nl">Vraag een groepsofferte aan</span></span>
         <h2 class="section-heading" style="margin-bottom:1.25rem;">
-          <span class="lang-en">Tell us the group,<br>the date, the destination.</span>
-          <span class="lang-nl">Vertel ons de groep,<br>de datum, de bestemming.</span>
+          <span class="lang-en">Tell us about<br>your group.</span>
+          <span class="lang-nl">Vertel ons over<br>jullie groep.</span>
         </h2>
         <p style="color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.85;max-width:520px;margin:0 auto 2rem;">
           <span class="lang-en">Fixed group rate within 24h. No brochures, no upsells.</span>
@@ -774,7 +563,7 @@
             <span class="lang-nl">Plan een gratis kennismakingsgesprek van 30 minuten met Marc of Martijn - geen formulieren, geen wachttijd.</span>
           </p>
           <a href="https://calendly.com/travelbeyondthepitch-info/30min" target="_blank" rel="noopener" class="btn-gold">
-            📅 <span class="lang-en">Book a free 30-min call</span><span class="lang-nl">Plan een gratis gesprek van 30 min</span>
+            <span class="lang-en">Book a free 30-min call</span><span class="lang-nl">Plan een gratis gesprek van 30 min</span>
           </a>
         </div>
 
@@ -788,7 +577,6 @@
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_blacklist" value="viagra, casino, crypto, bitcoin, forex, seo services, backlinks, loan offer, porn, escort, betting">
           <input type="hidden" name="page" value="groups">
-          <input type="hidden" name="audience" id="audienceField" value="school">
           <!-- Honeypot: humans never see this, bots fill it. "_honey" is the field FormSubmit itself drops. -->
           <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
             <label for="hp_company">Leave this field empty</label>
@@ -804,17 +592,22 @@
             <input required type="email" name="email" autocomplete="email" placeholder="Email" data-ph-en="Email" data-ph-nl="E-mailadres" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
           </div>
           <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-            <input required name="organisation" autocomplete="organization" placeholder="School / organisation" data-ph-en="School / organisation" data-ph-nl="School / organisatie" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-            <select required name="product" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
-              <option value="" data-en="I'm interested in..." data-nl="Ik heb interesse in...">I'm interested in...</option>
-              <option value="friends" data-en="Group of friends / bachelor party / friends' weekend" data-nl="Vriendengroep / vrijgezellen / vriendenweekend">Group of friends / bachelor party / friends' weekend</option>
-              <option value="clinic" data-en="Gaelic football clinic in NL" data-nl="Gaelic football-clinic in NL">Gaelic football clinic in NL</option>
-              <option value="dublin" data-en="Dublin &amp; Kilkenny" data-nl="Dublin &amp; Kilkenny">Dublin &amp; Kilkenny</option>
-              <option value="prague" data-en="Prague" data-nl="Praag">Prague</option>
-              <option value="studytrip" data-en="Activity for our study trip" data-nl="Activiteit voor onze studiereis">Activity for our study trip</option>
+            <select required name="group" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
+              <option value="" data-en="We are a..." data-nl="Wij zijn een...">We are a...</option>
+              <option value="school" data-en="School" data-nl="School">School</option>
+              <option value="company" data-en="Company" data-nl="Bedrijf">Company</option>
+              <option value="friends" data-en="Group of friends" data-nl="Vriendengroep">Group of friends</option>
+              <option value="higher-ed" data-en="Higher education" data-nl="Hoger onderwijs">Higher education</option>
+              <option value="other" data-en="Other" data-nl="Anders">Other</option>
+            </select>
+            <select required name="where" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
+              <option value="" data-en="Where?" data-nl="Waar?">Where?</option>
+              <option value="clinic-nl" data-en="Gaelic football clinic in NL" data-nl="Gaelic football-clinic in NL">Gaelic football clinic in NL</option>
+              <option value="abroad" data-en="Abroad (Dublin, Prague or other)" data-nl="Buitenland (Dublin, Praag of anders)">Abroad (Dublin, Prague or other)</option>
               <option value="unsure" data-en="Not sure yet" data-nl="Weet ik nog niet">Not sure yet</option>
             </select>
           </div>
+          <input name="organisation" autocomplete="organization" placeholder="Organisation or occasion (optional)" data-ph-en="Organisation or occasion (optional)" data-ph-nl="Organisatie of gelegenheid (optioneel)" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
           <textarea name="message" rows="2" placeholder="Group size and rough dates (optional)" data-ph-en="Group size and rough dates (optional)" data-ph-nl="Aantal personen en periode (optioneel)" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;resize:vertical;"></textarea>
           <button type="submit" class="btn-gold" style="justify-content:center;">
             <span class="lang-en">Send group enquiry</span><span class="lang-nl">Stuur groepsaanvraag</span>
@@ -845,21 +638,20 @@
     <!-- ============================================
          FAQ
          ============================================ -->
-    <section class="zone-white" style="padding:6rem 1.5rem;">
+    <section class="zone-white" style="padding:5rem 1.5rem;">
       <div style="max-width:1100px;margin:0 auto;">
       <div style="max-width:820px;">
         <span class="section-label"><span class="lang-en">Good to know</span><span class="lang-nl">Goed om te weten</span></span>
         <h2 class="section-heading" style="margin-bottom:2.5rem;">
-          <span class="lang-en">Questions we get<br>from organisers</span>
-          <span class="lang-nl">Vragen die we krijgen<br>van organisatoren</span>
+          <span class="lang-en">Frequently asked<br>questions</span>
+          <span class="lang-nl">Veelgestelde<br>vragen</span>
         </h2>
 
         <details class="faq-item" open>
           <summary><span class="lang-en">What group sizes do you take?</span><span class="lang-nl">Welke groepsgroottes nemen jullie?</span></summary>
-          <p data-aud="school"><span class="lang-en">From 4 people, most groups 8-25, up to ~40 on request.</span><span class="lang-nl">Vanaf 4 personen, meeste groepen 8-25, tot ~40 op aanvraag.</span></p>
-          <p data-aud="friends" hidden><span class="lang-en">Tell us how many you are - we'll include group size in the quote.</span><span class="lang-nl">Laat ons weten met hoeveel jullie zijn - we nemen de groepsgrootte mee in de offerte.</span></p>
+          <p><span class="lang-en">Clinic in the Netherlands: 25-30 people per clinic, larger on request. Experiences abroad: from 4 people, up to ~40 on request.</span><span class="lang-nl">Clinic in Nederland: 25-30 personen per clinic, in overleg groter. Experiences in het buitenland: vanaf 4 personen, tot ~40 op aanvraag.</span></p>
         </details>
-        <details class="faq-item" data-aud="school">
+        <details class="faq-item">
           <summary><span class="lang-en">How far in advance do we need to book?</span><span class="lang-nl">Hoe ver vooruit moeten we boeken?</span></summary>
           <p><span class="lang-en">4-8 weeks works best. Prague's match season runs Sept-April; the walking tour runs year-round.</span><span class="lang-nl">4-8 weken vooruit werkt het best. Het wedstrijdseizoen in Praag loopt van september tot april; de wandeling loopt het hele jaar door.</span></p>
         </details>
@@ -875,7 +667,7 @@
           <summary><span class="lang-en">What's your cancellation policy?</span><span class="lang-nl">Wat is jullie annuleringsbeleid?</span></summary>
           <p><span class="lang-en">Full refund more than 14 days before the experience, 50% between 7-14 days, no refund within 7 days. Refunds are processed within 14 business days.</span><span class="lang-nl">Volledige terugbetaling bij meer dan 14 dagen van tevoren, 50% tussen 7-14 dagen, geen terugbetaling binnen 7 dagen. Terugbetalingen worden binnen 14 werkdagen verwerkt.</span></p>
         </details>
-        <details class="faq-item" data-aud="school">
+        <details class="faq-item">
           <summary><span class="lang-en">What if the match itself is cancelled or postponed?</span><span class="lang-nl">Wat als de wedstrijd zelf wordt afgelast of verplaatst?</span></summary>
           <p><span class="lang-en">Fixtures are run by independent sporting organisations, so this can happen. If it does, we offer a comparable alternative or refund the match-attendance part of the price, typically within 14 days.</span><span class="lang-nl">Wedstrijden worden georganiseerd door onafhankelijke sportorganisaties, dus dit kan gebeuren. Als het gebeurt, bieden we een vergelijkbaar alternatief of betalen we het wedstrijd-onderdeel van de prijs terug, doorgaans binnen 14 dagen.</span></p>
         </details>
@@ -1055,7 +847,7 @@
         const btn = groupForm.querySelector('button[type="submit"]');
         btn.disabled = true;
         btn.style.opacity = '0.6';
-        if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'groups', event_label: (fd.get('audience') || '') + ':' + (fd.get('product') || '') });
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'groups', event_label: (fd.get('group') || '') + ':' + (fd.get('where') || '') });
 
         if (!GROUP_FORM_ENDPOINT) {
           // FormSubmit route: set the action only now, then submit natively.
@@ -1092,54 +884,30 @@
     } catch(e) {}
     setLang(initialLang);
 
-    // ── Audience switch (School / Vriendengroep) ──
-    // Direct link for ads: /groups/?voor=vrienden  (or ?voor=school)
-    const productSelect = document.querySelector('#groupForm select[name="product"]');
-    const audienceField = document.getElementById('audienceField');
+    // ── Group choice ──
+    // Direct links for ads: /groups/?voor=vrienden | bedrijven | school | hoger-onderwijs
+    const groupSelect = document.querySelector('#groupForm select[name="group"]');
+    const groupRows = { 'school': 'scholen', 'company': 'bedrijven', 'friends': 'vriendengroepen', 'higher-ed': 'hoger-onderwijs' };
 
-    function setAudience(aud) {
-      if (aud !== 'friends') aud = 'school';
-      document.querySelectorAll('[data-aud]').forEach(el => { el.hidden = el.dataset.aud !== aud; });
-      document.querySelectorAll('[data-aud-btn]').forEach(b => {
-        const on = b.dataset.audBtn === aud;
-        b.classList.toggle('active', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      if (audienceField) audienceField.value = aud;
-      const orgInput = document.querySelector('#groupForm input[name="organisation"]');
-      if (orgInput) {
-        const friends = aud === 'friends';
-        orgInput.dataset.phEn = friends ? 'Occasion (e.g. bachelor party)' : 'School / organisation';
-        orgInput.dataset.phNl = friends ? 'Gelegenheid (bijv. vrijgezellenfeest)' : 'School / organisatie';
-        orgInput.required = !friends;
-        orgInput.placeholder = document.documentElement.lang === 'nl' ? orgInput.dataset.phNl : orgInput.dataset.phEn;
-      }
-      if (productSelect) {
-        if (aud === 'friends' && (productSelect.value === '' || productSelect.value === 'clinic')) productSelect.value = 'friends';
-        if (aud === 'school' && productSelect.value === 'friends') productSelect.value = '';
-      }
-      try { localStorage.setItem('btp_audience', aud); } catch(e) {}
-    }
-
-    document.querySelectorAll('[data-aud-btn]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        setAudience(btn.dataset.audBtn);
-        if (typeof gtag === 'function') gtag('event', 'select_audience', { event_category: 'groups', event_label: btn.dataset.audBtn });
+    document.querySelectorAll('[data-group]').forEach(el => {
+      el.addEventListener('click', () => {
+        if (groupSelect) groupSelect.value = el.dataset.group;
+        if (typeof gtag === 'function') gtag('event', 'select_group', { event_category: 'groups', event_label: el.dataset.group });
       });
     });
 
-    document.querySelectorAll('[data-pick-product]').forEach(a => {
-      a.addEventListener('click', () => { if (productSelect) productSelect.value = a.dataset.pickProduct; });
-    });
-
-    let initialAud = 'school';
     try {
       const param = (new URLSearchParams(location.search).get('voor') || '').toLowerCase();
-      if (['vrienden', 'friends', 'vriendengroep'].includes(param)) initialAud = 'friends';
-      else if (param === 'school') initialAud = 'school';
-      else if (localStorage.getItem('btp_audience') === 'friends') initialAud = 'friends';
+      const aliases = { 'school': 'school', 'scholen': 'school', 'bedrijf': 'company', 'bedrijven': 'company',
+                        'vrienden': 'friends', 'vriendengroep': 'friends', 'vriendengroepen': 'friends', 'friends': 'friends',
+                        'hoger-onderwijs': 'higher-ed', 'hbo': 'higher-ed', 'studenten': 'higher-ed' };
+      const g = aliases[param];
+      if (g) {
+        if (groupSelect) groupSelect.value = g;
+        const row = document.getElementById(groupRows[g]);
+        if (row) setTimeout(() => row.scrollIntoView({ block: 'start' }), 50);
+      }
     } catch(e) {}
-    setAudience(initialAud);
   </script>
 </body>
 </html>
