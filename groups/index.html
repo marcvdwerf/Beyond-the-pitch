@@ -377,6 +377,11 @@
       background: var(--black); color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
       text-decoration: none; transition: background 0.15s, color 0.15s;
     }
+    .more-link {
+      display: inline-block; margin-left: 1.25rem; color: var(--text-dark); font-weight: 700; font-size: 0.9rem;
+      text-decoration: none; border-bottom: 2px solid var(--gold); padding-bottom: 2px;
+    }
+    .more-link:hover { color: var(--gold); }
     .btn-dark:hover { background: var(--gold-bright); color: #000; }
     @media (max-width: 700px) {
       .group-row { grid-template-columns: 1fr; gap: 1.25rem; padding: 2rem 0; }
@@ -445,9 +450,9 @@
         </h1>
         <p style="font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:1rem;"><span class="lang-en">Choose your group:</span><span class="lang-nl">Kies jouw groep:</span></p>
         <nav class="group-chips" aria-label="Choose your group">
+            <a href="#vriendengroepen" class="group-chip" data-group="friends"><span class="lang-en">Groups of friends</span><span class="lang-nl">Vriendengroepen</span></a>
             <a href="#scholen" class="group-chip" data-group="school"><span class="lang-en">Schools</span><span class="lang-nl">Scholen</span></a>
             <a href="#bedrijven" class="group-chip" data-group="company"><span class="lang-en">Companies</span><span class="lang-nl">Bedrijven</span></a>
-            <a href="#vriendengroepen" class="group-chip" data-group="friends"><span class="lang-en">Groups of friends</span><span class="lang-nl">Vriendengroepen</span></a>
             <a href="#hoger-onderwijs" class="group-chip" data-group="higher-ed"><span class="lang-en">Higher education</span><span class="lang-nl">Hoger onderwijs</span></a>
         </nav>
       </div>
@@ -458,26 +463,6 @@
          ============================================ -->
     <section class="zone-white" style="padding:2rem 1.5rem 4rem;">
       <div style="max-width:960px;margin:0 auto;">
-        <article class="group-row" id="scholen">
-          <div class="group-tile" aria-hidden="true">
-            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M7 11.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/><path d="M21 9v5"/></svg>
-          </div>
-          <div>
-            <h2 class="group-title"><span class="lang-en">Schools</span><span class="lang-nl">Scholen</span></h2>
-            <p class="group-text"><span class="lang-en">A Gaelic football clinic at your school, or a sport and culture experience tailored to your school trip abroad.</span><span class="lang-nl">Een Gaelic football-clinic bij jullie op school, of een sportieve en culturele experience op maat tijdens jullie buitenlandse schoolreis.</span></p>
-            <a href="#quote" class="btn-dark" data-group="school"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-        <article class="group-row" id="bedrijven">
-          <div class="group-tile alt" aria-hidden="true">
-            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 13h18"/></svg>
-          </div>
-          <div>
-            <h2 class="group-title"><span class="lang-en">Companies</span><span class="lang-nl">Bedrijven</span></h2>
-            <p class="group-text"><span class="lang-en">A Gaelic football clinic as a team outing, at your own location or with us. Prefer a tailor-made team outing in the Netherlands or abroad? We can organise that too.</span><span class="lang-nl">Een Gaelic football-clinic als teamuitje, op jullie eigen locatie of bij ons. Liever een teamuitje op maat in binnen- of buitenland? Ook dat organiseren we graag.</span></p>
-            <a href="#quote" class="btn-dark" data-group="company"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
         <article class="group-row" id="vriendengroepen">
           <div class="group-tile" aria-hidden="true">
             <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><circle cx="5.5" cy="10" r="2.2"/><circle cx="18.5" cy="10" r="2.2"/><path d="M7 20c0-3 2.2-5 5-5s5 2 5 5"/><path d="M2 19c0-2.2 1.5-3.8 3.5-3.8M22 19c0-2.2-1.5-3.8-3.5-3.8"/></svg>
@@ -486,6 +471,28 @@
             <h2 class="group-title"><span class="lang-en">Groups of friends</span><span class="lang-nl">Vriendengroepen</span></h2>
             <p class="group-text"><span class="lang-en">A Gaelic football clinic as a bachelor party or a sporty day out with friends. Or discover a unique sports culture together during an experience abroad.</span><span class="lang-nl">Een Gaelic football-clinic als vrijgezellenfeest of sportieve activiteit met vrienden. Of ontdek samen een unieke sportcultuur tijdens een experience in het buitenland.</span></p>
             <a href="#quote" class="btn-dark" data-group="friends"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/experiences/" class="more-link"><span class="lang-en">More info</span><span class="lang-nl">Meer info</span></a>
+          </div>
+        </article>
+        <article class="group-row" id="scholen">
+          <div class="group-tile alt" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M7 11.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/><path d="M21 9v5"/></svg>
+          </div>
+          <div>
+            <h2 class="group-title"><span class="lang-en">Schools</span><span class="lang-nl">Scholen</span></h2>
+            <p class="group-text"><span class="lang-en">A Gaelic football clinic at your school, or a sport and culture experience tailored to your school trip abroad.</span><span class="lang-nl">Een Gaelic football-clinic bij jullie op school, of een sportieve en culturele experience op maat tijdens jullie buitenlandse schoolreis.</span></p>
+            <a href="#quote" class="btn-dark" data-group="school"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="/clinics/" class="more-link"><span class="lang-en">More info</span><span class="lang-nl">Meer info</span></a>
+          </div>
+        </article>
+        <article class="group-row" id="bedrijven">
+          <div class="group-tile" aria-hidden="true">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 13h18"/></svg>
+          </div>
+          <div>
+            <h2 class="group-title"><span class="lang-en">Companies</span><span class="lang-nl">Bedrijven</span></h2>
+            <p class="group-text"><span class="lang-en">A Gaelic football clinic as a team outing, at your own location or with us. Prefer a tailor-made team outing in the Netherlands or abroad? We can organise that too.</span><span class="lang-nl">Een Gaelic football-clinic als teamuitje, op jullie eigen locatie of bij ons. Liever een teamuitje op maat in binnen- of buitenland? Ook dat organiseren we graag.</span></p>
+            <a href="#quote" class="btn-dark" data-group="company"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </article>
         <article class="group-row" id="hoger-onderwijs">
@@ -498,47 +505,6 @@
             <a href="#quote" class="btn-dark" data-group="higher-ed"><span class="lang-en">Request a quote</span><span class="lang-nl">Vraag een offerte aan</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
         </article>
-      </div>
-    </section>
-
-    <!-- ============================================
-         REVIEWS
-         ============================================ -->
-    <section class="zone-off" style="padding:4.5rem 1.5rem;">
-      <div style="max-width:1100px;margin:0 auto;">
-        <span class="section-label"><span class="lang-en">What guests say</span><span class="lang-nl">Wat gasten zeggen</span></span>
-        <div class="three-col" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
-          <div style="background:var(--off-white);border-radius:12px;padding:1.5rem;border:1px solid var(--border-light);">
-            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">A</div>
-              <p style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">Axel van Beek<br><span style="font-weight:400;color:var(--text-light);">Netherlands</span></p>
-            </div>
-            <p style="font-size:0.88rem;color:var(--text-mid);line-height:1.65;font-style:italic;">
-              <span class="lang-en">"Super special to get to know the sport and what it means to the people there. Everything was organized perfectly - if you're interested in sports and its heritage, I'd definitely recommend it."</span>
-              <span class="lang-nl">"Heel bijzonder om de sport te leren kennen en wat het voor de mensen daar betekent. Alles was perfect georganiseerd - als je geïnteresseerd bent in sport en de geschiedenis ervan, zou ik het zeker aanraden."</span>
-            </p>
-          </div>
-          <div style="background:var(--off-white);border-radius:12px;padding:1.5rem;border:1px solid var(--border-light);">
-            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">R</div>
-              <p style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">Ruby Wilson<br><span style="font-weight:400;color:var(--text-light);">USA</span></p>
-            </div>
-            <p style="font-size:0.88rem;color:var(--text-mid);line-height:1.65;font-style:italic;">
-              <span class="lang-en">"A truly memorable experience. The dressing room atmosphere was intense and unique."</span>
-              <span class="lang-nl">"Een echt onvergetelijke ervaring. De sfeer in de kleedkamer was intens en uniek."</span>
-            </p>
-          </div>
-          <div style="background:var(--off-white);border-radius:12px;padding:1.5rem;border:1px solid var(--border-light);">
-            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">E</div>
-              <p style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">Esperanza<br><span style="font-weight:400;color:var(--text-light);">Miami Beach</span></p>
-            </div>
-            <p style="font-size:0.88rem;color:var(--text-mid);line-height:1.65;font-style:italic;">
-              <span class="lang-en">"Kamil's tour was absolutely brilliant - better than many university professors I've had."</span>
-              <span class="lang-nl">"Kamil's tour was absoluut briljant - beter dan veel universiteitsprofessoren die ik heb gehad."</span>
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -594,9 +560,9 @@
           <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
             <select required name="group" style="padding:0.85rem 1rem;background:var(--dark);border:1px solid var(--border-dark);color:#fff;border-radius:6px;font-family:inherit;">
               <option value="" data-en="We are a..." data-nl="Wij zijn een...">We are a...</option>
+              <option value="friends" data-en="Group of friends" data-nl="Vriendengroep">Group of friends</option>
               <option value="school" data-en="School" data-nl="School">School</option>
               <option value="company" data-en="Company" data-nl="Bedrijf">Company</option>
-              <option value="friends" data-en="Group of friends" data-nl="Vriendengroep">Group of friends</option>
               <option value="higher-ed" data-en="Higher education" data-nl="Hoger onderwijs">Higher education</option>
               <option value="other" data-en="Other" data-nl="Anders">Other</option>
             </select>
